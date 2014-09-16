@@ -11,33 +11,53 @@
 
 class Authenticator::ShibbolethAuthenticationController < Authenticator::AuthenticatorController
 
-  SUPER_USERS = ["e157339@zhdk.ch", "e159123@zhdk.ch", "e10262@zhdk.ch", "e162205@zhdk.ch", "e171014@zhdk.ch"] #Jerome, Franco, Ramon, Tomáš
-  AUTHENTICATION_SYSTEM_CLASS_NAME = "ShibbolethAuthentication"
+  before_filter :load_config
+
+  def load_config
+
+    begin
+      if (defined?(Setting::SHIBBOLETH_CONFIG) and not Setting::SHIBBOLETH_CONFIG.blank?)
+        shibboleth_config = YAML::load_file(Setting::SHIBBOLETH_CONFIG)
+      else
+        shibboleth_config = YAML::load_file(File.join(Rails.root, "config", "shibboleth.yml"))
+      end
+
+      if shibboleth_config[Rails.env].nil?
+        raise "The configuration section for the environment '#{Rails.env}' is missing in your shibboleth config file."
+      else
+        @config = shibboleth_config[Rails.env]
+        if @config['admin_uids']
+          @super_users = @config['admin_uids']
+        end
+      end
+    rescue Exception => e
+      raise "Could not load Shibboleth configuration file: #{e}"
+    end
+  end
 
   layout 'layouts/manage/general'
 
   def login_form_path
     "/authenticator/shibboleth/login"
   end
-  
+
   def login
     super
     # This point should only be reached after a successful login from Shibboleth.
     # Shibboleth handles all error management, so we don't need to worry about any
     # of that.
-  
-    if ENV['uniqueID'].blank? 
-      redirect_to login_form_path 
+    if request.env[@config['unique_id_field']].blank?
+      redirect_to root_path
     else
-      self.current_user = create_or_update_user 
-      redirect_to root_path 
+      self.current_user = create_or_update_user
+      redirect_to root_path
     end
   end  
 
   def create_or_update_user
 
-    # ENV after Shibboleth authentication looks like this:
-#    "uniqueID"=>"e10262@zhdk.ch", 
+    # request.env after Shibboleth authentication looks like this:
+#    "uid"=>"e10262@zhdk.ch", 
 #    "homeOrganizationType"=>"uas", 
 #    "givenName"=>"Ramon", 
 #    "Shib-AuthnContext-Class"=>"urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport", 
@@ -57,23 +77,21 @@ class Authenticator::ShibbolethAuthenticationController < Authenticator::Authent
 #    "surname"=>"Cahenzli", "homeOrganization"=>"zhdk.ch", 
 #    "affiliation"=>"faculty;staff;member" 
 
-
-    uid = ENV['uniqueID'] 
-    email = ENV['mail'] || uid + "@leihs.zhdk.ch"
+    uid = request.env[@config['unique_id_field']]
+    email = request.env['mail']
     user = User.where(:unique_id => uid).first || User.where(:email => email).first || User.new
     user.unique_id = uid
+    user.login = uid
     user.email = email
-    user.firstname = "#{ENV['givenName']}"
-    user.lastname = "#{ENV['surname']}"
-    user.login = "#{user.firstname} #{user.lastname}"
-    user.authentication_system = AuthenticationSystem.where(:class_name => AUTHENTICATION_SYSTEM_CLASS_NAME).first
+    user.firstname = "#{request.env['givenName']}"
+    user.lastname = "#{request.env['surname']}"
+    user.authentication_system = AuthenticationSystem.where(:class_name => "ShibbolethAuthentication").first
     user.save
 
-    if SUPER_USERS.include?(user.unique_id)
+    if @super_users.include?(user.unique_id)
       user.access_rights.create(:role => :admin, :inventory_pool => nil)
     end
     user
   end
 
-  
 end

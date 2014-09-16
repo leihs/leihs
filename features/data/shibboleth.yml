@@ -1,0 +1,6 @@
+test:
+  unique_id_field: uid
+  admin_uids:
+    - admin_user
+    - dewey
+    - louie

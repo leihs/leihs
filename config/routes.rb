@@ -8,7 +8,7 @@ Leihs::Application.routes.draw do
   match 'authenticator/db/:action',                 to: 'authenticator/database_authentication',       via: [:get, :post]
   match 'authenticator/ldap/:action',               to: 'authenticator/ldap_authentication',           via: [:get, :post]
   match 'authenticator/hslu/:action',               to: 'authenticator/hslu_authentication',           via: [:get, :post]
-  match 'authenticator/shibboleth/:action/:id',     to: 'authenticator/shibboleth_authentication',     via: [:get, :post]
+  match 'authenticator/shibboleth/login',     to: 'authenticator/shibboleth_authentication#login',     via: [:get, :post]
   match 'authenticator/login',                      to: "authenticator/database_authentication#login", via: [:get, :post]
 
   # For RESTful_Authentication

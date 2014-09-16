@@ -21,12 +21,6 @@ Then(/^a leihs user should exist for "(.*?)"$/) do |username|
   expect(User.where(:login => username).exists?).to be true
 end
 
-Then(/^the user "(.*?)" should have LDAP as an authentication system$/) do |username|
-  as = AuthenticationSystem.where(:class_name => "LdapAuthentication").first
-  expect(as).not_to be nil
-  expect(User.where(:login => username).first.authentication_system).to eq as
-end
-
 Then(/^the user "(.*?)" should not have any admin privileges$/) do |username|
   user = User.where(:login => username).first
   access_rights = user.access_rights.where(role: "customer")
