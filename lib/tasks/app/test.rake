@@ -15,7 +15,7 @@ namespace :app do
       Rake::Task["db:migrate"].invoke
       require File.join(Rails.root, 'features/support/personas.rb')
       require File.join(Rails.root, 'features/support/timecop.rb')
-      Persona.generate_dumps(1)
+      Persona.generate_dumps(6)
     end
 
 
