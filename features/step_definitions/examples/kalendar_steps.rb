@@ -29,8 +29,8 @@ end
 
 Dann /^kann ich die Anzahl unbegrenzt erhöhen \/ überbuchen$/ do
   @size = @line.model.items.where(:inventory_pool_id => @current_inventory_pool).size*2
-  find(".modal #booking-calendar-quantity").set @size
-  expect(find(".modal #booking-calendar-quantity").value.to_i).to eq @size
+  find(".modal").fill_in "booking-calendar-quantity", with: @size
+  #expect(find(".modal #booking-calendar-quantity").value.to_i).to eq @size
 end
 
 Dann /^die Bestellung kann gespeichert werden$/ do

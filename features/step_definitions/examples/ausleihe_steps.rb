@@ -179,8 +179,10 @@ Wenn /^ich eine Aushändigung mache mit einem Kunden der sowohl am heutigen Tag 
 end
 
 Wenn /^ich etwas scanne \(per Inventarcode zuweise\) und es in irgendeinem zukünftigen Vertrag existiert$/ do
-  @model = @customer.contracts.approved.where(inventory_pool: @current_inventory_pool).sample.models.sample
-  @item = @model.items.borrowable.in_stock.where(inventory_pool: @current_inventory_pool).sample
+  begin
+    @model = @customer.contracts.approved.where(inventory_pool: @current_inventory_pool).sample.models.sample
+    @item = @model.items.borrowable.in_stock.where(inventory_pool: @current_inventory_pool).sample
+  end while @item.nil?
   find("[data-add-contract-line]").set @item.inventory_code
   find("[data-add-contract-line] + .addon").click
   @assigned_line = find("[data-assign-item][disabled][value='#{@item.inventory_code}']")

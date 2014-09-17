@@ -2,7 +2,7 @@
 
 Angenommen(/^eine Bestellungen mit zwei unterschiedlichen Zeitspannen existiert$/) do
   @customer = @current_inventory_pool.users.customers.sample
-  @contract = FactoryGirl.create :contract, user_id: @customer.id, status: 'submitted', inventory_pool_id: @current_inventory_pool.id
+  @contract = FactoryGirl.create :contract, user: @customer, status: 'submitted', inventory_pool: @current_inventory_pool
   FactoryGirl.create :contract_line, contract_id: @contract.id, start_date: Date.today, end_date: Date.tomorrow 
   FactoryGirl.create :contract_line, contract_id: @contract.id, start_date: Date.today, end_date: Date.today+10.days 
 end

@@ -1,5 +1,68 @@
-- name: Anzeige der Seriennummer bei Zuteilung der Software-Lizenz - features/examples/aushaendigung.feature:87
-  auto_trials: 2
+- name: features/borrow/modellliste.feature:169 	
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/aushaendigung.feature:87
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/borrow/modellliste.feature:169
+- name: features/examples/kalender.feature:14 	
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/kalender.feature:14   
+- name: features/manage/delegation.feature:228 	
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/manage/delegation.feature:228  
+- name: features/examples/inventar.feature:94 	
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:94   
+- name: features/examples/inventar.feature:160 	
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:160  
+- name: features/manage/take_back/edit_take_back_end_date.feature:11 	
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/manage/take_back/edit_take_back_end_date.feature:11  
+- name: features/manage/delegation.feature:194 	
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/manage/delegation.feature:194  
+- name: features/examples/gegenstand_erstellen.feature:56 	
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/gegenstand_erstellen.feature:56   
+- name: features/borrow/modellliste.feature:151 	
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/borrow/modellliste.feature:151   
+- name: features/borrow/modellliste.feature:123 	
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/borrow/modellliste.feature:123   
+- name: features/examples/ruestliste.feature:46 	
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ruestliste.feature:46   
+- name: features/examples/inventar.feature:208 	
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/inventar.feature:208  
+- name: features/examples/probleme.feature:26 	
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/probleme.feature:26   
+- name: features/examples/probleme.feature:33 	
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/probleme.feature:33   
+- name: features/examples/ausleihe.feature:160 	
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/ausleihe.feature:160  
+- name: features/examples/bestellung.feature:12 	
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/bestellung.feature:12   
+- name: features/borrow/bestelluebersicht.feature:51 	
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/borrow/bestelluebersicht.feature:51  

@@ -2,7 +2,7 @@
 
 When /^I open a contract for acknowledgement( with more then one line)?(, whose start date is not in the past)?$/ do |arg1, arg2|
   contracts = @current_inventory_pool.contracts.submitted
-  contracts = contracts.select {|c| c.lines.size > 1 } if arg1
+  contracts = contracts.select {|c| c.lines.size > 1 and c.lines.map(&:model_id).uniq.size > 1 } if arg1
   contracts = contracts.select {|c| c.min_date >= Date.today} if arg2
 
   @contract = contracts.sample
@@ -35,9 +35,8 @@ end
 
 When /^I save the booking calendar$/ do
   find("#submit-booking-calendar", :text => _("Save")).click
-  sleep(0.33)
-  expect(has_no_selector?("#submit-booking-calendar", :text => _("Save"))).to be true
-  expect(has_no_selector?("#booking-calendar")).to be true
+  has_no_selector?("#submit-booking-calendar", :text => _("Save"))
+  has_no_selector?("#booking-calendar")
 end
 
 When /^I change a contract lines time range$/ do

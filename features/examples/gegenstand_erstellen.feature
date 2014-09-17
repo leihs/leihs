@@ -52,7 +52,7 @@ Funktionalität: Gegenstand erstellen
     | Garantieablaufdatum          |
     | Vertragsablaufdatum          |
 
-  @javascript @personas
+  @javascript @personas @browser
   Szenario: Einen Gegenstand mit allen fehlenden Pflichtangaben erstellen
     Angenommen ich bin Matti
     Und man navigiert zur Gegenstandserstellungsseite

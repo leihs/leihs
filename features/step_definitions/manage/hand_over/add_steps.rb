@@ -49,7 +49,6 @@ Then /^the item is added to the hand over for the provided date range and the in
 end
 
 When /^I add an option to the hand over by providing an inventory code and a date range$/ do
-  #@current_inventory_pool ||= @current_user.managed_inventory_pools.sample
   @inventory_code = (@option || @current_inventory_pool.options.sample).inventory_code
   find("[data-add-contract-line]").set @inventory_code
   find("[data-add-contract-line] + .addon").click
@@ -73,8 +72,10 @@ Then /^the (.*?) is added to the hand over$/ do |type|
 end
 
 When /^I add an option to the hand over which is already existing in the selected date range by providing an inventory code$/ do
+  option_line = @contract.option_lines.sample
+  @option = option_line.option
+  @quantity_before = option_line.quantity
   @n = rand(2..5)
-  @option = @current_inventory_pool.options.sample
   @n.times do
     step 'I add an option to the hand over by providing an inventory code and a date range'
   end
@@ -86,7 +87,7 @@ Then /^the existing option quantity is increased$/ do
   within(".line[data-line-type='option_line']", text: @option.inventory_code) do
     find("input[value='#{@option_line.quantity}']")
   end
-  expect(@option_line.quantity).to eq @n
+  expect(@option_line.quantity).to eq (@quantity_before + @n)
 end
 
 When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |type|
