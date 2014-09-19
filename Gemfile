@@ -68,3 +68,5 @@ gem 'uglifier', '~> 2.4'
 gem 'underscore-rails', '~> 1.6'
 gem 'will_paginate', '~> 3.0'
 gem 'yard', group: [:test, :development]
+
+gem 'simplecov', :require => false, :group => :test
