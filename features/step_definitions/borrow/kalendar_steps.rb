@@ -201,7 +201,7 @@ Dann(/^wird die Verfügbarkeit des Modells im Kalendar angezeigt$/) do
         next unless @current_inventory_pool.is_open_on? change_date_el[:"data-date"].to_date
         # check borrower availability
         quantity_for_borrower = av.maximum_available_in_period_summed_for_groups next_date, next_date, @current_user.group_ids
-        expect(change_date_el.find(".fc-day-content div").text.to_i).to eq quantity_for_borrower
+        change_date_el.find(".fc-day-content div", text: quantity_for_borrower)
         next_date += 1.day
       end
     end
@@ -239,7 +239,7 @@ Wenn(/^man zwischen den Monaten hin und herspring$/) do
 end
 
 Dann(/^wird der Kalender gemäss aktuell gewähltem Monat angezeigt$/) do
-  expect(find(".fc-header-title").text).to eq I18n.l(Date.today.next_month, format: "%B %Y")
+  find(".fc-header-title", text: I18n.l(Date.today.next_month, format: "%B %Y"))
 end
 
 Dann(/^werden die Schliesstage gemäss gewähltem Gerätepark angezeigt$/) do

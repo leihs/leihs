@@ -16,7 +16,7 @@ Feature: Add Item during acknowledge process
   @javascript @personas @browser
   Scenario: Autocompletion of the quick add input by model name
     Given I open a contract for acknowledgement
-    When I start to type the name of a model
+    When I start to type the name of a model which is not yet in the contract
     And I wait until the autocompletion is loaded
     Then I already see possible matches of models
     When I select one of the matched models

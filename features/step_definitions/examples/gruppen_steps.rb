@@ -145,12 +145,13 @@ Dann(/^wird der Benutzer zuoberst in der Liste hinzugefügt$/) do
 end
 
 Wenn(/^ich ein Modell hinzufüge$/) do
-  fill_in_autocomplete_field _("Models"), @model_name = @current_inventory_pool.models.first.name
+  @model = @current_inventory_pool.models.sample
+  fill_in_autocomplete_field _("Models"), @model.name
 end
 
 Dann(/^wird das Modell zuoberst in der Liste hinzugefügt$/) do
-  expect(has_selector?("#models-allocations .list-of-lines .line", text: @model_name)).to be true
-  expect(find("#models-allocations .list-of-lines .line", match: :first).text).to match @model_name
+  expect(has_selector?("#models-allocations .list-of-lines .line", text: @model.name)).to be true
+  find("#models-allocations .list-of-lines .line", match: :first, text: @model.name)
 end
 
 Dann(/^sind die bereits hinzugefügten Benutzer alphabetisch sortiert$/) do
@@ -170,9 +171,9 @@ Dann(/^sind die bereits hinzugefügten Modelle alphabetisch sortiert$/) do
 end
 
 Wenn(/^ich ein bereits hinzugefügtes Modell hinzufüge$/) do
-  @model = @group.models.first
+  @model = @group.models.sample
   @quantity = 2
-  find("#models-allocations .list-of-lines .line", match: :prefer_exact, text: @model_name).fill_in "group[partitions_attributes][][quantity]", :with => @quantity
+  find("#models-allocations .list-of-lines .line", match: :prefer_exact, text: @model.name).fill_in "group[partitions_attributes][][quantity]", :with => @quantity
   fill_in_autocomplete_field _("Models"), @model.name
 end
 
@@ -182,7 +183,7 @@ Dann(/^wird das Modell nicht erneut hinzugefügt$/) do
 end
 
 Wenn(/^ich einen bereits hinzugefügten Benutzer hinzufüge$/) do
-  @user = @group.users.first
+  @user = @group.users.sample
   fill_in_autocomplete_field _("Users"), @user.name
 end
 
@@ -191,11 +192,11 @@ Dann(/^wird der Benutzer nicht hinzugefügt$/) do
 end
 
 Dann(/^das vorhandene Modell ist nach oben gerutscht$/) do
-  expect(find("#models-allocations .list-of-lines .line", match: :first).text).to match @model.name
+  find("#models-allocations .list-of-lines .line", match: :first, text: @model.name)
 end
 
 Dann(/^der vorhandene Benutzer ist nach oben gerutscht$/) do
-  expect(find("#users .list-of-lines .line", match: :first).text).to match @user.name
+  find("#users .list-of-lines .line", match: :first, text: @user.name)
 end
 
 Dann(/^das vorhandene Modell behält die eingestellte Anzahl$/) do

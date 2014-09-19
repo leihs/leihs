@@ -22,7 +22,7 @@ class window.App.InventoryIndexController extends Spine.Controller
 
   reset: =>
     @inventory = {}
-    _.invoke [App.Inventory, App.Item, App.License, App.Model, App.Software, App.Option], -> this.deleteAll()
+    _.invoke [App.Item, App.License, App.Model, App.Software, App.Option], -> this.deleteAll()
     do @updateExportButton
     @list.html App.Render "manage/views/lists/loading"
     @fetch 1, @list
@@ -41,8 +41,8 @@ class window.App.InventoryIndexController extends Spine.Controller
             @render target, @inventory[page], page
 
   fetchInventory: (page)=>
-    App.Inventory.ajaxFetch
-      data: $.param $.extend @getData(),
+    App.Inventory.fetch \
+      $.extend @getData(),
         page: page
         search_term: @search.term()
         category_id: @categoriesFilter?.getCurrent()?.id
@@ -51,7 +51,9 @@ class window.App.InventoryIndexController extends Spine.Controller
         order: "ASC"
     .done (data, status, xhr) => 
       @pagination.set JSON.parse(xhr.getResponseHeader("X-Pagination"))
-      inventory = (App.Inventory.find(datum.id).cast() for datum in data)
+      inventory = []
+      for datum in data
+        inventory.push new App.Inventory.findOrCreate datum
       @inventory[page] = inventory
 
   fetchAvailability: (page)=>

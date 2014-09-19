@@ -156,7 +156,7 @@ Funktionalität: Inventar
     | Unvollständig |
     | Defekt        |
 
-  @personas @javascript
+  @personas @javascript @browser
   Szenario: Auswahlmöglichkeiten: verantwortliche Abteilung
     Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
     Wenn ich innerhalb des gesamten Inventars ein bestimmtes verantwortliche Gerätepark wähle

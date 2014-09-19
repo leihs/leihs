@@ -1,22 +1,20 @@
 ###
-  
+
   Inventory
 
 ###
 
 class window.App.Inventory extends Spine.Model
 
-  @configure "Inventory", "id"
+  @types: ["option", "model", "software", "item"]
 
-  @extend Spine.Model.Ajax
+  @findOrCreate: (datum) =>
+    if type = @getType(datum)
+      className = _.string.classify(type)
+      inventoryModel = App[className]
+      data = datum[type]
+      inventoryModel.exists(data["id"]) ? inventoryModel.addRecord(new inventoryModel data)
+    else
+      throw new Error "unrecognized inventory type"
 
-  @include App.Modules.Rooted
-
-  constructor: (data)->
-    @rooted data, "option"
-    @rooted data, "model"
-    @rooted data, "software"
-    @rooted data, "item"
-    super
-
-  
+  @getType: (datum) => _.find @types, (type) -> datum[type]?

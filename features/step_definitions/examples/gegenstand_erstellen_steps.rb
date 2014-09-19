@@ -87,7 +87,7 @@ Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
   find("#list-search").set inventory_code
   sleep(0.11)
   within("#inventory .line[data-type='model']", match: :first, text: /#{@table_hashes.detect { |r| r["Feldname"] == "Modell" }["Wert"]}/) do
-    expect(find(".col2of5 strong").text).to match /#{@table_hashes.detect { |r| r["Feldname"] == "Modell" }["Wert"]}/
+    find(".col2of5 strong", text: /#{@table_hashes.detect { |r| r["Feldname"] == "Modell" }["Wert"]}/)
     find(".button[data-type='inventory-expander'] i.arrow.right").click
     find(".button[data-type='inventory-expander'] i.arrow.down")
   end

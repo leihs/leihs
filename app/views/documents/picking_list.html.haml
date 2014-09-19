@@ -35,7 +35,7 @@
                 %td.inventory_code= line.item.inventory_code
                 %td.model_name= line.model.name
                 %td.location
-                  - if line.model.is_a?(Option)
+                  - if line.model.is_a?(Option) or line.item.location.nil? or (line.item.location.room.blank? and line.item.location.shelf.blank?)
                     %i= _("Location not defined")
                   - else
                     = "%s / %s" % [line.item.location.room, line.item.location.shelf]

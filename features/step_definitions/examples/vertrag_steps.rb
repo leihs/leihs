@@ -63,18 +63,18 @@ Dann /^seh ich den Hinweis auf AGB "(.*?)"$/ do |note|
 end
 
 Dann /^beinhalten Liste (\d+) und Liste (\d+) folgende Spalten:$/ do |arg1, arg2, table|
-  within @contract_element.find("section.list", :match => :first) do
+  within @contract_element do
     table.hashes.each do |area|
       case area["Spaltenname"]
         when "Anzahl"
-          @contract.lines.each {|line| find("tr", :text=> line.item.inventory_code).find(".quantity", :text=> line.quantity.to_s) }
+          @contract.lines.each {|line| find("section.list tr", :text=> line.item.inventory_code).find(".quantity", :text=> line.quantity.to_s) }
         when "Inventarcode"
-          @contract.lines.each {|line| find("tr", :text=> line.item.inventory_code) }
+          @contract.lines.each {|line| find("section.list tr", :text=> line.item.inventory_code) }
         when "Modellname"
-          @contract.lines.each {|line| find("tr", :text=> line.item.inventory_code).find(".model_name", :text=> line.item.model.name) }
+          @contract.lines.each {|line| find("section.list tr", :text=> line.item.inventory_code).find(".model_name", :text=> line.item.model.name) }
         when "Startdatum"
           @contract.lines.each {|line|
-            line_element = find("tr", :text=> line.item.inventory_code)
+            line_element = find("section.list tr", :text=> line.item.inventory_code)
             within line_element.find(".start_date") do
               expect(has_content? line.start_date.year).to be true
               expect(has_content? line.start_date.month).to be true
@@ -83,7 +83,7 @@ Dann /^beinhalten Liste (\d+) und Liste (\d+) folgende Spalten:$/ do |arg1, arg2
           }
         when "Enddatum"
           @contract.lines.each {|line|
-            line_element = find("tr", :text=> line.item.inventory_code)
+            line_element = find("section.list tr", :text=> line.item.inventory_code)
             within line_element.find(".end_date") do
               expect(has_content? line.end_date.year).to be true
               expect(has_content? line.end_date.month).to be true
@@ -93,7 +93,7 @@ Dann /^beinhalten Liste (\d+) und Liste (\d+) folgende Spalten:$/ do |arg1, arg2
         when "Rückgabedatum"
           @contract.lines.each {|line|
             unless line.returned_date.blank?
-              line_element = find("tr", :text=> line.item.inventory_code)
+              line_element = find("section.list tr", :text=> line.item.inventory_code)
               within line_element.find(".returning_date") do
                 expect(has_content? line.returned_date.year).to be true
                 expect(has_content? line.returned_date.month).to be true
@@ -112,7 +112,7 @@ end
 
 Dann /^jeder identische Zweck ist maximal einmal aufgelistet$/ do
   purposes = @contract.lines.sort.map{|l| l.purpose.to_s }.uniq.join('; ')
-  expect(@contract_element.find(".purposes > p").text).to eq purposes
+  @contract_element.find(".purposes > p", text: purposes)
 end
 
 Dann /^sehe ich das heutige Datum oben rechts$/ do
@@ -236,7 +236,7 @@ Wenn(/^ich einen Vertrag dieses Kunden öffne$/) do
 end
 
 Dann(/^wird seine Adresse ohne den abschliessenden "(.*?)" angezeigt$/) do |arg1|
-  expect(find(".street").text).to eq @user.address.chomp(", ")
+  find(".street", text: @user.address.chomp(", "))
 end
 
 Wenn(/^in den globalen Einstellungen die Adresse der Instanz konfiguriert ist$/) do

@@ -90,7 +90,7 @@ Wenn(/^ich die Zeile deselektiere$/) do
 end
 
 Dann(/^ist die Zeile nicht mehr grün eingefärbt$/) do
-  find(@line_css).native.attribute("class").should_not include "green"
+  expect(find(@line_css).native.attribute("class")).not_to include "green"
 end
 
 Wenn(/^ich die Zeile wieder selektiere$/) do
@@ -105,7 +105,7 @@ Wenn(/^ich den zugeteilten Gegenstand auf der Zeile entferne$/) do
 end
 
 Dann(/^ist die Zeile nicht mehr grün markiert$/) do
-  find(@line_css).native.attribute("class").should_not include "green"
+  expect(find(@line_css).native.attribute("class")).not_to include "green"
 end
 
 Wenn(/^ich eine Option hinzufüge$/) do
@@ -175,7 +175,7 @@ Dann(/^erscheint ein Aushändigungsdialog$/) do
 end
 
 Dann(/^diese Standard\-Vertragsnotiz erscheint im Textfeld für die Vertragsnotiz$/) do
-  expect(find("textarea[name='note']").text).to eq @current_inventory_pool.default_contract_note
+  find("textarea[name='note']", text: @current_inventory_pool.default_contract_note)
 end
 
 When(/^I change the quantity to "(.*?)"$/) do |arg1|

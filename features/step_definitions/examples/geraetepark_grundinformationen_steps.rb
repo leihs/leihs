@@ -177,6 +177,7 @@ Given(/^I edit an inventory pool( which has the automatic access enabled)?$/) do
     @current_inventory_pool = @current_user.managed_inventory_pools.select{|ip| ip.automatic_access? }.sample
   end
   visit manage_edit_inventory_pool_path(@current_inventory_pool)
+  @last_edited_inventory_pool = @current_inventory_pool
 end
 
 Angenommen(/^es ist bei mehreren Geräteparks aut. Zuweisung aktiviert$/) do
@@ -231,7 +232,7 @@ Dann(/^in meinem Gerätepark hat er die Rolle 'Inventar\-Verwalter'$/) do
 end
 
 Dann(/^kriegt der neu erstellte Benutzer bei dem vorher editierten Gerätepark kein Zugriffsrecht$/) do
-  expect(@user.access_right_for(@current_inventory_pool)).to eq nil
+  expect(@user.access_right_for(@last_edited_inventory_pool)).to eq nil
 end
 
 When(/^on the inventory pool I enable the automatic suspension for users with overdue take backs$/) do

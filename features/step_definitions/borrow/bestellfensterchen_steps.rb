@@ -39,7 +39,7 @@ end
 
 Dann(/^wird die Anzahl dieses Modells erhöht$/) do
   line = find("#current-order-basket #current-order-lines .line[title='#{@new_contract_line.model.name}']", match: :first)
-  expect(line.find("span", match: :first).text).to eq "2x #{@new_contract_line.model.name}"
+  line.find("span", match: :first, text: "2x #{@new_contract_line.model.name}")
 end
 
 Dann(/^ich kann zur detaillierten Bestellübersicht gelangen$/) do

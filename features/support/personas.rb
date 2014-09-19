@@ -1,6 +1,6 @@
 module Persona
   extend self
-  
+
   def get(name)
     User.where(:login => name.downcase).first
   end
@@ -76,9 +76,21 @@ module Persona
     dump_restored
   end
 
+  ################################################################################
+
+  def update_random_generator
+    @rand_gen = Random.new(ENV['TEST_DATETIME'].gsub(/\D/, '').to_i)
+  end
+
+  def get_random_generator
+    @rand_gen
+  end
+
+  ################################################################################
+
   def use_test_datetime(date = nil)
     ENV['TEST_DATETIME'] = date || ENV['TEST_DATETIME'] || get_test_datetime
-    srand(ENV['TEST_DATETIME'].gsub(/\D/, '').to_i)
+    update_random_generator
     back_to_the_future(Time.parse(ENV['TEST_DATETIME']))
     puts "\n        ------------------------- TEST_DATETIME=#{ENV['TEST_DATETIME']} -------------------------"
   end

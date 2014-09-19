@@ -826,7 +826,7 @@ end
 
 Then(/^I see the remaining number of licenses shown as follows "(.*?)"$/) do |arg1|
   within find(".field", text: _("Quantity allocations")) do
-    expect(find("#remaining-total-quantity").text).to eq arg1
+    find("#remaining-total-quantity", text: arg1)
   end
 end
 

@@ -7,7 +7,7 @@ Funktionalität: Anzeige von Problemen
 
   @javascript @browser @personas
   Szenario: Problemanzeige wenn Modell nicht verfügbar bei Bestellungen
-    Angenommen ich editiere eine Bestellung
+    Angenommen ich editiere eine Bestellung die nicht in der Vergangenheit liegt
      Und ein Modell ist nichtmehr verfügbar
      Dann sehe ich auf den beteiligten Linien die Auszeichnung von Problemen
      Und das Problem wird wie folgt dargestellt: "Nicht verfügbar 2(3)/7"
@@ -22,7 +22,7 @@ Funktionalität: Anzeige von Problemen
      Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
      Und das Problem wird wie folgt dargestellt: "Gegenstand ist defekt"
 
-  @javascript @personas
+  @javascript @personas @browser
   Szenario: Problemanzeige bei Aushändigung wenn Gegenstand defekt
     Angenommen ich mache eine Aushändigung
      Und eine Gegenstand ist defekt
@@ -70,7 +70,7 @@ Funktionalität: Anzeige von Problemen
      Und "3" sind insgesamt verfügbar inklusive diejenigen Gruppen, welchen der Kunde nicht angehört
      Und "7" sind total im Pool bekannt (ausleihbar)
 
-  @javascript @personas
+  @javascript @personas @browser
   Szenario: Problemanzeige bei Aushändigung wenn Gegenstand unvollständig
     Angenommen ich mache eine Aushändigung
      Und eine Gegenstand ist unvollständig

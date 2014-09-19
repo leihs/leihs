@@ -183,7 +183,7 @@ Wenn(/^man ein Suchwort eingibt$/) do
 end
 
 Dann(/^werden diejenigen Modelle angezeigt, deren Name oder Hersteller dem Suchwort entsprechen$/) do
-  expect(find("#model-list .line").text).to match /bea.*panas/i
+  find("#model-list .line", text: /bea.*panas/i)
 end
 
 Dann(/^ist kein Ausleihzeitraum ausgewählt$/) do

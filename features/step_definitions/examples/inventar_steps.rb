@@ -89,7 +89,7 @@ Dann /^kann man auf ein der folgenden Tabs klicken und dabei die entsprechende I
 
     tab.click
     expect(tab.reload[:class].split.include?("active")).to be true
-    expect(has_selector? "#inventory > .line").to be true
+    has_selector? "#inventory > .line"
     step "I fetch all pages of the list"
 
     check_amount_of_lines(amount)
@@ -833,6 +833,7 @@ end
 Then(/^only the inventory is shown, for which this pool is responsible$/) do
   inventory = @responsible_pool.items.where(items: {owner_id: @current_inventory_pool.id})
   step "I fetch all pages of the list"
+  has_selector? "#inventory > .line"
   check_amount_of_lines inventory.joins(:model).select(:model_id).uniq.count
   check_existing_inventory_codes(inventory)
 end
@@ -897,5 +898,5 @@ When(/^I open the model line of this item$/) do
 end
 
 Then(/^the problems of this item are displayed separated by a comma$/) do
-  expect(find(".line[data-type='item'] .darkred-text").text).to match /.*, .*/
+  find(".line[data-type='item'] .darkred-text", text: /.*, .*/)
 end

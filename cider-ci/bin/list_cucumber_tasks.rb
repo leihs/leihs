@@ -4,7 +4,6 @@ require 'pry'
 
 def task_hash(name, exec, timeout = nil)
   h = { "name" => name,
-        "auto_trials" => 2,
         "scripts" => {
             "cucumber" => {
                 "body" => exec
@@ -30,13 +29,6 @@ File.open(filepath,"w") do |f|
   end.to_yaml)
 end
 
-filepath = "./cider-ci/tasks/cucumber_strict.yml"
-File.open(filepath,"w") do |f|
-  f.write(feature_files.map do |f|
-    task_for_feature_file(f, 600, true)
-  end.to_yaml)
-end
-
 default_browser = ENV['DEFAULT_BROWSER'] ? ENV['DEFAULT_BROWSER'] : [:firefox, :chrome].sample
 filepath = "./cider-ci/tasks/cucumber_scenarios.yml"
 File.open(filepath,"w") do |f|
@@ -46,7 +38,7 @@ File.open(filepath,"w") do |f|
     name = "%s - %s" % [splitted_string.last.strip, splitted_string.first]
     name += " ** @current **" if t =~ /@current/
     exec = "bundle exec cucumber -p default -f json -o log/cucumber_report.json %s DEFAULT_BROWSER=%s" % [splitted_string.first, default_browser]
-    task_hash(name, exec)
+    task_hash(name, exec, 300)
   end.compact
   f.write h2.to_yaml
 end

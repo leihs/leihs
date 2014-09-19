@@ -1,10 +1,10 @@
 When /^I change (a contract|an option) line end date$/ do |arg1|
   line_el = case arg1
               when "an option"
-                all(".line[data-line-type='option_line']")
+                find(".line[data-line-type='option_line']", match: :first)
               else
-                all(".line")
-            end.to_a.sample
+                find(".line", match: :first)
+            end
   @line = @contract_lines_to_take_back.find(line_el["data-id"])
   line_el.has_content?(@line.model.name)
   line_el.find(".multibutton .button", :text => _("Change entry")).click

@@ -11,7 +11,7 @@ Funktionalität: Ausleihe
     Und einem Gegenstand einen Inventarcode manuell zuweise
     Dann wird der Gegenstand ausgewählt und der Haken gesetzt
 
-  @javascript @browser @personas
+  @javascript @browser @chrome @personas
   Szenario: Aushändigen: In den Inventarcodelisten nicht verfügbare Gegenstände hervorheben
     Wenn ich eine Aushändigung mache die ein Model enthält dessen Gegenstände ein nicht ausleihbares enthält
     Und diesem Model ein Inventarcode zuweisen möchte

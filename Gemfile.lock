@@ -79,10 +79,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-screenshot (0.3.22)
-      capybara (>= 1.0, < 3)
-      colored
-      launchy
     celluloid (0.16.0)
       timers (~> 4.0.0)
     childprocess (0.5.3)
@@ -100,7 +96,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
-    colored (1.2)
     columnize (0.8.9)
     compass (0.12.7)
       chunky_png (~> 1.2)
@@ -109,7 +104,7 @@ GEM
     compass-rails (1.1.7)
       compass (>= 0.12.2)
       sprockets (<= 2.11.0)
-    cucumber (1.3.16)
+    cucumber (1.3.17)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.3)
       gherkin (~> 2.12)
@@ -144,7 +139,7 @@ GEM
       activerecord (>= 3.0.0)
     formatador (0.2.5)
     fssm (0.2.10)
-    geocoder (1.2.4)
+    geocoder (1.2.5)
     gettext_i18n_rails (1.1.0)
       fast_gettext (>= 0.9.0)
     gherkin (2.12.2)
@@ -180,7 +175,7 @@ GEM
       open4 (~> 1.0)
     launchy (2.4.2)
       addressable (~> 2.3)
-    libv8 (3.16.14.5)
+    libv8 (3.16.14.7)
     listen (2.7.9)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -271,9 +266,9 @@ GEM
       rspec-core (~> 3.1.0)
       rspec-expectations (~> 3.1.0)
       rspec-mocks (~> 3.1.0)
-    rspec-core (3.1.2)
+    rspec-core (3.1.3)
       rspec-support (~> 3.1.0)
-    rspec-expectations (3.1.0)
+    rspec-expectations (3.1.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.1.0)
     rspec-mocks (3.1.0)
@@ -329,6 +324,84 @@ GEM
       hitimes
     treetop (1.4.15)
       polyglot
+      polyglot
+      polyglot
+      polyglot
+      polyglot
+      polyglot
+      polyglot
+      polyglot
+      polyglot
+      polyglot
+      polyglot
+      polyglot
+      polyglot
+      polyglot
+      polyglot
+      polyglot
+      polyglot
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
+      polyglot (>= 0.3.1)
       polyglot (>= 0.3.1)
     tzinfo (0.3.41)
     uglifier (2.5.3)
@@ -355,7 +428,6 @@ DEPENDENCIES
   capistrano-ext
   capistrano-rbenv (~> 1.0)
   capybara (~> 2.4)
-  capybara-screenshot
   chunky_png (~> 1.2)
   coffee-rails (~> 4.0)
   coffee-script (~> 2.2)

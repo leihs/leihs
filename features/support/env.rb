@@ -21,10 +21,6 @@ require 'rack_session_access/capybara'
 # steps to use the XPath syntax.
 Capybara.default_selector = :css
 
-# screenshot
-require 'capybara-screenshot/cucumber'
-Capybara::Screenshot.autosave_on_failure = false # FIXME capybara-screenshot could not detect a screenshot driver for 'selenium_phantomjs' and 'selenium_firefox'. Saving with default with unknown results.
-
 # By default, any exception happening in your Rails application will bubble up
 # to Cucumber so that your scenario will fail. This is a different from how 
 # your application behaves in the production environment, where an error page will 
@@ -180,3 +176,24 @@ end
 
 ##################################################################################
 
+# in order to guarantuee the same shuffle and sample results on CI and locally, we have to change these ruby methods to use the global TEST_DATETIME seed
+class Array
+
+  def shuffle_with_random
+    shuffle_without_random(random: Persona.get_random_generator)
+  end
+  alias_method_chain :shuffle, :random
+
+  def sample_with_random(*args)
+    random = Persona.get_random_generator
+    if args.empty?
+      sample_without_random(random: random)
+    elsif args.last.is_a? Hash
+      sample_without_random(*args)
+    elsif not args.first.is_a? Hash
+      sample_without_random(args.first, {random: random})
+    end
+  end
+  alias_method_chain :sample, :random
+
+end
