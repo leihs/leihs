@@ -12,6 +12,7 @@
 
 require 'rubygems'
 require 'fileutils'
+require 'open4'
 require 'pry'
 
 
@@ -20,6 +21,15 @@ PROFILES = ['default', 'headless', 'nojs']
 def die(exit_code, error)
   puts "Error: #{error}"
   exit exit_code
+end
+
+def run_command(cmd)
+  pid, stdin, stdout, stderr = Open4::popen4("#{cmd} 2>&1")
+  stdin.close
+  while !stdout.eof?
+    puts stdout.read 1024
+  end
+  return Process::waitpid2(pid).last.exitstatus
 end
 
 def gettext_installed?
@@ -57,9 +67,9 @@ def rerun(maximum = 3, run_count = 0)
     end
     if (File.exists?("tmp/rerun.txt") && File.size("tmp/rerun.txt") > 0)
       puts "Rerun necessary."
-      puts `bundle exec cucumber -p rerun`
+      exitstatus = run_command("bundle exec cucumber -p rerun")
       run_count += 1
-      if $?.exitstatus != 0
+      if exitstatus != 0
         rerun(maximum, run_count)
       else
         die(0, "All went well after rerunning.")
@@ -90,11 +100,10 @@ end
 
 puts "Prerequisites for running the tests are met, starting Cucumber..."
 FileUtils.rm_f(["tmp/rerun.txt", "tmp/rererun.txt"])
-puts `bundle exec cucumber -p #{profile}`
+exitstatus = run_command("bundle exec cucumber -p #{profile}")
 
 # Rerun for failures, up to n times
-
-if $?.exitstatus != 0
+if exitstatus != 0
   rerun(4)
 else
   die(0, "All went well on the very first run.")
