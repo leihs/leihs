@@ -122,33 +122,36 @@ class InventoryPool < ActiveRecord::Base
 #######################################################################
 
   def next_open_date(x = Date.today)
-    if workday.closed_days.size < 7
-      while not is_open_on?(x) do
-        holiday = running_holiday_on(x)
-        if holiday
-          x = holiday.end_date.tomorrow
-        else
-          x += 1.day
-        end
-      end
-    end
-    x
+    find_date x, :next_open
   end
   
   def last_open_date(x = Date.today)
+    find_date x, :last_open
+  end
+
+  private
+
+  def find_date date, direction
+    holiday_border, change_date_operation = case direction
+                                            when :next_open then [:end_date, :+]
+                                            when :last_open then [:start_date, :-]
+                                            else raise "Invalid direction" end
+
     if workday.closed_days.size < 7
-      while not is_open_on?(x) do
-        holiday = running_holiday_on(x)
+      while not is_open_on?(date) do
+        holiday = running_holiday_on(date)
         if holiday
-          x = holiday.start_date.yesterday
+          date = holiday.send(holiday_border).tomorrow
         else
-          x -= 1.day
+          date = date.send(change_date_operation, 1.day)
         end
       end
     end
-    x
+    date
   end
-  
+
+  public
+
   def is_open_on?(date)
     workday.is_open_on?(date) and running_holiday_on(date).nil?
   end
@@ -205,7 +208,7 @@ class InventoryPool < ActiveRecord::Base
 
     inventory = (models + (options || [])).sort{|a,b| a.name.strip <=> b.name.strip}
 
-    inventory = inventory.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min) unless params[:paginate] == "false"
+    inventory = inventory.default_paginate params unless params[:paginate] == "false"
     inventory
   end
 

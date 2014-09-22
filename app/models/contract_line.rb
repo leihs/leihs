@@ -143,6 +143,17 @@ class ContractLine < ActiveRecord::Base
     #TODO: Think about this a little bit more.... errors.add(:base, _("Start Date cannot be a past date")) if start_date < Date.today
   end
 
+  def self.any_with_purpose? lines
+    lines.any? &:purpose
+  end
+
+  def self.all_with_assigned_item? lines
+    lines.all? &:item
+  end
+
+  def self.all_with_end_date_after_start_date lines
+    lines.all? {|l| l.end_date >= Date.today }
+  end
 
 end
 

@@ -9,6 +9,8 @@
 # Reading a MySQL View
 class Visit < ActiveRecord::Base
   include LineModules::GroupedAndMergedLines
+  include DefaultPagination
+
   self.primary_key = :id
 
   #######################################################
@@ -75,7 +77,7 @@ class Visit < ActiveRecord::Base
     visits = visits.where Visit.arel_table[:date].eq(params[:date]) if params[:date] and params[:date_comparison] == "eq"
     visits = visits.where(Visit.arel_table[:date].gt(params[:range][:start_date])) if params[:range] and params[:range][:start_date]
     visits = visits.where(Visit.arel_table[:date].lt(params[:range][:end_date])) if params[:range] and params[:range][:end_date]
-    visits = visits.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min) unless params[:paginate] == "false"
+    visits = visits.default_paginate params unless params[:paginate] == "false"
     visits
   end
 

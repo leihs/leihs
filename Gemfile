@@ -35,6 +35,7 @@ gem 'jsrender-rails', '~> 1.2', git: 'https://github.com/spape/jsrender-rails.gi
 gem 'ladle', group: :test
 gem 'launchy', '~> 2.1', group: [:test, :development]
 gem 'meta_request', group: :development
+gem 'metric_fu', group: :development
 gem 'mini_magick', '~> 3.4'
 gem 'mysql2', '~> 0.3.11', platform: :mri
 gem 'net-ldap', require: 'net/ldap'

@@ -8,6 +8,7 @@
 # #Model as id the case for #Item s.
 #
 class Option < ActiveRecord::Base
+  include DefaultPagination
 
   belongs_to :inventory_pool
 
@@ -43,7 +44,7 @@ class Option < ActiveRecord::Base
     options = options.search(params[:search_term], [:manufacturer, :product, :version]) unless params[:search_term].blank?
     options = options.where(:id => params[:ids]) if params[:ids]
     options = options.order("#{params[:sort]} #{params[:order]}") if params[:sort] and params[:order]
-    options = options.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min) unless params[:paginate] == "false"
+    options = options.default_paginate params unless params[:paginate] == "false"
     options
   end
 
