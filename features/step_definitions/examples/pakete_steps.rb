@@ -150,7 +150,6 @@ Wenn /^ich das Paket und das Modell speichere$/ do
 end
 
 Dann /^besitzt das Paket alle angegebenen Informationen$/ do
-  sleep(0.33)
   model = Model.find {|m| [m.name, m.product].include? @model_name}
   visit manage_edit_model_path(@current_inventory_pool, model)
   model.items.where(inventory_pool: @current_inventory_pool).each do |item|

@@ -1,4 +1,4 @@
-When /^I open the datepicker$/ do
+When /^I open the datepicker|I click the open button again$/ do
   find(".button.datepicker", match: :first).click
 end
 
@@ -19,11 +19,6 @@ Then /^the daily view jumps to that day$/ do
   end
 end
 
-When /^I click the open button again$/ do
-  find(".button.datepicker", match: :first).click
-end
-
 Then /^the datepicker closes$/ do
-  sleep(0.33) # wait until the fadeOut animation is finished
-  expect(all(".ui-datepicker", :visible => true).size).to eq 0
+  expect(has_no_selector?(".ui-datepicker")).to be true
 end

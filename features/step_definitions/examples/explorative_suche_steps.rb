@@ -26,7 +26,7 @@ end
 
 Dann(/^kann die darunterliegende Kategorie anwählen$/) do
   @child_category = Category.find find("a[data-type='category-filter']", match: :first)[:"data-id"]
-  @category.children.should include @child_category
+  expect(@category.children).to include @child_category
 
   # find("a[data-type='category-filter']", match: :first).click
   # using js script to click on the link, because capybara cannot do that during the test execution (only in binding.pry)
@@ -83,10 +83,12 @@ Wenn(/^ich nach dem Namen einer Kategorie suche$/) do
 end
 
 Dann(/^werden alle Kategorien angezeigt, welche den Namen beinhalten$/) do
-  Category.all.map(&:name).reject{|name| not name[@search_term]}.each do |name|
-    find("#categories #category-list [data-type='category-filter']", match: :prefer_exact, :text => name)
+  within "#categories #category-list" do
+    Category.all.map(&:name).reject{|name| not name[@search_term]}.each do |name|
+      find("[data-type='category-filter']", match: :prefer_exact, text: name)
+    end
+    expect(all("[data-type='category-filter']").size).to eq all("[data-type='category-filter']", text: @search_term).size
   end
-  expect(all("#categories #category-list [data-type='category-filter']").size).to eq all("#categories #category-list [data-type='category-filter']", :text => @search_term).size
 end
 
 Dann(/^ich sehe ein Suchicon mit dem Namen des gerade gesuchten Begriffs sowie die aktuell ausgewählte und die darunterliegenden Kategorien$/) do

@@ -90,7 +90,6 @@ Wenn /^die Anzahl einer zurückzugebenden Option manuell ändere$/ do
 end
 
 Dann /^wird die Option ausgewählt und der Haken gesetzt$/ do
-  sleep(0.66)
   @option_line.find("input[data-select-line]:checked")
   step 'the count matches the amount of selected lines'
 end
@@ -129,7 +128,7 @@ Wenn /^die ausgewählten Gegenstände auch solche beinhalten, die in einer zukü
 end
 
 Dann /^ich kann die Gegenstände nicht aushändigen$/ do
-  expect(all(".hand_over .summary").size).to eq 0
+  expect(has_no_selector?(".hand_over .summary")).to be true
 end
 
 Angenommen /^der Kunde ist in mehreren Gruppen$/ do
@@ -205,7 +204,6 @@ end
 Dann /^wird es für die ausgewählte Zeitspanne hinzugefügt$/ do
   find("#flash")
   find(".line", match: :first)
-  sleep(0.33)
   expect(@amount_lines_before).to be < all(".line").size
 end
 
@@ -427,7 +425,7 @@ Dann(/^wird mir ich ein Suchresultat nach dem Namen des letzten Benutzers angeze
 end
 
 When(/^I fill in all the necessary information in hand over dialog$/) do
-  if contact_field = all("#contact-person input#user-id").first
+  if contact_field = find("#contact-person").all("input#user-id").first
     contact_field.click
     find(".ui-menu-item", match: :first).click
   end

@@ -23,16 +23,20 @@ end
 
 Dann(/^kann ich in der Benutzerliste nach Delegationen einschränken$/) do
   find("#user-index-view form#list-filters select#type").select _("Delegations")
-  find("#user-list.list-of-lines .line", match: :first)
-  ids = all("#user-list.list-of-lines .line [data-type='user-cell']").map {|user_data| user_data["data-id"] }
-  expect(User.find(ids).all?(&:is_delegation)).to be true
+  within "#user-list.list-of-lines" do
+    find(".line", match: :first)
+    ids = all(".line [data-type='user-cell']").map {|user_data| user_data["data-id"] }
+    expect(User.find(ids).all?(&:is_delegation)).to be true
+  end
 end
 
 Dann(/^ich kann in der Benutzerliste nach Benutzer einschränken$/) do
   find("#user-index-view form#list-filters select#type").select _("Users")
-  find("#user-list.list-of-lines .line", match: :first)
-  ids = all("#user-list.list-of-lines .line [data-type='user-cell']").map {|user_data| user_data["data-id"] }
-  expect(User.find(ids).any?(&:is_delegation)).to be false
+  within "#user-list.list-of-lines" do
+    find(".line", match: :first)
+    ids = all(".line [data-type='user-cell']").map {|user_data| user_data["data-id"] }
+    expect(User.find(ids).any?(&:is_delegation)).to be false
+  end
 end
 
 Angenommen(/^ich befinde mich im Reiter '(.*)'$/) do |arg1|
@@ -70,8 +74,7 @@ end
 
 Wenn(/^ich kann dieser Delegation keine Delegation zuteile$/) do
   find("[data-search-users]").set @current_inventory_pool.users.as_delegations.sample.name
-  sleep(0.33)
-  expect(all("ul.ui-autocomplete > li").empty?).to be true
+  expect(has_no_selector?("ul.ui-autocomplete > li")).to be true
 end
 
 Wenn(/^ich genau einen Verantwortlichen eintrage$/) do
@@ -166,7 +169,7 @@ Dann(/^ist in der Bestellung der Name des Benutzers aufgeführt$/) do
 end
 
 Dann(/^ich sehe keine Kontatkperson$/) do
-  expect(all("h2", text: @contract.user.name).size).to eq 1
+  find("h2", text: @contract.user.name)
 end
 
 Angenommen(/^es existiert eine Aushändigung( für eine Delegation)?( mit zugewiesenen Gegenständen)?$/) do |arg1, arg2|
@@ -308,7 +311,7 @@ Wenn(/^wenn für diese Delegation keine Zugriffsrechte für irgendwelches Gerät
 end
 
 Dann(/^kann ich diese Delegation löschen$/) do
-  fill_in "list-search", with: @delegation.name
+  step %Q(ich nach "%s" suche) % @delegation.name
   line = find(".line", text: @delegation.name)
   line.find(".dropdown-toggle").click
   find("[data-method='delete']").click
@@ -420,7 +423,6 @@ Wenn(/^ich die Gegenstände für die Delegation an "(.*?)" aushändige$/) do |co
   @contract = @delegation.contracts.submitted.first
   @contract.approve Faker::Lorem.sentence
   visit manage_hand_over_path(@current_inventory_pool, @delegation)
-  sleep(0.33)
   expect(has_selector?("input[data-assign-item]")).to be true
   all("input[data-assign-item]").detect{|el| not el.disabled?}.click
   find(".ui-autocomplete .ui-menu-item", match: :first).click
@@ -498,7 +500,7 @@ Dann(/^die neu gewählte Kontaktperson wird gespeichert$/) do
 end
 
 Dann(/^sehe ich genau ein Kontaktpersonfeld$/) do
-  expect(all("#contact-person").count).to eq 1
+  find("#contact-person")
 end
 
 Wenn(/^ich keine Kontaktperson angebe$/) do

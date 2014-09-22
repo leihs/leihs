@@ -181,13 +181,13 @@ end
 When(/^I change the quantity to "(.*?)"$/) do |arg1|
   within @line_css do
     find("input[data-line-quantity]").set arg1
-    sleep(0.55)
+    sleep(0.66) # NOTE this sleep is required in order to fire the change
   end
 end
 
 Then(/^the quantity will be restored to the original value$/) do
   within @line_css do
-    expect(find("input[data-line-quantity]").value).to eq @option_line.reload.quantity.to_s
+    find("input[data-line-quantity][value='#{@option_line.reload.quantity}']")
   end
 end
 

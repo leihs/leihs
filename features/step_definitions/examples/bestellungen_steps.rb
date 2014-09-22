@@ -202,11 +202,13 @@ Dann(/^ist die Bestellung wieder im Status noch nicht genehmigt$/) do
 end
 
 Dann(/^ich eine bereits gehmigte Bestellung editiere$/) do
-  find("#contracts .line[data-id]", match: :first)
-  within all("#contracts .line[data-id]").sample do
-    a = find("a", text: _("Editieren"))
-    @target_url = a[:href]
-    a.click
+  within "#contracts" do
+    find(".line[data-id]", match: :first)
+    within all(".line[data-id]").sample do
+      a = find("a", text: _("Editieren"))
+      @target_url = a[:href]
+      a.click
+    end
   end
 end
 
@@ -290,9 +292,7 @@ When(/^I search for (an order|a contract|a visit)$/) do |arg1|
         cb.click
       end
     end
-
-    find("#list-search").set @search_term
-    sleep(0.33)
+    step %Q(ich nach "%s" suche) % @search_term
   end
 end
 

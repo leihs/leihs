@@ -21,7 +21,6 @@ When /^I open a hand over( with at least one unassigned line for today)?( with o
 end
 
 When /^I select (an item|a license) line and assign an inventory code$/ do |arg1|
-  sleep(0.33)
   @models_in_stock = @current_inventory_pool.items.in_stock.map(&:model).uniq
   lines = @customer.visits.hand_over.flat_map(&:lines)
 
@@ -39,7 +38,6 @@ When /^I select (an item|a license) line and assign an inventory code$/ do |arg1
   step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
   find("#submit-booking-calendar").click
   find(".button[data-edit-lines][data-ids='[#{@item_line.id}]']")
-  sleep(0.33)
 end
 
 Then /^I see a summary of the things I selected for hand over$/ do
@@ -61,7 +59,6 @@ When /^I click hand over inside the dialog$/ do
 end
 
 Then /^the contract is signed for the selected items$/ do
-  sleep(0.33)
   to_take_back_lines = @customer.visits.take_back.flat_map &:contract_lines
   to_take_back_items = to_take_back_lines.map(&:item)
   @selected_items.each do |item|
@@ -98,11 +95,9 @@ Then /^I see that the time range in the summary starts today$/ do
   all(".modal-body > div > div > div > p").each do |date_range|
     expect(date_range.has_content?("#{Date.today.strftime("%d.%m.%Y")}")).to be true
   end
-  sleep(0.33)
 end
 
 Then /^the lines start date is today$/ do
-  sleep(0.33)
   expect(@line.reload.start_date).to eq Date.today
 end
 

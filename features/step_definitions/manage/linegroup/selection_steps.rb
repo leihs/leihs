@@ -16,10 +16,11 @@ When /^I open a take back, hand over or I edit a contract$/ do
 end
 
 When /^I select all lines of an linegroup$/ do
-  find("#lines")
-  @linegroup = find("#lines [data-selected-lines-container]", match: :first)
-  @linegroup.all(".line").each do |line|
-    line.find("input[type=checkbox][data-select-line]", match: :first).click
+  within "#lines" do
+    @linegroup = find("[data-selected-lines-container]", match: :first)
+    @linegroup.all(".line").each do |line|
+      line.find("input[type=checkbox][data-select-line]", match: :first).click
+    end
   end
 end
 
@@ -32,11 +33,13 @@ Then /^the count matches the amount of selected lines$/ do
 end
 
 When /^I select the linegroup$/ do
-  @linegroup = find("#lines [data-selected-lines-container]", match: :first)
-  x = @linegroup.find("input[type=checkbox][data-select-lines]")
-  expect(x.checked?).to be false
-  x.click
-  expect(x.checked?).to be true
+  within "#lines" do
+    @linegroup = find("[data-selected-lines-container]", match: :first)
+    x = @linegroup.find("input[type=checkbox][data-select-lines]")
+    expect(x.checked?).to be false
+    x.click
+    expect(x.checked?).to be true
+  end
 end
 
 Then /^all lines of that linegroup are selected$/ do

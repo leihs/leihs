@@ -176,14 +176,15 @@ end
 
 # this test is specifically for the 'New Item' page
 Then /^the item should( only)? be assignable to the '([^']*)' departement$/ do |only,name|
-  select = find("#item_inventory_pool_id")
-  options = select.all("option")
-  if only
-    expect(options.size).to eq 1
-  else
-    expect(options.size).to be > 1
+  within "#item_inventory_pool_id" do
+    options = all("option")
+    if only
+      expect(options.size).to eq 1
+    else
+      expect(options.size).to be > 1
+    end
+    expect(options.detect { |option| option.text == name }).not_to be nil
   end
-  expect(options.detect { |option| option.text == name }).not_to be nil
 end
 
 # Customers

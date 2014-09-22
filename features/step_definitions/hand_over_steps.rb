@@ -133,11 +133,11 @@ end
 # More full-stack-ish tests from here
 
 Then /^I choose "([^"]*)" for the order by "([^"]*)"$/ do |button, person|
-  all("#list_table tr").each do |row|
-    if row.text =~ /#{person.to_s}/
-      row.find("td.buttons", match: :first).find('a', :text => /.*#{button}.*/i).click
+  within "#list_table" do
+    all("tr").each do |row|
+      if row.text =~ /#{person.to_s}/
+        row.find("td.buttons", match: :first).find('a', :text => /.*#{button}.*/i).click
+      end
     end
   end
-#   debugger
-#   puts "flarp"
-end  
+end

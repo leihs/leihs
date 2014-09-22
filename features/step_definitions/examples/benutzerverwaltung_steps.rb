@@ -144,7 +144,7 @@ Angenommen /^ein (.*?)Benutzer (mit zugeteilter|ohne zugeteilte) Rolle erscheint
       user.access_rights.active.delete_all
       expect(user.access_rights.active.empty?).to be true
   end
-  find("#list-search").set user.to_s # this step is needed for CI in order show a line entry which would otherwise be in a non displayed scrollable page
+  step %Q(ich nach "%s" suche) % user.to_s # this step is needed for CI in order show a line entry which would otherwise be in a non displayed scrollable page
   @el = find("#user-list .line", text: user.to_s)
 end
 
@@ -216,8 +216,7 @@ end
 Dann /^man kann die vorgenommenen Änderungen abspeichern$/ do
   find(".content_navigation > button.green").click
   if @customer.authentication_system.class_name == "DatabaseAuthentication"
-    sleep(0.33)
-    @customer.reload
+      @customer.reload
     @attrs.each do |attr|
       expect(@customer.send(attr)).to match /^#{attr}/
     end
@@ -483,13 +482,10 @@ end
 
 Dann(/^speichert den Benutzer$/) do
   find(".button", :text => _("Save %s") % _("User")).click
-  sleep(0.33)
   step "man sieht eine Bestätigungsmeldung"
-  sleep(0.33)
 end
 
 Dann(/^ist die Gruppenzugehörigkeit gespeichert$/) do
-  sleep(0.33)
   @groups_removed.each do |group|
     expect(@customer.reload.groups.include?(group)).to be false
   end
@@ -592,7 +588,6 @@ Dann(/^wird man auf die Benutzerliste ausserhalb der Inventarpools umgeleitet$/)
 end
 
 Dann(/^der neue Benutzer wurde erstellt$/) do
-  sleep(0.33)
   @user = User.find_by_firstname_and_lastname "test", "admin"
 end
 
@@ -711,7 +706,7 @@ end
 
 Wenn(/^ich diesen Benutzer aus der Liste lösche$/) do
   @user ||= @users.sample
-  find("#list-search").set @user.to_s
+  step %Q(ich nach "%s" suche) % @user.to_s
   within("#user-list .line", text: @user.name) do
     find(".multibutton .dropdown-toggle").click
     find(".multibutton .dropdown-toggle").click
@@ -748,7 +743,7 @@ end
 
 Dann(/^wird der Delete Button für diese Benutzer nicht angezeigt$/) do
   @users.each do |user|
-    find("#list-search").set user.name
+    step %Q(ich nach "%s" suche) % user.name
     within("#user-list .line", text: user.name) do
       find(".multibutton .dropdown-toggle").click
       expect(has_no_selector?(".multibutton .dropdown-item.red", text: _("Delete"))).to be true

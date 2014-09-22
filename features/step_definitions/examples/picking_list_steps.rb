@@ -2,7 +2,9 @@
 
 Given(/^I open (a|the) picking list( for a signed contract)?$/) do |arg1, arg2|
   if @hand_over and arg1 == "the"
-    @selected_lines = @current_inventory_pool.contract_lines.find all("#lines .line input[type='checkbox'][checked='checked']").map {|x| x.find(:xpath, "./../../../../..")["data-id"] }
+    within "#lines" do
+      @selected_lines = @current_inventory_pool.contract_lines.find all(".line input[type='checkbox'][checked='checked']").map {|x| x.find(:xpath, "./../../../../..")["data-id"] }
+    end
     step "I can open the picking list"
     click_button _("Picking List")
     page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
@@ -22,9 +24,11 @@ Given(/^I open (a|the) picking list( for a signed contract)?$/) do |arg1, arg2|
 end
 
 Then(/^I can open the picking list of any (order|contract) line$/) do |arg1|
-  within all("#contracts .line").sample do
-    find(".line-actions .multibutton .dropdown-holder").click
-    find("a.dropdown-item[target='_blank']", text: _("Picking List"))
+  within "#contracts" do
+    within all(".line").sample do
+      find(".line-actions .multibutton .dropdown-holder").click
+      find("a.dropdown-item[target='_blank']", text: _("Picking List"))
+    end
   end
 end
 

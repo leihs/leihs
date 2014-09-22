@@ -156,7 +156,7 @@ end
 
 Dann(/^sind die bereits hinzugefügten Benutzer alphabetisch sortiert$/) do
   within("#users") do
-    expect(all(".list-of-lines .line").size).to be > 0
+    find(".list-of-lines .line", match: :first)
     entries = all(".list-of-lines .line")
     expect(entries.map(&:text).sort).to eq entries.map(&:text)
   end
@@ -164,7 +164,7 @@ end
 
 Dann(/^sind die bereits hinzugefügten Modelle alphabetisch sortiert$/) do
   within("#models-allocations") do
-    expect(all(".list-of-lines .line").size).to be > 0
+    find(".list-of-lines .line", match: :first)
     entries = all(".list-of-lines .line")
     expect(entries.map(&:text).sort).to eq entries.map(&:text)
   end

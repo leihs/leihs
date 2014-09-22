@@ -1,16 +1,17 @@
 Then /^I can navigate all navigation items and nested tabs$/ do
-  texts = all("#navigation .item a").map{|x| x.text}
+  texts = find("#daily-view nav", match: :first).all("ul li a").map{|x| x.text}
   texts.shift
   texts.each do |text|
     find_link(text).click
-    expect(has_selector?(".inlinetabs .tab")).to be true
-    tab_texts = all(".inlinetabs .tab").map{|x| x.text}
-    tab_texts.each do |tab_text|
-      find(".tab", :text => tab_text, :match => :prefer_exact).click
-      find(".inlinetabs .tab.active").text[tab_text].should be
+    within "#list-tabs" do
+      expect(has_selector?(".inline-tab-item")).to be true
+      tab_texts = all(".inline-tab-item").map{|x| x.text}
+      tab_texts.each do |tab_text|
+        find(".inline-tab-item", :text => tab_text, :match => :prefer_exact).click
+        expect(find(".inline-tab-item.active").text[tab_text]).to be
+      end
     end
   end
-  sleep(0.33)
 end
 
 When(/^I click on the inventory pool selection toggler(?: again)?$/) do

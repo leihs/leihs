@@ -28,8 +28,9 @@ Wenn(/^ich über eine Hauptkategorie mit Kindern fahre$/) do
     borrowable_children = (Category.with_borrowable_models_for_user(@current_user) & c.children)
     c.children.size != borrowable_children.size and borrowable_children.size > 0
   end
-  page.execute_script %Q{$('*[data-category_id] .padding-inset-s:contains("#{@main_category.name}")').trigger('mouseenter')}
-  page.execute_script %Q{$('*[data-category_id] .padding-inset-s:contains("#{@main_category.name}")').closest('*[data-category_id]').find('.dropdown').show()}
+  within("[data-category_id]", text: @main_category.name) do
+    find(".dropdown-holder").hover
+  end
 end
 
 Dann(/^sehe ich nur die Kinder dieser Hauptkategorie, die dem User zur Verfügung stehende Gegenstände enthalten$/) do

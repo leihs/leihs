@@ -29,7 +29,9 @@ Dann(/^sieht man alle unterschriebenen und geschlossenen Veträge des Benutzers$
 end
 
 Dann(/^der Name des Benutzers ist in jeder Vertragslinie angezeigt$/) do
-  all("#contracts .line").each {|el| el.text.include? @user.name }
+  within "#contracts" do
+    all(".line").each {|el| el.text.include? @user.name }
+  end
 end
 
 Dann(/^die Personalien des Benutzers werden im Tooltip angezeigt$/) do

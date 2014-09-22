@@ -40,14 +40,12 @@ Wenn(/^man versucht ein Modell zur Bestellung hinzufügen, welches nicht verfüg
   step "ich setze das Startdatum im Kalendar auf '%s'" % I18n.l(inventory_pool.next_open_date(start_date))
   step "ich setze das Enddatum im Kalendar auf '%s'" % I18n.l(inventory_pool.next_open_date(end_date))
   step "ich setze die Anzahl im Kalendar auf #{@quantity}"
-  sleep(0.33)
   find("#submit-booking-calendar").click
 end
 
 Wenn(/^ich setze die Anzahl im Kalendar auf (\d+)$/) do |quantity|
   find("#booking-calendar-quantity")
   find(".fc-widget-content", match: :first)
-  sleep(0.33)
   find("#booking-calendar-quantity").set quantity
 end
 
@@ -78,21 +76,25 @@ Wenn(/^man einen Gegenstand aus der Modellliste hinzufügt$/) do
 end
 
 Dann(/^der Kalender beinhaltet die folgenden Komponenten$/) do |table|
-  find ".headline-m", text: @model_name
-  find ".fc-header-title", text: I18n.l(Date.today, format: "%B %Y")
-  find "#booking-calendar"
-  find "#booking-calendar-inventory-pool"
-  find "#booking-calendar-start-date"
-  find "#booking-calendar-end-date"
-  find "#booking-calendar-quantity"
-  find "#submit-booking-calendar"
-  find ".modal-close", text: _("Cancel")
+  within ".modal[role='dialog']" do
+    find ".headline-m", text: @model_name
+    find ".fc-header-title", text: I18n.l(Date.today, format: "%B %Y")
+    find "#booking-calendar"
+    find "#booking-calendar-inventory-pool"
+    find "#booking-calendar-start-date"
+    find "#booking-calendar-end-date"
+    find "#booking-calendar-quantity"
+    find "#submit-booking-calendar"
+    find ".modal-close", text: _("Cancel")
+  end
 end
 
 Wenn(/^alle Angaben die ich im Kalender mache gültig sind$/) do
   @quantity = 1
-  expect(has_selector?("#booking-calendar-inventory-pool option")).to be true
-  @inventory_pool = InventoryPool.find all("#booking-calendar-inventory-pool option").detect{|o| o.selected?}["data-id"]
+  within "#booking-calendar-inventory-pool" do
+    expect(has_selector?("option")).to be true
+    @inventory_pool = InventoryPool.find all("option").detect{|o| o.selected?}["data-id"]
+  end
   step "ich setze die Anzahl im Kalendar auf #{@quantity}"
   @start_date = @end_date = @inventory_pool.next_open_date
   step "ich setze das Startdatum im Kalendar auf '#{I18n::l(@start_date)}'"
@@ -102,8 +104,10 @@ Wenn(/^alle Angaben die ich im Kalender mache gültig sind$/) do
 end
 
 Dann(/^ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügt worden$/) do
-  find("#current-order-lines .line", match: :first)
-  find("#current-order-lines .line", :text => "#{@quantity}x #{@model.name}")
+  within "#current-order-lines" do
+    find(".line", match: :first)
+    find(".line", :text => "#{@quantity}x #{@model.name}")
+  end
   expect(@current_user.contracts.unsubmitted.flat_map(&:lines).detect{|line| line.model == @model}).not_to be nil
 end
 
@@ -112,26 +116,34 @@ Dann(/^lässt sich das Modell mit Start\- und Enddatum, Anzahl und Gerätepark d
 end
 
 Dann(/^das aktuelle Startdatum ist heute$/) do
-  expect(find("#booking-calendar-start-date").value).to eq I18n.l(Date.today)
+  within ".modal[role='dialog']" do
+    expect(find("#booking-calendar-start-date").value).to eq I18n.l(Date.today)
+  end
 end
 
 Dann(/^das Enddatum ist morgen$/) do
-  expect(find("#booking-calendar-end-date").value).to eq I18n.l(Date.tomorrow)
+  within ".modal[role='dialog']" do
+    expect(find("#booking-calendar-end-date").value).to eq I18n.l(Date.today + 1.day) # FIXME Date.tomorrow is returning same as Date.today
+  end
 end
 
 Dann(/^die Anzahl ist 1$/) do
-  expect(find("#booking-calendar-quantity").value).to eq 1.to_s
+  within ".modal[role='dialog']" do
+    find("#booking-calendar-quantity[value='1']")
+  end
 end
 
 Dann(/^es sind alle Geräteparks angezeigt die Gegenstände von dem Modell haben$/) do
-  ips = @current_user.inventory_pools.select do |ip|
-    @model.total_borrowable_items_for_user(@current_user, ip)
-  end
+  within "#booking-calendar-inventory-pool" do
+    ips = @current_user.inventory_pools.select do |ip|
+      @model.total_borrowable_items_for_user(@current_user, ip)
+    end
 
-  ips_in_dropdown = all("#order-inventory_pool option").map(&:text)
+    ips_in_dropdown = all("option").map(&:text)
 
-  ips.each do |ip|
-    ips_in_dropdown.include?(ip.name + " (#{@model.total_borrowable_items_for_user(@current_user, ip)})")
+    ips.each do |ip|
+      ips_in_dropdown.include?(ip.name + " (#{@model.total_borrowable_items_for_user(@current_user, ip)})")
+    end
   end
 end
 
@@ -243,8 +255,10 @@ Dann(/^wird der Kalender gemäss aktuell gewähltem Monat angezeigt$/) do
 end
 
 Dann(/^werden die Schliesstage gemäss gewähltem Gerätepark angezeigt$/) do
-  expect(has_selector?("#booking-calendar-inventory-pool option")).to be true
-  @inventory_pool = InventoryPool.find all("#booking-calendar-inventory-pool option").detect{|o| o.selected?}["data-id"]
+  within "#booking-calendar-inventory-pool" do
+    expect(has_selector?("option")).to be true
+    @inventory_pool = InventoryPool.find all("option").detect{|o| o.selected?}["data-id"]
+  end
   @holiday = @inventory_pool.holidays.first
   holiday_not_found = all(".fc-day-content", :text => @holiday.name).empty?
   while holiday_not_found do
@@ -275,27 +289,37 @@ end
 
 Dann(/^sind nur diejenigen Geräteparks auswählbar, welche über Kapizäteten für das ausgewählte Modell verfügen$/) do
   @inventory_pools = @model.inventory_pools.reject {|ip| @model.total_borrowable_items_for_user(@current_user, ip) <= 0 }
-  all("#booking-calendar-inventory-pool option").each do |option|
-    expect(@inventory_pools.include?(InventoryPool.find(option["data-id"]))).to be true
+  within "#booking-calendar-inventory-pool" do
+    all("option").each do |option|
+      expect(@inventory_pools.include?(InventoryPool.find(option["data-id"]))).to be true
+    end
   end
 end
 
 Dann(/^die Geräteparks sind alphabetisch sortiert$/) do
-  expect(has_selector?("#booking-calendar-inventory-pool option")).to be true
-  expect(all("#booking-calendar-inventory-pool option").map(&:text)).to eq all("#booking-calendar-inventory-pool option").map(&:text).sort
+  within "#booking-calendar-inventory-pool" do
+    expect(has_selector?("option")).to be true
+    texts = all("option").map(&:text)
+    expect(texts).to eq texts.sort
+  end
 end
 
 Dann(/^wird die maximal ausleihbare Anzahl des ausgewählten Modells angezeigt$/) do
-  all("#booking-calendar-inventory-pool option").each do |option|
-    inventory_pool = InventoryPool.find(option["data-id"])
-    option.text[/#{@model.total_borrowable_items_for_user(@current_user, inventory_pool)}/].should be
+  within "#booking-calendar-inventory-pool" do
+    all("option").each do |option|
+      inventory_pool = InventoryPool.find(option["data-id"])
+      expect(option.text[/#{@model.total_borrowable_items_for_user(@current_user, inventory_pool)}/]).to be
+    end
   end
 end
 
 Dann(/^man kann maximal die maximal ausleihbare Anzahl eingeben$/) do
-  expect(has_selector?("#booking-calendar-inventory-pool option")).to be true
-  inventory_pool = InventoryPool.find(all("#booking-calendar-inventory-pool option").detect{|o| o.selected?}["data-id"])
-  max_quantity = @model.total_borrowable_items_for_user(@current_user, inventory_pool)
+  max_quantity = 0
+  within "#booking-calendar-inventory-pool" do
+    expect(has_selector?("option")).to be true
+    inventory_pool = InventoryPool.find(all("option").detect{|o| o.selected?}["data-id"])
+    max_quantity = @model.total_borrowable_items_for_user(@current_user, inventory_pool)
+  end
   find("#booking-calendar-quantity").set (max_quantity+1).to_s
   expect(find("#booking-calendar-quantity").value).to eq (max_quantity).to_s
 end
@@ -311,7 +335,7 @@ Wenn(/^man den zweiten Gerätepark in der Geräteparkauswahl auswählt$/) do
 end
 
 Angenommen(/^man die Geräteparks begrenzt$/) do
-  inventory_pool_ids = all("#ip-selector .dropdown-item[data-id]", :visible => false).map{|i| i[:"data-id"]}
+  inventory_pool_ids = find("#ip-selector").all(".dropdown-item[data-id]", :visible => false).map{|i| i[:"data-id"]}
   find("#ip-selector").click
   find(:xpath, "(//*[@id='ip-selector']//input)[1]", :visible => true).click
   inventory_pool_ids.shift
