@@ -94,7 +94,7 @@ puts `bundle exec cucumber -p #{profile}`
 
 # Rerun for failures, up to n times
 
-if $?.exit_status != 0
+if $?.exitstatus != 0
   rerun(4)
 else
   die(0, "All went well on the very first run.")
