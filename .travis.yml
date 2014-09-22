@@ -14,4 +14,4 @@ before_install:
   - "sudo apt-get update"
   - "sudo apt-get install imagemagick wget memcached phantomjs openjdk-7-jre"
 bundler_args: --without development
-script: "./script/run_tests.rb nojs"
+script: "bundle exec script/run_tests.rb nojs"
