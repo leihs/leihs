@@ -393,7 +393,6 @@ def check_printed_contract(window_handles, ip = nil, contract = nil)
     find(".contract")
     expect(current_path).to eq manage_contract_path(ip, contract) if ip and contract
     expect(page.evaluate_script("window.printed")).to eq 1
-    page.evaluate_script("window.close()")
   end
 end
 
