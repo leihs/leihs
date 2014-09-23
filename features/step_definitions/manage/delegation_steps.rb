@@ -277,7 +277,7 @@ Wenn(/^ich statt einer Delegation einen Benutzer wähle$/) do
   @delegation = @contract.user
   @delegated_user = @contract.delegated_user
   @new_user = @current_inventory_pool.users.not_as_delegations.sample
-  expect(has_selector?("input[data-select-lines]", match: :first)).to be true
+  has_selector?("input[data-select-lines]", match: :first)
   all("input[data-select-lines]").each_with_index do |line, i|
     el = all("input[data-select-lines]")[i]
     el.click unless el.checked?
