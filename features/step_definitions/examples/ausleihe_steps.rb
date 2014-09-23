@@ -386,11 +386,14 @@ end
 
 def check_printed_contract(window_handles, ip = nil, contract = nil)
   while (page.driver.browser.window_handles - window_handles).empty? do end
-  new_window = (page.driver.browser.window_handles - window_handles).first
-  page.within_window new_window do
+  new_window = page.windows.find {|window|
+    window if window.handle == (page.driver.browser.window_handles - window_handles).first
+  }
+  within_window new_window do
     find(".contract")
     expect(current_path).to eq manage_contract_path(ip, contract) if ip and contract
     expect(page.evaluate_script("window.printed")).to eq 1
+    page.evaluate_script("window.close()")
   end
 end
 
