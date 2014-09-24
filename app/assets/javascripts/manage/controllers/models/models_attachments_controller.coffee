@@ -1,4 +1,5 @@
-#= require ./upload_controller
+#= require ../shared/upload_controller
+
 class window.App.ModelsAttachmentsController extends App.UploadController
 
   constructor: ->

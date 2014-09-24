@@ -1,4 +1,5 @@
-#= require ./add_inline_entry_controller.coffee
+#= require ../shared/add_inline_entry_controller.coffee
+
 class window.App.ModelsCategoriesController extends App.AddInlineEntryController
 
   constructor: ->
