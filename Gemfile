@@ -39,7 +39,7 @@ gem 'metric_fu', group: :development
 gem 'mini_magick', '~> 3.4'
 gem 'mysql2', '~> 0.3.11', platform: :mri
 gem 'net-ldap', require: 'net/ldap'
-gem 'newrelic_rpm', '~> 3.5'
+gem 'newrelic_rpm', '~> 3.5', :groups => [:development, :production]
 gem 'nilify_blanks', '~> 1.1'
 gem 'open4', :group => :test
 gem 'paperclip', '~> 3.5' # NOTE in order to upgrate to '~> 4.0', first adapt the code to avoid the Paperclip::Errors::MissingRequiredValidatorError
