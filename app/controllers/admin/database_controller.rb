@@ -99,6 +99,15 @@ class Admin::DatabaseController < Admin::ApplicationController
   end
 
   def empty_columns
+    if request.delete?
+      only_tables_no_views = @connection.execute("SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'").to_h.keys
+      only_tables_no_views.each do |table_name|
+        @connection.columns(table_name).select{|c| c.type == :string and c.null }.each do |column|
+          @connection.execute %Q(UPDATE `#{table_name}` SET `#{column.name}` = NULL WHERE `#{column.name}` REGEXP '^\ *$')
+        end
+      end
+    end
+
     @empty_columns = {}
     @connection.tables.each do |table_name|
       @connection.columns(table_name).select { |c| c.type == :string and c.null }.each do |column|
