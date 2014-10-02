@@ -42,7 +42,7 @@ Leihs::Application.routes.draw do
 
     # Database Check
     get "database/indexes", to: "database#indexes"
-    get "database/empty_columns", to: "database#empty_columns"
+    match "database/empty_columns", to: "database#empty_columns", as: "empty_columns", via: [:get, :delete]
     match "database/consistency", to: "database#consistency", as: "consistency", via: [:get, :delete]
 
     # Test report

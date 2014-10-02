@@ -181,15 +181,19 @@ Wenn(/^es ist pro Modell genau einer Linie ein Gegenstand zugewiesen$/) do
 end
 
 Wenn(/^ich mehrere Linien von der Aushändigung auswähle$/) do
-  expect(has_selector?("#lines .line input[type='checkbox']")).to be true
-  @number_of_selected_lines = all("#lines .line input[type='checkbox']").size
-  @lines.map(&:id).each {|id| find("#lines .line[data-id='#{id}'] input[type='checkbox']").click }
+  within "#lines" do
+    expect(has_selector?(".line input[type='checkbox']")).to be true
+    @number_of_selected_lines = all(".line input[type='checkbox']").size
+    @lines.map(&:id).each {|id| find(".line[data-id='#{id}'] input[type='checkbox']").click }
+  end
 end
 
 Wenn(/^ich mehrere Linien von der Bestellung auswähle$/) do
-  expect(has_selector?("#lines .emboss .row input[type='checkbox']")).to be true
-  @number_of_selected_lines = @order.lines.size
-  all("#lines .emboss .row input[type='checkbox']").each {|i| i.click unless i.checked? }
+  within "#lines" do
+    expect(has_selector?(".emboss .row input[type='checkbox']")).to be true
+    @number_of_selected_lines = @order.lines.size
+    all(".emboss .row input[type='checkbox']").each {|i| i.click unless i.checked? }
+  end
 end
 
 Wenn(/^das Werteverzeichniss öffne$/) do

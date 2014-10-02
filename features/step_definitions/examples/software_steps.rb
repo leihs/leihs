@@ -434,7 +434,6 @@ When(/^I search (in inventory )?after one of those (.*)?properties$/) do |arg1, 
       end
   search_field.set s
   search_field.native.send_key :return
-  sleep(0.33)
 end
 
 When(/^I search (in inventory )?after following properties$/) do |arg1, table|
@@ -446,7 +445,6 @@ When(/^I search (in inventory )?after following properties$/) do |arg1, table|
   s = table.raw.flatten.sample
   search_field.set s
   search_field.native.send_key :return
-  sleep(0.33)
 end
 
 Then(/^they appear all matched (.*)$/) do |arg1|
@@ -512,7 +510,6 @@ When(/^I search after the name of that person$/) do
   search_field = find("#topbar-search input#search_term")
   search_field.set @contract_with_software_license.user.name
   search_field.native.send_key :return
-  sleep(0.33)
 end
 
 Then(/^it appears the contract of this person in the search results$/) do
@@ -536,7 +533,6 @@ When(/^I see these in my search result$/) do
   search_field = find("#topbar-search input#search_term")
   search_field.set @model.name
   search_field.native.send_key :return
-  sleep(0.33)
 end
 
 Then(/^I can select to list only software products$/) do

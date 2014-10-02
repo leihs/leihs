@@ -22,8 +22,10 @@ Dann(/^erscheint es im Bestellfensterchen$/) do
 end
 
 Dann(/^die Modelle im Bestellfensterchen sind alphabetisch sortiert$/) do
-  @names = all("#current-order-basket #current-order-lines .line").map{|l| l[:title] }
-  expect(@names.sort == @names).to be true
+  within "#current-order-basket #current-order-lines" do
+    @names = all(".line").map{|l| l[:title] }
+    expect(@names.sort == @names).to be true
+  end
 end
 
 Dann(/^gleiche Modelle werden zusammengefasst$/) do
@@ -38,8 +40,10 @@ Wenn(/^das gleiche Modell nochmals hinzugefügt wird$/) do
 end
 
 Dann(/^wird die Anzahl dieses Modells erhöht$/) do
-  line = find("#current-order-basket #current-order-lines .line[title='#{@new_contract_line.model.name}']", match: :first)
-  line.find("span", match: :first, text: "2x #{@new_contract_line.model.name}")
+  within "#current-order-basket #current-order-lines" do
+    line = find(".line[title='#{@new_contract_line.model.name}']", match: :first)
+    line.find("span", match: :first, text: "2x #{@new_contract_line.model.name}")
+  end
 end
 
 Dann(/^ich kann zur detaillierten Bestellübersicht gelangen$/) do
@@ -65,13 +69,12 @@ Angenommen(/^meine Bestellung ist leer$/) do
 end
 
 Dann(/^sehe ich keine Zeitanzeige$/) do
-  expect(all("#current-order-basket #timeout-countdown", :visible => true).empty?).to be true
+  expect(has_no_selector?("#current-order-basket #timeout-countdown")).to be true
 end
 
 Dann(/^sehe ich die Zeitanzeige$/) do
   visit root_path
   expect(has_selector?("#current-order-basket #timeout-countdown", :visible => true)).to be true
-  sleep(0.33)
   @timeoutStart = if @current_user.contracts.unsubmitted.empty?
                     Time.now
                   else
@@ -88,9 +91,9 @@ Dann(/^die Zeitanzeige zählt von (\d+) Minuten herunter$/) do |timeout_minutes|
   @countdown = find("#timeout-countdown-time", match: :first).text
   minutes = @countdown.split(":")[0].to_i
   seconds = @countdown.split(":")[1].to_i
-  expect(minutes >= (Contract::TIMEOUT_MINUTES - 1)).to be true
-  sleep(0.66)
-  expect(seconds > find("#timeout-countdown-time", match: :first).reload.text.split(":")[1].to_i).to be true
+  sleep(1) # NOTE this sleep is required in order to test the countdown
+  expect(Contract::TIMEOUT_MINUTES - 1).to be <= minutes
+  expect(find("#timeout-countdown-time", match: :first).reload.text.split(":")[1].to_i).to be < seconds
 end
 
 Angenommen(/^die Bestellung ist nicht leer$/) do
@@ -104,16 +107,15 @@ end
 
 Dann(/^wird die Zeit zurückgesetzt$/) do
   seconds = @countdown.split(":")[1].to_i
-  sleep(0.33)
   secondsNow = find("#timeout-countdown-time", match: :first).reload.text.split(":")[1].to_i
-  expect(seconds <= secondsNow).to be true
+  expect(secondsNow).to be >= seconds
 end
 
 Wenn(/^die Zeit abgelaufen ist$/) do
   Contract::TIMEOUT_MINUTES = 1
   step 'ich ein Modell der Bestellung hinzufüge'
   step 'sehe ich die Zeitanzeige'
-  sleep(70)
+  sleep(70) # NOTE this sleep is required to test the timeout
 end
 
 Dann(/^werde ich auf die Timeout Page weitergeleitet$/) do
@@ -127,5 +129,4 @@ Wenn(/^die Zeit überschritten ist$/) do
     contract.update_attribute :updated_at, past_date
   end
   page.execute_script %Q{ localStorage.currentTimeout = moment("#{past_date.to_s}").toDate() }
-  sleep(0.33) # fix lazy request problem
 end

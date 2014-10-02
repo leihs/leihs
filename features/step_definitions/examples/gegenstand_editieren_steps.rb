@@ -66,16 +66,14 @@ end
 
 Dann(/^ist der Gegenstand mit all den angegebenen Informationen gespeichert$/) do
   find(:select, "retired").first("option").select_option if @table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" } and (@table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" }["Wert"]) == "Ja"
-  find("#list-search").set (@table_hashes.detect { |r| r["Feldname"] == "Inventarcode" }["Wert"])
+  step %Q(ich nach "%s" suche) %  (@table_hashes.detect { |r| r["Feldname"] == "Inventarcode" }["Wert"])
   find(".line", :text => @table_hashes.detect { |r| r["Feldname"] == "Modell" }["Wert"], :visible => true)
   step "man befindet sich auf der Editierseite von diesem Gegenstand"
   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
-  sleep(0.33) # fix lazy request problem
 end
 
 Wenn(/^ich den Lieferanten lösche$/) do
   find(".row.emboss", match: :prefer_exact, text: _("Supplier")).find("input").set ""
-  page.execute_script %Q{ $("[data-autocomplete_extended_key_target='item[supplier][name]']").trigger('change') }
 end
 
 Dann(/^wird der neue Lieferant gelöscht$/) do

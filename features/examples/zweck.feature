@@ -15,7 +15,7 @@ Funktionalität: Zweck
      Und jeder Eintrag einer abgeschickten Bestellung referenziert auf einen Zweck
      Und jeder Eintrag eines Vertrages kann auf einen Zweck referenzieren
 
-  @javascript @personas
+  @javascript @personas @browser
   Szenario: Orte, an denen ich den Zweck sehe
     Wenn ich eine Bestellung editiere
     Dann sehe ich den Zweck

@@ -18,7 +18,7 @@ Wenn /^ich versuche, die Gegenstände auszuhändigen$/ do
 end
 
 Wenn /^ich eine Aushändigung mache$/ do
-  step 'I open a hand over which has multiple unassigned lines and models in stock'
+  step 'I open a hand over'
 end
 
 Dann /^findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"$/ do

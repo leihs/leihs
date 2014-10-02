@@ -89,7 +89,7 @@ end
 
 Wenn /^man einen Gegenstand kopiert$/ do
   @item = Item.where(inventory_pool_id: @current_inventory_pool).detect {|i| not i.retired? and not i.serial_number.nil? and not i.name.nil?}
-  find("#list-search").set @item.model.name
+  step %Q(ich nach "%s" suche) % @item.model.name
   step "expand the corresponding model"
   within(".line[data-type='item'][data-id='#{@item.id}']", text: @item.inventory_code) do
     find(".dropdown-holder").click
@@ -106,7 +106,7 @@ Wenn /^ich mich in der Editieransicht einer (Gegenstand|Sofware-Lizenz) befinde$
                    end
 
   @item = @current_inventory_pool.items.send(s0).where(retired: nil).sample
-  find("#list-search").set @item.model.name
+  step %Q(ich nach "%s" suche) % @item.model.name
   within(".line[data-type='#{s1}']", match: :prefer_exact, text: @item.model.name) do
     find("[data-type='inventory-expander']").click
   end

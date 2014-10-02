@@ -68,11 +68,13 @@ def before_max_available(user)
 end
 
 Wenn(/^ich einen Eintrag lösche$/) do
-  line = find(".line", :match => :first)
+  line = find(".line", match: :first)
+  line_ids = line["data-line-ids"]
   line.find(".dropdown-holder").click
   @before_max_available = before_max_available(@current_user)
   line.find("a[data-method='delete']").click
   step "werde ich gefragt ob ich die Bestellung wirklich löschen möchte"
+  expect(has_no_selector?(".line[data-line-ids='#{line_ids}']")).to be true
 end
 
 Dann(/^wird der Eintrag aus der Bestellung entfernt$/) do
@@ -94,7 +96,6 @@ end
 Dann(/^werde ich gefragt ob ich die Bestellung wirklich löschen möchte$/) do
   alert = page.driver.browser.switch_to.alert
   alert.accept
-  sleep(0.33)
 end
 
 Dann(/^alle Einträge werden aus der Bestellung gelöscht$/) do
@@ -105,12 +106,6 @@ end
 Dann(/^die Gegenstände sind wieder zur Ausleihe verfügbar$/) do
   @current_user.contracts.unsubmitted.flat_map(&:lines).each do |contract_line|
     after_max_available = contract_line.model.availability_in(contract_line.contract.inventory_pool).maximum_available_in_period_summed_for_groups(contract_line.start_date, contract_line.end_date)
-    # NOTE is this still needed ??
-    #after_max_available.should == if OrderLine.find_by_id(contract_line.id).nil?
-    #                                @before_max_available[contract_line.id] + contract_line.quantity
-    #                              else
-    #                                @before_max_available[contract_line.id]
-    #                              end
     expect(after_max_available).to eq @before_max_available[contract_line.id]
   end
 end
@@ -197,7 +192,6 @@ Dann(/^speichere die Einstellungen$/) do
 end
 
 Dann(/^wird der Eintrag gemäss aktuellen Einstellungen geändert$/) do
-  sleep(0.33)
   find(".line", match: :first)
   find("[data-change-order-lines]", match: :first).click
   find("#booking-calendar .fc-widget-content", :match => :first)

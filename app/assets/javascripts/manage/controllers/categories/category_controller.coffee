@@ -1,4 +1,4 @@
-#= require ./form_with_upload_controller
+#= require ../shared/form_with_upload_controller
 
 class window.App.CategoryController extends App.FormWithUploadController
 

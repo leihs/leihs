@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/bradphelan/jasminerice.git
-  revision: 091349c27343bfa728b8e5745675f9ddbb7d9699
-  specs:
-    jasminerice (0.1.0)
-      coffee-rails
-
-GIT
   remote: https://github.com/spape/jsrender-rails.git
   revision: 952103bb94511e4ea06f6024f79d02a719430163
   branch: own_template_prefix
@@ -47,6 +40,8 @@ GEM
       activerecord (~> 4.0, >= 4.0.0)
     addressable (2.3.6)
     arel (4.0.2)
+    arrayfields (4.9.2)
+    awesome_print (1.2.0)
     barby (0.5.1)
     better_errors (2.0.0)
       coderay (>= 1.0.0)
@@ -60,6 +55,8 @@ GEM
       debugger-linecache (~> 1.2)
       slop (~> 3.6)
     callsite (0.0.11)
+    cane (2.6.2)
+      parallel
     capistrano (2.15.5)
       highline
       net-scp (>= 1.0.0)
@@ -79,15 +76,25 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    celluloid (0.16.0)
-      timers (~> 4.0.0)
     childprocess (0.5.3)
       ffi (~> 1.0, >= 1.0.11)
+    chronic (0.10.2)
     chunky_png (1.3.1)
+    churn (0.0.35)
+      chronic (>= 0.2.3)
+      hirb
+      json_pure
+      main
+      rest-client (>= 1.6.0)
+      ruby_parser (~> 3.0)
+      sexp_processor (~> 4.1)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.4)
       climate_control (>= 0.0.3, < 1.0)
+    code_analyzer (0.4.5)
+      sexp_processor
+    code_metrics (0.1.3)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -96,6 +103,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    colored (1.2)
     columnize (0.8.9)
     compass (0.12.7)
       chunky_png (~> 1.2)
@@ -121,6 +129,7 @@ GEM
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.2.1)
@@ -132,30 +141,24 @@ GEM
     faker (1.3.0)
       i18n (~> 0.5)
     fast_gettext (0.9.0)
+    fattr (2.2.2)
     ffi (1.9.3)
+    flay (2.5.0)
+      ruby_parser (~> 3.0)
+      sexp_processor (~> 4.0)
+    flog (4.3.0)
+      ruby_parser (~> 3.1, > 3.1.0)
+      sexp_processor (~> 4.4)
     font-awesome-rails (3.2.1.3)
       railties (>= 3.2, < 5.0)
     foreigner (1.6.1)
       activerecord (>= 3.0.0)
-    formatador (0.2.5)
     fssm (0.2.10)
     geocoder (1.2.5)
     gettext_i18n_rails (1.1.0)
       fast_gettext (>= 0.9.0)
     gherkin (2.12.2)
       multi_json (~> 1.3)
-    guard (2.6.1)
-      formatador (>= 0.2.4)
-      listen (~> 2.7)
-      lumberjack (~> 1.0)
-      pry (>= 0.9.12)
-      thor (>= 0.18.1)
-    guard-jasmine (1.19.2)
-      childprocess
-      guard (>= 2.0.0)
-      multi_json
-      thor
-      tilt
     haml (4.0.5)
       tilt
     haml_assets (0.2.2)
@@ -163,7 +166,7 @@ GEM
       tilt
     highline (1.6.21)
     hike (1.2.3)
-    hitimes (1.2.2)
+    hirb (0.7.2)
     i18n (0.6.11)
     jquery-rails (2.1.3)
       railties (>= 3.1.0, < 5.0)
@@ -171,24 +174,41 @@ GEM
     jquery-tmpl-rails (1.1.0)
       rails (>= 3.1.0)
     json (1.8.1)
+    json_pure (1.8.1)
     ladle (1.0.0)
       open4 (~> 1.0)
     launchy (2.4.2)
       addressable (~> 2.3)
     libv8 (3.16.14.7)
-    listen (2.7.9)
-      celluloid (>= 0.15.2)
-      rb-fsevent (>= 0.9.3)
-      rb-inotify (>= 0.9)
-    lumberjack (1.0.9)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    main (6.0.0)
+      arrayfields (>= 4.7.4)
+      chronic (>= 0.6.2)
+      fattr (>= 2.2.0)
+      map (>= 5.1.0)
+    map (6.5.5)
     meta_request (0.3.4)
       callsite (~> 0.0, >= 0.0.11)
       rack-contrib (~> 1.1)
       railties (>= 3.0.0, < 5.0.0)
     method_source (0.8.2)
+    metric_fu (4.11.1)
+      cane (~> 2.5, >= 2.5.2)
+      churn (~> 0.0.35)
+      code_metrics (~> 0.1)
+      coderay
+      flay (~> 2.1, >= 2.0.1)
+      flog (~> 4.1, >= 4.1.1)
+      launchy (~> 2.0)
+      metric_fu-Saikuro (~> 1.1, >= 1.1.3)
+      multi_json
+      rails_best_practices (~> 1.14, >= 1.14.3)
+      redcard
+      reek (~> 1.3, >= 1.3.4)
+      roodi (~> 3.1)
+    metric_fu-Saikuro (1.1.3)
     mime-types (1.25.1)
     mini_magick (3.8.1)
       subexec (~> 0.2.1)
@@ -205,6 +225,7 @@ GEM
     net-ssh (2.9.1)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
+    netrc (0.7.7)
     newrelic_rpm (3.9.4.245)
     nilify_blanks (1.1.0)
       activerecord (>= 3.0.0)
@@ -217,6 +238,7 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    parallel (1.3.2)
     phantomjs (1.9.7.1)
     polyglot (0.3.5)
     protected_attributes (1.0.8)
@@ -248,20 +270,40 @@ GEM
       sprockets-rails (~> 2.0)
     rails_autolink (1.1.6)
       rails (> 3.1)
+    rails_best_practices (1.15.4)
+      activesupport
+      awesome_print
+      code_analyzer (>= 0.4.3)
+      colored
+      erubis
+      i18n
+      json
+      require_all
+      ruby-progressbar
     railties (4.0.9)
       actionpack (= 4.0.9)
       activesupport (= 4.0.9)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    rainbow (2.0.0)
     rake (10.3.2)
-    rb-fsevent (0.9.4)
-    rb-inotify (0.9.5)
-      ffi (>= 0.5.0)
+    redcard (1.1.0)
     redcarpet (3.1.2)
+    reek (1.3.8)
+      rainbow (>= 1.99, < 3.0)
+      ruby2ruby (>= 2.0.8, < 3.0)
+      ruby_parser (~> 3.3)
+      sexp_processor
     ref (1.0.5)
+    require_all (1.3.2)
+    rest-client (1.7.2)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     rgl (0.4.0)
       rake
       stream (>= 0.5)
+    roodi (3.3.1)
+      ruby_parser (~> 3.2, >= 3.2.2)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
       rspec-expectations (~> 3.1.0)
@@ -282,6 +324,10 @@ GEM
       rspec-mocks (~> 3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.0)
+    ruby-progressbar (1.6.0)
+    ruby2ruby (2.1.2)
+      ruby_parser (~> 3.1)
+      sexp_processor (~> 4.0)
     ruby_parser (3.6.2)
       sexp_processor (~> 4.1)
     rubyzip (1.1.6)
@@ -297,6 +343,11 @@ GEM
       rubyzip (~> 1.0)
       websocket (~> 1.0)
     sexp_processor (4.4.4)
+    simplecov (0.9.0)
+      docile (~> 1.1.0)
+      multi_json
+      simplecov-html (~> 0.8.0)
+    simplecov-html (0.8.0)
     slop (3.6.0)
     sprockets (2.11.0)
       hike (~> 1.2)
@@ -320,8 +371,6 @@ GEM
     thread_safe (0.3.4)
     tilt (1.4.1)
     timecop (0.7.1)
-    timers (4.0.1)
-      hitimes
     treetop (1.4.15)
       polyglot
       polyglot
@@ -441,10 +490,8 @@ DEPENDENCIES
   foreigner (~> 1.6)
   geocoder (~> 1.1)
   gettext_i18n_rails (~> 1.0)
-  guard-jasmine (~> 1.19)
   haml (~> 4.0)
   haml_assets (~> 0.2)
-  jasminerice!
   jquery-rails (= 2.1.3)
   jquery-tmpl-rails (~> 1.1)
   jruby-openssl
@@ -453,11 +500,13 @@ DEPENDENCIES
   ladle
   launchy (~> 2.1)
   meta_request
+  metric_fu
   mini_magick (~> 3.4)
   mysql2 (~> 0.3.11)
   net-ldap
   newrelic_rpm (~> 3.5)
   nilify_blanks (~> 1.1)
+  open4
   paperclip (~> 3.5)
   phantomjs (~> 1.9.7)
   protected_attributes (~> 1.0)
@@ -476,6 +525,7 @@ DEPENDENCIES
   sass (~> 3.2)
   sass-rails (~> 4.0)
   selenium-webdriver
+  simplecov
   therubyracer
   therubyrhino
   thin

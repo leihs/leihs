@@ -117,7 +117,6 @@ Dann(/^die eingegebene Meldung für "(.*)" Bereich ist immer noch gespeichert$/)
   case arg1
     when "Verwalten"
       expect(@setting.reload.disable_manage_section_message).to eq @disable_message
-      sleep(0.33) # fix no default authentication system problem on CI
     when "Ausleihen"
       expect(@setting.reload.disable_borrow_section_message).to eq @disable_message
     else

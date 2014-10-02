@@ -42,25 +42,33 @@ Wenn(/^ich Modelle hinzufüge$/) do
 end
 
 Dann(/^steht bei jedem Modell die höchst mögliche ausleihbare Anzahl der Gegenstände für dieses Modell$/) do
-  all("#models .line").each do |line|
-    line.find("input[name='template[model_links_attributes][][quantity]']", text: /\/\s#{@changed_model.items.borrowable.size}/)
+  within "#models" do
+    all(".line").each do |line|
+      line.find("input[name='template[model_links_attributes][][quantity]']", text: /\/\s#{@changed_model.items.borrowable.size}/)
+    end
   end
 end
 
 Dann(/^für jedes hinzugefügte Modell ist die Mindestanzahl (\d+)$/) do |n|
-  all("#models .line").each do |line|
-    expect(line.find("input[name='template[model_links_attributes][][quantity]']").value).to eq n
+  within "#models" do
+    all(".line").each do |line|
+      expect(line.find("input[name='template[model_links_attributes][][quantity]']").value).to eq n
+    end
   end
 end
 
 Dann(/^für das hinzugefügte Modell ist die Mindestanzahl (\d+)$/) do |n|
-  expect(find("#models .line", match: :first, text: @additional_model.name).find("input[name='template[model_links_attributes][][quantity]']").value).to eq n
+  within "#models" do
+    expect(find(".line", match: :first, text: @additional_model.name).find("input[name='template[model_links_attributes][][quantity]']").value).to eq n
+  end
 end
 
 Wenn(/^ich zu jedem Modell die Anzahl angebe$/) do
   @new_value ||= 1
-  all("#models .line").each do |line|
-    line.find("input[name='template[model_links_attributes][][quantity]']").set @new_value
+  within "#models" do
+    all(".line").each do |line|
+      line.find("input[name='template[model_links_attributes][][quantity]']").set @new_value
+    end
   end
 end
 
@@ -109,17 +117,21 @@ Wenn(/^ich ein zusätzliches Modell hinzufüge$/) do
 end
 
 Wenn(/^ein Modell aus der Liste lösche$/) do
-  within all("#models .line").to_a.sample do
-    @changed_model = Model.find_by_name(find("[data-model-name]").text)
-    find(".button[data-remove]").click
+  within "#models" do
+    within all(".line").to_a.sample do
+      @changed_model = Model.find_by_name(find("[data-model-name]").text)
+      find(".button[data-remove]").click
+    end
   end
 end
 
 Wenn(/^die Anzahl bei einem der Modell ändere$/) do
-  within all("#models .line:not(.striked)").to_a.sample do
-    @changed_model = Model.find_by_name(find("[data-model-name]").text)
-    @new_value = find("input").value.to_i + 1
-    find("input").set @new_value
+  within "#models" do
+    within all(".line:not(.striked)").to_a.sample do
+      @changed_model = Model.find_by_name(find("[data-model-name]").text)
+      @new_value = find("input").value.to_i + 1
+      find("input").set @new_value
+    end
   end
 end
 
@@ -163,7 +175,9 @@ Wenn(/^ich den Namen einer bereits existierenden Vorlage eingebe$/) do
 end
 
 Wenn(/^kein Modell hinzugefügt habe$/) do
-  all("#models .line").each {|e| e.find(".button[data-remove]").click}
+  within "#models" do
+    all(".line").each {|e| e.find(".button[data-remove]").click}
+  end
 end
 
 Angenommen(/^ich befinde mich auf der Editieransicht einer Vorlage$/) do

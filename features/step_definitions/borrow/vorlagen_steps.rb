@@ -71,7 +71,7 @@ end
 
 When(/^sehe ich eine auffällige Warnung sowohl auf der Seite wie bei den betroffenen Modellen$/) do
   find(".emboss.red", match: :first, text: _("The highlighted entries are not accomplishable for the intended quantity."))
-  expect(all(".separated-top .row.line .line-info.red").size).to be > 0
+  find(".separated-top .row.line .line-info.red", match: :first)
 end
 
 Dann(/^kann ich Start\- und Enddatum einer potenziellen Bestellung angeben$/) do
@@ -112,7 +112,7 @@ end
 
 Angenommen(/^einige Modelle sind nicht verfügbar$/) do
   find(".emboss.red", match: :first, text: _("Please solve the conflicts for all highlighted lines in order to continue."))
-  expect(all(".separated-top .row.line .line-info.red").size).to be > 0
+  find(".separated-top .row.line .line-info.red", match: :first)
 end
 
 Dann(/^kann ich diejenigen Modelle, die verfügbar sind, gesamthaft einer Bestellung hinzufügen$/) do
@@ -145,7 +145,6 @@ Dann(/^ich kann Modelle aus der Ansicht entfernen$/) do
     end
     find(".red", text: _("Delete")).click
   end
-  sleep(0.33)
   page.driver.browser.switch_to.alert.accept rescue nil
 end
 

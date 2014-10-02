@@ -88,7 +88,6 @@ end
 
 Dann(/^diese(?:.?) (?:.*) ist nicht mehr ausgemustert$/) do
   expect(@item.reload.retired?).to be false
-  sleep(0.33) # fix lazy request problem
 end
 
 Wenn(/^die Anschaffungskategorie ist ausgewählt$/) do

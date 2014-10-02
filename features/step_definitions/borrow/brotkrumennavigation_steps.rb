@@ -25,8 +25,9 @@ Wenn(/^ich eine Kategorie der ersten stufe aus der Explorativen Suche wähle$/) 
 end
 
 Wenn(/^ich eine Unterkategorie wähle$/) do
-  page.execute_script %Q{$('*[data-category_id]').trigger('mouseenter')}
-  page.execute_script %Q{$('*[data-category_id]').closest('*[data-category_id]').find('.dropdown').show()}
+  within("[data-category_id]", match: :first) do
+    find(".dropdown-holder").hover
+  end
   @category_el = find("a.dropdown-item", match: :first)
   @category_name = @category_el.text
   @category = Category.find_by_name @category_name
@@ -50,8 +51,9 @@ Wenn(/^ich eine Hauptkategorie wähle$/) do
 end
 
 Dann(/^die Kategorie ist das zweite und letzte Element der Brotkrumennavigation$/) do
-  all("nav .navigation-tab-item")[1].text[@category.name].should be
-  expect(all("nav .navigation-tab-item").length).to eq 2
+  tabs = all("nav .navigation-tab-item")
+  expect(tabs[1].text[@category.name]).to be
+  expect(tabs.length).to eq 2
 end
 
 Wenn(/^ich ein Modell öffne$/) do
@@ -63,5 +65,5 @@ Dann(/^sehe ich den ganzen Weg den ich zum Modell beschritten habe$/) do
 end
 
 Dann(/^kein Element der Brotkrumennavigation ist aktiv$/) do
-  expect(all("nav .navigation-tab-item.active").length).to eq 0
+  expect(has_no_selector?("nav .navigation-tab-item.active")).to be true
 end

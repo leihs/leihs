@@ -117,7 +117,7 @@ Funktionalität: Ausleihe
     Dann kann ich wählen, ob ich alle Resultate sehen will
     Wenn ich alle Resultate wähle erhalte ich eine separate Liste aller Resultate dieser Kategorie
 
-  @javascript @personas
+  @javascript @personas @browser
   Szenario: Zusammenziehen der Anzahlen im Item-Popup
     Angenommen man fährt über die Anzahl von Gegenständen in einer Zeile
     Dann werden alle diese Gegenstände aufgelistet

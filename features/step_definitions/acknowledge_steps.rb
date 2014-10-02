@@ -61,7 +61,7 @@ When "$who selects '$model'" do |who, model|
 end
 
 Then /^(.*) see(s)? ([0-9]+) order(s?)$/ do | who, foo, size, s |
-  expect(page.all(".table-overview .fresh").count).to eq 1
+  find(".table-overview .fresh")
 end
 
 # NOTE this is not actually what he sees on the first page, but the total submitted contracts

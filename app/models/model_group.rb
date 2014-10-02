@@ -1,4 +1,5 @@
 class ModelGroup < ActiveRecord::Base
+  include Search::Name
   
   attr_accessor :current_parent_id
 
@@ -40,15 +41,6 @@ class ModelGroup < ActiveRecord::Base
 
   # scope :accessible_roots, lambda do |user_id|     
   # end
-
-######################################################
-
-  scope :search, lambda { |query|
-    return all if query.blank?
-
-    q = query.split.map{|s| "%#{s}%"}
-    where(arel_table[:name].matches_all(q))
-  }
 
 ################################################
 # Edge Label

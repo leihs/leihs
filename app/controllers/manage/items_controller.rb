@@ -30,14 +30,7 @@ class Manage::ItemsController < Manage::ApplicationController
   def create
     @item = Item.new(:owner => current_inventory_pool)
 
-    Field.all.each do |field|
-      next unless field.permissions
-      if field.get_value_from_params params[:item]
-        unless field.editable current_user, current_inventory_pool, @item
-          @item.errors.add(:base, _("You are not the owner of this item")+", "+_("therefore you may not be able to change some of these fields"))
-        end
-      end
-    end
+    check_fields_for_write_permissions
 
     unless @item.errors.any?
       saved = @item.update_attributes(params[:item])
@@ -72,19 +65,15 @@ class Manage::ItemsController < Manage::ApplicationController
 
   def update
     fetch_item_by_id
+
     if @item
-      # check permissions by checking flexible field permissions
-      Field.all.each do |field|
-        next unless field.permissions
-        if field.get_value_from_params params[:item]
-          unless field.editable current_user, current_inventory_pool, @item
-            @item.errors.add(:base, _("You are not the owner of this item")+", "+_("therefore you may not be able to change some of these fields"))
-          end
-        end
-      end
+
+      check_fields_for_write_permissions
+
       unless @item.errors.any?
         saved = @item.update_attributes(params[:item])
       end
+
     end
 
     respond_to do |format|
@@ -145,5 +134,16 @@ class Manage::ItemsController < Manage::ApplicationController
   def fetch_item_by_id
     @item = Item.find params[:id]
   end
-  
+
+  def check_fields_for_write_permissions
+    Field.all.each do |field|
+      next unless field.permissions
+      if field.get_value_from_params params[:item]
+        unless field.editable current_user, current_inventory_pool, @item
+          @item.errors.add(:base, _("You are not the owner of this item")+", "+_("therefore you may not be able to change some of these fields"))
+        end
+      end
+    end
+  end
+
 end

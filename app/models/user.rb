@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include Delegation::User
+  include DefaultPagination
 
   serialize :extended_info
 
@@ -129,7 +130,7 @@ class User < ActiveRecord::Base
     users = users.where(id: params[:ids]) if params[:ids]
     users = users.search(params[:search_term]) if params[:search_term]
     users = users.order(User.arel_table[:firstname].asc)
-    users = users.paginate(:page => params[:page] || 1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min) unless params[:paginate] == "false"
+    users = users.default_paginate params unless params[:paginate] == "false"
     users
   end
 
@@ -262,29 +263,45 @@ class User < ActiveRecord::Base
 
   def remind(reminder_user = self)
     visits_to_remind = visits.take_back_overdue
+
     unless visits_to_remind.empty?
       begin
         Notification.remind_user(self, visits_to_remind)
-        histories.create(:text => _("Reminded %{q} items for contracts %{c}") % { :q => visits_to_remind.sum(:quantity),
-                                                                                :c => visits_to_remind.flat_map(&:contract_lines).collect(&:contract_id).uniq.join(',') },
-                       :user_id => reminder_user,
-                       :type_const => History::REMIND)
+
+        create_history _("Reminded %{q} items for contracts %{c}"), visits_to_remind, reminder_user
+
         puts "Reminded: #{self.name}"
         return true
-      rescue Exception => exception
-        histories.create(:text => _("Unsuccessful reminder of %{q} items for contracts %{c}") % { :q => visits_to_remind.sum(:quantity),
-                                                                                :c => visits_to_remind.flat_map(&:contract_lines).collect(&:contract_id).uniq.join(',') },
-                       :user_id => reminder_user,
-                       :type_const => History::REMIND)
-         puts "Failed to remind: #{self.name}"
 
-         # archive problem in the log, so the admin/developper
-         # can look up what happened
-         logger.error "#{exception}\n    #{exception.backtrace.join("\n    ")}"
-         return false
+      rescue Exception => exception
+
+        create_history _("Unsuccessful reminder of %{q} items for contracts %{c}"), visits_to_remind, reminder_user
+
+        puts "Failed to remind: #{self.name}"
+
+        # archive problem in the log, so the admin/developper
+        # can look up what happened
+        logger.error "#{exception}\n    #{exception.backtrace.join("\n    ")}"
+        return false
       end
     end
   end
+
+  private
+
+  def create_history text, visits_scope, user
+    histories.create \
+      text: text % hash_for_quantity_and_contracts(visits_scope),
+      user_id: user,
+      type_const: History::REMIND
+  end
+
+  def hash_for_quantity_and_contracts visits_scope
+    { :q => visits_scope.sum(:quantity),
+      :c => visits_scope.flat_map(&:contract_lines).collect(&:contract_id).uniq.join(',') }
+  end
+
+  public
 
   def self.send_deadline_soon_reminder_to_everybody
     User.all.each do |u|
@@ -297,10 +314,9 @@ class User < ActiveRecord::Base
     unless visits_to_remind_deadline_soon.empty?
       begin
         Notification.deadline_soon_reminder(self, visits_to_remind_deadline_soon)
-        histories.create(:text => _("Deadline soon reminder sent for %{q} items on contracts %{c}") % { :q => visits_to_remind_deadline_soon.sum(:quantity),
-                                                                                :c => visits_to_remind_deadline_soon.flat_map(&:contract_lines).collect(&:contract_id).uniq.join(',') },
-                         :user_id => reminder_user,
-                         :type_const => History::REMIND)
+
+        create_history _("Deadline soon reminder sent for %{q} items on contracts %{c}"), visits_to_remind_deadline_soon, reminder_user
+
         puts "Deadline soon: #{self.name}"
       rescue
         puts "Couldn't send reminder: #{self.name}"

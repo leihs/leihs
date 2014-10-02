@@ -39,7 +39,6 @@ Angenommen /^ein Modell ist nichtmehr verfügbar$/ do
     step 'I add so many lines that I break the maximal quantity of an model'
     visit manage_take_back_path(@current_inventory_pool, @customer)
   end
-  sleep(0.33)
   find(".line", text: @model.name, match: :first)
   @lines = all(".line", text: @model.name)
   expect(@lines.size).to be > 0
@@ -49,8 +48,7 @@ end
 Dann /^sehe ich auf den beteiligten Linien die Auszeichnung von Problemen$/ do
   @problems = []
   @lines.each do |line|
-    sleep(0.33)
-    hover_for_tooltip line.find("[data-tooltip-template='manage/views/lines/problems_tooltip']")
+      hover_for_tooltip line.find("[data-tooltip-template='manage/views/lines/problems_tooltip']")
     @problems << find(".tooltipster-content strong", match: :first).text
   end
   @reference_line = @lines.first
@@ -109,7 +107,6 @@ Angenommen /^eine Gegenstand ist nicht ausleihbar$/ do
   if @event == "hand_over"
     @item = @current_inventory_pool.items.in_stock.unborrowable.sample
     step 'I add an item to the hand over'
-    sleep(0.33)
     @line_id = ContractLine.where(item_id: @item.id).first.id
     find(".line[data-id='#{@line_id}']", text: @item.model.name).find("[data-assign-item][disabled]")
   elsif @event === "take_back"

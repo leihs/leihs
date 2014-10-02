@@ -42,7 +42,9 @@ Wenn(/^ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld h
 end
 
 Dann(/^wurde das redundante Modell nicht hizugefügt$/) do
-  expect(find(".row.emboss", match: :first, text: _("Compatibles")).all("[data-type='inline-entry']", text: @comp.name).count).to eq 1
+  within(".row.emboss", match: :first, text: _("Compatibles")) do
+    find("[data-type='inline-entry']", text: @comp.name)
+  end
 end
 
 Dann(/^wurde das redundante ergänzende Modell nicht gespeichert$/) do
@@ -118,7 +120,6 @@ Dann(/^es wurden auch alle Anhängsel gelöscht$/) do
   expect(Attachment.where(model_id: @model.id).empty?).to be true
   expect(ModelLink.where(model_id: @model.id).empty?).to be true
   expect(Model.all {|n| n.compatibles.include? Model.find_by_name("Windows Laptop")}.include?(@model)).to be false
-  sleep(0.33) # fix lazy request problem
 end
 
 Dann(/^(?:die|das) (?:.+) wurde aus der Liste gelöscht$/) do

@@ -1,6 +1,7 @@
 class Contract < ActiveRecord::Base
   include LineModules::GroupedAndMergedLines
   include Delegation::Contract
+  include DefaultPagination
 
   has_many :histories, -> { order(:created_at) }, as: :target, dependent: :delete_all
   has_many :actions, -> { where("type_const = #{History::ACTION}").order(:created_at) }, :as => :target, :class_name => "History"
@@ -91,11 +92,11 @@ class Contract < ActiveRecord::Base
     return all if query.blank?
 
     sql = uniq.
-        joins("LEFT JOIN `users` ON `users`.`id` = `contracts`.`user_id`").
-        joins("INNER JOIN `contract_lines` ON `contract_lines`.`contract_id` = `contracts`.`id`").
-        joins("LEFT JOIN `options` ON `options`.`id` = `contract_lines`.`option_id`").
-        joins("LEFT JOIN `models` ON `models`.`id` = `contract_lines`.`model_id`").
-        joins("LEFT JOIN `items` ON `items`.`id` = `contract_lines`.`item_id`")
+      joins("LEFT JOIN `users` ON `users`.`id` = `contracts`.`user_id`").
+      joins("INNER JOIN `contract_lines` ON `contract_lines`.`contract_id` = `contracts`.`id`").
+      joins("LEFT JOIN `options` ON `options`.`id` = `contract_lines`.`option_id`").
+      joins("LEFT JOIN `models` ON `models`.`id` = `contract_lines`.`model_id`").
+      joins("LEFT JOIN `items` ON `items`.`id` = `contract_lines`.`item_id`")
 
     query.split.each{|q|
       qq = "%#{q}%"
@@ -118,76 +119,112 @@ class Contract < ActiveRecord::Base
   }
 
   def self.filter(params, user = nil, inventory_pool = nil)
-    contracts = if user
-                  user.contracts
-                elsif inventory_pool
-                  # NOTE in case we are using the global search, we already have an inner join defined in contract#search scope, preventing displaying empty contracts
-                  if params[:search_term].blank?
-                    inventory_pool.contracts.not_empty
-                  else
-                    inventory_pool.contracts
-                  end
+    contracts = initial_scope(user, inventory_pool)
+
+    contracts = if params[:search_term].blank?
+                  contracts.not_empty # NOTE in case we are using the global search, we already have an inner join defined in contract#search scope, preventing displaying empty contracts
                 else
-                  all
+                  contracts.search(params[:search_term])
                 end
-    contracts = contracts.search(params[:search_term]) unless params[:search_term].blank?
-    contracts = contracts.where(:status => params[:status]) if params[:status]
-    if params[:no_verification_required]
-      contracts = contracts.no_verification_required
-    elsif params[:to_be_verified]
-      contracts = contracts.with_verifiable_user_and_model
-    elsif params[:from_verifiable_users]
-      contracts = contracts.with_verifiable_user
+
+    contracts = contracts.where(status: params[:status]) if params[:status]
+    contracts = contracts.with_verification_type params
+    contracts = contracts.where(id: params[:ids]) if params[:ids]
+
+    if r = params[:range]
+      contracts = contracts.created_after_start_date(r[:start_date]) if r[:start_date]
+      contracts = contracts.created_before_end_date(r[:end_date]) if r[:end_date]
     end
-    contracts = contracts.where(:id => params[:ids]) if params[:ids]
-    contracts = contracts.where(Contract.arel_table[:created_at].gt(params[:range][:start_date])) if params[:range] and params[:range][:start_date]
-    contracts = contracts.where(Contract.arel_table[:created_at].lt(params[:range][:end_date])) if params[:range] and params[:range][:end_date]
+
     contracts = contracts.order(Contract.arel_table[:created_at].desc)
+
     # computing total_entries with count(distinct: true) explicitly, because default contracts.count used by paginate plugin seems to override the DISTINCT option and thus returns wrong result. See https://stackoverflow.com/questions/7939719/will-paginate-generates-wrong-number-of-page-links
-    contracts = contracts.paginate(:page => params[:page]||1, :per_page => [(params[:per_page].try(&:to_i) || 20), 100].min, :total_entries => contracts.distinct.count) unless params[:paginate] == "false"
+    contracts = contracts.default_paginate(params, total_entries: contracts.distinct.count) unless params[:paginate] == "false"
     contracts
+  end
+
+  def self.created_after_start_date start_date
+    where(Contract.arel_table[:created_at].gt(start_date))
+  end
+
+  def self.created_before_end_date end_date
+    where(Contract.arel_table[:created_at].lt(end_date))
+  end
+
+  def self.initial_scope user = nil, inventory_pool = nil
+    if user
+      user.contracts
+    elsif inventory_pool
+      inventory_pool.contracts
+    else
+      all
+    end
+  end
+
+  def self.with_verification_type params
+    if params[:no_verification_required]
+      no_verification_required
+    elsif params[:to_be_verified]
+      with_verifiable_user_and_model
+    elsif params[:from_verifiable_users]
+      with_verifiable_user
+    else
+      all
+    end
   end
 
 #########################################################################
 
-  def sign(current_user, selected_lines = nil)
-    selected_lines ||= self.contract_lines
-
+  def signable_for? selected_lines
     if selected_lines.empty? # sign is only possible if there is at least one line
       errors.add(:base, _("This contract is not signable because it doesn't have any contract lines."))
       false
-    elsif selected_lines.all? {|l| l.purpose.nil? }
+    elsif not ContractLine.any_with_purpose? selected_lines
       errors.add(:base, _("This contract is not signable because none of the lines have a purpose."))
       false
-    elsif selected_lines.any? {|l| l.item.nil? }
+    elsif not ContractLine.all_with_assigned_item? selected_lines
       errors.add(:base, _("This contract is not signable because some lines are not assigned."))
       false
-    elsif selected_lines.any? {|l| l.end_date < Date.today }
+    elsif not ContractLine.all_with_end_date_after_start_date selected_lines
       errors.add(:base, _("Start Date must be before End Date"))
       false
-    elsif user.is_delegation and not user.delegated_users.exists?(delegated_user)
+    elsif user.is_delegation and not valid_delegated_user?
       errors.add(:base, _("This contract is not signable because the delegated user is either missing or not part of this delegation."))
       false
     else
+      true
+    end
+  end
+
+  def dup_with_lines lines_for_new_contract
+    new_contract = dup
+    new_contract.save
+    lines_for_new_contract.each do |cl|
+      cl.update_attributes(:contract => new_contract)
+    end
+    contract_lines.reload
+  end
+
+  def sign(current_user, selected_lines = nil)
+    selected_lines ||= self.contract_lines
+
+    if signable_for? selected_lines
       transaction do
-        unless (lines_for_new_contract = self.contract_lines - selected_lines).empty?
-          new_contract = dup
-          new_contract.save
-          lines_for_new_contract.each do |cl|
-            cl.update_attributes(:contract => new_contract)
-          end
-          contract_lines.reload
-        end
+        # create a new contract with remaining lines
+        lines_for_new_contract = self.contract_lines - selected_lines
+        dup_with_lines lines_for_new_contract unless lines_for_new_contract.empty?
 
         # Forces handover date to be today.
-        selected_lines.each {|cl|
-          cl.update_attributes(:start_date => Date.today) if cl.start_date != Date.today
-        }
+        selected_lines.each {|cl| cl.update_attributes(:start_date => Date.today) if cl.start_date != Date.today }
 
+        # sign contract and update hand over information
         update_attributes({:status => :signed, :created_at => Time.now, :handed_over_by_user_id => current_user.id})
+
         log_history(_("Contract %d has been signed by %s") % [self.id, self.user.name], current_user.id)
       end
       true
+    else
+      false
     end
   end
 
@@ -224,22 +261,28 @@ class Contract < ActiveRecord::Base
     end
   end
 
+  private
+
+  def notify_approved_with_rescue comment, send_mail, current_user
+    begin
+      Notification.order_approved(self, comment, send_mail, current_user)
+    rescue Exception => exception
+      # archive problem in the log, so the admin/developper
+      # can look up what happened
+      logger.error "#{exception}\n    #{exception.backtrace.join("\n    ")}"
+      self.errors.add(:base,
+                      _("The following error happened while sending a notification email to %{email}:\n") % { :email => target_user.email } +
+                      "#{exception}.\n" +
+                      _("That means that the user probably did not get the approval mail and you need to contact him/her in a different way."))
+    end
+  end
+
+  public
+
   def approve(comment, send_mail = true, current_user = nil, force = false)
     if approvable? or (force and current_user.has_role?(:lending_manager, inventory_pool))
       update_attributes(status: :approved)
-
-      begin
-        Notification.order_approved(self, comment, send_mail, current_user)
-      rescue Exception => exception
-        # archive problem in the log, so the admin/developper
-        # can look up what happened
-        logger.error "#{exception}\n    #{exception.backtrace.join("\n    ")}"
-        self.errors.add(:base,
-                        _("The following error happened while sending a notification email to %{email}:\n") % { :email => target_user.email } +
-                            "#{exception}.\n" +
-                            _("That means that the user probably did not get the approval mail and you need to contact him/her in a different way."))
-      end
-
+      notify_approved_with_rescue comment, send_mail, current_user
       true
     else
       false
@@ -258,38 +301,6 @@ class Contract < ActiveRecord::Base
       return true
     else
       return false
-    end
-  end
-
-  ############################################
-
-  def update_lines(line_ids, line_id_model_id, start_date, end_date, current_user_id) # TODO remove current_user_id when not used anymore
-    ContractLine.transaction do
-      lines.find(line_ids).each do |line|
-        line.start_date = Date.parse(start_date) if start_date
-        line.end_date = Date.parse(end_date) if end_date
-
-        # TODO remove log changes (use the new audits)
-        change = ""
-        # TODO the model swapping is not implemented on the client side
-        if (new_model_id = line_id_model_id[line.id.to_s])
-          line.model = line.contract.user.models.find(new_model_id)
-          change = _("[Model %s] ") % line.model
-        end
-        change += line.changes.map do |c|
-          what = c.first
-          if what == "model_id"
-            from = Model.find(from).to_s
-            _("Swapped from %s ") % [from]
-          else
-            from = c.last.first
-            to = c.last.last
-            _("Changed %s from %s to %s") % [what, from, to]
-          end
-        end.join(', ')
-
-        log_change(change, current_user_id) if line.save
-      end
     end
   end
 
@@ -319,12 +330,24 @@ class Contract < ActiveRecord::Base
 
   ############################################
 
+  private
+
+  def find_or_build_purpose
+    # NOTE all lines should have the same purpose
+    lines.detect {|l| l.purpose_id and l.purpose }.try(:purpose) || Purpose.new(:contract_lines => lines, :description => read_attribute(:purpose))
+  end
+
+  def join_purposes
+    lines.sort.map {|x| x.purpose.to_s }.uniq.delete_if{|x| x.blank? }.join("; ")
+  end
+
+  public
+
   def purpose
     if [:unsubmitted, :submitted, :rejected].include? status
-      # NOTE all lines should have the same purpose
-      lines.detect {|l| l.purpose_id and l.purpose }.try(:purpose) || Purpose.new(:contract_lines => lines, :description => read_attribute(:purpose))
+      find_or_build_purpose
     else
-      lines.sort.map {|x| x.purpose.to_s }.uniq.delete_if{|x| x.blank? }.join("; ")
+      join_purposes
     end
   end
 
@@ -383,23 +406,24 @@ class Contract < ActiveRecord::Base
 ################################################################
 
   def add_lines(quantity, model, user_id, start_date = nil, end_date = nil)
-    end_date = start_date if end_date and start_date and end_date < start_date
+    end_date = start_date unless end_date_after_start_date? start_date, end_date
 
-    new_lines = if false # TODO model.is_a? Option
-                         # TODO option_lines.create
-                else
-                  attr = { :quantity => 1,
-                           :model => model,
-                           :start_date => start_date || time_window_min,
-                           :end_date => end_date || next_open_date(time_window_max) }
-                  quantity.to_i.times.map do
-                    line = item_lines.create(attr) do |l|
-                      l.purpose = lines.first.purpose if status == :submitted and !lines.empty? and lines.first.purpose
-                    end
-                    log_change(_("Added") + " #{attr[:quantity]} #{attr[:model].name} #{attr[:start_date]} #{attr[:end_date]}", user_id) unless line.new_record?
-                    line
-                  end
-                end
+    attrs = { :quantity => 1,
+              :model => model,
+              :start_date => start_date || time_window_min,
+              :end_date => end_date || next_open_date(time_window_max) }
+
+    new_lines = quantity.to_i.times.map do
+
+      line = item_lines.create(attrs) do |l|
+        l.purpose = lines.first.purpose if submitted_with_purpose?
+      end
+
+      log_line attrs, user_id unless line.new_record?
+
+      line
+    end
+
     lines.reload # NOTE force reload contract_lines association
     new_lines
   end
@@ -442,22 +466,29 @@ class Contract < ActiveRecord::Base
     end
   end
 
+  private
+
+  def destroy_if_empty
+    self.destroy if lines.reload.empty?
+  end
+
+  def delete_line_and_log line_or_id, user_id
+    line = line_or_id.is_a?(ContractLine) ? line_or_id : lines.find(line_or_id.to_i)
+
+    if lines.delete(line)
+      log_change _("Removed %{q} %{m}") % { :q => line.quantity, :m => line.model.name }, user_id
+      destroy_if_empty # we do not keep empty contracts
+      true
+    else
+      false
+    end
+  end
+
+  public
+
   def remove_line(line_or_id, user_id)
     if [:unsubmitted, :submitted, :approved].include?(status)
-      line = line_or_id.is_a?(ContractLine) ? line_or_id : lines.find(line_or_id.to_i)
-      if lines.delete(line)
-        change = _("Removed %{q} %{m}") % { :q => line.quantity, :m => line.model.name }
-        log_change(change, user_id)
-
-        # we do not keep empty contracts
-        if lines.reload.empty?
-          self.destroy
-        end
-
-        true
-      else
-        false
-      end
+      delete_line_and_log line_or_id, user_id
     else
       false
     end
@@ -486,5 +517,21 @@ class Contract < ActiveRecord::Base
     self.class.with_verifiable_user_and_model.exists? self
   end
 
-end
+  def valid_delegated_user?
+    user.delegated_users.exists?(delegated_user)
+  end
 
+  def submitted_with_purpose?
+    status == :submitted and !lines.empty? and lines.first.purpose
+  end
+
+  private
+
+  def end_date_after_start_date? start_date, end_date
+    end_date and start_date and end_date >= start_date
+  end
+
+  def log_line attrs, user_id
+    log_change(_("Added") + " #{attrs[:quantity]} #{attrs[:model].name} #{attrs[:start_date]} #{attrs[:end_date]}", user_id)
+  end
+end

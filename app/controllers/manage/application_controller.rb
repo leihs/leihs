@@ -5,10 +5,11 @@ class Manage::ApplicationController < ApplicationController
   before_filter do
     unless logged_in?
       store_location
+      error_response = Proc.new { flash[:error] = _("You are not logged in.") ; render :nothing => true, :status => :unauthorized }
       respond_to do |format|
         format.html { redirect_to login_path and return }
-        format.json { flash[:error] = _("You are not logged in.") ; render :nothing => true, :status => :unauthorized }
-        format.js { flash[:error] = _("You are not logged in.") ; render :nothing => true, :status => :unauthorized }
+        format.json &error_response
+        format.js &error_response
       end
     end
   end

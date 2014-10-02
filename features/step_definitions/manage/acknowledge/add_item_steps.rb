@@ -11,7 +11,6 @@ end
 
 When /^I wait until the autocompletion is loaded$/ do
   find("#add-input")
-  page.execute_script('$("#add-input").change().blur().focus().change()')
   find(".ui-autocomplete", match: :first)
 end
 
@@ -43,7 +42,6 @@ When /^I add a model to the acknowledge which is already existing in the selecte
   find(".line", match: :prefer_exact, text: @model.name)
   @line_el_count = all(".line").size
   fill_in 'add-input', :with => @model.items.first.inventory_code
-  sleep(0.33)
   find("#add-input+button").click
 end
 
@@ -59,7 +57,6 @@ end
 
 Then /^the new line is getting visually merged with the existing line$/ do
   expect(find(".line", match: :prefer_exact, text: @model.name).has_content? @contract.lines.where(:model_id => @model.id).to_a.sum(&:quantity)).to be true
-  sleep(0.33)
   expect(all(".line").count).to eq @line_el_count
   expect(find(".line", match: :prefer_exact, text: @model.name).find("div:nth-child(3) > span:nth-child(1)").text.to_i).to eq @contract.reload.lines.select{|l| l.model == @model}.size
 end
@@ -94,7 +91,6 @@ And /^I search again for the same model$/ do
 end
 
 Then (/^the model's availability has changed$/) do
-  sleep(0.33)
   @changed_aval = find("a.ui-corner-all", match: :prefer_exact, text: @model.name).find("div.col1of4:nth-child(2) > div:nth-child(1)").text
   expect(@changed_aval.slice(0)).not_to eq @init_aval.slice(0)
 end

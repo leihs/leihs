@@ -59,8 +59,7 @@ Dann /^ich setze all ihre Initalisierungswerte$/ do
       when "autocomplete"
         target_name = find(".field[data-id='#{field[:id]}'] [data-type='autocomplete']")['data-autocomplete_value_target']
         find(".field[data-id='#{field[:id]}'] [data-type='autocomplete'][data-autocomplete_value_target='#{target_name}']").click
-        sleep(0.33)
-        find("a.ui-corner-all", match: :first).click
+              find("a.ui-corner-all", match: :first).click
         @data[field[:id]] = find(".field[data-id='#{field[:id]}'] [data-type='autocomplete']")
       when "autocomplete-search"
         model = if @item and @item.children.exists? # item is a package
@@ -185,14 +184,18 @@ Dann /^wähle ich die Felder über eine List oder per Namen aus$/ do
   find("#field-input").click
   find("#field-input").set field.label
   find("a.ui-corner-all", match: :first, text: field.label).click
-  @all_editable_fields = all("#field-selection .field", :visible => true)
+  within "#field-selection" do
+    @all_editable_fields = all(".field", :visible => true)
+  end
 end
 
 Dann /^ich setze ihre Initalisierungswerte$/ do
-  fields = all("#field-selection .field input, #field-selection .field textarea", :visible => true)
-  expect(fields.count).to be > 0
-  fields.each do |input|
-    input.set "Test123"
+  within "#field-selection" do
+    fields = all(".field input, #field-selection .field textarea", :visible => true)
+    expect(fields.count).to be > 0
+    fields.each do |input|
+      input.set "Test123"
+    end
   end
 end
 
@@ -260,9 +263,10 @@ end
 Dann(/^wähle ich das Feld "(.*?)" aus der Liste aus$/) do |field|
   find("#field-input").click
   find("#field-input").set field
-  sleep(0.33)
   find("a.ui-corner-all", match: :prefer_exact, text: field).click
-  @all_editable_fields = all("#field-selection .field", :visible => true)
+  within "#field-selection" do
+    @all_editable_fields = all(".field", :visible => true)
+  end
 end
 
 Dann(/^ich setze den Wert für das Feld "(.*?)"$/) do |field|
@@ -286,7 +290,6 @@ end
 Wenn(/^"(.*?)" ausgewählt und auf "(.*?)" gesetzt wird, dann muss auch "(.*?)" angegeben werden$/) do |field, value, dependent_field|
   find("#field-input").click
   find("#field-input").set field
-  sleep(0.33)
   find("a.ui-corner-all", match: :prefer_exact, text: field).click
   step 'ich setze das Feld "%s" auf "%s"' % [field, value]
   find(".row.emboss", match: :prefer_exact, text: dependent_field)

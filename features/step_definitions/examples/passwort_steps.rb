@@ -56,7 +56,6 @@ Angenommen(/^man befindet sich auf der Benutzereditieransicht von "(.*?)"$/) do 
   else
     visit manage_edit_inventory_pool_user_path((@user.inventory_pools & @current_user.managed_inventory_pools).first, @user)
   end
-  sleep(0.33)
 end
 
 Wenn(/^ich den Benutzernamen auf "(.*?)" und das Passwort auf "(.*?)" ändere$/) do |login, password|

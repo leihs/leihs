@@ -2,7 +2,6 @@
 
 Dann /^man sieht das Register Kategorien$/ do
   find("nav a[href*='categories']", text: _("Categories"))
-  sleep(0.33)
 end
 
 Wenn /^man das Register Kategorien wählt$/ do
@@ -93,9 +92,11 @@ Und /^die Kategorien sind alphabetisch sortiert$/ do
   sorted_parent_categories = @parent_categories.sort
   @first_category = sorted_parent_categories.first
   @last_category = sorted_parent_categories.last
-  @visible_categories = all("#categories-index-view .line", visible: true)
-  @visible_categories.first.text.include? @first_category.name
-  @visible_categories.last.text.include? @last_category.name
+  within "#categories-index-view" do
+    @visible_categories = all(".line", visible: true)
+    @visible_categories.first.text.include? @first_category.name
+    @visible_categories.last.text.include? @last_category.name
+  end
 end
 
 Und /^die erste Ebene steht zuoberst$/ do
@@ -119,14 +120,12 @@ end
 Wenn /^man das Modell editiert$/ do
   @model = Model.find {|m| [m.name, m.product].include? "Sharp Beamer" }
   step 'ich nach "%s" suche' % @model.name
-  sleep(0.11)
   find(".line", text: @model.name, match: :prefer_exact).find(".button", :text => _("Edit %s" % "Model")).click
 end
 
 Wenn /^ich die Kategorien zuteile$/ do
   @category = ModelGroup.where(name: "Standard").first
   find("#categories input[data-type='autocomplete']").set @category.name
-  sleep(0.11)
   find("a.ui-corner-all", match: :first, text: @category.name).click
   find("#categories .list-of-lines .line", text: @category.name)
 end
@@ -138,7 +137,6 @@ Wenn /^ich das Modell speichere$/ do
 end
 
 Dann /^sind die Kategorien zugeteilt$/ do
-  sleep(0.33) # fix lazy request problem
   expect(@model.model_groups.where(id: @category.id).count).to eq 1
 end
 
@@ -172,9 +170,10 @@ Wenn /^man die Kategorie löscht$/ do
 end
 
 Dann /^ist die Kategorie gelöscht und alle Duplikate sind aus dem Baum entfernt$/ do
-  sleep(0.33)
-  expect(all("#categories-index-view .line[data-id='#{@unused_category.id}']").empty?).to be true
-  expect { @unused_category.reload }.to raise_error
+  within "#categories-index-view" do
+    expect(all(".line[data-id='#{@unused_category.id}']").empty?).to be true
+    expect { @unused_category.reload }.to raise_error
+  end
 end
 
 Dann /^man bleibt in der Liste der Kategorien$/ do
@@ -190,8 +189,8 @@ Dann /^ist es nicht möglich die Kategorie zu löschen$/ do
   visit manage_categories_path @current_inventory_pool
   within("#categories-index-view #list") do
     within(".line[data-id='#{@used_category.id}']") do
-      expect(all(".multibutton .dropdown-holder .dropdown-toggle").size).to eq 0
-      expect(all(".multibutton .dropdown-item.red[data-method='delete']", text: _("Delete")).size).to eq 0
+      expect(has_no_selector?(".multibutton .dropdown-holder .dropdown-toggle")).to be true
+      expect(has_no_selector?(".multibutton .dropdown-item.red[data-method='delete']", text: _("Delete"))).to be true
     end
   end
 end
@@ -205,16 +204,17 @@ Wenn /^man nach einer Kategorie anhand des Namens sucht$/ do
   visit manage_categories_path @current_inventory_pool
   @searchTerm ||= Category.first.name[0]
   countBefore = all(".line").size
-  find("#list-search").set @searchTerm
+  step %Q(ich nach "%s" suche) % @searchTerm
   find("#list-search")
   find(".line", match: :first)
   expect(countBefore).not_to eq all(".line").size
-  sleep(0.33)
 end
 
 Dann /^sieht man nur die Kategorien, die den Suchbegriff im Namen enthalten$/ do
-  all("#categories-index-view .line", :visible => true).each do |line|
-    expect(line.text).to match(Regexp.new(@searchTerm, "i"))
+  within "#categories-index-view" do
+    all(".line", :visible => true).each do |line|
+      expect(line.text).to match(Regexp.new(@searchTerm, "i"))
+    end
   end
 end
 
@@ -224,8 +224,10 @@ Dann /^sieht die Ergebnisse in alphabetischer Reihenfolge$/ do
 end
 
 Dann /^man kann diese Kategorien editieren$/ do
-  all("#categories-index-view .line", :visible => true).each do |line|
-    line.find("a[href*='categories'][href*='edit']")
+  within "#categories-index-view" do
+    all(".line", :visible => true).each do |line|
+      line.find("a[href*='categories'][href*='edit']")
+    end
   end
 end
 
@@ -242,19 +244,12 @@ Dann /^man kann diese Kategorien löschen$/ do
   end
 end
 
-When(/^I add an image$/) do
-  find("input[type='file']", match: :first, visible: false)
-  page.execute_script("$('input:file').attr('class', 'visible');")
-  image_field_id = find(".visible", match: :first)
-  image_field_id.set Rails.root.join("features", "data", "images", "image1.jpg")
-end
-
 Then(/^I can not add a second image$/) do
   find("#images [data-type='select']").click
   alert = page.driver.browser.switch_to.alert
   expect(alert.text).to eq _("Category can have only one image.")
   alert.accept
-  expect(all("#images .line").count).to eq 1
+  find("#images .line")
 end
 
 Given(/^there exists a category with an image$/) do
@@ -270,12 +265,22 @@ Given(/^one edits this category$/) do
   visit manage_edit_category_path(@current_inventory_pool, @category)
 end
 
-When(/^I add a new image$/) do
+def upload_images(images)
   find("input[type='file']", match: :first, visible: false)
   page.execute_script("$('input:file').attr('class', 'visible');")
   image_field_id = find(".visible", match: :first)
+  images.each do |image|
+    image_field_id.set Rails.root.join("features", "data", "images", image)
+  end
+end
+
+When(/^I add an image$/) do
+  upload_images(["image1.jpg"])
+end
+
+When(/^I add a new image$/) do
   @filename = "image2.jpg"
-  image_field_id.set Rails.root.join("features", "data", "images", @filename)
+  upload_images([@filename])
 end
 
 Then(/^the category was saved with the new image$/) do

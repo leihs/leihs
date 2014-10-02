@@ -84,8 +84,7 @@ end
 Dann /^ist der Gegenstand mit all den angegebenen Informationen erstellt$/ do
   select "true", from: "retired" if @table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" } and (@table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" }["Wert"]) == "Ja"
   inventory_code = @table_hashes.detect { |r| r["Feldname"] == "Inventarcode" }["Wert"]
-  find("#list-search").set inventory_code
-  sleep(0.11)
+  step %Q(ich nach "%s" suche) % inventory_code
   within("#inventory .line[data-type='model']", match: :first, text: /#{@table_hashes.detect { |r| r["Feldname"] == "Modell" }["Wert"]}/) do
     find(".col2of5 strong", text: /#{@table_hashes.detect { |r| r["Feldname"] == "Modell" }["Wert"]}/)
     find(".button[data-type='inventory-expander'] i.arrow.right").click
@@ -166,9 +165,7 @@ end
 Wenn /^ich das gekennzeichnete "(.+)" leer lasse$/ do |must_field_name|
   @must_field_name = must_field_name
   if not find(".row.emboss", match: :prefer_exact, text: @must_field_name).all("input,textarea").empty?
-    field_id = find(".row.emboss", match: :prefer_exact, text: @must_field_name)["data-id"]
     find(".row.emboss", match: :prefer_exact, text: @must_field_name).find("input,textarea").set ""
-    page.execute_script %Q{ $(".field[data-id=#{field_id}] input[data-type='autocomplete']").trigger("change") }
   elsif not find(".row.emboss", match: :prefer_exact, text: @must_field_name).all("select").empty?
     find(".row.emboss", match: :prefer_exact, text: @must_field_name).find("select option[value='']").select_option
   else

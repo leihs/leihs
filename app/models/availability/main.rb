@@ -16,7 +16,7 @@ module Availability
     def end_date_of(date)
       first_after(date).try(:yesterday) || Availability::ETERNITY
     end
-        
+
     # If there isn't a change on "new_date" then a new change will be added with the given "new_date".
     #   The newly created change will have the same quantities associated as the change preceding it.
     def insert_changes_and_get_inner(start_date, end_date)
@@ -30,7 +30,7 @@ module Availability
     end
 
     private
-    
+
     # returns a change, the last before the date argument
     def most_recent_before_or_equal(date) # TODO ?? rename to last_before_or_equal(date)
       #tmp# k = keys.sort.reverse.detect {|x| x <= date}
@@ -49,7 +49,7 @@ module Availability
 
   class Main
     attr_reader :document_lines, :partitions, :changes, :inventory_pool_and_model_group_ids
-    
+
     def initialize(attr)
       @model          = attr[:model]
       @inventory_pool = attr[:inventory_pool]
@@ -86,7 +86,7 @@ module Availability
         maximum = available_quantities_for_groups(groups_to_check, inner_changes)
         # if still no group has enough available quantity, we allocate to general as fallback
         document_line.allocated_group_id = groups_to_check.detect(proc {Group::GENERAL_GROUP_ID}) {|group_id| maximum[group_id] >= document_line.quantity }
-  
+
         inner_changes.each_pair do |key, ic|
           qty = ic[document_line.allocated_group_id]
           qty[:in_quantity]  -= document_line.quantity
@@ -95,14 +95,14 @@ module Availability
         end
       end
     end
-    
+
     def maximum_available_in_period_for_groups(start_date, end_date, group_ids)
-      available_quantities_for_groups([Group::GENERAL_GROUP_ID] + (group_ids & @inventory_pool_and_model_group_ids), @changes.between(start_date, end_date)).values.max
+      quantities_for_groups_with_general_in_date_range(start_date, end_date, group_ids).max
     end
 
     def maximum_available_in_period_summed_for_groups(start_date, end_date, group_ids = nil)
       group_ids ||= @inventory_pool_and_model_group_ids
-      available_quantities_for_groups([Group::GENERAL_GROUP_ID] + (group_ids & @inventory_pool_and_model_group_ids), @changes.between(start_date, end_date)).values.sum
+      quantities_for_groups_with_general_in_date_range(start_date, end_date, group_ids).sum
     end
 
     def available_total_quantities
@@ -117,6 +117,10 @@ module Availability
     end
 
     private
+
+    def quantities_for_groups_with_general_in_date_range(start_date, end_date, group_ids)
+      available_quantities_for_groups([Group::GENERAL_GROUP_ID] + (group_ids & @inventory_pool_and_model_group_ids), @changes.between(start_date, end_date)).values
+    end
 
     # returns a Hash {group_id => quantity}
     def available_quantities_for_groups(group_ids, inner_changes = nil)

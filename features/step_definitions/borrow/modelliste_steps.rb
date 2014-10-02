@@ -23,21 +23,28 @@ Wenn(/^man sich auf der Modellliste befindet die nicht verfügbare Modelle beinh
   end
   @category = model.categories.first
   visit borrow_models_path(category_id: @category.id)
-  page.execute_script %Q{$('#model-list-search input').focus()}
-  find("#model-list-search input").set model.name
+  within "#model-list-search" do
+    find("input").click
+    find("input").set model.name
+  end
 end
 
 Dann(/^sind alle Geräteparks ausgewählt$/) do
-  all("#ip-selector .dropdown-item input").all? &:checked?
+  within "#ip-selector" do
+    all(".dropdown-item input").all? &:checked?
+  end
 end
 
 Dann(/^die Modellliste zeigt Modelle aller Geräteparks an$/) do
-  expect(@current_user.models.borrowable.from_category_and_all_its_descendants(@category.id).default_order.paginate(page: 1, per_page: 20).map(&:name))
-    .to eq all("#model-list .text-align-left").map(&:text)
+  within "#model-list" do
+    expect(@current_user.models.borrowable.from_category_and_all_its_descendants(@category.id).default_order.paginate(page: 1, per_page: 20).map(&:name)).to eq all(".text-align-left").map(&:text)
+  end
 end
 
 Dann(/^im Filter steht "(.*?)"$/) do |button_label_de|
-  find("#ip-selector .button", text: button_label_de)
+  within "#ip-selector" do
+    find(".button", text: button_label_de)
+  end
 end
 
 Angenommen(/^man befindet sich auf der Modellliste$/) do
@@ -59,11 +66,13 @@ Dann(/^sind alle anderen Geräteparks abgewählt$/) do
 end
 
 Dann(/^die Modellliste zeigt nur Modelle dieses Geräteparks an$/) do
-  expect(all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}).to eq @current_user.models.borrowable
-                                                  .from_category_and_all_its_descendants(@category.id)
-                                                  .by_inventory_pool(@current_inventory_pool.id)
-                                                  .default_order.paginate(page: 1, per_page: 20)
-                                                  .map(&:name)
+  within "#model-list" do
+    expect(all(".text-align-left").map(&:text).reject{|t| t.empty?}).to eq @current_user.models.borrowable
+                                                                           .from_category_and_all_its_descendants(@category.id)
+                                                                           .by_inventory_pool(@current_inventory_pool.id)
+                                                                           .default_order.paginate(page: 1, per_page: 20)
+                                                                           .map(&:name)
+  end
 end
 
 Dann(/^die Auswahl klappt zu$/) do
@@ -82,13 +91,27 @@ Wenn(/^man einige Geräteparks abwählt$/) do
 end
 
 Dann(/^wird die Modellliste nach den übrig gebliebenen Geräteparks gefiltert$/) do
-  expect(has_selector?("#model-list .text-align-left")).to be true
-  expect(all("#model-list .text-align-left").map(&:text)).to eq @current_user.models.borrowable
-                                                  .from_category_and_all_its_descendants(@category.id)
-                                                  .all_from_inventory_pools(@current_user.inventory_pool_ids - [@current_inventory_pool.id])
-                                                  .default_order
-                                                  .paginate(page: 1, per_page: 20)
-                                                  .map(&:name)
+  within "#model-list" do
+    expect(has_selector?(".text-align-left")).to be true
+    expect(all(".text-align-left").map(&:text)).to eq @current_user.models.borrowable
+                                                      .from_category_and_all_its_descendants(@category.id)
+                                                      .all_from_inventory_pools(@current_user.inventory_pool_ids - [@current_inventory_pool.id])
+                                                      .default_order
+                                                      .paginate(page: 1, per_page: 20)
+                                                      .map(&:name)
+  end
+end
+
+Dann(/^wird die Modellliste nach dem übrig gebliebenen Gerätepark gefiltert$/) do
+  within "#model-list" do
+    expect(has_selector?(".text-align-left")).to be true
+    expect(all(".text-align-left").map(&:text).reject{|t| t.empty?}[0..20]).to eq @current_user.models.borrowable
+                                                                                  .from_category_and_all_its_descendants(@category.id)
+                                                                                  .all_from_inventory_pools(@current_user.inventory_pool_ids - @ips_for_unselect.map(&:id))
+                                                                                  .default_order
+                                                                                  .paginate(page: 1, per_page: 20)
+                                                                                  .map(&:name)
+  end
 end
 
 Dann(/^die Auswahl klappt noch nicht zu$/) do
@@ -104,33 +127,26 @@ Wenn(/^man alle Geräteparks bis auf einen abwählt$/) do
   end
 end
 
-Dann(/^wird die Modellliste nach dem übrig gebliebenen Gerätepark gefiltert$/) do
-  expect(has_selector?("#model-list .text-align-left")).to be true
-  expect(all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}[0..20]).to eq @current_user.models.borrowable
-                                                  .from_category_and_all_its_descendants(@category.id)
-                                                  .all_from_inventory_pools(@current_user.inventory_pool_ids - @ips_for_unselect.map(&:id))
-                                                  .default_order
-                                                  .paginate(page: 1, per_page: 20)
-                                                  .map(&:name)
-end
-
 Dann(/^im Filter steht der Name des übriggebliebenen Geräteparks$/) do
   find("#ip-selector .button", text: @current_inventory_pool.name)
 end
 
 Dann(/^kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen$/) do
   find("#ip-selector").click
-  inventory_pool_ids = all("#ip-selector .dropdown-item[data-id]").map{|item| item["data-id"]}
-  inventory_pool_ids.each do |ip_id|
-    expect(has_selector?("#ip-selector .dropdown .dropdown-item", visible: true)).to be true
-    find("#ip-selector .dropdown-item[data-id='#{ip_id}']").click
+  within "#ip-selector" do
+    inventory_pool_ids = all(".dropdown-item[data-id]").map{|item| item["data-id"]}
+    inventory_pool_ids.each do |ip_id|
+      expect(has_selector?(".dropdown .dropdown-item", visible: true)).to be true
+      find(".dropdown-item[data-id='#{ip_id}']").click
+    end
+    expect(has_selector?(".dropdown-item input:checked")).to be true
   end
-  expect(has_selector?("#ip-selector .dropdown-item input:checked")).to be true
-  page.execute_script %Q($("#ip-selector").trigger("mouseleave"))
 end
 
 Dann(/^ist die Geräteparkauswahl alphabetisch sortiert$/) do
-  expect(all("#ip-selector .dropdown-item[data-id]").map(&:text)).to eq @current_user.inventory_pools.order("inventory_pools.name").map(&:name)
+  within "#ip-selector" do
+    expect(all(".dropdown-item[data-id]").map(&:text)).to eq @current_user.inventory_pools.order("inventory_pools.name").map(&:name)
+  end
 end
 
 Dann(/^im Filter steht die Zahl der ausgewählten Geräteparks$/) do
@@ -150,9 +166,8 @@ Wenn(/^man die Liste nach "(.*?)" sortiert$/) do |sort_order|
     when "Herstellername (alphabetisch absteigend)"
       "#{_("Manufacturer")} (#{_("descending")})"
   end
-  find("#model-sorting a", :text => text).click
-  find("#model-list .line", :match => :first)
-  expect(all("#model-list .line").count).to be > 0
+  find("#model-sorting a", text: text).click
+  find("#model-list .line", match: :first)
 end
 
 Dann(/^ist die Liste nach "(.*?)" "(.*?)" sortiert$/) do |sort, order|
@@ -168,11 +183,13 @@ Dann(/^ist die Liste nach "(.*?)" "(.*?)" sortiert$/) do |sort, order|
               when "(alphabetisch absteigend)"
                 "desc"
               end
-  expect(all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}).to eq @current_user.models.borrowable
-                                                  .from_category_and_all_its_descendants(@category.id)
-                                                  .order_by_attribute_and_direction(attribute, direction)
-                                                  .paginate(page: 1, per_page: 20)
-                                                  .map(&:name)
+  within "#model-list" do
+    expect(all(".text-align-left").map(&:text).reject{|t| t.empty?}).to eq @current_user.models.borrowable
+                                                                           .from_category_and_all_its_descendants(@category.id)
+                                                                           .order_by_attribute_and_direction(attribute, direction)
+                                                                           .paginate(page: 1, per_page: 20)
+                                                                           .map(&:name)
+  end
 end
 
 Wenn(/^man ein Suchwort eingibt$/) do
@@ -203,32 +220,33 @@ Dann(/^wird automatisch das Enddatum auf den folgenden Tag gesetzt$/) do
 end
 
 Dann(/^die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar sind$/) do
-  find("#model-list .line", match: :first)
-  sleep(0.33)
-  all("#model-list .line[data-id]").each do |model_el|
-    model = Model.find_by_id(model_el["data-id"]) || Model.find_by_id(model_el.reload["data-id"])
-    raise "not found" unless model
-    quantity = @current_user.inventory_pools.to_a.sum do |ip|
-      model.availability_in(ip).maximum_available_in_period_summed_for_groups(@start_date, @end_date, @current_user.groups.map(&:id))
+  within "#model-list" do
+    expect(has_selector?(".line[data-id]")).to be true
+    all(".line[data-id]").each do |model_el|
+      model = Model.find_by_id(model_el["data-id"]) || Model.find_by_id(model_el.reload["data-id"])
+      raise "not found" unless model
+      quantity = @current_user.inventory_pools.to_a.sum do |ip|
+        model.availability_in(ip).maximum_available_in_period_summed_for_groups(@start_date, @end_date, @current_user.groups.map(&:id))
+      end
+      if quantity <= 0
+        @unavailable_model_found = true
+        expect(model_el[:class]["grayed-out"]).to be
+      else
+        expect(model_el[:class]["grayed-out"]).not_to be
+      end
     end
-    if quantity <= 0
-      @unavailable_model_found = true
-      model_el[:class]["grayed-out"].should be
-    else
-      model_el[:class]["grayed-out"].should_not be
-    end
+    raise "no unavailable model tested" if @unavailable_model_found.nil?
   end
-  raise "no unavailable model tested" if @unavailable_model_found.nil?
 end
 
 Wenn(/^man ein Enddatum auswählt$/) do
-  @end_date = Date.today+1.day
-  find("#end-date").set I18n.l @end_date
+  @end_date = Date.today + 1.day
+  fill_in "end-date", with: (I18n.l @end_date)
 end
 
 Dann(/^wird automatisch das Startdatum auf den vorhergehenden Tag gesetzt$/) do
-  sleep(0.66)
-  @start_date = Date.today
+  sleep(0.55) # NOTE this sleep is required because waiting for onchange event
+  @start_date = @end_date - 1.day
   expect(find("#start-date").value).to eq I18n.l(@start_date)
 end
 
@@ -238,9 +256,8 @@ Angenommen(/^das Startdatum und Enddatum des Ausleihzeitraums sind ausgewählt$/
 end
 
 Wenn(/^man das Startdatum und Enddatum leert$/) do
-  find("#start-date").set ""
-  find("#end-date").set ""
-  page.execute_script %Q{ $("#start-date, #end-date").trigger("change") }
+  fill_in "start-date", with: ""
+  fill_in "end-date", with: ""
 end
 
 Dann(/^wird die Liste nichtmehr nach Ausleihzeitraum gefiltert$/) do
@@ -250,7 +267,6 @@ end
 Wenn(/^kann man für das Startdatum und für das Enddatum den Datepick benutzen$/) do
   find("#start-date").set I18n.l Date.today
   find(".ui-datepicker")
-  sleep(0.22)
   find("#end-date").set I18n.l Date.today
   find(".ui-datepicker")
 end
@@ -262,20 +278,24 @@ end
 
 Dann(/^man sieht die Modelle der ausgewählten Kategorie$/) do
   category = Category.find Rack::Utils.parse_nested_query(URI.parse(current_url).query)["category_id"]
-  all("#model-list .line[data-id]").each do |model_line|
-    model = Model.find model_line["data-id"]
-    expect(model.categories.include?(category)).to be true
+  within "#model-list" do
+    all(".line[data-id]").each do |model_line|
+      model = Model.find model_line["data-id"]
+      expect(model.categories.include?(category)).to be true
+    end
   end
 end
 
 Dann(/^man sieht Sortiermöglichkeiten$/) do
-  expect(has_selector?("#model-sorting")).to be true
-  expect(has_selector?("#model-sorting .dropdown *[data-sort]", visible: false)).to be true
+  within "#model-sorting" do
+    expect(has_selector?(".dropdown *[data-sort]", visible: false)).to be true
+  end
 end
 
 Dann(/^man sieht die Gerätepark\-Auswahl$/) do
-  expect(has_selector?("#ip-selector")).to be true
-  expect(has_selector?("#ip-selector .dropdown", visible: false)).to be true
+  within "#ip-selector" do
+    expect(has_selector?(".dropdown", visible: false)).to be true
+  end
 end
 
 Dann(/^man sieht die Einschränkungsmöglichkeit eines Ausleihzeitraums$/) do
@@ -284,20 +304,22 @@ Dann(/^man sieht die Einschränkungsmöglichkeit eines Ausleihzeitraums$/) do
 end
 
 Wenn(/^einen einzelner Modelleintrag beinhaltet$/) do |table|
-  model_line = find("#model-list .line", match: :first)
-  model = Model.find model_line["data-id"]
-  table.raw.map{|e| e.first}.each do |row|
-    case row
-      when "Bild"
-        model_line.find("img[src*='#{model.id}']", match: :first)
-      when "Modellname"
-        model_line.find(".line-col", match: :first, text: model.name)
-      when "Herstellname"
-        model_line.find(".line-col", match: :first, text: model.manufacturer)
-      when "Auswahl-Schaltfläche"
-        model_line.find(".line-col .button", match: :first)
-      else
-        raise "Unbekannt"
+  within "#model-list" do
+    model_line = find(".line", match: :first)
+    model = Model.find model_line["data-id"]
+    table.raw.map{|e| e.first}.each do |row|
+      case row
+        when "Bild"
+          model_line.find("img[src*='#{model.id}']", match: :first)
+        when "Modellname"
+          model_line.find(".line-col", match: :first, text: model.name)
+        when "Herstellname"
+          model_line.find(".line-col", match: :first, text: model.manufacturer)
+        when "Auswahl-Schaltfläche"
+          model_line.find(".line-col .button", match: :first)
+        else
+          raise "Unbekannt"
+      end
     end
   end
 end
@@ -312,7 +334,9 @@ Wenn(/^bis ans ende der bereits geladenen Modelle fährt$/) do
 end
 
 Dann(/^wird der nächste Block an Modellen geladen und angezeigt$/) do
-  expect(all("#model-list .line").count).to be > 20
+  within "#model-list" do
+    expect(all(".line").count).to be > 20
+  end
 end
 
 Wenn(/^man bis zum Ende der Liste fährt$/) do
@@ -320,8 +344,10 @@ Wenn(/^man bis zum Ende der Liste fährt$/) do
 end
 
 Dann(/^wurden alle Modelle der ausgewählten Kategorie geladen und angezeigt$/) do
-  find("#model-list .line", match: :first)
-  expect(all("#model-list .line").size).to eq @current_user.models.borrowable.from_category_and_all_its_descendants(@category).length
+  within "#model-list" do
+    find(".line", match: :first)
+    expect(all(".line").size).to eq @current_user.models.borrowable.from_category_and_all_its_descendants(@category).length
+  end
 end
 
 Wenn(/^man über das Modell hovered$/) do
@@ -357,22 +383,28 @@ Wenn(/^man wählt alle Geräteparks bis auf einen ab$/) do
 end
 
 Wenn(/^man wählt "Alle Geräteparks"$/) do
-  find("#ip-selector .dropdown-item", :text => _("All inventory pools")).click
+  within "#ip-selector" do
+    find(".dropdown-item", :text => _("All inventory pools")).click
+  end
 end
 
 Dann(/^sind alle Geräteparks wieder ausgewählt$/) do
-  all("#ip-selector .dropdown-item input[type='checkbox']").each do |checkbox|
-    expect(checkbox.checked?).to be true
+  within "#ip-selector" do
+    all(".dropdown-item input[type='checkbox']").each do |checkbox|
+      expect(checkbox.checked?).to be true
+    end
   end
 end
 
 Dann(/^die Liste zeigt Modelle aller Geräteparks$/) do
-  ip_ids = all("#ip-selector .dropdown-item[data-id]").map{|ip| ip["data-id"]}
+  ip_ids = find("#ip-selector").all(".dropdown-item[data-id]").map{|ip| ip["data-id"]}
   step 'man bis zum Ende der Liste fährt'
   models = @current_user.models.borrowable.from_category_and_all_its_descendants(@category.id).
     all_from_inventory_pools(ip_ids).
     order_by_attribute_and_direction "model", "name"
-  expect(all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}.uniq).to eq models.map(&:name)
+  within "#model-list" do
+    expect(all(".text-align-left").map(&:text).reject{|t| t.empty?}.uniq).to eq models.map(&:name)
+  end
 end
 
 Angenommen(/^Filter sind ausgewählt$/) do
@@ -382,13 +414,15 @@ Angenommen(/^Filter sind ausgewählt$/) do
   step "I release the focus from this field"
   expect(has_no_selector?(".ui-datepicker-calendar", :visible => true)).to be true
   find("#ip-selector").click
-  expect(has_selector?("#ip-selector .dropdown-item", :visible => true)).to be true
-  all("#ip-selector .dropdown-item").last.click
-  page.execute_script %Q($("#ip-selector").trigger("mouseleave"))
+  within "#ip-selector" do
+    expect(has_selector?(".dropdown-item", :visible => true)).to be true
+    all(".dropdown-item").last.click
+  end
   find("#model-sorting").click
-  expect(has_selector?("#model-sorting a", :visible => true)).to be true
-  all("#model-sorting a").last.click
-  page.execute_script %Q($("#model-sorting").trigger("mouseleave"))
+  within "#model-sorting" do
+    expect(has_selector?("a", :visible => true)).to be true
+    all("a").last.click
+  end
 end
 
 Angenommen(/^die Schaltfläche "(.*?)" ist aktivert$/) do |arg1|
@@ -397,12 +431,13 @@ end
 
 Wenn(/^man "Alles zurücksetzen" wählt$/) do
   find("#reset-all-filter").click
-  find("#model-list .line", :match => :first)
-  expect(all("#model-list .line").count).to be > 0
+  find("#model-list .line", match: :first)
 end
 
 Dann(/^sind alle Geräteparks in der Geräteparkauswahl wieder ausgewählt$/) do
-  all("#ip-selector input[type='checkbox']").each &:checked?
+  within "#ip-selector" do
+    all("input[type='checkbox']").each &:checked?
+  end
 end
 
 Dann(/^der Ausleihezeitraum ist leer$/) do
@@ -423,7 +458,9 @@ Dann(/^das Suchfeld ist leer$/) do
 end
 
 Dann(/^man sieht wieder die ungefilterte Liste der Modelle$/) do
-  expect(all("#model-list .text-align-left").map(&:text).reject{|t| t.empty?}).to eq @current_user.models.from_category_and_all_its_descendants(@category.id).default_order.paginate(page: 1, per_page: 20).map(&:name)
+  within "#model-list" do
+    expect(all(".text-align-left").map(&:text).reject{|t| t.empty?}).to eq @current_user.models.from_category_and_all_its_descendants(@category.id).default_order.paginate(page: 1, per_page: 20).map(&:name)
+  end
 end
 
 Wenn(/^ich alle Filter manuell zurücksetze$/) do
@@ -435,11 +472,11 @@ Wenn(/^ich alle Filter manuell zurücksetze$/) do
   find("#ip-selector").click
   expect(has_selector?("#ip-selector .dropdown-item", :visible => true)).to be true
   all("#ip-selector .dropdown-item").first.click
-  page.execute_script %Q($("#ip-selector").trigger("mouseleave"))
   find("#model-sorting").click
-  expect(has_selector?("#model-sorting a", :visible => true)).to be true
-  all("#model-sorting a").first.click
-  page.execute_script %Q($("#model-sorting").trigger("mouseleave"))
+  within "#model-sorting" do
+    expect(has_selector?("a", :visible => true)).to be true
+    all("a").first.click
+  end
 end
 
 Dann(/^verschwindet auch die "Alles zurücksetzen" Schaltfläche$/) do

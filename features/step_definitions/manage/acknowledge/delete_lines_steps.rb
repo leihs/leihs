@@ -8,7 +8,7 @@ When /^I delete a line of this contract$/ do
 end
 
 Then /^this contractline is deleted$/ do
-  sleep(0.33)
+  expect(has_no_selector?(".line", match: :prefer_exact, :text => @line.model.name)).to be true
   expect(@contract.lines.reload.include?(@line)).to be false
 end
 
@@ -37,7 +37,6 @@ end
 When /^I delete all lines of this contract$/ do
   find(".line input[type=checkbox]", match: :first)
   all(".line input[type=checkbox]").each &:click
-  page.execute_script('$("#selection_actions .button").show()')
   find(".multibutton [data-selection-enabled] + .dropdown-holder").click
   find("a", :text => _("Delete Selection")).click
   find(".line", match: :first)
@@ -53,6 +52,7 @@ end
 
 When(/^I delete a hand over$/) do
   @visit = @current_inventory_pool.visits.hand_over.where(date: Date.today).sample
+  expect(@visit).not_to be_nil
   expect(@visit.lines.empty?).to be false
   @visit_line_ids = @visit.lines.map(&:id)
   find("[data-collapsed-toggle='#hand_overs']").click unless all("[data-collapsed-toggle='#hand_overs']").empty?
@@ -66,7 +66,6 @@ Then(/^all lines of that hand over are deleted$/) do
   within("#hand_overs .line[data-id='#{@visit.id}']") do
     find(".line-actions .multibutton", text: _("Deleted"))
   end
-  sleep(0.33)
   expect { @visit.reload }.to raise_error(ActiveRecord::RecordNotFound)
   @visit_line_ids.each do |line_id|
     expect { ContractLine.find(line_id) }.to raise_error(ActiveRecord::RecordNotFound)

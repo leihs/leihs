@@ -68,9 +68,9 @@ Funktionalität: Bestellübersicht
   Szenario: Bestellübersicht Bestellung löschen
     Wenn ich die Bestellung lösche
     Dann werde ich gefragt ob ich die Bestellung wirklich löschen möchte
+    Und ich befinde mich wieder auf der Startseite
     Und alle Einträge werden aus der Bestellung gelöscht
     Und die Gegenstände sind wieder zur Ausleihe verfügbar
-    Und ich befinde mich wieder auf der Startseite
 
   @personas
   Szenario: Bestellübersicht Bestellen

@@ -1,5 +1,6 @@
 class Group < ActiveRecord::Base
   include Availability::Group
+  include Search::Name
 
   belongs_to :inventory_pool
 
@@ -13,15 +14,6 @@ class Group < ActiveRecord::Base
   validates_presence_of :name
 
 #tmp#2 scope :general, -> {where(:name => 'General', :inventory_pool_id => nil)}
-
-##########################################
-
-  scope :search, lambda { |query|
-    return all if query.blank?
-
-    q = query.split.map{|s| "%#{s}%"}
-    where(arel_table[:name].matches_all(q))
-  }
 
 ##########################################
 

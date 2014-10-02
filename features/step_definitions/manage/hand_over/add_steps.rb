@@ -15,11 +15,9 @@ When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over
   find(".line", match: :first)
   line_amount_before = all(".line").size
   find("[data-add-contract-line] + .addon").click
-  sleep(0.33)
   find("#flash")
   find(".line", match: :first)
   find("input[value='#{@inventory_code}']")
-  sleep(0.33)
   expect(line_amount_before).to be < all(".line").size
 end
 
@@ -57,7 +55,6 @@ When /^I add an option to the hand over by providing an inventory code and a dat
 end
 
 Then /^the (.*?) is added to the hand over$/ do |type|
-  sleep(0.33)
   contract = @customer.get_approved_contract(@current_inventory_pool)
   case type
     when "option"
@@ -147,7 +144,6 @@ When /^I add so many lines that I break the maximal quantity of an model$/ do
     @model.items.size
   end
   @quantity_added = [quantity_to_add+1, 0].max
-  sleep(0.33)
   @quantity_added.times do
     type_into_autocomplete "[data-add-contract-line]", @target_name
     step 'I see a list of suggested model names'
@@ -166,6 +162,7 @@ end
 When /^I add an item to the hand over$/ do
   find("[data-add-contract-line]").set @item.inventory_code
   find("[data-add-contract-line] + .addon").click
+  find("#flash")
 end
 
 Given(/^there is a model or software which all items are set to "(.*?)"$/) do |arg1|

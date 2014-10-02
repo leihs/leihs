@@ -225,7 +225,8 @@ Funktionalität: Inventar
 
   @javascript @personas @browser
   Szenario: Aussehen einer Gegenstands-Zeile
-    Wenn der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist
+    Wenn ich den Reiter "Modelle" einsehe
+    Und der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist
     Dann enthält die Gegenstands-Zeile folgende Informationen:
       | information      |
       | Gebäudeabkürzung |
@@ -237,7 +238,8 @@ Funktionalität: Inventar
       | Verantwortliche Abteilung |
       | Gebäudeabkürzung          |
       | Raum                      |
-    Wenn der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gegenstand verantwortlich ist
+    Wenn ich den Reiter "Modelle" einsehe
+    Und der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gegenstand verantwortlich ist
     Dann enthält die Gegenstands-Zeile folgende Informationen:
       | information               |
       | Verantwortliche Abteilung |
