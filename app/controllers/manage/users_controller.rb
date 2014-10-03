@@ -24,13 +24,11 @@ class Manage::UsersController < Manage::ApplicationController
 
   # NOTE overriding super controller
   def required_manager_role
-    unless is_admin?
-      open_actions = [:hand_over]
-      if not open_actions.include?(action_name.to_sym) and (request.post? or not request.format.json?)
-        require_role :lending_manager, current_inventory_pool
-      else
-        require_role :group_manager, current_inventory_pool
-      end
+    open_actions = [:hand_over]
+    if not open_actions.include?(action_name.to_sym) and (request.post? or not request.format.json?)
+      require_role :lending_manager, current_inventory_pool
+    else
+      require_role :group_manager, current_inventory_pool
     end
   end
 

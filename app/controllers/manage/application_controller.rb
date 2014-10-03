@@ -15,7 +15,7 @@ class Manage::ApplicationController < ApplicationController
   end
 
   before_filter :check_maintenance_mode, except: :maintenance
-  before_filter :required_manager_role
+  before_filter :required_role
 
   private
 
@@ -23,15 +23,19 @@ class Manage::ApplicationController < ApplicationController
     redirect_to manage_maintenance_path if current_inventory_pool and Setting::DISABLE_MANAGE_SECTION
   end
 
+  def required_role
+    unless is_admin?
+      required_manager_role
+    end
+  end
+
   # NOTE this method may be overridden in the sub controllers
   def required_manager_role
-    unless is_admin?
-      open_actions = [:root]
-      if not open_actions.include?(action_name.to_sym) and (request.post? or not request.format.json?)
-        require_role :lending_manager, current_inventory_pool
-      else
-        require_role :group_manager, current_inventory_pool
-      end
+    open_actions = [:root]
+    if not open_actions.include?(action_name.to_sym) and (request.post? or not request.format.json?)
+      require_role :lending_manager, current_inventory_pool
+    else
+      require_role :group_manager, current_inventory_pool
     end
   end
 

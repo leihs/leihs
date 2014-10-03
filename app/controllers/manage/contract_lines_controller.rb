@@ -4,13 +4,11 @@ class Manage::ContractLinesController < Manage::ApplicationController
 
   # NOTE overriding super controller
   def required_manager_role
-    unless is_admin?
-      closed_actions = [:assign, :assign_or_create, :remove_assignment, :take_back]
-      if closed_actions.include?(action_name.to_sym)
-        require_role :lending_manager, current_inventory_pool
-      else
-        require_role :group_manager, current_inventory_pool
-      end
+    closed_actions = [:assign, :assign_or_create, :remove_assignment, :take_back]
+    if closed_actions.include?(action_name.to_sym)
+      require_role :lending_manager, current_inventory_pool
+    else
+      require_role :group_manager, current_inventory_pool
     end
   end
 

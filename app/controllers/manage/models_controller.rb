@@ -1,5 +1,19 @@
 class Manage::ModelsController < Manage::ApplicationController
 
+  private
+
+  # NOTE overriding super controller
+  def required_manager_role
+    open_actions = [:timeline]
+    if not open_actions.include?(action_name.to_sym) and (request.post? or not request.format.json?)
+      require_role :lending_manager, current_inventory_pool
+    else
+      require_role :group_manager, current_inventory_pool
+    end
+  end
+
+  public
+
   def index
     @models = Model.filter params, current_inventory_pool
     set_pagination_header(@models) unless params[:paginate] == "false"

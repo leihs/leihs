@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.48, for apple-darwin10.3.0 (i386)
+-- MySQL dump 10.13  Distrib 5.5.38, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: leihs2_test
 -- ------------------------------------------------------
--- Server version	5.1.48
+-- Server version	5.5.38-0+wheezy1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -971,10 +971,10 @@ DROP TABLE IF EXISTS `partitions_with_generals`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `partitions_with_generals` (
-  `model_id` int(11),
-  `inventory_pool_id` int(11),
-  `group_id` int(11),
-  `quantity` decimal(33,0)
+  `model_id` tinyint NOT NULL,
+  `inventory_pool_id` tinyint NOT NULL,
+  `group_id` tinyint NOT NULL,
+  `quantity` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -1178,15 +1178,15 @@ DROP TABLE IF EXISTS `visit_lines`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `visit_lines` (
-  `visit_id` varchar(148),
-  `inventory_pool_id` int(11),
-  `user_id` int(11),
-  `delegated_user_id` int(11),
-  `status` enum('unsubmitted','submitted','rejected','approved','signed','closed'),
-  `action` varchar(9),
-  `date` date,
-  `quantity` int(11),
-  `contract_line_id` int(11)
+  `visit_id` tinyint NOT NULL,
+  `inventory_pool_id` tinyint NOT NULL,
+  `user_id` tinyint NOT NULL,
+  `delegated_user_id` tinyint NOT NULL,
+  `status` tinyint NOT NULL,
+  `action` tinyint NOT NULL,
+  `date` tinyint NOT NULL,
+  `quantity` tinyint NOT NULL,
+  `contract_line_id` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -1199,13 +1199,13 @@ DROP TABLE IF EXISTS `visits`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 /*!50001 CREATE TABLE `visits` (
-  `id` varchar(148),
-  `inventory_pool_id` int(11),
-  `user_id` int(11),
-  `status` enum('unsubmitted','submitted','rejected','approved','signed','closed'),
-  `action` varchar(9),
-  `date` date,
-  `quantity` decimal(32,0)
+  `id` tinyint NOT NULL,
+  `inventory_pool_id` tinyint NOT NULL,
+  `user_id` tinyint NOT NULL,
+  `status` tinyint NOT NULL,
+  `action` tinyint NOT NULL,
+  `date` tinyint NOT NULL,
+  `quantity` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
@@ -1304,4 +1304,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-09-22 12:18:26
+-- Dump completed on 2014-10-02 17:17:50

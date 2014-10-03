@@ -1,4 +1,394 @@
 ---
+- name: availability_inventory_pool_story
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/availability_inventory_pool_story.feature"
+      timeout: 600
+- name: performance_stability
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/performance_stability.feature"
+      timeout: 600
+- name: technical/purpose/purpose
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/purpose/purpose.feature"
+      timeout: 600
+- name: technical/mailer/mailer_settings
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/mailer/mailer_settings.feature"
+      timeout: 600
+- name: technical/contract/submit_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/contract/submit_model.feature"
+      timeout: 600
+- name: technical/contract/remove_line_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/contract/remove_line_model.feature"
+      timeout: 600
+- name: technical/contract/approve_order_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/contract/approve_order_model.feature"
+      timeout: 600
+- name: technical/contract/sign_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/contract/sign_model.feature"
+      timeout: 600
+- name: technical/contract/orders_controller
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/contract/orders_controller.feature"
+      timeout: 600
+- name: technical/contract/add_lines_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/contract/add_lines_model.feature"
+      timeout: 600
+- name: technical/contract/update_lines_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/contract/update_lines_model.feature"
+      timeout: 600
+- name: technical/ldap_hslu
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/ldap_hslu.feature"
+      timeout: 600
+- name: technical/user/suspend
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/user/suspend.feature"
+      timeout: 600
+- name: technical/field/field_instance_methods
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/field/field_instance_methods.feature"
+      timeout: 600
+- name: technical/field/provide_accessible_fields_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/field/provide_accessible_fields_model.feature"
+      timeout: 600
+- name: technical/field/fields_controller
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/field/fields_controller.feature"
+      timeout: 600
+- name: technical/ldap
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/ldap.feature"
+      timeout: 600
+- name: technical/item/search_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/item/search_model.feature"
+      timeout: 600
+- name: technical/inventory_pool/take_back_visits_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/inventory_pool/take_back_visits_model.feature"
+      timeout: 600
+- name: technical/inventory_pool/hand_over_visits_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/inventory_pool/hand_over_visits_model.feature"
+      timeout: 600
+- name: technical/shibboleth
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/shibboleth.feature"
+      timeout: 600
+- name: technical/visit/hand_over_controller
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/visit/hand_over_controller.feature"
+      timeout: 600
+- name: technical/visit/hand_over_and_take_back_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/visit/hand_over_and_take_back_model.feature"
+      timeout: 600
+- name: technical/visit/overdue_model
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/visit/overdue_model.feature"
+      timeout: 600
+- name: technical/visit/visits_controller
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/visit/visits_controller.feature"
+      timeout: 600
+- name: technical/timezone_settings
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/timezone_settings.feature"
+      timeout: 600
+- name: home
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/home.feature"
+      timeout: 600
+- name: availability_story
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/availability_story.feature"
+      timeout: 600
+- name: examples/verfuegbarkeit
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/verfuegbarkeit.feature"
+      timeout: 600
+- name: examples/software_erfassen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/software_erfassen.feature"
+      timeout: 600
+- name: examples/software_loeschen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/software_loeschen.feature"
+      timeout: 600
+- name: examples/aushaendigungen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/aushaendigungen.feature"
+      timeout: 600
+- name: examples/ruecknahmen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/ruecknahmen.feature"
+      timeout: 600
+- name: examples/gegenstand_editieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/gegenstand_editieren.feature"
+      timeout: 600
+- name: examples/software_editieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/software_editieren.feature"
+      timeout: 600
+- name: examples/pakete
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/pakete.feature"
+      timeout: 600
+- name: examples/software_kopieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/software_kopieren.feature"
+      timeout: 600
+- name: examples/werteliste
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/werteliste.feature"
+      timeout: 600
+- name: examples/benutzerverwaltung
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/benutzerverwaltung.feature"
+      timeout: 600
+- name: examples/ruecknahme
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/ruecknahme.feature"
+      timeout: 600
+- name: examples/kalender
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/kalender.feature"
+      timeout: 600
+- name: examples/tagesansicht
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/tagesansicht.feature"
+      timeout: 600
+- name: examples/inventar_csv
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/inventar_csv.feature"
+      timeout: 600
+- name: examples/bestellenden_wechseln
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/bestellenden_wechseln.feature"
+      timeout: 600
+- name: examples/statistik
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/statistik.feature"
+      timeout: 600
+- name: examples/software_suchen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/software_suchen.feature"
+      timeout: 600
+- name: examples/ruestliste
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/ruestliste.feature"
+      timeout: 600
+- name: examples/sprachauswahl
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/sprachauswahl.feature"
+      timeout: 600
+- name: examples/vertrag
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/vertrag.feature"
+      timeout: 600
+- name: examples/model_eigenschaften
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/model_eigenschaften.feature"
+      timeout: 600
+- name: examples/besuche
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/besuche.feature"
+      timeout: 600
+- name: examples/gegenstand_erstellen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/gegenstand_erstellen.feature"
+      timeout: 600
+- name: examples/probleme
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/probleme.feature"
+      timeout: 600
+- name: examples/gruppen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/gruppen.feature"
+      timeout: 600
+- name: examples/geraetepark_administrieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/geraetepark_administrieren.feature"
+      timeout: 600
+- name: examples/passwort
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/passwort.feature"
+      timeout: 600
+- name: examples/gegenstand_ausmustern
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/gegenstand_ausmustern.feature"
+      timeout: 600
+- name: examples/reservierenden_wechseln
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/reservierenden_wechseln.feature"
+      timeout: 600
+- name: examples/zweck
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/zweck.feature"
+      timeout: 600
+- name: examples/hinzufuegen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/hinzufuegen.feature"
+      timeout: 600
+- name: examples/suche
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/suche.feature"
+      timeout: 600
+- name: examples/ausleihe
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/ausleihe.feature"
+      timeout: 600
+- name: examples/option
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/option.feature"
+      timeout: 600
+- name: examples/explorative_suche
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/explorative_suche.feature"
+      timeout: 600
+- name: examples/hinweis_wenn_nicht_angemeldet
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/hinweis_wenn_nicht_angemeldet.feature"
+      timeout: 600
+- name: examples/timeline
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/timeline.feature"
+      timeout: 600
+- name: examples/gegenstand_kopieren
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/gegenstand_kopieren.feature"
+      timeout: 600
+- name: examples/vorlagen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/vorlagen.feature"
+      timeout: 600
+- name: examples/bestellung
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/bestellung.feature"
+      timeout: 600
+- name: examples/kategorien
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/kategorien.feature"
+      timeout: 600
+- name: examples/aushaendigung
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/aushaendigung.feature"
+      timeout: 600
+- name: examples/modell
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/modell.feature"
+      timeout: 600
+- name: examples/geraetepark_grundinformationen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/geraetepark_grundinformationen.feature"
+      timeout: 600
+- name: examples/bestellungen
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/bestellungen.feature"
+      timeout: 600
+- name: examples/inventar
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/inventar.feature"
+      timeout: 600
+- name: examples/inventarhelfer
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/inventarhelfer.feature"
+      timeout: 600
+- name: automatischer_email_versand
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/automatischer_email_versand.feature"
+      timeout: 600
+- name: inventory_story
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/inventory_story.feature"
+      timeout: 600
 - name: acknowledge
   scripts:
     cucumber:
@@ -14,535 +404,45 @@
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/administration/wartungsmodus.feature"
       timeout: 600
-- name: automatischer_email_versand
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/automatischer_email_versand.feature"
-      timeout: 600
-- name: availability_caching
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/availability_caching.feature"
-      timeout: 600
-- name: availability_inventory_pool_story
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/availability_inventory_pool_story.feature"
-      timeout: 600
-- name: availability_story
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/availability_story.feature"
-      timeout: 600
-- name: borrow/abholungen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/abholungen.feature"
-      timeout: 600
-- name: borrow/benutzeransicht
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/benutzeransicht.feature"
-      timeout: 600
-- name: borrow/bestellfensterchen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/bestellfensterchen.feature"
-      timeout: 600
-- name: borrow/bestelluebersicht
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/bestelluebersicht.feature"
-      timeout: 600
-- name: borrow/bestellungen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/bestellungen.feature"
-      timeout: 600
-- name: borrow/brotkrumennavigation
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/brotkrumennavigation.feature"
-      timeout: 600
-- name: borrow/dokumente
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/dokumente.feature"
-      timeout: 600
-- name: borrow/explorative_suche
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/explorative_suche.feature"
-      timeout: 600
-- name: borrow/geraeteparks
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/geraeteparks.feature"
-      timeout: 600
-- name: borrow/kalender
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/kalender.feature"
-      timeout: 600
-- name: borrow/modellliste
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/modellliste.feature"
-      timeout: 600
-- name: borrow/modelluebersicht
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/modelluebersicht.feature"
-      timeout: 600
-- name: borrow/navigation
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/navigation.feature"
-      timeout: 600
-- name: borrow/rueckgaben
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/rueckgaben.feature"
-      timeout: 600
-- name: borrow/sprache
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/sprache.feature"
-      timeout: 600
-- name: borrow/startseite
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/startseite.feature"
-      timeout: 600
-- name: borrow/suche
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/suche.feature"
-      timeout: 600
-- name: borrow/timeoutpage
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/timeoutpage.feature"
-      timeout: 600
-- name: borrow/verfuegbarkeit
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/verfuegbarkeit.feature"
-      timeout: 600
-- name: borrow/vorlagen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/vorlagen.feature"
-      timeout: 600
 - name: category
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/category.feature"
-      timeout: 600
-- name: examples/aushaendigung
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/aushaendigung.feature"
-      timeout: 600
-- name: examples/aushaendigungen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/aushaendigungen.feature"
-      timeout: 600
-- name: examples/ausleihe
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/ausleihe.feature"
-      timeout: 600
-- name: examples/benutzerverwaltung
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/benutzerverwaltung.feature"
-      timeout: 600
-- name: examples/bestellenden_wechseln
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/bestellenden_wechseln.feature"
-      timeout: 600
-- name: examples/bestellung
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/bestellung.feature"
-      timeout: 600
-- name: examples/bestellungen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/bestellungen.feature"
-      timeout: 600
-- name: examples/besuche
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/besuche.feature"
-      timeout: 600
-- name: examples/explorative_suche
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/explorative_suche.feature"
-      timeout: 600
-- name: examples/gegenstand_ausmustern
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/gegenstand_ausmustern.feature"
-      timeout: 600
-- name: examples/gegenstand_editieren
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/gegenstand_editieren.feature"
-      timeout: 600
-- name: examples/gegenstand_erstellen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/gegenstand_erstellen.feature"
-      timeout: 600
-- name: examples/gegenstand_kopieren
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/gegenstand_kopieren.feature"
-      timeout: 600
-- name: examples/geraetepark_administrieren
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/geraetepark_administrieren.feature"
-      timeout: 600
-- name: examples/geraetepark_grundinformationen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/geraetepark_grundinformationen.feature"
-      timeout: 600
-- name: examples/gruppen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/gruppen.feature"
-      timeout: 600
-- name: examples/hinweis_wenn_nicht_angemeldet
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/hinweis_wenn_nicht_angemeldet.feature"
-      timeout: 600
-- name: examples/hinzufuegen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/hinzufuegen.feature"
-      timeout: 600
-- name: examples/inventar
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/inventar.feature"
-      timeout: 600
-- name: examples/inventar_csv
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/inventar_csv.feature"
-      timeout: 600
-- name: examples/inventarhelfer
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/inventarhelfer.feature"
-      timeout: 600
-- name: examples/kalender
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/kalender.feature"
-      timeout: 600
-- name: examples/kategorien
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/kategorien.feature"
-      timeout: 600
-- name: examples/model_eigenschaften
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/model_eigenschaften.feature"
-      timeout: 600
-- name: examples/modell
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/modell.feature"
-      timeout: 600
-- name: examples/option
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/option.feature"
-      timeout: 600
-- name: examples/pakete
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/pakete.feature"
-      timeout: 600
-- name: examples/passwort
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/passwort.feature"
-      timeout: 600
-- name: examples/probleme
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/probleme.feature"
-      timeout: 600
-- name: examples/reservierenden_wechseln
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/reservierenden_wechseln.feature"
-      timeout: 600
-- name: examples/ruecknahme
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/ruecknahme.feature"
-      timeout: 600
-- name: examples/ruecknahmen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/ruecknahmen.feature"
-      timeout: 600
-- name: examples/ruestliste
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/ruestliste.feature"
-      timeout: 600
-- name: examples/software_editieren
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/software_editieren.feature"
-      timeout: 600
-- name: examples/software_erfassen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/software_erfassen.feature"
-      timeout: 600
-- name: examples/software_kopieren
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/software_kopieren.feature"
-      timeout: 600
-- name: examples/software_loeschen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/software_loeschen.feature"
-      timeout: 600
-- name: examples/software_suchen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/software_suchen.feature"
-      timeout: 600
-- name: examples/sprachauswahl
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/sprachauswahl.feature"
-      timeout: 600
-- name: examples/statistik
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/statistik.feature"
-      timeout: 600
-- name: examples/suche
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/suche.feature"
-      timeout: 600
-- name: examples/tagesansicht
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/tagesansicht.feature"
-      timeout: 600
-- name: examples/timeline
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/timeline.feature"
-      timeout: 600
-- name: examples/verfuegbarkeit
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/verfuegbarkeit.feature"
-      timeout: 600
-- name: examples/vertrag
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/vertrag.feature"
-      timeout: 600
-- name: examples/vorlagen
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/vorlagen.feature"
-      timeout: 600
-- name: examples/werteliste
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/werteliste.feature"
-      timeout: 600
-- name: examples/zweck
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/zweck.feature"
       timeout: 600
 - name: frontend
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/frontend.feature"
       timeout: 600
-- name: groups
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/groups.feature"
-      timeout: 600
-- name: hand_over_story
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/hand_over_story.feature"
-      timeout: 600
-- name: hauptkategorie
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/hauptkategorie.feature"
-      timeout: 600
-- name: home
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/home.feature"
-      timeout: 600
 - name: inventory_creation
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/inventory_creation.feature"
-      timeout: 600
-- name: inventory_story
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/inventory_story.feature"
-      timeout: 600
-- name: login/database_login
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/login/database_login.feature"
-      timeout: 600
-- name: login/login
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/login/login.feature"
       timeout: 600
 - name: mail
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/mail.feature"
       timeout: 600
-- name: manage/acknowledge/add_item
+- name: work_days_story
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/acknowledge/add_item.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/work_days_story.feature"
       timeout: 600
-- name: manage/acknowledge/delete_lines
+- name: availability_caching
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/acknowledge/delete_lines.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/availability_caching.feature"
       timeout: 600
-- name: manage/acknowledge/edit_order_line
+- name: search
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/acknowledge/edit_order_line.feature"
-      timeout: 600
-- name: manage/acknowledge/edit_purpose
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/acknowledge/edit_purpose.feature"
-      timeout: 600
-- name: manage/acknowledge/quick_approve
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/acknowledge/quick_approve.feature"
-      timeout: 600
-- name: manage/acknowledge/reject
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/acknowledge/reject.feature"
-      timeout: 600
-- name: manage/availability/allocating
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/availability/allocating.feature"
-      timeout: 600
-- name: manage/booking_calendar/availability_changes
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/booking_calendar/availability_changes.feature"
-      timeout: 600
-- name: manage/booking_calendar/closed_day_alert
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/booking_calendar/closed_day_alert.feature"
-      timeout: 600
-- name: manage/booking_calendar/summary_of_lines_in_calendar
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/booking_calendar/summary_of_lines_in_calendar.feature"
-      timeout: 600
-- name: manage/daily_view/item_hover
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/daily_view/item_hover.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/search.feature"
       timeout: 600
 - name: manage/delegation
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/delegation.feature"
-      timeout: 600
-- name: manage/delegation_mail
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/delegation_mail.feature"
-      timeout: 600
-- name: manage/hand_over/add
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/hand_over/add.feature"
-      timeout: 600
-- name: manage/hand_over/add_purpose
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/hand_over/add_purpose.feature"
-      timeout: 600
-- name: manage/hand_over/assign
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/hand_over/assign.feature"
-      timeout: 600
-- name: manage/hand_over/delete
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/hand_over/delete.feature"
-      timeout: 600
-- name: manage/hand_over/edit_contract_line
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/hand_over/edit_contract_line.feature"
-      timeout: 600
-- name: manage/hand_over/sign_contract
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/hand_over/sign_contract.feature"
-      timeout: 600
-- name: manage/lending/day_navigation
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/lending/day_navigation.feature"
-      timeout: 600
-- name: manage/lending/tabs_navigation
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/lending/tabs_navigation.feature"
-      timeout: 600
-- name: manage/linegroup/selection
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/linegroup/selection.feature"
-      timeout: 600
-- name: manage/navigation
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/navigation.feature"
       timeout: 600
 - name: manage/take_back/close_contract
   scripts:
@@ -554,153 +454,258 @@
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/take_back/edit_take_back_end_date.feature"
       timeout: 600
-- name: package
+- name: manage/navigation
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/package.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/navigation.feature"
       timeout: 600
-- name: performance_stability
+- name: manage/acknowledge/edit_purpose
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/performance_stability.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/acknowledge/edit_purpose.feature"
       timeout: 600
-- name: search
+- name: manage/acknowledge/edit_order_line
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/search.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/acknowledge/edit_order_line.feature"
       timeout: 600
-- name: search_complete
+- name: manage/acknowledge/delete_lines
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/search_complete.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/acknowledge/delete_lines.feature"
       timeout: 600
-- name: settings
+- name: manage/acknowledge/reject
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/settings.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/acknowledge/reject.feature"
+      timeout: 600
+- name: manage/acknowledge/add_item
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/acknowledge/add_item.feature"
+      timeout: 600
+- name: manage/acknowledge/quick_approve
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/acknowledge/quick_approve.feature"
+      timeout: 600
+- name: manage/lending/tabs_navigation
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/lending/tabs_navigation.feature"
+      timeout: 600
+- name: manage/lending/day_navigation
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/lending/day_navigation.feature"
+      timeout: 600
+- name: manage/linegroup/selection
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/linegroup/selection.feature"
+      timeout: 600
+- name: manage/booking_calendar/availability_changes
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/booking_calendar/availability_changes.feature"
+      timeout: 600
+- name: manage/booking_calendar/summary_of_lines_in_calendar
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/booking_calendar/summary_of_lines_in_calendar.feature"
+      timeout: 600
+- name: manage/booking_calendar/closed_day_alert
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/booking_calendar/closed_day_alert.feature"
+      timeout: 600
+- name: manage/hand_over/assign
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/hand_over/assign.feature"
+      timeout: 600
+- name: manage/hand_over/sign_contract
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/hand_over/sign_contract.feature"
+      timeout: 600
+- name: manage/hand_over/add
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/hand_over/add.feature"
+      timeout: 600
+- name: manage/hand_over/delete
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/hand_over/delete.feature"
+      timeout: 600
+- name: manage/hand_over/edit_contract_line
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/hand_over/edit_contract_line.feature"
+      timeout: 600
+- name: manage/hand_over/add_purpose
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/hand_over/add_purpose.feature"
+      timeout: 600
+- name: manage/delegation_mail
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/delegation_mail.feature"
+      timeout: 600
+- name: manage/daily_view/item_hover
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/daily_view/item_hover.feature"
+      timeout: 600
+- name: manage/availability/allocating
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/manage/availability/allocating.feature"
+      timeout: 600
+- name: hand_over_story
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/hand_over_story.feature"
+      timeout: 600
+- name: login/database_login
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/login/database_login.feature"
+      timeout: 600
+- name: login/login
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/login/login.feature"
+      timeout: 600
+- name: hauptkategorie
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/hauptkategorie.feature"
+      timeout: 600
+- name: groups
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/groups.feature"
       timeout: 600
 - name: take_back_story
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/take_back_story.feature"
       timeout: 600
-- name: technical/contract/add_lines_model
+- name: search_complete
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/contract/add_lines_model.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/search_complete.feature"
       timeout: 600
-- name: technical/contract/approve_order_model
+- name: borrow/verfuegbarkeit
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/contract/approve_order_model.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/verfuegbarkeit.feature"
       timeout: 600
-- name: technical/contract/orders_controller
+- name: borrow/timeoutpage
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/contract/orders_controller.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/timeoutpage.feature"
       timeout: 600
-- name: technical/contract/remove_line_model
+- name: borrow/startseite
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/contract/remove_line_model.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/startseite.feature"
       timeout: 600
-- name: technical/contract/sign_model
+- name: borrow/bestellfensterchen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/contract/sign_model.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/bestellfensterchen.feature"
       timeout: 600
-- name: technical/contract/submit_model
+- name: borrow/navigation
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/contract/submit_model.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/navigation.feature"
       timeout: 600
-- name: technical/contract/update_lines_model
+- name: borrow/kalender
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/contract/update_lines_model.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/kalender.feature"
       timeout: 600
-- name: technical/field/field_instance_methods
+- name: borrow/dokumente
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/field/field_instance_methods.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/dokumente.feature"
       timeout: 600
-- name: technical/field/fields_controller
+- name: borrow/geraeteparks
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/field/fields_controller.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/geraeteparks.feature"
       timeout: 600
-- name: technical/field/provide_accessible_fields_model
+- name: borrow/modellliste
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/field/provide_accessible_fields_model.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/modellliste.feature"
       timeout: 600
-- name: technical/inventory_pool/hand_over_visits_model
+- name: borrow/benutzeransicht
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/inventory_pool/hand_over_visits_model.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/benutzeransicht.feature"
       timeout: 600
-- name: technical/inventory_pool/take_back_visits_model
+- name: borrow/modelluebersicht
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/inventory_pool/take_back_visits_model.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/modelluebersicht.feature"
       timeout: 600
-- name: technical/item/search_model
+- name: borrow/suche
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/item/search_model.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/suche.feature"
       timeout: 600
-- name: technical/ldap
+- name: borrow/explorative_suche
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/ldap.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/explorative_suche.feature"
       timeout: 600
-- name: technical/ldap_hslu
+- name: borrow/bestelluebersicht
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/ldap_hslu.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/bestelluebersicht.feature"
       timeout: 600
-- name: technical/mailer/mailer_settings
+- name: borrow/vorlagen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/mailer/mailer_settings.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/vorlagen.feature"
       timeout: 600
-- name: technical/purpose/purpose
+- name: borrow/abholungen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/purpose/purpose.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/abholungen.feature"
       timeout: 600
-- name: technical/timezone_settings
+- name: borrow/sprache
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/timezone_settings.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/sprache.feature"
       timeout: 600
-- name: technical/user/suspend
+- name: borrow/rueckgaben
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/user/suspend.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/rueckgaben.feature"
       timeout: 600
-- name: technical/visit/hand_over_and_take_back_model
+- name: borrow/brotkrumennavigation
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/visit/hand_over_and_take_back_model.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/brotkrumennavigation.feature"
       timeout: 600
-- name: technical/visit/hand_over_controller
+- name: borrow/bestellungen
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/visit/hand_over_controller.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/borrow/bestellungen.feature"
       timeout: 600
-- name: technical/visit/overdue_model
+- name: package
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/visit/overdue_model.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/package.feature"
       timeout: 600
-- name: technical/visit/visits_controller
+- name: settings
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/technical/visit/visits_controller.feature"
-      timeout: 600
-- name: work_days_story
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/work_days_story.feature"
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/settings.feature"
       timeout: 600
