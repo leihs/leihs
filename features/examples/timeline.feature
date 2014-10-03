@@ -17,15 +17,15 @@ Funktionalität: Timeline der Modell-Verfügbarkeit
     Dann kann ich für jedes sichtbare Model die Timeline anzeigen lassen
 
   @current
-  Szenario: Zeitleiste eines Modells für Gruppen-Verwalter in Bestellung öffnen
-    Angenommen ich bin Andi
-    Wenn ich mich in der Editieransicht der Bestellung befinde 
-    Und diese Bestellung enthält ein Modell
-    Dann kann ich die Zeitleiste zu diesem Modell öffnen
-
+  Scenario: open timeline in pending orders as group-manager
+    Given I am Andi
+    When I open a pending order 
+    And this order contains a model
+    Then I can open the timeline to this model
+    
   @current
-  Szenario: Zeitleiste eines Modells für Gruppen-Verwalter in Aushändigung öffnen
-    Angenommen ich bin Andi
-    Wenn ich mich in der Aushändigung befinde 
-    Und diese Aushändigung enthält ein Modell
-    Dann kann ich die Zeitleiste zu diesem Modell öffnen
+  Scenario: open timeline in hand-over as group-manager
+    Given I am Andi
+    When I open a hand-over
+    And this hand-over contains a model
+    Then I can open the timeline to this model
