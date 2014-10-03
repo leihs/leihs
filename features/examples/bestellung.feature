@@ -15,10 +15,3 @@ Funktionalität: Bestellung editieren
     Wenn ich die Bestellung editiere
     Und die Bestellung genehmige
     Dann ist es mir nicht möglich, die Genehmigung zu forcieren
-
-  @current
-  Szenario: Zeitleiste eines Modells öffnen
-    Angenommen ich bin Andi
-    Wenn ich mich in der Editieransicht der Bestellung befinde 
-    Und diese Bestellung enthält ein Modell
-    Dann kann ich die Zeitleiste zu diesem Modell öffnen
