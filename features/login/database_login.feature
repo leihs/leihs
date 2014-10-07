@@ -10,3 +10,12 @@ Feature: Login through database authentication
     When I visit the homepage
     And I login as "Normin" via web interface
     Then I am logged in
+
+  #80098490
+  @personas @current
+  Scenario: Changing my own password
+    Given I am Normin
+    And my authentication system is "DatabaseAuthentication"
+    When I view my user data
+    And I change my password
+    Then my password is changed
