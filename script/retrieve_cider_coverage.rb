@@ -43,6 +43,7 @@ class CiderClient
       tasks = tasks.concat(data["_links"]["cici:task"])
     end
     if data["_links"]["next"]
+      puts "Retrieved #{tasks.count} tasks total so far."
       data = JSON.parse(RestClient.get(url(data["_links"]["next"]["href"])))
       tasks = recurse_tasks(tasks, data)
     end
@@ -60,6 +61,7 @@ class CiderClient
       task_url = url(task['href'])
       details = JSON.parse(RestClient.get(task_url))
       trials_url = url(details["_links"]["cici:trials"]["href"])
+      puts "Need to retrieve all trials for #{details["_links"]["cici:trials"]["href"]}"
       single_trial = JSON.parse(RestClient.get(trials_url))
       single_trial["_links"]["cici:trial"].each do |st|
         trials << st
@@ -69,9 +71,11 @@ class CiderClient
   end
 
   def trial_attachment_groups
+    puts "Retrieving trial details to find all attachments, this may take a long time."
     trial_attachment_groups = []
     trials.each do |trial|
       trial_url = url(trial["href"])
+      puts "Retrieving trial details for #{trial_url}."
       single_trial = JSON.parse(RestClient.get(trial_url))
       trial_attachment_groups << single_trial["_links"]["cici:trial-attachments"]
     end
@@ -136,7 +140,7 @@ def merge_results(results)
   puts "Merging results"
   merged = {}
   results.each_with_index do |result, index|
-    puts "Seen #{result.original_result.keys.count} files in result set #{index} before merge.Stats: #{stats(result.original_result)}"
+    puts "Seen #{result.original_result.keys.count} files in result set #{index} before merge. Stats: #{stats(result.original_result)}"
     merged = result.original_result.merge_resultset(merged)
   end
   puts "Seen #{merged.keys.count} files in results after merge. Stats: #{stats(merged)}."
