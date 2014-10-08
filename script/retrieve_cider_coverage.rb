@@ -38,9 +38,20 @@ class CiderClient
     return "#{base_url}/#{path}"
   end
 
+  def recurse_tasks(tasks, data)
+    if data["_links"]["cici:task"]
+      tasks = tasks.concat(data["_links"]["cici:task"])
+    end
+    if data["_links"]["next"]
+      data = JSON.parse(RestClient.get(url(data["_links"]["next"]["href"])))
+      tasks = recurse_tasks(tasks, data)
+    end
+    tasks
+  end
+
   def tasks
-    t = JSON.parse(RestClient.get(entry_url("tasks")))
-    t["_links"]["cici:task"]
+    tasks = []
+    tasks = recurse_tasks(tasks, JSON.parse(RestClient.get(entry_url("tasks"))))
   end
 
   def trials
