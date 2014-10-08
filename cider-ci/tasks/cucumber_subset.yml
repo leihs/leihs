@@ -4,3 +4,8 @@
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/benutzerverwaltung.feature:119
         DEFAULT_BROWSER=firefox
       timeout: 300
+- name: acknowledge
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/acknowledge.feature"
+      timeout: 600
