@@ -122,35 +122,32 @@ class InventoryPool < ActiveRecord::Base
 #######################################################################
 
   def next_open_date(x = Date.today)
-    find_date x, :next_open
-  end
-  
-  def last_open_date(x = Date.today)
-    find_date x, :last_open
-  end
-
-  private
-
-  def find_date date, direction
-    holiday_border, change_date_operation = case direction
-                                            when :next_open then [:end_date, :+]
-                                            when :last_open then [:start_date, :-]
-                                            else raise "Invalid direction" end
-
     if workday.closed_days.size < 7
-      while not is_open_on?(date) do
-        holiday = running_holiday_on(date)
+      while not is_open_on?(x) do
+        holiday = running_holiday_on(x)
         if holiday
-          date = holiday.send(holiday_border).tomorrow
+          x = holiday.end_date.tomorrow
         else
-          date = date.send(change_date_operation, 1.day)
+          x += 1.day
         end
       end
     end
-    date
+    x
   end
 
-  public
+  def last_open_date(x = Date.today)
+    if workday.closed_days.size < 7
+      while not is_open_on?(x) do
+        holiday = running_holiday_on(x)
+        if holiday
+          x = holiday.start_date.yesterday
+        else
+          x -= 1.day
+        end
+      end
+    end
+    x
+  end
 
   def is_open_on?(date)
     workday.is_open_on?(date) and running_holiday_on(date).nil?
