@@ -65,6 +65,17 @@ msgstr ""
 msgid "** This is an automatically generated response **"
 msgstr ""
 
+msgid ""
+"Users who don't bring back the items on the required date are suspended from "
+"next day on."
+msgstr ""
+
+msgid "Automatic suspension"
+msgstr ""
+
+msgid "Automatic suspension reason"
+msgstr ""
+
 msgid "A model for the Inventory Code / Serial Number '%s' was not found"
 msgstr ""
 
@@ -220,6 +231,9 @@ msgstr ""
 msgid "Available in total: "
 msgstr ""
 
+msgid "available quantity"
+msgstr ""
+
 msgid "Back"
 msgstr ""
 
@@ -355,7 +369,10 @@ msgstr ""
 msgid "Currently Borrowed Items"
 msgstr ""
 
-msgid "Currently has things to return"
+msgid "Currently has items to return"
+msgstr ""
+
+msgid "Currently has open orders"
 msgstr ""
 
 msgid "Currently you have no items in your order."
@@ -430,7 +447,13 @@ msgstr ""
 msgid "Edit Model"
 msgstr ""
 
+msgid "Edit Software"
+msgstr ""
+
 msgid "Edit Item"
+msgstr ""
+
+msgid "Edit License"
 msgstr ""
 
 msgid "Edit Option"
@@ -744,9 +767,6 @@ msgstr ""
 msgid "List of Visits"
 msgstr ""
 
-msgid "List of Models"
-msgstr ""
-
 msgid "Loading"
 msgstr ""
 
@@ -754,6 +774,9 @@ msgid "Location"
 msgstr ""
 
 msgid "Locations"
+msgstr ""
+
+msgid "Location not defined"
 msgstr ""
 
 msgid "Logged in successfully"
@@ -950,9 +973,6 @@ msgstr ""
 msgid "Package Code"
 msgstr ""
 
-msgid "Package error"
-msgstr ""
-
 msgid "Package successfully destroyed"
 msgstr ""
 
@@ -1038,6 +1058,12 @@ msgstr ""
 msgid "Quantity"
 msgstr ""
 
+msgid "Quantity allocations"
+msgstr ""
+
+msgid "Total quantity"
+msgstr ""
+
 msgid "Quantity: %d"
 msgstr ""
 
@@ -1083,6 +1109,9 @@ msgstr ""
 msgid "Reservation"
 msgstr ""
 
+msgid "Contact person"
+msgstr ""
+
 msgid "Responsible"
 msgstr ""
 
@@ -1099,6 +1128,12 @@ msgid "Retire Item"
 msgstr ""
 
 msgid "Retired"
+msgstr ""
+
+msgid "retired"
+msgstr ""
+
+msgid "not retired"
 msgstr ""
 
 msgid "Retirement"
@@ -1129,6 +1164,9 @@ msgid "Save and copy %s"
 msgstr ""
 
 msgid "Copy Item"
+msgstr ""
+
+msgid "Copy License"
 msgstr ""
 
 msgid "Create copied item"
@@ -1206,6 +1244,9 @@ msgid "Start Date"
 msgstr ""
 
 msgid "Start Date must be before End Date"
+msgstr ""
+
+msgid "End Date cannot be in the past"
 msgstr ""
 
 msgid "Start Screen"
@@ -1322,7 +1363,9 @@ msgstr ""
 msgid "The item belongs to a package"
 msgstr ""
 
-msgid "The item cannot be retired because it's not returned yet."
+msgid ""
+"The item cannot be retired because it's not returned yet or has already been "
+"assigned to a contract line."
 msgstr ""
 
 msgid "The item doesn't belong to the inventory pool related to this contract"
@@ -1400,6 +1443,17 @@ msgstr ""
 msgid "This contract is not signable because some lines are not assigned."
 msgstr ""
 
+msgid ""
+"This contract is not signable because the delegated user is either missing "
+"or not part of this delegation."
+msgstr ""
+
+msgid "Delegated user is not member of the contract's delegation or is empty"
+msgstr ""
+
+msgid "Delegated user must be empty for contract's normal user"
+msgstr ""
+
 msgid "Groups of this customer"
 msgstr ""
 
@@ -1471,7 +1525,19 @@ msgstr ""
 msgid "Umzug"
 msgstr "Move"
 
+msgid "borrowable"
+msgstr ""
+
+msgid "unborrowable"
+msgstr ""
+
 msgid "Unborrowable"
+msgstr ""
+
+msgid "Borrowable Items"
+msgstr ""
+
+msgid "Unborrowable Items"
 msgstr ""
 
 msgid ""
@@ -1495,10 +1561,21 @@ msgstr ""
 msgid "Unsuccessful reminder of %{q} items for contracts %{c}"
 msgstr ""
 
+msgid "Updated at"
+msgstr ""
+
 msgid "Upload error."
 msgstr ""
 
 msgid "User"
+msgid_plural "Users"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Delegation"
+msgstr ""
+
+msgid "Delegations"
 msgstr ""
 
 msgid "User details were updated successfully."
@@ -1630,7 +1707,7 @@ msgstr ""
 msgid "You don't have any rights to access this application."
 msgstr ""
 
-msgid "You don't have permission"
+msgid "You don't have permission to perform this action"
 msgstr ""
 
 msgid "You have %{no_access} to any inventory pools!"
@@ -1815,6 +1892,12 @@ msgstr ""
 msgid "not available. "
 msgstr ""
 
+msgid "not available"
+msgstr ""
+
+msgid "%s not available"
+msgstr ""
+
 msgid "not borrowable"
 msgstr ""
 
@@ -1950,6 +2033,9 @@ msgstr ""
 msgid "Inventory manager"
 msgstr ""
 
+msgid "New Delegation"
+msgstr ""
+
 msgid "New User"
 msgstr ""
 
@@ -2007,6 +2093,9 @@ msgstr ""
 msgid "Select File"
 msgstr ""
 
+msgid "Image"
+msgstr ""
+
 msgid "Images"
 msgstr ""
 
@@ -2035,6 +2124,9 @@ msgid "Label"
 msgstr ""
 
 msgid "not used"
+msgstr ""
+
+msgid "used"
 msgstr ""
 
 msgid "Model|Images|File file size"
@@ -2092,6 +2184,12 @@ msgid "Closed Day"
 msgstr ""
 
 msgid "Borrow"
+msgstr ""
+
+msgid "Borrow section"
+msgstr ""
+
+msgid "Manage section"
 msgstr ""
 
 msgid "Overview"
@@ -2275,6 +2373,9 @@ msgstr ""
 msgid "Specification of the purpose is required"
 msgstr ""
 
+msgid "Specification of the contact person is required"
+msgstr ""
+
 msgid "Change"
 msgstr ""
 
@@ -2423,7 +2524,9 @@ msgstr ""
 msgid "Complete order"
 msgstr ""
 
-msgid "The responsible inventory pool cannot be changed because it's not returned yet or has already been assigned to a contract line."
+msgid ""
+"The responsible inventory pool cannot be changed because it's not returned "
+"yet or has already been assigned to a contract line."
 msgstr ""
 
 msgid "Send reminder"
@@ -2435,7 +2538,7 @@ msgstr ""
 msgid "Deleted"
 msgstr ""
 
-msgid "Reminder send"
+msgid "Reminder sent"
 msgstr ""
 
 msgid "Available in total"
@@ -2573,6 +2676,9 @@ msgstr ""
 msgid "Unused Models"
 msgstr ""
 
+msgid "Used Models"
+msgstr ""
+
 msgid "Responsible inventory pool"
 msgstr ""
 
@@ -2603,7 +2709,7 @@ msgstr ""
 msgid "Upload problems"
 msgstr ""
 
-msgid "The model was saved, but there were problems uploading files"
+msgid "%s was saved, but there were problems uploading files"
 msgstr ""
 
 msgid "Uploading files - please wait"
@@ -2706,4 +2812,114 @@ msgid "No verification required"
 msgstr ""
 
 msgid "Verification required"
+msgstr ""
+
+msgid "Statistics"
+msgstr ""
+
+msgid "Who borrowed the most things?"
+msgstr ""
+
+msgid "lends"
+msgstr ""
+
+msgid "Which inventory pool is busiest?"
+msgstr ""
+
+msgid "Who bought the most items?"
+msgstr ""
+
+msgid "Maintenance"
+msgstr ""
+
+msgid "Automatic access"
+msgstr ""
+
+msgid "New users will get customer access automatically."
+msgstr ""
+
+msgid "Software"
+msgstr ""
+
+msgid "Software Information"
+msgstr ""
+
+msgid "Software License"
+msgstr ""
+
+msgid "License"
+msgid_plural "Licenses"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Activation Type"
+msgstr ""
+
+msgid "License Type"
+msgstr ""
+
+msgid "Create new software license"
+msgstr ""
+
+msgid "Create new software"
+msgstr ""
+
+msgid "Free"
+msgstr ""
+
+msgid "Single Workplace"
+msgstr ""
+
+msgid "Multiple Workplace"
+msgstr ""
+
+msgid "License Server"
+msgstr ""
+
+msgid "License Number"
+msgstr ""
+
+msgid "Site License"
+msgstr ""
+
+msgid "Concurrent"
+msgstr ""
+
+msgid "Operating System"
+msgstr ""
+
+msgid "Installation"
+msgstr ""
+
+msgid "Hints"
+msgstr ""
+
+msgid "Local"
+msgstr ""
+
+msgid "License expiration"
+msgstr ""
+
+msgid "Maintenance expiration"
+msgstr ""
+
+msgid "Maintenance contract"
+msgstr ""
+
+msgid "Procured by"
+msgstr ""
+
+msgid "Picking List"
+msgstr ""
+
+msgid "remaining"
+msgstr ""
+
+msgid "Category can have only one image."
+msgstr ""
+
+msgid "Used on the start page in the borrow section"
+msgstr ""
+
+msgid "A package item must belong to a package model"
 msgstr ""

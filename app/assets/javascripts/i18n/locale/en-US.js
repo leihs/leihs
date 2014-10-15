@@ -5,7 +5,7 @@ if (window.i18n == undefined) window.i18n = {};
   i18n.date = {
     L: "MM/DD/YYYY",
     XL: "dddd MM/DD/YYYY",
-    XXL: "MM.DD.YYYY LT",
+    XXL: "MM/DD/YYYY LT",
     XXXL: "dddd MM/DD/YYYY LT",
     XS: 'MM/DD/YY'
   };
