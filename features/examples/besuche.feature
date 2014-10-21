@@ -9,7 +9,7 @@ Funktionalität: Ausleihe
     Dann wird für jeden Besuch korrekt, menschlich lesbar die Differenz zum jeweiligen Datum angezeigt
 
   # (FILM)
-  @Upcoming
+  @current
   Szenario: Visible tabs
     Given I am Andi
     When I open the tab "Contracts"
@@ -17,7 +17,7 @@ Funktionalität: Ausleihe
     And the checkbox "To be verified" is already checked and I can uncheck
 
   # (FILM)
-  @Upcoming
+  @current
   Szenario: View contracts
       Given I am Andi
       When I open the tab "Contracts"

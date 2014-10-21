@@ -2,7 +2,7 @@
 
 Feature: Verification
 
-  @upcoming
+  @current
   Scenario: Show inventory to group-manager
     Given I am Andi
     When I open the "Inventory"
@@ -12,7 +12,7 @@ Feature: Verification
     But I can not edit models, items, options, software or licenses
     But I can not add models, items, options, software or licenses
 
-  @upcoming
+  @current
   Scenario: take-back in timeline not valid
     Given I am Andi  
     When I enter the timeline of a model with hand overs, take backs or pending orders
