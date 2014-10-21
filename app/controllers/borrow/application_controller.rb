@@ -21,13 +21,14 @@ class Borrow::ApplicationController < ApplicationController
     # ok, refreshed
     respond_to do |format|
       format.html {render :nothing => true}
+      if unsubmitted_contracts.empty?
+        date = Time.now
+      else
+        date = unsubmitted_contracts.first.updated_at
+      end
+
       format.json do
-        render :json => { date: if unsubmitted_contracts.empty?
-                                  Time.now
-                                else
-                                  unsubmitted_contracts.first.updated_at
-                                end
-                        }
+        render :json => { date: date }
       end
     end
   end

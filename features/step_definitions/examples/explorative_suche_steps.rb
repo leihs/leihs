@@ -11,9 +11,9 @@ Wenn(/^ich eine Kategorie anwähle$/) do
   @category = Category.find c_id
   expect(c.text).to eq @category.name
 
-  # c.click
-  # using js script to click on the link, because capybara cannot do that during the test execution (only in binding.pry)
-  page.execute_script %Q( $("#categories #category-list a[data-id='#{c_id}']").click().focus() )
+  c.click #Pivotal Ticket 61545922#
+  #old# using js script to click on the link, because capybara cannot do that during the test execution (only in binding.pry)
+  #old#page.execute_script %Q( $("#categories #category-list a[data-id='#{c_id}']").click().focus() )
 
   find("#categories #category-current a[data-type='category-current'][data-id='#{c_id}']", text: @category.name)
 end

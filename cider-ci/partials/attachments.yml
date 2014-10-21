@@ -7,3 +7,6 @@ screenshots:
 cucumber_report:
   glob: 'log/cucumber_report.json'
   content-type: application/json
+coverage: 
+  glob: 'coverage/.resultset.json'
+  content-type: application/json
