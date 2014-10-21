@@ -10,8 +10,8 @@ Feature: Acknowledge orders
 #Background:
 #       Given I log in as a inventory_manager for inventory pool 'ABC'
 
-# Does not work due to completely new UI
-@old-ui       
+# Does not work due to completely new UI /  (gibts bereits)
+@old-ui       @delete
 Scenario: List with new orders
 
        Given there is only an order by 'Joe'
@@ -22,8 +22,8 @@ Scenario: List with new orders
          And the order was placed by a customer named 'Joe'
        
 
-# Does not work due to completely new UI
-@old-ui
+# Does not work due to completely new UI /  (gibts bereits)
+@old-ui @delete
 Scenario: Count of new orders is shown
 
        Given there are only 5 orders
@@ -32,8 +32,8 @@ Scenario: Count of new orders is shown
          And I follow "Acknowledge"
        Then I see the 'Acknowledge' list
 
-# Does not work due to completely new UI
-@old-ui
+# Does not work due to completely new UI /  (created szenario: bestellungen)
+@old-ui @delete
 Scenario: Acknowledge order
 
        Given a model 'NEC 245' exists
@@ -56,8 +56,8 @@ Scenario: Acknowledge order
         And it contains information '5 NEC 245'
         And lending_manager sees 0 orders
 
-# Does not work due to completely new UI
-@old-ui
+# Does not work due to completely new UI /  (created szenario: bestellungen)
+@old-ui @delete
 Scenario: Reject order
 
        Given a model 'NEC 245' exists
@@ -78,8 +78,8 @@ Scenario: Reject order
         And it contains information 'Because I don't like you.'
         And lending_manager sees 0 order
 
-# Does not work due to completely new UI
-@old-ui
+# Does not work due to completely new UI /  (gibts bereits)
+@old-ui @delete
 Scenario: Change amount and add Item
 
        Given a model 'NEC 245' exists
@@ -106,8 +106,8 @@ Scenario: Change amount and add Item
         And it contains information 'Added 1 NEC 333'
         And it contains information 'NEC 333 is better in that situation'
 
-# Does not work due to completely new UI
-@old-ui
+# Does not work due to completely new UI /  (gibts bereits)
+@old-ui @delete
 Scenario: Increase amount beyond the number of available Items
 
        Given a model 'NEC 245' exists
@@ -121,8 +121,8 @@ Scenario: Increase amount beyond the number of available Items
        When lending_manager changes number of items of model 'NEC 245' to 2
        Then all 'NEC 245' order lines are marked as invalid
 
-# Does not work due to completely new UI
-@old-ui
+# Does not work due to completely new UI /  (Ticket für dieses neue Feature erstellt)
+@old-ui @delete
 Scenario: Swap Model
 
        Given a model 'NEC 245' exists
@@ -150,21 +150,3 @@ Scenario: Swap Model
         And it contains information 'Swapped NEC 245 for NEC 333'
         And it contains information 'NEC 333 is better than NEC 245'
 
-# Does not work due to completely new UI
-@old-ui
-Scenario: Let the manager know when sending the confirmation mail fails
-       Given a model 'NEC 245' exists
-         And 7 items of that model exist
-         And there is only an order by 'Joe'
-         And it asks for 5 items of model 'NEC 245'
-         And Joe's email address is joe@test.ch
-         And email delivery is broken
-         And the order was submitted
-       When the lending_manager clicks on 'acknowledge'
-       Then he sees 1 order
-       When he chooses Joe's order
-       Then Joe's order is shown
-       When lending_manager approves order
-       Then lending_manager sees 0 orders
-        And lending_manager sees an error message
-        And email delivery is working again
