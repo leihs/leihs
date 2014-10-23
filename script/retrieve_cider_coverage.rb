@@ -212,7 +212,6 @@ def merge_results(results)
 end
 
 cc = CiderClient.new
-binding.pry
 cc.username = username
 cc.password = password
 cc.commit_sha = commit_sha
