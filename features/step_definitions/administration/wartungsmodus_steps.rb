@@ -13,7 +13,7 @@ Wenn(/^ich die Funktion "(.*)" wähle$/) do |arg1|
     when "Ausleihen sperren"
       input_field = find(".row.emboss", text: :disable_borrow_section, match: :first).find("input[name='setting[#{:disable_borrow_section}]']", match: :first)
     else
-      raise "not found"
+      raise
   end
 
   input_field.click
@@ -25,7 +25,7 @@ Dann(/^muss ich eine Bemerkung angeben$/) do
 end
 
 Dann(/^der Bereich "(.*)" ist für die Benutzer gesperrt$/) do |arg1|
-  visit logout_path
+  step "I log out"
   case arg1
     when "Verwalten"
       step %Q(ich bin Mike)
@@ -36,7 +36,7 @@ Dann(/^der Bereich "(.*)" ist für die Benutzer gesperrt$/) do |arg1|
       expect(current_path).to eq borrow_maintenance_path
       @section = _("Borrow section")
     else
-      raise "not found"
+      raise
   end
 end
 
@@ -53,7 +53,7 @@ Wenn(/^ich eine Bemerkung für "(.*)" angebe$/) do |arg1|
     when "Ausleihen-Bereich"
       find(".row.emboss", text: :disable_borrow_section_message, match: :first).find("textarea[name='setting[#{:disable_borrow_section_message}]']", match: :first).set @disable_message
     else
-      raise "not found"
+      raise
   end
 end
 
@@ -66,7 +66,7 @@ Dann(/^wurde die Einstellung für "(.*)" erfolgreich gespeichert$/) do |arg1|
       expect(Setting.const_get(:disable_borrow_section.upcase)).to eq @disable
       expect(Setting.const_get(:disable_borrow_section_message.upcase).to_s).to eq @disable_message
     else
-      raise "not found"
+      raise
   end
 end
 
@@ -80,7 +80,7 @@ Wenn(/^der "(.*)" Bereich ist gesperrt$/) do |arg1|
     when "Ausleihen"
       @setting.update_attributes disable_borrow_section: true, disable_borrow_section_message: @disable_message
     else
-      raise "not found"
+      raise
   end
 end
 
@@ -93,14 +93,14 @@ Wenn(/^ich die Funktion "(.*)" deselektiere$/) do |arg1|
     when "Ausleihen sperren"
       input_field = find(".row.emboss", text: :disable_borrow_section, match: :first).find("input[name='setting[#{:disable_borrow_section}]']", match: :first)
     else
-      raise "not found"
+      raise
   end
 
   input_field.click
 end
 
 Dann(/^ist der Bereich "(.*)" für den Benutzer nicht mehr gesperrt$/) do |arg1|
-  visit logout_path
+  step "I log out"
   case arg1
     when "Verwalten"
       step %Q(ich bin Mike)
@@ -109,7 +109,7 @@ Dann(/^ist der Bereich "(.*)" für den Benutzer nicht mehr gesperrt$/) do |arg1|
       step %Q(ich bin Normin)
       expect(current_path).to eq borrow_root_path
     else
-      raise "not found"
+      raise
   end
 end
 
@@ -120,7 +120,7 @@ Dann(/^die eingegebene Meldung für "(.*)" Bereich ist immer noch gespeichert$/)
     when "Ausleihen"
       expect(@setting.reload.disable_borrow_section_message).to eq @disable_message
     else
-      raise "not found"
+      raise
   end
 end
 

@@ -7,7 +7,7 @@ end
 
 Wenn(/^man sich auf der Modellliste befindet die verfügbare Modelle beinhaltet$/) do
   @category = Category.find do |c|
-    c.models.any? { |m| m.availability_in(@current_user.inventory_pools.first).maximum_available_in_period_summed_for_groups(Date.today, Date.today, @current_user.groups) >= 1 }
+    c.models.any? { |m| m.availability_in(@current_user.inventory_pools.first).maximum_available_in_period_summed_for_groups(Date.today, Date.today, @current_user.group_ids) >= 1 }
   end
   visit borrow_models_path(category_id: @category.id)
 end
@@ -224,7 +224,7 @@ Dann(/^die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar 
     expect(has_selector?(".line[data-id]")).to be true
     all(".line[data-id]").each do |model_el|
       model = Model.find_by_id(model_el["data-id"]) || Model.find_by_id(model_el.reload["data-id"])
-      raise "not found" unless model
+      expect(model).not_to be_nil
       quantity = @current_user.inventory_pools.to_a.sum do |ip|
         model.availability_in(ip).maximum_available_in_period_summed_for_groups(@start_date, @end_date, @current_user.groups.map(&:id))
       end
@@ -235,7 +235,7 @@ Dann(/^die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar 
         expect(model_el[:class]["grayed-out"]).not_to be
       end
     end
-    raise "no unavailable model tested" if @unavailable_model_found.nil?
+    expect(@unavailable_model_found).not_to be_nil
   end
 end
 
@@ -278,10 +278,11 @@ end
 
 Dann(/^man sieht die Modelle der ausgewählten Kategorie$/) do
   category = Category.find Rack::Utils.parse_nested_query(URI.parse(current_url).query)["category_id"]
+  models = @current_user.models.borrowable.from_category_and_all_its_descendants(@category)
   within "#model-list" do
     all(".line[data-id]").each do |model_line|
       model = Model.find model_line["data-id"]
-      expect(model.categories.include?(category)).to be true
+      expect(models.include? model).to be true
     end
   end
 end
@@ -426,7 +427,7 @@ Angenommen(/^Filter sind ausgewählt$/) do
 end
 
 Angenommen(/^die Schaltfläche "(.*?)" ist aktivert$/) do |arg1|
-  find("#reset-all-filter").visible?
+  expect(find("#reset-all-filter").visible?).to be true
 end
 
 Wenn(/^man "Alles zurücksetzen" wählt$/) do
@@ -491,7 +492,7 @@ Dann(/^wenn ich den Kalendar für dieses Modell benutze$/) do
   find(".line[data-id='#{@model.id}'] [data-create-order-line]").click
   step "ich wähle ein Startdatum und ein Enddatum an dem der Geräterpark geöffnet ist"
   find("#submit-booking-calendar:not(:disabled)").click
-  expect(has_no_selector?("#submit-booking-calendar")).to be true
+  step "the modal is closed"
 end
 
 Dann(/^können die zusätzliche Informationen immer noch abgerufen werden$/) do

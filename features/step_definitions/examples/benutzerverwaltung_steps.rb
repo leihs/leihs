@@ -3,21 +3,21 @@
 Angenommen /^man ist Inventar\-Verwalter oder Ausleihe\-Verwalter$/ do
   step 'ich bin %s' % ["Mike", "Pius"].sample
   ar = @current_user.access_rights.active.where(role: [:lending_manager, :inventory_manager]).first
-  expect(ar).not_to be nil
+  expect(ar).not_to be_nil
   @inventory_pool = ar.inventory_pool
 end
 
 Angenommen /^man ist Ausleihe\-Verwalter$/ do
   step 'ich bin %s' % "Pius"
   ar = @current_user.access_rights.active.where(role: :lending_manager).first
-  expect(ar).not_to be nil
+  expect(ar).not_to be_nil
   @inventory_pool = ar.inventory_pool
 end
 
 Angenommen /^man ist Inventar\-Verwalter$/ do
   step 'ich bin %s' % "Mike"
   ar = @current_user.access_rights.active.where(role: :inventory_manager).first
-  expect(ar).not_to be nil
+  expect(ar).not_to be_nil
   @inventory_pool = ar.inventory_pool
 end
 
@@ -30,8 +30,12 @@ end
 def check_user_list(users)
   expect(has_content?(_("List of Users"))).to be true
   within "#user-list" do
+    all(".page[data-page]").each do |data_page|
+      data_page.click
+      data_page.find(".line div", match: :first)
+    end
     users.each do |user|
-      expect(has_content?(user.name)).to be true
+      find(".line [data-id='#{user.id}']", match: :prefer_exact, text: user.name)
     end
   end
 end
@@ -62,15 +66,15 @@ Dann /^man kann filtern nach den folgenden Rollen:$/ do |table|
     step 'man kann filtern nach "%s" Rolle' % row["tab"]
     role = row["role"]
     users = case role
-            when "admins"
-              User.admins
-            when "no_access"
-              User.where("users.id NOT IN (#{@inventory_pool.users.select("users.id").to_sql})")
-            when "customers", "lending_managers", "inventory_managers"
-              @inventory_pool.users.send(role)
-            else
-              User.all
-            end.paginate(page:1, per_page: 20)
+              when "admins"
+                User.admins
+              when "no_access"
+                User.where("users.id NOT IN (#{@inventory_pool.users.select("users.id").to_sql})")
+              when "customers", "lending_managers", "inventory_managers"
+                @inventory_pool.users.send(role)
+              else
+                User.all
+            end.paginate(page: 1, per_page: 20)
     check_user_list(users)
   end
 end
@@ -124,14 +128,14 @@ Dann /^sofern der (Benutzer|Delegation) gesperrt ist, kann man die Sperrung aufh
   find(".button.white", :text => _("New User"))
   expect(current_path).to eq manage_inventory_pool_users_path(@inventory_pool)
   expect(@inventory_pool.suspended_users.find_by_id(@customer.id)).to eq nil
-  expect(@inventory_pool.users.find_by_id(@customer.id)).not_to be nil
+  expect(@inventory_pool.users.find_by_id(@customer.id)).not_to be_nil
   expect(@customer.access_right_for(@inventory_pool).suspended?).to be false
 end
 
 ####################################################################
 
 Angenommen /^ein (.*?)Benutzer (mit zugeteilter|ohne zugeteilte) Rolle erscheint in einer Benutzerliste$/ do |arg1, arg2|
-  user = Persona.get("Normin")
+  user = User.where(:login => "normin").first
   step 'findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"'
   case arg1
     when "gesperrter "
@@ -216,7 +220,7 @@ end
 Dann /^man kann die vorgenommenen Änderungen abspeichern$/ do
   find(".content_navigation > button.green").click
   if @customer.authentication_system.class_name == "DatabaseAuthentication"
-      @customer.reload
+    @customer.reload
     @attrs.each do |attr|
       expect(@customer.send(attr)).to match /^#{attr}/
     end
@@ -228,7 +232,7 @@ end
 Dann /^kann man neue Gegenstände erstellen$/ do
   c = Item.count
   attributes = {
-    model_id: @inventory_pool.models.first.id
+      model_id: @inventory_pool.models.first.id
   }
   expect(page.driver.browser.process(:post, manage_create_item_path(@inventory_pool, format: :json), {:item => attributes}).successful?).to be true
   expect(Item.count).to eq c+1
@@ -248,10 +252,10 @@ Dann /^man kann Optionen erstellen$/ do
   c = Option.count
   factory_attributes = FactoryGirl.attributes_for(:option)
   attributes = {
-    inventory_code: factory_attributes[:inventory_code],
-    product: factory_attributes[:product],
-    version: factory_attributes[:version],
-    price: factory_attributes[:price]
+      inventory_code: factory_attributes[:inventory_code],
+      product: factory_attributes[:product],
+      version: factory_attributes[:version],
+      price: factory_attributes[:price]
   }
   expect(page.driver.browser.process(:post, manage_options_path(@inventory_pool, format: :json), option: attributes).redirection?).to be true
   expect(Option.count).to eq c+1
@@ -266,10 +270,10 @@ Dann /^man kann neue Benutzer erstellen (.*?) inventory_pool$/ do |arg1|
     attributes[a] = factory_attributes[a]
   end
   response = case arg1
-                when "für"
-                  page.driver.browser.process(:post, manage_inventory_pool_users_path(@inventory_pool), user: attributes, access_right: {role: :customer}, db_auth: {login: attributes[:login], password: "password", password_confirmation: "password"})
+               when "für"
+                 page.driver.browser.process(:post, manage_inventory_pool_users_path(@inventory_pool), user: attributes, access_right: {role: :customer}, db_auth: {login: attributes[:login], password: "password", password_confirmation: "password"})
                when "ohne"
-                  page.driver.browser.process(:post, manage_users_path, user: attributes)
+                 page.driver.browser.process(:post, manage_users_path, user: attributes)
              end
   expect(User.count).to eq c+1
   id = (User.pluck(:id) - ids).first
@@ -285,27 +289,30 @@ end
 
 Dann /^man kann Benutzern die folgende Rollen zuweisen und wegnehmen, wobei diese immer auf den Gerätepark bezogen ist, für den auch der Verwalter berechtigt ist$/ do |table|
   table.hashes.map do |x|
-    unknown_user = User.select{|u| not u.access_right_for(@inventory_pool)}.sample
-    raise "No user found" unless unknown_user
+    unknown_user = User.select { |u| not u.access_right_for(@inventory_pool) }.sample
+    expect(unknown_user).not_to be_nil
 
     role = case x[:role]
-              when _("Customer")
-                expect(unknown_user.has_role?(:customer, @inventory_pool)).to be false
-                :customer
-              when _("Group manager")
-                expect(unknown_user.has_role?(:group_manager, @inventory_pool)).to be false
-                :group_manager
-              when _("Lending manager")
-                expect(unknown_user.has_role?(:lending_manager, @inventory_pool)).to be false
-                :lending_manager
-              when _("Inventory manager")
-                expect(unknown_user.has_role?(:inventory_manager, @inventory_pool)).to be false
-                :inventory_manager
-              when _("No access")
-                # the unknown_user needs to have a role first, than it can be deleted
-                page.driver.browser.process(:put, manage_update_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), {user: {id: unknown_user.id}}, access_right: {role: :customer}, db_auth: {login: Faker::Lorem.words(3).join, password: "password", password_confirmation: "password"})
-                :no_access
-            end
+             when _("Customer")
+               expect(unknown_user.has_role?(:customer, @inventory_pool)).to be false
+               :customer
+             when _("Group manager")
+               expect(unknown_user.has_role?(:group_manager, @inventory_pool)).to be false
+               :group_manager
+             when _("Lending manager")
+               expect(unknown_user.has_role?(:lending_manager, @inventory_pool)).to be false
+               :lending_manager
+             when _("Inventory manager")
+               expect(unknown_user.has_role?(:inventory_manager, @inventory_pool)).to be false
+               :inventory_manager
+             when _("No access")
+               # the unknown_user needs to have a role first, than it can be deleted
+               data = {user: {id: unknown_user.id},
+                       access_right: {role: :customer},
+                       db_auth: {login: Faker::Lorem.words(3).join, password: "password", password_confirmation: "password"}}
+               page.driver.browser.process(:put, manage_update_inventory_pool_user_path(@inventory_pool, unknown_user, format: :json), data)
+               :no_access
+           end
 
     data = {user: {id: unknown_user.id},
             access_right: {role: role, suspended_until: nil},
@@ -351,13 +358,13 @@ Dann /^kann man neue Modelle erstellen$/ do
   c = Model.count
   attributes = FactoryGirl.attributes_for :model
 
-  expect(page.driver.browser.process(:post, "/manage/#{@inventory_pool.id}/models.json" , model: attributes).successful?).to be true
+  expect(page.driver.browser.process(:post, "/manage/#{@inventory_pool.id}/models.json", model: attributes).successful?).to be true
   expect(Model.count).to eq c+1
 end
 
 Dann /^man kann sie einem anderen Gerätepark als Besitzer zuweisen$/ do
   attributes = {
-    owner_id: (InventoryPool.pluck(:id) - [@inventory_pool.id]).sample
+      owner_id: (InventoryPool.pluck(:id) - [@inventory_pool.id]).sample
   }
   expect(@item.owner_id).not_to eq attributes[:owner_id]
 
@@ -402,12 +409,12 @@ Dann /^man kann Gegenstände ausmustern, sofern man deren Besitzer ist$/ do
 end
 
 Dann /^man kann Ausmusterungen wieder zurücknehmen, sofern man Besitzer der jeweiligen Gegenstände ist$/ do
-  item = Item.unscoped { @inventory_pool.own_items.where("retired IS NOT NULL").first }
+  item = Item.unscoped { @inventory_pool.own_items.where.not(retired: nil).first }
   attributes = {
       retired: nil
   }
-  expect(item.retired).not_to be nil
-  expect(item.retired_reason).not_to be nil
+  expect(item.retired).not_to be_nil
+  expect(item.retired_reason).not_to be_nil
 
   expect(page.driver.browser.process(:put, manage_update_item_path(@inventory_pool, item, format: :json), item: attributes).successful?).to be true
   expect(item.reload.retired).to eq nil
@@ -435,7 +442,7 @@ Dann /^kann man neue Geräteparks erstellen$/ do
 
   expect(InventoryPool.count).to eq c+1
   id = (InventoryPool.pluck(:id) - ids).first
-  
+
   expect(URI.parse(current_path).path).to eq manage_inventory_pools_path
 end
 
@@ -450,7 +457,7 @@ Dann /^man kann neue Benutzer erstellen und löschen$/ do
 end
 
 Dann /^man kann Benutzern jegliche Rollen zuweisen und wegnehmen$/ do
-  user = Persona.get "Normin"
+  user = User.where(:login => "normin").first
   inventory_pool = InventoryPool.find_by_name "IT-Ausleihe"
   expect(user.has_role?(:inventory_manager, inventory_pool)).to be false
 
@@ -462,7 +469,7 @@ Dann /^man kann Benutzern jegliche Rollen zuweisen und wegnehmen$/ do
   expect(page.driver.browser.process(:put, manage_user_path(user, format: :json), access_right: {inventory_pool_id: inventory_pool.id, role: :no_access}).successful?).to be true
 
   expect(user.has_role?(:inventory_manager, inventory_pool)).to be false
-  expect(user.access_rights.where("deleted_at IS NOT NULL").where(inventory_pool_id: inventory_pool).first.deleted_at).not_to be nil
+  expect(user.access_rights.where.not(deleted_at: nil).where(inventory_pool_id: inventory_pool).first.deleted_at).not_to be_nil
 end
 
 Dann(/^kann man Gruppen über eine Autocomplete\-Liste hinzufügen$/) do
@@ -536,7 +543,7 @@ Dann(/^ist der Benutzer mit all den Informationen gespeichert$/) do
   find_link _("New User")
   find("#flash .notice", text: _("User created successfully"))
   user = User.find_by_lastname "test"
-  expect(user).not_to be nil
+  expect(user).not_to be_nil
   expect(user.access_right_for(@current_inventory_pool).role).to eq @role_hash[:role].to_sym
   expect(user.groups).to eq @current_inventory_pool.groups
 end
@@ -600,7 +607,7 @@ Dann(/^man sieht eine Bestätigungsmeldung$/) do
 end
 
 Angenommen(/^man befindet sich auf der Editierseite eines Benutzers, der kein Administrator ist und der Zugriffe auf Inventarpools hat$/) do
-  @user = User.find {|u| not u.has_role? :admin and u.has_role? :customer}
+  @user = User.find { |u| not u.has_role? :admin and u.has_role? :customer }
   @previous_access_rights = @user.access_rights.freeze
   visit manage_edit_user_path(@user)
 end
@@ -618,9 +625,9 @@ Dann(/^alle andere Zugriffe auf Inventarpools bleiben beibehalten$/) do
 end
 
 Angenommen(/^man befindet sich auf der Editierseite eines Benutzers, der ein Administrator ist und der Zugriffe auf Inventarpools hat$/) do
-  @user = User.find {|u| u.has_role? :admin and u.has_role? :customer}
+  @user = User.find { |u| u.has_role? :admin and u.has_role? :customer }
   raise "user not found" unless @user
-  @previous_access_rights = @user.access_rights.select{|ar| ar.role != :admin}.freeze
+  @previous_access_rights = @user.access_rights.select { |ar| ar.role != :admin }.freeze
   visit manage_edit_user_path(@user)
 end
 
@@ -654,19 +661,19 @@ Wenn(/^man hat nur die folgenden Rollen zur Auswahl$/) do |table|
 end
 
 Angenommen(/^man editiert einen Benutzer der Kunde ist$/) do
-  access_right = AccessRight.find{|ar| ar.role == :customer and ar.inventory_pool == @current_inventory_pool}
+  access_right = AccessRight.find { |ar| ar.role == :customer and ar.inventory_pool == @current_inventory_pool }
   @user = access_right.user
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
 Angenommen(/^man editiert einen Benutzer der Ausleihe-Verwalter ist$/) do
-  access_right = AccessRight.find{|ar| ar.role == :lending_manager and ar.inventory_pool == @current_inventory_pool and ar.user != @current_user}
+  access_right = AccessRight.find { |ar| ar.role == :lending_manager and ar.inventory_pool == @current_inventory_pool and ar.user != @current_user }
   @user = access_right.user
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
 Angenommen(/^man editiert in irgendeinem Inventarpool einen Benutzer der Kunde ist$/) do
-  access_right = AccessRight.find{|ar| ar.role == :customer}
+  access_right = AccessRight.find { |ar| ar.role == :customer }
   @user = access_right.user
   @current_inventory_pool = access_right.inventory_pool
   visit manage_edit_inventory_pool_user_path(access_right.inventory_pool, @user)
@@ -701,7 +708,7 @@ Dann(/^hat der Benutzer die Rolle Inventar-Verwalter$/) do
 end
 
 Angenommen(/^man sucht sich einen Benutzer ohne Zugriffsrechte, Bestellungen und Verträge aus$/) do
-  @user = User.find {|u| u.access_rights.active.empty? and u.contracts.empty?}
+  @user = User.find { |u| u.access_rights.active.empty? and u.contracts.empty? }
 end
 
 Wenn(/^ich diesen Benutzer aus der Liste lösche$/) do
@@ -727,7 +734,7 @@ Dann(/^der Benutzer ist nicht gelöscht$/) do
   find("#user-list")
   step 'man bis zum Ende der Liste fährt' # loading pages (but probably only the last one)
   find("#user-list .line", text: @user.name)
-  expect(User.find_by_id(@user.id)).not_to be nil
+  expect(User.find_by_id(@user.id)).not_to be_nil
 end
 
 Angenommen(/^man befindet sich auf der Benutzerliste im beliebigen Inventarpool$/) do
@@ -736,9 +743,9 @@ end
 
 Angenommen(/^man sucht sich je einen Benutzer mit Zugriffsrechten, Bestellungen und Verträgen aus$/) do
   @users = []
-  @users << User.find {|u| not u.access_rights.active.empty? and u.contracts.empty?}
-  @users << User.find {|u| not u.contracts.empty?}
-  @users << User.find {|u| u.contracts.empty?}
+  @users << User.find { |u| not u.access_rights.active.empty? and u.contracts.empty? }
+  @users << User.find { |u| not u.contracts.empty? }
+  @users << User.find { |u| u.contracts.empty? }
 end
 
 Dann(/^wird der Delete Button für diese Benutzer nicht angezeigt$/) do
@@ -751,20 +758,21 @@ Dann(/^wird der Delete Button für diese Benutzer nicht angezeigt$/) do
   end
 end
 
-Angenommen(/^man editiert einen Benutzer der Zugriff auf ein Inventarpool hat$/) do
-  access_right = AccessRight.find{|ar| ar.role == :customer}
+Angenommen(/^man editiert einen Benutzer der Zugriff auf ein Inventarpool hat( und keine Gegenstände hat)?$/) do |arg1|
+  access_right = AccessRight.all.shuffle.detect { |ar| ar.role == :customer and
+                                                       ar.inventory_pool.contract_lines.by_user(ar.user).empty? }
   @user = access_right.user
   @current_inventory_pool = access_right.inventory_pool
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
-Angenommen(/^man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat$/) do
-  @user = @current_inventory_pool.access_rights.active.find{|ar| ar.role == :customer}.user
-  visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
-end
-
-Angenommen(/^man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat und keine Gegenstände mehr zurückzugeben hat$/) do
-  @user = @current_inventory_pool.access_rights.active.select{|ar| ar.role == :customer}.detect{|ar| @current_inventory_pool.contract_lines.by_user(ar.user).to_take_back.empty?}.user
+Angenommen(/^man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat( und keine Gegenstände hat)?$/) do |arg1|
+  access_rights = @current_inventory_pool.access_rights.active.select { |ar| ar.role == :customer }
+  @user = if arg1
+            access_rights.detect { |ar| @current_inventory_pool.contract_lines.by_user(ar.user).empty? }
+          else
+            access_rights.sample
+          end.user
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
@@ -785,7 +793,7 @@ Dann(/^sind die Benutzer nach ihrem Vornamen alphabetisch sortiert$/) do
         else
           all(".line > div:nth-child(1)").map(&:text)
         end
-    expect(t).to eq User.order(:firstname).paginate(page:1, per_page: 20).map(&:name)
+    expect(t).to eq User.order(:firstname).paginate(page: 1, per_page: 20).map(&:name)
   end
 end
 
@@ -796,7 +804,7 @@ Und(/^man gibt die Login-Daten ein$/) do
 end
 
 Angenommen(/^man editiert einen Benutzer der kein Zugriff auf das aktuelle Inventarpool hat$/) do
-  @user = User.find {|u| u.access_rights.active.blank?}
+  @user = User.find { |u| u.access_rights.active.blank? }
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
@@ -814,7 +822,7 @@ Dann(/^die neue Email des Benutzers wurde gespeichert$/) do
 end
 
 Dann(/^der Benutzer hat nach wie vor keinen Zugriff auf das aktuelle Inventarpool$/) do
-  expect(@user.access_rights.active.detect{|ar| ar.inventory_pool == @current_inventory_pool}).to eq nil
+  expect(@user.access_rights.active.detect { |ar| ar.inventory_pool == @current_inventory_pool }).to eq nil
 end
 
 Angenommen(/^man editiert einen Benutzer der mal einen Zugriff auf das aktuelle Inventarpool hatte$/) do
@@ -824,7 +832,7 @@ Angenommen(/^man editiert einen Benutzer der mal einen Zugriff auf das aktuelle 
 end
 
 Angenommen(/^man einen Benutzer mit Zugriffsrechten editiert$/) do
-  @user =  User.find {|u| u.access_rights.active.count >= 2 }
+  @user = User.find { |u| u.access_rights.active.count >= 2 }
   expect(@user.access_rights.active.count).to be >= 2
   visit manage_edit_user_path(@user)
 end
@@ -837,12 +845,15 @@ end
 
 Given(/^there exists a contract with status "(.*?)" for a user with otherwise no other contracts$/) do |arg1|
   state = case arg1
-          when "abgeschickt" then :submitted
-          when "genehmigt" then :approved
-          when "unterschrieben" then :signed
+            when "abgeschickt" then
+              :submitted
+            when "genehmigt" then
+              :approved
+            when "unterschrieben" then
+              :signed
           end
-  @contract = @current_inventory_pool.contracts.send(state).detect {|c| c.user.contracts.all? {|c| c.status == state}}
-  expect(@contract).not_to be nil
+  @contract = @current_inventory_pool.contracts.send(state).detect { |c| c.user.contracts.all? { |c| c.status == state } }
+  expect(@contract).not_to be_nil
 end
 
 When(/^I edit the user of this contract$/) do
@@ -851,7 +862,7 @@ When(/^I edit the user of this contract$/) do
 end
 
 Then(/^this user has access to the current inventory pool$/) do
-  expect(@user.access_right_for(@current_inventory_pool)).not_to be nil
+  expect(@user.access_right_for(@current_inventory_pool)).not_to be_nil
 end
 
 Then(/^I see the error message "(.*?)"$/) do |arg1|

@@ -192,7 +192,7 @@ class Field < ActiveHash::Base
       label: "Responsible department",
       attribute: ["inventory_pool", "id"],
       type: "autocomplete",
-      values: lambda{([{:value => nil, :label => _("None")}] + InventoryPool.all.map {|x| {:value => x.id, :label => x.name}}).as_json},
+      values: lambda{(InventoryPool.all.map {|x| {:value => x.id, :label => x.name}}).as_json},
       permissions: {role: :inventory_manager, owner: true},
       group: "Inventory",
       forPackage: true

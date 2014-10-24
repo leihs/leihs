@@ -32,11 +32,11 @@ end
 
 Dann(/^für jeden Eintrag sehe ich die folgenden Informationen$/) do |table|
   all(".line").each do |line|
-    contract_lines = ContractLine.find JSON.parse line["data-line-ids"]
+    contract_lines = ContractLine.find JSON.parse line["data-ids"]
     table.raw.map{|e| e.first}.each do |row|
       case row
         when "Bild"
-          line.find("img", match: :first)[:src][contract_lines.first.model.id.to_s].should be
+          expect(line.find("img", match: :first)[:src][contract_lines.first.model.id.to_s]).to be
         when "Anzahl"
           expect(line.has_content?(contract_lines.sum(&:quantity))).to be true
         when "Modellname"
@@ -69,12 +69,12 @@ end
 
 Wenn(/^ich einen Eintrag lösche$/) do
   line = find(".line", match: :first)
-  line_ids = line["data-line-ids"]
+  line_ids = line["data-ids"]
   line.find(".dropdown-holder").click
   @before_max_available = before_max_available(@current_user)
   line.find("a[data-method='delete']").click
   step "werde ich gefragt ob ich die Bestellung wirklich löschen möchte"
-  expect(has_no_selector?(".line[data-line-ids='#{line_ids}']")).to be true
+  expect(has_no_selector?(".line[data-ids='#{line_ids}']")).to be true
 end
 
 Dann(/^wird der Eintrag aus der Bestellung entfernt$/) do
@@ -158,7 +158,7 @@ Wenn(/^ich den Eintrag ändere$/) do
   else
     # try to get contract_lines where quantity is still increasable
     line_to_edit = all("[data-change-order-lines]").detect do |line|
-      contract_lines = ContractLine.find JSON.parse line["data-line-ids"]
+      contract_lines = ContractLine.find JSON.parse line["data-ids"]
       if contract_lines.first.maximum_available_quantity > 0
         @changed_lines = contract_lines
       end
@@ -167,7 +167,7 @@ Wenn(/^ich den Eintrag ändere$/) do
     if line_to_edit
       line_to_edit.click
     else
-      @changed_lines = ContractLine.find JSON.parse find("[data-change-order-lines]", match: :first)["data-line-ids"]
+      @changed_lines = ContractLine.find JSON.parse find("[data-change-order-lines]", match: :first)["data-ids"]
       find("[data-change-order-lines]", match: :first).click
     end
   end
@@ -178,22 +178,14 @@ Dann(/^öffnet der Kalender$/) do
 end
 
 Dann(/^ich ändere die aktuellen Einstellung$/) do
-  @new_date = @changed_lines.first.start_date = Date.today
-  @changed_lines.first.start_date = Date.today
-  while not @changed_lines.first.available?
-    @new_date = @changed_lines.first.end_date = @changed_lines.first.start_date += 1.day
-  end
-  step "ich setze das Startdatum im Kalendar auf '#{I18n.l(@new_date)}'"
-  step "ich setze das Enddatum im Kalendar auf '#{I18n.l(@new_date)}'"
-end
-
-Dann(/^speichere die Einstellungen$/) do
-  find("#submit-booking-calendar", match: :first).click
+  @new_date = select_available_not_closed_date(:start, Date.today)
+  select_available_not_closed_date(:end, @new_date)
 end
 
 Dann(/^wird der Eintrag gemäss aktuellen Einstellungen geändert$/) do
-  find(".line", match: :first)
-  find("[data-change-order-lines]", match: :first).click
+  within(".line", match: :first) do
+    find("[data-change-order-lines]").click
+  end
   find("#booking-calendar .fc-widget-content", :match => :first)
   find(".modal-close").click
   if @new_date

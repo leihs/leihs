@@ -10,7 +10,7 @@ tested_files = Set.new feature_tasks.map{|t| t['scripts']} \
   .map{|s| s['cucumber']}.map{|s| s['body']} \
   .map{|s| matcher.match(s)[1]}
 
-existing_files = Set.new Dir.glob("features/**/*.feature") 
+existing_files = Set.new(Dir.glob("features/**/*.feature") - Dir.glob("features/personas/*.feature"))
 
 
 if existing_files == tested_files

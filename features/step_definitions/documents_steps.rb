@@ -19,8 +19,7 @@ Dann(/^sind die Verträge nach neuestem Zeitfenster sortiert$/) do
 end
 
 Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
-  contracts = @current_user.contracts.includes(:contract_lines).where(status: [:signed, :closed])
-  contracts.sort! {|a,b| b.time_window_min <=> a.time_window_min}
+  contracts = @current_user.contracts.includes(:contract_lines).where(status: [:signed, :closed]).sort {|a,b| b.time_window_min <=> a.time_window_min}
   contracts.each do |contract|
     within(".line[data-id='#{contract.id}']") do
       table.raw.flatten.each do |s|
@@ -52,49 +51,48 @@ Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
 end
 
 Angenommen(/^ich drücke auf den Wertelistelink$/) do
-  contracts = @current_user.contracts.where(status: [:signed, :closed])
-  @contract = contracts.sample
+  @contract = @current_user.contracts.where(status: [:signed, :closed]).sample
   within(".row.line[data-id='#{@contract.id}']") do
     find(".dropdown-toggle").click
-    click_link _("Value List")
+    document_window = window_opened_by do
+      click_link _("Value List")
+    end
+    page.driver.browser.switch_to.window(document_window.handle)
   end
 end
 
 Dann(/^öffnet sich die Werteliste$/) do
-  page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
   expect(current_path).to eq borrow_user_value_list_path(@contract.id)
 end
 
 Angenommen(/^ich drücke auf den Vertraglink$/) do
-  contracts = @current_user.contracts.where(status: [:signed, :closed])
-  @contract = contracts.sample
-  find("a[href='#{borrow_user_contract_path(@contract.id)}']", text: _("Contract")).click
+  @contract = @current_user.contracts.where(status: [:signed, :closed]).sample
+  document_window = window_opened_by do
+    find("a[href='#{borrow_user_contract_path(@contract.id)}']", text: _("Contract")).click
+  end
+  page.driver.browser.switch_to.window(document_window.handle)
 end
 
 Dann(/^öffnet sich der Vertrag$/) do
-  page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
   expect(current_path).to eq borrow_user_contract_path(@contract.id)
 end
 
 Wenn(/^ich eine Werteliste aus meinen Dokumenten öffne$/) do
-  contracts = @current_user.contracts.where(status: [:signed, :closed])
-  @contract = contracts.sample
+  @contract = @current_user.contracts.where(status: [:signed, :closed]).sample
   visit borrow_user_value_list_path(@contract.id)
   step "öffnet sich die Werteliste"
   @list_element = find(".value_list")
 end
 
 Wenn(/^ich einen Vertrag aus meinen Dokumenten öffne$/) do
-  contracts = @current_user.contracts.where(status: [:signed, :closed])
-  @contract = contracts.sample
+  @contract = @current_user.contracts.where(status: [:signed, :closed]).sample
   visit borrow_user_contract_path(@contract.id)
   step "öffnet sich der Vertrag"
   @contract_element = find(".contract", match: :first)
 end
 
 Wenn(/^ich einen Vertrag mit zurück gebrachten Gegenständen aus meinen Dokumenten öffne$/) do
-  contracts = @current_user.contracts.where(status: [:signed, :closed])
-  @contract = contracts.find {|c| c.lines.any? &:returned_to_user}
+  @contract = @current_user.contracts.where(status: [:signed, :closed]).find {|c| c.lines.any? &:returned_to_user}
   visit borrow_user_contract_path(@contract.id)
   step "öffnet sich der Vertrag"
 end
@@ -199,9 +197,10 @@ Dann(/^sehe ich den Vertrag genau wie im Verwalten-Bereich$/) do
     expect(@contract_element.has_content?(_("Borrowed Items"))).to be true
     within @contract_element.find(".not_returned_items tbody") do
       not_returned_lines.each do |line|
-        expect(has_content?(line.model.name)).to be true
-        expect(has_content?(line.item.inventory_code)).to be true
-        find(".returning_date", text: "")
+        within find(".inventory_code", text: line.item.inventory_code).find(:xpath, 'ancestor::tr') do
+          find(".model_name", text: line.model.name)
+          find(".returning_date", text: "")
+        end
       end
     end
   end
@@ -214,16 +213,17 @@ end
 Dann(/^sieht man bei den betroffenen Linien die rücknehmende Person im Format "V. Nachname"$/) do
   if @contract_lines_to_take_back
     @contract_lines_to_take_back.map(&:contract).uniq.each do |contract|
-      find(".button[target='_blank'][href='#{manage_contract_path(@current_inventory_pool, contract)}']").click
-      new_window = page.driver.browser.window_handles.last
-      page.within_window new_window do
+      new_window = window_opened_by do
+        find(".button[target='_blank'][href='#{manage_contract_path(@current_inventory_pool, contract)}']").click
+      end
+      within_window new_window do
         contract.lines.each do |cl|
           find(".contract .list.returned_items tr", text: /#{cl.quantity}.*#{cl.item.inventory_code}.*#{I18n.l cl.end_date}/).find(".returning_date", text: cl.returned_to_user.short_name)
         end
       end
     end
   elsif @contract
-    lines = @contract.lines.where("returned_date IS NOT NULL")
+    lines = @contract.lines.where.not(returned_date: nil)
     expect(lines.size).to be > 0
     lines.each do |cl|
       find(".contract .list.returned_items tr", text: cl.item.inventory_code).find(".returning_date", text: cl.returned_to_user.short_name)

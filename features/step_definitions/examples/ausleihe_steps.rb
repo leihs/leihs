@@ -50,7 +50,7 @@ Wenn /^etwas in das Feld "(.*?)" schreibe$/ do |field_label|
 end
 
 Dann /^werden mir diejenigen Gegenstände vorgeschlagen, die in den dargestellten Rücknahmen vorkommen$/ do
-  @customer.visits.take_back.first.lines.all do |line|
+  @customer.visits.where(inventory_pool_id: @current_inventory_pool).take_back.first.lines.all do |line|
     expect(find(".ui-autocomplete", match: :first).has_content? line.item.inventory_code).to be true
   end
 end
@@ -103,7 +103,7 @@ Wenn /^ich eine Aushändigung mache die ein Model enthält dessen Gegenstände e
   end
   @model = @contract_line.model
   @customer = @contract.user
-  visit manage_hand_over_path(@current_inventory_pool, @customer)
+  step "ich eine Aushändigung an diesen Kunden mache"
   expect(has_selector?("#hand-over-view", :visible => true)).to be true
 end
 
@@ -133,12 +133,13 @@ end
 
 Angenommen /^der Kunde ist in mehreren Gruppen$/ do
   @customer = @current_inventory_pool.users.detect{|u| u.groups.size > 0}
-  expect(@customer).not_to be nil
+  expect(@customer).not_to be_nil
 end
 
 Wenn /^ich eine Aushändigung an diesen Kunden mache$/ do
   visit manage_hand_over_path(@current_inventory_pool, @customer)
-  find("#status .icon-ok")
+  expect(has_selector?("#hand-over-view")).to be true
+  step "the availability is loaded"
 end
 
 Wenn /^eine Zeile mit Gruppen-Partitionen editiere$/ do
@@ -173,13 +174,12 @@ end
 
 Wenn /^ich eine Aushändigung mache mit einem Kunden der sowohl am heutigen Tag sowie in der Zukunft Abholungen hat$/ do
   @customer = @current_inventory_pool.users.detect{|u| u.visits.hand_over.size > 1}
-  visit manage_hand_over_path(@current_inventory_pool, @customer)
-  expect(has_selector?("#hand-over-view")).to be true
+  step "ich eine Aushändigung an diesen Kunden mache"
 end
 
 Wenn /^ich etwas scanne \(per Inventarcode zuweise\) und es in irgendeinem zukünftigen Vertrag existiert$/ do
   begin
-    @model = @customer.contracts.approved.where(inventory_pool: @current_inventory_pool).sample.models.sample
+    @model = @customer.get_approved_contract(@current_inventory_pool).models.sample
     @item = @model.items.borrowable.in_stock.where(inventory_pool: @current_inventory_pool).sample
   end while @item.nil?
   find("[data-add-contract-line]").set @item.inventory_code
@@ -192,7 +192,8 @@ Dann /^wird es zugewiesen \(unabhängig ob es ausgewählt ist\)$/ do
 end
 
 Wenn /^es in keinem zukünftigen Vertrag existiert$/ do
-  @model_not_in_contract = (@current_inventory_pool.items.borrowable.in_stock.map(&:model).uniq - @customer.contracts.approved.flat_map(&:models)).sample
+  @model_not_in_contract = (@current_inventory_pool.items.borrowable.in_stock.map(&:model).uniq -
+                              @customer.get_approved_contract(@current_inventory_pool).models).sample
   @item = @model_not_in_contract.items.borrowable.in_stock.sample
   find("#add-start-date").set (Date.today+7.days).strftime("%d.%m.%Y")
   find("#add-end-date").set (Date.today+8.days).strftime("%d.%m.%Y")
@@ -203,11 +204,12 @@ end
 
 Dann /^wird es für die ausgewählte Zeitspanne hinzugefügt$/ do
   find("#flash")
-  find(".line", match: :first)
+  find(".line", match: :first, text: @model)
   expect(@amount_lines_before).to be < all(".line").size
 end
 
 Dann /^habe ich für jeden Gegenstand die Möglichkeit, eine Inspektion auszulösen$/ do
+  find(".line[data-line-type='item_line']", match: :first)
   line_ids = all(".line[data-line-type='item_line']").map {|l| l["data-id"]}
   line_ids.each do |id|
     within find(".line[data-id='#{id}'] .multibutton") do
@@ -278,13 +280,15 @@ end
 
 Dann /^man sieht auf jeder Zeile die Summe der Gegenstände des jeweiligen Modells$/ do
   step 'werden alle diese Gegenstände aufgelistet'
-  find(".tooltipster-default .row .col1of8:nth-child(1)", match: :first)
-  quantities = find(".tooltipster-default", match: :first, :visible => true).all(".row .col1of8:nth-child(1)", text: /.+/).map{|x| x.text.to_i}
-  expect(quantities.sum).to be >= quantities.size
+  within(".tooltipster-default", match: :first, :visible => true) do
+    find(".row .col1of8:nth-child(1)", match: :first)
+    quantities = all(".row .col1of8:nth-child(1)", text: /.+/).map{|x| x.text.to_i}
+    expect(quantities.sum).to be >= quantities.size
+  end
 end
 
-Angenommen /^ich suche( '(.*)')?$/ do |arg1, arg2|
-  @search_term = arg2 || "a"
+Angenommen /^(?:I search|ich suche) '(.*)'$/ do |arg1|
+  @search_term = arg1
   find("#search_term").set(@search_term)
   find("#search_term").native.send_key :enter
 end
@@ -367,7 +371,7 @@ end
 
 #Angenommen /^ich sehe Probleme auf einer Zeile, die durch die Verfügbarkeit bedingt sind$/ do
 #  step 'I open a hand over'
-#  step 'I add so many lines that I break the maximal quantity of an model'
+#  step 'I add so many lines that I break the maximal quantity of a model'
 #  @line_el = find(".line.error", match: :first)
 #  page.evaluate_script %Q{ $(".line.error:first-child").tmplItem().data.id; }
 #  @line = ContractLine.find page.evaluate_script %Q{ $(".line.error:first-child").tmplItem().data.id; }
@@ -397,9 +401,9 @@ def check_printed_contract(window_handles, ip = nil, contract = nil)
 end
 
 Wenn(/^ich eine Bestellung editieren$/) do
-  order = @current_inventory_pool.contracts.submitted.sample
-  @user = order.user
-  visit manage_edit_contract_path @current_inventory_pool, order.id
+  @contract = @current_inventory_pool.contracts.submitted.sample
+  @user = @contract.user
+  step "ich die Bestellung editiere"
 end
 
 Dann(/^erscheint der Benutzer unter den letzten Besuchern$/) do

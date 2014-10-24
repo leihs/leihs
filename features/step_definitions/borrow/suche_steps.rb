@@ -13,7 +13,7 @@ Dann(/^sieht man das Foto, den Namen und den Hersteller der ersten 6 Modelle gem
   expect(has_selector?(".ui-autocomplete")).to be true
   expect(all(".ui-autocomplete a").length).to be >= 6
   6.times do |i|
-    expect(first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//strong").text[@search_term]).not_to be nil
+    expect(first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//strong").text[@search_term]).not_to be_nil
     model = @current_user.models.borrowable.find {|m| [m.name, m.product].include? first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//strong").text }
     first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//*[contains(./text(), '#{model.manufacturer}')]")
     first(:xpath, "(//*[contains(@class, 'ui-autocomplete')]//a)[#{i+1}]//img[@src='/models/#{model.id}/image_thumb']")

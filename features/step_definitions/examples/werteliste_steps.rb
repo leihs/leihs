@@ -7,9 +7,10 @@ Angenommen /^man öffnet eine Werteliste$/ do
   new_window = page.driver.browser.window_handles.last
   page.driver.browser.switch_to.window new_window
 
-  find(".modal a", text: _("Value list")).click
-  new_window = page.driver.browser.window_handles.last
-  page.driver.browser.switch_to.window new_window
+  new_window = window_opened_by do
+    find(".modal a", text: _("Value list")).click
+  end
+  page.driver.browser.switch_to.window new_window.handle
 
   @list_element = find(".value_list")
 end
@@ -35,7 +36,7 @@ Dann /^möchte ich die folgenden Bereiche in der (Werteliste|Rüstliste) sehen:$
           within(".customer") do
             expect(has_content? @contract.user.firstname).to be true
             expect(has_content? @contract.user.lastname).to be true
-            expect(has_content? @contract.user.address.chomp(", ")).to be true
+            expect(has_content? @contract.user.address).to be true if @contract.user.address
             expect(has_content? @contract.user.zip).to be true
             expect(has_content? @contract.user.city).to be true
           end
@@ -66,7 +67,7 @@ Dann /^beinhaltet die Liste folgende Spalten:$/ do |table|
                   elsif @list_element[:class] == "value_list"
                     @contract.lines
                   else
-                    raise "not found"
+                    raise
                   end
           lines.each do |line|
             next if line.item_id.nil?
@@ -81,7 +82,7 @@ Dann /^beinhaltet die Liste folgende Spalten:$/ do |table|
           elsif @list_element[:class] == "value_list"
             @contract.lines.each {|line| find("tr", text: line.item.inventory_code).find(".model_name", text: line.model.name) }
           else
-            raise "not found"
+            raise
           end
         when "End Datum"
           @contract.lines.each {|line|
@@ -102,16 +103,21 @@ Dann /^beinhaltet die Liste folgende Spalten:$/ do |table|
               find("tr", text: line.item.inventory_code).find(".quantity", text: line.quantity)
             }
           else
-            raise "not found"
+            raise
           end
         when "Wert"
           @contract.lines.each {|line|
-            expect(find("tbody tr", text: line.item.inventory_code).find(".item_price").text.gsub(/\D/, "")).to eq ("%.2f" % line.item.price).gsub(/\D/, "")
+            expect(find("tbody tr", text: line.item.inventory_code).find(".item_price").text.gsub(/\D/, "")).to eq ("%.2f" % line.price).gsub(/\D/, "")
           }
         when "Raum / Gestell"
           find("table thead tr td.location", text: "%s / %s" % [_("Room"), _("Shelf")])
           @contract.lines.each {|line|
-            find("tbody tr", text: line.item.inventory_code).find(".location", text: (line.model.is_a?(Option) ? _("Location not defined") : "%s / %s" % [line.item.location.room, line.item.location.shelf]))
+            find("tbody tr", text: line.item.inventory_code).find(".location", text:
+                if line.model.is_a?(Option) or line.item.location.nil? or (line.item.location.room.blank? and line.item.location.shelf.blank?)
+                  _("Location not defined")
+                else
+                  "%s / %s" % [line.item.location.room, line.item.location.shelf]
+                end)
           }
         when "verfügbare Anzahl x Raum / Gestell"
           find("table thead tr td.location", text: "%s x %s / %s" % [_("available quantity"), _("Room"), _("Shelf")])
@@ -130,7 +136,7 @@ Dann /^beinhaltet die Liste folgende Spalten:$/ do |table|
             end
           end
         else
-          raise "not found"
+          raise
       end
     end
   end
@@ -167,7 +173,7 @@ Angenommen(/^es existiert eine Aushändigung mit mindestens zwei Modellen und ei
           g.keys.size >= 2 and
             g.values.detect {|x| x.size >= 3}
   end
-  expect(@hand_over).not_to be nil
+  expect(@hand_over).not_to be_nil
   @lines = @hand_over.lines
 end
 
@@ -198,12 +204,14 @@ end
 
 Wenn(/^das Werteverzeichniss öffne$/) do
   find("[data-selection-enabled]").find(:xpath, "./following-sibling::*").click
-  click_button _("Print Selection")
-  page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
+  document_window = window_opened_by do
+    click_button _("Print Selection")
+  end
+  page.driver.browser.switch_to.window(document_window.handle)
 end
 
 Dann(/^sehe ich das Werteverzeichniss für die ausgewählten Linien$/) do
-  has_selector? _("Value list")
+  expect(has_content? _("Value list")).to be true
   find("tfoot.total .quantity").text == @number_of_selected_lines.to_s
 end
 
@@ -245,11 +253,12 @@ Angenommen(/^es existiert eine Bestellung mit mindestens zwei Modellen, wo die B
       uniq.count >= 2 and select{|m| o.contract_lines.select{|l| l.model == m}.count >= 3 }.uniq.count >= 2
     end
   end
-  expect(@order).not_to be nil
+  expect(@order).not_to be_nil
   @lines = @order.lines
   @models = @lines.select{|l| l.is_a? ItemLine}.map(&:model)
 end
 
 Wenn(/^ich eine Bestellung öffne$/) do
-  visit manage_edit_contract_path(@current_inventory_pool, @order)
+  @contract = @order
+  step "ich die Bestellung editiere"
 end

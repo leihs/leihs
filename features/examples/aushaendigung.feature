@@ -5,7 +5,7 @@ Funktionalität: Aushändigung editieren
   Grundlage:
     Angenommen ich bin Pius
 
-  @javascript @browser @chrome @personas
+  @javascript @browser @personas
   Szenario: Systemfeedback bei erfolgreicher manueller Interaktion bei Aushändigung
     Angenommen es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell
     Und ich die Aushändigung öffne
@@ -31,7 +31,7 @@ Funktionalität: Aushändigung editieren
     Dann wird die Zeile grün markiert
     Und die problematischen Auszeichnungen bleiben bei der Linie bestehen
 
-  @personas
+  @personas @javascript
   Szenario: Sperrstatus des Benutzers anzeigen
     Angenommen ich eine Aushändigung mache
     Und der Benutzer für die Aushändigung ist gesperrt
@@ -61,7 +61,7 @@ Funktionalität: Aushändigung editieren
     Dann erscheint ein Aushändigungsdialog
     Und diese Standard-Vertragsnotiz erscheint im Textfeld für die Vertragsnotiz
 
-  @personas
+  @javascript @personas
   Szenario: Vertragsnotiz
     Wenn ich eine Aushändigung mache
     Wenn ich aushändige
@@ -83,8 +83,7 @@ Funktionalität: Aushändigung editieren
     Wenn ich die Anzahl "2" in das Mengenfeld schreibe
     Dann wird die Menge mit dem Wert "2" gespeichert
 
-  # test failing with @firefox only on CI
-  @javascript @browser @chrome @personas
+  @javascript @browser @personas
   Szenario: Anzeige der Seriennummer bei Zuteilung der Software-Lizenz
     Angenommen ich öffne eine Aushändigung mit einer Software
     Wenn ich in das Zuteilungsfeld links vom Software-Namen klicke
@@ -106,3 +105,8 @@ Funktionalität: Aushändigung editieren
     Und ich auf der Modelllinie die Gegenstandsauswahl öffne
     Dann wird der ausgemusterte Gegenstand nicht aufgelistet
 
+  @personas @javascript @browser
+  Szenario: Anzeige von bereits zugewiesenen Gegenständen
+    Angenommen es besteht bereits eine Aushändigung mit mindestens 21 zugewiesenen Gegenständen für einen Benutzer
+    Wenn ich die Aushändigung öffne
+    Dann sehe ich all die bereits zugewiesenen Gegenstände mittels Inventarcodes

@@ -25,7 +25,7 @@ do |quantity, model, from, to|
   line.update_attributes(item: model.items.first, purpose: FactoryGirl.create(:purpose))
   @contract.reload
   expect(@contract.lines.size).to be >= 1
-  expect(@contract.lines.first.item).not_to be nil
+  expect(@contract.lines.first.item).not_to be_nil
   expect(model.availability_in(@contract.inventory_pool).document_lines.size).to be >= 1
 end
 
@@ -80,10 +80,10 @@ end
 
 Then "if I check the maximum available quantity for $date it is $quantity on $current_date" do |date, quantity, current_date|
   date = to_date(date)
-  back_to_the_future( to_date(current_date) )
+  Dataset.back_to_date( to_date(current_date) )
   @inventory_pool.reload
   expect(@model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(date, date, @user.group_ids)).to eq quantity.to_i
-  back_to_the_present
+  Dataset.back_to_date
   @inventory_pool.reload
 end
 

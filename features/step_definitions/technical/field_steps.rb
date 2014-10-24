@@ -67,7 +67,7 @@ end
 Then /^each field is capable of providing values even if its values attribute is a lambda\/proc$/ do
   Field.all.each do |field|
     if field.values
-      expect(field.values).not_to be nil
+      expect(field.values).not_to be_nil
     end
   end
 end

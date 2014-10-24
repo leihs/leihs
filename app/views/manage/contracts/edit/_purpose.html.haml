@@ -4,7 +4,7 @@
 
     .col7of8.padding-right-m
       .margin-bottom-xs= _("Purpose")
-      %p#purpose.paragraph-s.line-height-s= @purpose
+      %p#purpose.paragraph-s.line-height-s= @purposes.map(&:to_s).uniq.join("; ")
 
     .col1of8.text-align-right
       %button#edit-purpose.button.white= _("Edit Purpose")

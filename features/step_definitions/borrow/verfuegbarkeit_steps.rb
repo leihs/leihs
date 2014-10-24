@@ -1,11 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Angenommen(/^ich habe eine offene Bestellung mit Modellen$/) do
-  FactoryGirl.create(:contract_with_lines,
-                     inventory_pool: @current_user.inventory_pools.sample,
-                     user: @current_user,
-                     status: :unsubmitted,
-                     lines_count: rand(3..10))
+  expect(@current_user.contracts.unsubmitted.count).to eq 1
 end
 
 Angenommen(/^die Bestellung Timeout ist (\d+) Minuten$/) do |arg1|
@@ -15,8 +11,10 @@ end
 #######################################################################
 
 Wenn(/^ich ein Modell der Bestellung hinzufüge$/) do
-  @inventory_pool = @current_user.inventory_pools.find_by_name("A-Ausleihe")
-  @current_user.get_unsubmitted_contract(@inventory_pool).contract_lines << (@new_contract_line = FactoryGirl.create(:contract_line, :contract => @current_user.get_unsubmitted_contract(@inventory_pool)))
+  @inventory_pool = @current_user.inventory_pools.first # OPTIMIZE
+  contract = @current_user.get_unsubmitted_contract(@inventory_pool)
+  @new_contract_line = FactoryGirl.create(:contract_line, :contract => contract)
+  contract.contract_lines << @new_contract_line
   expect(@new_contract_line.reload.available?).to be true
 end
 
@@ -53,33 +51,30 @@ Wenn(/^ich länger als (\d+) Minuten keine Aktivität ausgeführt habe$/) do |ar
   end
 end
 
-Angenommen(/^ein Modell ist nicht verfügbar$/) do
-  line = @current_user.contracts.unsubmitted.flat_map(&:lines).sample
-  (line.maximum_available_quantity + 1).times do
-    c = FactoryGirl.create(:contract,
-                           :inventory_pool => line.inventory_pool)
-    FactoryGirl.create(:item_line,
-                       :contract => c,
-                       :model => line.model,
-                       :start_date => line.start_date,
-                       :end_date => line.end_date)
-  end
-  expect(line.reload.available?).to be false
-end
+Angenommen(/^(ein|\d+) Modelle? (?:ist|sind) nicht verfügbar$/) do |n|
+  n = case n
+        when "ein"
+          1
+        else
+          n.to_i
+      end
 
-Angenommen(/^(\d+) Modelle sind nicht verfügbar$/) do |n|
-  @current_user.contracts.unsubmitted.flat_map(&:lines).take(n.to_i).each do |line|
+  lines = @current_user.contracts.unsubmitted.flat_map(&:lines)
+  already_unavailable_lines = lines.select{|line| not line.available?}
+
+  lines.take(n - already_unavailable_lines.size).each do |line|
     (line.maximum_available_quantity + 1).times do
       c = FactoryGirl.create(:contract,
+                             :status => :submitted,
                              :inventory_pool => line.inventory_pool)
-      FactoryGirl.create(:contract_line,
+      FactoryGirl.create(:item_line,
                          :contract => c,
                          :model => line.model,
                          :start_date => line.start_date,
                          :end_date => line.end_date)
     end
   end
-  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).select{|line| not line.available?}.length).to eq n.to_i
+  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).select{|line| not line.available?}.size).to eq n
 end
 
 Wenn(/^ich eine Aktivität ausführe$/) do
@@ -116,12 +111,11 @@ end
 
 Wenn(/^eine Rücknahme nur Optionen enthält$/) do
   @current_inventory_pool = @current_user.inventory_pools.where("access_rights.suspended_until IS NULL OR access_rights.suspended_until < ?", Date.today).first
-  (@customer = @current_inventory_pool.users.find{|u| u.visits.take_back.count == 0}).should be
-  visit manage_hand_over_path @current_inventory_pool, @customer
+  expect(@customer = @current_inventory_pool.users.find{|u| u.visits.take_back.count == 0}).to be
+  step "ich eine Aushändigung an diesen Kunden mache"
   step 'I add an option to the hand over by providing an inventory code and a date range'
   step 'the option is added to the hand over'
   step 'I click hand over'
-  find('#purpose')
   find('#purpose').set 'text'
   step 'I click hand over inside the dialog'
   visit manage_take_back_path @current_inventory_pool, @customer

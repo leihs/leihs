@@ -5,7 +5,7 @@ Angenommen(/^es existiert eine leere Bestellung$/) do
     @customer = ip.users.to_a.shuffle.detect {|c| c.visits.hand_over.empty? }
   end
   raise "customer not found" unless @customer
-  visit manage_hand_over_path @current_inventory_pool, @customer
+  step "ich eine Aushändigung an diesen Kunden mache"
   @contract = @current_inventory_pool.contracts.approved.where(user_id: @customer.id).last
 end
 
@@ -33,7 +33,7 @@ end
 
 Angenommen(/^eine Bestellung enhält überbuchte Modelle$/) do
   @contract = @current_inventory_pool.contracts.submitted.with_verifiable_user_and_model.detect {|c| not c.approvable?}
-  expect(@contract).not_to be nil
+  expect(@contract).not_to be_nil
 end
 
 Wenn(/^ich die Bestellung editiere$/) do
@@ -70,7 +70,7 @@ end
 
 Angenommen(/^es existiert eine visierpflichtige Bestellung$/) do
   @contract = Contract.with_verifiable_user_and_model.first
-  expect(@contract).not_to be nil
+  expect(@contract).not_to be_nil
 end
 
 Dann(/^wurde diese Bestellung von einem Benutzer aus einer visierpflichtigen Gruppe erstellt$/) do
@@ -171,7 +171,7 @@ Dann(/^sehe ich alle genehmigten visierpflichtigen Bestellungen$/) do
 end
 
 Dann(/^ich sehe auf der Bestellungszeile den Status$/) do
-  find(@line_css).text.should include _(@contract.status.to_s.capitalize)
+  find(@line_css, text: _(@contract.status.to_s.capitalize))
 end
 
 Dann(/^sehe ich alle abgelehnten visierpflichtigen Bestellungen$/) do
@@ -190,10 +190,12 @@ end
 
 Dann(/^sehe ich alle Bestellungen, welche von Benutzern der visierpflichtigen Gruppen erstellt wurden$/) do
   step 'man bis zum Ende der Liste fährt'
-  @contracts = @current_inventory_pool.contracts.where(status: [:submitted, :rejected, :signed]).with_verifiable_user
-  @contracts.each {|c|
-    expect(has_selector?("[data-type='contract'][data-id='#{c.id}']")).to be true
-  }
+  within "#contracts" do
+    @contracts = @current_inventory_pool.contracts.where(status: [:submitted, :approved, :rejected]).with_verifiable_user
+    @contracts.each do |contract|
+      find(".line[data-type='contract'][data-id='#{contract.id}']")
+    end
+  end
 end
 
 Dann(/^ist die Bestellung wieder im Status noch nicht genehmigt$/) do
@@ -219,7 +221,7 @@ end
 
 Aber(/^ich kann nicht aushändigen$/) do
   find("[data-line-type='item_line']", match: :first)
-  all("[data-line-type='item_line'] input[type='checkbox'][checked]").each &:click
+  all("[data-line-type='item_line'] input[type='checkbox']:checked").each &:click
   unless page.has_selector?("[data-hand-over-selection][disabled]")
     find("[data-hand-over-selection]").click
     find("#purpose").set Faker::Lorem.paragraph
@@ -247,9 +249,12 @@ end
 
 Aber(/^ich kann keine Gegenstände zuteilen$/) do
   find("[data-line-type='item_line']", match: :first)
-  within all("[data-line-type='item_line']").sample do
-    find("input[data-assign-item]").click
-    find("li.ui-menu-item a", match: :first).click
+  all("[data-line-type='item_line']").to_a.shuffle.each do |dom_line|
+    within dom_line do
+      find("input[data-assign-item]").click
+      next unless has_selector?("li.ui-menu-item a")
+      find("li.ui-menu-item a", match: :first).click
+    end
   end
   find("#flash .error", text: _("You don't have permission to perform this action"))
 end
@@ -263,20 +268,20 @@ Wenn(/^I am listing the (orders|contracts|visits)$/) do |arg1|
     when "visits"
       visit manage_inventory_pool_visits_path(@current_inventory_pool)
     else
-      raise "not found"
+      raise
   end
 end
 
 Given(/^(orders|contracts|visits) exist$/) do |arg1|
   @contracts = case arg1
                  when "orders"
-                   @current_inventory_pool.contracts.submitted_or_approved_or_rejected
+                   @current_inventory_pool.contracts.where(status: [:submitted, :approved, :rejected])
                  when "contracts"
                    @current_inventory_pool.contracts.signed_or_closed
                  when "visits"
                    @current_inventory_pool.visits
                  else
-                   raise "not found"
+                   raise
                end
   expect(@contracts.exists?).to be true
 end

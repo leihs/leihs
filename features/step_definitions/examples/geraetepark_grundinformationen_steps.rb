@@ -267,7 +267,7 @@ When(/^I (enable|disable) "(.*)"$/) do |arg1, arg2|
         when "disable"
           false
         else
-          raise "not found"
+          raise
       end
   case arg2
     when "Verträge drucken"
@@ -277,7 +277,7 @@ When(/^I (enable|disable) "(.*)"$/) do |arg1, arg2|
     when "Automatischer Zugriff"
       find("input[type='checkbox'][name='inventory_pool[automatic_access]']").set b
     else
-      raise "not found"
+      raise
   end
 end
 
@@ -288,7 +288,7 @@ Then(/^"(.*)" is (enabled|disabled)$/) do |arg1, arg2|
         when "disabled"
           false
         else
-          raise "not found"
+          raise
       end
   case arg1
     when "Verträge drucken"
@@ -298,6 +298,6 @@ Then(/^"(.*)" is (enabled|disabled)$/) do |arg1, arg2|
     when "Automatischer Zugriff"
       expect(@current_inventory_pool.reload.automatic_access).to eq b
     else
-      raise "not found"
+      raise
   end
 end

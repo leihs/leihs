@@ -101,8 +101,8 @@ class Model < ActiveRecord::Base
   scope :packages, -> {where(:is_package => true)}
 
   scope :with_properties, -> {select("DISTINCT models.*").
-                          joins("LEFT JOIN properties ON properties.model_id = models.id").
-                          where("properties.model_id IS NOT NULL")}
+                              joins("LEFT JOIN properties ON properties.model_id = models.id").
+                              where.not(properties: {model_id: nil})}
 
   scope :by_inventory_pool, lambda { |inventory_pool| select("DISTINCT models.*").joins(:items).
                                                       where(["items.inventory_pool_id = ?", inventory_pool]) }

@@ -1,7 +1,7 @@
 FactoryGirl.define do
 
   factory :purpose do
-    description { Faker::Lorem.sentences 2 }
+    description { Faker::Lorem.sentence }
   end
   
 end

@@ -27,8 +27,9 @@ gem 'geocoder', '~> 1.1'
 gem 'gettext_i18n_rails', '~> 1.0'
 gem 'haml', '~> 4.0'
 gem 'haml_assets', '~> 0.2'
-gem 'jquery-rails', '2.1.3' # '~> 2.1' FIXME the version 2.1.4 clashes with underscore-rails 1.4.2.1 + # NOTE in order to upgrate to '~> 3.1', first adapt the code removing the .live() functions
+gem 'jquery-rails', '~> 3.1'
 gem 'jquery-tmpl-rails', '~> 1.1'
+gem 'jquery-ui-rails', '~> 5.0'
 gem 'jruby-openssl', platform: :jruby
 gem 'json', '~> 1.8'
 gem 'jsrender-rails', '~> 1.2', git: 'https://github.com/spape/jsrender-rails.git', branch: 'own_template_prefix'
@@ -66,6 +67,6 @@ gem 'thin', group: :development, platform: :mri # web server (Webrick do not sup
 gem 'timecop', '~> 0.7', group: [:test, :development]
 gem 'trinidad', group: :development, platform: :jruby # web server (Webrick do not support keep-alive connections)
 gem 'uglifier', '~> 2.4'
-gem 'underscore-rails', '~> 1.6'
+gem 'underscore-rails', '~> 1.7'
 gem 'will_paginate', '~> 3.0'
 gem 'yard', group: [:test, :development]

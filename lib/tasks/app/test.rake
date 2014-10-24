@@ -7,15 +7,10 @@ namespace :app do
       raise "This task only runs in RAILS_ENV=test !!!" unless Rails.env.test?
 
       # generate updated cucumber.yml
-      `#{File.join(Rails.root, "cider-ci/bin/list_cucumber_tasks.rb")}`
+      system "#{File.join(Rails.root, "cider-ci/bin/list_cucumber_tasks.rb")}"
 
-      # generate personas dumps
-      Rake::Task["db:drop"].invoke
-      Rake::Task["db:create"].invoke
-      Rake::Task["db:migrate"].invoke
-      require File.join(Rails.root, 'features/support/personas.rb')
-      require File.join(Rails.root, 'features/support/timecop.rb')
-      Persona.generate_dumps(6)
+      # generate personas sql dumps
+      system "cucumber #{File.join(Rails.root, "features/personas/generating_personas.feature")}"
     end
 
 

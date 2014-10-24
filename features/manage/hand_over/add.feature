@@ -38,7 +38,7 @@ Feature: Add lines during hand over
   @javascript @personas @browser
   Scenario: Add lines which changes other lines availability
     Given I open a hand over for today
-    And I add so many lines that I break the maximal quantity of an model
+    And I add so many lines that I break the maximal quantity of a model
     Then I see that all lines of that model have availability problems
 
   @javascript @personas @browser

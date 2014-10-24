@@ -23,5 +23,5 @@ class window.App.ItemEditController extends Spine.Controller
 
   saveAndCopy: =>
     if @flexibleFieldsController.validate()
-      @copyInput.attr "disabled", false
+      @copyInput.prop "disabled", false
       @itemForm.submit()

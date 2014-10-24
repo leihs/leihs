@@ -204,6 +204,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def address
+    read_attribute(:address).try(:chomp, ", ")
+  end
+
 ################################################
 
   # get or create a new unsubmitted contract for a specific inventory_pool

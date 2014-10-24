@@ -13,7 +13,7 @@ class window.App.ManageBookingCalendar extends App.BookingCalendar
   setup: (options)->
     @partitionSelector_el = @el.find "select#booking-calendar-partitions"
     if options.startDateDisabled
-      @startDate_el.attr "disabled", true
+      @startDate_el.prop "disabled", true
       @startDate_el.val moment().format("YYYY-MM-DD")
     @lines = options.lines
     @models = options.models
@@ -66,7 +66,7 @@ class window.App.ManageBookingCalendar extends App.BookingCalendar
       @partitionSelector_el.bind "change", (e)=>
         do @render
     else
-      @partitionSelector_el.attr "disabled", true
+      @partitionSelector_el.prop "disabled", true
 
   selectedPartitions: =>
     if @partitionSelector_el? and @partitionSelector_el.find("option").length and @partitionSelector_el.find("option:selected").val().length

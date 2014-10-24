@@ -24,7 +24,7 @@ Wenn(/^ich einen Benutzer mit Login "(.*?)" und Passwort "(.*?)" erstellt habe$/
   fill_in_user_information(firstname: "test", lastname: "test", email: "test@test.ch", login: login, password: password, password_confirmation: password)
   expect(has_content?(_("List of Users"))).to be true
   @user = User.find_by_login login
-  expect(DatabaseAuthentication.find_by_user_id(@user.id)).not_to be nil
+  expect(DatabaseAuthentication.find_by_user_id(@user.id)).not_to be_nil
 end
 
 Wenn(/^der Benutzer hat Zugriff auf ein Inventarpool$/) do
@@ -45,7 +45,7 @@ Wenn(/^ich das Passwort von "(.*?)" auf "(.*?)" ändere$/) do |persona, password
   fill_in_user_information(password: password, password_confirmation: password)
   expect(has_content?(_("List of Users"))).to be true
   @user = User.find_by_login "#{User.find_by_login("normin").login}"
-  expect(DatabaseAuthentication.find_by_user_id(@user.id)).not_to be nil
+  expect(DatabaseAuthentication.find_by_user_id(@user.id)).not_to be_nil
 end
 
 Angenommen(/^man befindet sich auf der Benutzereditieransicht von "(.*?)"$/) do |persona|
@@ -62,14 +62,14 @@ Wenn(/^ich den Benutzernamen auf "(.*?)" und das Passwort auf "(.*?)" ändere$/)
   fill_in_user_information(login: login, password: password, password_confirmation: password)
   expect(has_content?(_("List of Users"))).to be true
   @user = User.find_by_login login
-  expect(DatabaseAuthentication.find_by_user_id(@user.id)).not_to be nil
+  expect(DatabaseAuthentication.find_by_user_id(@user.id)).not_to be_nil
 end
 
 Wenn(/^ich den Benutzernamen von "(.*?)" auf "(.*?)" ändere$/) do |person, login|
   fill_in_user_information(login: login)
   expect(has_content?(_("List of Users"))).to be true
   @user = User.find_by_login login
-  expect(DatabaseAuthentication.find_by_user_id(@user.id)).not_to be nil
+  expect(DatabaseAuthentication.find_by_user_id(@user.id)).not_to be_nil
 end
 
 Wenn(/^ich einen Benutzer ohne Loginnamen erstellen probiere$/) do

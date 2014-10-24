@@ -16,6 +16,6 @@ class window.App.TopBarController extends Spine.Controller
   checkStartScreenState: =>
     path = window.location.pathname + window.location.search + window.location.hash
     if App.User.current.start_screen == path
-      @startScreenCheckbox.attr "checked", true
+      @startScreenCheckbox.prop "checked", true
     else
-      @startScreenCheckbox.attr "checked", false
+      @startScreenCheckbox.prop "checked", false

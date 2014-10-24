@@ -2,7 +2,7 @@ When /^I open a booking calendar to edit a singe line$/ do
   # high frequently booked model
   @model = @current_inventory_pool.models.max {|a,b| a.availability_in(@current_inventory_pool).changes.length <=> b.availability_in(@current_inventory_pool).changes.length}
   @contract = Contract.joins(:contract_lines).where(:status => :submitted, :contract_lines => {:model_id => @model.id}).first
-  visit manage_edit_contract_path(@current_inventory_pool, @contract)
+  step "ich die Bestellung editiere"
   @edited_line = find(".line", :text => @model.name)
   @edited_line.find("[data-edit-lines]").click
   find(".modal")

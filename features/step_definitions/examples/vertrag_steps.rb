@@ -3,11 +3,11 @@
 Angenommen /^man öffnet einen Vertrag bei der Aushändigung( mit Software)?$/ do |arg1|
   step "I open a hand over which has multiple unassigned lines and models in stock%s" % (arg1 ? " with software" : nil)
 
-  3.times do
+
+  step 'I select a license line and assign an inventory code' if arg1
+  max = [@hand_over.lines.where(item_id: nil, option_id: nil).select {|l| l.available? }.count, 1].max
+  rand(1..max).times do
     step 'I select an item line and assign an inventory code'
-  end
-  if arg1
-    step 'I select a license line and assign an inventory code'
   end
 
   step 'I click hand over'
@@ -59,7 +59,7 @@ Dann /^möchte ich die folgenden Bereiche sehen:$/ do |table|
 end
 
 Dann /^seh ich den Hinweis auf AGB "(.*?)"$/ do |note|
-  expect(@contract_element.find(".terms")).not_to be nil
+  expect(@contract_element.find(".terms")).not_to be_nil
 end
 
 Dann /^beinhalten Liste (\d+) und Liste (\d+) folgende Spalten:$/ do |arg1, arg2, table|
@@ -148,13 +148,9 @@ Dann /^möchte ich im Feld des Ausleihenden die folgenden Bereiche sehen:$/ do |
          expect(@customer_element.has_content?(@customer.firstname)).to be true
        when "Nachname"
          expect(@customer_element.has_content?(@customer.lastname)).to be true
-       when "Strasse"
+       when "Strasse", "Hausnummer"
          expect(@customer_element.has_content?(@customer.address)).to be true
-       when "Hausnummer"
-         expect(@customer_element.has_content?(@customer.address)).to be true
-       when "Länderkürzel"
-         expect(@customer_element.has_content?(@customer.zip)).to be true
-       when "PLZ"
+       when "Länderkürzel", "PLZ"
          expect(@customer_element.has_content?(@customer.zip)).to be true
        when "Stadt"
          expect(@customer_element.has_content?(@customer.city)).to be true
@@ -169,13 +165,13 @@ Wenn /^es Gegenstände gibt, die zurückgegeben wurden$/ do
   step 'I see a summary of the things I selected for take back'
   step 'I click take back inside the dialog'
   visit manage_contracts_path(@current_inventory_pool, status: [:signed, :closed])
-  find(".line .multibutton a", match: :first, text: _("Contract")).click
+  document_window = window_opened_by do
+    find(".line .multibutton a", match: :first, text: _("Contract")).click
+  end
+  page.driver.browser.switch_to.window(document_window.handle)
 end
 
 Dann /^sehe ich die Liste (\d+) mit dem Titel "(.*?)"$/ do |arg1, titel|
-  new_window = page.driver.browser.window_handles.last
-  page.driver.browser.switch_to.window new_window
-
   find(".contract")
 
   if titel == "Zurückgegebene Gegenstände"
@@ -227,8 +223,8 @@ Dann(/^wird unter 'Verleiher\/in' der Gerätepark aufgeführt$/) do
 end
 
 Angenommen(/^es gibt einen Kunden mit Vertrag wessen Addresse mit "(.*?)" endet$/) do |arg1|
-  @user = @current_inventory_pool.users.customers.find {|u| u.contracts.where(status: [:signed, :closed]).exists? and u.address =~ /, $/}
-  expect(@user).not_to be nil
+  @user = @current_inventory_pool.users.customers.find {|u| u.contracts.where(status: [:signed, :closed]).exists? and u.read_attribute(:address) =~ /, $/}
+  expect(@user).not_to be_nil
 end
 
 Wenn(/^ich einen Vertrag dieses Kunden öffne$/) do
@@ -236,12 +232,12 @@ Wenn(/^ich einen Vertrag dieses Kunden öffne$/) do
 end
 
 Dann(/^wird seine Adresse ohne den abschliessenden "(.*?)" angezeigt$/) do |arg1|
-  find(".street", text: @user.address.chomp(", "))
+  find(".street", text: @user.address)
 end
 
 Wenn(/^in den globalen Einstellungen die Adresse der Instanz konfiguriert ist$/) do
   @address = Setting::CONTRACT_LENDING_PARTY_STRING
-  expect(@address).not_to be nil
+  expect(@address).not_to be_nil
 end
 
 Dann(/^wird unter dem Verleiher diese Adresse angezeigt$/) do
@@ -249,11 +245,20 @@ Dann(/^wird unter dem Verleiher diese Adresse angezeigt$/) do
 end
 
 Wenn(/^the contract contains a software license$/) do
-  @selected_items_with_software_license = @selected_items.select {|i| i.model.is_a? Software }
+  @selected_items_with_license = @selected_items.select {|i| i.model.is_a? Software }
+  expect(@selected_items_with_license).not_to be_empty
 end
 
-Dann(/^I additionally see the following informatins$/) do |table|
-  pending
-  @selected_items_with_software_license.each do |cl|
+Dann(/^I additionally see the following informations$/) do |table|
+  table.raw.flatten.each do |s|
+    case s
+      when "Seriennummer"
+        @selected_items_with_license.each do |item|
+          find(".contract tbody .model_name", text: item.serial_number)
+        end
+      else
+        raise
+    end
   end
+
 end

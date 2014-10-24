@@ -231,7 +231,7 @@ class App.InventoryHelperController extends Spine.Controller
     @setNotification _jed("%s successfully saved", _jed("Item")), "success"
 
   disableFlexibleFields: =>
-    @flexibleFields.find("input,textarea,select").attr "disabled", true
+    @flexibleFields.find("input,textarea,select").prop "disabled", true
 
   showOwnerChangeNotification: =>
     App.Flash

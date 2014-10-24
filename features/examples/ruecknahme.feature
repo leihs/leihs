@@ -61,4 +61,25 @@ Funktionalität: Rücknahme
     Und beim Gegenstand eine Inspektion durchführe
     Und ich setze "Zustand" auf "Defekt"
     Und ich speichere
-    Dann steht bei der Option die zuvor angegebene Stückzahl 
+    Dann steht bei der Option die zuvor angegebene Stückzahl
+
+  @javascript @browser @personas
+  Szenario: Festhalten wer einen Gegenstand zurückgenommen hat
+    Wenn ich einen Gegenstand zurücknehme
+    Dann wird festgehalten, dass ich diesen Gegenstand zurückgenommen habe
+
+  @personas
+  Szenario: Korrekte Reihenfolge mehrerer Verträge
+    Und es existiert ein Benutzer mit mindestens 2 Rückgaben an 2 verschiedenen Tagen
+    Wenn man die Rücknahmenansicht für den Benutzer öffnet
+    Dann sind die Rücknahmen aufsteigend nach Datum sortiert
+
+  @javascript @personas
+  Szenario: Optionen in mehreren Zeitfenstern vorhanden
+    Angenommen es existiert ein Benutzer mit einer zurückzugebender Option in zwei verschiedenen Zeitfenstern
+    Und ich öffne die Rücknahmeansicht für diesen Benutzer
+    Wenn ich diese Option zurücknehme
+    Dann wird die Option dem ersten Zeitfenster hinzugefügt
+    Wenn im ersten Zeitfenster bereits die maximale Anzahl dieser Option erreicht ist
+    Und ich dieselbe Option nochmals hinzufüge
+    Dann wird die Option dem zweiten Zeitfenster hinzugefügt

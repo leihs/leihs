@@ -5,12 +5,12 @@ class Button
     multibutton = trigger.closest(".multibutton")
     if multibutton.length
       button = multibutton.children(".button")
-      multibutton.attr("autocomplete", "off").attr("disabled", true)
-      multibutton.find(".dropdown-toggle").attr("autocomplete", "off").attr("disabled", true)
+      multibutton.attr("autocomplete", "off").prop("disabled", true)
+      multibutton.find(".dropdown-toggle").attr("autocomplete", "off").prop("disabled", true)
       multibutton.find(".dropdown").trigger("mouseleave").hide()
     else
       button = trigger
-    button.attr("autocomplete", "off").attr("disabled", true)
+    button.attr("autocomplete", "off").prop("disabled", true)
     return button
 
   @enable: (trigger)->

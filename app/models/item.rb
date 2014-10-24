@@ -438,7 +438,7 @@ class Item < ActiveRecord::Base
 
   # TODO has_one/has_many
   def latest_contract_line
-    contract_lines.where("returned_date IS NOT NULL").order("returned_date").last
+    contract_lines.where.not(returned_date: nil).order("returned_date").last
   end
 
   public

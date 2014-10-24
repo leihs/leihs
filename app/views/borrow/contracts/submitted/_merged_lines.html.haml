@@ -1,4 +1,4 @@
-.row.line{:"data-line-ids" => line[:line_ids]}
+.row.line{:"data-ids" => line[:line_ids]}
 
   - if line.has_key?(:available?) and not line[:available?]
     .line-info.red{title: _("Not available")}

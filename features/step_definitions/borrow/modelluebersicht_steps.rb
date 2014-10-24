@@ -77,7 +77,7 @@ end
 
 Dann(/^wird das Bild zum Hauptbild auch wenn ich das hovern beende$/) do
   step "I release the focus from this field"
-  expect(find("#main-image", :visible => false)["src"][model_image_path(@model, offset: 1)]).not_to be nil
+  expect(find("#main-image", :visible => false)["src"][model_image_path(@model, offset: 1)]).not_to be_nil
 end
 
 Angenommen(/^man befindet sich in einer Modellübersicht mit Eigenschaften$/) do

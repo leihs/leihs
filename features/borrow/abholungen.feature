@@ -9,7 +9,7 @@ Funktionalität: Abholungen
 
   @personas
   Szenario: Kein Abhol-Button im Fall nicht vorhandenen Rückgaben
-    Angenommen ich bin Ramon
+    Angenommen ich bin Peter
     Und man befindet sich im Ausleihen-Bereich
     Dann sehe ich den "Abholungen" Button nicht
 

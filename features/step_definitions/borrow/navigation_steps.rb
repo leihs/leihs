@@ -25,7 +25,7 @@ Dann(/^die Navigation beinhaltet "(.*?)"$/) do |section|
     when "Ausleihen"
       find("nav a[href='#{borrow_root_path}']", :text => _("Borrow"))
     else
-      raise "not found"
+      raise
   end
 end
 
@@ -65,7 +65,7 @@ When(/^I visit the lending section on the list of (all|open|closed) contracts$/)
     when "closed"
       find("#list-tabs a.inline-tab-item", text: _("Closed")).click
     else
-      raise "not found"
+      raise
   end
   find("#contracts.list-of-lines .line", match: :first)
 end
@@ -77,6 +77,6 @@ Then(/^I see at least (an order|a contract)$/) do |arg1|
     when "a contract"
       find("#contracts.list-of-lines .line", match: :first)
     else
-      raise "not found"
+      raise
   end
 end

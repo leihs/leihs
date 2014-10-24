@@ -7,7 +7,7 @@ Feature: Sign Contract
   Background:
     Given I am Pius
 
-  @personas
+  @personas @javascript
   Scenario: Hand over an not complete quantity of an option line
     When I open a hand over
     And I select an option line

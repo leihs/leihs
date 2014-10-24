@@ -26,11 +26,11 @@ class window.App.FormWithUploadController extends Spine.Controller
     loadingTemplate = $ App.Render "views/loading", {size: "micro"}
     @saveButton.data "origin", @saveButton.html()
     @saveButton.html loadingTemplate
-    @saveButton.attr "disabled", true
+    @saveButton.prop "disabled", true
 
   hideLoading: =>
     @saveButton.html @saveButton.data "origin"
-    @saveButton.attr "disabled", false
+    @saveButton.prop "disabled", false
 
   showError: (text) =>
     App.Flash

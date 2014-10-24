@@ -10,7 +10,6 @@ class window.App.CategoriesFilterController extends Spine.Controller
     "click [data-type='category-filter']": "clickCategory"
     "click [data-type='category-root']": "goRoot"
     "click [data-type='category-current']": "goBack"
-    "change #category-search": "search"
     "preChange #category-search": "search"
 
   constructor: ->
@@ -58,7 +57,7 @@ class window.App.CategoriesFilterController extends Spine.Controller
     @rootContainer.html App.Render "manage/views/categories/filter_list_search", {search_term: @input.val()}
     @currentContainer.html ""
     if results.length
-      @list.html App.Render "manage/views/categories/filter_list_entry", results 
+      @list.html App.Render "manage/views/categories/filter_list_entry", results
     else
       @list.html ""
 

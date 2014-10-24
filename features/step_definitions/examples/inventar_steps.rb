@@ -1,13 +1,9 @@
 # encoding: utf-8
 
-Angenommen /^man öffnet die Liste des Inventars?$/ do
+Angenommen /^man öffnet die Liste des Inventars$/ do
   @current_inventory_pool = @current_user.managed_inventory_pools.select { |ip| ip.models.exists? and ip.options.exists? }.sample
   visit manage_inventory_path(@current_inventory_pool)
   find("#inventory")
-end
-
-Wenn /^man die Liste des Inventars öffnet$/ do
-  step 'man öffnet die Liste des Inventars'
 end
 
 Dann /^sieht man Modelle$/ do
@@ -88,7 +84,6 @@ Dann /^kann man auf ein der folgenden Tabs klicken und dabei die entsprechende I
 
     tab.click
     expect(tab.reload[:class].split.include?("active")).to be true
-    has_selector? "#inventory > .line"
     step "I fetch all pages of the list"
 
     check_amount_of_lines(amount)
@@ -281,7 +276,7 @@ end
 Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gegenstand verantwortlich ist$/ do
   all("select[name='responsible_id'] option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ""}.select_option
   find("input[name='in_stock']").click if find("input[name='in_stock']").checked?
-  item = @current_inventory_pool.own_items.detect{|i| not i.inventory_pool_id.nil? and i.inventory_pool != @current_inventory_pool and not i.in_stock?}
+  item = @current_inventory_pool.own_items.items.detect{|i| not i.inventory_pool_id.nil? and i.inventory_pool != @current_inventory_pool and not i.in_stock?}
   step 'ich nach "%s" suche' % item.inventory_code
   within ".line[data-type='model'][data-id='#{item.model.id}']" do
     if has_selector?(".button[data-type='inventory-expander'] i.arrow.right")
@@ -419,8 +414,8 @@ Dann /^die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden \(ink
   # not really downloading the file, but invoking directly the model class method
   @csv = CSV.parse InventoryPool.csv_export(@current_inventory_pool, @params),
                    {col_sep: ";", quote_char: "\"", force_quotes: true, headers: :first_row}
+  step "I fetch all pages of the list"
   within "#inventory" do
-    step "I fetch all pages of the list"
     ["model", "software"].each do |type|
       selector = ".line[data-type='#{type}'] .button[data-type='inventory-expander'] i.arrow.right"
       while has_selector?(selector) do
@@ -506,7 +501,7 @@ Wenn /^ich eine?n? bestehende[s|n]? (.+) bearbeite$/ do |entity|
   @page_to_return = current_path
   object_name = case entity
                   when "Modell"
-                    @model = @current_inventory_pool.models.sample
+                    @model = @current_inventory_pool.models.where(type: "Model").sample
                     @model.name
                   when "Option"
                     find(:select, "retired").first("option").select_option
@@ -581,7 +576,7 @@ end
 
 Dann /^ist das Zubehör dem Modell hinzugefügt worden$/ do
   find("#inventory-index-view h1", match: :prefer_exact, text: _("List of Inventory"))
-  expect(@model.accessories.reload.where(:name => @new_accessory_name)).not_to be nil
+  expect(@model.accessories.reload.where(:name => @new_accessory_name)).not_to be_nil
 end
 
 Dann /^kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Pool aktiviert ist$/ do
@@ -642,7 +637,8 @@ Dann /^füge ich eine oder mehrere Datein den Attachments hinzu$/ do
 end
 
 Dann /^kann Attachments auch wieder entfernen$/ do
-  find(".row.emboss", match: :prefer_exact, :text => _('Attachments')).find(".list-of-lines button[data-remove]", match: :first).click
+  attachment_to_remove = @attachment_filenames.delete(@attachment_filenames.sample)
+  find(".row.emboss", match: :prefer_exact, :text => _('Attachments')).find("[data-type='inline-entry']", text: attachment_to_remove).find("button[data-remove]", match: :first).click
 end
 
 Dann /^sind die Attachments gespeichert$/ do
@@ -716,29 +712,29 @@ Then(/^the license line contains the '(.*)' information$/) do |arg1|
     when "quantity"
       expect(line.has_content? @license.properties[:total_quantity]).to be true
     else
-      raise "not found"
+      raise
   end
 end
 
 Given(/^there exists a software license$/) do
   @item = @license = Item.licenses.where(inventory_pool_id: @current_inventory_pool.id).select { |l| l.properties[:operating_system] and l.properties[:license_type] }.sample
-  expect(@license).not_to be nil
+  expect(@license).not_to be_nil
 end
 
 Given(/^there exists a software license of one of the following types$/) do |table|
   types = table.hashes.map { |h| h["technical"] }
   @item = @license = Item.licenses.where(inventory_pool_id: @current_inventory_pool.id).select { |l| types.include?(l.properties[:license_type]) and l.properties[:operating_system] }.sample
-  expect(@license).not_to be nil
+  expect(@license).not_to be_nil
 end
 
 Given(/^there exists a software license, owned by my inventory pool, but given responsibility to another inventory pool$/) do
-  @item = @license = Item.licenses.where("owner_id = :ip_id AND inventory_pool_id != :ip_id AND inventory_pool_id IS NOT NULL", {ip_id: @current_inventory_pool.id}).select { |l| l.properties[:operating_system] and l.properties[:license_type] }.sample
-  expect(@license).not_to be nil
+  @item = @license = Item.licenses.where.not(inventory_pool_id: nil).where("owner_id = :ip_id AND inventory_pool_id != :ip_id", {ip_id: @current_inventory_pool.id}).select { |l| l.properties[:operating_system] and l.properties[:license_type] }.sample
+  expect(@license).not_to be_nil
 end
 
 Given(/^there exists a software license, which is not in stock and another inventory pool is responsible for it$/) do
-  @item = @license = Item.licenses.where("owner_id = :ip_id AND inventory_pool_id != :ip_id AND inventory_pool_id IS NOT NULL", {ip_id: @current_inventory_pool.id}).detect { |i| not i.in_stock? }
-  expect(@license).not_to be nil
+  @item = @license = Item.licenses.where.not(inventory_pool_id: nil).where("owner_id = :ip_id AND inventory_pool_id != :ip_id", {ip_id: @current_inventory_pool.id}).detect { |i| not i.in_stock? }
+  expect(@license).not_to be_nil
 end
 
 When(/^I choose inside all inventory as "(.*?)" the option "(.*?)"$/) do |arg1, arg2|
@@ -752,7 +748,6 @@ When(/^I choose inside all inventory as "(.*?)" the option "(.*?)"$/) do |arg1, 
   end
 
   filter.find(:option, arg2).select_option
-  expect(has_selector? "#inventory > .line").to be true
   step "I fetch all pages of the list"
 end
 
@@ -803,7 +798,6 @@ When(/^I set the option "(.*?)" inside of the full inventory$/) do |arg1|
   end
 
   filter.click
-  expect(has_selector? "#inventory > .line").to be true
   step "I fetch all pages of the list"
 end
 
@@ -826,7 +820,6 @@ end
 Then(/^only the inventory is shown, for which this pool is responsible$/) do
   inventory = @responsible_pool.items.where(items: {owner_id: @current_inventory_pool.id})
   step "I fetch all pages of the list"
-  has_selector? "#inventory > .line"
   check_amount_of_lines inventory.joins(:model).select(:model_id).uniq.count
   check_existing_inventory_codes(inventory)
 end
@@ -868,7 +861,7 @@ When(/^I open a model line$/) do
 end
 
 Then(/^the item line ist marked as "(.*?)" in red$/) do |arg1|
-  find(".line[data-type='item'] .darkred-text", text: arg1)
+  find(".line[data-type='item'] .darkred-text", match: :first, text: arg1)
 end
 
 Given(/^there exists an item with many problems$/) do

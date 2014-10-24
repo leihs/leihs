@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Wenn(/^Julie in einer Delegation ist$/) do
-  @user = Persona.get :julie
+  @user = User.where(:login => "julie").first
   expect(@user.delegations.empty?).to be false
 end
 
@@ -138,17 +138,17 @@ end
 
 Angenommen(/^es wurde für eine Delegation eine Bestellung erstellt$/) do
   @contract = @current_inventory_pool.contracts.submitted.find {|c| c.user.is_delegation }
-  expect(@contract).not_to be nil
+  expect(@contract).not_to be_nil
 end
 
 Angenommen(/^ich befinde mich in dieser Bestellung$/) do
-  visit manage_edit_contract_path @current_inventory_pool, @contract
+  step "ich die Bestellung editiere"
 end
 
 Angenommen(/^ich befinde mich in einer Bestellung von einer Delegation$/) do
   @contract = @current_inventory_pool.contracts.find {|c| [:submitted, :approved].include? c.status and c.delegated_user and c.user.delegated_users.count >= 2}
   @delegation = @contract.user
-  visit manage_edit_contract_path @current_inventory_pool, @contract
+  step "ich befinde mich in dieser Bestellung"
 end
 
 Dann(/^sehe ich den Namen der Delegation$/) do
@@ -161,7 +161,7 @@ end
 
 Angenommen(/^es existiert eine persönliche Bestellung$/) do
   @contract = @current_inventory_pool.contracts.submitted.find {|c| not c.user.is_delegation }
-  expect(@contract).not_to be nil
+  expect(@contract).not_to be_nil
 end
 
 Dann(/^ist in der Bestellung der Name des Benutzers aufgeführt$/) do
@@ -180,16 +180,20 @@ Angenommen(/^es existiert eine Aushändigung( für eine Delegation)?( mit zugewi
                else
                  @current_inventory_pool.visits.hand_over.sample
                end
-  expect(@hand_over).not_to be nil
+  expect(@hand_over).not_to be_nil
 end
 
 Angenommen(/^ich öffne diese Aushändigung$/) do
   visit manage_hand_over_path @current_inventory_pool, @hand_over.user
 end
 
+When /^I select all lines selecting all linegroups$/ do
+  all("input[data-select-lines]").each {|el| el.click unless el.checked?}
+end
+
 Wenn(/^ich die Delegation wechsle$/) do
   expect(has_selector?("input[data-select-lines]", match: :first)).to be true
-  all("input[data-select-lines]").each {|el| el.click unless el.checked?}
+  step "I select all lines selecting all linegroups"
   multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
   multibutton.find(".dropdown-toggle").click
   find("#swap-user", match: :first).click
@@ -224,7 +228,7 @@ end
 
 Wenn(/^ich versuche die Kontaktperson zu wechseln$/) do
   expect(has_selector?("input[data-select-lines]", match: :first)).to be true
-  all("input[data-select-lines]").each {|el| el.click unless el.checked?}
+  step "I select all lines selecting all linegroups"
   find("button", text: _("Hand Over Selection")).click
   @delegation = @hand_over.user
   @contact = @delegation.delegated_users.sample
@@ -285,10 +289,16 @@ Wenn(/^ich statt einer Delegation einen Benutzer wähle$/) do
   multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
   multibutton.find(".dropdown-toggle").click if multibutton
   find("#swap-user", match: :first).click
-  find(".modal", match: :first)
-  find("#user input#user-id", match: :first).set @new_user.name
-  find(".ui-menu-item a", match: :first, text: @new_user.name).click
-  find(".modal .button[type='submit']", match: :first).click
+  within ".modal" do
+    find("#user input#user-id", match: :first).set @new_user.name
+    find(".ui-menu-item a", match: :first, text: @new_user.name).click
+    find(".button[type='submit']", match: :first).click
+  end
+  step "the modal is closed"
+end
+
+Then /^the modal is closed$/ do
+  expect(has_no_selector?(".modal")).to be true
 end
 
 Dann(/^ist in der Bestellung der Benutzer aufgeführt$/) do
@@ -307,7 +317,7 @@ end
 
 Wenn(/^wenn für diese Delegation keine Zugriffsrechte für irgendwelches Gerätepark bestehen$/) do
   @delegation = @delegations.find {|d| d.access_rights.empty?}
-  expect(@delegation).not_to be nil
+  expect(@delegation).not_to be_nil
 end
 
 Dann(/^kann ich diese Delegation löschen$/) do
@@ -374,7 +384,7 @@ end
 
 Wenn(/^ich eine Delegation mit Zugriff auf das aktuelle Gerätepark editiere$/) do
   @delegation = @current_inventory_pool.users.find {|u| u.is_delegation and not u.visits.take_back.exists? and u.inventory_pools.count >= 2}
-  expect(@delegation).not_to be nil
+  expect(@delegation).not_to be_nil
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @delegation)
 end
 
@@ -384,11 +394,12 @@ Wenn(/^ich dieser Delegation den Zugriff für den aktuellen Gerätepark entziehe
 end
 
 Dann(/^können keine Bestellungen für diese Delegation für dieses Gerätepark erstellt werden$/) do
-  visit logout_path
+  step "I log out"
   step %Q(I am logged in as '#{@delegation.delegator_user.login}' with password 'password')
   find(".dropdown-holder", text: @current_user.lastname).click
   find(".dropdown-item[href*='delegations']").click
   find(".row.line", text: @delegation.name).click_link _("Switch to")
+  FastGettext.set_locale @delegation.language.locale_name # switch the locale in order to translate properly in the next step
   find(".topbar-item", text: _("Inventory Pools")).click
   expect(has_no_content?(@ip_name)).to be true
 end
@@ -455,7 +466,7 @@ Wenn(/^ich statt eines Benutzers eine Delegation wähle$/) do
   @user = @contract.user
   @delegation = @current_inventory_pool.users.as_delegations.sample
   expect(has_selector?("input[data-select-lines]", match: :first)).to be true
-  all("input[data-select-lines]").each {|el| el.click unless el.checked?}
+  step "I select all lines selecting all linegroups"
   multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
   multibutton.find(".dropdown-toggle").click if multibutton
   find("#swap-user", match: :first).click
@@ -566,7 +577,6 @@ end
 Angenommen(/^ich wähle eine Delegation$/) do
   @delegation = @current_inventory_pool.users.as_delegations.sample
   find("#user input#user-id", match: :first).set @delegation.name
-  find(".ui-menu-item")
   find(".ui-menu-item a", match: :first, text: @delegation.name).click
 end
 

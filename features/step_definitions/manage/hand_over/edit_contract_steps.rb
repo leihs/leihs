@@ -23,7 +23,7 @@ When /^I change the time range for all contract lines, envolving option and item
 end
 
 Then /^the time range for all contract lines is changed$/ do
-  @customer.visits.hand_over.detect{|x| x.lines.size > 1}.lines.each do |line|
+  @customer.visits.where(inventory_pool_id: @current_inventory_pool).hand_over.detect{|x| x.lines.size > 1}.lines.each do |line|
     expect(line.start_date).to eq @new_start_date
   end
 end
@@ -67,6 +67,6 @@ When(/^I change the quantity through the edit dialog$/) do
   find(".line[data-id='#{@option_line.id}'] button").click
   @quantity = @option_line.quantity > 1 ? 1 : rand(2..9)
   find("#booking-calendar-quantity").set @quantity
-  find("#submit-booking-calendar").click
+  step "speichere die Einstellungen"
   expect(find(".line[data-id='#{@option_line.id}'] input[data-line-quantity]").value.to_i).to eq @quantity
 end

@@ -132,7 +132,7 @@ Funktionalität: Benutzer verwalten
   @personas
   Szenario: Zugriff entfernen als Ausleihe-Verwalter
     Angenommen ich bin Pius
-    Und man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat
+    Und man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat und keine Gegenstände hat
     Wenn man den Zugriff entfernt
     Und ich speichere
     Dann hat der Benutzer keinen Zugriff auf das Inventarpool
@@ -149,7 +149,7 @@ Funktionalität: Benutzer verwalten
   @personas
   Szenario: Zugriff entfernen als Administrator
     Angenommen ich bin Gino
-    Und man editiert einen Benutzer der Zugriff auf ein Inventarpool hat
+    Und man editiert einen Benutzer der Zugriff auf ein Inventarpool hat und keine Gegenstände hat
     Wenn man den Zugriff entfernt
     Und ich speichere
     Dann hat der Benutzer keinen Zugriff auf das Inventarpool
@@ -161,7 +161,7 @@ Funktionalität: Benutzer verwalten
     Wenn man die Startseite setzt
     Dann ist die Liste der Benutzer die Startseite
 
-  @javascript @personas
+  @javascript @personas @browser
   Szenario: Elemente der Benutzeradministration
     Angenommen man ist Inventar-Verwalter oder Ausleihe-Verwalter
     Dann findet man die Benutzeradministration im Bereich "Administration" unter "Benutzer"
@@ -241,7 +241,7 @@ Funktionalität: Benutzer verwalten
   @personas
   Szenario: Zugriff entfernen als Inventar-Verwalter
     Angenommen ich bin Mike
-    Und man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat und keine Gegenstände mehr zurückzugeben hat
+    Und man editiert einen Benutzer der Zugriff auf das aktuelle Inventarpool hat und keine Gegenstände hat
     Wenn man den Zugriff entfernt
     Und ich speichere
     Dann hat der Benutzer keinen Zugriff auf das Inventarpool

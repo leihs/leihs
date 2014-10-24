@@ -16,15 +16,15 @@ class window.App.ModelsIndexIpSelectorController extends Spine.Controller
   selectInventoryPool: (e)=>
     target = $(e.target)
     if target.data("all")?
-      @el.find("input[type='checkbox']").attr("checked", true)
+      @el.find("input:checkbox").prop("checked", true)
       do @changeInventoryPools
     else if target.hasClass "dropdown-item"
-      @el.find("input[type='checkbox']").attr("checked", false)
-      target.find("input[type='checkbox']").attr("checked", true).change()
+      @el.find("input:checkbox").prop("checked", false)
+      target.find("input:checkbox").prop("checked", true).change()
 
   changeInventoryPools: (e)=>
-    unless @el.find("input[type='checkbox']:checked").length
-      $(e.currentTarget).attr "checked", true
+    unless @el.find("input:checkbox:checked").length
+      $(e.currentTarget).prop "checked", true
     else
       do @change
 
@@ -49,7 +49,7 @@ class window.App.ModelsIndexIpSelectorController extends Spine.Controller
     @button.html App.Render "borrow/views/models/index/ip_selector", {text: text}
 
   reset: =>
-    @el.find("input[type='checkbox']").attr("checked", true)
+    @el.find("input:checkbox").prop("checked", true)
     @render()
 
   is_resetable: => @activeInventoryPoolIds().length != @el.find("[data-id]").length

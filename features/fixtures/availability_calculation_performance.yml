@@ -4187,22 +4187,6 @@
     retired: 
   attributes_cache: {}
 
-- !ruby/object:AuthenticationSystem
-  attributes:
-    id: 1
-    name: Database Authentication
-    class_name: DatabaseAuthentication
-    is_default: false
-    is_active: false
-
-- !ruby/object:AuthenticationSystem
-  attributes:
-    id: 3
-    name: ZHDK Authentication
-    class_name: Zhdk
-    is_default: true
-    is_active: true
-
 # Users that have borrowed that Model
 - !ruby/object:User
   attributes:

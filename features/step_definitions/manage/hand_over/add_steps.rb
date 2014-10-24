@@ -1,5 +1,5 @@
 When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over by providing an inventory code$/ do |item_attr, item_type|
-  existing_model_ids = @customer.contracts.approved.flat_map(&:models).map(&:id)
+  existing_model_ids = @customer.get_approved_contract(@current_inventory_pool).models.map(&:id)
   items = @current_inventory_pool.items.send(item_type.pluralize)
   @inventory_codes ||= []
   @inventory_code = case item_attr
@@ -43,11 +43,17 @@ end
 Then /^the item is added to the hand over for the provided date range and the inventory code is already assigend$/ do
   expect(@customer.get_approved_contract(@current_inventory_pool).items.include?(Item.find_by_inventory_code(@inventory_code))).to be true
   assigned_inventory_codes = all(".line input[data-assign-item]").map(&:value)
-  assigned_inventory_codes.should include(@inventory_code)
+  expect(assigned_inventory_codes).to include @inventory_code
 end
 
 When /^I add an option to the hand over by providing an inventory code and a date range$/ do
-  @inventory_code = (@option || @current_inventory_pool.options.sample).inventory_code
+  @inventory_code = if @option
+                      @option
+                    else
+                      (@current_inventory_pool.options -
+                          (@contract || @current_user.get_approved_contract(@current_inventory_pool)).option_lines.map(&:option)
+                      ).sample
+                    end.inventory_code
   find("[data-add-contract-line]").set @inventory_code
   find("[data-add-contract-line] + .addon").click
   find(".line[data-line-type='option_line'] .grey-text", :text => @inventory_code)
@@ -131,7 +137,7 @@ Then /^each model of the template is added to the hand over for the provided dat
   end
 end
 
-When /^I add so many lines that I break the maximal quantity of an model$/ do
+When /^I add so many lines that I break the maximal quantity of a model$/ do
   @model ||= if @contract
                @contract.lines.where(option_id: nil).sample.model
              else

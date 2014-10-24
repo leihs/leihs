@@ -9,6 +9,7 @@
 #
 #= require jquery
 #= require jquery_ujs
+#= require jquery-ui
 #= require jsrender
 #= require underscore
 #= require underscore/underscore.string
@@ -22,17 +23,6 @@
 #= require moment/moment
 #= require fullcalendar/fullcalendar
 #= require URI.js/URI.js
-#
-##### JqueryUI
-#
-#= require jquery-ui/jquery.ui.core
-#= require jquery-ui/jquery.ui.widget
-#= require jquery-ui/jquery.ui.position
-#= require jquery-ui/jquery.ui.mouse
-#= require jquery-ui/jquery.ui.menu
-#= require jquery-ui/jquery.ui.sortable
-#= require jquery-ui/jquery.ui.datepicker
-#= require jquery-ui/jquery.ui.autocomplete
 #
 ##### SPINE
 #

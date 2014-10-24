@@ -1,14 +1,16 @@
 # -*- encoding : utf-8 -*-
 
 Wenn(/^man auf einem Model "Zur Bestellung hinzufügen" wählt$/) do
-  line = find("#model-list .line", match: :first)
+  find("#model-list > a.line[data-id]", match: :first)
+  line = all("#model-list > a.line[data-id]").sample
   @model = Model.find line["data-id"]
   line.find("button[data-create-order-line]").click
 end
 
 Wenn(/^man auf einem verfügbaren Model "Zur Bestellung hinzufügen" wählt$/) do
   step 'man ein Startdatum auswählt'
-  line = find("#model-list .line:not(.grayed-out)", match: :first)
+  find("#model-list > a.line[data-id]", match: :first)
+  line = all("#model-list > a.line[data-id]:not(.grayed-out)").sample
   @model = Model.find line["data-id"]
   line.find("button[data-create-order-line]").click
 end
@@ -59,7 +61,7 @@ end
 
 Dann(/^schlägt der Versuch es hinzufügen fehl$/) do
   find("#booking-calendar")
-  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).length).to eq 0
+  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).flat_map(&:model)).not_to include @model
 end
 
 Dann(/^ich sehe die Fehlermeldung, dass das ausgewählte Modell im ausgewählten Zeitraum nicht verfügbar ist$/) do
@@ -90,17 +92,17 @@ Dann(/^der Kalender beinhaltet die folgenden Komponenten$/) do |table|
 end
 
 Wenn(/^alle Angaben die ich im Kalender mache gültig sind$/) do
-  @quantity = 1
   within "#booking-calendar-inventory-pool" do
-    expect(has_selector?("option")).to be true
+    find("option", match: :first)
     @inventory_pool = InventoryPool.find all("option").detect{|o| o.selected?}["data-id"]
   end
-  step "ich setze die Anzahl im Kalendar auf #{@quantity}"
-  @start_date = @end_date = @inventory_pool.next_open_date
-  step "ich setze das Startdatum im Kalendar auf '#{I18n::l(@start_date)}'"
-  step "ich setze das Enddatum im Kalendar auf '#{I18n::l(@end_date)}'"
-  find("#submit-booking-calendar").click
-  expect(has_no_selector?("#booking-calendar")).to be true
+  @quantity = 1 + @current_user.contracts.unsubmitted.flat_map(&:lines).select{|line| line.model == @model}.sum(&:quantity)
+  step "ich setze die Anzahl im Kalendar auf #{1}"
+
+  start_date = select_available_not_closed_date
+  select_available_not_closed_date(:end, start_date)
+
+  step "speichere die Einstellungen"
 end
 
 Dann(/^ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügt worden$/) do
@@ -108,7 +110,7 @@ Dann(/^ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestel
     find(".line", match: :first)
     find(".line", :text => "#{@quantity}x #{@model.name}")
   end
-  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).detect{|line| line.model == @model}).not_to be nil
+  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).detect{|line| line.model == @model}).not_to be_nil
 end
 
 Dann(/^lässt sich das Modell mit Start\- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügen$/) do
@@ -178,7 +180,9 @@ end
 Wenn(/^man dieses Modell aus der Modellliste hinzufügt$/) do
   visit borrow_models_path(category_id: @model.categories.first)
   find("#model-list-search input").set @model.name
-  find(".line", text: @model.name).find(".button").click
+  within(".line", match: :prefer_exact, text: @model.name) do
+    find(".button").click
+  end
 end
 
 def get_selected_inventory_pool
@@ -278,8 +282,8 @@ end
 Dann(/^wird die Verfügbarkeit des Gegenstandes aktualisiert$/) do
   (@start..@end).each do |date|
     date_el = get_fullcalendar_day_element date
-    date_el.native.attribute("class").should include "available"
-    date_el.native.attribute("class").should include "selected"
+    expect(date_el.native.attribute("class")).to include "available"
+    expect(date_el.native.attribute("class")).to include "selected"
   end
 end
 
@@ -371,10 +375,12 @@ Dann(/^kann ich dieses Modell ausleihen, wenn ich in dieser Gruppe bin$/) do
   visit borrow_model_path(@model)
   find("[data-create-order-line][data-model-id='#{@model.id}']").click
   date = @current_user.inventory_pools.first.next_open_date
-  step "ich setze das Startdatum im Kalendar auf '#{I18n::l(date)}'"
-  step "ich setze das Enddatum im Kalendar auf '#{I18n::l(date)}'"
+
+  start_date = select_available_not_closed_date(:start, date)
+  select_available_not_closed_date(:end, start_date)
+
   find(".fc-widget-content", :match => :first)
-  find("#submit-booking-calendar").click
+  step "speichere die Einstellungen"
   expect(find("#current-order-lines").has_content?(@model.name)).to be true
   expect(@current_user.contracts.unsubmitted.flat_map(&:lines).map(&:model).include?(@model)).to be true
 end

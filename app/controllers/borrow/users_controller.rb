@@ -1,6 +1,9 @@
 class Borrow::UsersController < Borrow::ApplicationController
 
   def current
+    if current_user.authentication_system.class_name == "DatabaseAuthentication"
+      @db_auth = DatabaseAuthentication.find_by_user_id(current_user.id)
+    end
   end
 
   def documents

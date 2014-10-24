@@ -6,8 +6,11 @@ Given(/^I open (a|the) picking list( for a signed contract)?$/) do |arg1, arg2|
       @selected_lines = @current_inventory_pool.contract_lines.find all(".line input[type='checkbox'][checked='checked']").map {|x| x.find(:xpath, "./../../../../..")["data-id"] }
     end
     step "I can open the picking list"
-    click_button _("Picking List")
-    page.driver.browser.switch_to.window(page.driver.browser.window_handles.last)
+
+    document_window = window_opened_by do
+      click_button _("Picking List")
+    end
+    page.driver.browser.switch_to.window(document_window.handle)
   else
     @contract = case arg1
                   when "a"
@@ -39,7 +42,7 @@ Then(/^the lists are sorted by (hand over|take back) date$/) do |arg1|
              when "take back"
                ["end_date", _("End date")]
              else
-               raise "not found"
+               raise
            end
   find("section.list table thead tr th.#{@s1}", match: :first)
   dates = all("section.list table thead tr th.#{@s1}").map{|el| Date.parse el.text.gsub("#{@s2}: ", '') }

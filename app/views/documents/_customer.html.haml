@@ -6,5 +6,5 @@
     %br
     %span.name= contact_person
   - if contact_person.address
-    %span.street= contact_person.address.chomp(", ")
+    %span.street= contact_person.address
   %span.zip_city= "%s %s" % [contact_person.zip, contact_person.city]

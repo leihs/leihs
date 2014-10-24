@@ -183,7 +183,7 @@ Then /^the item should( only)? be assignable to the '([^']*)' departement$/ do |
     else
       expect(options.size).to be > 1
     end
-    expect(options.detect { |option| option.text == name }).not_to be nil
+    expect(options.detect { |option| option.text == name }).not_to be_nil
   end
 end
 

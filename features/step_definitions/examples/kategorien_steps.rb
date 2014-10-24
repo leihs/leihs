@@ -22,7 +22,7 @@ Und /^man gibt die Elternelemente und die dazugehörigen Bezeichnungen ein$/ do
   @parent_category = ModelGroup.where(name: "Portabel").first
   @label_1 = "Label 1"
   find("#categories input[data-type='autocomplete']").set @parent_category.name
-  find("a.ui-corner-all", match: :first, text: @parent_category.name).click
+  find(".ui-menu-item a", match: :first, text: @parent_category.name).click
   find("#categories .list-of-lines .line", text: @parent_category.name).find("input[type='text']").set @label_1
 end
 
@@ -126,7 +126,7 @@ end
 Wenn /^ich die Kategorien zuteile$/ do
   @category = ModelGroup.where(name: "Standard").first
   find("#categories input[data-type='autocomplete']").set @category.name
-  find("a.ui-corner-all", match: :first, text: @category.name).click
+  find(".ui-menu-item a", match: :first, text: @category.name).click
   find("#categories .list-of-lines .line", text: @category.name)
 end
 

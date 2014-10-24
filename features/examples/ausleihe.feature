@@ -11,14 +11,14 @@ Funktionalität: Ausleihe
     Und einem Gegenstand einen Inventarcode manuell zuweise
     Dann wird der Gegenstand ausgewählt und der Haken gesetzt
 
-  @javascript @browser @chrome @personas
+  @javascript @browser @personas
   Szenario: Aushändigen: In den Inventarcodelisten nicht verfügbare Gegenstände hervorheben
     Wenn ich eine Aushändigung mache die ein Model enthält dessen Gegenstände ein nicht ausleihbares enthält
     Und diesem Model ein Inventarcode zuweisen möchte
     Dann schlägt mir das System eine Liste von Gegenständen vor
     Und diejenigen Gegenstände sind gekennzeichnet, welche als nicht ausleihbar markiert sind
 
-  @personas
+  @javascript @personas
   Szenario: Wann letzter Besucher erscheint
     Angenommen ich öffne die Tagesansicht
     Wenn ich eine Bestellung editieren
@@ -99,7 +99,7 @@ Funktionalität: Ausleihe
 
   @javascript @personas
   Szenario: Alle Suchresultate anzeigen
-    Angenommen ich suche
+    Angenommen ich suche 'a'
     Dann erhalte ich Suchresultate in den Kategorien:
     | category     |
     | Benutzer     |

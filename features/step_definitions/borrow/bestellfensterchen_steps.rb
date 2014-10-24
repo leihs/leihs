@@ -65,6 +65,9 @@ Dann(/^wird das Bestellfensterchen aktualisiert$/) do
 end
 
 Angenommen(/^meine Bestellung ist leer$/) do
+  # NOTE removing contracts already generated on the dataset
+  @current_user.contracts.unsubmitted.map(&:destroy)
+
   expect(@current_user.contracts.unsubmitted.flat_map(&:lines).empty?).to be true
 end
 
@@ -73,7 +76,7 @@ Dann(/^sehe ich keine Zeitanzeige$/) do
 end
 
 Dann(/^sehe ich die Zeitanzeige$/) do
-  visit root_path
+  step "I visit the homepage"
   expect(has_selector?("#current-order-basket #timeout-countdown", :visible => true)).to be true
   @timeoutStart = if @current_user.contracts.unsubmitted.empty?
                     Time.now

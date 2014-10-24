@@ -9,9 +9,9 @@ When "$who approves the order" do | who |
   post login_path(:login => @last_manager_login_name)
   post manage_approve_contract_path(@inventory_pool, @order, :comment => "test comment")
   @order = assigns(:order)
-  expect(@order).not_to be nil
+  expect(@order).not_to be_nil
   @contract = @order.user.reload.approved_contract(@order.inventory_pool)
-  expect(@contract).not_to be nil
+  expect(@contract).not_to be_nil
 end
 
 # OPTIMIZE 0402

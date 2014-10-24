@@ -1,26 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-def resolve_conflict_for_model name
-  # open booking calender for model
-  @model = Model.find_by_name(name)
-  line = find(".line", :text => @model.name, :match => :first)
-  ids = line[:"data-ids"]
-  line.find(".button", :text => _("Change entry")).click
-  expect(has_selector?("#booking-calendar .fc-day-content")).to be true
-  find("#booking-calendar-quantity").set 1
-  # find available start and end date
-  date = Date.today
-  while all(".available:not(.closed)[data-date='#{date.to_s}']").empty? do
-    date += 1
-  end
-  step "ich setze das Startdatum im Kalendar auf '#{I18n::l(date)}'"
-  step "ich setze das Enddatum im Kalendar auf '#{I18n::l(date)}'"
-  find(".modal .button.green").click
-  find(".line", :text => @model.name, :match => :first)
-  expect(has_no_selector?("#booking-calendar")).to be true
-  expect(has_no_selector?(".line[data-ids='#{ids}'] .line-info.red")).to be true
-end
-
 Angenommen(/^ich zur Timeout Page mit einem Konfliktmodell weitergeleitet werde$/) do
   step "ich habe eine offene Bestellung mit Modellen"
   step "ein Modell ist nicht verfügbar"
@@ -56,7 +35,7 @@ end
 Dann(/^die nicht mehr verfügbaren Modelle sind hervorgehoben$/) do
   @current_user.contracts.unsubmitted.flat_map(&:lines).each do |line|
     unless line.available?
-      find("[data-line-ids*='#{line.id}']", match: :first).find(:xpath, "./../../..").find(".line-info.red[title='#{_("Not available")}']")
+      find("[data-ids*='#{line.id}']", match: :first).find(:xpath, "./../../..").find(".line-info.red[title='#{_("Not available")}']")
     end
   end
 end
@@ -93,8 +72,8 @@ end
 
 Angenommen(/^ich lösche einen Eintrag$/) do
   line = all(".row.line").to_a.sample
-  @line_ids = line.find("button[data-line-ids]")["data-line-ids"].gsub(/\[|\]/, "").split(',').map(&:to_i)
-  expect(@line_ids.all? {|id| @current_user.contracts.unsubmitted.flat_map(&:contract_line_ids).include?(id) }).to be true
+  @line_ids = line.find("button[data-ids]")["data-ids"].gsub(/\[|\]/, "").split(',').map(&:to_i)
+  expect(@line_ids.all? { |id| @current_user.contracts.unsubmitted.flat_map(&:contract_line_ids).include?(id) }).to be true
   line.find(".dropdown-toggle").click
   line.find("a", text: _("Delete")).click
   alert = page.driver.browser.switch_to.alert
@@ -102,8 +81,8 @@ Angenommen(/^ich lösche einen Eintrag$/) do
 end
 
 Dann(/^wird der Eintrag aus der Bestellung gelöscht$/) do
-  expect(@line_ids.all? {|id| page.has_no_selector? "button[data-line-ids='[#{id}]']"}).to be true
-  expect(@line_ids.all? {|id| not @current_user.contracts.unsubmitted.flat_map(&:contract_line_ids).include?(id) }).to be true
+  expect(@line_ids.all? { |id| page.has_no_selector? "button[data-ids='[#{id}]']" }).to be true
+  expect(@line_ids.all? { |id| not @current_user.contracts.unsubmitted.flat_map(&:contract_line_ids).include?(id) }).to be true
 end
 
 #########################################################################
@@ -115,18 +94,17 @@ Angenommen(/^ich einen Eintrag ändere$/) do
   step "speichere die Einstellungen"
 end
 
-When(/^ich die Menge eines Eintrags heraufsetze$/) do
+When(/^ich die Menge eines Eintrags (heraufsetze|heruntersetze)$/) do |arg1|
   step "ich den Eintrag ändere"
   step "öffnet der Kalender"
-  @new_quantity = find("#booking-calendar-quantity")[:max].to_i
-  find("#booking-calendar-quantity").set(@new_quantity)
-  step "speichere die Einstellungen"
-end
-
-When(/^ich die Menge eines Eintrags heruntersetze$/) do
-  step "ich den Eintrag ändere"
-  step "öffnet der Kalender"
-  @new_quantity = 1
+  @new_quantity = case arg1
+                    when "heraufsetze"
+                      find("#booking-calendar-quantity")[:max].to_i
+                    when "heruntersetze"
+                      1
+                    else
+                      raise
+                  end
   find("#booking-calendar-quantity").set(@new_quantity)
   step "speichere die Einstellungen"
 end
@@ -143,7 +121,7 @@ end
 #########################################################################
 
 Wenn(/^ein Modell nicht verfügbar ist$/) do
-  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).any?{|l| not l.available?}).to be true
+  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).any? { |l| not l.available? }).to be true
 end
 
 Wenn(/^ich auf "(.*?)" drücke$/) do |arg1|
@@ -154,7 +132,8 @@ Wenn(/^ich auf "(.*?)" drücke$/) do |arg1|
       find(".dropdown-item", text: _("Continue with available models only")).click
     when "Delegationen"
       find(".dropdown-item", text: _("Delegations")).click
-    else step %Q(I press "#{arg1}")
+    else
+      step %Q(I press "#{arg1}")
   end
 end
 
@@ -179,18 +158,37 @@ Dann(/^lande ich auf der Bestellung\-Abgelaufen\-Seite$/) do
 end
 
 When(/^werden die nicht verfügbaren Modelle aus der Bestellung gelöscht$/) do
-  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).all? {|l| l.available? }).to be true
+  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).all? { |l| l.available? }).to be true
 end
 
 Wenn(/^ich einen der Fehler korrigiere$/) do
-  @line_ids = @current_user.contracts.unsubmitted.flat_map(&:lines).select{|l| not l.available?}.map(&:id)
-  resolve_conflict_for_model find(".row.line[data-line-ids='[#{@line_ids.delete_at(0)}]']").find(".col6of10", match: :first).text
+  @line_ids = @current_user.contracts.unsubmitted.flat_map(&:lines).select { |l| not l.available? }.map(&:id)
+  resolve_conflict_for_contract_line @line_ids.delete_at(0)
 end
 
 Wenn(/^ich alle Fehler korrigiere$/) do
-  @line_ids.each {|line_id| resolve_conflict_for_model find(".row.line[data-line-ids='[#{line_id}]']").find(".col6of10", match: :first).text}
+  @line_ids.each do |line_id|
+    resolve_conflict_for_contract_line line_id
+  end
 end
 
 Dann(/^verschwindet die Fehlermeldung$/) do
   expect(has_no_content? _("Please solve the conflicts for all highlighted lines in order to continue.")).to be true
+end
+
+def resolve_conflict_for_contract_line(line_id)
+  within ".line[data-ids='[#{line_id}]']" do
+    find(".button", :text => _("Change entry")).click
+  end
+  expect(has_selector?("#booking-calendar .fc-day-content")).to be true
+  find("#booking-calendar-quantity").set 1
+
+  start_date = select_available_not_closed_date
+  select_available_not_closed_date(:end, start_date)
+  find(".modal .button.green").click
+
+  expect(has_no_selector?("#booking-calendar")).to be true
+  within ".line[data-ids='[#{line_id}]']" do
+    expect(has_no_selector?(".line-info.red")).to be true
+  end
 end

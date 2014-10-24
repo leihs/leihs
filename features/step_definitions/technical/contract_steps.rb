@@ -1,5 +1,5 @@
 When /^I create an approved contract for "(.*?)"$/ do |name|
-  @contract = FactoryGirl.create :contract, :status => :approved, :user => Persona.get(name)
+  @contract = FactoryGirl.create :contract, :status => :approved, :user => User.where(:login => name.downcase).first
 end
 
 Then /^the new contract is empty$/ do

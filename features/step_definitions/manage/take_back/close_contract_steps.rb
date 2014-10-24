@@ -7,7 +7,7 @@ When /^I open a take back(, not overdue)?( with at least an option handed over b
              else
                contracts
              end.sample
-  raise "No contract found" unless contract
+  expect(contract).not_to be_nil
   @current_inventory_pool = contract.inventory_pool
   @customer = contract.user
   visit manage_take_back_path(@current_inventory_pool, @customer)

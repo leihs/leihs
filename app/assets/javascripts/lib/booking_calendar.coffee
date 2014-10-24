@@ -132,7 +132,7 @@ class BookingCalendar
         else 
           do @resetQuantity
     else
-      @quantity_el.attr "disabled", true
+      @quantity_el.prop "disabled", true
 
   increaseQuantity: => @quantity_el.val(parseInt(@quantity_el.val())+1).change()
 

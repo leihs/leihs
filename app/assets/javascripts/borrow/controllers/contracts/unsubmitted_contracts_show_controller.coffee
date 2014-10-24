@@ -22,7 +22,7 @@ class window.App.UnsubmittedContractsShowController extends Spine.Controller
   changeContractLines: (e)=>
     do e.preventDefault
     target = $(e.currentTarget)
-    lines = _.map target.data("line-ids"), (id) -> App.ContractLine.find id
+    lines = _.map target.data("ids"), (id) -> App.ContractLine.find id
     quantity = _.reduce lines, ((mem, l)-> mem + l.quantity), 0
     new App.ContractLinesChangeController
       modelId: target.data("model-id")

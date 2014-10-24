@@ -19,6 +19,7 @@ When(/^a database admin deletes some referenced records directly on the database
         elsif not only_tables_no_views.include?(klass.table_name) or not only_tables_no_views.include?(ref.table_name)
           # NOTE we skip references on sql-views
         else
+          next if klass == ModelGroupLink # we cannot define the inverse_of for acts_as_dag_links
           dependent = if ref.inverse_of and ref.inverse_of.options[:dependent]
                         ref.inverse_of.options[:dependent]
                       else

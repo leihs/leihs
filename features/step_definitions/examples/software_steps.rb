@@ -242,7 +242,7 @@ Then(/^for "(.*?)" one can select a date$/) do |arg1|
   i = find(".field", text: _(arg1)).find("input")
   i.click
   find(".ui-state-default", match: :first).click
-  expect(i.value).not_to be nil
+  expect(i.value).not_to be_nil
 end
 
 Then(/^for maintenance contract the available options are in the following order:$/) do |table|
@@ -357,7 +357,7 @@ Given(/^there is a (.*) with the following properties:$/) do |arg1, table|
           when "Hersteller"
             model_attrs[:manufacturer] = v
           else
-            raise "not found"
+            raise
         end
         v
       end
@@ -400,7 +400,7 @@ Given(/^there is a (.*) with the following properties:$/) do |arg1, table|
                                      @other_inventory_pool ||= InventoryPool.where.not(id: @current_inventory_pool).sample
                                  end
           else
-            raise "not found"
+            raise
         end
       end
 
@@ -415,7 +415,7 @@ Given(/^there is a (.*) with the following properties:$/) do |arg1, table|
       end
 
     else
-      raise "not found"
+      raise
   end
 
 end
@@ -596,7 +596,7 @@ When(/^I edit a license with set dates for maintenance expiration, license expir
                                                               i.properties[:maintenance_contract] == "true" and
                                                               i.properties[:maintenance_expiration] and
                                                               i.properties[:license_expiration] }
-  expect(@license).not_to be nil
+  expect(@license).not_to be_nil
   visit manage_edit_item_path(@current_inventory_pool, @license)
 end
 
@@ -647,8 +647,8 @@ Then(/^I see the "Software Information"$/) do
 end
 
 When(/^I edit an existing software license with software information, quantity allocations and attachments$/) do
-  @license = @current_inventory_pool.items.licenses.find {|i| i.model.technical_detail =~ /http/ and not i.model.attachments.empty? and i.properties[:quantity_allocations] }
-  expect(@license).not_to be nil
+  @license = @current_inventory_pool.items.licenses.find {|i| i.model.technical_detail =~ /http/ and not i.model.attachments.empty? and i.properties[:quantity_allocations].size >= 2 }
+  expect(@license).not_to be_nil
   visit manage_edit_item_path(@current_inventory_pool, @license)
 end
 
@@ -736,7 +736,7 @@ Given(/^a software product with more than (\d+) text rows in field "(.*?)" exist
                  m
                end
              else
-               raise "not found"
+               raise
            end
 end
 
@@ -751,7 +751,7 @@ When(/^I click in the field "(.*?)"$/) do |arg1|
       @original_size = el.native.css_value('height')
       el.click
     else
-      raise "not found"
+      raise
   end
 end
 
@@ -869,13 +869,13 @@ Then(/^the (.*) is labeled as "(.*?)"$/) do |arg1, arg2|
     when "save button"
       find("button.green", text: arg2)
     else
-      raise "not found"
+      raise
   end
 end
 
 Dann(/^the new software license is created$/) do
   @target_item = @current_inventory_pool.items.find_by_inventory_code(@target_inventory_code)
-  expect(@target_item).not_to be nil
+  expect(@target_item).not_to be_nil
 end
 
 Dann(/^the following fields were copied from the original software license$/) do |table|
@@ -916,7 +916,7 @@ Dann(/^the following fields were copied from the original software license$/) do
       when "Maintenance-Ablaufdatum"
         expect(@target_item.properties[:maintenance_expiration]).to eq @item.properties[:maintenance_expiration]
       else
-        raise "not found"
+        raise
     end
 
   end

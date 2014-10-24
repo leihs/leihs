@@ -85,7 +85,7 @@ Angenommen(/^es existiert eine? (.+) mit folgenden Konditionen:$/) do |entity, t
           when "Software" then Software
           end
   @model = klass.find {|m| conditions.map{|c| c.class == Proc ? c.call(m) : c}.all?}
-  expect(@model).not_to be nil
+  expect(@model).not_to be_nil
 end
 
 Und /^das Modell hat (.+) zugewiesen$/ do |assoc|
@@ -159,7 +159,7 @@ end
 
 Wenn(/^ich ein bestehendes, genutztes Modell bearbeite$/) do
   @page_to_return = current_path
-  @model = @current_inventory_pool.items.where(parent_id: nil).sample.model
+  @model = @current_inventory_pool.items.items.unretired.where(parent_id: nil).sample.model
   visit manage_edit_model_path @current_inventory_pool, @model
 end
 

@@ -3,9 +3,13 @@ FactoryGirl.define do
   factory :contract do
     inventory_pool
     user {
-      u = FactoryGirl.create :user
-      u.access_rights.create(:inventory_pool => inventory_pool, :role => :customer)
-      u
+      u1 = inventory_pool.users.customers.sample
+      u1 ||= begin
+        u2 = FactoryGirl.create :user
+        u2.access_rights.create(:inventory_pool => inventory_pool, :role => :customer)
+        u2
+      end
+      u1
     }
     status { :unsubmitted }
     delegated_user { user.delegated_users.sample if user.is_delegation }

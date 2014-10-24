@@ -30,13 +30,13 @@ Angenommen /^ein Modell ist nichtmehr verfügbar$/ do
     @model = contract_line.model
     @initial_quantity = @contract.lines.where(model_id: @model.id).count
     @max_before = contract_line.model.availability_in(@entity.inventory_pool).maximum_available_in_period_summed_for_groups(contract_line.start_date, contract_line.end_date, contract_line.group_ids)
-    step 'I add so many lines that I break the maximal quantity of an model'
+    step 'I add so many lines that I break the maximal quantity of a model'
   else
     contract_line = @contract_lines_to_take_back.where(option_id: nil).sample
     @model = contract_line.model
-    visit manage_hand_over_path(@current_inventory_pool, @customer)
+    step "ich eine Aushändigung an diesen Kunden mache"
     @max_before = @model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(contract_line.start_date, contract_line.end_date, contract_line.group_ids)
-    step 'I add so many lines that I break the maximal quantity of an model'
+    step 'I add so many lines that I break the maximal quantity of a model'
     visit manage_take_back_path(@current_inventory_pool, @customer)
   end
   find(".line", text: @model.name, match: :first)
@@ -74,7 +74,7 @@ Dann /^das Problem wird wie folgt dargestellt: "(.*?)"$/ do |format|
              /(Überfällig seit \d+ (Tagen|Tag)|#{_("Overdue")} #{_("since")} \d+ (days|day))/
            end
   @problems.each do |problem|
-    expect(problem.match(regexp)).not_to be nil
+    expect(problem.match(regexp)).not_to be_nil
   end
 end
 
@@ -104,14 +104,17 @@ Dann /^"(.*?)" sind total im Pool bekannt \(ausleihbar\)$/ do |arg1|
 end
 
 Angenommen /^eine Gegenstand ist nicht ausleihbar$/ do
-  if @event == "hand_over"
-    @item = @current_inventory_pool.items.in_stock.unborrowable.sample
-    step 'I add an item to the hand over'
-    @line_id = ContractLine.where(item_id: @item.id).first.id
-    find(".line[data-id='#{@line_id}']", text: @item.model.name).find("[data-assign-item][disabled]")
-  elsif @event === "take_back"
-    @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
-    step 'markiere ich den Gegenstand als nicht ausleihbar'
+  case @event
+    when "hand_over"
+      @item = @current_inventory_pool.items.in_stock.unborrowable.sample
+      step 'I add an item to the hand over'
+      @line_id = ContractLine.where(item_id: @item.id).first.id
+      find(".line[data-id='#{@line_id}']", text: @item.model.name).find("[data-assign-item][disabled]")
+    when "take_back"
+      @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
+      step 'markiere ich den Gegenstand als nicht ausleihbar'
+    else
+      raise
   end
 end
 
@@ -152,24 +155,30 @@ Dann /^markiere ich den Gegenstand als unvollständig$/ do
 end
 
 Angenommen /^eine Gegenstand ist defekt$/ do
-  if @event == "hand_over"
-    @item = @current_inventory_pool.items.in_stock.broken.sample
-    step 'I add an item to the hand over'
-    @line_id = find("input[value='#{@item.inventory_code}']").find(:xpath, "ancestor::div[@data-id]")["data-id"]
-  elsif  @event == "take_back"
-    @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
-    step 'markiere ich den Gegenstand als defekt'
+  case @event
+    when "hand_over"
+      @item = @current_inventory_pool.items.in_stock.broken.sample
+      step 'I add an item to the hand over'
+      @line_id = find("input[value='#{@item.inventory_code}']").find(:xpath, "ancestor::div[@data-id]")["data-id"]
+    when "take_back"
+      @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
+      step 'markiere ich den Gegenstand als defekt'
+    else
+      raise
   end
 end
 
 Angenommen /^eine Gegenstand ist unvollständig$/ do
-  if @event == "hand_over"
-    @item = @current_inventory_pool.items.in_stock.incomplete.sample
-    step 'I add an item to the hand over'
-    @line_id = find("input[value='#{@item.inventory_code}']").find(:xpath, "ancestor::div[@data-id]")["data-id"]
-  elsif  @event == "take_back"
-    @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
-    step 'markiere ich den Gegenstand als unvollständig'
+  case @event
+    when "hand_over"
+      @item = @current_inventory_pool.items.in_stock.incomplete.sample
+      step 'I add an item to the hand over'
+      @line_id = find("input[value='#{@item.inventory_code}']").find(:xpath, "ancestor::div[@data-id]")["data-id"]
+    when "take_back"
+      @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
+      step 'markiere ich den Gegenstand als unvollständig'
+    else
+      raise
   end
 end
 

@@ -32,7 +32,7 @@ Dann /^ist das Modell erstellt und die Pakete und dessen zugeteilten Gegenst√§nd
 end
 
 Dann /^den Paketen wird ein Inventarcode zugewiesen$/ do
-  expect(@packages.first.inventory_code).not_to be nil
+  expect(@packages.first.inventory_code).not_to be_nil
 end
 
 Wenn /^das Paket zurzeit nicht ausgeliehen ist$/ do
@@ -71,7 +71,7 @@ Wenn /^ich ein Modell editiere, welches bereits Pakete( in meine und andere Ger√
     end
     b
   end
-  expect(@model).not_to be nil
+  expect(@model).not_to be_nil
   @model_name = @model.name
   step 'ich nach "%s" suche' % @model.name
   expect(has_selector?(".line", text: @model.name)).to be true
@@ -224,7 +224,7 @@ Dann /^hat das Paket alle zuvor eingetragenen Werte$/ do
     within ".modal" do
       find("[data-type='field'][data-id='#{field.id}']", match: :first)
       matched_field = all("[data-type='field'][data-id='#{field.id}']").last
-      raise "no field found" if matched_field.blank?
+      expect(matched_field).not_to be_blank
       case field_type
         when "autocomplete"
           expect(matched_field.find("input,textarea").value).to eq (field_value != "Keine/r" ? field_value : "")

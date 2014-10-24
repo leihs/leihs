@@ -1,28 +1,87 @@
 # -*- encoding : utf-8 -*-
 
-When /^I open a hand over( with at least one unassigned line for today)?( with options)?$/ do |arg1, arg2|
+When /^I open a hand over( with at least one unassigned line)?( for today)?( with options| with models)?$/ do |arg0, arg1, arg2|
   @current_inventory_pool = @current_user.managed_inventory_pools.detect do |ip|
-    @customer = ip.users.to_a.shuffle.detect do |user|
-      b = user.visits.hand_over.exists?
-      b = if arg1
-            b and user.visits.hand_over.any?{|v| v.lines.size >= 3 and v.lines.any? {|l| not l.item and l.start_date == ip.next_open_date(Date.today)}}
-          elsif arg2
-            b and user.visits.hand_over.any?{|v| v.lines.any? {|l| l.is_a? OptionLine}}
-          else
-            b and user.visits.hand_over.any?{|v| v.lines.size >= 3 }
-          end
-      b
+    @customer = ip.users.not_as_delegations.to_a.shuffle.detect do |user|
+      user.visits.hand_over.exists? and begin
+        if arg0 and arg1
+          user.visits.hand_over.any?{|v| v.lines.size >= 3 and v.lines.any? {|l| not l.item and l.start_date == ip.next_open_date(Date.today)}}
+        elsif arg1
+          user.visits.hand_over.find {|ho| ho.date == Date.today}
+        elsif arg2
+          user.visits.hand_over.any?{|v| v.lines.any? do |l|
+            l.is_a?(case arg2
+                      when " with options"
+                        OptionLine
+                      when " with models"
+                        ItemLine
+                    end)
+          end }
+        else
+          user.visits.hand_over.any?{|v| v.lines.size >= 3 }
+        end
+      end
     end
   end
-  raise "customer not found" unless @customer
-  visit manage_hand_over_path(@current_inventory_pool, @customer)
+  expect(@customer).not_to be_nil
+
+  step "ich eine Aushändigung an diesen Kunden mache"
   expect(has_selector?("#hand-over-view", :visible => true)).to be true
-  @contract = @customer.contracts.approved.first
+
+  @contract = @customer.contracts.where(inventory_pool_id: @current_inventory_pool).approved.first
 end
+
+When /^I open a hand over which has multiple( unassigned)? lines( and models in stock)?( with software)?$/ do |arg1, arg2, arg3|
+  @hand_over = if arg1
+                 if arg2
+                   @models_in_stock = @current_inventory_pool.items.in_stock.map(&:model).uniq
+                   @current_inventory_pool.visits.hand_over.detect { |v|
+                     b = v.lines.select { |l| !l.item and @models_in_stock.include? l.model }.count >= 2
+                     if arg3
+                       (b and !!v.lines.detect {|cl| cl.model.is_a? Software })
+                     else
+                       b
+                     end
+                   }
+                 else
+                   @current_inventory_pool.visits.hand_over.detect { |x| x.lines.select { |l| !l.item }.count >= 2 }
+                 end
+               else
+                 @current_inventory_pool.visits.hand_over.detect { |x| x.lines.size > 1 }
+               end
+  expect(@hand_over).not_to be_nil
+
+  @customer = @hand_over.user
+  step "ich eine Aushändigung an diesen Kunden mache"
+  expect(has_selector?("#hand-over-view", :visible => true)).to be true
+end
+
+When /^I open a hand over with lines that have assigned inventory codes$/ do
+  steps %Q{
+    When I open a hand over which has multiple unassigned lines and models in stock
+     And I click an inventory code input field of an item line
+    Then I see a list of inventory codes of items that are in stock and matching the model
+    When I select one of those
+    Then the item line is assigned to the selected inventory code
+  }
+end
+
+When /^I open a hand over with overdue lines$/ do
+  @models_in_stock = @current_inventory_pool.items.in_stock.map(&:model).uniq
+  @customer = @current_inventory_pool.users.to_a.detect do |u|
+    u.contracts.approved.exists? and u.contracts.approved.any? do |c|
+      c.lines.any? {|l| l.start_date < Date.today and l.end_date >= Date.today and @models_in_stock.include? l.model}
+    end
+  end
+  expect(@customer).not_to be_nil
+  step "ich eine Aushändigung an diesen Kunden mache"
+end
+
+
 
 When /^I select (an item|a license) line and assign an inventory code$/ do |arg1|
   @models_in_stock = @current_inventory_pool.items.in_stock.map(&:model).uniq
-  lines = @customer.visits.hand_over.flat_map(&:lines)
+  lines = @customer.visits.where(inventory_pool_id: @current_inventory_pool).hand_over.flat_map(&:lines)
 
   @item_line = @line = case arg1
                          when "an item"
@@ -30,13 +89,13 @@ When /^I select (an item|a license) line and assign an inventory code$/ do |arg1
                          when "a license"
                            lines.detect {|l| l.class.to_s == "ItemLine" and l.item_id.nil? and @models_in_stock.include? l.model and l.model.is_a? Software }
                          else
-                           raise "not found"
+                           raise
                        end
-  expect(@item_line).not_to be nil
-  step 'I assign an inventory code the item line'
+  expect(@item_line).not_to be_nil
+  step 'I assign an inventory code to the item line'
   find(".button[data-edit-lines][data-ids='[#{@item_line.id}]']").click
   step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
-  find("#submit-booking-calendar").click
+  step "speichere die Einstellungen"
   find(".button[data-edit-lines][data-ids='[#{@item_line.id}]']")
 end
 
@@ -59,7 +118,7 @@ When /^I click hand over inside the dialog$/ do
 end
 
 Then /^the contract is signed for the selected items$/ do
-  to_take_back_lines = @customer.visits.take_back.flat_map &:contract_lines
+  to_take_back_lines = @customer.visits.where(inventory_pool_id: @current_inventory_pool).take_back.flat_map &:contract_lines
   to_take_back_items = to_take_back_lines.map(&:item)
   @selected_items.each do |item|
     expect(to_take_back_items.include?(item)).to be true
@@ -67,12 +126,12 @@ Then /^the contract is signed for the selected items$/ do
 end
 
 When /^I select an item without assigning an inventory code$/ do
-  @item_line = @customer.visits.hand_over.first.lines.detect {|x| x.class.to_s == "ItemLine"}
+  @item_line = @customer.visits.where(inventory_pool_id: @current_inventory_pool).hand_over.first.lines.detect {|l| l.is_a?(ItemLine) and not l.item }
   find(".line[data-id='#{@item_line.id}'] input[type='checkbox'][data-select-line]", :visible => true).click
 end
 
 Then /^I got an error that i have to assign all selected item lines$/ do
-  expect(find("#flash .error").has_content?(_ "you cannot hand out lines with unassigned inventory codes")).to be true
+  find("#flash .error", text: _("you cannot hand out lines with unassigned inventory codes"))
 end
 
 When /^I change the contract lines time range to tomorrow$/ do
@@ -101,42 +160,22 @@ Then /^the lines start date is today$/ do
   expect(@line.reload.start_date).to eq Date.today
 end
 
-When /^I open a hand over with overdue lines$/ do
-  @models_in_stock = @current_inventory_pool.items.in_stock.map(&:model).uniq
-  @customer = @current_inventory_pool.users.to_a.detect do |u|
-    u.contracts.approved.exists? and u.contracts.approved.any? do |c|
-      c.lines.any? {|l| l.start_date < Date.today and l.end_date >= Date.today and @models_in_stock.include? l.model}
-    end
-  end
-  expect(@customer).not_to be nil
-  visit manage_hand_over_path(@current_inventory_pool, @customer)
-  expect(has_selector?("#hand-over-view", :visible => true)).to be true
-end
-
-When /^I open a hand over for today$/ do
-  @hand_over = @current_inventory_pool.visits.hand_over.find {|ho| ho.date == Date.today}
-  expect(@hand_over).not_to be nil
-  @customer = @hand_over.user
-  visit manage_hand_over_path(@current_inventory_pool, @customer)
-  expect(has_selector?("#hand-over-view", :visible => true)).to be true
-end
-
 When /^I select an overdue item line and assign an inventory code$/ do
-  @item_line = @line = @customer.visits.hand_over.detect{|v| v.date < Date.today}.lines.detect {|l| l.class.to_s == "ItemLine" and @models_in_stock.include? l.model}
-  expect(@item_line).not_to be nil
-  step 'I assign an inventory code the item line'
+  @item_line = @line = @customer.visits.where(inventory_pool_id: @current_inventory_pool).hand_over.detect{|v| v.date < Date.today}.lines.detect {|l| l.class.to_s == "ItemLine" and @models_in_stock.include? l.model}
+  expect(@item_line).not_to be_nil
+  step 'I assign an inventory code to the item line'
 end
 
-When /^I assign an inventory code the item line$/ do
-  item = @current_inventory_pool.items.in_stock.where(model_id: @item_line.model).first
-  expect(item).not_to be nil
+When /^I assign an inventory code to the item line$/ do
+  item = @current_inventory_pool.items.in_stock.where(model_id: @item_line.model).sample
+  expect(item).not_to be_nil
   @selected_items ||= []
   within(".line[data-id='#{@item_line.id}']") do
     find("input[data-assign-item]").set item.inventory_code
-    find("a.ui-corner-all", text: item.inventory_code)
+    find(".ui-menu-item a", text: item.inventory_code)
     find("input[data-assign-item]").native.send_key(:enter)
   end
-  line_selected = first(".line[data-id='#{@item_line.id}'].green")
+  line_selected = find(".line[data-id='#{@item_line.id}'].green")
   @selected_items << item if line_selected
 end
 

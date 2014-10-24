@@ -4,13 +4,14 @@ Given /^test data setup for "Hand over controller" feature$/ do
 end
 
 Given /^test data setup for scenario "Writing an unavailable inventory code"$/ do
-  model = Model.all.detect do |m|
-    m.contract_lines.where(returned_date: nil, item_id: nil).first and
-    m.contract_lines.where(returned_date: nil).where("item_id IS NOT NULL").first 
+  model = @inventory_pool.models.detect do |m|
+    m.contract_lines.joins(:contract).where(contracts: {inventory_pool_id: @inventory_pool}, returned_date: nil, item_id: nil).exists? and
+      m.contract_lines.joins(:contract).where(contracts: {inventory_pool_id: @inventory_pool}, returned_date: nil).where.not(item_id: nil).exists?
   end
-  expect(model).not_to be nil
-  @line = model.contract_lines.where(returned_date: nil, item_id: nil).first
-  @item = model.contract_lines.where(returned_date: nil).where("item_id IS NOT NULL").first.item
+  expect(model).not_to be_nil
+  @line = model.contract_lines.joins(:contract).where(contracts: {inventory_pool_id: @inventory_pool}, returned_date: nil, item_id: nil).sample
+  expect(@line).not_to eq nil
+  @item = model.contract_lines.joins(:contract).where(contracts: {inventory_pool_id: @inventory_pool}, returned_date: nil).where.not(item_id: nil).sample.item
   expect(@line.item).to eq nil
 end
 

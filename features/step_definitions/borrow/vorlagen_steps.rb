@@ -133,8 +133,10 @@ Dann(/^die Modelle sind innerhalb eine Gruppe alphabetisch sortiert$/) do
 end
 
 Dann(/^sind diejenigen Modelle hervorgehoben, die zu diesem Zeitpunkt nicht verfügbar sind$/) do
-  all(".row.line").each_with_index do |line, i|
-    all(".row.line")[i].find(".line-info.red", match: :first)
+  within "#template-lines" do
+    all(".row.line").each do |line|
+      line.find(".line-info.red", match: :first)
+    end
   end
 end
 
@@ -155,17 +157,21 @@ Dann(/^ich kann die Anzahl der Modelle ändern$/) do
   find("#booking-calendar-quantity").set 1
 end
 
-Dann(/^ich kann das Zeitfenster für die Verfügbarkeitsberechnung einzelner Modelle ändern$/) do
-  current_date = Date.today
+def select_available_not_closed_date(as = :start, from = Date.today)
+  current_date = from
   while all(".available:not(.closed)[data-date='#{current_date.to_s}']").empty? do
     before_date = current_date
     current_date += 1.day
     find(".fc-button-next").click if before_date.month < current_date.month
   end
-  step "ich setze das Startdatum im Kalendar auf '#{I18n::l(current_date)}'"
-  step "ich setze das Enddatum im Kalendar auf '#{I18n::l(current_date)}'"
-  find(".modal .button.green", match: :first).click
-  expect(has_no_selector?("#booking-calendar")).to be true
+  step "ich setze das %s im Kalendar auf '#{I18n::l(current_date)}'" % (as == :start ? "Startdatum" : "Enddatum")
+  current_date
+end
+
+Dann(/^ich kann das Zeitfenster für die Verfügbarkeitsberechnung einzelner Modelle ändern$/) do
+  start_date = select_available_not_closed_date
+  select_available_not_closed_date(:end, start_date)
+  step "speichere die Einstellungen"
 end
 
 Wenn(/^ich sämtliche Verfügbarkeitsprobleme gelöst habe$/) do
@@ -175,7 +181,7 @@ end
 Dann(/^kann ich im Prozess weiterfahren und alle Modelle gesamthaft zu einer Bestellung hinzufügen$/) do
   find(".button.green", match: :first, text: _("Add to order")).click
   find("#current-order-show", match: :first)
-  expect(@current_user.contracts.unsubmitted.flat_map(&:models)).to eq [@model]
+  expect(@current_user.contracts.unsubmitted.flat_map(&:models)).to include @model
 end
 
 Angenommen(/^ich sehe die Verfügbarkeit einer Vorlage, die nicht verfügbare Modelle enthält$/) do

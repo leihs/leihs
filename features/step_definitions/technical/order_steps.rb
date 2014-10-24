@@ -231,7 +231,7 @@ Given /^a borrowing user existing$/ do
 end
 
 When /^I approve the contract of the borrowing user$/ do
-  @contract.approve("That will be fine.", Persona::get("Ramon"))
+  @contract.approve("That will be fine.", User.find_by_login("ramon"))
   expect(@contract.status).to eq :approved
 end
 

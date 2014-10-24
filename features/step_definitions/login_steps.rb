@@ -58,7 +58,7 @@ end
 # It's possible that previous steps leave the running browser instance in a logged-in
 # state, which confuses tests that rely on "When I log in as the admin".
 When 'I make sure I am logged out' do
-  visit "/logout"
+  step "I log out"
 end
 
 When /^I am redirected to the "([^"]*)" section$/ do |section_name|
@@ -70,5 +70,5 @@ Angenommen(/^man ist eingeloggt als "(.*?)"$/) do |persona|
   @current_user = User.where(:login => persona.downcase).first
   I18n.locale = if @current_user.language then @current_user.language.locale_name.to_sym else Language.default_language end
   page.set_rack_session user_id: @current_user.id
-  visit root_path
+  step "I visit the homepage"
 end

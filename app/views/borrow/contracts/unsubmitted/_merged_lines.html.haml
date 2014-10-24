@@ -1,4 +1,4 @@
-.row.line{:"data-line-ids" => line[:line_ids]}
+.row.line{:"data-ids" => line[:line_ids]}
 
   - if line.has_key?(:available?) and not line[:available?]
     .line-info.red{title: _("Not available")}
@@ -28,7 +28,7 @@
 
       %button.button.white{:"data-change-order-lines" => true,
                            :"data-model-id" => line[:model].id,
-                           :"data-line-ids" => line[:line_ids],
+                           :"data-ids" => line[:line_ids],
                            :"data-quantity" => line[:quantity],
                            :"data-start-date" => line[:start_date],
                            :"data-end-date" => line[:end_date]}

@@ -68,7 +68,7 @@ end
 Dann /^wird der kopierte Gegenstand gespeichert$/ do
   expect(has_content?(_("List of Inventory"))).to be true
   @copied_item = Item.find_by_inventory_code(@inventory_code_copied)
-  expect(@copied_item).not_to be nil
+  expect(@copied_item).not_to be_nil
 end
 
 Dann /^man wird zur Liste des Inventars zurückgeführt$/ do

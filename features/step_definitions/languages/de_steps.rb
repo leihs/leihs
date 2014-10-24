@@ -35,10 +35,6 @@ Wenn(/^ich einen Gegenstand zurücknehme$/) do
   step 'the contract is closed and all items are returned'
 end
 
-Wenn /^ich eine Bestellung bearbeite$/ do
-  step 'I open a contract for acknowledgement'
-end
-
 Angenommen /^man öffnet einen Vertrag bei der Rücknahme/ do
   step 'I open a take back'
   step 'I select all lines of an open contract'
@@ -192,7 +188,7 @@ Angenommen(/^es existiert ein(e)? (.*) mit folgenden Eigenschaften:$/) do |arg0,
         when "Software-Lizenz"
           "software license"
         else
-          raise "not found"
+          raise
       end
   step "there is a #{s} with the following properties:", table
 end
@@ -232,7 +228,7 @@ Dann(/^es erscheinen alle zutreffenden (.*)$/) do |arg1|
         when "Verträge, in denen diese Software-Produkt vorkommt"
           "contracts, in which this software product is contained"
         else
-          raise "not found"
+          raise
       end
   step "they appear all matched %s" % s
 end
@@ -494,7 +490,7 @@ Wenn(/^der Vertrag eine Software\-Lizenz beinhaltet$/) do
 end
 
 Dann(/^sehe ich zusätzlich die folgende Information$/) do |table|
-  step "I additionally see the following informatins", table
+  step "I additionally see the following informations", table
 end
 
 Angenommen(/^ich editiere eine Gerätepark( bei dem die aut. Zuweisung aktiviert ist)?$/) do |arg1|
@@ -639,7 +635,7 @@ Dann(/^sind die Listen zuerst nach (Ausleihdatum|Rückgabedatum) sortiert$/) do 
         when "Rückgabedatum"
           "take back"
         else
-          raise "not found"
+          raise
       end
   step "the lists are sorted by %s date" % s
 end
@@ -672,7 +668,7 @@ Dann(/^Gegenständen kein Raum oder Gestell zugeteilt sind, wird (die verfügbar
          when "Ort nicht definiert"
            _("Location not defined")
          else
-           raise "not found"
+           raise
        end
   step %Q(the items without location, are displayed with #{s1}"#{s2}")
 end
@@ -682,7 +678,7 @@ Dann(/^fehlende Rauminformationen bei Optionen werden als "(.*?)" angezeigt$/) d
         when "Ort nicht definiert"
           _("Location not defined")
         else
-          raise "not found"
+          raise
       end
   step %Q(the missing location information for options, are displayed with "#{s}")
 end
@@ -704,7 +700,7 @@ Angenommen(/^es existieren (Bestellungen|Verträge|Besuche)$/) do |arg1|
         when "Besuche"
           "visits"
         else
-          raise "not found"
+          raise
       end
   step "%s exist" % s
 end
@@ -718,7 +714,7 @@ Wenn(/^ich mich auf der Liste der (Bestellungen|Verträge|Besuche) befinde$/) do
         when "Besuche"
           "visits"
         else
-          raise "not found"
+          raise
       end
   step "I am listing the %s" % s
 
@@ -733,7 +729,7 @@ Wenn(/^ich nach (einer Bestellung|einem Vertrag|einem Besuch) suche$/) do |arg1|
         when "einem Besuch"
           "a visit"
         else
-          raise "not found"
+          raise
       end
   step "I search for %s" % s
 end
@@ -747,7 +743,7 @@ Dann(/^werden mir alle (Bestellungen|Verträge|Besuche) aufgeführt, die zu mein
         when "Besuche"
           "visits"
         else
-          raise "not found"
+          raise
       end
   step "all listed %s, are matched by the search term" % s
 end
@@ -803,7 +799,7 @@ Dann(/^der (.*) heisst "(.*?)"$/) do |arg1, arg2|
         when "Speichern-Button"
           "save button"
         else
-          raise "not found"
+          raise
       end
   step %Q(the #{s} is labeled as "#{arg2}")
 end
@@ -1022,4 +1018,8 @@ end
 
 Angenommen(/^heute entspricht dem Startdatum der Bestellung$/) do
   step %Q(today corresponds to the start date of the order)
+end
+
+Dann(/^speichere die Einstellungen$/) do
+  step "I save the booking calendar"
 end

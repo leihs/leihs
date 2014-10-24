@@ -20,8 +20,7 @@ Funktionalität: Rüstliste
     | Verleiher        |
     | Liste            |
 
-  # using chrome because clicking in autocomplete input field with selenium firefox does not work (manually with firefox it does)
-  @personas @javascript @browser @chrome
+  @personas @javascript @browser
   Szenario: Inhalt der Rüstliste vor Aushändigung - keine Zuteilung von Inventarcode
     Angenommen es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell und einer Option
     Und ich die Aushändigung öffne

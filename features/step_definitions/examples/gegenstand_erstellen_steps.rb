@@ -5,7 +5,10 @@ def fill_in_autocomplete_field field_name, field_value
     find("input", match: :first).set ""
     find("input", match: :first).set field_value
   end
-  find("a", match: :prefer_exact, text: field_value, visible: true).click
+  within ".ui-autocomplete" do
+    find("a", match: :prefer_exact, text: field_value).click
+  end
+  expect(has_no_selector? ".ui-autocomplete").to be true
 end
 
 def check_fields_and_their_values table
@@ -103,7 +106,7 @@ Dann /^hat der Gegenstand alle zuvor eingetragenen Werte$/ do
     field = Field.all.detect { |f| _(f.label) == field_name }
     find("[data-type='field'][data-id='#{field.id}']", match: :first)
     matched_field = all("[data-type='field'][data-id='#{field.id}']").last
-    raise "no field found" if matched_field.blank?
+    expect(matched_field).not_to be_blank
     case field_type
       when "autocomplete"
         expect(matched_field.find("input,textarea").value).to eq (field_value != "Keine/r" ? field_value : "")
@@ -227,7 +230,7 @@ end
 Dann(/^wird (der neue|kein neuer) Lieferant erstellt$/) do |arg1|
   expect(has_content?(_("List of Inventory"))).to be true
   find("#inventory")
-  expect(Supplier.find_by_name(@new_supplier)).not_to be nil
+  expect(Supplier.find_by_name(@new_supplier)).not_to be_nil
   expect(Supplier.where(name: @new_supplier).count).to eq 1
   case arg1
     when "der neue"

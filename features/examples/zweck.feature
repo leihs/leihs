@@ -22,7 +22,7 @@ Funktionalität: Zweck
     Wenn ich eine Aushändigung mache
     Dann sehe ich auf jeder Zeile den zugewisenen Zweck
 
-  @javascript @personas
+  @javascript @personas @browser
   Szenario: Orte, an denen ich den Zweck editieren kann
     Wenn ich eine Bestellung editiere
     Dann kann ich den Zweck editieren

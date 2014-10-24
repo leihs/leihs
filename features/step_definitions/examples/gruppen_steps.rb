@@ -63,7 +63,7 @@ end
 
 Dann(/^ist die Gruppe gespeichert$/) do
   @group = Group.find_by_name @name
-  expect(@group).not_to be nil
+  expect(@group).not_to be_nil
 end
 
 Dann(/^die Benutzer und Modelle mit deren Kapazitäten sind zugeteilt$/) do

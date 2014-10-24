@@ -118,7 +118,7 @@ Before('~@browser') do
                  end
 end
 
-Before do
+Before('~@generating_personas') do
   if @use_browser
     case @use_browser
       when :firefox
@@ -132,14 +132,8 @@ Before do
   end
 
   Cucumber.logger.info "Current capybara driver: %s\n" % Capybara.current_driver
-  DatabaseCleaner.clean_with :truncation
-  Persona.use_test_datetime
 
-  if @use_personas
-    Persona.restore_random_dump
-  else
-    Persona.restore_random_dump(true)
-  end
+  Dataset.restore_random_dump(!@use_personas)
 end
 
 ##################################################################################
@@ -168,28 +162,4 @@ if ENV["PRY"]
   AfterStep do
     binding.pry
   end
-end
-
-##################################################################################
-
-# in order to guarantuee the same shuffle and sample results on CI and locally, we have to change these ruby methods to use the global TEST_DATETIME seed
-class Array
-
-  def shuffle_with_random
-    shuffle_without_random(random: Persona.get_random_generator)
-  end
-  alias_method_chain :shuffle, :random
-
-  def sample_with_random(*args)
-    random = Persona.get_random_generator
-    if args.empty?
-      sample_without_random(random: random)
-    elsif args.last.is_a? Hash
-      sample_without_random(*args)
-    elsif not args.first.is_a? Hash
-      sample_without_random(args.first, {random: random})
-    end
-  end
-  alias_method_chain :sample, :random
-
 end

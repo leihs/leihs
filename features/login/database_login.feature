@@ -12,10 +12,11 @@ Feature: Login through database authentication
     Then I am logged in
 
   #80098490
-  @personas @current
+  @personas @javascript
   Scenario: Changing my own password
     Given I am Normin
     And my authentication system is "DatabaseAuthentication"
-    When I view my user data
+    When I hover over my name
+    And I view my user data
     And I change my password
     Then my password is changed

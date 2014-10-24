@@ -16,8 +16,8 @@ end
 
 Dann /^wähle ich all die Felder über eine List oder per Namen aus$/ do
   i = find("#inventory-helper-view #field-input")
-  while(i.click and page.has_selector?("a.ui-corner-all", visible: true)) do
-    find("a.ui-corner-all", match: :first, :visible => true).click
+  while(i.click and page.has_selector?(".ui-menu-item a", visible: true)) do
+    find(".ui-menu-item a", match: :first, :visible => true).click
   end
 end
 
@@ -59,7 +59,7 @@ Dann /^ich setze all ihre Initalisierungswerte$/ do
       when "autocomplete"
         target_name = find(".field[data-id='#{field[:id]}'] [data-type='autocomplete']")['data-autocomplete_value_target']
         find(".field[data-id='#{field[:id]}'] [data-type='autocomplete'][data-autocomplete_value_target='#{target_name}']").click
-              find("a.ui-corner-all", match: :first).click
+              find(".ui-menu-item a", match: :first).click
         @data[field[:id]] = find(".field[data-id='#{field[:id]}'] [data-type='autocomplete']")
       when "autocomplete-search"
         model = if @item and @item.children.exists? # item is a package
@@ -72,7 +72,7 @@ Dann /^ich setze all ihre Initalisierungswerte$/ do
           find("input").click
           find("input").set string
         end
-        find("a.ui-corner-all", match: :prefer_exact, text: string).click
+        find(".ui-menu-item a", match: :prefer_exact, text: string).click
         @data[field[:id]] = Model.find_by_name(string).id
       when "checkbox"
         # currently we only have "ausgemustert"
@@ -183,7 +183,7 @@ Dann /^wähle ich die Felder über eine List oder per Namen aus$/ do
   field = Field.all.select{|f| f[:readonly] == nil and f[:type] != "autocomplete-search" and f[:target_type] != "license" and not f[:visibility_dependency_field_id]}.last
   find("#field-input").click
   find("#field-input").set field.label
-  find("a.ui-corner-all", match: :first, text: field.label).click
+  find(".ui-menu-item a", match: :first, text: field.label).click
   within "#field-selection" do
     @all_editable_fields = all(".field", :visible => true)
   end
@@ -218,7 +218,7 @@ end
 
 Dann /^wähle den Gegenstand über die mir vorgeschlagenen Suchtreffer$/ do
   expect(has_selector?(".ui-menu-item")).to be true
-  find("a.ui-corner-all", :text => @item.inventory_code).click
+  find(".ui-menu-item a", :text => @item.inventory_code).click
 end
 
 Angenommen /^man editiert ein Gerät über den Helferschirm mittels Inventarcode$/ do
@@ -263,7 +263,7 @@ end
 Dann(/^wähle ich das Feld "(.*?)" aus der Liste aus$/) do |field|
   find("#field-input").click
   find("#field-input").set field
-  find("a.ui-corner-all", match: :prefer_exact, text: field).click
+  find(".ui-menu-item a", match: :prefer_exact, text: field).click
   within "#field-selection" do
     @all_editable_fields = all(".field", :visible => true)
   end
@@ -290,7 +290,7 @@ end
 Wenn(/^"(.*?)" ausgewählt und auf "(.*?)" gesetzt wird, dann muss auch "(.*?)" angegeben werden$/) do |field, value, dependent_field|
   find("#field-input").click
   find("#field-input").set field
-  find("a.ui-corner-all", match: :prefer_exact, text: field).click
+  find(".ui-menu-item a", match: :prefer_exact, text: field).click
   step 'ich setze das Feld "%s" auf "%s"' % [field, value]
   find(".row.emboss", match: :prefer_exact, text: dependent_field)
 end

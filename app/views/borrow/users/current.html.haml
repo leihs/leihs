@@ -22,3 +22,25 @@
       .line-col.col1of5
         %strong= _("Phone") + ":"
       .line-col.col4of5.text-align-left= current_user.phone
+
+
+    - if @db_auth
+      = form_tag "/authenticator/db/change_password", method: :post do
+        .row.line
+          .line-col.col1of5
+            %strong= _("Login") + ":"
+          .line-col.col4of5.text-align-left= @db_auth.login
+        .row.line
+          .line-col.col1of5
+            %strong= _("Password") + ":"
+          .line-col.col4of5.text-align-left
+            %input{type: "password", name: "db_auth[password]", value: "_password_"}
+        .row.line
+          .line-col.col1of5
+            %strong= _("Password Confirmation") + ":"
+          .line-col.col4of5.text-align-left
+            %input{type: "password", name: "db_auth[password_confirmation]", value: "_password_"}
+        .row.line
+          .line-col.col1of5
+          .line-col.col4of5.text-align-left
+            %button.button.small.green{:type => :submit}= _("Save")

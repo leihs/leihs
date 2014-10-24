@@ -60,35 +60,6 @@ def to_date( date )
   end
 end
 
-
-##############################################################
-#
-
-def include_in_collection?(element, collection)
-  #collection.include? element  # TODO override == in the model OrderLine
-  
-  # TODO iterate dynamically the relevant attributes, write as generic
-  #attribs = element.attribute_names
-  #["id", "created_at", "update_at"].each { |x| attribs.delete x }
-
-  e = element
-  r = collection.detect { |c| c.end_date == e.end_date and
-                          c.model_id == e.model_id and
-                          c.order_id == e.order_id and
-                          c.quantity == e.quantity and
-                          c.start_date == e.start_date }
-  !r.nil?
-end
-
-def equal_collections?(coll_a, coll_b)
-    r = true
-    r = (r and (coll_a.size == coll_b.size))
-    coll_a.each do |a|
-      r = (r and include_in_collection? a, coll_b)
-    end 
-    r
-end
-
 ##############################################################
 
 def get_fullcalendar_day_element(date)

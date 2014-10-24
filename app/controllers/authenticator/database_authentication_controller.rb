@@ -25,21 +25,15 @@ class Authenticator::DatabaseAuthenticationController < Authenticator::Authentic
   end
 
   def change_password
-    if request.post?
-      d = DatabaseAuthentication.create_with(params[:dbauth]).find_or_create_by(login: params[:dbauth][:login])
-      d.update_attributes(params[:dbauth])
-      d.password_confirmation = d.password
-      unless d.save
-        flash[:error] = d.errors.full_messages.uniq
+    if request.post? and params[:db_auth][:password] != "_password_"
+      d = DatabaseAuthentication.find_by_user_id(current_user.id)
+      if d.update_attributes(params[:db_auth])
+        flash[:success] = _("Password changed")
       else
-        flash[:notice] = _("Password changed")
-      end
-      render :update do |page|
-        page.replace_html 'flash', flash_content
-        flash.discard
+        flash[:error] = d.errors.full_messages.uniq.join(', ')
       end
     end
-    
+    redirect_to borrow_current_user_path
   end
   
 end

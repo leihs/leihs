@@ -27,7 +27,7 @@ When /^I approve anyway$/ do
     find(".dropdown-toggle").click
     find(".dropdown-item[data-approve-anyway]").click
   end
-  expect(has_no_selector?(".modal")).to be true
+  step "the modal is closed"
 end
 
 Then /^this contract is approved$/ do

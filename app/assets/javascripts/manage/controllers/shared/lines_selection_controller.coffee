@@ -39,14 +39,14 @@ class window.App.LineSelectionController extends Spine.Controller
   toggleLinesIn: (container)=>
     checked = container.find("[data-select-lines]").is(":checked")
     for input in container.find("[data-select-line]")
-      $(input).attr "checked", checked
+      $(input).prop "checked", checked
 
   toggleContainerAbove: (line)=>
     container = line.closest "[data-selected-lines-container]"
     if container.find("[data-select-line]:not(:checked)").length
-      container.find("[data-select-lines]").attr "checked", false
+      container.find("[data-select-lines]").prop "checked", false
     else
-      container.find("[data-select-lines]").attr "checked", true
+      container.find("[data-select-lines]").prop "checked", true
 
   focusLines: (e)=> $(e.currentTarget).closest(".emboss").addClass("focus-thin")
 
@@ -70,7 +70,7 @@ class window.App.LineSelectionController extends Spine.Controller
       line = input.closest(".line")
       ids = $(line).data("ids") ? [$(line).data("id")]
       if ids.length and _.all(ids , (id)-> _.include(App.LineSelectionController.selected, id))
-        input.attr("checked", true)
+        input.prop("checked", true)
         @toggleContainerAbove line
     ids = App.LineSelectionController.selected
     @markVisitLinesController?.update App.LineSelectionController.selected

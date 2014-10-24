@@ -24,7 +24,7 @@ Funktionalität: Kalender-Ansicht im Backend
      Dann kann ich die Anzahl unbegrenzt erhöhen / überbuchen
      Und die Aushändigung kann gespeichert werden
 
-  @personas
+  @personas @javascript
   Szenario: Nicht verfügbare Zeitspannen
     Angenommen ich mache eine Aushändigung
      Und eine Model ist nichtmehr verfügbar

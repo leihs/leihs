@@ -12,7 +12,7 @@ class window.App.ContractLinesCreateController extends window.App.ContractLinesC
     for id in inventoryPoolIds
       option = @inventoryPoolSelect.find "option[data-id='#{id}']"
       if option.length
-        option.attr "selected", true
+        option.prop "selected", true
         break
 
   # @override

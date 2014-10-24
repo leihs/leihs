@@ -5,22 +5,14 @@ class Location < ActiveRecord::Base
 
   validates_uniqueness_of :building_id, :scope => [:room, :shelf]
 
-#temp# 1108**
-#  before_save do |record|
-#    attributes[:building_id] = nil if attributes[:building_id].blank?
-#    attributes[:room] = nil if attributes[:room].blank?
-#    attributes[:shelf] = nil if attributes[:shelf].blank?
-#  end
-
   def self.find_or_create(attributes = {})
     attributes.delete(:id)
     attributes.delete("id")
-    attributes["building_id"] = nil if attributes["building_id"].blank?
+    attributes["building_id"] = nil if attributes["building_id"].blank? or not Building.where(id: attributes["building_id"]).exists?
     attributes["room"] = nil if attributes["room"].blank?
     attributes["shelf"] = nil if attributes["shelf"].blank?
-    
-    record = where(attributes).first
-    record ||= create(attributes)
+
+    create_with(attributes).find_or_create_by(attributes)
   end
 
   def to_s

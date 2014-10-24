@@ -230,7 +230,7 @@ end
 
 Then(/^the user "(.*?)" should have HSLU-LDAP as an authentication system$/) do |username|
   as = AuthenticationSystem.where(:class_name => "HsluAuthentication").first
-  expect(as).not_to be nil
+  expect(as).not_to be_nil
   expect(User.where(:login => username).first.authentication_system).to eq as
 end
 

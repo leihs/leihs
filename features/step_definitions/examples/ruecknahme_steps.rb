@@ -9,7 +9,7 @@ Angenommen(/^es existiert ein Benutzer mit mindestens 2 Rückgaben an 2 verschie
   @user = User.find {|u| u.visits.take_back.select{|v| v.inventory_pool == @current_inventory_pool}.count >= 2}
 end
 
-Wenn(/^man die Rücknahmenansicht für den Benutzer öffnet$/) do
+Wenn(/^man die Rücknahmenansicht für den Benutzer öffnet|ich öffne die Rücknahmeansicht für diesen Benutzer$/) do
   visit manage_take_back_path(@current_inventory_pool, @user)
 end
 
@@ -109,11 +109,7 @@ Angenommen(/^es existiert ein Benutzer mit einer zurückzugebender Option in zwe
     option_lines = u.visits.take_back.select{|v| v.inventory_pool == @current_inventory_pool}.flat_map(&:lines).select {|l| l.is_a? OptionLine}
     option_lines.uniq(&:option).size < option_lines.size
   end
-  expect(@user).not_to be nil
-end
-
-Wenn(/^ich öffne die Rücknahmeansicht für diesen Benutzer$/) do
-  visit manage_take_back_path(@current_inventory_pool, @user)
+  expect(@user).not_to be_nil
 end
 
 Wenn(/^ich diese Option zurücknehme$/) do
@@ -125,7 +121,7 @@ end
 Dann(/^wird die Option dem ersten Zeitfenster hinzugefügt$/) do
   @option_lines = @option.option_lines.select{|l| l.contract.status == :signed and l.contract.user == @user}
   @option_line = @option_lines.sort{|a, b| a.end_date <=> b.end_date}.first
-  find("[data-selected-lines-container]", match: :first).find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i > 0
+  expect(find("[data-selected-lines-container]", match: :first, text: @option.inventory_code).find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i).to be > 0
 end
 
 Wenn(/^ich dieselbe Option nochmals hinzufüge$/) do
@@ -134,7 +130,7 @@ Wenn(/^ich dieselbe Option nochmals hinzufüge$/) do
 end
 
 Wenn(/^im ersten Zeitfenster bereits die maximale Anzahl dieser Option erreicht ist$/) do
-  until find("[data-selected-lines-container]", match: :first).find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i == @option_line.quantity
+  until find("[data-selected-lines-container]", match: :first, text: @option.inventory_code).find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i == @option_line.quantity
     find("form#assign input#assign-input").set @option.inventory_code
     find("form#assign button .icon-ok-sign").click
   end
@@ -142,17 +138,17 @@ end
 
 Dann(/^wird die Option dem zweiten Zeitfenster hinzugefügt$/) do
   @option_line = @option_lines.sort{|a, b| a.end_date <=> b.end_date}.second
-  expect(all("[data-selected-lines-container]").to_a.second.find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i).to be > 0
+  expect(all("[data-selected-lines-container]", text: @option.inventory_code).to_a.second.find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i).to be > 0
 end
 
 Given(/^I open a take back with at least one item and one option$/) do
   @take_back = @current_inventory_pool.visits.take_back.find {|v| v.lines.any? {|l| l.is_a? OptionLine} and v.lines.any? {|l| l.is_a? ItemLine}}
-  expect(@take_back).not_to be nil
+  expect(@take_back).not_to be_nil
   visit manage_take_back_path(@current_inventory_pool, @take_back.user)
 end
 
 When(/^I set a quantity of (\d+) for the option line$/) do |quantity|
-  option_line = find("[data-line-type='option_line']")
+  option_line = find("[data-line-type='option_line']", match: :first)
   @line_id = option_line["data-id"]
   option_line.find("input[data-quantity-returned]").set (@quantity = quantity)
 end

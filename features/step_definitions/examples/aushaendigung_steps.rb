@@ -1,21 +1,34 @@
 # -*- encoding : utf-8 -*-
 
+Given /^the availability is loaded$/ do
+  within "#status" do
+    unless has_content? _("No hand overs found")
+      find(".icon-ok")
+      find("p", text: _("Availability loaded"))
+    end
+  end
+end
+
 Angenommen(/^es besteht bereits eine Aushändigung mit mindestens (\d+) zugewiesenen Gegenständen für einen Benutzer$/) do |count|
   @hand_over = @current_inventory_pool.visits.hand_over.find {|ho| ho.contract_lines.select(&:item).size >= count.to_i}
-  expect(@hand_over).not_to be nil
+  expect(@hand_over).not_to be_nil
 end
 
 Wenn(/^ich die Aushändigung öffne$/) do
   visit manage_hand_over_path(@current_inventory_pool, @hand_over.user)
+  step "the availability is loaded"
 end
 
 Dann(/^sehe ich all die bereits zugewiesenen Gegenstände mittels Inventarcodes$/) do
-  @hand_over.contract_lines.each {|l| find("[data-assign-item][disabled][value='#{l.item.inventory_code}']") }
+  @hand_over.contract_lines.each do |line|
+    next if not line.is_a?(ItemLine) or line.item_id.nil?
+    find("[data-assign-item][disabled][value='#{line.item.inventory_code}']")
+  end
 end
 
 When(/^der Benutzer für die Aushändigung ist gesperrt$/) do
   ensure_suspended_user(@customer, @current_inventory_pool)
-  visit manage_hand_over_path(@current_inventory_pool, @customer)
+  step "ich eine Aushändigung an diesen Kunden mache"
 end
 
 Angenommen(/^ich öffne eine Aushändigung( mit einer Software)?$/) do |arg1|
@@ -38,7 +51,7 @@ Angenommen(/^es gibt eine Aushändigung mit mindestens einem nicht problematisch
     end
     b
   end
-  expect(@hand_over).not_to be nil
+  expect(@hand_over).not_to be_nil
 end
 
 Angenommen(/^es gibt eine Aushändigung mit mindestens (einer problematischen Linie|einem Gegenstand ohne zugeteilt Raum und Gestell)$/) do |arg1|
@@ -47,17 +60,19 @@ Angenommen(/^es gibt eine Aushändigung mit mindestens (einer problematischen Li
       if l.is_a? ItemLine
         case arg1
           when "einer problematischen Linie"
-            av = l.model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(l.start_date, l.end_date, ho.user.groups)
-            l.start_date.past? and av > 1
+            #old#
+            # av = l.model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(l.start_date, l.end_date, ho.user.group_ids)
+            # l.start_date.past? and av > 1
+            not l.complete?
           when "einem Gegenstand ohne zugeteilt Raum und Gestell"
             l.item and (l.item.location.nil? or (l.item.location.room.blank? and l.item.location.shelf.blank?))
           else
-            raise "not found"
+            raise
         end
       end
     end
   end
-  expect(@hand_over).not_to be nil
+  expect(@hand_over).not_to be_nil
 end
 
 Wenn(/^ich dem nicht problematischen Modell einen Inventarcode zuweise$/) do
@@ -71,7 +86,7 @@ end
 
 Dann(/^wird der Gegenstand der Zeile zugeteilt$/) do
   find("#flash")
-  expect(@contract_line.reload.item).not_to be nil
+  expect(@contract_line.reload.item).not_to be_nil
 end
 
 Dann(/^die Zeile wird selektiert|wird die Zeile selektiert$/) do
@@ -120,8 +135,10 @@ end
 Dann(/^wird das Problemfeld für das problematische Modell angezeigt$/) do
   @contract_line = @hand_over.lines.find do |l|
     if l.is_a? ItemLine
-      av = l.model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(l.start_date, l.end_date, @hand_over.user.groups)
-      l.start_date.past? and av > 1
+      #old#
+      # av = l.model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(l.start_date, l.end_date, @hand_over.user.group_ids)
+      # l.start_date.past? and av > 1
+      not l.complete?
     end
   end
   @line_css = ".line[data-id='#{@contract_line.id}']"
@@ -167,7 +184,7 @@ Dann(/^die Zeile bleibt grün markiert$/) do
 end
 
 Angenommen(/^für den Gerätepark ist eine Standard\-Vertragsnotiz konfiguriert$/) do
-  expect(@current_inventory_pool.default_contract_note).not_to be nil
+  expect(@current_inventory_pool.default_contract_note).not_to be_nil
 end
 
 Dann(/^erscheint ein Aushändigungsdialog$/) do
@@ -221,14 +238,9 @@ end
 
 Given(/^there exists a model with a problematic item$/) do
   @item = @current_inventory_pool.items.borrowable.in_stock.find {|item| item.is_broken? or item.is_incomplete?}
-  expect(@item).not_to be nil
+  expect(@item).not_to be_nil
   @model = @item.model
-  expect(@model).not_to be nil
-end
-
-And(/^I open a hand over for some user$/) do
-  @user = @current_inventory_pool.users.sample
-  visit manage_hand_over_path(@current_inventory_pool, @user)
+  expect(@model).not_to be_nil
 end
 
 When(/^I add this model to the hand over$/) do
@@ -248,7 +260,7 @@ end
 
 Given(/^there exists a model with a retired and a borrowable item$/) do
   @model = @current_inventory_pool.models.find { |m| m.items.borrowable.where(retired: nil).exists? and m.items.retired.exists? }
-  expect(@model).not_to be nil
+  expect(@model).not_to be_nil
   @item = @model.items.retired.sample
 end
 

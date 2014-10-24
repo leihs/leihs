@@ -50,7 +50,7 @@ Funktionalität: Anzeige von Problemen
     Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
     Und das Problem wird wie folgt dargestellt: "Gegenstand nicht ausleihbar"
 
-  @personas
+  @personas @javascript
   Szenario: Problemanzeige wenn Modell nicht verfügbar bei Aushändigung
     Angenommen ich mache eine Aushändigung
      Und eine Model ist nichtmehr verfügbar

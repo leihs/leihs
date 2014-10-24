@@ -8,10 +8,9 @@
 ###
 
 jQuery ->
-  $("input[data-type='autocomplete']").live "focus", (event)->
+  $(document).on "focus", "input[data-type='autocomplete']", (event)->
     if not $(this).hasClass("ui-autocomplete-input")
       new AutoComplete $(this)
-  $("input[data-type='autocomplete']").live "focus", (event)->
     el = $(this)
     do (el)->
       search = -> 

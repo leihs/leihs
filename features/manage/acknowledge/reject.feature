@@ -14,15 +14,16 @@ Feature: Reject Order
      And I reject a contract
     Then I see a summary of that contract
      And I can write a reason why I reject that contract
-    When I reject the contract
+    When I confirm the contract rejection
     Then the contract is rejected
 
-  @personas
+  @javascript @personas
   Scenario: Reject a contract on the edit view
     When I open the daily view
-    And I edit a submitted contract
-    And I reject the contract
+    And I open a contract for acknowledgement
+    And I reject this contract
+    Then I see a summary of that contract
     And I can write a reason why I reject that contract
-    When I reject the contract
-    Then the contract is rejected
-    And I am redirected to the daily view
+    When I confirm the contract rejection
+    Then I am redirected to the daily view
+    And the contract is rejected

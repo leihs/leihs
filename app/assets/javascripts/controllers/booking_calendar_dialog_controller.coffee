@@ -47,7 +47,7 @@ class window.App.BookingCalendarDialogController extends Spine.Controller
   initalizeDialog: =>
     @loading.detach()
     @controlElements.removeClass "hidden"
-    @submitButton.attr "disabled", false
+    @submitButton.prop "disabled", false
     do @setupBookingCalendar
 
   setupModal: =>

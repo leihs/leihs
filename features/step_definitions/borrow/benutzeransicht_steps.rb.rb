@@ -5,7 +5,7 @@ Wenn(/^ich auf meinen Namen klicke$/) do
 end
 
 Dann(/^gelange ich auf die Seite der Benutzerdaten$/) do
-  expect(current_path).to eq borrow_current_user_path
+  step %Q(I get to the "User Data" page)
 end
 
 Dann(/^werden mir meine Benutzerdaten angezeigt$/) do
@@ -34,11 +34,11 @@ Dann(/^die Benutzerdaten beinhalten$/) do |table|
 end
 
 Wenn(/^ich über meinen Namen fahre$/) do
-  find("nav.topbar ul.topbar-navigation a[href='/borrow/user']").hover
+  step "I hover over my name"
 end
 
 Dann(/^sehe ich im Dropdown eine Schaltfläche die zur Benutzeransicht führt$/) do
-  find("ul.dropdown a.dropdown-item[href='/borrow/user']", text: _("User data")).click
-  step "gelange ich auf die Seite der Benutzerdaten"
+  step "I view my user data"
+  step %Q(I get to the "User Data" page)
 end
 

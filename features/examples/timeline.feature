@@ -1,29 +1,27 @@
-Feature: Timeline der Modell-Verfügbarkeit
+Feature: Model availability Timeline
 
   @javascript @browser @personas
-  Scenario: Wo man die Timeline sieht
-    Given ich bin Mike 
-    When ich eine Bestellung bearbeite
-    Then kann ich für jedes sichtbare Model die Timeline anzeigen lassen
-    When ich eine Aushändigung mache
-    Then kann ich für jedes sichtbare Model die Timeline anzeigen lassen
-    When ich eine Rücknahme mache
-    Then kann ich für jedes sichtbare Model die Timeline anzeigen lassen
-    When ich suche
-    Then kann ich für jedes sichtbare Model die Timeline anzeigen lassen
-    When man die Liste des Inventars öffnet
-    Then kann ich für jedes sichtbare Model die Timeline anzeigen lassen
+  Scenario: Where is visible the timeline
+    Given I am Mike
+    When I open a contract for acknowledgement
+    Then for each visible model I can see the Timeline
+    When I open a hand over
+    Then for each visible model I can see the Timeline
+    When I open a take back
+    Then for each visible model I can see the Timeline
+    When I search 'a'
+    Then for each visible model I can see the Timeline
+    When man öffnet die Liste des Inventars
+    Then for each visible model I can see the Timeline
 
-  @current @personas
+  @javascript @browser @personas
   Scenario: open timeline in pending orders as group-manager
     Given I am Andi
-    When I open a pending order 
-    And this order contains a model
-    Then I can open the timeline to this model
-    
-  @current @personas
+    When I open a contract for acknowledgement
+    Then for each visible model I can see the Timeline
+
+  @javascript @browser @personas
   Scenario: open timeline in hand-over as group-manager
     Given I am Andi
-    When I open a hand-over
-    And this hand-over contains a model
-    Then I can open the timeline to this model
+    When I open a hand over with models
+    Then for each visible model I can see the Timeline

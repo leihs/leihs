@@ -2,6 +2,7 @@ When /^I add a model by typing in the inventory code of an item of that model to
   @item ||= @current_inventory_pool.items.detect {|x| not x.inventory_code.blank? }
   find("#add-input").set @item.inventory_code
   find("button[type='submit'][title='#{_("Add")}']").click
+  find(".line", match: :prefer_exact, :text => @item.model.name)
 end
 
 When /^I start to type the inventory code of an item$/ do
@@ -41,7 +42,11 @@ When /^I add a model to the acknowledge which is already existing in the selecte
   @model = @line.model
   find(".line", match: :prefer_exact, text: @model.name)
   @line_el_count = all(".line").size
-  fill_in 'add-input', :with => @model.items.first.inventory_code
+
+  fill_in "add-start-date", with: @line.start_date.strftime("%d.%m.%Y")
+  fill_in "add-end-date", with: @line.end_date.strftime("%d.%m.%Y")
+  fill_in 'add-input', with: @model.items.first.inventory_code
+
   find("#add-input+button").click
 end
 
@@ -56,9 +61,13 @@ Then /^an additional line has been created in the backend system$/ do
 end
 
 Then /^the new line is getting visually merged with the existing line$/ do
-  expect(find(".line", match: :prefer_exact, text: @model.name).has_content? @contract.lines.where(:model_id => @model.id).to_a.sum(&:quantity)).to be true
-  expect(all(".line").count).to eq @line_el_count
-  expect(find(".line", match: :prefer_exact, text: @model.name).find("div:nth-child(3) > span:nth-child(1)").text.to_i).to eq @contract.reload.lines.select{|l| l.model == @model}.size
+  within "#edit-contract-view #lines" do
+    find(".line", match: :prefer_exact, text: @model.name)
+    lines = @contract.reload.lines.where(model_id: @model)
+    expect(all(".line").count).to eq @line_el_count
+    expect(all(".line", text: @model.name).sum{|l| l.find("div:nth-child(3) > span:nth-child(1)").text.to_i}).to eq lines.count
+    expect(lines.count).to eq lines.to_a.sum(&:quantity)
+  end
 end
 
 Given /^I search for a model with default dates and note the current availability$/ do
@@ -70,8 +79,8 @@ Given /^I search for a model with default dates and note the current availabilit
   end
   @new_start_date = av.changes.select{|k, v| k > init_start_date }.keys.first
   fill_in "add-input", with: @model.name
-  find("a.ui-corner-all", match: :prefer_exact, text: @model.name)
-  @init_aval = find("a.ui-corner-all", match: :prefer_exact, text: @model.name).find("div.col1of4:nth-child(2) > div:nth-child(1)").text
+  find(".ui-menu-item a", match: :prefer_exact, text: @model.name)
+  @init_aval = find(".ui-menu-item a", match: :prefer_exact, text: @model.name).find("div.col1of4:nth-child(2) > div:nth-child(1)").text
 end
 
 When /^I change the start date$/ do
@@ -91,7 +100,7 @@ And /^I search again for the same model$/ do
 end
 
 Then (/^the model's availability has changed$/) do
-  @changed_aval = find("a.ui-corner-all", match: :prefer_exact, text: @model.name).find("div.col1of4:nth-child(2) > div:nth-child(1)").text
+  @changed_aval = find(".ui-menu-item a", match: :prefer_exact, text: @model.name).find("div.col1of4:nth-child(2) > div:nth-child(1)").text
   expect(@changed_aval.slice(0)).not_to eq @init_aval.slice(0)
 end
 

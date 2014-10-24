@@ -71,7 +71,7 @@ class AccessRight < ActiveRecord::Base
 ####################################################################
 
   scope :active, -> { where(deleted_at: nil) }
-  scope :suspended, -> { where("suspended_until IS NOT NULL AND suspended_until >= ?", Date.today) }
+  scope :suspended, -> { where.not(suspended_until: nil).where("suspended_until >= ?", Date.today) }
   scope :not_suspended, -> { where("suspended_until IS NULL OR suspended_until < ?", Date.today) }
 
 ####################################################################

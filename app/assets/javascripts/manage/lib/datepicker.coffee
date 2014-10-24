@@ -8,7 +8,7 @@
 ###
 
 jQuery ->
-  $("input[data-type='datepicker']").live "focus", (event)->
+  $(document).on "focus", "input[data-type='datepicker']", (event)->
     $this = $(this)
     unless $this.hasClass("hasDatepicker")
       $this.datepicker()

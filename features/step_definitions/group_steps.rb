@@ -61,7 +61,7 @@ end
 
 Then /^(\w+) item(s?) of that model should be available to "([^"]*)"$/ do |n, plural, user|
   @user = User.find_by_login user
-  expect(@model.availability_in(@inventory_pool.reload).maximum_available_in_period_for_groups(Date.today, Date.tomorrow, @user.groups)).to eq n.to_i
+  expect(@model.availability_in(@inventory_pool.reload).maximum_available_in_period_for_groups(Date.today, Date.tomorrow, @user.group_ids)).to eq n.to_i
 end
 
 #
@@ -88,7 +88,7 @@ do |group, filler, inventory_pool|
 
   groups = inventory_pools.collect { |ip| ip.groups.where(name: group).first }
   groups.each do |group|
-    expect(group.users.find_by_id( @user.id )).not_to be nil
+    expect(group.users.find_by_id( @user.id )).not_to be_nil
   end
 end
 

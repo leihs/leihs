@@ -10,7 +10,7 @@ When /^I open a contract for acknowledgement( with more then one line)?(, whose 
 
   @customer = @contract.user
 
-  visit manage_edit_contract_path(@current_inventory_pool, @contract)
+  step "ich die Bestellung editiere"
   expect(has_selector?("[data-order-approve]", :visible => true)).to be true
 end
 
@@ -34,16 +34,16 @@ When /^I edit the timerange of the selection$/ do
 end
 
 When /^I save the booking calendar$/ do
-  find("#submit-booking-calendar", :text => _("Save")).click
-  has_no_selector?("#submit-booking-calendar", :text => _("Save"))
-  has_no_selector?("#booking-calendar")
+  find("#submit-booking-calendar").click
+  expect(has_no_selector?("#submit-booking-calendar")).to be true
+  expect(has_no_selector?("#booking-calendar")).to be true
 end
 
 When /^I change a contract lines time range$/ do
   @line = if @contract
     @contract.lines.sample
   else
-    @customer.visits.hand_over.first.lines.sample
+    @customer.visits.where(inventory_pool_id: @current_inventory_pool).hand_over.first.lines.sample
   end
   @line_element = all(".line[data-ids*='#{@line.id}']").first
   @line_element ||= all(".line[data-id='#{@line.id}']").first
@@ -83,7 +83,7 @@ When /^I change a contract lines quantity$/ do
     @line = if @contract
               @contract.lines.sample
             else
-              @customer.visits.hand_over.first.lines.sample
+              @customer.visits.where(inventory_pool_id: @current_inventory_pool).hand_over.first.lines.sample
             end
     @total_quantity = @line.contract.lines.where(:model_id => @line.model_id).sum(&:quantity)
     @new_quantity = @line.quantity + 1
@@ -91,6 +91,7 @@ When /^I change a contract lines quantity$/ do
   end
   @line_element_css ||= ".line[data-ids*='#{@line.id}']" if @line
   @line_element ||= all(@line_element_css).first
+  @line_ids = @line_element["data-ids"]
   step 'I open the booking calendar for this line'
   find("input#booking-calendar-quantity", match: :first).set @new_quantity
   step 'I save the booking calendar'
@@ -102,7 +103,12 @@ Then(/^the contract line was duplicated$/) do
 end
 
 Then /^the quantity of that submitted contract line is changed$/ do
-  @line_element = find(".line", match: :prefer_exact, :text => @line_model_name)
+  JSON.parse(@line_ids).detect do |id|
+    if has_selector?(".line[data-ids*='#{id}']", :text => @line_model_name)
+      @line_element = find(".line[data-ids*='#{id}']", :text => @line_model_name)
+    end
+  end
+  expect(@line_element).not_to be_nil
   @line_element.find("div:nth-child(3) > span:nth-child(1)", text: @new_quantity)
 end
 
@@ -116,7 +122,7 @@ end
 When /^I change the time range for multiple lines$/ do
   step 'I select two lines'
   step 'I edit the timerange of the selection'
-  @new_start_date = @line1.start_date + 2.days
+  @new_start_date = [@line1.start_date, Date.today].max + 2.days
   get_fullcalendar_day_element(@new_start_date).click
   find("#set-start-date", :text => _("Start Date")).click
   step 'I save the booking calendar'

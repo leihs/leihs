@@ -18,6 +18,14 @@ class window.App.ContractLinesChangeController extends window.App.BorrowBookingC
   # overwrite
   getAvailability: (inventoryPool)=> @availabilities[inventoryPool.id].withoutLines(@lines)
 
+  # @override
+  selectFirstInventoryPool: ->
+    id = @lines[0].contract().inventory_pool_id
+    option = @inventoryPoolSelect.find "option[data-id='#{id}']"
+    if option.length
+      option.prop "selected", true
+
+
   # overwrite
   store: =>
     difference = @getQuantity() - @quantity

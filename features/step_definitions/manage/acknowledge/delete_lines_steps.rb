@@ -14,10 +14,10 @@ end
 
 When /^I delete multiple lines of this contract$/ do
   step 'I add a model that is not already part of that contract'
-  step 'I select two lines'
-  if all("input[data-select-line]").map{|i| i.checked?}.all?
-    find("input[data-select-line]", match: :first).click
+  all("input[data-select-line]:checked").each do |checkbox|
+    checkbox.click
   end
+  step 'I select two lines'
   find(".multibutton [data-selection-enabled] + .dropdown-holder").click
   find("a", :text => _("Delete Selection")).click
   find(".line", match: :first)
@@ -29,7 +29,7 @@ When(/^I add a model that is not already part of that contract$/) do
 end
 
 Then /^these contractlines are deleted$/ do
-  visit current_path
+  step "the availability is loaded"
   expect { @line1.reload }.to raise_error(ActiveRecord::RecordNotFound)
   expect { @line2.reload }.to raise_error(ActiveRecord::RecordNotFound)
 end

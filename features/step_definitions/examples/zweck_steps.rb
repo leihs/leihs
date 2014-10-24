@@ -22,7 +22,7 @@ Wenn /^ich eine Bestellung editiere$/ do
   find(".line[data-type='contract']", match: :first)
   contract_id = all(".line[data-type='contract']").to_a.sample["data-id"].to_i
   @contract = Contract.find(contract_id)
-  visit manage_edit_contract_path(@contract.inventory_pool, @contract)
+  step "ich die Bestellung editiere"
 end
 
 Dann /^sehe ich den Zweck$/ do
@@ -32,7 +32,7 @@ Dann /^sehe ich den Zweck$/ do
 end
 
 Dann /^sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
-  @customer.contracts.approved.first.lines.each do |line|
+  @customer.get_approved_contract(@current_inventory_pool).lines.each do |line|
     target = find(".line[data-id='#{line.id}'] [data-tooltip-template*='purpose']")
     hover_for_tooltip target
     find(".tooltipster-default .tooltipster-content", text: line.purpose.description)
@@ -66,8 +66,10 @@ end
 
 Dann /^werde ich beim Aushändigen darauf hingewiesen einen Zweck anzugeben$/ do
   find(".multibutton .button[data-hand-over-selection]").click
-  find(".modal .button", match: :first)
-  find("#purpose")
+  within ".modal" do
+    find(".button", match: :first)
+    find("#purpose")
+  end
 end
 
 Dann /^erst wenn ich einen Zweck angebebe$/ do
@@ -99,7 +101,7 @@ Wenn /^ich einen Zweck angebe$/ do
   find("#add-purpose").click
   @added_purpose = "Another Purpose"
   find("#purpose").set @added_purpose
-  @approved_lines = @customer.contracts.approved.first.lines
+  @approved_lines = @customer.get_approved_contract(@current_inventory_pool).lines
   step 'kann ich die Aushändigung durchführen'
 end
 
@@ -110,7 +112,7 @@ Dann /^wird nur den Gegenständen ohne Zweck der angegebene Zweck zugewiesen$/ d
 end
 
 Wenn /^alle der ausgewählten Gegenstände haben einen Zweck angegeben$/ do
-  @contract = @customer.contracts.approved.first
+  @contract = @customer.get_approved_contract(@current_inventory_pool)
   lines = @contract.lines
   lines.each do |line|
     @item_line = line
@@ -123,6 +125,10 @@ Wenn /^alle der ausgewählten Gegenstände haben einen Zweck angegeben$/ do
     end
   end
 
+  # select all lines if no one is selected yet
+  if all("input[type='checkbox']:checked").empty?
+    step "I select all lines selecting all linegroups"
+  end
   # ensure that only lines with assigned items are selected before continuing with the test
   lines.reload.select{|l| !l.item}.each do |l|
     cb = find(".line[data-id='#{l.id}'] input[type='checkbox']")
@@ -132,9 +138,14 @@ Wenn /^alle der ausgewählten Gegenstände haben einen Zweck angegeben$/ do
   step 'I edit the timerange of the selection'
   step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
   step 'I save the booking calendar'
+
+  within "#lines" do
+    lines = lines.select {|line| line.item and find(".line[data-id='#{line.id}'] input[type='checkbox'][data-select-line]").checked? }
+  end
+
   find(".multibutton .button[data-hand-over-selection]").click
   within(".modal") do
-    lines.select(&:item).each do |line|
+    lines.each do |line|
       find(".row", match: :first, text: line.purpose.to_s)
     end
   end

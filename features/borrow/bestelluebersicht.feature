@@ -38,7 +38,7 @@ Funktionalität: Bestellübersicht
     Und  die Zeit überschritten ist
     Dann werde ich auf die Timeout Page weitergeleitet
 
-  @javascript @personas
+  @javascript @personas @browser
   Szenario: Bestellübersicht Aktion 'ändern'
     Wenn ich den Eintrag ändere
     Dann öffnet der Kalender

@@ -2,8 +2,8 @@
   @extend .dropdown
   max-height: 400px
   overflow: auto
-  
-  a 
+
+  a
     @extend .dropdown-item
     @extend .text-ellipsis
     font-weight: normal !important
@@ -12,3 +12,7 @@
 
   a.ui-state-focus, a.ui-state-hover, a:hover 
     @extend .focus-thin
+
+  li.ui-menu-item
+    list-style-image: none
+    padding: 0

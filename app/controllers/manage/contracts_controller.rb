@@ -36,7 +36,7 @@ class Manage::ContractsController < Manage::ApplicationController
     add_visitor(@user)
     @contract_lines = @contract.lines
     @models = @contract.models
-    @purpose = @contract.purpose
+    @purposes = @contract.lines.map(&:purpose).uniq
     @grouped_lines = @contract_lines.group_by{|g| [g.start_date, g.end_date]}
     @grouped_lines.each_pair do |k,lines|
       @grouped_lines[k] = lines.sort_by{|line| line.model.name}.group_by{|line| line.model}

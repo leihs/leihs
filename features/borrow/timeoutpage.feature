@@ -62,7 +62,7 @@ Funktionalität: Timeout Page
     Und ich lande auf der Seite der Bestellübersicht
     Und ich sehe eine Information, dass alle Geräte wieder verfügbar sind
 
-  @javascript @personas
+  @javascript @browser @personas
   Szenario: Eintrag ändern
     Angenommen ich bin Normin
     Und ich zur Timeout Page mit einem Konfliktmodell weitergeleitet werde

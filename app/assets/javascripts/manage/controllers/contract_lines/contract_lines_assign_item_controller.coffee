@@ -70,7 +70,7 @@ class window.App.ContractLineAssignItemController extends Spine.Controller
     contractLine = App.ContractLine.find input.closest("[data-id]").data("id")
     contractLine.assign item, =>
       input.val item.inventory_code
-      input.attr "disabled", true
+      input.prop "disabled", true
       App.LineSelectionController.add contractLine.id
 
   removeAssignment: (e)=>

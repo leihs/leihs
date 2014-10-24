@@ -18,20 +18,20 @@ class window.App.InlineEntryRemoveController extends Spine.Controller
     destroyInput = line.find("[name*='_destroy']")
     if line.data("destroyOnSave")?
       line.removeClass "striked"
-      line.find("input:visible").attr("disabled", false)
+      line.find("input:visible").prop("disabled", false)
       line.data("removedOnSaveInfo").remove()
-      line.find("[data-disable-on-remove]").attr "disabled", false
+      line.find("[data-disable-on-remove]").prop "disabled", false
       destroyInput.val(null) if destroyInput.length
       line.data "destroyOnSave", null
       target.text _jed "Remove"
       @unstrikeCallback?(line)
     else
       line.addClass "striked"
-      line.find("input:visible").attr("disabled", true)
+      line.find("input:visible").prop("disabled", true)
       template = $ App.Render "manage/views/inline_entries/removed_on_save_info"
       line.data "removedOnSaveInfo", template
       line.prepend template
-      line.find("[data-disable-on-remove]").attr "disabled", true
+      line.find("[data-disable-on-remove]").prop "disabled", true
       destroyInput.val(1) if destroyInput.length
       line.data "destroyOnSave", true
       target.text _jed "undo"

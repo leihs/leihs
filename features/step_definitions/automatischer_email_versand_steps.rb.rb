@@ -16,14 +16,14 @@ end
 
 Angenommen(/^ich habe eine verspätete Rückgabe$/) do
   jump_to_date = @current_user.contract_lines.to_take_back.first.end_date + 1.day
-  back_to_the_future(jump_to_date)
+  Dataset.back_to_date(jump_to_date)
   overdue_lines = @current_user.contract_lines.to_take_back.where("end_date < ?", Date.today)
   expect(overdue_lines.empty?).to be false
 end
 
 Angenommen(/^ich habe eine nicht verspätete Rückgabe$/) do
   jump_to_date = @current_user.contract_lines.to_take_back.first.end_date - 1.day
-  back_to_the_future(jump_to_date)
+  Dataset.back_to_date(jump_to_date)
   deadline_soon_lines = @current_user.contract_lines.to_take_back.where("end_date > ?", Date.today)
   expect(deadline_soon_lines.empty?).to be false
 end
@@ -54,7 +54,7 @@ end
 
 Dann(/^für jeden weiteren Tag erhalte ich erneut eine Erinnerungs E\-Mail zugeschickt$/) do
   ActionMailer::Base.deliveries.clear
-  back_to_the_future(Date.tomorrow)
+  Dataset.back_to_date(Date.tomorrow)
 
   expect(ActionMailer::Base.deliveries.empty?).to be true
   expect(@current_user.notifications.reload.empty?).to be false

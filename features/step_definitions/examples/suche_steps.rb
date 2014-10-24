@@ -6,12 +6,12 @@ Angenommen /^ich gebe den Inventarcode eines Gegenstandes der einem Vertrag zuge
 end
 
 Dann /^sehe ich den Vertrag dem der Gegenstand zugewisen ist in der Ergebnisanzeige$/ do
-  @current_user.inventory_pools.first.contracts.search(@item.inventory_code).should include @contract
+  expect(@current_user.inventory_pools.first.contracts.search(@item.inventory_code)).to include @contract
 end
 
 Angenommen(/^es existiert ein Benutzer mit Verträgen, der kein Zugriff mehr auf das Gerätepark hat$/) do
   @user = User.find {|u| u.access_rights.find {|ar| ar.inventory_pool == @current_inventory_pool and ar.deleted_at} and !u.contracts.blank?}
-  expect(@user).not_to be nil
+  expect(@user).not_to be_nil
 end
 
 Wenn(/^man nach dem Benutzer sucht$/) do

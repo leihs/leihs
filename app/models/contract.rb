@@ -65,7 +65,6 @@ class Contract < ActiveRecord::Base
   STATUSES.each do |status|
     scope status, -> {where(status: status)}
   end
-  scope :submitted_or_approved_or_rejected, -> {where(status: [:submitted, :approved, :rejected])}
   scope :signed_or_closed, -> {where(status: [:signed, :closed])}
   scope :not_empty, -> {joins(:contract_lines).uniq}
 
@@ -330,24 +329,14 @@ class Contract < ActiveRecord::Base
 
   ############################################
 
-  private
-
-  def find_or_build_purpose
-    # NOTE all lines should have the same purpose
-    lines.detect {|l| l.purpose_id and l.purpose }.try(:purpose) || Purpose.new(:contract_lines => lines, :description => read_attribute(:purpose))
-  end
-
-  def join_purposes
-    lines.sort.map {|x| x.purpose.to_s }.uniq.delete_if{|x| x.blank? }.join("; ")
-  end
-
-  public
-
   def purpose
     if [:unsubmitted, :submitted, :rejected].include? status
-      find_or_build_purpose
+      # NOTE all lines should have the same purpose
+      # find or build purpose
+      lines.detect {|l| l.purpose_id and l.purpose }.try(:purpose) || Purpose.new(:contract_lines => lines, :description => read_attribute(:purpose))
     else
-      join_purposes
+      # join purposes
+      lines.sort.map {|x| x.purpose.to_s }.uniq.delete_if{|x| x.blank? }.join("; ")
     end
   end
 

@@ -43,9 +43,9 @@ end
 
 Dann(/^steht bei jedem Modell die höchst mögliche ausleihbare Anzahl der Gegenstände für dieses Modell$/) do
   within "#models" do
-    all(".line").each do |line|
-      line.find("input[name='template[model_links_attributes][][quantity]']", text: /\/\s#{@changed_model.items.borrowable.size}/)
-    end
+    line = find(".line div[data-model-name]", text: @changed_model.name).find(:xpath, "./..")
+    count = @changed_model.items.borrowable.where(inventory_pool_id: @current_inventory_pool).count
+    line.find("input[name='template[model_links_attributes][][quantity]'][max='#{count}']")
   end
 end
 
@@ -92,7 +92,7 @@ Angenommen(/^es existiert eine Vorlage mit mindestens zwei Modellen$/) do
   @template = @current_inventory_pool.templates.find do |t|
     t.models.size >= 2 and t.models.any? {|m| m.borrowable_items.size >= 2}
   end
-  expect(@template).not_to be nil
+  expect(@template).not_to be_nil
   @template_models_count_original = @template.models.count
 end
 
@@ -137,8 +137,8 @@ end
 
 Dann(/^die bearbeitete Vorlage wurde mit all den erfassten Informationen erfolgreich gespeichert$/) do
   @template.reload
-  @template.models.map(&:name).should_not include @removed_model.name if @removed_model
-  @template.models.map(&:name).should include @additional_model.name if @additional_model
+  expect(@template.models.map(&:name)).not_to include @removed_model.name if @removed_model
+  expect(@template.models.map(&:name)).to include @additional_model.name if @additional_model
   expect(@template.model_links.find_by_model_id(@changed_model.id).quantity).to eq @new_value
   expect(@template.models.count).to eq @template_models_count_original if @template_models_count_original
 end
