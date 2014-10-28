@@ -92,7 +92,7 @@ class window.App.InventoryIndexController extends Spine.Controller
   render: (target, data, page)=> 
     if data?
       if data.length
-        target.html App.Render "manage/views/inventory/line", data
+        target.html App.Render "manage/views/inventory/line", data, {accessRight: App.AccessRight, currentUserRole: App.User.current.role}
         @pagination.renderPlaceholders() if page == 1
       else
         target.html App.Render "manage/views/lists/no_results"

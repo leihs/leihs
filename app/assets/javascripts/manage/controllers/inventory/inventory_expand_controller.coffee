@@ -80,5 +80,5 @@ class window.App.InventoryExpandController extends Spine.Controller
       when "item"
         record.children().all()
     childrenContainer = $("<div class='group-of-lines'></div>")
-    childrenContainer.html $(App.Render("manage/views/inventory/line", data, {additionalDataFetched: additionalDataFetched}))
+    childrenContainer.html $(App.Render("manage/views/inventory/line", data, {additionalDataFetched: additionalDataFetched, accessRight: App.AccessRight, currentUserRole: App.User.current.role}))
     line.data "_children", childrenContainer

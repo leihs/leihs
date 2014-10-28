@@ -2,7 +2,7 @@
 
 Wenn(/^ich im Inventarbereich auf den Link "Vorlagen" klicke$/) do
   @current_inventory_pool = @current_user.managed_inventory_pools.select {|ip| ip.templates.exists? }.sample
-  visit manage_inventory_path(@current_inventory_pool)
+  step "I open the Inventory"
   click_link _("Vorlagen")
 end
 

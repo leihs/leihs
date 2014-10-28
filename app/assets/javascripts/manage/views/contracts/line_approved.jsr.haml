@@ -14,6 +14,7 @@
 .col2of8.line-col.line-actions
   %a.button.white.text-ellipsis{:href => "{{>user().url('hand_over')}}"}
     {{if ~accessRight.atLeastRole(~currentUserRole, "lending_manager") }}
+    %i.icon-mail-forward
     {{jed "Hand Over"/}}
     {{else}}
     {{jed "Edit"/}}

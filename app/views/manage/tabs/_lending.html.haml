@@ -21,7 +21,7 @@
           :class => (defined? active_tab and active_tab == :visits) ? "active" : ""}
             = _("Visits")
 
-      - if is_lending_manager?
+      - if is_group_manager?
         %li
           %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_contracts_path(current_inventory_pool, status: [:signed, :closed]),
           :class => (defined? active_tab and active_tab == :contracts) ? "active" : ""}

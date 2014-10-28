@@ -9,6 +9,7 @@
     {{money price/}}
 
   .col1of5.line-col.line-actions.padding-right-xs
+    {{if ~accessRight.atLeastRole(~currentUserRole, "lending_manager") }}
     %a.button.white.text-ellipsis{:href => "{{>url('edit')}}"}
       {{jed "Edit Option"/}}
-
+    {{/if}}

@@ -1,10 +1,5 @@
 # encoding: utf-8
 
-Wenn /^man im Inventar Bereich ist$/ do
-  find("#topbar .topbar-navigation .topbar-item a", :text => _("Inventory")).click
-  expect(current_path).to eq manage_inventory_path(@current_inventory_pool)
-end
-
 Dann /^kann man über die Tabnavigation zum Helferschirm wechseln$/ do
   find("#inventory-index-view nav a.navigation-tab-item", :text => _("Helper")).click
   find("h1", :text => _("Inventory Helper"))

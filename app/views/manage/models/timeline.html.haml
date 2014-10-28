@@ -55,9 +55,13 @@
                                   [ _("Take Back"), manage_take_back_path(current_inventory_pool, user) ]
                                 end
                            
-                              document_link = content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do
-                                              link_to link_string, link_path, :target => '_top'
-                                            end
+                              document_link = unless is_lending_manager?
+                                                ""
+                                              else
+                                                content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do
+                                                  link_to link_string, link_path, :target => '_top'
+                                                end
+                                              end
                               comment = ""
                               comment += ("<b>" + _("Item is overdue and therefore unavailable!") + "</b>") if line.is_late?
                               comment += ("<b>" + _("Item is reserved in the future, therefore it's not available!") + "</b>") if line.is_reserved?

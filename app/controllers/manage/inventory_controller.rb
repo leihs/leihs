@@ -1,5 +1,19 @@
 class Manage::InventoryController < Manage::ApplicationController
 
+  private
+
+  # NOTE overriding super controller
+  def required_manager_role
+    open_actions = [:index]
+    if open_actions.include?(action_name.to_sym)
+      require_role :group_manager, current_inventory_pool
+    else
+      super
+    end
+  end
+
+  public
+
   def index
     respond_to do |format|
       format.html {

@@ -91,7 +91,7 @@ end
 
 Wenn(/^ich eine Software editiere$/) do
   @software ||= Software.all.sample
-  visit manage_inventory_path @current_inventory_pool
+  step "I open the Inventory"
   @page_to_return = current_path
   find("a", text: _("Software")).click
   find(:select, "retired").first("option").select_option
@@ -100,7 +100,7 @@ Wenn(/^ich eine Software editiere$/) do
 end
 
 Wenn(/^ich eine bestehende Software\-Lizenz editiere$/) do
-  visit manage_inventory_path @current_inventory_pool
+  step "I open the Inventory"
   @page_to_return = current_path
   find("a", text: _("Software"), match: :first).click
   @software = Software.all.select{|s| not s.items.empty?}.sample

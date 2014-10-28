@@ -691,6 +691,19 @@ Dann(/^wird die Editieransicht der neuen Software\-Lizenz geöffnet$/) do
   step "it opens the edit view of the new software license"
 end
 
+Dann(/^kann man auf ein der "(.*)" Tab klichen$/) do |arg1|
+  s1 = case arg1
+         when "Bestellungen"
+           "Orders"
+         when "Verträge"
+           "Contracts"
+         else
+           raise
+       end
+
+  step %Q(I open the tab "#{s1}")
+end
+
 Angenommen(/^es existieren (Bestellungen|Verträge|Besuche)$/) do |arg1|
   s = case arg1
         when "Bestellungen"
@@ -1022,4 +1035,16 @@ end
 
 Dann(/^speichere die Einstellungen$/) do
   step "I save the booking calendar"
+end
+
+Wenn /^man im Inventar Bereich ist$/ do
+  step "I open the Inventory"
+end
+
+Dann(/^kann man das globale Inventar als CSV\-Datei exportieren$/) do
+  step "I can export to a csv-file"
+end
+
+Wenn(/^ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen$/) do
+  step "I am in an inventory pool with verifiable orders"
 end

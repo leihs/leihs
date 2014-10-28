@@ -55,11 +55,11 @@ class window.App.SearchOverviewController extends Spine.Controller
       @fetchAvailability(software).done =>
         @render @software, "manage/views/software/line", software, xhr
 
-  render: (el, templatePath, records, xhr, additional_data)=>
+  render: (el, templatePath, records, xhr)=>
     totalCount = JSON.parse(xhr.getResponseHeader("X-Pagination")).total_count
     do @removeLoading
     if records.length
-      el.find(".list-of-lines").html App.Render templatePath, records, additional_data
+      el.find(".list-of-lines").html App.Render templatePath, records, { accessRight: App.AccessRight, currentUserRole: App.User.current.role }
       el.removeClass("hidden")
     if totalCount > @previewAmount
       el.find("[data-type='show-all']").removeClass("hidden").append $("<span class='badge margin-left-s'>#{totalCount}</span>")
@@ -168,7 +168,7 @@ class window.App.SearchOverviewController extends Spine.Controller
       @fetchUsers(contracts).done =>
         @fetchContractLines(contracts).done =>
           @fetchPurposes(contracts).done =>
-            @render @orders, "manage/views/contracts/line", contracts, xhr, { accessRight: App.AccessRight, currentUserRole: App.User.current.role }
+            @render @orders, "manage/views/contracts/line", contracts, xhr
 
   fetchPurposes: (contracts)=>
     ids = _.compact _.filter (_.map (_.flatten (_.map contracts, (o) -> o.lines().all())), (l) -> l.purpose_id), (id) -> not App.Purpose.exists(id)?

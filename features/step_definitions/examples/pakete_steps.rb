@@ -63,7 +63,7 @@ Dann /^kann ich das Paket nicht löschen$/ do
 end
 
 Wenn /^ich ein Modell editiere, welches bereits Pakete( in meine und andere Gerätepark)? hat$/ do |arg1|
-  visit manage_inventory_path(@current_inventory_pool)
+  step "I open the Inventory"
   @model = @current_inventory_pool.models.shuffle.detect do |m|
     b = (not m.items.empty? and m.is_package?)
     if arg1
@@ -79,7 +79,7 @@ Wenn /^ich ein Modell editiere, welches bereits Pakete( in meine und andere Ger�
 end
 
 Wenn /^ich ein Modell editiere, welches bereits Gegenstände hat$/ do
-  visit manage_inventory_path(@current_inventory_pool)
+  step "I open the Inventory"
   @model = @current_inventory_pool.models.detect {|m| not (m.items.empty? and m.is_package?)}
   @model_name = @model.name
   step 'ich nach "%s" suche' % @model.name

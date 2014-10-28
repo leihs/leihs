@@ -9,10 +9,10 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
   # NOTE overriding super controller
   def required_manager_role
     open_actions = [:daily]
-    if not open_actions.include?(action_name.to_sym)
-      require_role :lending_manager, current_inventory_pool
-    else
+    if open_actions.include?(action_name.to_sym)
       require_role :group_manager, current_inventory_pool
+    else
+      super
     end
   end
 

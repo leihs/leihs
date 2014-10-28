@@ -28,6 +28,7 @@
     %span{:title => "{{jed 'rentable'/}}"} {{> availability().total_rentable}}
 
   .col1of5.line-col.line-actions.padding-right-xs
+    {{if ~accessRight.atLeastRole(~currentUserRole, "lending_manager") }}
     .multibutton.width-full.text-align-right
       %a.button.white.text-ellipsis.col4of5.negative-margin-right-xxs{:href => "{{>url('edit')}}", :title => "{{jed 'Edit Model'/}}"}
         {{jed "Edit Model"/}}
@@ -45,3 +46,8 @@
               %i.icon-trash
               {{jed "Delete"/}}
           {{/if}}
+    {{else}}
+    %a.button.white.text-ellipsis{:"data-open-time-line" => true, :"data-model-id" => "{{>id}}"}
+      %i.icon-align-left
+      {{jed "Timeline"/}}
+    {{/if}}

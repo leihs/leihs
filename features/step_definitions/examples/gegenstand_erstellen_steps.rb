@@ -35,7 +35,7 @@ def check_fields_and_their_values table
 end
 
 Angenommen /^man befindet sich auf der Liste des Inventars$/ do
-  visit manage_inventory_path(@current_inventory_pool)
+  step "I open the Inventory"
 end
 
 Dann /^kann man einen Gegenstand erstellen$/ do

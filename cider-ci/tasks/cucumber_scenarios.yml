@@ -1581,18 +1581,18 @@
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/besuche.feature:6
         DEFAULT_BROWSER=firefox
       timeout: 300
-- name: features/examples/besuche.feature:13
+- name: features/examples/contracts.feature:7
   auto_trials: 3
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/besuche.feature:13
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/contracts.feature:7
         DEFAULT_BROWSER=firefox
       timeout: 300
-- name: features/examples/besuche.feature:21
+- name: features/examples/contracts.feature:16
   auto_trials: 3
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/besuche.feature:21
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/contracts.feature:16
         DEFAULT_BROWSER=firefox
       timeout: 300
 - name: features/examples/explorative_suche.feature:13
@@ -3331,11 +3331,11 @@
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/verfuegbarkeit.feature:33
         DEFAULT_BROWSER=firefox
       timeout: 300
-- name: features/examples/verification.feature:7
+- name: features/examples/verification.feature:8
   auto_trials: 3
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/verification.feature:7
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/examples/verification.feature:8
         DEFAULT_BROWSER=firefox
       timeout: 300
 - name: features/examples/verification.feature:16
@@ -4276,18 +4276,18 @@
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/manage/navigation.feature:15
         DEFAULT_BROWSER=firefox
       timeout: 300
-- name: features/manage/navigation.feature:23
+- name: features/manage/navigation.feature:24
   auto_trials: 3
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/manage/navigation.feature:23
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/manage/navigation.feature:24
         DEFAULT_BROWSER=firefox
       timeout: 300
-- name: features/manage/navigation.feature:31
+- name: features/manage/navigation.feature:32
   auto_trials: 3
   scripts:
     cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/manage/navigation.feature:31
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/manage/navigation.feature:32
         DEFAULT_BROWSER=firefox
       timeout: 300
 - name: features/manage/take_back/close_contract.feature:11

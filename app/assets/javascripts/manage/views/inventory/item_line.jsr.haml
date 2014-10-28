@@ -31,6 +31,7 @@
     %strong.darkred-text {{>getProblems()}}
 
   .col1of5.line-col.line-actions.padding-right-xs
+    {{if ~accessRight.atLeastRole(~currentUserRole, "lending_manager") }}
     .multibutton.width-full.text-align-right
       %a.button.white.text-ellipsis.col4of5.negative-margin-right-xxs{:href => "{{>url('edit')}}", :title => "{{jed 'Edit Item'/}}"}
         {{jed "Edit Item"/}}
@@ -42,3 +43,4 @@
             %a.dropdown-item{:href => "{{>url('copy')}}"}
               %i.icon-copy
               {{jed "Copy Item"/}}
+    {{/if}}

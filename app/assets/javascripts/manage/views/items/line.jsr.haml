@@ -11,6 +11,7 @@
     {{>currentLocation()}}
 
   .col2of8.line-col.line-actions.padding-right-xs
+    {{if ~accessRight.atLeastRole(~currentUserRole, "lending_manager") }}
     .multibutton
       %a.button.white{:href => "{{>url('edit')}}", :title => "{{jed 'Edit Item'/}}"}
         {{jed "Edit Item"/}}
@@ -22,4 +23,4 @@
             %a.dropdown-item{:href => "{{>url('copy')}}"}
               %i.icon-copy
               {{jed "Copy Item"/}}
-      
+    {{/if}}

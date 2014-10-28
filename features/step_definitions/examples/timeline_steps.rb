@@ -20,14 +20,20 @@ Dann /^for each visible model I can see the Timeline$/ do
 
   find(".line", match: :first)
 
+  current_role = @current_user.access_right_for(@current_inventory_pool).role
+
   all(lines, visible: true)[0..5].each do |line|
-    within line.find(".multibutton") do
-      find(".dropdown-toggle").click
-      find(".dropdown-item", text: _("Timeline")).click
+    if current_role == :group_manager and (@contract.nil? or [:signed].include? @contract.status)
+      line.find(".line-actions > a", text: _("Timeline")).click
+    else
+      within line.find(".line-actions .multibutton") do
+        find(".dropdown-toggle").click
+        find(".dropdown-item", text: _("Timeline")).click
+      end
     end
     find(".modal iframe")
     evaluate_script %Q{ $(".modal iframe").contents().first("#my_timeline").length; }
     find(".modal .button", text: _("Close")).click
-    expect(has_no_selector?(".modal", visible: true)).to be true
+    step "the modal is closed"
   end
 end

@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 Angenommen /^man öffnet die Liste des Inventars$/ do
-  @current_inventory_pool = @current_user.managed_inventory_pools.select { |ip| ip.models.exists? and ip.options.exists? }.sample
-  visit manage_inventory_path(@current_inventory_pool)
+  #really needed?# @current_inventory_pool = @current_user.managed_inventory_pools.select { |ip| ip.models.exists? and ip.options.exists? }.sample
+  step "I open the Inventory"
   find("#inventory")
 end
 
@@ -675,15 +675,11 @@ Angenommen(/^man öffnet die Liste der Geräteparks$/) do
   visit manage_inventory_pools_path if current_path != manage_inventory_pools_path
 end
 
-Dann(/^kann man das globale Inventar als CSV\-Datei exportieren$/) do
-  expect(has_selector?("#csv-export")).to be true
-end
-
 Given(/^I'am on the software inventory overview$/) do
   find("#list-tabs a[data-type='license']").click
 end
 
-When(/^I press CSV\-Export$/) do
+When(/^I press CSV-Export$/) do
   find("#csv-export").click
 end
 

@@ -6,7 +6,7 @@ class Manage::ModelsController < Manage::ApplicationController
   def required_manager_role
     open_actions = [:timeline]
     if not open_actions.include?(action_name.to_sym) and (request.post? or not request.format.json?)
-      require_role :lending_manager, current_inventory_pool
+      super
     else
       require_role :group_manager, current_inventory_pool
     end

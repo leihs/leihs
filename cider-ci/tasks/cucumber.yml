@@ -197,17 +197,17 @@
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/bestellung.feature"
       timeout: 300
-- name: examples/bestellung_en
-  auto_trials: 3
-  scripts:
-    cucumber:
-      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/bestellung_en.feature"
-      timeout: 300
 - name: examples/besuche
   auto_trials: 3
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/besuche.feature"
+      timeout: 300
+- name: examples/contracts
+  auto_trials: 3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/contracts.feature"
       timeout: 300
 - name: examples/explorative_suche
   auto_trials: 3
@@ -316,6 +316,12 @@
   scripts:
     cucumber:
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/option.feature"
+      timeout: 300
+- name: examples/orders
+  auto_trials: 3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json "features/examples/orders.feature"
       timeout: 300
 - name: examples/pakete
   auto_trials: 3

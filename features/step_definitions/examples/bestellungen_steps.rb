@@ -56,10 +56,6 @@ Dann(/^ist es mir nicht möglich, die Genehmigung zu forcieren$/) do
   expect(has_no_content?(_("Approve anyway"))).to be true
 end
 
-Wenn(/^ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen$/) do
-  @current_inventory_pool = @current_user.managed_inventory_pools.find {|ip| not ip.contracts.with_verifiable_user_and_model.empty? }
-end
-
 Dann(/^sehe ich die Reiter "(.*?)"$/) do |tabs|
   within ".inline-tab-navigation" do
     tabs.split(", ").each do |tab|

@@ -14,6 +14,7 @@
 .col2of8.line-col.line-actions
   .multibutton
     %a.button.white.text-ellipsis{:"data-order-approve" => true, :autocomplete => :off}
+      %i.icon-thumbs-up
       = contract.is_to_be_verified ? "#{_("Verify")} + #{_("Approve")}" : _("Approve")
     .dropdown-holder.inline-block
       .button.white.dropdown-toggle

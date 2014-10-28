@@ -93,9 +93,10 @@ class window.App.CategoriesFilterController extends Spine.Controller
     do @filter if @filter?
 
   search: =>
-    @searchTerm = @input.val()
-    if @searchTerm.length
-      results = _.filter App.Category.all(), (c)=> c.name.match RegExp(@searchTerm,"i")
-      @renderSearch @searchTerm, results
-    else
-      do @render
+    if @searchTerm != @input.val() # preventing preChange to fire again on category select
+      @searchTerm = @input.val()
+      if @searchTerm.length
+        results = _.filter App.Category.all(), (c)=> c.name.match RegExp(@searchTerm,"i")
+        @renderSearch @searchTerm, results
+      else
+        do @render

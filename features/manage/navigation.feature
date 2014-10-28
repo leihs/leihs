@@ -16,7 +16,8 @@ Funktionalität: Navigation
     Angenommen ich bin Andi
     Und man befindet sich im Verleih-Bereich
     Dann seh ich die Navigation
-    Und die Navigation beinhaltet nur die Bestellungen
+    Und kann man auf ein der "Bestellungen" Tab klichen
+    Und kann man auf ein der "Verträge" Tab klichen
     Und man sieht die Gerätepark-Auswahl im Verwalten-Bereich
 
   @personas

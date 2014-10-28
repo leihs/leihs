@@ -595,6 +595,19 @@ Feature: Generating Personas
       | model name | MacBook Air                       |
     And today is back to initial random date
 
+    And today is "#{Time.now - rand(3..5).months}"
+    And an approved contract with following properties exist:
+      | user email          | customer1@zhdk.ch |
+      | inventory pool name | A-Ausleihe        |
+    And this contract has from 1 to 1 item lines:
+      | assigned   | true                              |
+      | item       | air123                            |
+      | model name | MacBook Air                       |
+      | purpose    | Ersatzstativ für die Ausstellung. |
+    And this contract is signed by "pius@zhdk.ch"
+    And this contract is closed on "#{Date.today}" by "pius@zhdk.ch"
+    And today is back to initial random date
+
     And an approved contract with following properties exist:
       | user email          | customer8@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
@@ -933,6 +946,6 @@ Feature: Generating Personas
       | model name | MacBook Air                       |
     And today is back to initial random date
 
-    Then there are 52 contracts in total
+    Then there are 53 contracts in total
 
     Then the current time dump is generated

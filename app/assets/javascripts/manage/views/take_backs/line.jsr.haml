@@ -30,6 +30,7 @@
     {{if isOverdue()}}
     .multibutton
       %a.button.white.text-ellipsis{:href => "/manage/{{>inventory_pool_id}}/users/{{>user().id}}/take_back"}
+        %i.icon-mail-reply
         {{jed "Take Back"/}}
       .dropdown-holder.inline-block
         .button.white.dropdown-toggle
@@ -41,5 +42,6 @@
               {{jed "Send reminder"/}}
     {{else}}
     %a.button.white.text-ellipsis{:href => "/manage/{{>inventory_pool_id}}/users/{{>user().id}}/take_back"}
+      %i.icon-mail-reply
       {{jed "Take Back"/}}
     {{/if}}

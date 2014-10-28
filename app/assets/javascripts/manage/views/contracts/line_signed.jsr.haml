@@ -15,7 +15,9 @@
 
 .col2of8.line-col.line-actions
   .multibutton
+    {{if ~accessRight.atLeastRole(~currentUserRole, "lending_manager") }}
     %a.button.white.text-ellipsis{:href => "{{>user().url('take_back')}}"}
+      %i.icon-mail-reply
       {{jed "Take Back"/}}
     .dropdown-holder.inline-block
       .button.white.dropdown-toggle
@@ -33,3 +35,20 @@
           %a.dropdown-item{:href => "{{>url('picking_list')}}", :target => "_blank"}
             %i.icon-list-ol
             {{jed "Picking List"/}}
+    {{else}}
+    %a.button.white.text-ellipsis{:href => "{{>url()}}", :target => "_blank"}
+      %i.icon-file-alt
+      {{jed "Contract"/}}
+    .dropdown-holder.inline-block
+      .button.white.dropdown-toggle
+        .arrow.down
+      %ul.dropdown.right
+        %li
+          %a.dropdown-item{:href => "{{>url('value_list')}}", :target => "_blank"}
+            %i.icon-list-ol
+            {{jed "Value List"/}}
+        %li
+          %a.dropdown-item{:href => "{{>url('picking_list')}}", :target => "_blank"}
+            %i.icon-list-ol
+            {{jed "Picking List"/}}
+    {{/if}}
