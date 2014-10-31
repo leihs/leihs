@@ -20,6 +20,13 @@
       body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/administration/database.feature:21
         DEFAULT_BROWSER=firefox
       timeout: 300
+- name: features/administration/database.feature:26
+  auto_trials: 3
+  scripts:
+    cucumber:
+      body: bundle exec cucumber -p default -f json -o log/cucumber_report.json features/administration/database.feature:26
+        DEFAULT_BROWSER=firefox
+      timeout: 300
 - name: features/administration/wartungsmodus.feature:12
   auto_trials: 3
   scripts:

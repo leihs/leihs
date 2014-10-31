@@ -118,6 +118,20 @@ class Admin::DatabaseController < Admin::ApplicationController
     end
   end
 
+  def access_rights
+    @visits = Visit.joins("LEFT JOIN access_rights ON visits.user_id = access_rights.user_id AND visits.inventory_pool_id = access_rights.inventory_pool_id").
+        where(access_rights: {id: nil}).
+        order(:inventory_pool_id, :user_id, :date).
+        group("visits.inventory_pool_id, visits.user_id").
+        includes(:user, :inventory_pool)
+    if request.post?
+      @visits.each do |visit|
+        visit.inventory_pool.access_rights.create(user: visit.user, role: :customer)
+      end
+      @visits.reload
+    end
+  end
+
   def consistency
     @only_tables_no_views = @connection.execute("SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'").to_h.keys
 
