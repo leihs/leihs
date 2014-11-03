@@ -17,7 +17,7 @@ end
 
 def task_for_feature_file file_path, timeout = 200, strict = false
   name= file_path.match(/features\/(.*)\.feature/).captures.first
-  exec = %{bundle exec cucumber -p default -f json -o log/cucumber_report.json #{strict ? "--strict " : nil}"#{file_path}"}
+  exec = %{DISPLAY=\":$XVNC_PORT\" bundle exec cucumber -p default -f json -o log/cucumber_report.json #{strict ? "--strict " : nil}"#{file_path}"}
   task_hash(name, exec)
 end
 
@@ -46,7 +46,7 @@ File.open(filepath,"w") do |f|
   h1.map do |k,v|
     v.each_slice(CI_SCENARIOS_PER_TASK) do |lines|
       path = ([k] + lines).join(':')
-      exec = "bundle exec cucumber -p default -f json -o log/cucumber_report.json %s DEFAULT_BROWSER=%s" % [path, default_browser]
+      exec = "DISPLAY=\":$XVNC_PORT\" bundle exec cucumber -p default -f json -o log/cucumber_report.json %s DEFAULT_BROWSER=%s" % [path, default_browser]
       h2 << task_hash(path, exec)
     end
   end
