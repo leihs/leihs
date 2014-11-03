@@ -22,3 +22,13 @@ Feature: Database
     When I visit "/admin/database/empty_columns"
     Then all is correct
 
+  @personas @javascript @browser
+  Scenario: Check missing access rights
+    When I visit "/admin/database/access_rights"
+    Then all is correct
+    When a database admin deletes some visit related access right records directly on the database
+    Then the delete is not prevented
+    When I visit "/admin/database/access_rights"
+    Then there are missing customer access rights for upcoming actions
+    When I restore the customer access rights
+    Then all is correct

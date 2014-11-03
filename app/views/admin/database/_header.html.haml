@@ -1,7 +1,7 @@
 .row
   %nav
     %ul
-      - ["indexes", "consistency", "empty_columns"].each do |x|
+      - ["indexes", "consistency", "empty_columns", "access_rights"].each do |x|
         %li
           %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{href: "/admin/database/#{x}", class: (request.params[:action] == x ? "active" : nil)}
             = _(x.humanize)

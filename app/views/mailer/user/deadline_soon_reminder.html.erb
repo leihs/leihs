@@ -10,7 +10,7 @@
 
 <p><%= _("** This is an automatically generated response **") %></p>
 
-<p><%= _("The following items are due to be returned tomorrow or need to be inspected by their owners") %>:</p>
+<p><%= _("The following items are due to be returned tomorrow or need to be inspected") %>:</p>
 <ul>
   <li><%= @visit_lines.sum(&:quantity) %> <%= _(" item(s) due on ") %><%= @visit_lines.first.date %><%= _(" at the inventory pool ") %><%= @inventory_pool %></li>
   <ul>

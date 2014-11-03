@@ -44,6 +44,7 @@ Leihs::Application.routes.draw do
     get "database/indexes", to: "database#indexes"
     match "database/empty_columns", to: "database#empty_columns", as: "empty_columns", via: [:get, :delete]
     match "database/consistency", to: "database#consistency", as: "consistency", via: [:get, :delete]
+    match "database/access_rights", to: "database#access_rights", as: "access_rights", via: [:get, :post]
 
     # Test report
     get "scenarios", to: "scenarios#index"

@@ -47,14 +47,12 @@ class AccessRight < ActiveRecord::Base
       errors.add(:base, _("Inventory Pool is missing")) if inventory_pool.nil?
 
       if deleted_at
-        lines = inventory_pool.contract_lines.by_user(user)
-        errors.add(:base, _("Currently has open orders")) if lines.to_approve.exists? or lines.to_hand_over.exists?
-        errors.add(:base, _("Currently has items to return")) if lines.to_take_back.exists?
+        check_for_existing_contract_lines
       end
     end
   end
 
-  before_validation(:on => :create) do
+  before_validation(on: :create) do
     self.inventory_pool = nil if role.to_sym == :admin
     if user
       unless user.access_rights.active.empty?
@@ -65,7 +63,8 @@ class AccessRight < ActiveRecord::Base
   end
 
   before_destroy do
-    raise _("Currently has things to return") if inventory_pool and not inventory_pool.contract_lines.by_user(user).to_take_back.empty?
+    check_for_existing_contract_lines
+    errors.empty?
   end
 
 ####################################################################
@@ -89,5 +88,17 @@ class AccessRight < ActiveRecord::Base
   #def deactivate
   #  update_attributes(:deleted_at => DateTime.now)
   #end
+
+####################################################################
+
+  private
+
+  def check_for_existing_contract_lines
+    if inventory_pool
+      lines = inventory_pool.contract_lines.by_user(user)
+      errors.add(:base, _("Currently has open orders")) if lines.to_approve.exists? or lines.to_hand_over.exists?
+      errors.add(:base, _("Currently has items to return")) if lines.to_take_back.exists?
+    end
+  end
 
 end

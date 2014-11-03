@@ -1347,11 +1347,10 @@ msgid ""
 msgstr ""
 
 msgid ""
-"The following items are due to be returned tomorrow or need to be inspected "
-"by their owners"
+"The following items are due to be returned tomorrow or need to be inspected"
 msgstr ""
 
-msgid "The following items are overdue or need to be inspected by their owners"
+msgid "The following items are overdue or need to be inspected"
 msgstr ""
 
 msgid "The group quantities were successfully saved."

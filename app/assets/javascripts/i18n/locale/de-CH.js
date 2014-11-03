@@ -1832,13 +1832,13 @@ window.i18n.locale_data = {
          null,
          "Die folgenden Fehler sind aufgetreten beim Versuchn, eine Nachricht an %{email} zu schicken:\\\\n"
       ],
-      "The following items are due to be returned tomorrow or need to be inspected by their owners": [
+      "The following items are due to be returned tomorrow or need to be inspected": [
          null,
-         "Die folgenden Gegenstände müssen morgen zurückgebracht werden oder erforden eine Kontrolle durch den Besitzer"
+         "Die folgenden Gegenstände müssen morgen zurückgebracht werden oder erforderneine Kontrolle"
       ],
-      "The following items are overdue or need to be inspected by their owners": [
+      "The following items are overdue or need to be inspected": [
          null,
-         "Die folgenden Gegenstände sind überfällig oder erfordern eine Kontrolle durch den Besitzer"
+         "Die folgenden Gegenstände sind überfällig oder erfordern eine Kontrolle"
       ],
       "The group quantities were successfully saved.": [
          null,

@@ -139,6 +139,18 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Users who don't bring back the items on the required date are suspended from next day on.": [
+         null,
+         ""
+      ],
+      "Automatic suspension": [
+         null,
+         ""
+      ],
+      "Automatic suspension reason": [
+         null,
+         ""
+      ],
       "A model for the Inventory Code / Serial Number '%s' was not found": [
          null,
          ""
@@ -343,6 +355,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "available quantity": [
+         null,
+         ""
+      ],
       "Back": [
          null,
          ""
@@ -519,7 +535,11 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Currently has things to return": [
+      "Currently has items to return": [
+         null,
+         ""
+      ],
+      "Currently has open orders": [
          null,
          ""
       ],
@@ -619,7 +639,15 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Edit Software": [
+         null,
+         ""
+      ],
       "Edit Item": [
+         null,
+         ""
+      ],
+      "Edit License": [
          null,
          ""
       ],
@@ -1033,10 +1061,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "List of Models": [
-         null,
-         ""
-      ],
       "Loading": [
          null,
          ""
@@ -1046,6 +1070,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Locations": [
+         null,
+         ""
+      ],
+      "Location not defined": [
          null,
          ""
       ],
@@ -1306,10 +1334,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Package error": [
-         null,
-         ""
-      ],
       "Package successfully destroyed": [
          null,
          ""
@@ -1418,6 +1442,14 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Quantity allocations": [
+         null,
+         ""
+      ],
+      "Total quantity": [
+         null,
+         ""
+      ],
       "Quantity: %d": [
          null,
          ""
@@ -1478,6 +1510,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Contact person": [
+         null,
+         ""
+      ],
       "Responsible": [
          null,
          ""
@@ -1499,6 +1535,14 @@ window.i18n.locale_data = {
          ""
       ],
       "Retired": [
+         null,
+         ""
+      ],
+      "retired": [
+         null,
+         ""
+      ],
+      "not retired": [
          null,
          ""
       ],
@@ -1539,6 +1583,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Copy Item": [
+         null,
+         ""
+      ],
+      "Copy License": [
          null,
          ""
       ],
@@ -1639,6 +1687,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Start Date must be before End Date": [
+         null,
+         ""
+      ],
+      "End Date cannot be in the past": [
          null,
          ""
       ],
@@ -1766,11 +1818,11 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "The following items are due to be returned tomorrow or need to be inspected by their owners": [
+      "The following items are due to be returned tomorrow or need to be inspected": [
          null,
          ""
       ],
-      "The following items are overdue or need to be inspected by their owners": [
+      "The following items are overdue or need to be inspected": [
          null,
          ""
       ],
@@ -1786,7 +1838,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "The item cannot be retired because it's not returned yet.": [
+      "The item cannot be retired because it's not returned yet or has already been assigned to a contract line.": [
          null,
          ""
       ],
@@ -1882,6 +1934,18 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "This contract is not signable because the delegated user is either missing or not part of this delegation.": [
+         null,
+         ""
+      ],
+      "Delegated user is not member of the contract's delegation or is empty": [
+         null,
+         ""
+      ],
+      "Delegated user must be empty for contract's normal user": [
+         null,
+         ""
+      ],
       "Groups of this customer": [
          null,
          ""
@@ -1966,7 +2030,23 @@ window.i18n.locale_data = {
          null,
          "Move"
       ],
+      "borrowable": [
+         null,
+         ""
+      ],
+      "unborrowable": [
+         null,
+         ""
+      ],
       "Unborrowable": [
+         null,
+         ""
+      ],
+      "Borrowable Items": [
+         null,
+         ""
+      ],
+      "Unborrowable Items": [
          null,
          ""
       ],
@@ -1994,11 +2074,24 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Updated at": [
+         null,
+         ""
+      ],
       "Upload error.": [
          null,
          ""
       ],
       "User": [
+         "Users",
+         "",
+         ""
+      ],
+      "Delegation": [
+         null,
+         ""
+      ],
+      "Delegations": [
          null,
          ""
       ],
@@ -2162,7 +2255,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "You don't have permission": [
+      "You don't have permission to perform this action": [
          null,
          ""
       ],
@@ -2399,6 +2492,14 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "not available": [
+         null,
+         ""
+      ],
+      "%s not available": [
+         null,
+         ""
+      ],
       "not borrowable": [
          null,
          ""
@@ -2579,6 +2680,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "New Delegation": [
+         null,
+         ""
+      ],
       "New User": [
          null,
          ""
@@ -2655,6 +2760,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Image": [
+         null,
+         ""
+      ],
       "Images": [
          null,
          ""
@@ -2692,6 +2801,10 @@ window.i18n.locale_data = {
          ""
       ],
       "not used": [
+         null,
+         ""
+      ],
+      "used": [
          null,
          ""
       ],
@@ -2768,6 +2881,14 @@ window.i18n.locale_data = {
          ""
       ],
       "Borrow": [
+         null,
+         ""
+      ],
+      "Borrow section": [
+         null,
+         ""
+      ],
+      "Manage section": [
          null,
          ""
       ],
@@ -3009,6 +3130,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Specification of the contact person is required": [
+         null,
+         ""
+      ],
       "Change": [
          null,
          ""
@@ -3218,7 +3343,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Reminder send": [
+      "Reminder sent": [
          null,
          ""
       ],
@@ -3392,6 +3517,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Used Models": [
+         null,
+         ""
+      ],
       "Responsible inventory pool": [
          null,
          ""
@@ -3432,7 +3561,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "The model was saved, but there were problems uploading files": [
+      "%s was saved, but there were problems uploading files": [
          null,
          ""
       ],
@@ -3569,6 +3698,151 @@ window.i18n.locale_data = {
          ""
       ],
       "Verification required": [
+         null,
+         ""
+      ],
+      "Statistics": [
+         null,
+         ""
+      ],
+      "Who borrowed the most things?": [
+         null,
+         ""
+      ],
+      "lends": [
+         null,
+         ""
+      ],
+      "Which inventory pool is busiest?": [
+         null,
+         ""
+      ],
+      "Who bought the most items?": [
+         null,
+         ""
+      ],
+      "Maintenance": [
+         null,
+         ""
+      ],
+      "Automatic access": [
+         null,
+         ""
+      ],
+      "New users will get customer access automatically.": [
+         null,
+         ""
+      ],
+      "Software": [
+         null,
+         ""
+      ],
+      "Software Information": [
+         null,
+         ""
+      ],
+      "Software License": [
+         null,
+         ""
+      ],
+      "License": [
+         "Licenses",
+         "",
+         ""
+      ],
+      "Activation Type": [
+         null,
+         ""
+      ],
+      "License Type": [
+         null,
+         ""
+      ],
+      "Create new software license": [
+         null,
+         ""
+      ],
+      "Create new software": [
+         null,
+         ""
+      ],
+      "Free": [
+         null,
+         ""
+      ],
+      "Single Workplace": [
+         null,
+         ""
+      ],
+      "Multiple Workplace": [
+         null,
+         ""
+      ],
+      "License Server": [
+         null,
+         ""
+      ],
+      "License Number": [
+         null,
+         ""
+      ],
+      "Site License": [
+         null,
+         ""
+      ],
+      "Concurrent": [
+         null,
+         ""
+      ],
+      "Operating System": [
+         null,
+         ""
+      ],
+      "Installation": [
+         null,
+         ""
+      ],
+      "Hints": [
+         null,
+         ""
+      ],
+      "Local": [
+         null,
+         ""
+      ],
+      "License expiration": [
+         null,
+         ""
+      ],
+      "Maintenance expiration": [
+         null,
+         ""
+      ],
+      "Maintenance contract": [
+         null,
+         ""
+      ],
+      "Procured by": [
+         null,
+         ""
+      ],
+      "Picking List": [
+         null,
+         ""
+      ],
+      "remaining": [
+         null,
+         ""
+      ],
+      "Category can have only one image.": [
+         null,
+         ""
+      ],
+      "Used on the start page in the borrow section": [
+         null,
+         ""
+      ],
+      "A package item must belong to a package model": [
          null,
          ""
       ]
