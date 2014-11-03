@@ -1,33 +1,37 @@
+---
+name: Leihs
 
-# Commented pending an upgrade to Cider v2 format
-#---
-#name: Leihs
-#traits: "substitute_with_path: cider-ci/partials/traits.yml"
-#attachments: "substitute_with_path: cider-ci/partials/attachments.yml"
-#environment_variables: "substitute_with_path: cider-ci/partials/environment_variables.yml"
-#ports: "substitute_with_path: cider-ci/partials/ports.yml"
+task_defaults:
+  eager_trials: 1
+  auto_trials: 2
+  environment_variables:
+    RAILS_ENV: test
+    TERM: vt100
+  traits:
+    _cider-ci_include: 'cider-ci/partials/traits.yml'
+  trial_attachments:
+    _cider-ci_include: 'cider-ci/partials/attachments.yml'
+  scripts:
+    _cider-ci_include: 'cider-ci/partials/cucumber_context_scripts.yml'
+  ports:
+    _cider-ci_include: 'cider-ci/partials/ports.yml'
 
-#contexts:
+subcontexts:
 
-#- name: Cucumber 
-#  priority: 5
-#  scripts: "substitute_with_path: cider-ci/partials/cucumber_context_scripts.yml"
-#  tasks: "substitute_with_path: cider-ci/tasks/cucumber.yml"
+- name: Meta
+  _cider-ci_include: 'cider-ci/tasks/meta.yml'
 
-#- name: Meta
-#  priority: 7
-#  tasks: "substitute_with_path: cider-ci/tasks/meta.yml"
+- name: Cucumber
+  task_defaults:
+    scripts:
+      cucumber:
+        order: 6
+        timeout: 300
+  _cider-ci_include: 'cider-ci/tasks/cucumber.yml'
 
-
-#- name: Completness of CI tasks
-
-#  priority: 7
-
-#  tasks:
-
-#    - name: All features are tested?
-#      scripts:
-#        main: 
-#          body: cider-ci/bin/all_features_tested.rb 
-
-
+- name: Completness of CI tasks
+  tasks:
+    - name: All features are tested?
+      scripts:
+        main:
+          body: cider-ci/bin/all_features_tested.rb
