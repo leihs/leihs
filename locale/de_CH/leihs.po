@@ -3018,3 +3018,6 @@ msgstr "Verwendet auf der Startseite im Ausleihbereich"
 
 msgid "A package item must belong to a package model"
 msgstr "Ein Paketgegenstand muss zu einem Paketmodel gehören"
+
+msgid "Product"
+msgstr "Produkt"

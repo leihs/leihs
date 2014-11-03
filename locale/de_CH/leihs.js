@@ -2166,5 +2166,9 @@
   msgid("without conflict");
 
   msgstr("ohne Konflikt");
+  
+  msgid("Product");
+
+  msgstr("Produkt");
 
 }).call(this);
