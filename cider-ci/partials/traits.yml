@@ -1,7 +1,8 @@
-- firefox
-- linux
-- mysql
-- phantomjs
-- rbenv
-- ruby
-- tightvnc
+---
+firefox: true
+linux: true
+mysql: true
+phantomjs: true
+rbenv: true
+ruby: true
+tightvnc: true

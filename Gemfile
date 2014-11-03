@@ -13,6 +13,7 @@ gem 'capistrano-ext', group: :development
 gem 'capistrano-rbenv', '~> 1.0', group: :development
 gem 'capybara', '~> 2.4', group: [:test, :development]
 gem 'chunky_png', '~> 1.2'
+gem 'cider_client'
 gem 'coffee-rails', '~> 4.0'
 gem 'coffee-script', '~> 2.2'
 gem 'compass-rails', '~> 1.1'

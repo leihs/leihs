@@ -1,3 +1,5 @@
+tasks:
+
 - name: Show environment
   scripts:
     main:
