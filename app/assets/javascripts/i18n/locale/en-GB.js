@@ -1766,11 +1766,11 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "The following items are due to be returned tomorrow or need to be inspected by their owners": [
+      "The following items are due to be returned tomorrow or need to be inspected": [
          null,
          ""
       ],
-      "The following items are overdue or need to be inspected by their owners": [
+      "The following items are overdue or need to be inspected": [
          null,
          ""
       ],
