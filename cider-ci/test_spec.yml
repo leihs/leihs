@@ -25,7 +25,7 @@ subcontexts:
     scripts:
       cucumber:
         order: 6
-        timeout: 300
+        timeout: 1000
   _cider-ci_include: 'cider-ci/tasks/cucumber_scenarios.yml'
 
 - name: Completness of CI tasks
