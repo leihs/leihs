@@ -5,8 +5,7 @@ task_defaults:
   eager_trials: 1
   auto_trials: 2
   environment_variables:
-    RAILS_ENV: test
-    TERM: vt100
+    _cider-ci_include: 'cider-ci/partials/environment_variables.yml'
   traits:
     _cider-ci_include: 'cider-ci/partials/traits.yml'
   trial_attachments:
