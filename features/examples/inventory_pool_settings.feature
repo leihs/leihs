@@ -1,4 +1,4 @@
-Feature: Administer Inventory Pool
+Feature: Inventory Pool Settings
 
   In order to administer an inventory pool
   As a Inventory Manager
@@ -27,10 +27,6 @@ Feature: Administer Inventory Pool
 
   @upcoming
   Scenario: Define days between possible order submit and possible hand over
-    When I enter the pool administration view
-    Then I can enter an amount of days between order submition and day of hand over
-    When I do not enter an amount
-    Then the day of the hand over may be on the same day as the submition of an order
-    When I enter an amount X
-    Then the day of the hand over has to be on the day today + X
+  	When I edit my inventory pool settings
+    Then I can change the field "min. number of days between order and hand over"
 
