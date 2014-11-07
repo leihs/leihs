@@ -543,8 +543,8 @@ Wenn(/^ich eine gesperrte Kontaktperson wähle$/) do
 end
 
 Dann(/^muss ich eine Kontaktperson auswählen$/) do
-  find(".modal [data-hand-over]").click
   within ".modal" do
+    find("[data-hand-over]").click
     has_selector? ".red", text: _("Specification of the contact person is required")
   end
 end

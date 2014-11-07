@@ -26,13 +26,17 @@ class Manage::ContractLinesController < Manage::ApplicationController
   end
 
   def create
-    contract_id = params[:contract_id] || current_inventory_pool.users.find(params[:user_id]).get_approved_contract(current_inventory_pool).id
-    record = if params[:model_id] 
-               current_inventory_pool.models.find(params[:model_id]) 
-             else
-               current_inventory_pool.options.find(params[:option_id])
-             end
-    @contract_line = create_contract_line contract_id, record, 1, params[:start_date], params[:end_date], params[:purpose_id]
+    begin
+      contract_id = params[:contract_id] || current_inventory_pool.users.find(params[:user_id]).get_approved_contract(current_inventory_pool).id
+      record = if params[:model_id]
+                 current_inventory_pool.models.find(params[:model_id])
+               else
+                 current_inventory_pool.options.find(params[:option_id])
+               end
+      @contract_line = create_contract_line contract_id, record, 1, params[:start_date], params[:end_date], params[:purpose_id]
+    rescue => e
+      render :status => :bad_request, :text => e
+    end
   end
 
   def create_for_template
@@ -61,11 +65,13 @@ class Manage::ContractLinesController < Manage::ApplicationController
 
   def change_time_range(lines = current_inventory_pool.contract_lines.find(params[:line_ids]),
                         start_date = params[:start_date].try{|x| Date.parse(x)},
-                        end_date = params[:end_date].try{|x| Date.parse(x)} || Date.tomorrow,
-                        quantity = lines.sum(&:quantity))
-  
-    lines.each{|line| line.contract.update_time_line(line.id, (start_date||line.start_date), end_date, current_user)}
-    render :status => :ok, :json => lines
+                        end_date = params[:end_date].try{|x| Date.parse(x)} || Date.tomorrow)
+    begin
+      lines.each{|line| line.contract.update_time_line(line.id, (start_date||line.start_date), end_date, current_user)}
+      render :status => :ok, :json => lines
+    rescue => e
+      render :status => :bad_request, :text => e
+    end
   end
 
   def assign
@@ -234,8 +240,17 @@ class Manage::ContractLinesController < Manage::ApplicationController
     contract_line.start_date = start_date.try{|x| Date.parse(x)} || Date.today
     contract_line.end_date = end_date.try{|x| Date.parse(x)} || Date.tomorrow
     contract_line.purpose = Purpose.where(id: purpose_id).first
-    contract_line.save!
-    return contract_line
+
+    # NOTE we need to store because the availability reads the persisted contract_lines (as running_lines)
+    # then we rollback on failing conditions
+    ContractLine.transaction do
+      contract_line.save!
+      if (is_group_manager? and not is_lending_manager?) and not contract_line.available?
+        raise _("Not available")
+      else
+        contract_line
+      end
+    end
   end
 
 end

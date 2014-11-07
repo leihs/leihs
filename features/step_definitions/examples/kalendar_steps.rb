@@ -15,7 +15,7 @@ Dann /^sehe ich die Verfügbarkeit von Modellen auch an Feier\- und Ferientagen 
   expect(find(".fc-widget-content.holiday .fc-day-content .total_quantity", match: :first).text).not_to eq ""
 end
 
-Angenommen /^ich öffne den Kalender$/ do
+When /^I open the booking calendar$/ do
   @line_el = if @contract.status == :submitted
                find(".order-line", match: :first)
              elsif @contract.status == :approved
@@ -33,14 +33,17 @@ Dann /^kann ich die Anzahl unbegrenzt erhöhen \/ überbuchen$/ do
   #expect(find(".modal #booking-calendar-quantity").value.to_i).to eq @size
 end
 
-Dann /^die Bestellung kann gespeichert werden$/ do
+Dann /^die (Bestellung|Aushändigung) kann gespeichert werden$/ do |arg1|
   step 'I save the booking calendar'
-  @line.contract.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size == @size
-end
-
-Dann /^die Aushändigung kann gespeichert werden$/ do
-  step 'I save the booking calendar'
-  expect(@line.contract.lines.where(:model_id => @line.model).size).to be >= @size
+  step 'the booking calendar is closed'
+  case arg1
+    when "Bestellung"
+      expect(@line.contract.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size).to eq @size
+    when "Aushändigung"
+      expect(@line.contract.lines.where(:model_id => @line.model).size).to be >= @size
+    else
+      raise
+  end
 end
 
 Angenommen /^ich editiere alle Linien$/ do

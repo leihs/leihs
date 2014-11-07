@@ -2,6 +2,12 @@
 
 window.App.ContractLine.url = => "/manage/#{App.InventoryPool.current.id}/contract_lines"
 
+window.App.ContractLine.createOne = (data)->
+  $.post("/manage/#{App.InventoryPool.current.id}/contract_lines", data)
+  .done (contractLine)->
+    App.ContractLine.addRecord new App.ContractLine contractLine
+    App.Contract.trigger "refresh"
+
 window.App.ContractLine.createForTemplate = (data)->
   $.post("/manage/#{App.InventoryPool.current.id}/contract_lines/for_template", data)
   .done (contractLines)->

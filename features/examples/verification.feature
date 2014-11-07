@@ -23,27 +23,31 @@ Feature: Verification
       | hand over   |
       | take back   |
 
-  @current
+  @personas @current @browser
   Scenario: Overbooking in orders not possible for Group Managers in overview
-    When I open an order order to be verified by a Group Manager
-    When I add a model which leads to an overbooking
-    Then the I receive an error
+    When I open a submitted order to be verified by a Group Manager
+    And I add a model which leads to an overbooking
+    Then I see an error message
 
-  @current
+  @personas @current @browser
   Scenario: Overbooking in orders not possible for Group Managers in calendar
-    When I open an order order to be verified by a Group Manager
-    When I change the quantity of the model in the calendar which leads to an overbooking
-    Then I receive an error
+    When I open a submitted order to be verified by a Group Manager
+    And I open the booking calendar
+    And I change the quantity of the model in the calendar which leads to an overbooking
+    And I save the booking calendar
+    Then I see an error message within the booking calendar
 
-  @current
+  @personas @current @browser
   Scenario: Overbooking in hand overs not possible for Group Managers in overview
     When I open a hand over editable by the Group Manager
     And I add a model which leads to an overbooking
-    Then the I receive an error
-     
-  @current
+    Then I see an error message
+
+  @personas @current @browser
   Scenario: Overbooking in orders not possible for Group Managers in calendar
     When I open a hand over editable by the Group Manager
-    When I change the quantity of the model in the calendar which leads to an overbooking
-    Then I receive an error
+    And I open the booking calendar
+    And I change the quantity of the model in the calendar which leads to an overbooking
+    And I save the booking calendar
+    Then I see an error message within the booking calendar
      

@@ -1035,6 +1035,7 @@ end
 
 Dann(/^speichere die Einstellungen$/) do
   step "I save the booking calendar"
+  step 'the booking calendar is closed'
 end
 
 Wenn /^man im Inventar Bereich ist$/ do
@@ -1047,4 +1048,16 @@ end
 
 Wenn(/^ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen$/) do
   step "I am in an inventory pool with verifiable orders"
+end
+
+Wenn(/^ich die Bestellung editiere$/) do
+  step "I edit this submitted contract"
+end
+
+Dann /^(?:sehe ich|ich sehe) eine Fehlermeldung$/ do
+  step "I see an error message"
+end
+
+Wenn /^ich öffne den Kalender$/ do
+  step "I open the booking calendar"
 end

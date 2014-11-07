@@ -36,7 +36,7 @@ Dann(/^hat man keine Möglichkeit solche(?:.?) (?:.*) auszumustern$/) do
     field = find("[data-type='field']", text: _("Reason for Retirement"))
     field.find("textarea").set "test"
     find("#item-save").click
-    find("#flash .error")
+    step "ich sehe eine Fehlermeldung"
   end
   @item.reload
   expect(@item.retired).to eq nil
@@ -62,7 +62,7 @@ Angenommen /^man gibt bei der Ausmusterung keinen Grund an$/ do
   field = find("[data-type='field']", text: _("Reason for Retirement"))
   field.find("textarea").set ""
   find("#item-save").click
-  find("#flash .error")
+  step "ich sehe eine Fehlermeldung"
 end
 
 Dann /^(?:die|der) (?:.*) ist noch nicht Ausgemustert$/ do

@@ -430,19 +430,24 @@ class Contract < ActiveRecord::Base
   end
 
   def update_time_line(line_id, start_date, end_date, user_id)
-    line = lines.find(line_id)
-    start_date ||= line.start_date
-    end_date ||= line.end_date
-    original_start_date = line.start_date
-    original_end_date = line.end_date
-    line.start_date = start_date
-    line.end_date = [start_date, end_date].max
-    if line.save
-      change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
-      log_change(change, user_id)
-    else
-      line.errors.each_full do |msg|
-        errors.add(:base, msg)
+    ContractLine.transaction do
+      line = lines.find(line_id)
+      start_date ||= line.start_date
+      end_date ||= line.end_date
+      original_start_date = line.start_date
+      original_end_date = line.end_date
+      line.start_date = start_date
+      line.end_date = [start_date, end_date].max
+      if line.save
+        change = _("Changed dates for %{model} from %{from} to %{to}") % { :model => line.model.name, :from => "#{original_start_date} - #{original_end_date}", :to => "#{line.start_date} - #{line.end_date}" }
+        log_change(change, user_id)
+      else
+        line.errors.each_full do |msg|
+          errors.add(:base, msg)
+        end
+      end
+      if User.find(user_id).access_right_for(inventory_pool).role == :group_manager and not line.available?
+        raise _("Not available")
       end
     end
   end

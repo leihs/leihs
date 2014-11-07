@@ -1,14 +1,15 @@
 class window.App.ContractLinesChangeController extends window.App.ManageBookingCalendarDialogController
 
   createContractLine: =>
-    contract_line = new App.ContractLine
+    App.ContractLine.createOne
       model_id: _.first(@models).id
       start_date: @getStartDate().format("YYYY-MM-DD")
       end_date: @getEndDate().format("YYYY-MM-DD")
       contract_id: @contract?.id
       purpose_id: _.first(@lines).purpose_id
       quantity: 1
-    App.ContractLine.ajaxChange(contract_line, "create", {})
+    .fail (e)=>
+      @fail(e)
 
   # overwrite
   done: (data)=>

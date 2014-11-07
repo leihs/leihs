@@ -114,8 +114,10 @@ Then(/^I can copy an existing software license$/) do
   within("#inventory") do
     find(".line[data-type='software'] .button[data-type='inventory-expander'] i.arrow.right", match: :first).click
     within(".group-of-lines .line[data-type='license']", match: :first) do
-      find(".multibutton .dropdown-toggle").click
-      find(".multibutton .dropdown-item", text: _("Copy License"))
+      within(".multibutton") do
+        find(".dropdown-toggle").click
+        find(".dropdown-item", text: _("Copy License"))
+      end
     end
   end
 end
@@ -553,8 +555,10 @@ When(/^I delete this software product from the list$/) do
   find("a", text: _("Software")).click
   within("#inventory") do
     within(".line[data-id='#{@model.id}']") do
-      find(".multibutton .dropdown-toggle").click
-      find(".multibutton .red", :text => _("Delete")).click
+      within(".multibutton") do
+        find(".dropdown-toggle").click
+        find(".red", :text => _("Delete")).click
+      end
     end
   end
   find("#flash .success", text: _("%s successfully deleted") % _("Model"))
@@ -852,8 +856,10 @@ When(/^I copy an existing software license$/) do
   within("#inventory") do
     find(".line[data-id='#{@item.model_id}'][data-type='software'] button[data-type='inventory-expander']").click
     within(".group-of-lines .line[data-id='#{@item.id}'][data-type='license']") do
-      find(".multibutton .dropdown-toggle").click
-      find(".multibutton .dropdown-item", text: _("Copy License")).click
+      within(".multibutton") do
+        find(".dropdown-toggle").click
+        find(".dropdown-item", text: _("Copy License")).click
+      end
     end
   end
 end

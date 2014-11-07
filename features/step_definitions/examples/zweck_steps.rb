@@ -62,6 +62,7 @@ Wenn /^keine der ausgewählten Gegenstände hat einen Zweck angegeben$/ do
   step 'I edit the timerange of the selection'
   step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
   step 'I save the booking calendar'
+  step 'the booking calendar is closed'
 end
 
 Dann /^werde ich beim Aushändigen darauf hingewiesen einen Zweck anzugeben$/ do
@@ -73,9 +74,11 @@ Dann /^werde ich beim Aushändigen darauf hingewiesen einen Zweck anzugeben$/ do
 end
 
 Dann /^erst wenn ich einen Zweck angebebe$/ do
-  find(".modal .button.green[data-hand-over]", :text => _("Hand Over")).click
-  find(".modal #error")
-  find(".modal #purpose").set "The purpose for this hand over"
+  within ".modal" do
+    find(".button.green[data-hand-over]", :text => _("Hand Over")).click
+    find("#error")
+    find("#purpose").set "The purpose for this hand over"
+  end
 end
 
 Dann /^kann ich die Aushändigung durchführen$/ do
@@ -88,6 +91,7 @@ Dann /^muss ich keinen Zweck angeben um die Aushändigung durchzuführen$/ do
   step 'I edit the timerange of the selection'
   step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
   step 'I save the booking calendar'
+  step 'the booking calendar is closed'
   find(".multibutton .button[data-hand-over-selection]").click
   find(".modal.ui-shown")
   step 'kann ich die Aushändigung durchführen'
@@ -97,6 +101,7 @@ Wenn /^ich einen Zweck angebe$/ do
   step 'I edit the timerange of the selection'
   step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
   step 'I save the booking calendar'
+  step 'the booking calendar is closed'
   find(".multibutton .button[data-hand-over-selection]").click
   find("#add-purpose").click
   @added_purpose = "Another Purpose"
@@ -138,6 +143,7 @@ Wenn /^alle der ausgewählten Gegenstände haben einen Zweck angegeben$/ do
   step 'I edit the timerange of the selection'
   step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
   step 'I save the booking calendar'
+  step 'the booking calendar is closed'
 
   within "#lines" do
     lines = lines.select {|line| line.item and find(".line[data-id='#{line.id}'] input[type='checkbox'][data-select-line]").checked? }

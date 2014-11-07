@@ -66,8 +66,10 @@ Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen bestehenden Ger
   visit manage_inventory_pools_path
   within(".line", text: @current_inventory_pool.name) do
     find(:xpath, ".").click # NOTE it scrolls to the target line
-    find(".multibutton .dropdown-toggle").click
-    find(".multibutton a", text: _("Delete")).click
+    within ".multibutton" do
+      find(".dropdown-toggle").click
+      find("a", text: _("Delete")).click
+    end
   end
 end
 

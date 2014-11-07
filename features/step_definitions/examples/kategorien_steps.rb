@@ -163,8 +163,10 @@ Wenn /^man die Kategorie löscht$/ do
     find(".line", match: :first)
     all(".button[data-type='expander'] i.arrow.right").each {|toggle| toggle.click }
     within(".line[data-id='#{@unused_category.id}']", match: :first) do
-      find(".multibutton .dropdown-holder .dropdown-toggle").click
-      find(".multibutton .dropdown-item.red[data-method='delete']", text: _("Delete")).click
+      within(".multibutton") do
+        find(".dropdown-holder .dropdown-toggle").click
+        find(".dropdown-item.red[data-method='delete']", text: _("Delete")).click
+      end
     end
   end
 end
@@ -239,8 +241,10 @@ end
 
 Dann /^man kann diese Kategorien löschen$/ do
   within(".line[data-id='#{@unused_category.id}']", match: :first) do
-    find(".multibutton .dropdown-holder .dropdown-toggle").click
-    find(".multibutton .dropdown-item.red[data-method='delete']", text: _("Delete"))
+    within(".multibutton") do
+      find(".dropdown-holder .dropdown-toggle").click
+      find(".dropdown-item.red[data-method='delete']", text: _("Delete"))
+    end
   end
 end
 

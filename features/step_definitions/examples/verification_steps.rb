@@ -78,3 +78,25 @@ Then(/^there is no link to:$/) do |table|
     end
   end
 end
+
+When(/^I open a submitted order to be verified by a Group Manager$/) do
+  @contract = @current_inventory_pool.contracts.submitted.with_verifiable_user_and_model.sample
+  step "I edit this submitted contract"
+end
+
+When(/^I add a model which leads to an overbooking$/) do
+  ("a".."z").each do |char|
+    type_into_autocomplete "[data-add-contract-line]", char
+    if has_selector?(".ui-autocomplete a.light-red")
+      find(".ui-autocomplete a.light-red", match: :first).click
+      break
+    end
+  end
+end
+
+When(/^I open a hand over editable by the Group Manager$/) do
+  @contract = @current_inventory_pool.contracts.approved.with_verifiable_user_and_model.sample
+  visit manage_hand_over_path(@current_inventory_pool, @contract.user)
+  expect(has_selector?("#hand-over-view")).to be true
+  step "the availability is loaded"
+end

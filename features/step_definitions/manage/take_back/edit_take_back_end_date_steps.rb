@@ -14,6 +14,7 @@ When /^I change (a contract|an option) line end date$/ do |arg1|
   @new_end_date_element = get_fullcalendar_day_element(@new_end_date)
   @new_end_date_element.click
   step 'I save the booking calendar'
+  step 'the booking calendar is closed'
 end
 
 Then /^the end date of that line is changed$/ do
@@ -40,6 +41,7 @@ When /^I change the end date for all contract lines, envolving option and item l
   @new_end_date_element = get_fullcalendar_day_element(@new_end_date)
   @new_end_date_element.click
   step 'I save the booking calendar'
+  step 'the booking calendar is closed'
 end
 
 Then /^the end date for all contract lines is changed$/ do

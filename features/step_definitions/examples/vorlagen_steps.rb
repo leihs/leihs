@@ -146,8 +146,10 @@ end
 Dann(/^kann ich beliebige Vorlage direkt aus der Liste löschen$/) do
   @template = @current_inventory_pool.templates.sample
   within(".line", text: @template.name) do
-    find(".multibutton .dropdown-toggle").click
-    find(".multibutton .red[data-method='delete']", :text => _("Delete")).click
+    within(".multibutton") do
+      find(".dropdown-toggle").click
+      find(".red[data-method='delete']", :text => _("Delete")).click
+    end
   end
 end
 

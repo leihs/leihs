@@ -36,7 +36,7 @@ Wenn /^ein Pflichtfeld nicht ausgefüllt\/ausgewählt ist, dann lässt sich der 
   find(".field[data-required='true'] textarea", match: :first).set("")
   find(".field[data-required='true'] input[type='text']", match: :first).set("")
   find("#item-save").click
-  find("#flash .error")
+  step "ich sehe eine Fehlermeldung"
   expect(@item.to_json).to eq @item.reload.to_json
 end
 

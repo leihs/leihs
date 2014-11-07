@@ -1,5 +1,10 @@
-When /^I change the quantity$/ do
-  @new_quantity = find("#booking-calendar-quantity").value.to_i + 1
+When /^I change the quantity( of the model in the calendar which leads to an overbooking)?$/ do |arg1|
+  n = if arg1
+        @line.model.items.where(inventory_pool_id: @line.contract.inventory_pool_id).count
+      else
+        1
+      end
+  @new_quantity = find("#booking-calendar-quantity").value.to_i + n
   fill_in "booking-calendar-quantity", with: @new_quantity
 end
 

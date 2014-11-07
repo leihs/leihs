@@ -10,17 +10,15 @@ When /^I open a contract for acknowledgement( with more then one line)?(, whose 
 
   @customer = @contract.user
 
-  step "ich die Bestellung editiere"
+  step "I edit this submitted contract"
   expect(has_selector?("[data-order-approve]", :visible => true)).to be true
 end
 
 When /^I open the booking calendar for this line$/ do
-  begin
-    el = @line_element
-  rescue # fix 'Element not found in the cache'
-    el = find(@line_element_css)
+  el = @line_element || find(@line_element_css)
+  within el do
+    find(".line-actions [data-edit-lines]").click
   end
-  el.find("[data-edit-lines]").click
   step "I see the booking calendar"
 end
 
@@ -35,6 +33,9 @@ end
 
 When /^I save the booking calendar$/ do
   find("#submit-booking-calendar").click
+end
+
+Then /^the booking calendar is closed$/ do
   expect(has_no_selector?("#submit-booking-calendar")).to be true
   expect(has_no_selector?("#booking-calendar")).to be true
 end
@@ -45,8 +46,7 @@ When /^I change a contract lines time range$/ do
   else
     @customer.visits.where(inventory_pool_id: @current_inventory_pool).hand_over.first.lines.sample
   end
-  @line_element = all(".line[data-ids*='#{@line.id}']").first
-  @line_element ||= all(".line[data-id='#{@line.id}']").first
+  @line_element = all(".line[data-ids*='#{@line.id}']").first || all(".line[data-id='#{@line.id}']").first
   step 'I open the booking calendar for this line'
   @new_start_date = if @line.start_date + 1.day < Date.today
       Date.today
@@ -57,6 +57,7 @@ When /^I change a contract lines time range$/ do
   get_fullcalendar_day_element(@new_start_date).click
   find("#set-start-date", :text => _("Start Date")).click
   step 'I save the booking calendar'
+  step 'the booking calendar is closed'
 end
 
 Then /^the time range of that line is changed$/ do
@@ -66,15 +67,19 @@ end
 When /^I increase a submitted contract lines quantity$/ do
   expect(has_selector?(".line[data-ids]")).to be true
   @line_element ||= all(".line[data-ids]").to_a.sample
-  @line_model_name = @line_element.find(".col6of10 strong").text
-  @new_quantity = @line_element.find("div:nth-child(3) > span:nth-child(1)").text.to_i + 1
+  within @line_element do
+    @line_model_name = find(".col6of10 strong").text
+    @new_quantity = find("div:nth-child(3) > span:nth-child(1)").text.to_i + 1
+  end
   step 'I change a contract lines quantity'
 end
 
 When /^I decrease a submitted contract lines quantity$/ do
   @line_element = all(".line[data-ids]").detect {|l| l.find("div:nth-child(3) > span:nth-child(1)").text.to_i > 1 }
-  @line_model_name = @line_element.find(".col6of10 strong").text
-  @new_quantity = @line_element.find("div:nth-child(3) > span:nth-child(1)").text.to_i - 1
+  within @line_element do
+    @line_model_name = find(".col6of10 strong").text
+    @new_quantity = find("div:nth-child(3) > span:nth-child(1)").text.to_i - 1
+  end
   step 'I change a contract lines quantity'
 end
 
@@ -95,6 +100,7 @@ When /^I change a contract lines quantity$/ do
   step 'I open the booking calendar for this line'
   find("input#booking-calendar-quantity", match: :first).set @new_quantity
   step 'I save the booking calendar'
+  step 'the booking calendar is closed'
   find("#status .icon-ok")
 end
 
@@ -126,6 +132,7 @@ When /^I change the time range for multiple lines$/ do
   get_fullcalendar_day_element(@new_start_date).click
   find("#set-start-date", :text => _("Start Date")).click
   step 'I save the booking calendar'
+  step 'the booking calendar is closed'
 end
 
 Then /^the time range for that lines is changed$/ do

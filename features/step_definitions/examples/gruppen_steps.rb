@@ -127,8 +127,10 @@ Wenn(/^ich eine Gruppe lösche$/) do
   @group = @current_inventory_pool.groups.detect &:can_destroy?
   visit manage_inventory_pool_groups_path @current_inventory_pool
   within(".list-of-lines .line", text: @group.name) do
-    find(".multibutton .dropdown-toggle").click
-    find(".multibutton .dropdown-item.red", text: _("Delete")).click
+    within(".multibutton") do
+      find(".dropdown-toggle").click
+      find(".dropdown-item.red", text: _("Delete")).click
+    end
   end
 end
 

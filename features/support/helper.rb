@@ -78,6 +78,7 @@ def change_line_start_date(line, days = 2)
   get_fullcalendar_day_element(new_start_date).click
   find(".button#set-start-date", :text => _("Start Date")).click
   step 'I save the booking calendar'
+  step 'the booking calendar is closed'
   new_start_date
 end
 

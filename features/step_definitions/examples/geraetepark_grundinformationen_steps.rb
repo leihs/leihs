@@ -54,7 +54,7 @@ end
 
 Dann(/^kann das Gerätepark nicht gespeichert werden$/) do
   click_button _("Save")
-  find("#flash .error")
+  step "ich sehe eine Fehlermeldung"
 end
 
 Angenommen(/^ich die folgenden Felder nicht befüllt habe$/) do |table|

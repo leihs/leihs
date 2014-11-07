@@ -3,8 +3,12 @@
 When /^I delete a line of this contract$/ do
   @line = @contract.lines.first
   @line_element = find(".line", match: :prefer_exact, :text => @line.model.name)
-  @line_element.find(".multibutton .dropdown-toggle").click
-  @line_element.find(".multibutton .red[data-destroy-lines]", :text => _("Delete")).click
+  within @line_element do
+    within(".multibutton") do
+      find(".dropdown-toggle").click
+      find(".red[data-destroy-lines]", text: _("Delete")).click
+    end
+  end
 end
 
 Then /^this contractline is deleted$/ do

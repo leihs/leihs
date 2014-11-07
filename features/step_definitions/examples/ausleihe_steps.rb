@@ -60,8 +60,14 @@ Wenn /^ich etwas zuweise, das nicht in den Rücknahmen vorkommt$/ do
   find("[data-add-contract-line] + .addon").click
 end
 
-Dann /^(?:sehe ich|ich sehe) eine Fehlermeldung$/ do
-  find("#flash .error")
+Then /^I see an error message( within the booking calendar)?$/ do |arg1|
+  if arg1
+    within ".modal" do
+      find("#booking-calendar-errors", text: /.*/)
+    end
+  else
+    find("#flash .error")
+  end
 end
 
 Dann /^die Fehlermeldung lautet "(.*?)"$/ do |text|

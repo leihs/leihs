@@ -148,6 +148,7 @@ When /^I change the contract lines time range to tomorrow$/ do
   @new_start_date_element.click
   find("a", match: :first, :text => /(Start Date|Startdatum)/).click
   step 'I save the booking calendar'
+  step 'the booking calendar is closed'
 end
 
 Then /^I see that the time range in the summary starts today$/ do

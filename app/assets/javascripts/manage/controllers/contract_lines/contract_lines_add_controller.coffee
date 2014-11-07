@@ -165,7 +165,7 @@ class window.App.ContractLinesAddController extends Spine.Controller
       @addTemplate record, startDate, endDate
 
   addModel: (model, startDate, endDate)=>
-    App.ContractLine.create
+    App.ContractLine.createOne
       inventory_pool_id: App.InventoryPool.current.id
       start_date: moment(startDate).format "YYYY-MM-DD"
       end_date: moment(endDate).format "YYYY-MM-DD"
@@ -173,12 +173,16 @@ class window.App.ContractLinesAddController extends Spine.Controller
       purpose_id: @purpose?.id
       quantity: 1
       model_id: model.id
-    ,
-      done: -> 
-        App.LineSelectionController.add @id
-        App.Flash
-          type: "notice"
-          message: _jed("Added %s", model.name())
+    .done (line)->
+      App.LineSelectionController.add line.id
+      App.Flash
+        type: "notice"
+        message: _jed("Added %s", model.name())
+    .fail (e)->
+      App.Flash
+        type: "error"
+        message: e.responseText
+
 
   addOption: (option, startDate, endDate)=>
     line = _.find @contract.lines().all(), (l)-> 

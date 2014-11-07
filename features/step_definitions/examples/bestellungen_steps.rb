@@ -36,7 +36,7 @@ Angenommen(/^eine Bestellung enhält überbuchte Modelle$/) do
   expect(@contract).not_to be_nil
 end
 
-Wenn(/^ich die Bestellung editiere$/) do
+When(/^I edit this submitted contract$/) do
   visit manage_edit_contract_path(@current_inventory_pool, @contract)
 end
 

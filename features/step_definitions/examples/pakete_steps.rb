@@ -169,14 +169,16 @@ Wenn /^ich ein bestehendes Paket editiere$/ do
   else
     find("#packages .line[data-new] [data-edit-package]", match: :first).click
   end
-  find(".modal")
-  find(".modal [data-type='field']", match: :first)
+  within ".modal" do
+    find("[data-type='field']", match: :first)
+  end
 end
 
 Wenn(/^ich eine Paket hinzufüge$/) do
   find("#add-package").click
-  find(".modal")
-  find(".modal [data-type='field']", match: :first)
+  within ".modal" do
+    find("[data-type='field']", match: :first)
+  end
 end
 
 Wenn(/^ich die Paketeigenschaften eintrage$/) do
