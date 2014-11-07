@@ -67,4 +67,14 @@ Feature: Add lines during hand over
     When I select the model from the list
     Then the model is added to the hand over
 
+  @current
+  Scenario: Add a line to the hand over providing a model name
+    Given I open a hand over
+    When I enter a model name
+    Then only models related to my current pool are suggested
+
+    
+
+
+
 

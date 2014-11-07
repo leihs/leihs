@@ -70,7 +70,7 @@ Funktionalität: Software erfassen
     Dann kann man als "Notiz" einen Text eingeben
     Und die Option "Ausleihbar" ist standardmässig auf "Nicht ausleihbar" gesetzt
 
-  @javascript @personas
+  @javascript @personas @upcoming
   Szenario: Software-Lizenz erfassen
     Angenommen es existiert ein Software-Produkt
     Wenn ich eine neue Software-Lizenz hinzufüge
@@ -90,6 +90,8 @@ Funktionalität: Software erfassen
     Und ich als Lizenzablaufdatum ein Datum auswähle
     Wenn ich als Maintenance-Vertrag "Nein" auswähle
     Dann kann ich für den Maintenance-Vertrag kein Ablaufdatum wählen
+    Und ich kann für den Maintenance-Vertrag kein Betrag eingeben
+    Und ich kann für den Maintenance-Vertrag keine Währung eingeben
     Wenn ich als Maintenance-Vertrag "Ja" auswähle
     Und ich für den Maintenance-Vertrag ein Ablaufdatum wähle
     Wenn ich als Bezug "Investition" wähle
