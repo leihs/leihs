@@ -53,10 +53,12 @@ end
 
 Wenn(/^ich setze das Startdatum im Kalendar auf '(.*?)'$/) do |date|
   find("#booking-calendar-start-date").set date
+  find("#booking-calendar-controls").click # blur input in order to fire event listeners
 end
 
 Wenn(/^ich setze das Enddatum im Kalendar auf '(.*?)'$/) do |date|
   find("#booking-calendar-end-date").set date
+  find("#booking-calendar-controls").click # blur input in order to fire event listeners
 end
 
 Dann(/^schlägt der Versuch es hinzufügen fehl$/) do

@@ -63,7 +63,7 @@ Angenommen(/^ich die folgenden Felder nicht befüllt habe$/) do |table|
   end
 end
 
-Angenommen(/^ich verwalte die Gerätepark Grundinformationen$/) do
+Given(/^I edit my inventory pool settings$/) do
   visit manage_edit_inventory_pool_path(@current_inventory_pool)
 end
 
@@ -299,5 +299,42 @@ Then(/^"(.*)" is (enabled|disabled)$/) do |arg1, arg2|
       expect(@current_inventory_pool.reload.automatic_access).to eq b
     else
       raise
+  end
+end
+
+Then(/^I can change the field "(.*?)"$/) do |arg1|
+  case arg1
+    when "Min. number of days between order and hand over"
+      n = rand(0..14)
+      find("input[type='number'][name='inventory_pool[workday_attributes][reservation_advance_days]']").set n
+      step "ich speichere"
+      find("input[type='number'][name='inventory_pool[workday_attributes][reservation_advance_days]'][value='#{n}']")
+    else
+      raise
+  end
+end
+
+Then(/^I can enter the maximum visits per week day$/) do
+  h = {}
+  (0..6).each do |i|
+    h[i] = rand(0..14)
+    find("input[type='number'][name='inventory_pool[workday_attributes][workdays][#{i}][max_visits]']").set h[i]
+  end
+  step "ich speichere"
+  (0..6).each do |i|
+    find("input[type='number'][name='inventory_pool[workday_attributes][workdays][#{i}][max_visits]'][value='#{h[i]}']")
+  end
+end
+
+When(/^I do not enter a maximum amount of visits on a week day$/) do
+  (0..6).each do |i|
+    find("input[type='number'][name='inventory_pool[workday_attributes][workdays][#{i}][max_visits]']").set ""
+  end
+  step "ich speichere"
+end
+
+Then(/^there is no limit of visits for this week day$/) do
+  (0..6).each do |i|
+    expect(find("input[type='number'][name='inventory_pool[workday_attributes][workdays][#{i}][max_visits]']").value).to be_blank
   end
 end

@@ -71,7 +71,7 @@ class Model < ActiveRecord::Base
   has_many :templates, -> { where(:type => 'Template') }, :through => :model_links, :source => :model_group
 
 ########
-  # says which other Model one Model works with
+# says which other Model one Model works with
   has_and_belongs_to_many :compatibles, -> { uniq },
                           :class_name => "Model",
                           :join_table => "models_compatibles",
@@ -85,34 +85,34 @@ class Model < ActiveRecord::Base
 
 #############################################
 
-  # OPTIMIZE Mysql::Error: Not unique table/alias: 'items'
+# OPTIMIZE Mysql::Error: Not unique table/alias: 'items'
   scope :active, -> { joins(:items).where(items: {retired: nil}).uniq }
-  # workaround preventing redundant inner joins (should be fixed in Arel >= 5.0 ??)
+# workaround preventing redundant inner joins (should be fixed in Arel >= 5.0 ??)
   scope :active_without_extra_join, -> { where(items: {retired: nil}).uniq }
 
-  scope :without_items, -> {select("models.*").joins("LEFT JOIN items ON items.model_id = models.id").
-                        where(['items.model_id IS NULL'])}
+  scope :without_items, -> { select("models.*").joins("LEFT JOIN items ON items.model_id = models.id").
+      where(['items.model_id IS NULL']) }
 
-  scope :unused_for_inventory_pool, ( lambda do |ip|
+  scope :unused_for_inventory_pool, (lambda do |ip|
     model_ids = Model.select("models.id").joins(:items).where(":id IN (items.owner_id, items.inventory_pool_id)", :id => ip.id).uniq
     Model.where("models.id NOT IN (#{model_ids.to_sql})")
-  end )
+  end)
 
-  scope :packages, -> {where(:is_package => true)}
+  scope :packages, -> { where(:is_package => true) }
 
-  scope :with_properties, -> {select("DISTINCT models.*").
-                              joins("LEFT JOIN properties ON properties.model_id = models.id").
-                              where.not(properties: {model_id: nil})}
+  scope :with_properties, -> { select("DISTINCT models.*").
+      joins("LEFT JOIN properties ON properties.model_id = models.id").
+      where.not(properties: {model_id: nil}) }
 
   scope :by_inventory_pool, lambda { |inventory_pool| select("DISTINCT models.*").joins(:items).
-                                                      where(["items.inventory_pool_id = ?", inventory_pool]) }
+      where(["items.inventory_pool_id = ?", inventory_pool]) }
 
   scope :owned_or_responsible_by_inventory_pool, -> (ip) { joins(:items).where(":id IN (items.owner_id, items.inventory_pool_id)", :id => ip.id).uniq }
 
   scope :all_from_inventory_pools, lambda { |inventory_pool_ids| where(items: {inventory_pool_id: inventory_pool_ids}) }
 
-  scope :by_categories, lambda { |categories| joins("INNER JOIN model_links AS ml"). # OPTIMIZE no ON ??
-                                              where(["ml.model_group_id IN (?)", categories]) }
+  scope :by_categories, lambda { |categories| joins("INNER JOIN model_links AS ml").# OPTIMIZE no ON ??
+      where(["ml.model_group_id IN (?)", categories]) }
 
   scope :from_category_and_all_its_descendants, lambda { |category_id|
     joins(:categories).where(:"model_groups.id" => [Category.find(category_id)] + Category.find(category_id).descendants) }
@@ -125,7 +125,7 @@ class Model < ActiveRecord::Base
     end
   end)
 
-  scope :default_order, -> {order_by_attribute_and_direction("product", "asc")}
+  scope :default_order, -> { order_by_attribute_and_direction("product", "asc") }
 
   # not using scope because not working properly (if result of first is nil, an additional query is performed returning all)
   def self.find_by_name(name)
@@ -140,20 +140,20 @@ class Model < ActiveRecord::Base
 
   SEARCHABLE_FIELDS = %w(manufacturer product version)
 
-  scope :search, lambda { |query , fields = []|
+  scope :search, lambda { |query, fields = []|
     return all if query.blank?
 
     sql = select("DISTINCT models.*") #old# joins(:categories, :properties, :items)
     if fields.empty?
       sql = sql.
-        joins("LEFT JOIN `model_links` AS ml2 ON `ml2`.`model_id` = `models`.`id`").
-        joins("LEFT JOIN `model_groups` AS mg2 ON `mg2`.`id` = `ml2`.`model_group_id` AND `mg2`.`type` = 'Category'").
-        joins("LEFT JOIN `properties` AS p2 ON `p2`.`model_id` = `models`.`id`")
+          joins("LEFT JOIN `model_links` AS ml2 ON `ml2`.`model_id` = `models`.`id`").
+          joins("LEFT JOIN `model_groups` AS mg2 ON `mg2`.`id` = `ml2`.`model_group_id` AND `mg2`.`type` = 'Category'").
+          joins("LEFT JOIN `properties` AS p2 ON `p2`.`model_id` = `models`.`id`")
     end
     if fields.empty? or fields.include?(:items)
       sql = sql.joins("LEFT JOIN `items` AS i2 ON `i2`.`model_id` = `models`.`id`").
-                joins("LEFT JOIN `items` AS i3 ON `i3`.`parent_id` = `i2`.`id`").
-                joins("LEFT JOIN `models` AS m3 ON `m3`.`id` = `i3`.`model_id`")
+          joins("LEFT JOIN `items` AS i3 ON `i3`.`parent_id` = `i2`.`id`").
+          joins("LEFT JOIN `models` AS m3 ON `m3`.`id` = `i3`.`model_id`")
     end
 
     # FIXME refactor to Arel
@@ -169,9 +169,9 @@ class Model < ActiveRecord::Base
         s << "p2.value LIKE :query"
       end
       if fields.empty? or fields.include?(:items)
-        model_fields = Model::SEARCHABLE_FIELDS.map{|f| "m3.#{f}" }.join(', ')
-        item_fields_2 = Item::SEARCHABLE_FIELDS.map{|f| "i2.#{f}" }.join(', ')
-        item_fields_3 = Item::SEARCHABLE_FIELDS.map{|f| "i3.#{f}" }.join(', ')
+        model_fields = Model::SEARCHABLE_FIELDS.map { |f| "m3.#{f}" }.join(', ')
+        item_fields_2 = Item::SEARCHABLE_FIELDS.map { |f| "i2.#{f}" }.join(', ')
+        item_fields_3 = Item::SEARCHABLE_FIELDS.map { |f| "i3.#{f}" }.join(', ')
         s << "CONCAT_WS(' ', #{model_fields}, #{item_fields_2}, #{item_fields_3}) LIKE :query"
       end
 
@@ -203,24 +203,29 @@ class Model < ActiveRecord::Base
 
   def self.filter_for_user(models, params, user, category, borrowable = false)
     models = user.models
-    models = if category then models.from_category_and_all_its_descendants(category.id).borrowable else models.borrowable end
+    models = if category then
+               models.from_category_and_all_its_descendants(category.id).borrowable
+             else
+               models.borrowable
+             end
     models = models.all_from_inventory_pools(user.inventory_pools.where(id: params[:inventory_pool_ids]).map(&:id)) unless params[:inventory_pool_ids].blank?
     models
   end
 
   def self.filter_for_inventory_pool(models, params, inventory_pool, category)
-    if params[:used] == "false"
-      models = models.unused_for_inventory_pool inventory_pool
-    elsif params[:used] == "true"
-      models = if params[:as_responsible_only]
-                 models.joins(:items).where(inventory_pool_id: inventory_pool).uniq
-               else
-                 models.joins(:items).where(":id IN (`items`.`owner_id`, `items`.`inventory_pool_id`)", :id => inventory_pool.id).uniq
-               end
-      models = models.where(:items => {:parent_id => nil}) unless params[:include_package_models]
-      models = models.joins(:items).where(items: {is_borrowable: true}) if params[:borrowable] == "true"
-      models = models.joins(:items).where(items: {id: params[:item_ids]}) if params[:item_ids]
-      models = models.joins(:items).where(items: {inventory_pool_id: params[:responsible_id]}) if params[:responsible_id]
+    case params[:used]
+      when "false"
+        models = models.unused_for_inventory_pool inventory_pool
+      when "true"
+        models = if params[:as_responsible_only]
+                   models.joins(:items).where(items: {inventory_pool_id: inventory_pool}).uniq
+                 else
+                   models.joins(:items).where(":id IN (`items`.`owner_id`, `items`.`inventory_pool_id`)", :id => inventory_pool.id).uniq
+                 end
+        models = models.where(:items => {:parent_id => nil}) unless params[:include_package_models]
+        models = models.joins(:items).where(items: {is_borrowable: true}) if params[:borrowable] == "true"
+        models = models.joins(:items).where(items: {id: params[:item_ids]}) if params[:item_ids]
+        models = models.joins(:items).where(items: {inventory_pool_id: params[:responsible_inventory_pool_id]}) if params[:responsible_inventory_pool_id]
     end
 
     models = models.joins(:categories).where(:"model_groups.id" => [Category.find(params[:category_id])] + Category.find(params[:category_id]).descendants) unless params[:category_id].blank?
@@ -261,7 +266,7 @@ class Model < ActiveRecord::Base
 
 #############################################
 
-  # returns an array of contract_lines
+# returns an array of contract_lines
   def add_to_contract(contract, user_id, quantity = nil, start_date = nil, end_date = nil)
     contract.add_lines(quantity, self, user_id, start_date, end_date)
   end
@@ -274,7 +279,7 @@ class Model < ActiveRecord::Base
       inventory_pool.partitions_with_generals.hash_for_model_and_groups(self, groups).values.sum
       #tmp# inventory_pool.partitions_with_generals.where(model_id: id, group_id: groups).sum(:quantity)
     else
-      inventory_pools.to_a.sum {|ip| ip.partitions_with_generals.hash_for_model_and_groups(self, groups).values.sum }
+      inventory_pools.to_a.sum { |ip| ip.partitions_with_generals.hash_for_model_and_groups(self, groups).values.sum }
     end
   end
 

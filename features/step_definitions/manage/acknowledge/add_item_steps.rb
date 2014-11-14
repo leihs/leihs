@@ -121,3 +121,23 @@ end
 Then(/^I should still see the model in the resultlist$/) do
   find('.ui-autocomplete a', text: @model.name[0..2], match: :first)
 end
+
+Then(/^only models related to my current pool are suggested$/) do
+  within ".ui-autocomplete" do
+    all("li a").each do |x|
+      next unless x.find("span.grey-text").text == _("Model")
+      name = x.find("strong").text
+      expect(@current_inventory_pool.models.include? Model.find_by_name(name)).to be true
+    end
+  end
+end
+
+When(/^I enter a model name( which is not related to my current pool)?$/) do |arg1|
+  model = if arg1
+            Model.all - @current_inventory_pool.models
+          else
+            Model.all
+          end.sample
+  find('#assign-or-add-input').set model.name[0..2]
+end
+

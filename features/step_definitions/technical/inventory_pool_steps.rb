@@ -1,13 +1,13 @@
 def make_sure_no_end_date_is_identical_to_any_other!(open_contracts)
-  last_date = open_contracts.flat_map(&:contract_lines).map(&:end_date).max { |a,b| a <=> b }
+  last_date = open_contracts.flat_map(&:contract_lines).map(&:end_date).max { |a, b| a <=> b }
   open_contracts.flat_map(&:contract_lines).each do |cl|
-    cl.end_date = last_date  
+    cl.end_date = last_date
     last_date = cl.end_date.tomorrow
     cl.save
   end
 end
 
-def end_first_contract_line_on_same_date_as_second!( contract )
+def end_first_contract_line_on_same_date_as_second!(contract)
   contract.instance_eval do
     # these two should now be in the same Event
     contract_lines[0].end_date = contract_lines[1].end_date
@@ -16,7 +16,7 @@ def end_first_contract_line_on_same_date_as_second!( contract )
   end
 end
 
-def end_third_contract_line_on_different_date!( contract )
+def end_third_contract_line_on_different_date!(contract)
   contract.instance_eval do
     # just make sure the third contract_line isn't on the same day
     if contract_lines[2].end_date == contract_lines[1].end_date
@@ -27,7 +27,7 @@ def end_third_contract_line_on_different_date!( contract )
   end
 end
 
-def start_first_contract_line_on_same_date_as_second!( contract )
+def start_first_contract_line_on_same_date_as_second!(contract)
   contract.instance_eval do
     # these two should now be in the same Event
     contract_lines[0].start_date = contract_lines[1].start_date
@@ -37,12 +37,12 @@ def start_first_contract_line_on_same_date_as_second!( contract )
   end
 end
 
-def start_third_contract_line_on_different_date!( contract )
+def start_third_contract_line_on_different_date!(contract)
   contract.instance_eval do
     # just make sure the third contract_line isn't on the same day
     if contract_lines[2].start_date == contract_lines[1].start_date
       contract_lines[2].start_date = contract_lines[1].start_date.tomorrow
-      contract_lines[2].end_date   = contract_lines[2].start_date + 2.days
+      contract_lines[2].end_date = contract_lines[2].start_date + 2.days
       contract_lines[2].save
     end
     save
@@ -52,8 +52,8 @@ end
 def make_sure_no_start_date_is_identical_to_any_other!(open_contracts)
   previous_date = Date.tomorrow
   open_contracts.flat_map(&:contract_lines).each do |cl|
-    cl.start_date = previous_date  
-    cl.end_date   = cl.start_date + 2.days 
+    cl.start_date = previous_date
+    cl.end_date = cl.start_date + 2.days
     previous_date = previous_date.tomorrow
     cl.save
   end
@@ -71,7 +71,7 @@ Given /^inventory pool model test data setup$/ do
     LeihsFactory.create_user :login => login_name
   end
 
-  @manager = LeihsFactory.create_user({:login => "hammer"}, {:role  => :lending_manager} )
+  @manager = LeihsFactory.create_user({:login => "hammer"}, {:role => :lending_manager})
 end
 
 Given /^all contracts and contract lines are deleted$/ do
@@ -126,12 +126,12 @@ Then /^the first two contract lines should now be grouped inside the first visit
 end
 
 Given /^there are 2 different contracts for 2 different users$/ do
-  @open_contract  = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @current_inventory_pool, :status => :approved, :lines_count => 1
+  @open_contract = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @current_inventory_pool, :status => :approved, :lines_count => 1
   @open_contract2 = FactoryGirl.create :contract_with_lines, :user => User.last, :inventory_pool => @current_inventory_pool, :status => :approved, :lines_count => 1
 end
 
 Given /^there are 2 different contracts with lines for 2 different users$/ do
-  @open_contract  = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @current_inventory_pool, :status => :approved
+  @open_contract = FactoryGirl.create :contract_with_lines, :user => User.first, :inventory_pool => @current_inventory_pool, :status => :approved
   @open_contract2 = FactoryGirl.create :contract_with_lines, :user => User.last, :inventory_pool => @current_inventory_pool, :status => :approved
 end
 
@@ -226,7 +226,7 @@ Given /^the contract is signed$/ do
 end
 
 Given /^to each contract line of both contracts an item is assigned$/ do
-  [ @open_contract, @open_contract2].each do |c| 
+  [@open_contract, @open_contract2].each do |c|
     # assign contract lines
     c.contract_lines.each do |cl|
       cl.update_attributes(item: cl.model.items.borrowable.in_stock.first)
@@ -235,7 +235,7 @@ Given /^to each contract line of both contracts an item is assigned$/ do
 end
 
 Given /^both contracts are signed$/ do
-  [ @open_contract, @open_contract2].each do |c| 
+  [@open_contract, @open_contract2].each do |c|
     # sign the contract
     c.sign(@manager, c.contract_lines)
   end
@@ -243,4 +243,24 @@ end
 
 Then /^the first 2 contract lines should now be grouped inside the 1st visit, which makes it 2 visits in total$/ do
   expect(@take_back_visits.count).to eq 2
+end
+
+Given(/^a maximum amount of visits is defined for a week day$/) do
+  @inventory_pool = @current_user.inventory_pools.shuffle.detect { |ip| not ip.workday.max_visits.empty? }
+  expect(@inventory_pool).not_to be_nil
+end
+
+Then(/^the amount of visits includes$/) do |table|
+  date = @inventory_pool.potential_visits.sample.date
+  total_visits = table.raw.flatten.sum do |k|
+    case k
+      when "potential hand overs (not yet acknowledged orders)"
+        @inventory_pool.potential_visits.select{|v| v.date == date}.size
+      when "hand overs"
+        @inventory_pool.visits.hand_over.where(date: date).size
+      when "take backs"
+        @inventory_pool.visits.take_back.where(date: date).size
+    end
+  end
+  expect(@inventory_pool.workday.total_visits_by_date[date].size).to eq total_visits
 end

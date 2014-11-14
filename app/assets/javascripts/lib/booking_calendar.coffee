@@ -213,8 +213,8 @@ class BookingCalendar
         if @isClosedDay(date) or @holidaysBetween(@getHolidays(), date, date).length > 0
           @addClosedDayAlert el 
 
-  isClosedDay: (date)=> 
-    @getInventoryPool().workday().closedDays().indexOf(date.getDay()) isnt -1
+  isClosedDay: (date)=>
+    @getInventoryPool().isClosedOn(moment(date))
 
   addClosedDayAlert: (el)=>
     el = $(el)
@@ -282,6 +282,7 @@ class BookingCalendar
       dayElement.addClass "selected"
     else
       dayElement.removeClass "selected"
+    do @closedDayValidation
 
   setAvailability: (dayElement, available)=>
     if available then dayElement.removeClass("unavailable").addClass("available") else dayElement.removeClass("available").addClass("unavailable")

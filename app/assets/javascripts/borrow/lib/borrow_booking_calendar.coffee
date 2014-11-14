@@ -41,3 +41,6 @@ class window.App.BorrowBookingCalendar extends App.BookingCalendar
     @ipSelector_el.change()
 
   getInventoryPool: => App.InventoryPool.find @ipSelector_el.find("option:selected").data("id")
+
+  isClosedDay: (date)=>
+    super or not @getInventoryPool().isVisitPossible(moment(date))

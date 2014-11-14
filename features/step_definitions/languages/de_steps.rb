@@ -1061,3 +1061,7 @@ end
 Wenn /^ich öffne den Kalender$/ do
   step "I open the booking calendar"
 end
+
+Angenommen(/^ich verwalte die Gerätepark Grundinformationen$/) do
+  step "I edit my inventory pool settings"
+end

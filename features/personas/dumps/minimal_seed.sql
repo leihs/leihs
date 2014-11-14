@@ -1048,7 +1048,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20140410180000'),('20140414100000'),('20140415083535'),('20140417113831'),('20140428092844'),('20140515131025'),('20140812132326'),('20140820100242'),('20140828082448'),('20140901141016'),('20140903105715'),('20140905091014');
+INSERT INTO `schema_migrations` VALUES ('20140410180000'),('20140414100000'),('20140415083535'),('20140417113831'),('20140428092844'),('20140515131025'),('20140812132326'),('20140820100242'),('20140828082448'),('20140901141016'),('20140903105715'),('20140905091014'),('20141110113231');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1227,6 +1227,8 @@ CREATE TABLE `workdays` (
   `friday` tinyint(1) DEFAULT '1',
   `saturday` tinyint(1) DEFAULT '0',
   `sunday` tinyint(1) DEFAULT '0',
+  `reservation_advance_days` int(11) DEFAULT '0',
+  `max_visits` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
   KEY `index_workdays_on_inventory_pool_id` (`inventory_pool_id`),
   CONSTRAINT `workdays_inventory_pool_id_fk` FOREIGN KEY (`inventory_pool_id`) REFERENCES `inventory_pools` (`id`) ON DELETE CASCADE
@@ -1305,4 +1307,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-27 16:24:07
+-- Dump completed on 2014-11-14 15:18:49

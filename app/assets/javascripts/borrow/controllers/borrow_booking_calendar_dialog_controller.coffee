@@ -64,9 +64,9 @@ class window.App.BorrowBookingCalendarDialogController extends App.BookingCalend
     @errors = []
     if av.maxAvailableForGroups(@getStartDate(), @getEndDate(), _.map(@groups,(g)->g.id)) < @getQuantity()
       @errors.push _jed("Item is not available in that time range")
-    if ip.isClosedOn @getStartDate()
+    if ip.isClosedOn @getStartDate() or not ip.isVisitPossible @getStartDate()
       @errors.push _jed("Inventory pool is closed on start date")
-    if ip.isClosedOn @getEndDate()
+    if ip.isClosedOn @getEndDate() or not ip.isVisitPossible @getEndDate()
       @errors.push _jed("Inventory pool is closed on end date")
     return ! @errors.length
 

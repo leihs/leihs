@@ -87,6 +87,19 @@ class InventoryPool < ActiveRecord::Base
 
 #######################################################################
 
+  def potential_visits
+    self.class.find_by_sql %Q(SELECT c.inventory_pool_id AS inventory_pool_id,
+                                     cl.start_date AS date,
+                                     SUM(cl.quantity) AS quantity,
+                                     c.user_id
+                              FROM contract_lines AS cl JOIN contracts AS c ON cl.contract_id = c.id
+                              WHERE c.status = 'submitted' AND c.inventory_pool_id = #{self.id}
+                              GROUP BY c.user_id, cl.start_date, c.inventory_pool_id
+                              ORDER BY cl.start_date;)
+  end
+
+#######################################################################
+
   validates_presence_of :name, :shortname, :email
   validates_presence_of :automatic_suspension_reason, if: :automatic_suspension?
 
@@ -182,7 +195,7 @@ class InventoryPool < ActiveRecord::Base
     model_filter_params = params.clone.merge({paginate: "false", search_targets: [:manufacturer, :product, :version, :items], type: model_type})
 
     # if there are NOT any params related to items
-    if [:is_borrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_id].all? {|param| params[param].blank?}
+    if [:is_borrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_inventory_pool_id].all? {|param| params[param].blank?}
       # and one does not explicitly ask for software, models or used/unused models
       unless ["model", "software"].include?(model_type) or params[:used]
         # then include options
@@ -219,7 +232,7 @@ class InventoryPool < ActiveRecord::Base
             end
 
     options = if inventory_pool
-                if params[:type] != "license" and [:unborrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_id, :unused_models].all? {|param| params[param].blank?}
+                if params[:type] != "license" and [:unborrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_inventory_pool_id, :unused_models].all? {|param| params[param].blank?}
                   Option.filter params.clone.merge({paginate: "false", sort: "product", order: "ASC"}), inventory_pool
                 else
                   []

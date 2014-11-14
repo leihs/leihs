@@ -65,6 +65,11 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         "features/borrow/brotkrumennavigation.feature"
+- name: borrow/calendar
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        "features/borrow/calendar.feature"
 - name: borrow/dokumente
   scripts:
     cucumber:
@@ -240,6 +245,11 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         "features/examples/inventarhelfer.feature"
+- name: examples/inventory_pool_settings
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        "features/examples/inventory_pool_settings.feature"
 - name: examples/kalender
   scripts:
     cucumber:
@@ -300,6 +310,11 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         "features/examples/ruestliste.feature"
+- name: examples/software_create
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        "features/examples/software_create.feature"
 - name: examples/software_editieren
   scripts:
     cucumber:

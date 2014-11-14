@@ -40,7 +40,9 @@ def check_existing_inventory_codes(items)
 end
 
 def check_amount_of_lines(amount)
-  expect(find("#inventory").all(".line").count).to eq amount
+  within "#inventory" do
+    expect(all(".line").count).to eq amount
+  end
 end
 
 Dann /^kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:$/ do |table|
@@ -60,7 +62,6 @@ Dann /^kann man auf ein der folgenden Tabs klicken und dabei die entsprechende I
         amount = Model.owned_or_responsible_by_inventory_pool(@current_inventory_pool).count + Model.unused_for_inventory_pool(@current_inventory_pool).count + options.count
         retired_unretired_option.select_option
       when "Modelle"
-        items = items.items
         tab = section_tabs.find("a[data-type='item']", match: :first)
         expect(tab.text).to eq _("Models")
         inventory = items.items
@@ -73,7 +74,6 @@ Dann /^kann man auf ein der folgenden Tabs klicken und dabei die entsprechende I
         inventory = options
         amount = inventory.count
       when "Software"
-        items = items.licenses
         tab = section_tabs.find("a[data-type='license']")
         expect(tab.text).to eq _("Software")
         inventory = items.licenses
@@ -267,14 +267,14 @@ def fetch_item_line_and_item
 end
 
 Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist$/ do
-  find("select[name='responsible_id'] option[value='#{@current_inventory_pool.id}']").select_option
+  find("select[name='responsible_inventory_pool_id'] option[value='#{@current_inventory_pool.id}']").select_option
   find("input[name='in_stock']").click unless find("input[name='in_stock']").checked?
   find(".button[data-type='inventory-expander'] i.arrow.right", match: :first).click
   @item_line, @item = fetch_item_line_and_item
 end
 
 Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gegenstand verantwortlich ist$/ do
-  all("select[name='responsible_id'] option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ""}.select_option
+  all("select[name='responsible_inventory_pool_id'] option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ""}.select_option
   find("input[name='in_stock']").click if find("input[name='in_stock']").checked?
   item = @current_inventory_pool.own_items.items.detect{|i| not i.inventory_pool_id.nil? and i.inventory_pool != @current_inventory_pool and not i.in_stock?}
   step 'ich nach "%s" suche' % item.inventory_code
@@ -287,7 +287,7 @@ Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gege
 end
 
 Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat$/ do
-  all("select[name='responsible_id'] option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ""}.select_option
+  all("select[name='responsible_inventory_pool_id'] option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ""}.select_option
   find(".line[data-type='model'] .button[data-type='inventory-expander'] i.arrow.right", match: :first).click
   @item_line = ".group-of-lines .line[data-type='item']"
   @item = Item.find_by_inventory_code(find(@item_line, match: :first).find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text)
@@ -810,7 +810,7 @@ end
 
 When(/^I choose a certain responsible pool inside the whole inventory$/) do
   @responsible_pool = @current_inventory_pool.own_items.select(:inventory_pool_id).where.not(items: {inventory_pool_id: [@current_inventory_pool.id, nil]}).uniq.sample.inventory_pool
-  find(:select, "responsible_id").find(:option, @responsible_pool.name).select_option
+  find(:select, "responsible_inventory_pool_id").find(:option, @responsible_pool.name).select_option
 end
 
 Then(/^only the inventory is shown, for which this pool is responsible$/) do

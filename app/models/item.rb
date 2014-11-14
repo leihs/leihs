@@ -105,7 +105,7 @@ class Item < ActiveRecord::Base
 
     items = items.by_owner_or_responsible inventory_pool if inventory_pool
     items = items.where(:owner_id => inventory_pool) if params[:owned]
-    items = items.where(:inventory_pool_id => params[:responsible_id]) if params[:responsible_id]
+    items = items.where(:inventory_pool_id => params[:responsible_inventory_pool_id]) if params[:responsible_inventory_pool_id]
 
     items = items.where(:id => params[:ids]) if params[:ids]
     items = items.where(:id => params[:id]) if params[:id]

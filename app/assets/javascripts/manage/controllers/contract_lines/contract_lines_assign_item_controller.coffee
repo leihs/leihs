@@ -49,7 +49,7 @@ class window.App.ContractLineAssignItemController extends Spine.Controller
       data: $.param 
         model_ids: [model.id]
         in_stock: true
-        responsible_id: App.InventoryPool.current.id
+        responsible_inventory_pool_id: App.InventoryPool.current.id
         retired: false
 
   fetchItems: _.partial this::fetchItemsOrLicences, App.Item

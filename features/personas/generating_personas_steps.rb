@@ -164,6 +164,21 @@ Given(/^the following delegations have following delegated users$/) do |table|
   end
 end
 
+Given(/^the following workdays exist$/) do |table|
+  hashes_with_evaled_and_nilified_values(table).each do |hash_row|
+    inventory_pool = InventoryPool.find_by_name hash_row["inventory pool"]
+    inventory_pool.workday.update_attributes(monday:    hash_row["monday"],
+                                             tuesday:   hash_row["tuesday"],
+                                             wednesday: hash_row["wednesday"],
+                                             thursday:  hash_row["thursday"],
+                                             friday:    hash_row["friday"],
+                                             saturday:  hash_row["saturday"],
+                                             sunday:    hash_row["sunday"],
+                                             reservation_advance_days: hash_row["reservation_advance_days"],
+                                             max_visits: JSON.parse(hash_row["max_visits"]))
+  end
+end
+
 Given(/^the following holidays exist$/) do |table|
   hashes_with_evaled_and_nilified_values(table).each do |hash_row|
     inventory_pool = InventoryPool.find_by_name hash_row["inventory pool"]
@@ -224,10 +239,10 @@ end
 
 Given(/^the following models exist:$/) do |table|
   hashes_with_evaled_and_nilified_values(table).each do |hash_row|
-    attrs = { product: hash_row["product"],
-              version: hash_row["version"],
-              manufacturer: hash_row["manufacturer"]
-            }
+    attrs = {product: hash_row["product"],
+             version: hash_row["version"],
+             manufacturer: hash_row["manufacturer"]
+    }
 
     attrs[:description] = hash_row["description"] if hash_row["description"]
     attrs[:hand_over_note] = hash_row["hand over note"] if hash_row["hand over note"]
@@ -250,14 +265,14 @@ Given(/^the following items exists:$/) do |table|
   hashes_with_evaled_and_nilified_values(table).each do |hash_row|
     building = Building.find_by_code hash_row["building code"]
 
-    attrs = { model: Model.find_by_name(hash_row["product name"]),
-              location: Location.where(room: hash_row["location room"], shelf: hash_row["location shelf"], building_id: building.try(:id)).first,
-              owner: InventoryPool.find_by_name(hash_row["owner name"]),
-              inventory_code: hash_row["inventory code"],
-              serial_number: hash_row["serial number"],
-              name: hash_row["name"],
-              retired_reason: hash_row["retired reason"],
-            }
+    attrs = {model: Model.find_by_name(hash_row["product name"]),
+             location: Location.where(room: hash_row["location room"], shelf: hash_row["location shelf"], building_id: building.try(:id)).first,
+             owner: InventoryPool.find_by_name(hash_row["owner name"]),
+             inventory_code: hash_row["inventory code"],
+             serial_number: hash_row["serial number"],
+             name: hash_row["name"],
+             retired_reason: hash_row["retired reason"],
+    }
 
     attrs[:retired] = Date.parse(hash_row["retired"]) if hash_row["retired"]
     attrs[:is_borrowable] = (hash_row["is borrowable"] == "true") if hash_row["is borrowable"]
@@ -403,15 +418,15 @@ end
 
 Given(/^the following licenses exist:$/) do |table|
   hashes_with_evaled_and_nilified_values(table).each do |hash_row|
-    attrs = { owner: InventoryPool.find_by_name(hash_row["owner name"]),
-              retired_reason: hash_row["retired reason"],
-              properties: {license_expiration: hash_row["license expiration"],
-                           license_type: hash_row["license type"],
-                           operating_system: hash_row["operating system"].try(:split, ','),
-                           maintenance_contract: hash_row["maintenance contract"],
-                           maintenance_expiration: hash_row["maintenance expiration"]},
-              inventory_code: hash_row["inventory code"],
-              inventory_pool: (hash_row["inventory pool name"] and InventoryPool.find_by_name(hash_row["inventory pool name"])) }
+    attrs = {owner: InventoryPool.find_by_name(hash_row["owner name"]),
+             retired_reason: hash_row["retired reason"],
+             properties: {license_expiration: hash_row["license expiration"],
+                          license_type: hash_row["license type"],
+                          operating_system: hash_row["operating system"].try(:split, ','),
+                          maintenance_contract: hash_row["maintenance contract"],
+                          maintenance_expiration: hash_row["maintenance expiration"]},
+             inventory_code: hash_row["inventory code"],
+             inventory_pool: (hash_row["inventory pool name"] and InventoryPool.find_by_name(hash_row["inventory pool name"]))}
 
     attrs[:retired] = Date.parse(hash_row["retired"]) if hash_row["retired"]
     attrs[:invoice_date] = Date.parse(hash_row["invoice date"]) if hash_row["invoice date"]
@@ -617,6 +632,8 @@ Then(/^there are (\d+) (.*) in total$/) do |n, elements|
           User.as_delegations.count
         when "access rights"
           AccessRight.count
+        when "workdays"
+          Workday.count
         when "holidays"
           Holiday.count
         when "buildings"

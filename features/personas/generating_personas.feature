@@ -129,6 +129,13 @@ Feature: Generating Personas
     Then there are 43 access rights in total
 
     Then there are 6 inventory pools in total
+    Then there are 6 workdays in total
+
+    And the following workdays exist
+      | inventory pool | monday | tuesday | wednesday | thursday | friday | saturday | sunday | reservation_advance_days | max_visits                  |
+      | A-Ausleihe     | 1      | 1       | 1         | 1        | 1      | 0        | 0      | 0                        | {"1": 10, "2": 20, "3": 30} |
+
+    Then there are 6 workdays in total
 
     # NOTE we consider xxxx as this year and next year
     And the following holidays exist

@@ -63,6 +63,7 @@ class window.App.ContractLinesAddController extends Spine.Controller
     App.Model.ajaxFetch
       data: $.param
         search_term: @input.val()
+        used: true
         as_responsible_only: true
         per_page: 5
     .done (data)=> 

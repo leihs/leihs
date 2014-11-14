@@ -39,10 +39,10 @@
               %option{:value => "true", selected: is_borrowable_param_session_value == "true"}= _("borrowable")
               %option{:value => "false", selected: is_borrowable_param_session_value == "false"}= _("unborrowable")
           .col1of4.padding-right-xs
-            %select.width-full{:name => "responsible_id", :title => _("Responsible inventory pool")}
+            %select.width-full{:name => "responsible_inventory_pool_id", :title => _("Responsible inventory pool")}
               %option{value: ""}= _("All inventory pools")
               - @responsibles.each do |responsible|
-                %option{value: responsible.id, selected: (session[:params].try(:fetch, :responsible_id, nil).try(:to_i) == responsible.id)}= responsible.name
+                %option{value: responsible.id, selected: (session[:params].try(:fetch, :responsible_inventory_pool_id, nil).try(:to_i) == responsible.id)}= responsible.name
         .row
           .col2of6.padding-right-xs
             .row

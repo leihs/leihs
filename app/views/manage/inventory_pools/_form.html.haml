@@ -84,6 +84,12 @@
             %input{type: "hidden",   name: "inventory_pool[automatic_access]", value: "0"}
             %input{type: "checkbox", name: "inventory_pool[automatic_access]", value: "1", checked: @inventory_pool.automatic_access}
 
+        .row.padding-inset-s.emboss.margin-bottom-xxs
+          .col1of2
+            %strong.font-size-m= _("Min. number of days between order and hand over")
+          .col1of2.text-align-right
+            %input{type: "number", name: "inventory_pool[workday_attributes][reservation_advance_days]", value: @inventory_pool.workday.reservation_advance_days, style: "width: 5em"}
+
     .col1of2.padding-left-xs
 
       %h2.headline-m.padding-left-s= _("Workdays")
@@ -91,14 +97,15 @@
       .row.margin-vertical-s
 
         - [1,2,3,4,5,6,0].each do |i|
-
           .row.padding-inset-s.emboss.margin-bottom-xxs
-            .col1of2
+            .col1of3
               %strong.font-size-m= "#{I18n.t('date.day_names')[i]}"
-            .col1of2.text-align-right
-              %select.small.width-full{:name => "inventory_pool[workday_attributes][workdays][]"}
-                %option{:label => _("Open"), :value => Workday::WORKDAYS[i]}= _("Open")
-                %option{:label => _("Closed"), :value => "", :selected => @inventory_pool.workday.closed_days.include?(i) ? true : nil}= _("Closed")
+            .col1of3.text-align-right
+              %select.small.width-full{:name => "inventory_pool[workday_attributes][workdays][#{i}][open]"}
+                %option{label: _("Open"), value: 1}= _("Open")
+                %option{label: _("Closed"), value: 0, selected: @inventory_pool.workday.closed_days.include?(i) ? true : nil}= _("Closed")
+            .col1of3.text-align-right
+              %input{type: "number", name: "inventory_pool[workday_attributes][workdays][#{i}][max_visits]", value: @inventory_pool.workday.max_visits_on(i), style: "width: 8em", placeholder: _("Max. visits")}
 
       %h2.headline-m.padding-left-s= _("Closed Days")
 

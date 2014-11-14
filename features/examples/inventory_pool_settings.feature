@@ -7,26 +7,26 @@ Feature: Inventory Pool Settings
   Background:
     Given I am Mike
 
-  @upcoming
+  @personas
   Scenario: Define maximum amount of visits per week day
     When I edit my inventory pool settings
     Then I can enter the maximum visits per week day
 
-  @upcoming
+  @personas
   Scenario: No maximum amount of visits defined
-  	When I edit my inventory pool settings
+    When I edit my inventory pool settings
     And I do not enter a maximum amount of visits on a week day
     Then there is no limit of visits for this week day
 
-  @upcoming
+  @personas
   Scenario: Definition of maximum amount of visits per week day
     Given a maximum amount of visits is defined for a week day
-    Then the amount includes potential hand overs (not yet acknowledged orders)
-    And the amount includes hand overs
-    And the amount includes take backs
+    Then the amount of visits includes
+      | potential hand overs (not yet acknowledged orders) |
+      | hand overs                                         |
+      | take backs                                         |
 
-  @upcoming
+  @personas
   Scenario: Define days between possible order submit and possible hand over
-  	When I edit my inventory pool settings
-    Then I can change the field "min. number of days between order and hand over"
-
+    When I edit my inventory pool settings
+    Then I can change the field "Min. number of days between order and hand over"
