@@ -33,15 +33,16 @@ window.App.ContractLine.destroyMultiple = (ids)->
 window.App.ContractLine.changeTimeRange = (lines, startDate, endDate)=>
   startDate = moment(startDate).format("YYYY-MM-DD") if startDate
   endDate = moment(endDate).format("YYYY-MM-DD")
-  for line in lines
-    data = {end_date: endDate}
-    data["start_date"] = startDate if startDate
-    line.refresh data
   $.post "/manage/#{App.InventoryPool.current.id}/contract_lines/change_time_range",
     line_ids: _.map(lines,(l)->l.id)
     start_date: startDate
     end_date: endDate
-  .done => App.Contract.trigger "refresh"
+  .done =>
+    for line in lines
+      data = {end_date: endDate}
+      data["start_date"] = startDate if startDate
+      line.refresh data
+    App.Contract.trigger "refresh"
 
 window.App.ContractLine.assignOrCreate = (data)->
   $.post("/manage/#{App.InventoryPool.current.id}/contract_lines/assign_or_create", data)
