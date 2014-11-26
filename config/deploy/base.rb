@@ -1,27 +1,12 @@
 # encoding: utf-8
-set :rbenv_ruby_version, '2.1.1'
-
-set :application, "leihs-test"
 
 set :scm, :git
 set :repository,  "git://github.com/zhdk/leihs.git"
-set :branch, "next"
+#set :repository,  "https://github.com/zhdk/leihs.git"
+set :rails_env, "production"
 set :deploy_via, :remote_cache
 
-set :db_config, "/home/developer/#{application}/database.yml"
-set :ldap_config, "/home/developer/#{application}/LDAP.yml"
-set :secret_token, "/home/developer/#{application}/secret_token.rb"
-
-
 set :use_sudo, false
-
-set :rails_env, "production"
-
-set :deploy_to, "/home/developer/#{application}"
-
-role :app, "developer@172.31.2.229"
-role :web, "developer@172.31.2.229"
-role :db,  "developer@172.31.2.229", :primary => true
 
 load 'config/deploy/recipes/set_branch'
 load 'config/deploy/recipes/retrieve_db_config'
@@ -34,12 +19,6 @@ load 'config/deploy/recipes/migrate_database'
 load 'config/deploy/recipes/bundle_install'
 load 'config/deploy/recipes/precompile_assets'
 load 'config/deploy/recipes/set_deploy_information'
-
-task :modify_config do
-  # On staging/test, we don't want to deliver e-mail
-  run "sed -i 's/config.action_mailer.perform_deliveries = true/config.action_mailer.perform_deliveries = false/' #{release_path}/config/environments/production.rb"
-end
-
 
 namespace :deploy do
   task :start do
