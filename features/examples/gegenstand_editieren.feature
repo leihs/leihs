@@ -98,7 +98,7 @@ Funktionalität: Gegenstand bearbeiten
     Und ich speichere
     Dann ist bei dem bearbeiteten Gegestand der geänderte Lieferant eingetragen
 
-  @javascript @personas
+  @javascript @personas @browser
   Szenario: Bei ausgeliehenen Gegenständen kann man die verantwortliche Abteilung nicht editieren
     Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist und wo man Besitzer ist
     Wenn ich die verantwortliche Abteilung ändere

@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   has_many :items, -> { uniq }, :through => :inventory_pools
   has_many :models, -> { uniq }, :through => :inventory_pools do
     def borrowable
+      # TODO dry with_borrowable_items
+      joins(:items).where(items: {retired: nil, is_borrowable: true, parent_id: nil}).
       joins("INNER JOIN `partitions_with_generals` ON `models`.`id` = `partitions_with_generals`.`model_id`
                                                   AND `inventory_pools`.`id` = `partitions_with_generals`.`inventory_pool_id`
                                                   AND `partitions_with_generals`.`quantity` > 0

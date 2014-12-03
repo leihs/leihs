@@ -202,12 +202,13 @@ class Model < ActiveRecord::Base
   end
 
   def self.filter_for_user(models, params, user, category, borrowable = false)
-    models = user.models
-    models = if category then
-               models.from_category_and_all_its_descendants(category.id).borrowable
+    models = user.models # FIXME intersect with the models argument
+    models = if category
+               models.from_category_and_all_its_descendants(category.id)
              else
-               models.borrowable
+               models
              end
+    models = models.send(:borrowable) if borrowable
     models = models.all_from_inventory_pools(user.inventory_pools.where(id: params[:inventory_pool_ids]).map(&:id)) unless params[:inventory_pool_ids].blank?
     models
   end
