@@ -50,7 +50,6 @@ after "link_config", :migrate_database
 after "link_config", :modify_config
 after "link_config", "precompile_assets"
 
-before "deploy:restart", :set_deploy_information
 before "deploy:restart", :make_tmp
 
 after "deploy", "deploy:cleanup"
