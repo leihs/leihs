@@ -1,8 +1,21 @@
 # -*- encoding : utf-8 -*-
 
+Given(/^I navigate to the (open orders|hand over visits|take back visits)$/) do |arg1|
+  s = case arg1
+        when "open orders"
+          _("Open Orders")
+        when "hand over visits"
+          _("Hand Overs")
+        when "take back visits"
+          _("Take Backs")
+        else
+          raise
+      end
+  find(".button", text: s).click
+end
+
 When(/^I quick approve a submitted order$/) do
   @contract ||= @current_inventory_pool.contracts.submitted.shuffle.detect{|o| o.approvable? }
-  find("[data-collapsed-toggle='#open-orders']").click unless all("[data-collapsed-toggle='#open-orders']").empty?
   within(".line[data-id='#{@contract.id}']") do
     find("[data-order-approve]", :text => _("Approve")).click
   end

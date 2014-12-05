@@ -18,4 +18,4 @@ class window.App.Model extends Spine.Model
 
   @url: => "/models"
 
-  name: -> [@product, @version].join(" ")
+  name: -> [@product, @version].join(" ").trim()

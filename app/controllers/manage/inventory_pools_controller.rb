@@ -29,8 +29,7 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
 
     @date = date ? Date.parse(date) : Date.today
     if @date == Date.today
-      @submitted_contracts = current_inventory_pool.contracts.submitted.includes([:user, {:contract_lines => :model}]).order(Contract.arel_table[:created_at].desc).reverse
-      @purposes = @submitted_contracts.flat_map{|c| c.lines.map(&:purpose)}.uniq
+      @submitted_contracts_count = current_inventory_pool.contracts.submitted.count
       @overdue_hand_overs_count = current_inventory_pool.visits.hand_over.where("date < ?", @date).count
       @overdue_take_backs_count = current_inventory_pool.visits.take_back.where("date < ?", @date).count
     else

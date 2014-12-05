@@ -1,10 +1,10 @@
 #list-tabs.inline-tab-navigation
 
-  %a.inline-tab-item.active{:"data-status" => ["signed", "closed"]}
+  %a.inline-tab-item{data: {status: ["signed", "closed"]}, class: (params[:status] != ["signed"] and params[:status] != ["closed"] ? "active" : nil)}
     = _("All")
 
-  %a.inline-tab-item{:"data-status" => ["signed"]}
+  %a.inline-tab-item{data: {status: ["signed"]}, class: (params[:status] == ["signed"] ? "active" : nil)}
     = _("Open")
 
-  %a.inline-tab-item{:"data-status" => ["closed"]}
+  %a.inline-tab-item{data: {status: ["closed"]}, class: (params[:status] == ["closed"] ? "active" : nil)}
     = _("Closed")

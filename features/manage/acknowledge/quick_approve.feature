@@ -10,6 +10,7 @@ Feature: Quick Approve orders
   @javascript @personas
   Scenario: Quick approve an order with no problems
     Given I open the daily view
+    And I navigate to the open orders
     When I quick approve a submitted order
     Then this contract is approved
     And I see a link to the hand over process of that order
@@ -17,6 +18,7 @@ Feature: Quick Approve orders
   @javascript @personas
   Scenario: Approve anyway on daily view
     Given I open the daily view
+    And I navigate to the open orders
     And I try to approve a contract that has problems
     Then I got an information that this contract has problems
     When I approve anyway

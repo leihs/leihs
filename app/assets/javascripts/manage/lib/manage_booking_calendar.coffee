@@ -75,3 +75,8 @@ class window.App.ManageBookingCalendar extends App.BookingCalendar
       null
 
   getInventoryPool: => App.InventoryPool.current
+
+  isClosedDay: (date)=>
+    ip = @getInventoryPool()
+    super or
+      not ip.isVisitPossible(moment(date))

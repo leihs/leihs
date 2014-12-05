@@ -35,9 +35,10 @@ When /^I save the booking calendar$/ do
   find("#submit-booking-calendar").click
 end
 
-Then /^the booking calendar is closed$/ do
-  expect(has_no_selector?("#submit-booking-calendar")).to be true
-  expect(has_no_selector?("#booking-calendar")).to be true
+Then /^the booking calendar is( not)? closed$/ do |arg1|
+  b = !arg1
+  expect(has_no_selector?("#submit-booking-calendar")).to be b
+  expect(has_no_selector?("#booking-calendar")).to be b
 end
 
 When /^I change a contract lines time range$/ do

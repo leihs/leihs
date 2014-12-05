@@ -33,6 +33,8 @@ Funktionalität: Software kopieren
       | Lizenzablaufdatum         |
       | Maintenance-Vertrag       |
       | Maintenance-Ablaufdatum   |
+      | Währung                   |
+      | Preis                     |
 
   @personas @javascript @browser
   Szenario: Wo kann Software kopiert werden

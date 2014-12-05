@@ -6,8 +6,6 @@ class window.App.InventoryPoolDailyController extends Spine.Controller
   elements:
     "#datepicker-input": "datepickerInput"
     "#daily-navigation": "dailyNavigation"
-    "#hand_overs": "handOversContainer"
-    "#take_backs": "takeBacksContainer"
     "#workload": "workloadContainer"
 
   constructor: ->
@@ -16,70 +14,10 @@ class window.App.InventoryPoolDailyController extends Spine.Controller
     @datepickerOpen = false
     do @fetchData
     new App.LatestReminderTooltipController {el: @el}
-    new App.LinesCellTooltipController {el: @el}
-    new App.UserCellTooltipController {el: @el}
-    new App.HandOversDeleteController {el: @el}
-    new App.ContractsApproveController {el: @el}
-    new App.TakeBacksSendReminderController {el: @el}
-    new App.ContractsRejectController {el: @el, async: true, callback: @orderRejected}
 
   fetchData: =>
-    @fetchHandOvers().done => 
-      @fetchUsers().done => @fetchContractLines().done => do @renderHandOvers
-    @fetchTakeBacks().done =>
-      @fetchUsers().done => @fetchContractLines().done => 
-        do @renderTakeBacks
-        do @fetchWorkload
+    do @fetchWorkload
 
-  getVisits: => _.compact @handOvers.concat(@takeBacks)
-
-  fetchContractLines: =>
-    ids = _.flatten _.map @getVisits(), (v)-> v.contract_line_ids
-    return {done: (c)->c()} unless ids.length
-    App.ContractLine.ajaxFetch
-      data: $.param
-        ids: ids
-
-  fetchUsers: =>
-    ids = _.filter _.uniq(_.map(@getVisits(), (v)->v.user_id)), (id)-> not App.User.exists(id)?
-    if ids.length
-      App.User.ajaxFetch
-        data: $.param
-          ids: ids
-          all: true
-          paginate: false
-      .done (data)=>
-        users = (App.User.find datum.id for datum in data)
-        App.User.fetchDelegators users
-    else
-      {done: (c)->c()}
-
-  fetchHandOvers: =>
-    App.HandOver.ajaxFetch
-      data: $.param
-        for: "daily_view"
-        date: @date
-        paginate: false
-        date_comparison: 
-          if moment(@date).startOf("day").diff(moment().startOf("days"), "days") > 0
-            "eq"
-          else
-            "lteq"
-    .done (data) => @handOvers = (App.HandOver.find datum.id for datum in data)
-
-  fetchTakeBacks: =>
-    App.TakeBack.ajaxFetch
-      data: $.param
-        for: "daily_view"
-        date: @date
-        paginate: false
-        date_comparison: 
-          if moment(@date).startOf("day").diff(moment().startOf("days"), "days") > 0
-            "eq"
-          else
-            "lteq"
-    .done (data) => @takeBacks = (App.TakeBack.find datum.id for datum in data)
-        
   fetchWorkload: =>
     return true if @workload?
     App.Workload.ajaxFetch
@@ -88,10 +26,6 @@ class window.App.InventoryPoolDailyController extends Spine.Controller
     .done (workload) =>
       @workload = new App.Workload(workload)
       do @renderWorkload
-
-  renderHandOvers: => @handOversContainer.find(".list-of-lines").html App.Render "manage/views/hand_overs/line", @handOvers
-
-  renderTakeBacks: => @takeBacksContainer.find(".list-of-lines").html App.Render "manage/views/take_backs/line", @takeBacks
 
   renderWorkload: =>
     @workloadContainer.html App.Render "manage/views/inventory_pools/daily/workload"

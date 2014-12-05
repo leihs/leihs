@@ -189,7 +189,7 @@ Dann(/^sind die Informationen dieser Software\-Lizenz erfolgreich aktualisiert w
   expect(license.invoice_date).to eq (@new_invoice_date.blank? ? nil : @new_invoice_date.to_s)
   expect(license.properties[:license_expiration]).to eq @new_license_expiration_date.to_s
   expect(license.properties[:maintenance_contract]).to eq @new_maintenance_contract.to_s
-  expect(license.properties[:maintenance_expiration]).to eq @maintenance_expiration_date.to_s if @new_maintenance_expiration_date
+  expect(license.properties[:maintenance_expiration]).to eq @new_maintenance_expiration_date.to_s if @new_maintenance_expiration_date
   expect(license.properties[:reference]).to eq @new_reference
   expect(license.properties[:project_number]).to eq @project_number if @project_number
   expect(license.note).to eq @note
@@ -324,7 +324,7 @@ end
 Wenn(/^I change the value for maintenance contract$/) do
   within(".field", text: _("Maintenance contract")) do
     o = all("option").detect &:selected?
-    find("option[value='#{@new_maintenance_contract = !o.value}']").select_option
+    find("option[value='#{@new_maintenance_contract = !(o.value == "true")}']").select_option
   end
 
   if @new_maintenance_contract
@@ -921,6 +921,10 @@ Dann(/^the following fields were copied from the original software license$/) do
         expect(@target_item.properties[:maintenance_contract]).to eq @item.properties[:maintenance_contract]
       when "Maintenance-Ablaufdatum"
         expect(@target_item.properties[:maintenance_expiration]).to eq @item.properties[:maintenance_expiration]
+      when "Währung"
+        expect(@target_item.properties[:maintenance_currency]).to eq @item.properties[:maintenance_currency]
+      when "Preis"
+        expect(@target_item.properties[:maintenance_price]).to eq @item.properties[:maintenance_price]
       else
         raise
     end

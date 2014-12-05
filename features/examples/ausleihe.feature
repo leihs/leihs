@@ -20,8 +20,7 @@ Funktionalität: Ausleihe
 
   @javascript @personas
   Szenario: Wann letzter Besucher erscheint
-    Angenommen ich öffne die Tagesansicht
-    Wenn ich eine Bestellung editieren
+    Wenn ich eine Bestellung editiere
     Dann erscheint der Benutzer unter den letzten Besuchern
     Wenn ich eine Aushändigung mache
     Dann erscheint der Benutzer unter den letzten Besuchern
@@ -119,6 +118,7 @@ Funktionalität: Ausleihe
 
   @javascript @personas @browser
   Szenario: Zusammenziehen der Anzahlen im Item-Popup
+    Angenommen I navigate to the open orders
     Angenommen man fährt über die Anzahl von Gegenständen in einer Zeile
     Dann werden alle diese Gegenstände aufgelistet
     Und man sieht pro Modell eine Zeile
@@ -127,6 +127,7 @@ Funktionalität: Ausleihe
   @javascript @personas
   Szenario: Klick auf Letzten Besucher nach Editieren einer Bestellung
     Angenommen ich öffne die Tagesansicht
+    Und I navigate to the open orders
     Und ich öffne eine Bestellung
     Dann ich kehre zur Tagesansicht zurück
     Dann sehe ich die letzten Besucher

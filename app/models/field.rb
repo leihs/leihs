@@ -441,7 +441,7 @@ class Field < ActiveHash::Base
       permissions: {role: :inventory_manager, owner: true},
       values: [{label: "No", value: "false"}, {label: "Yes", value: "true"}],
       default: "false",
-      group: "General Information"
+      group: "Maintenance"
     },{
       id: 46,
       label: "Maintenance expiration",
@@ -451,9 +451,30 @@ class Field < ActiveHash::Base
       permissions: {role: :inventory_manager, owner: true},
       visibility_dependency_field_id: 45,
       visibility_dependency_value: "true",
-      group: "General Information"
+      group: "Maintenance"
     },{
       id: 47,
+      label: "Currency",
+      attribute: ["properties", "maintenance_currency"],
+      type: "select",
+      values: [{label: "CHF", value: "CHF"}, {label: "EUR", value: "EUR"}, {label: "USD", value: "USD"}],
+      default: "CHF",
+      target_type: "license",
+      permissions: {role: :inventory_manager, owner: true},
+      visibility_dependency_field_id: 46,
+      group: "Maintenance"
+    },{
+      id: 48,
+      label: "Price",
+      attribute: ["properties", "maintenance_price"],
+      type: "text",
+      currency: true,
+      target_type: "license",
+      permissions: {role: :inventory_manager, owner: true},
+      visibility_dependency_field_id: 47,
+      group: "Maintenance"
+    },{
+      id: 49,
       label: "Procured by",
       attribute: ["properties", "procured_by"],
       permissions: {role: :inventory_manager, owner: true},

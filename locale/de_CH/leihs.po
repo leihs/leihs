@@ -818,6 +818,9 @@ msgstr "Hersteller (Z-A)"
 msgid "Matching Templates"
 msgstr "Passende Vorlagen"
 
+msgid "Max. visits"
+msgstr "Max. Besuche"
+
 msgid "Mobile"
 msgstr "Mobil"
 
@@ -1502,6 +1505,15 @@ msgstr "Gruppen dieses/r Kunden/in"
 
 msgid "This inventory pool is closed on that day."
 msgstr "Dieser Gerätepark ist an diesem Tag geschlossen."
+
+msgid "No orders are possible on this start date"
+msgstr "Bestellungen sind für dieses Startdatum nicht möglich"
+
+msgid "Booking is no longer possible on this start date"
+msgstr "An diesem Startdatum ist keine Ausleihe mehr möglich"
+
+msgid "Booking is no longer possible on this end date"
+msgstr "An diesem Enddatum ist keine Ausleihe mehr möglich"
 
 msgid "Inventory pool successfully updated."
 msgstr "Gerätepark aktualisiert"
@@ -2925,7 +2937,7 @@ msgid "Who bought the most items?"
 msgstr "Wer hat die meisten Gegenstände gekauft?"
 
 msgid "Maintenance"
-msgstr "Wartung"
+msgstr "Maintenance"
 
 msgid "Automatic access"
 msgstr "Automatischer Zugriff"
@@ -3001,6 +3013,9 @@ msgstr "Maintenance-Ablaufdatum"
 msgid "Maintenance contract"
 msgstr "Maintenance-Vertrag"
 
+msgid "Currency"
+msgstr "Währung"
+
 msgid "Procured by"
 msgstr "Beschafft durch"
 
@@ -3021,3 +3036,6 @@ msgstr "Ein Paketgegenstand muss zu einem Paketmodel gehören"
 
 msgid "Product"
 msgstr "Produkt"
+
+msgid "Min. number of days between order and hand over"
+msgstr "Min. Tage zwischen Bestellung und Aushändigung"

@@ -33,7 +33,7 @@ When /^I start to type the name of a model( which is not yet in the contract)?$/
   items = @current_inventory_pool.items.borrowable
   items = items.select {|i| not @contract.models.include? i.model} if arg1
   @item = items.sample
-  fill_in 'add-input', :with => @item.model.name[0..-1]
+  fill_in 'add-input', :with => @item.model.name[0..-2]
 end
 
 When /^I add a model to the acknowledge which is already existing in the selected date range by providing an inventory code$/ do
@@ -106,7 +106,7 @@ end
 
 When(/^I start searching some model for adding it$/) do
   @model = @current_inventory_pool.items.borrowable.map(&:model).sample
-  find('#add-input').set @model.name[0..2]
+  find('#add-input').set @model.name[0..-2]
   find('#add-input').click
 end
 
@@ -119,16 +119,20 @@ When(/^I reenter the autocomplete$/) do
 end
 
 Then(/^I should still see the model in the resultlist$/) do
-  find('.ui-autocomplete a', text: @model.name[0..2], match: :first)
+  find('.ui-autocomplete a', text: @model.name[0..-2], match: :first)
 end
 
 Then(/^only models related to my current pool are suggested$/) do
-  within ".ui-autocomplete" do
-    all("li a").each do |x|
-      next unless x.find("span.grey-text").text == _("Model")
-      name = x.find("strong").text
-      expect(@current_inventory_pool.models.include? Model.find_by_name(name)).to be true
+  if has_selector?(".ui-autocomplete")
+    within ".ui-autocomplete" do
+      all("li a").each do |x|
+        next unless x.find("span.grey-text").text == _("Model")
+        name = x.find("strong").text
+        expect(@current_inventory_pool.models.include? Model.find_by_name(name)).to be true
+      end
     end
+  else
+    # when selector not present, then no matched results
   end
 end
 
@@ -138,6 +142,6 @@ When(/^I enter a model name( which is not related to my current pool)?$/) do |ar
           else
             Model.all
           end.sample
-  find('#assign-or-add-input').set model.name[0..2]
+  find('#assign-or-add-input').set model.name[0..-2]
 end
 

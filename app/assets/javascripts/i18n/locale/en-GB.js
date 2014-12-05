@@ -1081,6 +1081,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Max. visits": [
+         null,
+         ""
+      ],
       "Mobile": [
          null,
          ""

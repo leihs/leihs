@@ -79,7 +79,7 @@ Given(/^the following users exist$/) do |table|
     attrs = {language: Language.find_by_locale_name(hash_row["language"]),
              firstname: hash_row["firstname"],
              lastname: hash_row["lastname"],
-             login: hash_row["firstname"].downcase,
+             login: hash_row["login"] || hash_row["firstname"].downcase,
              email: hash_row["email"],
              address: hash_row["address"]}
 

@@ -59,15 +59,14 @@ When(/^I delete a hand over$/) do
   expect(@visit).not_to be_nil
   expect(@visit.lines.empty?).to be false
   @visit_line_ids = @visit.lines.map(&:id)
-  find("[data-collapsed-toggle='#hand_overs']").click unless all("[data-collapsed-toggle='#hand_overs']").empty?
-  within("#hand_overs .line[data-id='#{@visit.id}']") do
+  within(".line[data-id='#{@visit.id}']") do
     find(".line-actions .multibutton .dropdown-holder").click
     find(".dropdown-item[data-hand-over-delete]", text: _("Delete")).click
   end
 end
 
 Then(/^all lines of that hand over are deleted$/) do
-  within("#hand_overs .line[data-id='#{@visit.id}']") do
+  within(".line[data-id='#{@visit.id}']") do
     find(".line-actions .multibutton", text: _("Deleted"))
   end
   expect { @visit.reload }.to raise_error(ActiveRecord::RecordNotFound)

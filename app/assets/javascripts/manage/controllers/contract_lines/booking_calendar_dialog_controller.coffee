@@ -82,6 +82,27 @@ class window.App.ManageBookingCalendarDialogController extends App.BookingCalend
     @listOfLines.html App.Render "manage/views/booking_calendar/line", @mergedLines, options
 
   # overwrite
+  getSelectedInventoryPool: => App.InventoryPool.current
+
+  # overwrite
+  validationAlerts: =>
+    # NOTE this are just warnings (not preventing as error) # TODO dry with super valid()
+    ip = @getSelectedInventoryPool()
+    errors = []
+    if not ip.isVisitPossible @getStartDate()
+      errors.push _jed("Booking is no longer possible on this start date")
+    if not ip.isVisitPossible @getEndDate()
+      errors.push _jed("Booking is no longer possible on this end date")
+    if ip.isClosedOn @getStartDate()
+      errors.push _jed("Inventory pool is closed on start date")
+    if ip.isClosedOn @getEndDate()
+      errors.push _jed("Inventory pool is closed on end date")
+
+    if errors.length
+      @showError errors.join(", ")
+    else
+      @errorsContainer.html ""
+
   valid: => true
 
   store: => # virtual

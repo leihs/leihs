@@ -11,7 +11,7 @@ class window.App.BookingCalendarDialogController extends Spine.Controller
   delegateEvents: =>
     @submitButton.on "click", @submit
     @dialog.on "change", "input", => @errorsContainer.html ""
-    @dialog.on "closed-day-alert", => @errorsContainer.html App.Render "views/booking_calendar/errors", {text: _jed("This inventory pool is closed on that day.")}
+    @dialog.on "validation-alert", => do @validationAlerts
 
   done: =>
     @modal.destroyable()
@@ -92,3 +92,9 @@ class window.App.BookingCalendarDialogController extends Spine.Controller
     @errorsContainer.html App.Render "views/booking_calendar/errors", {text: text}
 
   valid: => #virtual
+
+  validationAlerts: =>
+    if @valid()
+      @errorsContainer.html ""
+    else
+      @showError @errors.join(", ")

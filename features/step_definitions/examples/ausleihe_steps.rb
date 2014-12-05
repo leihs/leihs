@@ -11,20 +11,22 @@ Wenn /^ich kehre zur Tagesansicht zurück$/ do
   step 'ich öffne die Tagesansicht'
 end
 
-Wenn /^ich öffne eine Bestellung von "(.*?)"$/ do |arg1|
-  find("[data-collapsed-toggle='#open-orders']").click unless all("[data-collapsed-toggle='#open-orders']").empty?
-  @contract = @current_inventory_pool.contracts.find find("#daily-view #open-orders .line", match: :prefer_exact, :text => arg1)["data-id"]
-  @user = @contract.user
-  within("#daily-view #open-orders .line", match: :prefer_exact, :text => arg1) do
-    find(".line-actions .multibutton .dropdown-holder").click
-    find(".dropdown-item", :text => _("Edit")).click
-  end
-  find("h1", text: _("Edit %s") % _("Order"))
-  find("h2", text: arg1)
-end
+Wenn /^ich öffne eine Bestellung( von "(.*?)")?$/ do |arg0, arg1|
+  step %Q(I uncheck the "No verification required" button)
 
-Wenn /^ich öffne eine Bestellung$/ do
-  step 'ich öffne eine Bestellung von ""'
+  if arg0
+    @contract = @current_inventory_pool.contracts.find find(".line", match: :prefer_exact, :text => arg1)["data-id"]
+    within(".line", match: :prefer_exact, :text => arg1) do
+      find(".line-actions .multibutton .dropdown-holder").click
+      find(".dropdown-item", :text => _("Edit")).click
+    end
+  else
+    @contract = @current_inventory_pool.contracts.submitted.sample
+    visit manage_edit_contract_path(@current_inventory_pool, @contract)
+  end
+  @user = @contract.user
+  find("h1", text: _("Edit %s") % _("Order"))
+  find("h2", text: @user.to_s)
 end
 
 Dann /^sehe ich die letzten Besucher$/ do
@@ -404,12 +406,6 @@ def check_printed_contract(window_handles, ip = nil, contract = nil)
     expect(current_path).to eq manage_contract_path(ip, contract) if ip and contract
     expect(page.evaluate_script("window.printed")).to eq 1
   end
-end
-
-Wenn(/^ich eine Bestellung editieren$/) do
-  @contract = @current_inventory_pool.contracts.submitted.sample
-  @user = @contract.user
-  step "ich die Bestellung editiere"
 end
 
 Dann(/^erscheint der Benutzer unter den letzten Besuchern$/) do

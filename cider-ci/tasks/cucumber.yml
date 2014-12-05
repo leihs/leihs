@@ -525,6 +525,11 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         "features/manage/hand_over/assign.feature"
+- name: manage/hand_over/calendar
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        "features/manage/hand_over/calendar.feature"
 - name: manage/hand_over/delete
   scripts:
     cucumber:
@@ -700,6 +705,11 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         "features/technical/user/suspend.feature"
+- name: technical/user/user
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        "features/technical/user/user.feature"
 - name: technical/visit/hand_over_and_take_back_model
   scripts:
     cucumber:

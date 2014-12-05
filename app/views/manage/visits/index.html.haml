@@ -14,13 +14,13 @@
       
       #list-tabs.inline-tab-navigation
 
-        %a.inline-tab-item.active{:"data-actions" => ["hand_over", "take_back"]}
+        %a.inline-tab-item{data: {actions: ["hand_over", "take_back"]}, class: (params[:actions] != ["hand_over"] and params[:actions] != ["take_back"] ? "active" : nil)}
           = _("All")
 
-        %a.inline-tab-item{:"data-actions" => ["hand_over"]}
+        %a.inline-tab-item{data: {actions: ["hand_over"]}, class: (params[:actions] == ["hand_over"] ? "active" : nil)}
           = _("Hand Over")
 
-        %a.inline-tab-item{:"data-actions" => ["take_back"]}
+        %a.inline-tab-item{data: {actions: ["take_back"]}, class: (params[:actions] == ["take_back"] ? "active" : nil)}
           = _("Take Back")
 
       .row.margin-vertical-xs.padding-horizontal-m

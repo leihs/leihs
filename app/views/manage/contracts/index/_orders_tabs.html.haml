@@ -1,13 +1,13 @@
 #list-tabs.inline-tab-navigation
 
-  %a.inline-tab-item.active{:"data-status" => ["approved", "submitted", "rejected"]}
+  %a.inline-tab-item{data: {status: ["approved", "submitted", "rejected"]}, class: (params[:status] != ["submitted"] and params[:status] != ["approved"] and params[:status] != ["rejected"] ? "active" : nil)}
     = _("All")
 
-  %a.inline-tab-item{:"data-status" => ["submitted"]}
+  %a.inline-tab-item{data: {status: ["submitted"]}, class: (params[:status] == ["submitted"] ? "active" : nil)}
     = _("Pending")
 
-  %a.inline-tab-item{:"data-status" => ["approved"]}
+  %a.inline-tab-item{data: {status: ["approved"]}, class: (params[:status] == ["approved"] ? "active" : nil)}
     = _("Approved")
 
-  %a.inline-tab-item{:"data-status" => ["rejected"]}
+  %a.inline-tab-item{data: {status: ["rejected"]}, class: (params[:status] == ["rejected"] ? "active" : nil)}
     = _("Rejected")

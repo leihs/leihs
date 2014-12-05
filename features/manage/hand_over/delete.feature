@@ -29,5 +29,6 @@ Feature: Sign Contract
   @javascript @personas
   Scenario: Delete a hand over from the daily view
     Given I open the daily view
+    And I navigate to the hand over visits
     When I delete a hand over
     Then all lines of that hand over are deleted

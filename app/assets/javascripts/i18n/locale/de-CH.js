@@ -145,6 +145,10 @@ window.i18n.locale_data = {
          null,
          "** Automatisch generierte E-Mail **"
       ],
+      "Users who don't bring back the items on the required date are suspended from next day on.": [
+         null,
+         "Benutzer, die ihre Geräte nicht bis geforderten Tag zurückbringen, werden ab nächstem Tag danach gesperrt."
+      ],
       "Automatic suspension": [
          null,
          "Automatische Sperrung"
@@ -152,10 +156,6 @@ window.i18n.locale_data = {
       "Automatic suspension reason": [
          null,
          "Grund der automatischen Sperrung"
-      ],
-      "Users who don't bring back the items on the required date are suspended from next day on.": [
-         null,
-         "Benutzer, die ihre Geräte nicht bis geforderten Tag zurückbringen, werden ab nächstem Tag danach gesperrt."
       ],
       "A model for the Inventory Code / Serial Number '%s' was not found": [
          null,
@@ -1115,6 +1115,10 @@ window.i18n.locale_data = {
          null,
          "Passende Vorlagen"
       ],
+      "Max. visits": [
+         null,
+         "Max. Besuche"
+      ],
       "Mobile": [
          null,
          "Mobil"
@@ -1162,10 +1166,6 @@ window.i18n.locale_data = {
       "Name / ID": [
          null,
          "Name / ID"
-      ],
-      "New Delegation": [
-         null,
-         "Neue Delegation"
       ],
       "New Borrower": [
          null,
@@ -1423,10 +1423,6 @@ window.i18n.locale_data = {
       "Problems": [
          null,
          "Probleme"
-      ],
-      "Product": [
-         null,
-         "Produkt"
       ],
       "Project Number": [
          null,
@@ -1948,6 +1944,18 @@ window.i18n.locale_data = {
          null,
          "Der Vertrag kann nicht unterschrieben werden, weil einige Zeilen noch nicht zugewiesen wurden."
       ],
+      "This contract is not signable because the delegated user is either missing or not part of this delegation.": [
+         null,
+         "Dieser Vertrag kann nicht unterschrieben werden, weil der delegierte Benutzer fehlt oder nicht zur Delegation gehört."
+      ],
+      "Delegated user is not member of the contract's delegation or is empty": [
+         null,
+         "Die Kontaktperson ist nicht Mitglied der Delegation oder ist leer"
+      ],
+      "Delegated user must be empty for contract's normal user": [
+         null,
+         "Die Kontaktperson muss leer sein bei einem normalen User"
+      ],
       "Groups of this customer": [
          null,
          "Gruppen dieses/r Kunden/in"
@@ -1955,6 +1963,18 @@ window.i18n.locale_data = {
       "This inventory pool is closed on that day.": [
          null,
          "Dieser Gerätepark ist an diesem Tag geschlossen."
+      ],
+      "No orders are possible on this start date": [
+         null,
+         "Bestellungen sind für dieses Startdatum nicht möglich"
+      ],
+      "Booking is no longer possible on this start date": [
+         null,
+         "An diesem Startdatum ist keine Ausleihe mehr möglich"
+      ],
+      "Booking is no longer possible on this end date": [
+         null,
+         "An diesem Enddatum ist keine Ausleihe mehr möglich"
       ],
       "Inventory pool successfully updated.": [
          null,
@@ -2089,8 +2109,11 @@ window.i18n.locale_data = {
          "Benutzer"
       ],
       "Delegation": [
-         "Delegations",
-         "Delegation",
+         null,
+         "Delegation"
+      ],
+      "Delegations": [
+         null,
          "Delegationen"
       ],
       "User details were updated successfully.": [
@@ -2677,6 +2700,10 @@ window.i18n.locale_data = {
       "Inventory manager": [
          null,
          "Inventar-Verwalter"
+      ],
+      "New Delegation": [
+         null,
+         "Neue Delegation"
       ],
       "New User": [
          null,
@@ -3715,17 +3742,9 @@ window.i18n.locale_data = {
          null,
          "Wer hat die meisten Gegenstände gekauft?"
       ],
-      "Delegated user is not member of the contract's delegation or is empty": [
-         null,
-         "Die Kontaktperson ist nicht Mitglied der Delegation oder ist leer"
-      ],
-      "Delegated user must be empty for contract's normal user": [
-         null,
-         "Die Kontaktperson muss leer sein bei einem normalen User"
-      ],
       "Maintenance": [
          null,
-         "Wartung"
+         "Maintenance"
       ],
       "Automatic access": [
          null,
@@ -3824,6 +3843,10 @@ window.i18n.locale_data = {
          null,
          "Maintenance-Vertrag"
       ],
+      "Currency": [
+         null,
+         "Währung"
+      ],
       "Procured by": [
          null,
          "Beschafft durch"
@@ -3847,6 +3870,14 @@ window.i18n.locale_data = {
       "A package item must belong to a package model": [
          null,
          "Ein Paketgegenstand muss zu einem Paketmodel gehören"
+      ],
+      "Product": [
+         null,
+         "Produkt"
+      ],
+      "Min. number of days between order and hand over": [
+         null,
+         "Min. Tage zwischen Bestellung und Aushändigung"
       ]
    }
 }

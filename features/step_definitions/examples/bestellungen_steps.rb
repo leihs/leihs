@@ -234,7 +234,11 @@ def hand_over_assign_or_add(s)
 end
 
 Then(/^I can add models$/) do
-  @model = @current_inventory_pool.models.sample
+  @model = if @current_user.access_right_for(@current_inventory_pool).role == :group_manager
+             @current_inventory_pool.models.select {|m| m.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(Date.today, Date.today) > 0 }
+           else
+             @current_inventory_pool.models
+           end.sample
   hand_over_assign_or_add @model.to_s
 end
 
@@ -288,10 +292,7 @@ When(/^I search for (an order|a contract|a visit)$/) do |arg1|
   el = arg1 == "a visit" ? "#visits-index-view" : "#contracts-index-view"
   within el do
     if arg1 != "a visit"
-      cb = find("#list-filters input[name='no_verification_required']")
-      if cb.checked?
-        cb.click
-      end
+      step %Q(I uncheck the "No verification required" button)
     end
     step %Q(ich nach "%s" suche) % @search_term
   end
@@ -306,5 +307,13 @@ Then(/^all listed (orders|contracts|visits), are matched by the search term$/) d
       matching_contracts_ids = @contracts.search(@search_term).pluck(:id).map(&:to_s).sort
       expect(contract_ids).to eq matching_contracts_ids
     end
+  end
+end
+
+When /^I uncheck the "No verification required" button$/ do
+  selector = "#list-filters input[name='no_verification_required']"
+  if has_selector?(selector)
+    cb = find(selector)
+    cb.click if cb.checked?
   end
 end

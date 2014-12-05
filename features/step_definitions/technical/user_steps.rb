@@ -25,3 +25,13 @@ Then(/^the suspended reason is the one configured for the corresponding inventor
     ar.suspended_reason == ip.automatic_suspension_reason
   end
 end
+
+
+Then(/^a user with login "(.*?)" exists$/) do |arg1|
+  @user = User.find_by(login: arg1)
+  expect(@user).not_to be nil
+end
+
+Then(/^the login of this user is longer than (\d+) chars$/) do |arg1|
+  expect(@user.login.size).to be > 40
+end

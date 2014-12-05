@@ -448,7 +448,7 @@ Funktionalität: Benutzer verwalten
     Dann wurde der Benutzer aus der Liste gelöscht
     Und der Benutzer ist gelöscht
 
-  @personas
+  @personas @upcoming
   Szenario: Startseite zurücksetzen
     Angenommen ich bin Pius
     Und man hat eine Startseite gesetzt

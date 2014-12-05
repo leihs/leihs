@@ -205,22 +205,10 @@ class BookingCalendar
     if @isClosedDay date
       dayElement.addClass "closed"
 
-  closedDayValidation: =>
-    for date_el in [@startDate_el, @endDate_el]
-      date = moment(date_el.val(),df).toDate()
-      el = @getElementByDate date
-      if el # is in view
-        if @isClosedDay(date) or @holidaysBetween(@getHolidays(), date, date).length > 0
-          @addClosedDayAlert el 
+  validation: => @el.trigger "validation-alert"
 
   isClosedDay: (date)=>
     @getInventoryPool().isClosedOn(moment(date))
-
-  addClosedDayAlert: (el)=>
-    el = $(el)
-    setTimeout =>
-      @el.trigger "closed-day-alert", el
-    , 100
 
   setOtherMonth: =>
     for dayElement in @fullcalendar.find(".fc-other-month")
@@ -282,7 +270,7 @@ class BookingCalendar
       dayElement.addClass "selected"
     else
       dayElement.removeClass "selected"
-    do @closedDayValidation
+    do @validation
 
   setAvailability: (dayElement, available)=>
     if available then dayElement.removeClass("unavailable").addClass("available") else dayElement.removeClass("available").addClass("unavailable")
@@ -334,7 +322,7 @@ class BookingCalendar
                 @startDate_el.val(moment(date).format(df)).change()
               else if $(e.currentTarget).is "#set-end-date"
                 @endDate_el.val(moment(date).format(df)).change()
-              do @closedDayValidation
+              do @validation
         target.tooltipster("enable")
         target.tooltipster("show")
         target.tooltipster("disable")

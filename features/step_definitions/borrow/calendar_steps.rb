@@ -4,6 +4,14 @@ When(/^I open the calendar of a model$/) do
   find("[data-create-order-line][data-model-id='#{model.id}']").click
 end
 
+Given(/^the current inventory pool has reached maximum amount of visits$/) do
+  if @current_inventory_pool.workday.reached_max_visits.empty?
+    # NOTE set max visits to 1 for all days
+    @current_inventory_pool.workday.update_attributes(max_visits: (0..6).inject({}) { |h, n| h[n] = 1; h })
+  end
+  expect(@current_inventory_pool.workday.reached_max_visits).not_to be_empty
+end
+
 When(/^I open the calendar of a model related to an inventory pool for which has reached maximum amount of visits$/) do
   @inventory_pool = @current_user.inventory_pools.shuffle.detect { |ip| not ip.workday.reached_max_visits.empty? }
   @inventory_pool ||= @current_user.inventory_pools.detect do |ip|
@@ -39,56 +47,57 @@ end
 Then(/^(the|no) availability number is shown (.*)$/) do |arg1, arg2|
   dates = case arg2
             when "on this specific date"
-              @inventory_pool.workday.reached_max_visits
+              (@current_inventory_pool || @inventory_pool).workday.reached_max_visits
             when "for today"
-              [Date.today]
+              Date.today
             when "for tomorrow"
-              [Date.tomorrow]
-            when "for day after tomorrow"
-              [Date.tomorrow + 1.day]
+              Date.tomorrow
+            when "for the next open day after tomorrow"
+              (@current_inventory_pool || @inventory_pool).next_open_date(Date.tomorrow + 1.day)
             else
               raise
           end
   within ".modal" do
-    dates.each do |date|
+    Array(dates).each do |date|
       while has_no_selector?(".fc-widget-content[data-date='#{date}']") do
         find(".fc-button-next").click
       end
-      case arg1
-        when "the"
-          find(".fc-widget-content:not(.closed)[data-date='#{date}']")
-        when "no"
-          find(".fc-widget-content.closed[data-date='#{date}']")
-        else
-          raise
+      within ".fc-widget-content[data-date='#{date}']" do
+        text = find(".fc-day-content > div").text
+        case arg1
+          when "the"
+            expect(text).not_to be_empty
+          when "no"
+            expect(text).to be_empty
+          else
+            raise
+        end
       end
     end
   end
 end
 
-When(/^I specify (.*) as start or end date$/) do |arg1|
+When(/^I specify (.*) as (start|end) date$/) do |arg1, arg2|
   @date = case arg1
             when "today"
               Date.today
             when "tomorrow"
               Date.tomorrow
             when "this date"
-              @inventory_pool.workday.reached_max_visits.sample
+              (@current_inventory_pool || @inventory_pool).workday.reached_max_visits.sample
             else
               raise
           end
-  step "ich setze das %s im Kalendar auf '#{I18n::l(@date)}'" % [_("Start Date"), _("End Date")].sample
-end
-
-Then(/^(the day|today|tomorrow) is marked red$/) do |arg1|
-  within ".modal" do
-    # NOTE our red definition is #FF4C4D == rgba(255, 76, 77, 1)
-    expect(find(".fc-widget-content.closed[data-date='#{@date}']").native.style('background-color')).to eq "rgba(255, 76, 77, 1)"
-  end
+  step "ich setze das %s im Kalendar auf '#{I18n::l(@date)}'" % (arg2 == "start" ? _("Start Date") : _("End Date"))
 end
 
 Then(/^I receive an error message within the modal$/) do
   within ".modal #booking-calendar-errors" do
-    find(".red", text: _("This inventory pool is closed on that day."))
+    find(".red")
   end
+end
+
+Then /^the start or end date of that line is changed$/ do
+  @line.reload
+  expect([@line.start_date, @line.end_date]).to include @date
 end
