@@ -131,8 +131,9 @@ class Contract < ActiveRecord::Base
     contracts = contracts.where(id: params[:ids]) if params[:ids]
 
     if r = params[:range]
-      contracts = contracts.created_after_start_date(r[:start_date]) if r[:start_date]
-      contracts = contracts.created_before_end_date(r[:end_date]) if r[:end_date]
+      created_at_date = Arel::Nodes::NamedFunction.new "CAST", [ Contract.arel_table[:created_at].as("DATE") ]
+      contracts = contracts.where(created_at_date.gteq(r[:start_date])) if r[:start_date]
+      contracts = contracts.where(created_at_date.lteq(r[:end_date])) if r[:end_date]
     end
 
     contracts = contracts.order(Contract.arel_table[:created_at].desc)
@@ -140,14 +141,6 @@ class Contract < ActiveRecord::Base
     # computing total_entries with count(distinct: true) explicitly, because default contracts.count used by paginate plugin seems to override the DISTINCT option and thus returns wrong result. See https://stackoverflow.com/questions/7939719/will-paginate-generates-wrong-number-of-page-links
     contracts = contracts.default_paginate(params, total_entries: contracts.distinct.count) unless params[:paginate] == "false"
     contracts
-  end
-
-  def self.created_after_start_date start_date
-    where(Contract.arel_table[:created_at].gt(start_date))
-  end
-
-  def self.created_before_end_date end_date
-    where(Contract.arel_table[:created_at].lt(end_date))
   end
 
   def self.initial_scope user = nil, inventory_pool = nil

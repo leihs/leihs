@@ -8,9 +8,9 @@ class window.App.LinesCellTooltipController extends Spine.Controller
     record = if trigger.closest(".line[data-type='contract']").length 
       App.Contract.findOrBuild(trigger.closest(".line[data-type='contract']").data())
     else if trigger.closest(".line[data-type='take_back']").length 
-      App.TakeBack.findOrBuild(trigger.closest(".line[data-type='take_back']").data())
+      App.Visit.findOrBuild(trigger.closest(".line[data-type='take_back']").data())
     else if trigger.closest(".line[data-type='hand_over']").length 
-      App.HandOver.findOrBuild(trigger.closest(".line[data-type='hand_over']").data())
+      App.Visit.findOrBuild(trigger.closest(".line[data-type='hand_over']").data())
     tooltip = new App.Tooltip
       el: trigger.closest(".line-col")
       content: App.Render "views/loading", {size: "micro"}

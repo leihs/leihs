@@ -5,7 +5,7 @@ class window.App.TakeBacksSendReminderController extends Spine.Controller
   
   send: (e)=>
     trigger = $ e.currentTarget
-    takeBack = App.TakeBack.findOrBuild trigger.closest("[data-id]").data()
+    takeBack = App.Visit.findOrBuild trigger.closest("[data-id]").data()
     takeBack.remind()
     line = trigger.closest(".line")
     if line.length

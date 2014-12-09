@@ -1,1 +1,0 @@
-window.App.Visit.url = => "/manage/#{App.InventoryPool.current.id}/visits"

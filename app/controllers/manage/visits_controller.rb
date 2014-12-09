@@ -15,7 +15,7 @@ class Manage::VisitsController < Manage::ApplicationController
   end
 
   def remind
-    user = current_inventory_pool.visits.find(params[:visit_id]).user
+    user = current_inventory_pool.visits.take_back.find(params[:visit_id]).user
     user.remind(current_user)
     render :status => :no_content, :nothing => true
   end

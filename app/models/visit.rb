@@ -75,8 +75,12 @@ class Visit < ActiveRecord::Base
     visits = visits.search(params[:search_term]) unless params[:search_term].blank?
     visits = visits.where Visit.arel_table[:date].lteq(params[:date]) if params[:date] and params[:date_comparison] == "lteq"
     visits = visits.where Visit.arel_table[:date].eq(params[:date]) if params[:date] and params[:date_comparison] == "eq"
-    visits = visits.where(Visit.arel_table[:date].gt(params[:range][:start_date])) if params[:range] and params[:range][:start_date]
-    visits = visits.where(Visit.arel_table[:date].lt(params[:range][:end_date])) if params[:range] and params[:range][:end_date]
+
+    if r = params[:range]
+      visits = visits.where(Visit.arel_table[:date].gteq(r[:start_date])) if r[:start_date]
+      visits = visits.where(Visit.arel_table[:date].lteq(r[:end_date])) if r[:end_date]
+    end
+
     visits = visits.default_paginate params unless params[:paginate] == "false"
     visits
   end

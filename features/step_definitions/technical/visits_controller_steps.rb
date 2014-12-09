@@ -41,7 +41,7 @@ end
 
 When /^the visit is deleted$/ do
   @visit_count = Visit.count
-  @response = delete manage_inventory_pool_destroy_hand_over_path(@inventory_pool, @visit.id), {:format => :json}
+  @response = delete "/manage/#{@inventory_pool.id}/visits/#{@visit.id}.json"
 end
 
 Then /^the visit does not exist anymore$/ do
@@ -51,13 +51,13 @@ end
 
 When /^the index action of the visits controller is called with the filter parameter "take back" and a given date$/ do
   @date = Date.today
-  response = get manage_inventory_pool_take_backs_path(@inventory_pool), {date: @date.to_s, format: "json", date_comparison: "lteq"}
+  response = get "/manage/#{@inventory_pool.id}/visits/take_backs.json", {date: @date.to_s, date_comparison: "lteq"}
   @json = JSON.parse response.body
 end
 
 When /^the index action of the visits controller is called with the filter parameter "hand over" and a given date$/ do
   @date = Date.today
-  response = get manage_inventory_pool_hand_overs_path(@inventory_pool), {date: @date.to_s, format: "json", date_comparison: "lteq"}
+  response = get "/manage/#{@inventory_pool.id}/visits/hand_overs.json", {date: @date.to_s, date_comparison: "lteq"}
   @json = JSON.parse response.body
 end
 
