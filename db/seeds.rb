@@ -8,23 +8,24 @@ main_building.save
 
 admin = User.where(:login => 'admin').first
 unless admin
-  admin = User.create(:email => "admin@example.com",
+  admin = User.new(:email => "admin@example.com",
                       :login => "admin",
                       :language_id => Language.default_language.id,
                       :firstname => "Admin",
-                      :lastname => "Admin")
+                      :lastname => "Admin",
+                      :authentication_system => AuthenticationSystem.default_system.first)
 
   admin.save
-  admin.access_rights.create(:role => :admin)
 
   dba = DatabaseAuthentication.create(:login => "admin",
                                       :password => "password",
                                       :password_confirmation => "password")
   dba.user = admin
+
+  admin.access_rights.create(:role => :admin)
   if dba.save
     puts "The administrator user 'admin' has been created with password 'password'"
   else
     puts "There was an error creating the login credentials for the default admin user 'admin'. The error was: #{dba.errors.full_messages}"
   end
 end
-
