@@ -23,10 +23,8 @@ task :modify_config do
 end
 
 task :reset_demo_data do
-  run "mysql -h #{sql_host} --user=#{sql_username} --password=#{sql_password} #{sql_database} -e 'drop database #{sql_database}'"
-  run "mysql -h #{sql_host} --user=#{sql_username} --password=#{sql_password} -e 'create database #{sql_database}'"
-  # Super-special shit: We need to reset all data and then tell the leihs 2.9 demo that its database has completely 
-  # exploded and that it needs to expire everything it knows about models and availability.
+  #run "mysql -h #{sql_host} --user=#{sql_username} --password=#{sql_password} #{sql_database} -e 'drop database #{sql_database}'"
+  #run "mysql -h #{sql_host} --user=#{sql_username} --password=#{sql_password} -e 'create database #{sql_database}'"
   run "/home/leihs/leihs-demo-new/reseed_demo_data.sh"
 end
 
