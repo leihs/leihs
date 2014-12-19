@@ -100,6 +100,11 @@ Then(/^the checkbox "(.*?)" is already checked and I can uncheck$/) do |arg1|
       within("#contracts-index-view") do
         find("#contracts")
       end
+    when "No verification required"
+      find("input[type='checkbox'][name='no_verification_required']:checked").click
+      within("#contracts-index-view") do
+        find("#contracts")
+      end
     else
       raise
   end

@@ -64,13 +64,13 @@ Then /^the (.*?) is added to the hand over$/ do |type|
   contract = @customer.get_approved_contract(@current_inventory_pool)
   case type
     when "option"
+      find(".line[data-line-type='option_line'] .col1of10", match: :prefer_exact, text: @inventory_code)
       option = Option.find_by_inventory_code(@inventory_code)
       @option_line = contract.reload.option_lines.where(option_id: option).order(:created_at).last
       expect(contract.reload.options.include?(option)).to be true
-      find(".line[data-line-type='option_line'] .col1of10", match: :prefer_exact, text: @inventory_code)
     when "model"
-      expect(contract.reload.models.include?(@model)).to be true
       find(".line[data-line-type='item_line'] .col4of10", match: :prefer_exact, text: @model.name)
+      expect(contract.reload.models.include?(@model)).to be true
   end
 end
 

@@ -35,26 +35,51 @@ Dann /^den Paketen wird ein Inventarcode zugewiesen$/ do
   expect(@packages.first.inventory_code).not_to be_nil
 end
 
-Wenn /^das Paket zurzeit nicht ausgeliehen ist$/ do
-  @package = @current_inventory_pool.items.packages.in_stock.first
+Given /^a (never|once) handed over item package is currently in stock$/ do |arg1|
+  item_packages = @current_inventory_pool.items.packages.in_stock
+  @package = case arg1
+               when "never"
+                 item_packages.shuffle.detect {|p| p.item_lines.empty? }
+               when "once"
+                 item_packages.shuffle.detect {|p| p.item_lines.exists? }
+             end
+end
+
+Wenn(/^edit the related model package$/) do
   visit manage_edit_model_path(@current_inventory_pool, @package.model)
 end
 
-Dann /^kann ich das Paket löschen und die Gegenstände sind nicht mehr dem Paket zugeteilt$/ do
+Wenn(/^I delete that item package$/) do
   @package_item_ids = @package.children.map(&:id)
   find("[data-type='inline-entry'][data-id='#{@package.id}'] [data-remove]").click
   step 'ich speichere die Informationen'
   find("#flash")
-  expect(Item.find_by_id(@package.id).nil?).to be true
-  expect { @package.reload }.to raise_error(ActiveRecord::RecordNotFound)
+end
+
+Dann(/^the item package is (deleted|retired)$/) do |arg1|
+  case arg1
+    when "deleted"
+      expect(Item.find_by_id(@package.id).nil?).to be true
+      expect { @package.reload }.to raise_error(ActiveRecord::RecordNotFound)
+    when "retired"
+      expect(Item.find_by_id(@package.id).nil?).to be false
+      expect(@package.reload.retired).to eq Date.today
+  end
+end
+
+Then /^the packaged items are not part of that item package anymore$/ do
   expect(@package_item_ids.size).to be > 0
   @package_item_ids.each do |id|
     expect(Item.find(id).parent_id).to eq nil
   end
 end
 
+Dann(/^that item package is not listed$/) do
+  expect(has_no_selector? "[data-type='inline-entry'][data-id='#{@package.id}']").to be true
+end
+
 Wenn /^das Paket zurzeit ausgeliehen ist$/ do
-  @package_not_in_stock = @current_inventory_pool.items.packages.not_in_stock.first
+  @package_not_in_stock = @current_inventory_pool.items.packages.not_in_stock.sample
   visit manage_edit_model_path(@current_inventory_pool, @package_not_in_stock.model)
 end
 
@@ -164,7 +189,7 @@ end
 
 Wenn /^ich ein bestehendes Paket editiere$/ do
   if @model
-    @package = @model.items.packages.sample
+    @package = @model.items.packages.where(inventory_pool_id: @current_inventory_pool).sample
     find("#packages .line[data-id='#{@package.id}'] [data-edit-package]").click
   else
     find("#packages .line[data-new] [data-edit-package]", match: :first).click

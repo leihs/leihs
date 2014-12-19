@@ -373,7 +373,7 @@ Given(/^the following package model with (\d+) items? exists:$/) do |items_quant
     package = Model.find_by_name(hash_row["product name"]) || FactoryGirl.create(:package_model, product: hash_row["product name"])
     inventory_pool = InventoryPool.find_by_name hash_row["inventory pool name"]
     items_quantity.to_i.times do
-      package.items << FactoryGirl.create(:package_item_with_parts, owner: inventory_pool, inventory_pool: inventory_pool)
+      FactoryGirl.create(:package_item_with_parts, model: package, owner: inventory_pool, inventory_pool: inventory_pool)
     end
   end
 end

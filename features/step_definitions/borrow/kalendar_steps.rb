@@ -63,7 +63,8 @@ end
 
 Dann(/^schlägt der Versuch es hinzufügen fehl$/) do
   find("#booking-calendar")
-  expect(@current_user.contracts.unsubmitted.flat_map(&:lines).flat_map(&:model)).not_to include @model
+  models = @current_user.contracts.unsubmitted.flat_map(&:lines).flat_map(&:model)
+  expect(models.include? @model).to be false
 end
 
 Dann(/^ich sehe die Fehlermeldung, dass das ausgewählte Modell im ausgewählten Zeitraum nicht verfügbar ist$/) do

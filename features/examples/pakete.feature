@@ -103,9 +103,24 @@ Funktionalität: Modell mit Paketen erstellen
 
 
   @javascript @personas
-  Szenario: Paket löschen
-    Wenn das Paket zurzeit nicht ausgeliehen ist 
-    Dann kann ich das Paket löschen und die Gegenstände sind nicht mehr dem Paket zugeteilt
+  Szenario: Delete an item package that was never handed over
+    Angenommen a never handed over item package is currently in stock
+    Wenn edit the related model package
+    Wenn I delete that item package
+    Dann the item package is deleted
+    Und the packaged items are not part of that item package anymore
+    Wenn edit the related model package
+    Dann that item package is not listed
+
+  @javascript @personas
+  Szenario: Delete an item package related to a closed contract
+    Angenommen a once handed over item package is currently in stock
+    Wenn edit the related model package
+    Wenn I delete that item package
+    Dann the item package is retired
+    Und the packaged items are not part of that item package anymore
+    Wenn edit the related model package
+    Dann that item package is not listed
 
   @personas
   Szenario: Paket löschen schlägt fehl wenn das Paket gerade ausgeliehen ist

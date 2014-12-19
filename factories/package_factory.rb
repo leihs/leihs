@@ -19,7 +19,7 @@ FactoryGirl.define do
     factory :package_item_with_parts do
       after(:create) do |item, evaluator|
         3.times do
-          item.children << FactoryGirl.create(:item, :owner => evaluator.owner)
+          item.children << FactoryGirl.create(:item, owner: evaluator.owner, parent: item)
         end
       end
     end

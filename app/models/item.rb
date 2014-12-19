@@ -145,7 +145,9 @@ class Item < ActiveRecord::Base
   end
 
   before_destroy do
-    unless model.is_package?
+    if model.is_package? and contract_lines.empty?
+      # NOTE only never handed over packages can be deleted
+    else
       errors.add(:base, "Item cannot be deleted")
       return false
     end
@@ -165,13 +167,12 @@ class Item < ActiveRecord::Base
   scope :inventory_relevant, -> { where(:is_inventory_relevant => true) }
   scope :not_inventory_relevant, -> { where(:is_inventory_relevant => false) }
 
-  # OPTIMIZE 1102** use item_lines association
-  scope :packages, -> { where(['items.id IN (SELECT DISTINCT parent_id FROM items WHERE retired IS NULL)']) }
+  scope :packages, -> { joins(:model).where(models: {is_package: true}) }
   #temp# scope :packaged, -> {where("parent_id IS NOT NULL")}
 
   # Added parent_id to "in_stock" so items that are in packages are considered to not be available
-  scope :in_stock, -> { joins("LEFT JOIN contract_lines ON items.id=contract_lines.item_id AND returned_date IS NULL").where("contract_lines.id IS NULL AND parent_id IS NULL") }
-  scope :not_in_stock, -> { joins("INNER JOIN contract_lines ON items.id=contract_lines.item_id AND returned_date IS NULL") }
+  scope :in_stock, -> { joins("LEFT JOIN contract_lines AS cl001 ON items.id=cl001.item_id AND cl001.returned_date IS NULL").where("cl001.id IS NULL AND items.parent_id IS NULL") }
+  scope :not_in_stock, -> { joins("INNER JOIN contract_lines AS cl001 ON items.id=cl001.item_id AND cl001.returned_date IS NULL") }
 
   scope :by_owner_or_responsible, lambda { |ip| where(":id IN (owner_id, inventory_pool_id)", :id => ip.id) }
 
@@ -461,12 +462,11 @@ class Item < ActiveRecord::Base
 
 ####################################################################
 
-
-# overriding attribute setter
+  # overriding attribute setter
   def retired=(v)
     if v.is_a? Date
-      write_attribute :retired, v
-    elsif v == "true" || v == true
+      self[:retired] = v
+    elsif [true, "true"].include? v
       if retired?
         # we keep the existing stored date
       else
@@ -543,6 +543,12 @@ class Item < ActiveRecord::Base
       end
     else
       errors.add(:base, _("A package item must belong to a package model")) unless children.empty? or model.is_package
+
+      if model.is_package? and !!retired
+        children.each do |item|
+          item.update_attributes(parent: nil)
+        end
+      end
     end
   end
 

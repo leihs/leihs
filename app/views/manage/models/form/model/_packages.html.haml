@@ -1,6 +1,5 @@
 :ruby
-
-  entries = @model.persisted? ? @model.items.where(inventory_pool: current_inventory_pool).order("created_at DESC") : []
+  entries = @model.persisted? ? @model.items.unretired.where(inventory_pool: current_inventory_pool).order("created_at DESC") : []
 
 #packages
   = render :layout => "manage/fields/field", :locals => {key: _("Packages"), entries: entries, entry_partial: "manage/models/form/model/package_inline_entry"} do

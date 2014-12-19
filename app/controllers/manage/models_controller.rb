@@ -245,7 +245,13 @@ class Manage::ModelsController < Manage::ApplicationController
       else
         item = Item.find_by_id(package["id"])
         if package["_destroy"] == "1"
-          item.destroy()
+          if item.contract_lines.empty?
+            item.destroy
+          else
+            item.retired = true
+            item.retired_reason = "%s %s" % [_("Package"), _("Deleted")]
+            item.save
+          end
           next
         elsif item
           package.delete "_destroy"
@@ -259,7 +265,6 @@ class Manage::ModelsController < Manage::ApplicationController
         end
         flash[:success] = "#{_("Model saved")} / #{_("Packages updated")}"
       end
-      item.save!
     end
   end
 

@@ -35,7 +35,7 @@ Dann(/^der Name des Benutzers ist in jeder Vertragslinie angezeigt$/) do
 end
 
 Dann(/^die Personalien des Benutzers werden im Tooltip angezeigt$/) do
-  hover_for_tooltip find("#contracts [data-type='user-cell']")
+  hover_for_tooltip find("#contracts [data-type='user-cell']", match: :first)
   within ".tooltipster-base" do
     [@user.name, @user.email, @user.address, @user.phone, @user.badge_id].each {|info| has_content? info}
   end

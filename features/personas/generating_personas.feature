@@ -687,6 +687,16 @@ Feature: Generating Personas
     And this contract is closed on "#{Date.today}" by "pius@zhdk.ch"
 
     And an approved contract with following properties exist:
+      | user email          | customer7@zhdk.ch |
+      | inventory pool name | A-Ausleihe        |
+    And this contract has from 1 to 1 item lines:
+      | model package name | Kamera Set2 |
+      | item               | in_stock    |
+      | assigned           | true        |
+    And this contract is signed by "pius@zhdk.ch"
+    And this contract is closed on "#{Date.today}" by "pius@zhdk.ch"
+
+    And an approved contract with following properties exist:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
     And this contract has from 1 to 1 item lines:
@@ -953,6 +963,6 @@ Feature: Generating Personas
       | model name | MacBook Air                       |
     And today is back to initial random date
 
-    Then there are 53 contracts in total
+    Then there are 54 contracts in total
 
     Then the current time dump is generated
