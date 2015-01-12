@@ -36,6 +36,7 @@ gem 'json', '~> 1.8'
 gem 'jsrender-rails', '~> 1.2', git: 'https://github.com/spape/jsrender-rails.git', branch: 'own_template_prefix'
 gem 'ladle', group: :test
 gem 'launchy', '~> 2.1', group: [:test, :development]
+gem 'liquid', '~> 3.0'
 gem 'meta_request', group: :development
 gem 'metric_fu', group: :development
 gem 'mini_magick', '~> 3.4'

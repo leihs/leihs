@@ -8,12 +8,9 @@ class ModelsController < ApplicationController
     if img = Model.find(params[:id]).image(params[:offset])
       redirect_to img.public_filename(params[:size])
     else
-      redirect_to :action => :placeholder
+      empty_gif_pixel = "R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\n"
+      send_data Base64.decode64(empty_gif_pixel), :type => "image/gif", :disposition => 'inline'
     end
   end
 
-  def placeholder
-    empty_gif_pixel = "R0lGODlhAQABAIAAAAAAAAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==\n"
-    send_data Base64.decode64(empty_gif_pixel), :type => "image/gif", :disposition => 'inline'
-  end
 end

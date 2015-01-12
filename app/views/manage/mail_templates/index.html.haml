@@ -1,0 +1,27 @@
+- content_for :title, _("Mail Templates")
+- content_for :admin_section, "active"
+
+.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/admin', :locals => {:active_tab => :mail_templates}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    .list-of-lines
+
+      - @existing_mail_templates.each do |existing_mail_template|
+        .row.line
+          .line-col.col1of5
+            = existing_mail_template.first
+          .line-col.col3of5.text-align-left
+            = existing_mail_template.last.gsub('_', ' ')
+          .line-col.col1of5
+            :ruby
+              path = case current_inventory_pool
+                      when nil
+                        "/manage/mail_templates/#{existing_mail_template.first}/#{existing_mail_template.last}"
+                      else
+                        "/manage/#{current_inventory_pool.id}/mail_templates/#{existing_mail_template.first}/#{existing_mail_template.last}"
+                     end
+            %a.button.white{href: path}
+              = _("Edit")

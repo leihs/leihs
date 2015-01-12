@@ -1,0 +1,53 @@
+- content_for :title, _("Mail Templates")
+- content_for :admin_section, "active"
+
+.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/admin', :locals => {:active_tab => :mail_templates}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    = form_tag nil, :method => :put, :html => { class: "indent", name: "form" } do
+
+      .row.margin-top-l.padding-horizontal-m
+        .row
+          %h1.headline-l.float-left= yield :title
+          %div.float-right
+            %button.button.green{:type => :submit}= _("Save %s") % _("Mail Templates")
+
+        - @mail_templates.each do |mail_template|
+          .row.margin-vertical-s
+            .padding-bottom-xxs
+              .row.emboss.padding-inset-s
+                .col1of5
+                  %strong.font-size-m= _("Name")
+                .col4of5
+                  %input.width-full{type: :hidden, name: "mail_templates[][name]", value: mail_template.name}
+                  .font-size-m= mail_template.name.gsub('_', ' ')
+              .row.emboss.padding-inset-s
+                .col1of5
+                  %strong.font-size-m= _("Language")
+                .col4of5
+                  %input.width-full{type: :hidden, name: "mail_templates[][language]", value: mail_template.language.locale_name}
+                  .font-size-m= mail_template.language.locale_name
+              .row.emboss.padding-inset-s
+                .col1of5
+                  %strong.font-size-m= _("Format")
+                .col4of5
+                  %input.width-full{type: :hidden, name: "mail_templates[][format]", value: mail_template.format}
+                  .font-size-m= mail_template.format
+              .row.emboss.padding-inset-s
+                .col1of5
+                  %strong.font-size-m= _("Body")
+                .col4of5
+                  %textarea.width-full{name: "mail_templates[][body]", rows: 8}= mail_template.body
+
+
+:coffeescript
+  $(document).ready ->
+    $("textarea").on('focus', ->
+      $("textarea").trigger('autosize.destroy')
+      $(this).autosize()
+    #).on('blur', ->
+    #  $(this).trigger('autosize.destroy')
+    )

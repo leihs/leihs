@@ -1,0 +1,27 @@
+Dear {{ user.name }},
+
+** This is an automatically generated response **
+
+Your order for the following items has been confirmed by the inventory manager:
+
+Inventory pool: {{ inventory_pool.name }}
+
+{% for l in order_lines %}
+* {{ l.quantity }} {{ l.model_name }}, {{ l.start_date | date: '%d/%m/%Y' }} - {{ l.end_date | date: '%d/%m/%Y' }}
+{% endfor %}
+
+{% if comment %}
+
+These are the comments of the inventory manager:
+
+{{ comment }}
+
+{% endif %}
+
+Kind regards,
+
+{{ email_signature }}
+
+--
+{{ inventory_pool.name }}
+{{ inventory_pool.description }}

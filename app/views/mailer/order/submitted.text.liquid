@@ -1,0 +1,24 @@
+Dear {{ user.name }},
+
+** This is an automatically generated response **
+
+Your order for the following items listed below was successfully submitted.
+
+Inventory pool: {{ inventory_pool.name }}
+
+{% for l in order_lines %}
+* {{ l.quantity }} {{ l.model_name }}, {{ l.start_date | date: '%d/%m/%Y' }} - {{ l.end_date | date: '%d/%m/%Y' }}
+{% endfor %}
+
+Purpose:
+{{ purpose }}
+
+Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account.
+
+Kind regards,
+
+{{ email_signature }}
+
+--
+{{ inventory_pool.name }}
+{{ inventory_pool.description }}

@@ -18,4 +18,9 @@
                                                                                 :class => (defined? active_tab and active_tab == :inventory_pools) ? "active" : ""}
           = _("Inventory Pools")
 
+      %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => "/manage/#{current_inventory_pool.id}/mail_templates",
+                                                                                :class => (defined? active_tab and active_tab == :mail_templates) ? "active" : ""}
+          = _("Mail Templates")
+
   = render :partial => "manage/tabs/current_inventory_pool", :locals => {:current_inventory_pool => current_inventory_pool}

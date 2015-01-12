@@ -144,7 +144,7 @@ end
 Wenn(/^ein Benutzer wegen verspäteter Rückgaben automatisch gesperrt wird$/) do
   user_id = ContractLine.by_inventory_pool(@current_inventory_pool).to_take_back.where("end_date < ?", Date.today).pluck(:user_id).uniq.sample
   @user = User.find user_id
-  @user.suspend
+  @user.automatic_suspend(@current_inventory_pool)
 end
 
 Dann(/^wird er für diesen Gerätepark gesperrt bis zum '(\d+)\.(\d+)\.(\d+)'$/) do |day, month, year|

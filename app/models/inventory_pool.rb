@@ -37,6 +37,8 @@ class InventoryPool < ActiveRecord::Base
     end
   end
 
+  has_many :mail_templates, :dependent => :delete_all
+
   before_create :create_workday
 
 #######################################################################

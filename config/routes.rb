@@ -31,7 +31,6 @@ Leihs::Application.routes.draw do
   # Models
   get "models/:id/image",       to: "models#image", as: "model_image"
   get "models/:id/image_thumb", to: "models#image", as: "model_image_thumb", size: :thumb
-  get "models/placeholder",     to: "models#placeholder"
 
   # Properties
   get "properties", to: "properties#index", as: "properties"
@@ -147,6 +146,11 @@ Leihs::Application.routes.draw do
     # Administrate settings
     get 'settings', to: 'settings#edit',    as: 'edit_settings'
     put 'settings', to: 'settings#update',  as: 'update_settings'
+
+    # Mail templates
+    get 'mail_templates', to: 'mail_templates#index'
+    get 'mail_templates/:dir/:name', to: 'mail_templates#edit'
+    put 'mail_templates/:dir/:name', to: 'mail_templates#update'
 
     scope ":inventory_pool_id/" do
 
@@ -305,6 +309,12 @@ Leihs::Application.routes.draw do
       get  'search/contracts',     to: "search#contracts",     as: "search_contracts"
       get  'search/orders',        to: "search#orders",        as: "search_orders"
       get  'search/options',       to: "search#options",       as: "search_options"
+
+      # Mail templates
+      get 'mail_templates', to: 'mail_templates#index'
+      get 'mail_templates/:dir/:name', to: 'mail_templates#edit'
+      put 'mail_templates/:dir/:name', to: 'mail_templates#update'
+
     end
 
   end

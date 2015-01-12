@@ -1,0 +1,30 @@
+Dear {{ user.name }},
+
+** This is an automatically generated response **
+
+The following items are overdue or need to be inspected:
+
+{{ quantity }} item(s) due on {{ due_date | date: '%d/%m/%Y' }} at the inventory pool {{ inventory_pool.name }}
+{% for l in contract_lines %}
+* {{ l.quantity }} {{ l.model_name }} ({{ l.item_inventory_code }}), {{ l.start_date | date: '%d/%m/%Y' }} - {{ l.end_date | date: '%d/%m/%Y' }}
+{% endfor %}
+
+== Are any of the above items your personal computer?
+
+We kindly ask you to contact us as soon as possible. Your computer might need an update.
+
+== "Are any of the above borrowed items?
+
+Since we did not receive any request for renewal, we consequently demand the return of the items without further delay.
+
+By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance.
+
+You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months.
+
+Kind regards,
+
+{{ email_signature }}
+
+--
+{{ inventory_pool.name }}
+{{ inventory_pool.description }}

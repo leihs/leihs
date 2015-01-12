@@ -19,11 +19,17 @@
           = _("Settings")
 
       %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => "/manage/mail_templates",
+                                                                                :class => (defined? active_tab and active_tab == :mail_templates) ? "active" : ""}
+          = _("Mail Templates")
+
+      %li
         %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => "/admin/database/indexes",
                                                                                 :class => (defined? active_tab and active_tab == :database_indexes) ? "active" : ""}
           = _("Database check")
 
-      %li
+      -#old# TODO remove scenarios report
+      -#%li
         %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => "/admin/scenarios",
                                                                                 :class => (defined? active_tab and active_tab == :scenarios) ? "active" : ""}
           = _("Scenarios")

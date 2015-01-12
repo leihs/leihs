@@ -31,7 +31,7 @@ class VisitLine < ActiveRecord::Base
   #######################################################
   
   #belongs_to :user
-  #belongs_to :inventory_pool
+  belongs_to :inventory_pool
   
   belongs_to :visit
   belongs_to :contract_line

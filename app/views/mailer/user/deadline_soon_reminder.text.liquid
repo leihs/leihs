@@ -1,0 +1,28 @@
+Dear {{ user.name }},
+
+** This is an automatically generated response **
+
+The following items are due to be returned tomorrow or need to be inspected:
+
+{{ quantity }} item(s) due on {{ due_date | date: '%d/%m/%Y' }} at the inventory pool {{ inventory_pool.name }}
+{% for l in contract_lines %}
+* {{ l.quantity }} {{ l.model_name }} ({{ l.item_inventory_code }}), {{ l.start_date | date: '%d/%m/%Y' }} - {{ l.end_date | date: '%d/%m/%Y' }}
+{% endfor %}
+
+== Are any of the above items your personal computer?
+
+We kindly ask you to contact us as soon as possible. Your computer might need an update.
+
+== "Are any of the above borrowed items?
+
+We are just sending you this little reminder because someone else is already waiting for some of these items.
+
+In the interest of all our clients we ask you to observe the return dates.
+
+Kind regards,
+
+{{ email_signature }}
+
+--
+{{ inventory_pool.name }}
+{{ inventory_pool.description }}

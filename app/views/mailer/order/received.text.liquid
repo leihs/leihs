@@ -1,0 +1,27 @@
+Dear leihs manager,
+
+** This is an automatically generated response **
+
+An order for the following items listed below was received in an inventory pool you are responsible for.
+
+Inventory pool: {{ inventory_pool.name }}
+User: {{ user.name }}
+
+{% for l in order_lines %}
+* {{ l.quantity }} {{ l.model_name }}, {{ l.start_date | date: '%d/%m/%Y' }} - {{ l.end_date | date: '%d/%m/%Y' }}
+{% endfor %}
+
+Purpose:
+{{ purpose }}
+
+This order is still pending. Please log in to your leihs system and either approve or reject it.
+
+The user who placed this order has received a similar e-mail message informing them that the order first needs to be approved before it is valid.
+
+Kind regards,
+
+{{ email_signature }}
+
+--
+{{ inventory_pool.name }}
+{{ inventory_pool.description }}

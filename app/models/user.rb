@@ -252,39 +252,46 @@ class User < ActiveRecord::Base
 ####################################################################
 
   def self.remind_and_suspend_all
-    Visit.take_back_overdue.each do |visit|
-      visit.user.remind
-      visit.user.suspend unless visit.user.suspended?(visit.inventory_pool)
+    # TODO dry
+    grouped_visit_lines = Visit.take_back_overdue.flat_map(&:visit_lines).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: (vl.delegated_user_id || vl.user_id)} }
+    grouped_visit_lines.each_pair do |k, visit_lines|
+      user = User.find(k[:user_id])
+      user.remind(visit_lines)
+    end
+    # TODO dry
+    grouped_visit_lines = Visit.take_back_overdue.flat_map(&:visit_lines).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: vl.user_id} }
+    grouped_visit_lines.each_pair do |k, visit_lines|
+      user = User.find(k[:user_id])
+      user.automatic_suspend(k[:inventory_pool])
     end
   end
 
-  def suspend
-    visits_to_suspend = visits.take_back_overdue.select {|visit| visit.inventory_pool.automatic_suspension? }
-    visits_to_suspend.each do |visit|
-      access_right_for(visit.inventory_pool).update_attributes suspended_until: AccessRight::AUTOMATIC_SUSPENSION_DATE,
-                                                               suspended_reason: visit.inventory_pool.automatic_suspension_reason
-      puts "Suspended: #{self.name} on #{visit.inventory_pool} for take back due on #{visit.date}"
+  def self.send_deadline_soon_reminder_to_everybody
+    grouped_visit_lines = Visit.take_back.where("date = ?", Date.tomorrow).flat_map(&:visit_lines).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: (vl.delegated_user_id || vl.user_id)} }
+    grouped_visit_lines.each_pair do |k, visit_lines|
+      user = User.find(k[:user_id])
+      user.send_deadline_soon_reminder(visit_lines)
     end
   end
 
-  def remind(reminder_user = self)
-    visits_to_remind = visits.take_back_overdue
+  def automatic_suspend(inventory_pool)
+    if inventory_pool.automatic_suspension? and not suspended?(inventory_pool)
+      access_right_for(inventory_pool).update_attributes suspended_until: AccessRight::AUTOMATIC_SUSPENSION_DATE,
+                                                         suspended_reason: inventory_pool.automatic_suspension_reason
+      puts "Suspended: #{self.name} on #{inventory_pool} for overdue take back"
+    end
+  end
 
-    unless visits_to_remind.empty?
+  def remind(visit_lines, reminder_user = self)
+    unless visit_lines.empty?
       begin
-        Notification.remind_user(self, visits_to_remind)
-
-        create_history _("Reminded %{q} items for contracts %{c}"), visits_to_remind, reminder_user
-
+        Notification.remind_user(self, visit_lines)
+        create_history _("Reminded %{q} items for contracts %{c}"), visit_lines, reminder_user
         puts "Reminded: #{self.name}"
         return true
-
       rescue Exception => exception
-
-        create_history _("Unsuccessful reminder of %{q} items for contracts %{c}"), visits_to_remind, reminder_user
-
+        create_history _("Unsuccessful reminder of %{q} items for contracts %{c}"), visit_lines, reminder_user
         puts "Failed to remind: #{self.name}"
-
         # archive problem in the log, so the admin/developper
         # can look up what happened
         logger.error "#{exception}\n    #{exception.backtrace.join("\n    ")}"
@@ -293,42 +300,33 @@ class User < ActiveRecord::Base
     end
   end
 
-  private
-
-  def create_history text, visits_scope, user
-    histories.create \
-      text: text % hash_for_quantity_and_contracts(visits_scope),
-      user_id: user,
-      type_const: History::REMIND
-  end
-
-  def hash_for_quantity_and_contracts visits_scope
-    { :q => visits_scope.sum(:quantity),
-      :c => visits_scope.flat_map(&:contract_lines).collect(&:contract_id).uniq.join(',') }
-  end
-
-  public
-
-  def self.send_deadline_soon_reminder_to_everybody
-    User.all.each do |u|
-      u.send_deadline_soon_reminder
-    end
-  end
-
-  def send_deadline_soon_reminder(reminder_user = self)
-    visits_to_remind_deadline_soon = visits.take_back.where("date = ?", Date.tomorrow)
-    unless visits_to_remind_deadline_soon.empty?
+  def send_deadline_soon_reminder(visit_lines, reminder_user = self)
+    unless visit_lines.empty?
       begin
-        Notification.deadline_soon_reminder(self, visits_to_remind_deadline_soon)
-
-        create_history _("Deadline soon reminder sent for %{q} items on contracts %{c}"), visits_to_remind_deadline_soon, reminder_user
-
+        Notification.deadline_soon_reminder(self, visit_lines)
+        create_history _("Deadline soon reminder sent for %{q} items on contracts %{c}"), visit_lines, reminder_user
         puts "Deadline soon: #{self.name}"
       rescue
         puts "Couldn't send reminder: #{self.name}"
       end
     end
   end
+
+  private
+
+  def create_history text, visit_lines, user
+    histories.create \
+      text: text % hash_for_quantity_and_contracts(visit_lines),
+      user_id: user,
+      type_const: History::REMIND
+  end
+
+  def hash_for_quantity_and_contracts visit_lines
+    { :q => visit_lines.to_a.sum(&:quantity),
+      :c => visit_lines.flat_map(&:contract_line).map(&:contract_id).uniq.join(',') }
+  end
+
+  public
 
 #################### Start role_requirement
 
