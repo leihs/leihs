@@ -232,7 +232,6 @@ GEM
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     netrc (0.7.7)
-    newrelic_rpm (3.9.5.251)
     nilify_blanks (1.1.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -435,7 +434,6 @@ DEPENDENCIES
   mini_magick (~> 3.4)
   mysql2 (~> 0.3.11)
   net-ldap
-  newrelic_rpm (~> 3.5)
   nilify_blanks (~> 1.1)
   open4
   paperclip (~> 3.5)

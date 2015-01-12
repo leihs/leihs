@@ -10,10 +10,6 @@ task :link_config do
   run "rm -f #{release_path}/config/database.yml"
   run "ln -s #{db_config} #{release_path}/config/database.yml"
 
-  if exists?(:newrelic_config)
-    run "ln -sf #{newrelic_config} #{release_path}/config/newrelic.yml"
-  end
-
   # So we can check from outside which revision is deployed on that instance
   # Note: Must use a .txt suffix so that Passengers knows to deliver this
   # as text/plain through Apache.

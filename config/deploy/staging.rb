@@ -12,7 +12,6 @@ set :application, "leihs-test"
 
 set :db_config, "/home/leihs/#{application}/database.yml"
 set :ldap_config, "/home/leihs/#{application}/LDAP.yml"
-set :newrelic_config, "/home/leihs/#{application}/newrelic.yml"
 set :secret_token, "/home/leihs/#{application}/secret_token.rb"
 
 set :use_sudo, false
