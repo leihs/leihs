@@ -6,8 +6,7 @@
 #      GivenName: The first name of the user
 #      sn: The surname of the user.
 #      mail: The email address of the user.
-#      login: The username of the user.
-#      password: The desired password. If blank, a random password is used.
+#      login: The username of the user.  #      password: The desired password. If blank, a random password is used.
 #      department: The user's department, gets written to extended_info.
 #      Inventory pools: Semicolon-separated list of pools the user needs access to.
 #
@@ -60,6 +59,7 @@ def create_basic_elements(user, options = {})
     role = 'customer'
     role = options[:role] if options[:role]
     create_auth_for_user(user)
+    binding.pry if options[:inventory_pools].blank?
     inventory_pools = pools(options[:inventory_pools])
     inventory_pools.each do |ip|
       give_role(user, role, ip)
@@ -71,7 +71,11 @@ def create_user(options = {})
                   :login => options[:login],
                   :firstname => options[:firstname],
                   :lastname => options[:lastname],
-                  :authentication_system => AuthenticationSystem.where(:name => 'DatabaseAuthentication').first)
+                  :phone => options[:phone],
+                  :authentication_system => AuthenticationSystem.where(:class_name => 'DatabaseAuthentication').first)
+  user.extended_info = {}
+  user.extended_info['department'] = options[:department]
+  user.extended_info['program'] = options[:program]
   if user.save
     @log.puts("Saved user #{user.to_s}")
     create_basic_elements(user, options)
@@ -85,6 +89,9 @@ def csv_to_user_options(csv)
    :login => csv['login'],
    :firstname => csv['GivenName'],
    :lastname => csv['sn'],
+   :phone => csv['telephoneNumber'],
+   :department => csv['department'],
+   :program => csv['Program and year'],
    :inventory_pools => csv['Inventory pools']}
 end
 
@@ -92,14 +99,19 @@ end
 @passwords = File.open("/tmp/passwords.txt", "a+")
 
 # Import managers
-@log.puts('---', 'Importing managers from /tmp/managers.csv')
-CSV.open("/tmp/managers.csv", "r", { :col_sep => "\t", :quote_char => "\"", :headers => true}).each do |csv|
-  create_user(csv_to_user_options(csv).merge(:role => 'inventory_manager'))
+if File.exists?('/tmp/managers.csv')
+  @log.puts('---', 'Importing managers from /tmp/managers.csv')
+  CSV.open("/tmp/managers.csv", "r", { :col_sep => "\t", :quote_char => "\"", :headers => true}).each do |csv|
+    create_user(csv_to_user_options(csv).merge(:role => 'inventory_manager'))
+  end
 end
 
-@log.puts('---', 'Importing customers from /tmp/customers.csv')
-CSV.open("/tmp/customers.csv", "r", { :col_sep => "\t", :quote_char => "\"", :headers => true}).each do |csv|
-  create_user(csv_to_user_options(csv))
+if File.exists?('/tmp/customers.csv')
+  @log.puts('---', 'Importing customers from /tmp/customers.csv')
+  CSV.open("/tmp/customers.csv", "r", { :col_sep => "\t", :quote_char => "\"", :headers => true}).each do |csv|
+    create_user(csv_to_user_options(csv))
+  end
 end
+
 @log.close
 @passwords.close
