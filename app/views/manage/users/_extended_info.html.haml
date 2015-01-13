@@ -1,0 +1,10 @@
+%h2.headline-m.padding-left-s= _("Extended Information")
+
+.row.margin-vertical-s
+
+  - @user.extended_info.each do |k, v|
+    .row.padding-inset-s.emboss.margin-bottom-xxs
+      .col1of2
+        %strong.font-size-m= "#{k}"
+      .col2of2
+        %p.font-size-m= "#{v}"

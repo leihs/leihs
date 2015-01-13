@@ -35,6 +35,8 @@
 
               = render partial: "personal_details"
 
+              = render partial: "extended_info" if !@user.extended_info.blank?
+
             .col1of2.padding-left-xs
 
               = render partial: "login_details" if @db_auth
