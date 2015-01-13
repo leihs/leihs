@@ -16,7 +16,7 @@
             %button.button.green{:type => :submit}= _("Save %s") % _("Mail Templates")
 
         - @mail_templates.each do |mail_template|
-          .row.margin-vertical-s
+          .row.margin-vertical-s{style: mail_template.errors.empty? ? nil : "background-color: #FFB0B0;" }
             .padding-bottom-xxs
               .row.emboss.padding-inset-s
                 .col1of5

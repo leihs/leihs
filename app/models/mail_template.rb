@@ -4,7 +4,11 @@ class MailTemplate < ActiveRecord::Base
   belongs_to :language
 
   validates_uniqueness_of :name, scope: [:inventory_pool_id, :language_id, :format]
+  validate :syntax_validation
 
+  after_save do
+    destroy if body.blank?
+  end
 
   def self.liquid_variables_for_order(order, comment = nil, purpose = nil)
     {user: {name: order.target_user.name},
@@ -55,6 +59,16 @@ class MailTemplate < ActiveRecord::Base
       File.read(File.join(Rails.root, "app/views/mailer/#{scope}/", "#{name}.text.liquid"))
     else
       Array(mt).map(&:body).join('\n')
+    end
+  end
+
+  private
+
+  def syntax_validation
+    begin
+      Liquid::Template.parse(body, :error_mode => :strict)
+    rescue => e
+      errors.add :base, e.to_s
     end
   end
 

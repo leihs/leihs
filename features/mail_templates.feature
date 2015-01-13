@@ -122,3 +122,18 @@ Dear Normin Normalo,
 Kind regards,
 A-Ausleihe
     """
+
+  @personas @javascript
+  Scenario Outline: Reporting errors on mail templates
+    Given I am <persona>
+    When I specify a mail template for the <template name> action <scope> for each active language
+    When I edit the <template name> with the "<body>" template in "en-GB"
+    And I save
+    Then I land on the mail templates edit page
+    And I see an error message
+    And the failing <template name> mail template in "en-GB" is highlighted in red
+    And the failing <template name> mail template in "en-GB" is not persisted with the "<body>" template
+  Examples:
+    | persona | scope                         | template name | body                |
+    | Gino    | for the whole system          | reminder      | Hi {{{ user.name }} |
+    | Mike    | in the current inventory pool | reminder      | Hi {{{ user.name }} |

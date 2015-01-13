@@ -36,15 +36,27 @@ class Manage::MailTemplatesController < Manage::ApplicationController
   end
 
   def update
+    @mail_templates = []
+    errors = []
+
     params[:mail_templates].each do |p|
       mt = MailTemplate.find_or_initialize_by(inventory_pool_id: (current_inventory_pool ? current_inventory_pool.id : nil),
                                               name: p[:name],
                                               language: Language.find_by(locale_name: p[:language]),
                                               format: p[:format])
-      mt.update_attributes(body: p[:body])
+      @mail_templates << mt
+      unless mt.update_attributes(body: p[:body])
+        errors << mt.errors.full_messages
+      end
     end
 
-    redirect_to (current_inventory_pool ? "/manage/#{current_inventory_pool.id}/mail_templates" : "/manage/mail_templates")
+    if errors.empty?
+      redirect_to (current_inventory_pool ? "/manage/#{current_inventory_pool.id}/mail_templates" : "/manage/mail_templates")
+    else
+      flash.now[:error] = errors.uniq.join(', ')
+      render :edit
+    end
+
   end
 
 end

@@ -11,9 +11,7 @@ When(/^I specify a mail template for the (.*) action (for the whole system|in th
       visit "/manage/#{@current_inventory_pool.id}/mail_templates"
   end
   find(".list-of-lines .line-col.col3of5", text: /^#{template_name}$/).find(:xpath, "./..").find(".button", text: _("Edit")).click
-  Language.active_languages.each do |language|
-    find("input[name='mail_templates[][language]'][type='hidden'][value='#{language.locale_name}']")
-  end
+  step "I land on the mail templates edit page"
 end
 
 Then(/^the template (.*) is saved for the (whole system|current inventory pool) for each active language$/) do |template_name, scope|
@@ -250,4 +248,28 @@ Then(/^I receive a (custom|system\-wide|default) (.*) in "(.*?)"$/) do |scope, t
 
   sent_mail = get_reminder_for_visit(@visit)
   expect(sent_mail.body.to_s).to eq string
+end
+
+When(/^I edit the (reminder) with the "(.*?)" template in "(.*?)"$/) do |template_name, body, locale_name|
+  find(".row.margin-vertical-s", text: locale_name).find("textarea[name='mail_templates[][body]']").set body
+end
+
+Then(/^I land on the mail templates edit page$/) do
+  find("h1", text: _("Mail Templates"))
+  Language.active_languages.each do |language|
+    find("input[name='mail_templates[][language]'][type='hidden'][value='#{language.locale_name}']", visible: false)
+  end
+end
+
+Then(/^the failing (reminder) mail template in "(.*?)" is highlighted in red$/) do |template_name, locale_name|
+  expect(find(".row.margin-vertical-s", text: locale_name).native.css_value('background-color')).to eq "rgba(255, 176, 176, 1)"
+end
+
+Then(/^the failing (reminder) mail template in "(.*?)" is not persisted with the "(.*?)" template$/) do |template_name, locale_name, body|
+  language = Language.find_by(locale_name: locale_name)
+  template = MailTemplate.find_or_initialize_by(inventory_pool_id: @current_inventory_pool.try(:id),
+                                                name: template_name.gsub(' ', '_'),
+                                                language: language,
+                                                format: "text")
+  expect(template.body).not_to eq body
 end
