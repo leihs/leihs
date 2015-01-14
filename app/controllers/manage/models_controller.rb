@@ -27,7 +27,7 @@ class Manage::ModelsController < Manage::ApplicationController
     not_authorized! unless is_privileged_user?
     @model = (params[:type].try(:humanize) || "Model").constantize.new
   end
-  
+
   def create
     not_authorized! unless is_privileged_user?
     ActiveRecord::Base.transaction do
@@ -78,14 +78,14 @@ class Manage::ModelsController < Manage::ApplicationController
   def destroy
     @model = fetch_model
     begin @model.destroy
-      respond_to do |format| 
+      respond_to do |format|
         format.json {render :json => true, status: :ok}
         format.html {redirect_to manage_inventory_path(current_inventory_pool), flash: {success: _("%s successfully deleted") % _("Model")}}
       end
     rescue => e
       @model.errors.add(:base, e)
       text = @model.errors.full_messages.uniq.join(", ")
-      respond_to do |format| 
+      respond_to do |format|
         format.json {render :text => text, :status => :forbidden}
         format.html {redirect_to manage_inventory_path(current_inventory_pool), flash: {error: text}}
       end
@@ -139,7 +139,7 @@ class Manage::ModelsController < Manage::ApplicationController
       render :action => 'package'
     end
   end
-  
+
   def destroy_package
     if @model.destroy
       flash[:notice] = _("Package successfully destroyed")
@@ -169,7 +169,7 @@ class Manage::ModelsController < Manage::ApplicationController
 
     get_root_items
   end
-  
+
   def get_root_items
     @root_items = case params[:filter]
                     when "own", "own_items"
@@ -188,7 +188,7 @@ class Manage::ModelsController < Manage::ApplicationController
   end
 
   def package_item
-    root_item = @model.items.find(params[:root_id]) 
+    root_item = @model.items.find(params[:root_id])
     if request.put?
       if @item.model.is_package?
         flash[:error] = _("You can't add a package to a package.")
@@ -233,15 +233,17 @@ class Manage::ModelsController < Manage::ApplicationController
       package = package[1]
       children = package.delete(:children)
       if package["id"].blank?
-        item = Item.new
-        data = package.merge :inventory_code => "P-#{Item.proposed_inventory_code(current_inventory_pool)}",
-                             :owner_id => current_inventory_pool.id,
-                             :model => @model
-        item.update_attributes data
-        children["id"].each do |child|
-          item.children << Item.find_by_id(child)
+        ActiveRecord::Base.transaction do
+          item = Item.new
+          data = package.merge :inventory_code => "P-#{Item.proposed_inventory_code(current_inventory_pool)}",
+                               :owner_id => current_inventory_pool.id,
+                               :model => @model
+          item.update_attributes data
+          children["id"].each do |child|
+            item.children << Item.find_by_id(child)
+          end
+          flash[:success] = "#{_("Model saved")} / #{_("Packages created")}"
         end
-        flash[:success] = "#{_("Model saved")} / #{_("Packages created")}"
       else
         item = Item.find_by_id(package["id"])
         if package["_destroy"] == "1"

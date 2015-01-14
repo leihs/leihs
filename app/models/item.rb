@@ -14,9 +14,10 @@
 class Item < ActiveRecord::Base
   include DefaultPagination
 
-  belongs_to :parent, :class_name => "Item", :foreign_key => 'parent_id', inverse_of: :children
-  has_many :children, :class_name => "Item", :foreign_key => 'parent_id', :dependent => :nullify,
-           :after_add => :update_child_attributes
+  belongs_to :parent, class_name: "Item", foreign_key: 'parent_id', inverse_of: :children
+  has_many :children, class_name: "Item", foreign_key: 'parent_id', dependent: :nullify,
+                      before_add: :check_child,
+                      after_add: :update_child_attributes
 
   belongs_to :model, inverse_of: :items
   belongs_to :location, inverse_of: :items
@@ -114,11 +115,7 @@ class Item < ActiveRecord::Base
 
     # there are 2 kinds of borrowable:
     # the first is item attribute
-    if params[:is_borrowable] == "true"
-      items = items.where(is_borrowable: true)
-    elsif params[:is_borrowable] == "false"
-      items = items.where(is_borrowable: false)
-    end
+    items = items.where(is_borrowable: (params[:is_borrowable] == "true")) if params[:is_borrowable]
     # the second is item scope
     items = items.borrowable if params[:borrowable]
 
@@ -127,6 +124,7 @@ class Item < ActiveRecord::Base
     items = items.where(:model_id => Model.joins(:categories).where(:"model_groups.id" => [Category.find(params[:category_id])] + Category.find(params[:category_id]).descendants)) if params[:category_id]
     items = items.where(:parent_id => params[:package_ids]) if params[:package_ids]
     items = items.where(:parent_id => nil) if params[:not_packaged]
+    items = items.joins(:model).where(models: {is_package: (params[:packages] == "true")}) if params[:packages]
     items = items.in_stock if params[:in_stock]
     items = items.incomplete if params[:incomplete]
     items = items.broken if params[:broken]
@@ -538,7 +536,7 @@ class Item < ActiveRecord::Base
     if parent_id
       if parent.nil?
         errors.add(:base, _("The parent item doesn't exist (parent_id: %d)") % parent_id)
-      elsif not children.empty?
+      elsif model.is_package?
         errors.add(:base, _("A package cannot be nested to another package"))
       end
     else
@@ -569,6 +567,10 @@ class Item < ActiveRecord::Base
     item.last_check = self.last_check
     item.properties[:ankunftsdatum] = self.properties[:ankunftsdatum]
     item.save
+  end
+
+  def check_child(child)
+    raise _("A package cannot be nested to another package") if child.model.is_package?
   end
 
 end
