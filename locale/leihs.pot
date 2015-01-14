@@ -60,9 +60,6 @@ msgstr ""
 msgid "%s until %s"
 msgstr ""
 
-msgid "** This is an automatically generated response **"
-msgstr ""
-
 msgid "Users who don't bring back the items on the required date are suspended from next day on."
 msgstr ""
 
@@ -138,11 +135,6 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-msgid ""
-"An order for the following items listed below was received in an inventory "
-"pool you are responsible for."
-msgstr ""
-
 msgid "Ankunftsdatum"
 msgstr ""
 
@@ -192,12 +184,6 @@ msgid "Approved Items"
 msgstr ""
 
 msgid "Approved on"
-msgstr ""
-
-msgid "Are any of the above borrowed items?"
-msgstr ""
-
-msgid "Are any of the above items your personal computer?"
 msgstr ""
 
 msgid "Assign"
@@ -270,12 +256,6 @@ msgid "Broken"
 msgstr ""
 
 msgid "Building"
-msgstr ""
-
-msgid ""
-"By not returning these items, you are blocking other people's reservations. "
-"This is very unfair to the other clients and to the inventory manager, since "
-"you are causing a significant amount of trouble and annoyance."
 msgstr ""
 
 msgid "CSV"
@@ -582,10 +562,6 @@ msgid "not in stock"
 msgstr ""
 
 msgid "In Total"
-msgstr ""
-
-msgid ""
-"In the interest of all our clients we ask you to observe the return dates."
 msgstr ""
 
 msgid "Incomplete"
@@ -1228,11 +1204,6 @@ msgstr ""
 msgid "Signed contracts"
 msgstr ""
 
-msgid ""
-"Since we did not receive any request for renewal, we consequently demand the "
-"return of the items without further delay."
-msgstr ""
-
 msgid "Something went wrong!"
 msgstr ""
 
@@ -1345,13 +1316,6 @@ msgid ""
 "\\n"
 msgstr ""
 
-msgid ""
-"The following items are due to be returned tomorrow or need to be inspected"
-msgstr ""
-
-msgid "The following items are overdue or need to be inspected"
-msgstr ""
-
 msgid "The group quantities were successfully saved."
 msgstr ""
 
@@ -1403,9 +1367,6 @@ msgid ""
 "The option doesn't belong to the inventory pool related to this contract"
 msgstr ""
 
-msgid "The order now looks like this:"
-msgstr ""
-
 msgid "The parent item doesn't exist (parent_id: %d)"
 msgstr ""
 
@@ -1419,14 +1380,6 @@ msgid "The selected model is not a package"
 msgstr ""
 
 msgid "The user does not have an email address"
-msgstr ""
-
-msgid ""
-"The user who placed this order has received a similar e-mail message "
-"informing them that the order first needs to be approved before it is valid."
-msgstr ""
-
-msgid "These are the comments of the inventory manager:"
 msgstr ""
 
 msgid ""
@@ -1496,11 +1449,6 @@ msgstr ""
 msgid "This order is not approvable because the inventory pool is closed on either the start or enddate."
 msgstr ""
 
-msgid ""
-"This order is still pending. Please log in to your leihs system and either "
-"approve or reject it."
-msgstr ""
-
 msgid "Thu"
 msgstr ""
 
@@ -1538,12 +1486,6 @@ msgid "Borrowable Items"
 msgstr ""
 
 msgid "Unborrowable Items"
-msgstr ""
-
-msgid ""
-"Unfortunately your order is still pending, but you will soon receive a "
-"confirmation of order by separate e-mail. You can view the status of your "
-"order through your leihs account."
 msgstr ""
 
 msgid "Unsigned"
@@ -1640,16 +1582,6 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-msgid ""
-"We are just sending you this little reminder because someone else is already "
-"waiting for some of these items."
-msgstr ""
-
-msgid ""
-"We kindly ask you to contact us as soon as possible. Your computer might "
-"need an update."
-msgstr ""
-
 msgid "Wed"
 msgstr ""
 
@@ -1726,12 +1658,6 @@ msgstr ""
 msgid "You were served by %s"
 msgstr ""
 
-msgid ""
-"You might receive an admonishment and be subject to late fees as well as the "
-"restriction of borrowing privileges. In case of recurrence you might be "
-"barred from the reservation system for up to 6 months."
-msgstr ""
-
 msgid "You pick up the reserved items at the inventory pool"
 msgstr ""
 
@@ -1742,18 +1668,6 @@ msgid "You should redo your action or reload the page!"
 msgstr ""
 
 msgid "You wait for confirmation from the inventory pools in question"
-msgstr ""
-
-msgid ""
-"Your order for the following items has been confirmed by the inventory "
-"manager"
-msgstr ""
-
-msgid ""
-"Your order for the following items listed below was successfully submitted."
-msgstr ""
-
-msgid "Your order was rejected for the following reason:"
 msgstr ""
 
 msgid "Your order was successfully transmitted to those responsible and is %s."

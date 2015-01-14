@@ -64,9 +64,6 @@ msgstr "%s Resultate bei Suche nach \"%s\""
 msgid "%s until %s"
 msgstr "%s bis %s"
 
-msgid "** This is an automatically generated response **"
-msgstr "** Automatisch generierte E-Mail **"
-
 msgid ""
 "Users who don't bring back the items on the required date are suspended from "
 "next day on."
@@ -146,13 +143,6 @@ msgstr "Admin"
 msgid "All"
 msgstr "Alle"
 
-msgid ""
-"An order for the following items listed below was received in an inventory "
-"pool you are responsible for."
-msgstr ""
-"Eine Bestellung für die folgenden Gegenstände ist in einem Inventarpool "
-"eingegangen, für den Sie verantwortlich sind."
-
 msgid "Ankunftsdatum"
 msgstr "Ankunftsdatum"
 
@@ -203,12 +193,6 @@ msgstr "Genehmigte Gegenstände"
 
 msgid "Approved on"
 msgstr "Genehmigt am"
-
-msgid "Are any of the above borrowed items?"
-msgstr "Handelt es sich um ausgeliehenes Material?"
-
-msgid "Are any of the above items your personal computer?"
-msgstr "Handelt es sich um ein Mitarbeitergerät?"
 
 msgid "Assign"
 msgstr "Zuweisen"
@@ -281,15 +265,6 @@ msgstr "Defekt"
 
 msgid "Building"
 msgstr "Gebäude"
-
-msgid ""
-"By not returning these items, you are blocking other people's reservations. "
-"This is very unfair to the other clients and to the inventory manager, since "
-"you are causing a significant amount of trouble and annoyance."
-msgstr ""
-"Das verspätete Retournieren der Artikel blockiert neue Reservationen und "
-"verursacht massiven Ärger und Umtriebe für unsere anderen Kunden/innen sowie "
-"den Verleiher!"
 
 msgid "CSV"
 msgstr "CSV"
@@ -598,12 +573,6 @@ msgstr "Nicht an Lager"
 
 msgid "In Total"
 msgstr "Insgesamt"
-
-msgid ""
-"In the interest of all our clients we ask you to observe the return dates."
-msgstr ""
-"Im Interesse aller unserer Kunden/innen bitten wir Sie, die Termine dringend "
-"einzuhalten."
 
 msgid "Incomplete"
 msgstr "Unvollständig"
@@ -1251,13 +1220,6 @@ msgstr "Unterschrieben"
 msgid "Signed contracts"
 msgstr "Unterschriebene Verträge"
 
-msgid ""
-"Since we did not receive any request for renewal, we consequently demand the "
-"return of the items without further delay."
-msgstr ""
-"Da Sie keine Verlängerung beantragt haben, bitten wir Sie, die Artikel "
-"sofort zurückzubringen."
-
 msgid "Something went wrong!"
 msgstr "Etwas ist schiefgelaufen!"
 
@@ -1374,16 +1336,6 @@ msgstr ""
 "Die folgenden Fehler sind aufgetreten beim Versuchn, eine Nachricht an "
 "%{email} zu schicken:\\n"
 
-msgid ""
-"The following items are due to be returned tomorrow or need to be inspected"
-msgstr ""
-"Die folgenden Gegenstände müssen morgen zurückgebracht werden oder "
-"erforderneine Kontrolle"
-
-msgid "The following items are overdue or need to be inspected"
-msgstr ""
-"Die folgenden Gegenstände sind überfällig oder erfordern eine Kontrolle"
-
 msgid "The group quantities were successfully saved."
 msgstr "Die Gruppen-Verteilungen wurden gespeichert."
 
@@ -1443,9 +1395,6 @@ msgid ""
 "The option doesn't belong to the inventory pool related to this contract"
 msgstr "Die Option gehört nicht zum Gerätepark dieses Vertrags"
 
-msgid "The order now looks like this:"
-msgstr "Ihre Bestellung sieht jetzt so aus:"
-
 msgid "The parent item doesn't exist (parent_id: %d)"
 msgstr "Das Eltern-Objekt existiert nicht (parent_id: %d)"
 
@@ -1460,17 +1409,6 @@ msgstr "Das ausgewählte Modell gehört nicht zu einem Paket"
 
 msgid "The user does not have an email address"
 msgstr "Der Benutzer hat keine E-Mail-Adresse"
-
-msgid ""
-"The user who placed this order has received a similar e-mail message "
-"informing them that the order first needs to be approved before it is valid."
-msgstr ""
-"Die Person, die diese Bestellung durchgeführt hat, erhielt ein ähnliches E-"
-"Mail und würde darüber informiert, dass die Bestellung erst gültig ist, wenn "
-"sie genehmigt wird."
-
-msgid "These are the comments of the inventory manager:"
-msgstr "Vom Verleiher hinzugefügte Kommentare:"
 
 msgid ""
 "This contract is not signable because it doesn't have any contract lines."
@@ -1491,8 +1429,8 @@ msgid ""
 "This contract is not signable because the delegated user is either missing "
 "or not part of this delegation."
 msgstr ""
-"Dieser Vertrag kann nicht unterschrieben werden, weil der delegierte Benutzer "
-"fehlt oder nicht zur Delegation gehört."
+"Dieser Vertrag kann nicht unterschrieben werden, weil der delegierte "
+"Benutzer fehlt oder nicht zur Delegation gehört."
 
 msgid "Delegated user is not member of the contract's delegation or is empty"
 msgstr "Die Kontaktperson ist nicht Mitglied der Delegation oder ist leer"
@@ -1561,13 +1499,6 @@ msgstr ""
 "Die Bestellung kann nicht genehmigt werden, weil der Gerätepark ist bei der "
 "Herausgabe/Rücknahme geschlossen."
 
-msgid ""
-"This order is still pending. Please log in to your leihs system and either "
-"approve or reject it."
-msgstr ""
-"Diese Bestellung ist noch hängig. Bitte loggen Sie sich in Ihr leihs-System "
-"ein, um sie zu genehmigen oder abzulehnen."
-
 msgid "Thu"
 msgstr "Do"
 
@@ -1606,15 +1537,6 @@ msgstr "Ausleihbare Gegenstände"
 
 msgid "Unborrowable Items"
 msgstr "Nicht ausleihbare Gegenstände"
-
-msgid ""
-"Unfortunately your order is still pending, but you will soon receive a "
-"confirmation of order by separate e-mail. You can view the status of your "
-"order through your leihs account."
-msgstr ""
-"Leider konnte diese noch nicht bearbeitet werden. Sie werden zur Bestätigung "
-"eine weitere Nachricht erhalten. Es besteht die Möglichkeit, den Status "
-"Ihrer Bestellung im persönlichen leihs-Konto einzusehen."
 
 msgid "Unsigned"
 msgstr "Nicht unterschrieben"
@@ -1710,20 +1632,6 @@ msgstr "Besuche"
 msgid "Warning"
 msgstr "Warnung"
 
-msgid ""
-"We are just sending you this little reminder because someone else is already "
-"waiting for some of these items."
-msgstr ""
-"Wir senden Ihnen diese kleine Erinnerung, da für den/die genannten Artikel "
-"bereits eine neue Reservation besteht."
-
-msgid ""
-"We kindly ask you to contact us as soon as possible. Your computer might "
-"need an update."
-msgstr ""
-"Wir bitten Sie, in den nächsten Tagen mit uns Kontakt aufzunehmen, damit wir "
-"das Gerät auf allfällige nötige Aktualisierungen überprüfen können."
-
 msgid "Wed"
 msgstr "Do"
 
@@ -1808,15 +1716,6 @@ msgstr "Sie sind nicht eingeloggt."
 msgid "You were served by %s"
 msgstr "Sie wurden bedient von %s"
 
-msgid ""
-"You might receive an admonishment and be subject to late fees as well as the "
-"restriction of borrowing privileges. In case of recurrence you might be "
-"barred from the reservation system for up to 6 months."
-msgstr ""
-"Dies kann eine Verwarnung nach sich ziehen und Sie können im "
-"Wiederholungsfall vom Verleiher bis zu 6 Monaten von der Ausleihe gesperrt "
-"werden."
-
 msgid "You pick up the reserved items at the inventory pool"
 msgstr "Sie holen die reservierten Gegenstände beim Gerätepark ab"
 
@@ -1828,18 +1727,6 @@ msgstr "Sie sollten die Aktion nochmals ausführen oder die Seite neu laden"
 
 msgid "You wait for confirmation from the inventory pools in question"
 msgstr "Sie warten auf Genehmigung von den involvierten Geräteparks"
-
-msgid ""
-"Your order for the following items has been confirmed by the inventory "
-"manager"
-msgstr "Ihre Bestellung der folgenden Artikel wurde vom Verleiher genehmigt:"
-
-msgid ""
-"Your order for the following items listed below was successfully submitted."
-msgstr "Ihre folgende Bestellung ist bei uns eingetroffen:"
-
-msgid "Your order was rejected for the following reason:"
-msgstr "Ihre Bestellung wurde aus folgenden Gründen abgelehnt:"
 
 msgid "Your order was successfully transmitted to those responsible and is %s."
 msgstr ""
@@ -1885,7 +1772,7 @@ msgid "awaiting approval"
 msgstr "wartet auf Genehmigung"
 
 msgid "but a few changes were made to it"
-msgstr "aber es wurden einige Dinge daran verändert"
+msgstr ""
 
 msgid "could not be assigned for take back"
 msgstr "konnte nicht für Rücknahme zugewiesen werden"
@@ -3012,9 +2899,6 @@ msgstr "Maintenance-Ablaufdatum"
 
 msgid "Maintenance contract"
 msgstr "Maintenance-Vertrag"
-
-msgid "Currency"
-msgstr "Währung"
 
 msgid "Procured by"
 msgstr "Beschafft durch"
