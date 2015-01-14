@@ -97,7 +97,7 @@ class Manage::ItemsController < Manage::ApplicationController
             redirect_to manage_inventory_path(current_inventory_pool), flash: {success: _("Item saved.")}
           end
         else
-          #60837652# why reload ??? # @item = @item.reload
+          @item = @item.reload
           flash[:error] = @item.errors.full_messages.uniq.join(", ")
           render :action => :edit
         end
