@@ -100,7 +100,7 @@ class Contract < ActiveRecord::Base
     query.split.each{|q|
       qq = "%#{q}%"
       sql = sql.where(
-        arel_table[:id].matches(qq) # NOTE we cannot use eq(q) because alphanumeric string is truncated and casted to integer, causing wrong matches (contracts.id)
+        arel_table[:id].eq(q.numeric? ? q : 0) # NOTE we cannot use eq(q) because alphanumeric string is truncated and casted to integer, causing wrong matches (contracts.id)
         .or(arel_table[:note].matches(qq))
         .or(User.arel_table[:login].matches(qq))
         .or(User.arel_table[:firstname].matches(qq))
