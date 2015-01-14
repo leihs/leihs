@@ -168,7 +168,7 @@ When(/^I set a quantity of (\d+) for the option line$/) do |quantity|
 end
 
 When(/^I inspect an item$/) do
-  within "[data-line-type='item_line']" do
+  within("[data-line-type='item_line']", match: :first) do
     find(".dropdown-holder").click
     find(".dropdown-item", text: "Inspektion").click
   end
@@ -176,6 +176,10 @@ end
 
 When(/^I set "(.*?)" to "(.*?)"$/) do |arg1, arg2|
   select _(arg2), from: _(arg1)
+end
+
+When(/^I write a status note$/) do
+  find("textarea[name='status_note']").set Faker::Lorem.sentence
 end
 
 Then(/^the option line has still the same quantity$/) do

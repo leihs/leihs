@@ -538,7 +538,7 @@ class Item < ActiveRecord::Base
     if parent_id
       if parent.nil?
         errors.add(:base, _("The parent item doesn't exist (parent_id: %d)") % parent_id)
-      elsif not children.empty?
+      elsif model.is_package?
         errors.add(:base, _("A package cannot be nested to another package"))
       end
     else
@@ -546,7 +546,11 @@ class Item < ActiveRecord::Base
 
       if model.is_package? and !!retired
         children.each do |item|
-          item.update_attributes(parent: nil)
+          if item.model.is_package?
+            errors.add(:base, _("A package cannot be nested to another package"))
+          else
+            item.update_attributes(parent: nil)
+          end
         end
       end
     end

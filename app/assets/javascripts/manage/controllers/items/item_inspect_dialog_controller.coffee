@@ -18,7 +18,10 @@ class window.App.ItemInspectDialogController extends Spine.Controller
     e.preventDefault()
     data = {}
     for datum in @form.serializeArray()
-       data[datum.name] = JSON.parse datum.value
+      data[datum.name] = if datum.value == "true" or datum.value == "false"
+        JSON.parse datum.value
+      else
+        datum.value
     @item.inspect(data)
     .done => @modal.destroy true
     

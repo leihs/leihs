@@ -19,6 +19,7 @@ Funktionalität: Gegenstand bearbeiten
       | Zustand                      |
       | Vollständigkeit              |
       | Ausleihbar                   |
+      | Status note                  |
       | - Inventar -                 |
       | Inventarrelevant             |
       | Anschaffungskategorie        |

@@ -52,3 +52,9 @@
                 %option{:value => "true"} {{jed 'Borrowable'/}}
                 %option{:value => "false", :selected => true} {{jed 'Unborrowable'/}}
                 {{/if}}
+
+        .row.padding-top-m
+          %label.col1of1.padding-right-s
+            .row {{jed 'Status note'/}}
+            .row
+              %textarea.width-full{:name => "status_note"} {{> status_note}}

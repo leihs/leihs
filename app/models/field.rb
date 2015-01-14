@@ -133,6 +133,14 @@ class Field < ActiveHash::Base
       default: false,
       group: "Status",
       forPackage: true
+    }, {
+      id: 50,
+      label: "Status note",
+      attribute: "status_note",
+      type: "textarea",
+      target_type: "item",
+      group: "Status",
+      forPackage: true
     },{
       id: 14,
       label: "Building",

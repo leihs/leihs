@@ -97,7 +97,7 @@ class Manage::ItemsController < Manage::ApplicationController
             redirect_to manage_inventory_path(current_inventory_pool), flash: {success: _("Item saved.")}
           end
         else
-          @item = @item.reload
+          #60837652# why reload ??? # @item = @item.reload
           flash[:error] = @item.errors.full_messages.uniq.join(", ")
           render :action => :edit
         end
@@ -122,7 +122,7 @@ class Manage::ItemsController < Manage::ApplicationController
 
   def inspect
     fetch_item_by_id
-    [:is_borrowable, :is_incomplete, :is_broken].each do |attr|
+    [:is_borrowable, :is_incomplete, :is_broken, :status_note].each do |attr|
       @item.update_attributes(attr => params[attr])
     end
     @item.save!

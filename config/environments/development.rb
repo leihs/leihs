@@ -29,10 +29,10 @@ Leihs::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 
   # Do not compress assets
-  config.assets.compress = false
+  config.assets.compress = true #false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  config.assets.debug = false #true
 end
 
 # For some reason, this setting does not propagate from environment.rb
