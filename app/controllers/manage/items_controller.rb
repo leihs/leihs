@@ -122,7 +122,7 @@ class Manage::ItemsController < Manage::ApplicationController
 
   def inspect
     fetch_item_by_id
-    [:is_borrowable, :is_incomplete, :is_broken].each do |attr|
+    [:is_borrowable, :is_incomplete, :is_broken, :status_note].each do |attr|
       @item.update_attributes(attr => params[attr])
     end
     @item.save!

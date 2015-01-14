@@ -41,6 +41,7 @@ Funktionalität: Inventar
     | Zustand                           |
     | Vollständigkeit                   |
     | Ausleihbar                        |
+    | Status note                       |
     | Gebäude                           |
     | Raum                              |
     | Gestell                           |

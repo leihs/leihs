@@ -60,6 +60,7 @@ Funktionalität: Rücknahme
     Wenn ich bei der Option eine Stückzahl von 1 eingebe
     Und beim Gegenstand eine Inspektion durchführe
     Und ich setze "Zustand" auf "Defekt"
+    Und I write a status note
     Und ich speichere
     Dann steht bei der Option die zuvor angegebene Stückzahl
 
