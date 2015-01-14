@@ -1,6 +1,6 @@
 reports: -p base
 default: -p base --format rerun --out tmp/rerun.txt -e routes_report.rb
-base:  -r features --format pretty --format rerun --out tmp/rerun.txt --tags=~@upcoming --tags=~@old-ui
+base:  -r features --format pretty --format rerun --out tmp/rerun.txt --tags=~@upcoming --tags=~@ldap --tags=~@old-ui
 nojs: -p base -t ~@javascript
 headless: -p base -t @javascript -t ~@browser
 rerun: "-r features @tmp/rerun.txt --format pretty --format rerun --out tmp/rererun.txt"
