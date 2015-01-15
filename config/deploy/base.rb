@@ -19,6 +19,7 @@ load 'config/deploy/recipes/migrate_database'
 load 'config/deploy/recipes/bundle_install'
 load 'config/deploy/recipes/precompile_assets'
 load 'config/deploy/recipes/set_deploy_information'
+load 'config/deploy/recipes/send_mail'
 
 namespace :deploy do
   task :start do
