@@ -1,5 +1,14 @@
 class Manage::MailTemplatesController < Manage::ApplicationController
 
+  private
+
+  # NOTE overriding super controller
+  def required_manager_role
+    require_role :inventory_manager, current_inventory_pool
+  end
+
+  public
+
   def index
     files = Dir.glob(File.join(Rails.root, "app/views/mailer/", "**", "*.text.liquid"))
     @existing_mail_templates = files.map { |file| [file.split('/')[-2], File.basename(file, ".liquid").split('.').first] }

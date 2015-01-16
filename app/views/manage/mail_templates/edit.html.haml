@@ -1,4 +1,22 @@
-- content_for :title, _("Mail Templates")
+:ruby
+  def list_variables(v)
+    haml_tag :ul, {style: "list-style-type: square; margin-left: 2em;"} do
+      v.each do |x|
+        if x.is_a? Hash
+          x.each_pair do |k1,v1|
+            haml_tag :li do
+              haml_tag :div, k1
+              list_variables v1
+            end
+          end
+        else
+          haml_tag :li, x
+        end
+      end
+    end
+  end
+
+- content_for :title, (@current_inventory_pool ? _("Editing mail templates for the inventory pool %s") % @current_inventory_pool  : _("Editing system-wide mail templates"))
 - content_for :admin_section, "active"
 
 .wrapper.margin-top-m
@@ -29,7 +47,7 @@
                   %strong.font-size-m= _("Language")
                 .col4of5
                   %input.width-full{type: :hidden, name: "mail_templates[][language]", value: mail_template.language.locale_name}
-                  .font-size-m= mail_template.language.locale_name
+                  .font-size-m= "%s (%s)" % [mail_template.language.name, mail_template.language.locale_name]
               .row.emboss.padding-inset-s
                 .col1of5
                   %strong.font-size-m= _("Format")
@@ -41,7 +59,24 @@
                   %strong.font-size-m= _("Body")
                 .col4of5
                   %textarea.width-full{name: "mail_templates[][body]", rows: 8}= mail_template.body
+              .row.emboss.padding-inset-s
+                .col1of5
+                .col4of5
+                  .toggle_container
+                    .toggle_title
+                      %i.icon-info-sign
+                      %strong= _("List of available variables")
+                    .toggle_body= capture_haml {list_variables MailTemplate.send("available_liquid_variables_for_#{params[:dir]}")}
 
+:scss
+  .toggle_container {
+    .toggle_title {
+      cursor: pointer;
+    }
+    .toggle_body {
+      display: none;
+    }
+  }
 
 :coffeescript
   $(document).ready ->
@@ -51,3 +86,6 @@
     #).on('blur', ->
     #  $(this).trigger('autosize.destroy')
     )
+
+    $(".toggle_title").click ->
+      $(this).siblings(".toggle_body").toggle()

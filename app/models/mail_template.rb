@@ -10,6 +10,26 @@ class MailTemplate < ActiveRecord::Base
     destroy if body.blank?
   end
 
+  def self.available_liquid_variables_for_order
+    [
+        "user.name",
+        "inventory_pool.name",
+        "inventory_pool.description",
+        "email_signature",
+        {"order_lines" => [
+            "l.quantity",
+            "l.model_name",
+            "l.start_date",
+            "l.end_date"
+        ]},
+        {"histories" => [
+            "h.text"
+        ]},
+        "comment",
+        "purpose"
+    ]
+  end
+
   def self.liquid_variables_for_order(order, comment = nil, purpose = nil)
     {user: {name: order.target_user.name},
      inventory_pool: {name: order.inventory_pool.name,
@@ -27,6 +47,24 @@ class MailTemplate < ActiveRecord::Base
      comment: comment,
      purpose: purpose
     }.deep_stringify_keys
+  end
+
+  def self.available_liquid_variables_for_user
+    [
+        "user.name",
+        "inventory_pool.name",
+        "inventory_pool.description",
+        "email_signature",
+        {"order_lines" => [
+            "l.quantity",
+            "l.model_name",
+            "l.item_inventory_code",
+            "l.start_date",
+            "l.end_date"
+        ]},
+        "quantity",
+        "due_date"
+    ]
   end
 
   def self.liquid_variables_for_user(user, inventory_pool, visit_lines)
@@ -58,7 +96,7 @@ class MailTemplate < ActiveRecord::Base
     if mt.blank?
       File.read(File.join(Rails.root, "app/views/mailer/#{scope}/", "#{name}.text.liquid"))
     else
-      Array(mt).map(&:body).join('\n')
+      Array(mt).map(&:body).join('\n\n- - - - - - - - - -\n\n')
     end
   end
 

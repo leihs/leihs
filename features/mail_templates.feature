@@ -137,3 +137,12 @@ A-Ausleihe
     | persona | scope                         | template name | body                |
     | Gino    | for the whole system          | reminder      | Hi {{{ user.name }} |
     | Mike    | in the current inventory pool | reminder      | Hi {{{ user.name }} |
+
+  @personas
+  Scenario: Mail templates edit permissions
+    Given I am Pius
+    When I navigate to the mail templates list in the current inventory pool
+    Then I am redirected to the login page
+    Given I am Mike
+    When I navigate to the mail templates list in the current inventory pool
+    Then I see a list of mail templates

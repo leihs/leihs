@@ -243,7 +243,7 @@ Then(/^I receive a (custom|system\-wide|default) (.*) in "(.*?)"$/) do |scope, t
                                                format: "text").body
                Liquid::Template.parse(template).render(variables)
              end
-             strings.join('\n')
+             strings.join('\n\n- - - - - - - - - -\n\n')
            end
 
   sent_mail = get_reminder_for_visit(@visit)
@@ -255,7 +255,7 @@ When(/^I edit the (reminder) with the "(.*?)" template in "(.*?)"$/) do |templat
 end
 
 Then(/^I land on the mail templates edit page$/) do
-  find("h1", text: _("Mail Templates"))
+  find("form button[type='submit']", text: _("Save %s") % _("Mail Templates"))
   Language.active_languages.each do |language|
     find("input[name='mail_templates[][language]'][type='hidden'][value='#{language.locale_name}']", visible: false)
   end
@@ -272,4 +272,18 @@ Then(/^the failing (reminder) mail template in "(.*?)" is not persisted with the
                                                 language: language,
                                                 format: "text")
   expect(template.body).not_to eq body
+end
+
+When(/^I navigate to the mail templates list in the current inventory pool$/) do
+  visit "/manage/#{@current_inventory_pool.id}/mail_templates"
+end
+
+Then(/^I am redirected to the login page$/) do
+  find("h1", text: _("Login"))
+  find("form[action='/authenticator/login']")
+end
+
+Then(/^I see a list of mail templates$/) do
+  find("nav .active", text: _("Mail Templates"))
+  find(".list-of-lines")
 end
