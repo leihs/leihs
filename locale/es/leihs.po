@@ -75,6 +75,9 @@ msgstr "El adjunto se creo correctamente."
 msgid "Attempt to add node to own graph collection"
 msgstr ""
 
+msgid "Body"
+msgstr ""
+
 msgid "By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance."
 msgstr "Si no devuelve estos artículos, estará bloqueando las reservas de otras personas. Esto es muy injusto para los demás clientes y administradores de stock ya que estaría provocando un gran número de problemas y molestias."
 
@@ -126,6 +129,12 @@ msgstr "Documentos"
 msgid "Edit purpose for order from"
 msgstr ""
 
+msgid "Editing mail templates for the inventory pool %s"
+msgstr ""
+
+msgid "Editing system-wide mail templates"
+msgstr ""
+
 msgid "Empty Username and/or Password"
 msgstr "Nombre de Usuario ó Contraseña Vacios"
 
@@ -140,6 +149,9 @@ msgstr "Error al guardar el paquete"
 
 msgid "Expected to be returned."
 msgstr "Se espera su devolución."
+
+msgid "Format"
+msgstr ""
 
 msgid "In the interest of all our clients we ask you to observe the return dates."
 msgstr "Por el interés de todos nuestros clientes, le pedimos respete las fechas de devolución."
@@ -171,11 +183,20 @@ msgstr "Artículo devuelto"
 msgid "Kind regards,"
 msgstr "Saludos cordiales,"
 
+msgid "Language"
+msgstr ""
+
+msgid "List of available variables"
+msgstr ""
+
 msgid "Loading"
 msgstr "Cargando"
 
 msgid "Logged in successfully"
 msgstr "Inicio de Sesión exitoso"
+
+msgid "Mail Templates"
+msgstr ""
 
 msgid "Model"
 msgstr "Modelo"

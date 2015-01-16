@@ -248,6 +248,9 @@ msgstr "Barcode"
 msgid "Reference"
 msgstr "Bezug"
 
+msgid "Body"
+msgstr ""
+
 msgid "Book"
 msgstr "Reservieren"
 
@@ -463,6 +466,12 @@ msgstr "Zweck für Bestellung ändern von"
 msgid "Edit this Order"
 msgstr "Diese Bestellung editieren"
 
+msgid "Editing mail templates for the inventory pool %s"
+msgstr ""
+
+msgid "Editing system-wide mail templates"
+msgstr ""
+
 msgid "Empty Username and/or Password"
 msgstr "Benutzername und/oder Passwort sind leer"
 
@@ -504,6 +513,9 @@ msgstr "Herausgabe abschliessen"
 
 msgid "Finish this take back"
 msgstr "Rücknahme abschliessen"
+
+msgid "Format"
+msgstr ""
 
 msgid "Found %d matches"
 msgstr "%s Treffer"
@@ -703,6 +715,9 @@ msgstr "Schlüssel"
 msgid "Kind regards,"
 msgstr "Schöne Grüsse"
 
+msgid "Language"
+msgstr ""
+
 msgid "Last Checked"
 msgstr "Letzte Inventur"
 
@@ -735,6 +750,9 @@ msgstr "Leihvertrag Nr. %s"
 
 msgid "Lending Contracts No. %s"
 msgstr "Leihverträge Nr. %s"
+
+msgid "List of available variables"
+msgstr ""
 
 msgid "List of Contracts"
 msgstr "Liste der Verträge"
@@ -774,6 +792,9 @@ msgstr "Logout"
 
 msgid "MAC-Address"
 msgstr "MAC-Adresse"
+
+msgid "Mail Templates"
+msgstr ""
 
 msgid "Manufacturer"
 msgstr "Hersteller"

@@ -244,6 +244,9 @@ msgstr ""
 msgid "Reference"
 msgstr ""
 
+msgid "Body"
+msgstr ""
+
 msgid "Book"
 msgstr ""
 
@@ -454,6 +457,12 @@ msgstr ""
 msgid "Edit this Order"
 msgstr ""
 
+msgid "Editing mail templates for the inventory pool %s"
+msgstr ""
+
+msgid "Editing system-wide mail templates"
+msgstr ""
+
 msgid "Empty Username and/or Password"
 msgstr ""
 
@@ -494,6 +503,9 @@ msgid "Finish this hand over"
 msgstr ""
 
 msgid "Finish this take back"
+msgstr ""
+
+msgid "Format"
 msgstr ""
 
 msgid "Found %d matches"
@@ -696,6 +708,9 @@ msgstr ""
 msgid "Kind regards,"
 msgstr ""
 
+msgid "Language"
+msgstr ""
+
 msgid "Last Checked"
 msgstr ""
 
@@ -727,6 +742,9 @@ msgid "Lending Contract No. %s"
 msgstr ""
 
 msgid "Lending Contracts No. %s"
+msgstr ""
+
+msgid "List of available variables"
 msgstr ""
 
 msgid "List of Contracts"
@@ -766,6 +784,9 @@ msgid "Logout"
 msgstr ""
 
 msgid "MAC-Address"
+msgstr ""
+
+msgid "Mail Templates"
 msgstr ""
 
 msgid "Manufacturer"
