@@ -2858,3 +2858,6 @@ msgstr ""
 
 msgid "Min. number of days between order and hand over"
 msgstr ""
+
+msgid "Status note"
+msgstr ""

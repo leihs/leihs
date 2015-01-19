@@ -2730,3 +2730,6 @@ msgstr ""
 
 msgid "Verification required"
 msgstr ""
+
+msgid "Status note"
+msgstr ""

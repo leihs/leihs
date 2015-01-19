@@ -2944,3 +2944,6 @@ msgstr "Produkt"
 
 msgid "Min. number of days between order and hand over"
 msgstr "Min. Tage zwischen Bestellung und Aushändigung"
+
+msgid "Status note"
+msgstr "Statusnotiz"
