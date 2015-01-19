@@ -2921,6 +2921,9 @@ msgstr "Maintenance-Ablaufdatum"
 msgid "Maintenance contract"
 msgstr "Maintenance-Vertrag"
 
+msgid "Currency"
+msgstr "Währung"
+
 msgid "Procured by"
 msgstr "Beschafft durch"
 
