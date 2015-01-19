@@ -159,6 +159,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Body": [
+         null,
+         ""
+      ],
       "By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance.": [
          null,
          "Si no devuelve estos artículos, estará bloqueando las reservas de otras personas. Esto es muy injusto para los demás clientes y administradores de stock ya que estaría provocando un gran número de problemas y molestias."
@@ -227,6 +231,14 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Editing mail templates for the inventory pool %s": [
+         null,
+         ""
+      ],
+      "Editing system-wide mail templates": [
+         null,
+         ""
+      ],
       "Empty Username and/or Password": [
          null,
          "Nombre de Usuario ó Contraseña Vacios"
@@ -246,6 +258,10 @@ window.i18n.locale_data = {
       "Expected to be returned.": [
          null,
          "Se espera su devolución."
+      ],
+      "Format": [
+         null,
+         ""
       ],
       "In the interest of all our clients we ask you to observe the return dates.": [
          null,
@@ -287,6 +303,14 @@ window.i18n.locale_data = {
          null,
          "Saludos cordiales,"
       ],
+      "Language": [
+         null,
+         ""
+      ],
+      "List of available variables": [
+         null,
+         ""
+      ],
       "Loading": [
          null,
          "Cargando"
@@ -294,6 +318,10 @@ window.i18n.locale_data = {
       "Logged in successfully": [
          null,
          "Inicio de Sesión exitoso"
+      ],
+      "Mail Templates": [
+         null,
+         ""
       ],
       "Model": [
          null,

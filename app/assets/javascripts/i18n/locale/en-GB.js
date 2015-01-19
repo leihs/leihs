@@ -375,6 +375,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Body": [
+         null,
+         ""
+      ],
       "Book": [
          null,
          ""
@@ -651,6 +655,14 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Editing mail templates for the inventory pool %s": [
+         null,
+         ""
+      ],
+      "Editing system-wide mail templates": [
+         null,
+         ""
+      ],
       "Empty Username and/or Password": [
          null,
          ""
@@ -704,6 +716,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Finish this take back": [
+         null,
+         ""
+      ],
+      "Format": [
          null,
          ""
       ],
@@ -969,6 +985,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "Language": [
+         null,
+         ""
+      ],
       "Last Checked": [
          null,
          ""
@@ -1010,6 +1030,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Lending Contracts No. %s": [
+         null,
+         ""
+      ],
+      "List of available variables": [
          null,
          ""
       ],
@@ -1062,6 +1086,10 @@ window.i18n.locale_data = {
          ""
       ],
       "MAC-Address": [
+         null,
+         ""
+      ],
+      "Mail Templates": [
          null,
          ""
       ],
@@ -3573,6 +3601,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Verification required": [
+         null,
+         ""
+      ],
+      "Status note": [
          null,
          ""
       ]

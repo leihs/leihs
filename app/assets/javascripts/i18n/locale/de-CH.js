@@ -141,10 +141,6 @@ window.i18n.locale_data = {
          null,
          "%s bis %s"
       ],
-      "** This is an automatically generated response **": [
-         null,
-         "** Automatisch generierte E-Mail **"
-      ],
       "Users who don't bring back the items on the required date are suspended from next day on.": [
          null,
          "Benutzer, die ihre Geräte nicht bis geforderten Tag zurückbringen, werden ab nächstem Tag danach gesperrt."
@@ -245,10 +241,6 @@ window.i18n.locale_data = {
          null,
          "Alle"
       ],
-      "An order for the following items listed below was received in an inventory pool you are responsible for.": [
-         null,
-         "Eine Bestellung für die folgenden Gegenstände ist in einem Inventarpool eingegangen, für den Sie verantwortlich sind."
-      ],
       "Ankunftsdatum": [
          null,
          "Ankunftsdatum"
@@ -316,14 +308,6 @@ window.i18n.locale_data = {
       "Approved on": [
          null,
          "Genehmigt am"
-      ],
-      "Are any of the above borrowed items?": [
-         null,
-         "Handelt es sich um ausgeliehenes Material?"
-      ],
-      "Are any of the above items your personal computer?": [
-         null,
-         "Handelt es sich um ein Mitarbeitergerät?"
       ],
       "Assign": [
          null,
@@ -397,6 +381,10 @@ window.i18n.locale_data = {
          null,
          "Bezug"
       ],
+      "Body": [
+         null,
+         "Inhalt"
+      ],
       "Book": [
          null,
          "Reservieren"
@@ -420,10 +408,6 @@ window.i18n.locale_data = {
       "Building": [
          null,
          "Gebäude"
-      ],
-      "By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance.": [
-         null,
-         "Das verspätete Retournieren der Artikel blockiert neue Reservationen und verursacht massiven Ärger und Umtriebe für unsere anderen Kunden/innen sowie den Verleiher!"
       ],
       "CSV": [
          null,
@@ -685,6 +669,14 @@ window.i18n.locale_data = {
          null,
          "Diese Bestellung editieren"
       ],
+      "Editing mail templates for the inventory pool %s": [
+         null,
+         "Editiere Mail-Templates für den Gerätepark %s"
+      ],
+      "Editing system-wide mail templates": [
+         null,
+         "Editiere Mail-Templates für das gesamte System"
+      ],
       "Empty Username and/or Password": [
          null,
          "Benutzername und/oder Passwort sind leer"
@@ -740,6 +732,10 @@ window.i18n.locale_data = {
       "Finish this take back": [
          null,
          "Rücknahme abschliessen"
+      ],
+      "Format": [
+         null,
+         "Format"
       ],
       "Found %d matches": [
          null,
@@ -832,10 +828,6 @@ window.i18n.locale_data = {
       "In Total": [
          null,
          "Insgesamt"
-      ],
-      "In the interest of all our clients we ask you to observe the return dates.": [
-         null,
-         "Im Interesse aller unserer Kunden/innen bitten wir Sie, die Termine dringend einzuhalten."
       ],
       "Incomplete": [
          null,
@@ -1003,6 +995,10 @@ window.i18n.locale_data = {
          null,
          "Schöne Grüsse"
       ],
+      "Language": [
+         null,
+         "Sprache"
+      ],
       "Last Checked": [
          null,
          "Letzte Inventur"
@@ -1046,6 +1042,10 @@ window.i18n.locale_data = {
       "Lending Contracts No. %s": [
          null,
          "Leihverträge Nr. %s"
+      ],
+      "List of available variables": [
+         null,
+         "Liste der verfügbaren Variablen"
       ],
       "List of Contracts": [
          null,
@@ -1098,6 +1098,10 @@ window.i18n.locale_data = {
       "MAC-Address": [
          null,
          "MAC-Adresse"
+      ],
+      "Mail Templates": [
+         null,
+         "Mail-Templates"
       ],
       "Manufacturer": [
          null,
@@ -1680,10 +1684,6 @@ window.i18n.locale_data = {
          null,
          "Unterschriebene Verträge"
       ],
-      "Since we did not receive any request for renewal, we consequently demand the return of the items without further delay.": [
-         null,
-         "Da Sie keine Verlängerung beantragt haben, bitten wir Sie, die Artikel sofort zurückzubringen."
-      ],
       "Something went wrong!": [
          null,
          "Etwas ist schiefgelaufen!"
@@ -1828,14 +1828,6 @@ window.i18n.locale_data = {
          null,
          "Die folgenden Fehler sind aufgetreten beim Versuchn, eine Nachricht an %{email} zu schicken:\\\\n"
       ],
-      "The following items are due to be returned tomorrow or need to be inspected": [
-         null,
-         "Die folgenden Gegenstände müssen morgen zurückgebracht werden oder erforderneine Kontrolle"
-      ],
-      "The following items are overdue or need to be inspected": [
-         null,
-         "Die folgenden Gegenstände sind überfällig oder erfordern eine Kontrolle"
-      ],
       "The group quantities were successfully saved.": [
          null,
          "Die Gruppen-Verteilungen wurden gespeichert."
@@ -1900,10 +1892,6 @@ window.i18n.locale_data = {
          null,
          "Die Option gehört nicht zum Gerätepark dieses Vertrags"
       ],
-      "The order now looks like this:": [
-         null,
-         "Ihre Bestellung sieht jetzt so aus:"
-      ],
       "The parent item doesn't exist (parent_id: %d)": [
          null,
          "Das Eltern-Objekt existiert nicht (parent_id: %d)"
@@ -1923,14 +1911,6 @@ window.i18n.locale_data = {
       "The user does not have an email address": [
          null,
          "Der Benutzer hat keine E-Mail-Adresse"
-      ],
-      "The user who placed this order has received a similar e-mail message informing them that the order first needs to be approved before it is valid.": [
-         null,
-         "Die Person, die diese Bestellung durchgeführt hat, erhielt ein ähnliches E-Mail und würde darüber informiert, dass die Bestellung erst gültig ist, wenn sie genehmigt wird."
-      ],
-      "These are the comments of the inventory manager:": [
-         null,
-         "Vom Verleiher hinzugefügte Kommentare:"
       ],
       "This contract is not signable because it doesn't have any contract lines.": [
          null,
@@ -2016,10 +1996,6 @@ window.i18n.locale_data = {
          null,
          "Die Bestellung kann nicht genehmigt werden, weil der Gerätepark ist bei der Herausgabe/Rücknahme geschlossen."
       ],
-      "This order is still pending. Please log in to your leihs system and either approve or reject it.": [
-         null,
-         "Diese Bestellung ist noch hängig. Bitte loggen Sie sich in Ihr leihs-System ein, um sie zu genehmigen oder abzulehnen."
-      ],
       "Thu": [
          null,
          "Do"
@@ -2071,10 +2047,6 @@ window.i18n.locale_data = {
       "Unborrowable Items": [
          null,
          "Nicht ausleihbare Gegenstände"
-      ],
-      "Unfortunately your order is still pending, but you will soon receive a confirmation of order by separate e-mail. You can view the status of your order through your leihs account.": [
-         null,
-         "Leider konnte diese noch nicht bearbeitet werden. Sie werden zur Bestätigung eine weitere Nachricht erhalten. Es besteht die Möglichkeit, den Status Ihrer Bestellung im persönlichen leihs-Konto einzusehen."
       ],
       "Unsigned": [
          null,
@@ -2200,14 +2172,6 @@ window.i18n.locale_data = {
          null,
          "Warnung"
       ],
-      "We are just sending you this little reminder because someone else is already waiting for some of these items.": [
-         null,
-         "Wir senden Ihnen diese kleine Erinnerung, da für den/die genannten Artikel bereits eine neue Reservation besteht."
-      ],
-      "We kindly ask you to contact us as soon as possible. Your computer might need an update.": [
-         null,
-         "Wir bitten Sie, in den nächsten Tagen mit uns Kontakt aufzunehmen, damit wir das Gerät auf allfällige nötige Aktualisierungen überprüfen können."
-      ],
       "Wed": [
          null,
          "Do"
@@ -2304,10 +2268,6 @@ window.i18n.locale_data = {
          null,
          "Sie wurden bedient von %s"
       ],
-      "You might receive an admonishment and be subject to late fees as well as the restriction of borrowing privileges. In case of recurrence you might be barred from the reservation system for up to 6 months.": [
-         null,
-         "Dies kann eine Verwarnung nach sich ziehen und Sie können im Wiederholungsfall vom Verleiher bis zu 6 Monaten von der Ausleihe gesperrt werden."
-      ],
       "You pick up the reserved items at the inventory pool": [
          null,
          "Sie holen die reservierten Gegenstände beim Gerätepark ab"
@@ -2323,18 +2283,6 @@ window.i18n.locale_data = {
       "You wait for confirmation from the inventory pools in question": [
          null,
          "Sie warten auf Genehmigung von den involvierten Geräteparks"
-      ],
-      "Your order for the following items has been confirmed by the inventory manager": [
-         null,
-         "Ihre Bestellung der folgenden Artikel wurde vom Verleiher genehmigt:"
-      ],
-      "Your order for the following items listed below was successfully submitted.": [
-         null,
-         "Ihre folgende Bestellung ist bei uns eingetroffen:"
-      ],
-      "Your order was rejected for the following reason:": [
-         null,
-         "Ihre Bestellung wurde aus folgenden Gründen abgelehnt:"
       ],
       "Your order was successfully transmitted to those responsible and is %s.": [
          null,
@@ -2394,7 +2342,7 @@ window.i18n.locale_data = {
       ],
       "but a few changes were made to it": [
          null,
-         "aber es wurden einige Dinge daran verändert"
+         ""
       ],
       "could not be assigned for take back": [
          null,
@@ -3843,10 +3791,6 @@ window.i18n.locale_data = {
          null,
          "Maintenance-Vertrag"
       ],
-      "Currency": [
-         null,
-         "Währung"
-      ],
       "Procured by": [
          null,
          "Beschafft durch"
@@ -3878,6 +3822,10 @@ window.i18n.locale_data = {
       "Min. number of days between order and hand over": [
          null,
          "Min. Tage zwischen Bestellung und Aushändigung"
+      ],
+      "Status note": [
+         null,
+         "Statusnotiz"
       ]
    }
 }

@@ -249,7 +249,7 @@ msgid "Reference"
 msgstr "Bezug"
 
 msgid "Body"
-msgstr ""
+msgstr "Inhalt"
 
 msgid "Book"
 msgstr "Reservieren"
@@ -467,10 +467,10 @@ msgid "Edit this Order"
 msgstr "Diese Bestellung editieren"
 
 msgid "Editing mail templates for the inventory pool %s"
-msgstr ""
+msgstr "Editiere Mail-Templates für den Gerätepark %s"
 
 msgid "Editing system-wide mail templates"
-msgstr ""
+msgstr "Editiere Mail-Templates für das gesamte System"
 
 msgid "Empty Username and/or Password"
 msgstr "Benutzername und/oder Passwort sind leer"
@@ -515,7 +515,7 @@ msgid "Finish this take back"
 msgstr "Rücknahme abschliessen"
 
 msgid "Format"
-msgstr ""
+msgstr "Format"
 
 msgid "Found %d matches"
 msgstr "%s Treffer"
@@ -716,7 +716,7 @@ msgid "Kind regards,"
 msgstr "Schöne Grüsse"
 
 msgid "Language"
-msgstr ""
+msgstr "Sprache"
 
 msgid "Last Checked"
 msgstr "Letzte Inventur"
@@ -752,7 +752,7 @@ msgid "Lending Contracts No. %s"
 msgstr "Leihverträge Nr. %s"
 
 msgid "List of available variables"
-msgstr ""
+msgstr "Liste der verfügbaren Variablen"
 
 msgid "List of Contracts"
 msgstr "Liste der Verträge"
@@ -794,7 +794,7 @@ msgid "MAC-Address"
 msgstr "MAC-Adresse"
 
 msgid "Mail Templates"
-msgstr ""
+msgstr "Mail-Templates"
 
 msgid "Manufacturer"
 msgstr "Hersteller"
