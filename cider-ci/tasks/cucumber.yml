@@ -445,6 +445,11 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         "features/mail.feature"
+- name: mail_templates
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        "features/mail_templates.feature"
 - name: manage/acknowledge/add_item
   scripts:
     cucumber:

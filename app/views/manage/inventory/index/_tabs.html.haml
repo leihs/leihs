@@ -3,8 +3,11 @@
   %a.inline-tab-item{class: ("active" unless session[:params].try(:fetch, :type, nil))}
     = _("Alle")
 
-  %a.inline-tab-item{data: {type: "item"}, class: (session[:params].try(:fetch, :type, nil) == "item" ? "active" : nil)}
+  %a.inline-tab-item{data: {type: "item", packages: "false"}, class: (session[:params].try(:fetch, :type, nil) == "item" ? "active" : nil)}
     = _("Models")
+
+  %a.inline-tab-item{data: {type: "item", packages: "true"}, class: (session[:params].try(:fetch, :type, nil) == "package" ? "active" : nil)}
+    = _("Packages")
 
   %a.inline-tab-item{data: {type: "option"}, class: (session[:params].try(:fetch, :type, nil) == "option" ? "active" : nil)}
     = _("Options")

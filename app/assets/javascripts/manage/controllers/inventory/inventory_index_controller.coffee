@@ -13,7 +13,7 @@ class window.App.InventoryIndexController extends Spine.Controller
     super
     @pagination = new App.ListPaginationController {el: @list, fetch: @fetch}
     @search = new App.ListSearchController {el: @el.find("#list-search"), reset: @reset}
-    @tabs = new App.ListTabsController {el: @el.find("#list-tabs"), reset: @reset, callback: @toggleFiltersVisibility}
+    @tabs = new App.ListTabsController {el: @el.find("#list-tabs"), reset: @reset}
     @filter = new App.ListFiltersController {el: @filterElement, reset: @reset}
     new App.TimeLineController {el: @el}
     new App.InventoryExpandController {el: @el}
@@ -21,6 +21,7 @@ class window.App.InventoryIndexController extends Spine.Controller
     do @reset
 
   reset: =>
+    do @toggleFiltersVisibility
     @inventory = {}
     _.invoke [App.Item, App.License, App.Model, App.Software, App.Option], -> this.deleteAll()
     do @updateExportButton
@@ -115,7 +116,14 @@ class window.App.InventoryIndexController extends Spine.Controller
   toggleFiltersVisibility: =>
     if @tabs.getData().type == "option"
       @filterElement.addClass "hidden"
-      @filter.ignoreData = true
     else
       @filterElement.removeClass "hidden"
-      @filter.ignoreData = false
+      if @filterElement.find("select[name='used']").val() == "false"
+        @filterElement.find("select[name!='used'], label.button:has(input[type='checkbox'])").hide()
+      else
+        @filterElement.find("select[name!='used'], label.button:has(input[type='checkbox'])").show()
+        arr = @filterElement.find("select[name!='used'], input[type='checkbox']").serializeArray()
+        if _.any(arr, (x)-> x.value != "")
+          @filterElement.find("select[name='used']").hide()
+        else
+          @filterElement.find("select[name='used']").show()

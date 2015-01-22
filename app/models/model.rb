@@ -183,6 +183,7 @@ class Model < ActiveRecord::Base
   def self.filter(params, subject = nil, category = nil, borrowable = false)
     models = Model.all
     models = models.where(type: params[:type].capitalize) if ["model", "software"].include? params[:type]
+    models = models.where(is_package: params[:packages] == "true") if params[:packages]
 
     models = if subject.is_a? User
                filter_for_user models, params, subject, category, borrowable
