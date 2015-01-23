@@ -43,6 +43,9 @@ Capybara.register_driver :selenium_phantomjs do |app|
 end
 
 Capybara.register_driver :selenium_firefox do |app|
+  if ENV['FIREFOX_ESR_PATH'].present?
+    Selenium::WebDriver::Firefox.path = ENV['FIREFOX_ESR_PATH']
+  end
   profile = Selenium::WebDriver::Firefox::Profile.new
   # we need a firefox extension to start intercepting javascript errors before the page scripts load
   # see https://github.com/mguillem/JSErrorCollector
