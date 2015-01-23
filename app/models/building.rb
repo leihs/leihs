@@ -1,5 +1,14 @@
 class Building < ActiveRecord::Base
 
+  has_many :locations, dependent: :restrict_with_exception
+  has_many :items, through: :locations
+
+  validates_presence_of :name
+
+  default_scope { order(:name) }
+
+  ########################################################
+
   def to_s
     "#{name} (#{code})"
   end

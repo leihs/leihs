@@ -1,0 +1,12 @@
+- content_for :title, _("Edit")
+- content_for :admin_section, "active"
+
+.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/admin', :locals => {:active_tab => :buildings}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    = form_tag manage_update_building_path(@building), method: :put do
+
+      = render partial: "manage/buildings/form"

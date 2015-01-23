@@ -1,0 +1,51 @@
+.row.margin-top-l.padding-horizontal-m
+
+  .row
+    %h1.headline-l.float-left= @building.name || _("Create %s") % _("Building")
+
+    %div.float-right
+      %a.button.grey{:href => "/manage/buildings"}= _("Cancel")
+      %button.button.green{:type => :submit}= _("Save")
+
+  .row.margin-top-m
+
+    .col1of2.padding-right-xs
+
+      %h2.headline-m.padding-left-s= _("Basic Information")
+
+      .row.margin-vertical-s
+
+        .row.padding-inset-s.emboss.margin-bottom-xxs
+          .col1of2
+            %strong.font-size-m= "#{_("Name")} *"
+          .col1of2.text-align-right
+            %input{type: "text", name: "building[name]", value: @building.name}
+
+        .row.padding-inset-s.emboss.margin-bottom-xxs
+          .col1of2
+            %strong.font-size-m= "#{_("Code")}"
+          .col1of2.text-align-right
+            %input{type: "text", name: "building[code]", value: @building.code}
+
+    .col1of2.padding-left-xs
+
+      %h2.headline-m.padding-left-s= _("Locations")
+
+      .row.margin-vertical-s
+
+        .row.padding-inset-s.emboss.margin-bottom-xxs
+          .col1of3
+            %strong.font-size-m= _("Room")
+          .col1of3
+            %strong.font-size-m= _("Shelf")
+          .col1of3
+            %strong.font-size-m= _("Items")
+
+        - @building.locations.each do |l|
+          .row.padding-inset-s.emboss.margin-bottom-xxs
+            .col1of3
+              = l.room
+            .col1of3
+              = l.shelf
+            .col1of3
+              = l.items.count

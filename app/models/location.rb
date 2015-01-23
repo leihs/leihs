@@ -21,7 +21,7 @@ class Location < ActiveRecord::Base
 
 #################################################################
 
-  default_scope { includes(:building) }
+  default_scope { order(:room, :shelf).includes(:building) }
 
 #################################################################
 

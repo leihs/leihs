@@ -1,0 +1,38 @@
+.row.line
+
+  .col2of6.line-col
+    %strong= building.name
+
+  .col1of6.line-col.text-align-left
+    %strong= building.code
+
+  .col1of6.line-col
+    %strong= _("%d locations") % building.locations.count
+
+  .col1of6.line-col
+    %strong= _("%d items") % building.items.count
+
+  .col1of6.line-col.line-actions
+
+    - if building.can_destroy?
+
+      .multibutton
+
+        %a.button.white{href: manage_edit_building_path(building)}
+          = _("Edit")
+
+        .dropdown-holder.inline-block
+          .button.white.dropdown-toggle
+            .arrow.down
+
+          %ul.dropdown.right
+
+            %li
+              %a.dropdown-item.red{href: manage_delete_building_path(building), data: {method: :delete}}
+                %i.icon-trash
+                = _("Delete")
+
+    - else
+
+      %a.button.white{href: manage_edit_building_path(building)}
+        = _("Edit")

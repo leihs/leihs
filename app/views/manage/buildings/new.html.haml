@@ -1,0 +1,12 @@
+- content_for :title, _("Create %s") % _("Building")
+- content_for :admin_section, "active"
+
+.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/admin', :locals => {:active_tab => :buildings}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    = form_tag manage_buildings_path do
+
+      = render partial: "manage/buildings/form"

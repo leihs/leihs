@@ -1,0 +1,27 @@
+- content_for :title, _("List of Buildings")
+- content_for :admin_section, "active"
+
+.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/admin', :locals => {:active_tab => :buildings}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    .row.margin-top-l.padding-horizontal-m
+
+      %h1.headline-l.float-left= yield :title
+
+      .float-right
+
+        %a.button.white{href: manage_new_building_path}
+          %i.icon-plus
+          = _("Create %s") % _("Building")
+
+    .margin-top-m
+
+      .inline-tab-navigation
+
+        %a.inline-tab-item.active= _("All")
+
+    %div.list-of-lines
+      = render @buildings
