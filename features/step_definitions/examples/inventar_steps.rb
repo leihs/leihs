@@ -64,8 +64,15 @@ Dann /^kann man auf ein der folgenden Tabs klicken und dabei die entsprechende I
       when "Modelle"
         tab = section_tabs.find("a[data-type='item']", match: :first)
         expect(tab.text).to eq _("Models")
-        inventory = items.items
-        models = Model.where(type: :Model)
+        inventory = items.items.joins(:model).where(models: {is_package: false})
+        models = Model.where(type: :Model, is_package: false)
+        amount = models.owned_or_responsible_by_inventory_pool(@current_inventory_pool).count + models.unused_for_inventory_pool(@current_inventory_pool).count
+        retired_unretired_option.select_option
+      when _("Packages")
+        tab = section_tabs.find("a[data-type='item']", text: _("Packages"))
+        expect(tab.text).to eq _("Packages")
+        inventory = items.items.joins(:model).where(models: {is_package: true})
+        models = Model.where(type: :Model, is_package: true)
         amount = models.owned_or_responsible_by_inventory_pool(@current_inventory_pool).count + models.unused_for_inventory_pool(@current_inventory_pool).count
         retired_unretired_option.select_option
       when "Optionen"
@@ -458,7 +465,11 @@ end
 
 Dann /^die Informationen sind gespeichert$/ do
   search_string = @table_hashes.detect {|h| h["Feld"] == "Produkt"}["Wert"]
-  find(:select, "retired").first("option").select_option
+  if has_selector?(:select, "retired")
+    find(:select, "retired").first("option").select_option
+  elsif has_selector?(:select, "used")
+    find(:select, "used").first("option").select_option
+  end
   step 'ich nach "%s" suche' % search_string
   find(".line", match: :prefer_exact, text: search_string)
   step 'I should see "%s"' % search_string

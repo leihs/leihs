@@ -103,6 +103,12 @@ Funktionalität: Inventar
       | Modelle            |
 
   @personas @javascript @browser
+  Szenario: Auswahlmöglichkeiten: Modell-Tab
+    Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
+      | Auswahlmöglichkeit |
+      | Pakete             |
+
+  @personas @javascript @browser
   Szenario: Auswahlmöglichkeiten: Optionen-Tab
     Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
       | Auswahlmöglichkeit |
