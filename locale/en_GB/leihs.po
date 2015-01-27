@@ -263,7 +263,9 @@ msgid "Broken"
 msgstr ""
 
 msgid "Building"
-msgstr ""
+msgid_plural "Buildings"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid ""
 "By not returning these items, you are blocking other people's reservations. "
@@ -747,6 +749,9 @@ msgstr ""
 msgid "List of available variables"
 msgstr ""
 
+msgid "List of Buildings"
+msgstr ""
+
 msgid "List of Contracts"
 msgstr ""
 
@@ -773,6 +778,11 @@ msgstr ""
 
 msgid "Locations"
 msgstr ""
+
+msgid "%s location"
+msgid_plural "%s locations"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "Logged in successfully"
 msgstr ""

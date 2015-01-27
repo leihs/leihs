@@ -54,6 +54,8 @@ When(/^I delete a building$/) do
     within(".line", text: @building.name) do
       find(".dropdown-holder").hover
       find("a.dropdown-item", text: _("Delete")).click
+      alert = page.driver.browser.switch_to.alert
+      alert.accept
     end
   end
 end

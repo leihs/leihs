@@ -49,6 +49,7 @@ When /^I delete all lines of a model thats availability is blocked by these line
     find(".line", match: :prefer_exact, text: @model.name).find("input[type='checkbox'][data-select-line]").click
   end
   step 'I add so many lines that I break the maximal quantity of a model'
+  step 'the availability is loaded'
   target_linegroup = find("[data-selected-lines-container]", text: /#{find("#add-start-date").value}.*#{find("#add-end-date").value}/)
 
   reference_line = target_linegroup.all(".line", :text => @model.name).detect{|line| line.find(".line-info.red")}

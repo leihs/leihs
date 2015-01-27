@@ -267,7 +267,9 @@ msgid "Broken"
 msgstr "Defekt"
 
 msgid "Building"
-msgstr "Gebäude"
+msgid_plural "Buildings"
+msgstr[0] "Gebäude"
+msgstr[1] "Gebäude"
 
 msgid "CSV"
 msgstr "CSV"
@@ -754,6 +756,9 @@ msgstr "Leihverträge Nr. %s"
 msgid "List of available variables"
 msgstr "Liste der verfügbaren Variablen"
 
+msgid "List of Buildings"
+msgstr "Liste der Gebäude"
+
 msgid "List of Contracts"
 msgstr "Liste der Verträge"
 
@@ -777,6 +782,11 @@ msgstr "Ort"
 
 msgid "Locations"
 msgstr "Orte"
+
+msgid "%s location"
+msgid_plural "%s locations"
+msgstr[0] "%s Ort"
+msgstr[1] "%s Orte"
 
 msgid "Location not defined"
 msgstr "Ort nicht definiert"

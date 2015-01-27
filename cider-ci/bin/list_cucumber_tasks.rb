@@ -2,7 +2,7 @@
 require 'yaml'
 require 'pry'
 
-CI_SCENARIOS_PER_TASK = 1
+CI_SCENARIOS_PER_TASK = (ENV['CI_SCENARIOS_PER_TASK'] || 1).to_i
 
 def task_hash(name, exec)
   h = { "name" => name,

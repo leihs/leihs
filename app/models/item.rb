@@ -101,7 +101,7 @@ class Item < ActiveRecord::Base
   }
 
   def self.filter(params, inventory_pool = nil)
-    items = Item.all
+    items = Item.distinct
     items = items.send(params[:type].pluralize) unless params[:type].blank?
 
     items = items.by_owner_or_responsible inventory_pool if inventory_pool

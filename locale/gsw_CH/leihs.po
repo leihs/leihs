@@ -263,7 +263,9 @@ msgid "Broken"
 msgstr "Kabutt"
 
 msgid "Building"
-msgstr "Geboide"
+msgid_plural "Buildings"
+msgstr[0] "Geboide"
+msgstr[1] "Geboide"
 
 msgid "CSV"
 msgstr "CSV"
@@ -750,6 +752,9 @@ msgid "Lending Contracts No. %s"
 msgstr "Leiverträg Nr. %s"
 
 msgid "List of available variables"
+msgstr ""
+
+msgid "List of Buildings"
 msgstr ""
 
 msgid "List of Contracts"

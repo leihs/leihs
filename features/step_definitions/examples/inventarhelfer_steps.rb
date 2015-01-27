@@ -269,8 +269,8 @@ Dann(/^ich setze den Wert für das Feld "(.*?)"$/) do |field|
 end
 
 Angenommen(/^es existiert ein Gegenstand, welches sich denselben Ort mit einem anderen Gegenstand teilt$/) do
-  location = Location.find {|l| l.items.count >= 2}
-  @item, @item_2 = location.items.first, location.items.second
+  location = Location.find {|l| l.items.where(inventory_pool_id: @current_inventory_pool, parent_id: nil).count >= 2}
+  @item, @item_2 = location.items.where(inventory_pool_id: @current_inventory_pool, parent_id: nil).sample(2)
   @item_2_location = @item_2.location
 end
 

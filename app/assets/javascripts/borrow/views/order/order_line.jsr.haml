@@ -47,7 +47,7 @@
         .dropdown.right
 
           %a.dropdown-item.red{:href => "/borrow/order/remove_lines?{{param ids 'line_ids'/}}",
-             :"data-confirm" => "{{jed 'Are you sure?'/}}",
+             :"data-confirm" => "{{jed 'Delete entry'/}}",
              :"data-method" => :delete}
             %i.icon-trash
             {{jed 'Delete'/}}

@@ -500,6 +500,11 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         "features/manage/booking_calendar/summary_of_lines_in_calendar.feature"
+- name: manage/buildings
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        "features/manage/buildings.feature"
 - name: manage/daily_view/item_hover
   scripts:
     cucumber:
