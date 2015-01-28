@@ -2,7 +2,7 @@
 require 'yaml'
 require 'pry'
 
-CI_SCENARIOS_PER_TASK = (ENV['CI_SCENARIOS_PER_TASK'] || 1).to_i
+CI_SCENARIOS_PER_TASK = (ENV['CI_SCENARIOS_PER_TASK'] || 10).to_i
 
 def task_hash(name, exec)
   h = { "name" => name,
@@ -30,7 +30,7 @@ File.open(filepath,"w") do |f|
   f.write(string.to_yaml)
 end
 
-default_browser = ENV['DEFAULT_BROWSER'] ? ENV['DEFAULT_BROWSER'] : [:firefox, :chrome].sample
+default_browser = ENV['DEFAULT_BROWSER'] ? ENV['DEFAULT_BROWSER'] : :firefox # [:firefox, :chrome].sample
 filepath = "./cider-ci/tasks/cucumber_scenarios.yml"
 File.open(filepath,"w") do |f|
   h1 = {}
