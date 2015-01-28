@@ -2459,9 +2459,6 @@ msgstr "Verfüegbarkeit"
 msgid "Entry"
 msgstr "Iitrag"
 
-msgid "Delete entry"
-msgstr "Iitrag lösche"
-
 msgid "%s will be removed from the template and not been added to your order."
 msgstr "%s wird vo de Vorlag entfernt und nöd zu Ihrere Bschtelig dezue tah."
 

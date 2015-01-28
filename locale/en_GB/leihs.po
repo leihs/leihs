@@ -2387,9 +2387,6 @@ msgstr ""
 msgid "Entry"
 msgstr ""
 
-msgid "Delete entry"
-msgstr ""
-
 msgid "%s will be removed from the template and not been added to your order."
 msgstr ""
 

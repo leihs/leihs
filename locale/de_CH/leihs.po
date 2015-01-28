@@ -2470,9 +2470,6 @@ msgstr "Verfügbarkeit"
 msgid "Entry"
 msgstr "Eintrag"
 
-msgid "Delete entry"
-msgstr "Eintrag löschen"
-
 msgid "%s will be removed from the template and not been added to your order."
 msgstr ""
 "%s wird aus der Vorlage entfernt und nicht zu Ihrer Bestellung hinzugefügt."

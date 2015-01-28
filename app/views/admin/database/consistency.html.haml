@@ -37,7 +37,7 @@
                              else
                                _("Delete from the database")
                            end
-          = link_to admin_consistency_path(from_table: h[:from_table], to_table: h[:to_table], from_column: h[:from_column], to_column: h[:to_column], dependent: h[:dependent]), method: :delete, class: "button red", data: { confirm: _("Delete entry") } do
+          = link_to admin_consistency_path(from_table: h[:from_table], to_table: h[:to_table], from_column: h[:from_column], to_column: h[:to_column], dependent: h[:dependent]), method: :delete, class: "button red", data: { confirm: _("Delete") } do
             = button_label
 
         .row.emboss.margin-vertical-s

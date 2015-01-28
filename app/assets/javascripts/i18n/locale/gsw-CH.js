@@ -3200,10 +3200,6 @@ window.i18n.locale_data = {
          null,
          "Iitrag"
       ],
-      "Delete entry": [
-         null,
-         "Iitrag lösche"
-      ],
       "%s will be removed from the template and not been added to your order.": [
          null,
          "%s wird vo de Vorlag entfernt und nöd zu Ihrere Bschtelig dezue tah."

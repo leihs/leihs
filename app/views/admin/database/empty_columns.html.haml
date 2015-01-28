@@ -15,7 +15,7 @@
     - else
       .row.margin-top-l.padding-horizontal-m
         .row
-          = link_to admin_empty_columns_path(), method: :delete, class: "button red", data: { confirm: _("Delete entry") } do
+          = link_to admin_empty_columns_path(), method: :delete, class: "button red", data: { confirm: _("Nullify on the database") } do
             = _("Nullify on the database")
 
       - @empty_columns.each_pair do |key, v|

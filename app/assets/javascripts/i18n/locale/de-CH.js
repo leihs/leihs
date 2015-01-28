@@ -3204,10 +3204,6 @@ window.i18n.locale_data = {
          null,
          "Eintrag"
       ],
-      "Delete entry": [
-         null,
-         "Eintrag löschen"
-      ],
       "%s will be removed from the template and not been added to your order.": [
          null,
          "%s wird aus der Vorlage entfernt und nicht zu Ihrer Bestellung hinzugefügt."
