@@ -56,8 +56,11 @@ class AccessRight < ActiveRecord::Base
     self.inventory_pool = nil if role.to_sym == :admin
     if user
       unless user.access_rights.active.empty?
-        old_ar = user.access_rights.active.where( :inventory_pool_id => inventory_pool.id ).first if inventory_pool
-        user.access_rights.delete(old_ar) if old_ar
+        if inventory_pool and old_ar = user.access_rights.active.where(inventory_pool_id: inventory_pool).first
+          Rails.logger.info "--- Deleted Access Right --- #{old_ar.id}, #{old_ar.user}, #{old_ar.inventory_pool}"
+          Rails.logger.info old_ar.inspect
+          user.access_rights.delete(old_ar)
+        end
       end
     end
   end
