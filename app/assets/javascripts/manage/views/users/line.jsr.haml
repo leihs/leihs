@@ -29,7 +29,7 @@
 
     .multibutton
 
-      {{if ~currentInventoryPool}}
+      {{if ~currentInventoryPool && accessRight()}}
 
       %a.button.white{:href => "{{>url('hand_over')}}"}
         %i.icon-mail-forward

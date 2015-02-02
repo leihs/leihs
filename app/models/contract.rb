@@ -19,9 +19,10 @@ class Contract < ActiveRecord::Base
 
 #########################################################################
 
-  validates_presence_of :inventory_pool, :status
+  validates_presence_of :user, :inventory_pool, :status
 
   validate do
+    errors.add(:base, _("No access")) unless user.access_right_for(inventory_pool)
     errors.add(:base, _("Invalid contract_lines")) if lines.any? {|l| not l.valid? }
     errors.add(:base, _("The start_date is not unique")) if [:signed, :closed].include?(status) and lines.group(:start_date).count.keys.size != 1
     errors.add(:base, _("Delegated user is not member of the contract's delegation or is empty")) if user.is_delegation and not user.delegated_users.include?(delegated_user)

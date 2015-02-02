@@ -1,5 +1,10 @@
 When /^I create an approved contract for "(.*?)"$/ do |name|
-  @contract = FactoryGirl.create :contract, :status => :approved, :user => User.where(:login => name.downcase).first
+  user = User.where(:login => name.downcase).first
+  FactoryGirl.create :access_right, user: user, inventory_pool: @current_inventory_pool
+  @contract = FactoryGirl.create :contract,
+                                 status: :approved,
+                                 inventory_pool: @current_inventory_pool,
+                                 user: user
 end
 
 Then /^the new contract is empty$/ do

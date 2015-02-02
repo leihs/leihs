@@ -111,7 +111,8 @@ Dann /^beinhaltet die Liste folgende Spalten:$/ do |table|
           }
         when "Raum / Gestell"
           find("table thead tr td.location", text: "%s / %s" % [_("Room"), _("Shelf")])
-          @contract.lines.each {|line|
+          lines = @selected_lines_by_date ? @selected_lines_by_date : @contract.lines
+          lines.each {|line|
             find("tbody tr", text: line.item.inventory_code).find(".location", text:
                 if line.model.is_a?(Option) or line.item.location.nil? or (line.item.location.room.blank? and line.item.location.shelf.blank?)
                   _("Location not defined")

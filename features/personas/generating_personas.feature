@@ -116,7 +116,7 @@ Feature: Generating Personas
       | customer4@zhdk.ch        |                 | customer          | A-Ausleihe     |                   |                 |                          |
       | customer5@zhdk.ch        |                 | customer          | A-Ausleihe     |                   |                 |                          |
       | customer6@zhdk.ch        |                 | customer          | A-Ausleihe     |                   |                 |                          |
-      | customer7@zhdk.ch        |                 | customer          | A-Ausleihe     | #{Date.today}     |                 |                          |
+      | customer7@zhdk.ch        |                 | customer          | A-Ausleihe     |                   |                 |                          |
       | customer8@zhdk.ch        |                 | customer          | A-Ausleihe     |                   |                 |                          |
       | customer9@zhdk.ch        |                 | customer          | A-Ausleihe     |                   |                 |                          |
 
@@ -471,6 +471,8 @@ Feature: Generating Personas
     And 1 unsubmitted contract exists
     And 1 unsubmitted contract for user "normin@zhdk.ch" exists
 
+    And all unsubmitted contract lines are available
+
     And a submitted contract with following properties exist:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
@@ -695,6 +697,10 @@ Feature: Generating Personas
       | assigned           | true        |
     And this contract is signed by "pius@zhdk.ch"
     And this contract is closed on "#{Date.today}" by "pius@zhdk.ch"
+
+    And the following access right is revoked:
+      | user email          | customer7@zhdk.ch |
+      | inventory pool name | A-Ausleihe        |
 
     And an approved contract with following properties exist:
       | user email          | normin@zhdk.ch |
@@ -964,5 +970,7 @@ Feature: Generating Personas
     And today is back to initial random date
 
     Then there are 54 contracts in total
+
+    And all unsubmitted contract lines are available
 
     Then the current time dump is generated

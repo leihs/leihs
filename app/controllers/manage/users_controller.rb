@@ -14,10 +14,17 @@ class Manage::UsersController < Manage::ApplicationController
                  current_inventory_pool.id
                end
     end
+  end
 
-    params[:id] ||= params[:user_id] if params[:user_id]
-    #@user = current_inventory_pool.users.find(params[:id]) if params[:id]
-    @user = User.find(params[:id]) if params[:id]
+  before_filter only: [:edit, :update, :edit_in_inventory_pool, :update_in_inventory_pool, :destroy, :set_start_screen, :hand_over, :take_back] do
+    #@user = current_inventory_pool.users.find(params[:id])
+    @user = User.find(params[:id])
+  end
+
+  before_filter only: [:hand_over, :take_back] do
+    unless @user.access_right_for(current_inventory_pool)
+      redirect_to manage_inventory_pool_users_path, flash: {error: _("No access")}
+    end
   end
 
   private
@@ -40,12 +47,6 @@ class Manage::UsersController < Manage::ApplicationController
     @role = params[:role]
     @users = User.filter params, current_inventory_pool
     set_pagination_header @users unless params[:paginate] == "false"
-  end
-
-  def show
-    respond_to do |format|
-      format.html
-    end
   end
 
   def new
@@ -263,30 +264,6 @@ class Manage::UsersController < Manage::ApplicationController
   end
 
 #################################################################
-
-  def extended_info
-  end
-
-  def groups
-  end
-
-  def add_group(group = params[:group])
-    @group = current_inventory_pool.groups.find(group[:group_id])
-    unless @user.groups.include? @group
-      @user.groups << @group
-      @user.save!
-    end
-    redirect_to :action => 'groups'
-  end
-
-  def remove_group(group_id = params[:group_id])
-    @group = current_inventory_pool.groups.find(group_id)
-    if @user.groups.include? @group
-      @user.groups.delete @group
-      @user.save!
-    end
-    redirect_to :action => 'groups'
-  end
 
   def get_accessible_roles_for_current_user
     accessible_roles = [[_("No access"), :no_access], [_("Customer"), :customer]]

@@ -209,6 +209,10 @@ Given(/^(\d+) (unsubmitted|submitted|approved) contracts?(?: for user "(.*)")? e
   end
 end
 
+Given(/^all unsubmitted contract lines are available$/) do
+  expect(Contract.unsubmitted.flat_map(&:lines).all? {|line| line.available? }).to be true
+end
+
 Given(/^users with deleted access rights and closed contracts exist$/) do |table|
   hashes_with_evaled_and_nilified_values(table).each do |hash_row|
     hash_row["quantity users"].to_i.times do
@@ -619,6 +623,24 @@ Given(/^the item with inventory code "(.*?)" has now the following properties:$/
     end
   end
   item.update_attributes attrs
+end
+
+Given(/^the following access right is revoked:$/) do |table|
+  attrs = {}
+  table.rows_hash.each_pair do |key, value|
+    case key
+      when "user email"
+        attrs[:user] = User.find_by_email value
+      when "inventory pool name"
+        attrs[:inventory_pool] = InventoryPool.find_by_name value
+      else
+        raise
+    end
+  end
+
+  expect(attrs[:user].access_right_for(attrs[:inventory_pool])).not_to be_nil
+  attrs[:user].access_right_for(attrs[:inventory_pool]).update_attributes(deleted_at: Date.today)
+  expect(attrs[:user].access_right_for(attrs[:inventory_pool])).to be_nil
 end
 
 Then(/^there are (\d+) (.*) in total$/) do |n, elements|

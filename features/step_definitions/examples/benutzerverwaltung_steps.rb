@@ -84,8 +84,12 @@ Dann /^man kann für jeden Benutzer die Editieransicht aufrufen$/ do
   expect(has_selector?("#user-list [data-type='user-cell']")).to be true
   all("#user-list > .line").each do |line|
     within line.find(".multibutton") do
-      find(".dropdown-toggle").click
-      find(".dropdown-item", text: _("Edit"))
+      if has_selector?(".button", text: _("Edit"))
+        find(".button", text: _("Edit"))
+      else
+        find(".dropdown-toggle").click
+        find(".dropdown-item", text: _("Edit"))
+      end
     end
   end
 end

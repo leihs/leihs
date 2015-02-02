@@ -3,23 +3,21 @@
 When /^I open a hand over( with at least one unassigned line)?( for today)?( with options| with models)?$/ do |arg0, arg1, arg2|
   @current_inventory_pool = @current_user.managed_inventory_pools.detect do |ip|
     @customer = ip.users.not_as_delegations.to_a.shuffle.detect do |user|
-      user.visits.hand_over.exists? and begin
-        if arg0 and arg1
-          user.visits.hand_over.any?{|v| v.lines.size >= 3 and v.lines.any? {|l| not l.item and l.start_date == ip.next_open_date(Date.today)}}
-        elsif arg1
-          user.visits.hand_over.find {|ho| ho.date == Date.today}
-        elsif arg2
-          user.visits.hand_over.any?{|v| v.lines.any? do |l|
-            l.is_a?(case arg2
-                      when " with options"
-                        OptionLine
-                      when " with models"
-                        ItemLine
-                    end)
-          end }
-        else
-          user.visits.hand_over.any?{|v| v.lines.size >= 3 }
-        end
+      if arg0 and arg1
+        user.visits.hand_over.any?{|v| v.lines.size >= 3 and v.lines.any? {|l| not l.item and l.start_date == ip.next_open_date(Date.today)}}
+      elsif arg1
+        user.visits.hand_over.find {|ho| ho.date == Date.today}
+      elsif arg2
+        user.visits.hand_over.any?{|v| v.lines.any? do |l|
+          l.is_a?(case arg2
+                    when " with options"
+                      OptionLine
+                    when " with models"
+                      ItemLine
+                  end)
+        end }
+      else
+        user.visits.hand_over.any?{|v| v.lines.size >= 3 }
       end
     end
   end

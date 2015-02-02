@@ -153,7 +153,7 @@ Dann(/^ich kann die Bestellung editieren$/) do
 end
 
 Dann(/^ich kann keine Bestellungen aushändigen$/) do
-  find(@line_css).has_no_css? "[href*='#{manage_hand_over_contract_path(@current_inventory_pool, @contract)}']", visible: false
+  expect(find(@line_css).has_no_selector?("a", text: _("Hand Over"))).to be true
 end
 
 Dann(/^sehe ich alle genehmigten visierpflichtigen Bestellungen$/) do
@@ -238,7 +238,7 @@ Then(/^I can add models$/) do
              @current_inventory_pool.models.select {|m| m.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(Date.today, Date.today) > 0 }
            else
              @current_inventory_pool.models
-           end.sample
+           end.select{|m| m.items.where(inventory_pool_id: @current_inventory_pool, parent_id: nil).exists? }.sample
   hand_over_assign_or_add @model.to_s
 end
 

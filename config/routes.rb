@@ -121,7 +121,7 @@ Leihs::Application.routes.draw do
     delete  'buildings/:id',      to: 'buildings#destroy',  as: 'delete_building'
 
     # Users
-    post "users/:user_id/set_start_screen", to: "users#set_start_screen"
+    post "users/:id/set_start_screen", to: "users#set_start_screen"
 
     # # Users
     # delete "manage/users/:id", to: "manage/users#destroy", as: "delete_manage_user"
@@ -173,7 +173,6 @@ Leihs::Application.routes.draw do
       post  "contracts/:id/reject",       to: "contracts#reject"
       post  'contracts/:id/sign',         to: "contracts#sign"
       get   'contracts/:id/edit',         to: "contracts#edit",       as: "edit_contract"
-      get   'contracts/:id/hand_over',    to: "contracts#hand_over",  as: "hand_over_contract"
       post  'contracts/:id/swap_user',    to: "contracts#swap_user"
       get   "contracts/:id/value_list",   to: "contracts#value_list", as: "value_list"
       get   "contracts/:id/picking_list", to: "contracts#picking_list", as: "picking_list"
@@ -215,12 +214,6 @@ Leihs::Application.routes.draw do
       delete  "contract_lines/:line_id",               to: "contract_lines#destroy"
       post    "contract_lines/take_back",              to: "contract_lines#take_back"
       post    "contract_lines/print",                  to: "contract_lines#print", as: "print_contract_lines"
-
-      # Hand Over
-      get 'users/:user_id/hand_over', to: "users#hand_over", as: "hand_over"
-
-      # Take Back
-      get 'users/:user_id/take_back', to: "users#take_back", as: "take_back"
 
       # Inventory
       get 'inventory',                  :to => "inventory#index",       :as => "inventory"
@@ -296,6 +289,9 @@ Leihs::Application.routes.draw do
       get      "users/:id/edit", to: "users#edit_in_inventory_pool",    as: "edit_inventory_pool_user"
       put      "users/:id",      to: "users#update_in_inventory_pool",  as: "update_inventory_pool_user"
       delete   "users/:id",      to: "users#destroy"
+
+      get      'users/:id/hand_over', to: "users#hand_over", as: "hand_over"
+      get      'users/:id/take_back', to: "users#take_back", as: "take_back"
 
       # Access rights
       get "access_rights", to: "access_rights#index"
