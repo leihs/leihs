@@ -49,3 +49,12 @@ Funktionalität: Explorative Suche
     Und kann die darunterliegende Kategorie anwählen
     Und ich sehe die Hauptkategorie sowie die aktuell ausgewählte und die darunterliegenden Kategorien
     Und die Modelle wurden nach dieser Kategorie gefiltert
+
+  @javascript @personas @browser
+  Szenario: Filter not categorized models
+    Angenommen man öffnet die Liste des Inventars
+    Und I see retired and not retired inventory
+    Und ich die Navigation der Kategorien aufklappe
+    Wenn I select the not categorized filter
+    Dann I see the models not assigned to any category
+

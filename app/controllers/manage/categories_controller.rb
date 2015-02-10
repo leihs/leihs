@@ -1,8 +1,18 @@
 class Manage::CategoriesController < Manage::ApplicationController
 
   def index
-    @categories = Category.filter params, current_inventory_pool 
-    @include_information = params[:include].keys if params[:include]
+    respond_to do |format|
+      format.html
+      format.json {
+        @categories = Category.filter params, current_inventory_pool
+        if not params[:include] or not params[:include][:is_used]
+          cat = Category.new(name: "* %s *" % _("Not categorized"))
+          cat.id = -1
+          @categories << cat
+        end
+        @include_information = params[:include].keys if params[:include]
+      }
+    end
   end
 
   def new

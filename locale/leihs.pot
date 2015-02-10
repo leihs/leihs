@@ -890,6 +890,9 @@ msgstr ""
 msgid "Not available"
 msgstr ""
 
+msgid "Not categorized"
+msgstr ""
+
 msgid "Note"
 msgstr ""
 

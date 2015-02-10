@@ -230,7 +230,15 @@ class Model < ActiveRecord::Base
         models = models.joins(:items).where(items: {inventory_pool_id: params[:responsible_inventory_pool_id]}) if params[:responsible_inventory_pool_id]
     end
 
-    models = models.joins(:categories).where(:"model_groups.id" => [Category.find(params[:category_id])] + Category.find(params[:category_id]).descendants) unless params[:category_id].blank?
+    unless params[:category_id].blank?
+      if params[:category_id].to_i == -1
+        models = models.joins("LEFT JOIN model_links ON model_links.model_id = models.id
+                               LEFT JOIN model_groups ON model_groups.id = model_links.model_group_id
+                                  AND model_groups.type = 'Category'").where(model_groups: {id: nil})
+      else
+        models = models.joins(:categories).where(:"model_groups.id" => [Category.find(params[:category_id])] + Category.find(params[:category_id]).descendants)
+      end
+    end
     models = models.joins(:model_links).where(:model_links => {:model_group_id => params[:template_id]}) if params[:template_id]
     models
   end

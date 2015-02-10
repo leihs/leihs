@@ -310,11 +310,11 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         features/examples/contracts.feature:7:16 DEFAULT_BROWSER=firefox
-- name: features/examples/explorative_suche.feature:13:27:39:44
+- name: features/examples/explorative_suche.feature:13:27:39:44:54
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/explorative_suche.feature:13:27:39:44 DEFAULT_BROWSER=firefox
+        features/examples/explorative_suche.feature:13:27:39:44:54 DEFAULT_BROWSER=firefox
 - name: features/examples/gegenstand_ausmustern.feature:6:17:27:37:48
   scripts:
     cucumber:

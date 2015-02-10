@@ -902,6 +902,9 @@ msgstr "Nicht ausleihbar"
 msgid "Not available"
 msgstr "Nicht verfügbar"
 
+msgid "Not categorized"
+msgstr "Nicht kategorisiert"
+
 msgid "Note"
 msgstr "Notiz"
 

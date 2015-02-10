@@ -144,3 +144,19 @@ Dann(/^die nicht verfügbaren Modelle sind rot markiert$/) do
     expect(line[:class]).to match /error/
   end
 end
+
+
+Wenn(/^I select the not categorized filter$/) do
+  within("#categories #category-list") do
+    find("a[data-type='category-filter']", text: "* %s *" % _("Not categorized")).click
+  end
+end
+
+Dann(/^I see the models not assigned to any category$/) do
+  step "I fetch all pages of the list"
+  within("#inventory") do
+    @current_inventory_pool.models.select {|model| model.categories.empty? }.each do |model|
+      find(".line[data-id='#{model.id}']", match: :prefer_exact, text: model.name)
+    end
+  end
+end

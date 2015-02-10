@@ -120,8 +120,16 @@ class Item < ActiveRecord::Base
     items = items.borrowable if params[:borrowable]
 
     items = items.unborrowable if params[:unborrowable]
-
-    items = items.where(:model_id => Model.joins(:categories).where(:"model_groups.id" => [Category.find(params[:category_id])] + Category.find(params[:category_id]).descendants)) if params[:category_id]
+    if params[:category_id]
+      model_ids = if params[:category_id].to_i == -1
+                    Model.joins("LEFT JOIN model_links ON model_links.model_id = models.id
+                                 LEFT JOIN model_groups ON model_groups.id = model_links.model_group_id
+                                    AND model_groups.type = 'Category'").where(model_groups: {id: nil})
+                  else
+                    Model.joins(:categories).where(:"model_groups.id" => [Category.find(params[:category_id])] + Category.find(params[:category_id]).descendants)
+                  end
+      items = items.where(:model_id => model_ids)
+    end
     items = items.where(:parent_id => params[:package_ids]) if params[:package_ids]
     items = items.where(:parent_id => nil) if params[:not_packaged]
     items = items.joins(:model).where(models: {is_package: (params[:packages] == "true")}) if params[:packages]
