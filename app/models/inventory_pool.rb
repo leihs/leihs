@@ -212,8 +212,7 @@ class InventoryPool < ActiveRecord::Base
     # exlude models if asked only for options
     unless model_type == "option"
       items = Item.filter params.clone.merge({paginate: "false", search_term: nil}), self
-      item_ids = items.pluck(:id)
-      models = Model.filter model_filter_params.merge({item_ids: item_ids}), self
+      models = Model.filter model_filter_params.merge({items: items}), self
     else
       models = []
     end

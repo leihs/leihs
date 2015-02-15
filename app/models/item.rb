@@ -122,9 +122,7 @@ class Item < ActiveRecord::Base
     items = items.unborrowable if params[:unborrowable]
     if params[:category_id]
       model_ids = if params[:category_id].to_i == -1
-                    Model.joins("LEFT JOIN model_links ON model_links.model_id = models.id
-                                 LEFT JOIN model_groups ON model_groups.id = model_links.model_group_id
-                                    AND model_groups.type = 'Category'").where(model_groups: {id: nil})
+                    Model.where.not(id: Model.joins(:categories))
                   else
                     Model.joins(:categories).where(:"model_groups.id" => [Category.find(params[:category_id])] + Category.find(params[:category_id]).descendants)
                   end

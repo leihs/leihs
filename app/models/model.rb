@@ -226,15 +226,13 @@ class Model < ActiveRecord::Base
                  end
         models = models.where(:items => {:parent_id => nil}) unless params[:include_package_models]
         models = models.joins(:items).where(items: {is_borrowable: true}) if params[:borrowable] == "true"
-        models = models.joins(:items).where(items: {id: params[:item_ids]}) if params[:item_ids]
+        models = models.joins(:items).where(items: {id: params[:items]}) if params[:items]
         models = models.joins(:items).where(items: {inventory_pool_id: params[:responsible_inventory_pool_id]}) if params[:responsible_inventory_pool_id]
     end
 
     unless params[:category_id].blank?
       if params[:category_id].to_i == -1
-        models = models.joins("LEFT JOIN model_links ON model_links.model_id = models.id
-                               LEFT JOIN model_groups ON model_groups.id = model_links.model_group_id
-                                  AND model_groups.type = 'Category'").where(model_groups: {id: nil})
+        models = models.where.not(id: Model.joins(:categories))
       else
         models = models.joins(:categories).where(:"model_groups.id" => [Category.find(params[:category_id])] + Category.find(params[:category_id]).descendants)
       end
