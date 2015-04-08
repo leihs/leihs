@@ -216,9 +216,8 @@ msgstr "Verfüegbar i de Gruppe '"
 msgid "Available in total: "
 msgstr "Total verfüegbar: "
 
-#, fuzzy
 msgid "available quantity"
-msgstr "verfüegbar"
+msgstr "verfüegbari Aazahl"
 
 msgid "Back"
 msgstr "Zrugg"
@@ -354,13 +353,11 @@ msgstr "Aktuelli Bschtellig"
 msgid "Currently Borrowed Items"
 msgstr "Aktuell uusglehnti Sache"
 
-#, fuzzy
 msgid "Currently has items to return"
 msgstr "Hät aktuell Sache zum zrugg bringe"
 
-#, fuzzy
 msgid "Currently has open orders"
-msgstr "Hät aktuell Sache zum zrugg bringe"
+msgstr "Hät aktuell offeni Bschtellige"
 
 msgid "Currently you have no items in your order."
 msgstr "Sie händ grad kei Sache ide Bschtellig"
@@ -435,16 +432,14 @@ msgstr "%s ändere"
 msgid "Edit Model"
 msgstr "Modäll bearbeite"
 
-#, fuzzy
 msgid "Edit Software"
-msgstr "Sache ändere"
+msgstr "Software bearbeite"
 
 msgid "Edit Item"
 msgstr "Sache ändere"
 
-#, fuzzy
 msgid "Edit License"
-msgstr "Benutzer bearbeite"
+msgstr "Lizenz bearbeite"
 
 msgid "Edit Option"
 msgstr "Option ändere"
@@ -1073,13 +1068,11 @@ msgstr "Aaz."
 msgid "Quantity"
 msgstr "Aazahl"
 
-#, fuzzy
 msgid "Quantity allocations"
 msgstr "Zueteilige"
 
-#, fuzzy
 msgid "Total quantity"
-msgstr "Aazahl"
+msgstr "Total Aazahl"
 
 msgid "Quantity: %d"
 msgstr "Aazahl: %d"
@@ -1126,9 +1119,8 @@ msgstr "Bschtellti Sache"
 msgid "Reservation"
 msgstr "Reservation"
 
-#, fuzzy
 msgid "Contact person"
-msgstr "Vertragsablaufdatum"
+msgstr "Kontaktperson"
 
 msgid "Responsible"
 msgstr "Zueschtändig"
@@ -1148,13 +1140,11 @@ msgstr "Sach uusmuschtere"
 msgid "Retired"
 msgstr "Uusgmuschtered"
 
-#, fuzzy
 msgid "retired"
-msgstr "Uusgmuschtered"
+msgstr "uusgmuschtered"
 
-#, fuzzy
 msgid "not retired"
-msgstr "Uusgmuschtered"
+msgstr "nöd uusgmuschtered"
 
 msgid "Retirement"
 msgstr "Uusmuschterig"
@@ -1542,24 +1532,20 @@ msgstr "Di"
 msgid "Umzug"
 msgstr "Umzug"
 
-#, fuzzy
 msgid "borrowable"
-msgstr "Nöd uuslehnbar"
+msgstr "uuslehnbar"
 
-#, fuzzy
 msgid "unborrowable"
 msgstr "Nöd uuslehnbar"
 
 msgid "Unborrowable"
 msgstr "Nöd uuslehnbar"
 
-#, fuzzy
 msgid "Borrowable Items"
-msgstr "Uusleibaari Sache"
+msgstr "Uuslehnbari Sache"
 
-#, fuzzy
 msgid "Unborrowable Items"
-msgstr "Uusleibaari Sache"
+msgstr "Nöd uuslehnbari Sache"
 
 msgid "Unsigned"
 msgstr "Nöd unterschribe"
@@ -1576,9 +1562,8 @@ msgstr "Nöd agschickt"
 msgid "Unsuccessful reminder of %{q} items for contracts %{c}"
 msgstr "%{q} hät nöd chöne für de Vertrag %{c} erinneret werde"
 
-#, fuzzy
 msgid "Updated at"
-msgstr "Erstellt am"
+msgstr "Aktualisiert am"
 
 msgid "Upload error."
 msgstr "Fehler bim ufelade."
@@ -1589,13 +1574,11 @@ msgid_plural "Users"
 msgstr[0] "Benutzer"
 msgstr[1] "Benutzer"
 
-#, fuzzy
 msgid "Delegation"
-msgstr "Uuswahl"
+msgstr "Delegation"
 
-#, fuzzy
 msgid "Delegations"
-msgstr "Uuswahl"
+msgstr "Delegationä"
 
 msgid "User details were updated successfully."
 msgstr "Benutzeraagabe sind gänderet"
@@ -1719,9 +1702,8 @@ msgstr "Si händ kei Zuegriff für die Sach."
 msgid "You don't have any rights to access this application."
 msgstr "Si händ kei Zuegriffsrächt für die Applikation."
 
-#, fuzzy
 msgid "You don't have permission to perform this action"
-msgstr "Si händ kei Zuegriffsrächt für die Applikation."
+msgstr "Si händ kei Rächt, zum diä Aktion durefüere."
 
 msgid "You have %{no_access} to any inventory pools!"
 msgstr "Si händ %{no_access} zu dene Grätepark!"
@@ -1887,13 +1869,11 @@ msgstr "kän Zwäck aagäh"
 msgid "not available. "
 msgstr "nöd verfüegbar."
 
-#, fuzzy
 msgid "not available"
-msgstr "nöd verfüegbar."
+msgstr "nöd verfüegbar"
 
-#, fuzzy
 msgid "%s not available"
-msgstr "nöd verfüegbar."
+msgstr "%s nöd verfüegbar"
 
 msgid "not borrowable"
 msgstr "nöd uuslehnbar"
@@ -2030,9 +2010,8 @@ msgstr "Uusleih-Verwalter"
 msgid "Inventory manager"
 msgstr "Inventar-Verwalter"
 
-#, fuzzy
 msgid "New Delegation"
-msgstr "Noii Vorlag"
+msgstr "Noii Delegation"
 
 msgid "New User"
 msgstr "Noie Benutzer"
@@ -2091,9 +2070,8 @@ msgstr "Bild uuswähle"
 msgid "Select File"
 msgstr "Datei uuswähle"
 
-#, fuzzy
 msgid "Image"
-msgstr "Bilder"
+msgstr "Bild"
 
 msgid "Images"
 msgstr "Bilder"
@@ -2125,9 +2103,8 @@ msgstr "Bezeichnig"
 msgid "not used"
 msgstr "nöd gnutzt"
 
-#, fuzzy
 msgid "used"
-msgstr "nöd gnutzt"
+msgstr "gnutzt"
 
 msgid "Model|Images|File file size"
 msgstr "Dateigrössi"
@@ -2186,13 +2163,11 @@ msgstr "Gschlossne Tag"
 msgid "Borrow"
 msgstr "Uuslehne"
 
-#, fuzzy
 msgid "Borrow section"
-msgstr "Uuslehner"
+msgstr "Uusleih-Bereich"
 
-#, fuzzy
 msgid "Manage section"
-msgstr "Uuswahl"
+msgstr "Verwalte-Bereich"
 
 msgid "Overview"
 msgstr "Übersicht"
@@ -2681,9 +2656,8 @@ msgstr "Aktivs Inventar"
 msgid "Unused Models"
 msgstr "Ungnutzti Modäll"
 
-#, fuzzy
 msgid "Used Models"
-msgstr "Ungnutzti Modäll"
+msgstr "Gnutzti Modäll"
 
 msgid "Responsible inventory pool"
 msgstr "Verantwortlich Grätepärk"
@@ -2788,7 +2762,7 @@ msgid "in the past"
 msgstr "ide Vergangeheit"
 
 msgid "Borrowable items"
-msgstr "Uusleibaari Sache"
+msgstr "Uuslehnbari Sache"
 
 msgid "Available for borrower"
 msgstr "Verfüegbar dür de Uusleiendi"
@@ -2841,9 +2815,8 @@ msgstr "Wer hät di meischta Sachä kauft?"
 msgid "Maintenance"
 msgstr ""
 
-#, fuzzy
 msgid "Automatic access"
-msgstr "Kei Zuegfriff"
+msgstr "Automatische Zuegriff"
 
 msgid "New users will get customer access automatically."
 msgstr ""
@@ -2851,9 +2824,8 @@ msgstr ""
 msgid "Software"
 msgstr ""
 
-#, fuzzy
 msgid "Software Information"
-msgstr "Rächnigsinformatione"
+msgstr "Software-Informatione"
 
 msgid "Software License"
 msgstr ""
