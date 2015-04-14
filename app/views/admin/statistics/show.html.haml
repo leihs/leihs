@@ -11,15 +11,15 @@
 
       .row
         = form_tag admin_statistics_path, :method => :get do
-          %label{:for => "add_start_date"}= _("Start Date")
+          %label{:for => "add_start_date"}= _("Start date")
           %label
-            %input.has-addon.datepicker{:type => "text", :name => "start_date", :id => "add_start_date", :title => _("Start Date"), :value => params[:start_date]}
+            %input.has-addon.datepicker{:type => "text", :name => "start_date", :id => "add_start_date", :title => _("Start date"), :value => params[:start_date]}
             .addon
               %i.icon-calendar
           = "-"
-          %label{:for => "add_end_date"}= _("End Date")
+          %label{:for => "add_end_date"}= _("End date")
           %label
-            %input.has-addon.datepicker{:type => "text", :name => "end_date", :id => "add_end_date", :title => _("End Date"), :value => params[:end_date]}
+            %input.has-addon.datepicker{:type => "text", :name => "end_date", :id => "add_end_date", :title => _("End date"), :value => params[:end_date]}
             .addon
               %i.icon-calendar
           = submit_tag _("Filter"), :class => "button"

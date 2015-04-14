@@ -9,7 +9,7 @@ Feature: Defining application settings through web interface
   @personas
   Scenario: The settings are missing
     Given I am Normin
-    When the settings are not exising
+    When the settings are not existing
     Then there is an error for the missing settings
     Given I am Ramon
     When I go to the home page

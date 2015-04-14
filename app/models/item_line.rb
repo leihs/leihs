@@ -18,6 +18,7 @@ class ItemLine < ContractLine
   validates_numericality_of :quantity, :equal_to => 1
   validate :validate_item
   validates_presence_of :model_id
+  validates_presence_of :item, if: Proc.new {|r| [:signed, :closed].include?(r.status) }
 
 # TODO 1301  default_scope -> {includes(:model).order("models.product")}
 
@@ -27,12 +28,7 @@ class ItemLine < ContractLine
   end  
 
   def to_s
-    "#{item} - #{end_date.strftime('%d.%m.%Y')}"
-  end
-
-  before_save do
-    # keep the unsubmitted contract computed for the availability
-    contract.touch if contract.status == :unsubmitted and not contract.user.timeout?
+    "#{item} - #{I18n.l end_date}"
   end
 
 ##################################################
@@ -55,7 +51,7 @@ class ItemLine < ContractLine
     # an ItemLine can only be late if the Item has been
     # handed out. And an Item can only be handed out, if
     # the contract has been signed. Thus:
-    contract.status == :signed and super
+    status == :signed and super
   end
 
 ##################################################
@@ -64,33 +60,25 @@ class ItemLine < ContractLine
 
   # validator
   def validate_item
-    if item_id and contract.status == :approved
+    if item_id and status == :approved
       # model matching
       errors.add(:base, _("The item doesn't match with the reserved model")) unless item.model_id == model_id
 
-      if item_already_handed_over_or_assigned_to_the_same_contract?
+      if item.contract_lines.handed_over_or_assigned_but_not_returned.where(["id != ? AND user_id = ? AND status = ?", id, user_id, status]).exists?
         # check if already assigned to the same contract
         errors.add(:base, _("%s is already assigned to this contract") % item.inventory_code)
 
-      elsif item_already_handed_over_or_assigned_to_a_different_contract?
+      elsif item.contract_lines.handed_over_or_assigned_but_not_returned.where(["id != ? AND user_id != ?", id, user_id]).exists?
         # check if available
         errors.add(:base, _("%s is already assigned to a different contract") % item.inventory_code) 
       end
 
       # inventory_pool matching
-      errors.add(:base, _("The item doesn't belong to the inventory pool related to this contract")) unless item.inventory_pool_id == contract.inventory_pool_id 
+      errors.add(:base, _("The item doesn't belong to the inventory pool related to this contract")) unless item.inventory_pool_id == inventory_pool_id
 
       # package check 
       errors.add(:base, _("The item belongs to a package")) if item.parent_id
     end
-  end
-
-  def item_already_handed_over_or_assigned_to_a_different_contract?
-    item.contract_lines.handed_over_or_assigned_but_not_returned.where(["id != ? and contract_id != ?", id, contract.id]).exists?
-  end
-
-  def item_already_handed_over_or_assigned_to_the_same_contract?
-    item.contract_lines.handed_over_or_assigned_but_not_returned.where(["id != ? and contract_id = ?", id, contract.id]).exists?
   end
 
 end

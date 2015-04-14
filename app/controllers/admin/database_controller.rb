@@ -33,6 +33,11 @@ class Admin::DatabaseController < Admin::ApplicationController
           # ["audits", ["created_at"]],
           # ["audits", ["thread_id"]],
           # ["audits", ["user_id", "user_type"]],
+          ["contract_lines", ["status"]],
+          ["contract_lines", ["inventory_pool_id"]],
+          ["contract_lines", ["user_id"]],
+          ["contract_lines", ["delegated_user_id"]],
+          ["contract_lines", ["handed_over_by_user_id"]],
           ["contract_lines", ["contract_id"]],
           ["contract_lines", ["end_date"]],
           ["contract_lines", ["item_id"]],
@@ -41,9 +46,6 @@ class Admin::DatabaseController < Admin::ApplicationController
           ["contract_lines", ["returned_date", "contract_id"]],
           ["contract_lines", ["start_date"]],
           ["contract_lines", ["type", "contract_id"]],
-          ["contracts", ["inventory_pool_id"]],
-          ["contracts", ["status"]],
-          ["contracts", ["user_id"]],
           ["groups", ["inventory_pool_id"]],
           ["groups_users", ["group_id"]],
           ["groups_users", ["user_id", "group_id"], :unique => true],
@@ -134,12 +136,13 @@ class Admin::DatabaseController < Admin::ApplicationController
 
   def consistency
     @only_tables_no_views = @connection.execute("SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'").to_h.keys
+    @excluded_models = [ContractLinesBundle]
 
     @references = []
 
     def collect_missing_references(klass, other_table, this_table, this_column, other_column, additional_where = nil, polymorphic = false, dependent = nil)
       # NOTE we skip references on sql-views
-      return if not @only_tables_no_views.include?(this_table) or not @only_tables_no_views.include?(other_table)
+      return if @excluded_models.include?(klass) or not @only_tables_no_views.include?(this_table) or not @only_tables_no_views.include?(other_table)
 
       h = {from_table: this_table,
            to_table: other_table,

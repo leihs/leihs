@@ -1,75 +1,61 @@
-# language: de
 
-Funktionalität: Werteliste
+Feature: Value list
 
-  Um eine konforme Werteliste aushändigen zu können
-  möchte ich als Verleiher
-  das mir das System für eine Auswahl eine Werteliste zur verfügung stellen kann
-
-  Grundlage:
-    Angenommen ich bin Pius
+  Background:
+    Given I am Pius
 
   @javascript @browser @personas
-  Szenario: Was ich auf der Werteliste sehen möchte
-    Angenommen man öffnet eine Werteliste
-    Dann möchte ich die folgenden Bereiche in der Werteliste sehen:
-    | Bereich          |
-    | Datum            |
-    | Titel            |
-    | Ausleihender     |
-    | Verleier         |
-    | Liste            |
+  Scenario: What I want to see on the value list
+    Given I open a value list
+    Then I want to see the following sections in the value list:
+    | Section  |
+    | Date     |
+    | Title    |
+    | Borrower |
+    | Lender   |
+    | List     |
 
   @javascript @browser @personas
-  Szenario: Der Inhalt der Werte-Liste
-    Angenommen man öffnet eine Werteliste
-    Dann beinhaltet die Liste folgende Spalten:
-    | Spaltenname     |
-    | Laufende Nummer |
-    | Inventarcode    |
-    | Modellname      |
-    | End Datum       |
-    | Anzahl          |
-    | Wert            |
-    Und die Modelle in der Werteliste sind alphabetisch sortiert
+  Scenario: Content of a value list
+    Given I open a value list
+    Then the value list contains the following columns:
+    | Column             |
+    | Consecutive number |
+    | Inventory code     |
+    | Model name         |
+    | End date           |
+    | Quantity           |
+    | Price              |
+    And the models in the value list are sorted alphabetically
 
   @javascript @personas
-  Szenario: Werteliste auf Bestellübersicht ausdrucken
-    Angenommen es existiert eine Bestellung mit mindestens zwei Modellen, wo die Bestellmenge mindestens drei pro Modell ist
-    Wenn ich eine Bestellung öffne
-    Und ich mehrere Linien von der Bestellung auswähle
-    Und das Werteverzeichniss öffne
-    Dann sehe ich das Werteverzeichniss für die ausgewählten Linien
-    Und die nicht zugewiesenen Linien sind zusammengefasst
-    Und für die nicht zugewiesenen Linien ist der Preis der höchste Preis eines Gegenstandes eines Models innerhalb des Geräteparks
+  Scenario: Printing value lists from the list of orders
+    Given there is an order with at least two models and at least two items per model were ordered
+    When I open an order
+    And I select multiple lines of the order
+    And I open the value list
+    Then I see the value list for the selected lines
+    And the unassigned lines are summarized
+    And the price shown for the unassigned lines is equal to the highest price of any of the items of that model within this inventory pool
 
   @javascript @personas
-  Szenario: Werteliste auf der Aushändigungsansicht ausdrucken
-    Angenommen es existiert eine Aushändigung mit mindestens zwei Modellen und einer Option, wo die Bestellmenge mindestens drei pro Modell ist
-    Und es ist pro Modell genau einer Linie ein Gegenstand zugewiesen
-    Wenn ich die Aushändigung öffne
-    Und ich mehrere Linien von der Aushändigung auswähle
-    Und das Werteverzeichniss öffne
-    Dann sehe ich das Werteverzeichniss für die ausgewählten Linien
-    Und für die nicht zugewiesenen Linien ist der Preis der höchste Preis eines Gegenstandes eines Models innerhalb des Geräteparks
-    Und für die zugewiesenen Linien ist der Preis der des Gegenstandes
-    Und die nicht zugewiesenen Linien sind zusammengefasst
-    Und der Preis einer Option ist der innerhalb des Geräteparks
+  Scenario: Printing a value list from the handover view
+    Given there is an order with at least two models and at least two items per model were ordered
+    And each model has exactly one assigned item
+    When I open the hand over
+    And I select multiple lines of the hand over
+    And I open the value list
+    Then I see the value list for the selected lines
+    And the price shown for the unassigned lines is equal to the highest price of any of the items of that model within this inventory pool
+    And the price shown for the assigned lines is that of the assigned item
+    And the unassigned lines are summarized
+    And any options are priced according to their price set in the inventory pool
 
   @javascript @browser @personas
-  Szenario: Totale Werte
-    Angenommen man öffnet eine Werteliste
-    Dann gibt es eine Zeile für die totalen Werte
-    Und diese summierte die Spalten:
-     | Spaltenname |
-     | Anzahl      |
-     | Wert        |
-
-  @javascript @browser @personas
-  Szenario: Totale Werte
-    Angenommen man öffnet eine Werteliste
-    Dann gibt es eine Zeile für die totalen Werte
-    Und diese summierte die Spalten:
-     | Spaltenname |
-     | Anzahl      |
-     | Wert        |
+  Scenario: Totals
+    Given I open a value list
+    Then one line shows the grand total
+    And that shows the totals of the columns:
+     | Column   |
+     | Quantity |
+     | Value    |

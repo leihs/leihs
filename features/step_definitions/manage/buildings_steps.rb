@@ -1,7 +1,7 @@
 Then(/^I see a list of buildings$/) do
   find("nav .active", text: _("Buildings"))
   within ".list-of-lines" do
-    Building.all.sample(5).each do |building|
+    Building.order("RAND()").limit(5).each do |building|
       find(".line > .col2of6", text: building.name)
     end
   end
@@ -43,7 +43,7 @@ When(/^I edit an existing building$/) do
 end
 
 Given(/^there is a deletable building$/) do
-  @building = Building.all.shuffle.detect {|b| b.can_destroy? }
+  @building = Building.order("RAND ()").detect {|b| b.can_destroy? }
   @building ||= FactoryGirl.create(:building, name: Faker::Address.street_address, code: Faker::Address.building_number)
   expect(@building).not_to be_nil
   expect(@building.can_destroy?).to be true

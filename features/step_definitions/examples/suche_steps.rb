@@ -1,82 +1,98 @@
 # -*- encoding : utf-8 -*-
 
-Angenommen /^ich gebe den Inventarcode eines Gegenstandes der einem Vertrag zugewisen ist in die Suche ein$/ do
+#Angenommen /^ich gebe den Inventarcode eines Gegenstandes der einem Vertrag zugewisen ist in die Suche ein$/ do
+Given /^I search for the inventory code of an item that is in a contract$/ do
   @contract = @current_user.inventory_pools.first.contracts.signed.first
   @item = @contract.items.first
 end
 
-Dann /^sehe ich den Vertrag dem der Gegenstand zugewisen ist in der Ergebnisanzeige$/ do
+#Dann /^sehe ich den Vertrag dem der Gegenstand zugewisen ist in der Ergebnisanzeige$/ do
+Then /^I see the contract this item is assigned to in the list of results$/ do
   expect(@current_user.inventory_pools.first.contracts.search(@item.inventory_code)).to include @contract
 end
 
-Angenommen(/^es existiert ein Benutzer mit Verträgen, der kein Zugriff mehr auf das Gerätepark hat$/) do
+#Angenommen(/^es existiert ein Benutzer mit Verträgen, der kein Zugriff mehr auf das Gerätepark hat$/) do
+Given(/^there is a user with contracts who no longer has access to the current inventory pool$/) do
   @user = User.find {|u| u.access_rights.find {|ar| ar.inventory_pool == @current_inventory_pool and ar.deleted_at} and !u.contracts.blank?}
   expect(@user).not_to be_nil
 end
 
-Wenn(/^man nach dem Benutzer sucht$/) do
-  search_field = find("#topbar-search input#search_term")
-  search_field.set @user.name
-  search_field.native.send_key :return
-end
+# Hey, this is duplicated!
+#Wenn(/^man nach dem Benutzer sucht$/) do
+#When(/^I search for that user$/) do
+#  search_field = find("#topbar-search input#search_term")
+#  search_field.set @user.name
+#  search_field.native.send_key :return
+#end
 
-Dann(/^sieht man alle Veträge des Benutzers$/) do
+#Dann(/^sieht man alle Veträge des Benutzers$/) do
+Then(/^I see all that user's contracts$/) do
   @user.contracts.each {|c| find("#contracts .line[data-id='#{c.id}']") }
 end
 
-Dann(/^sieht man alle unterschriebenen und geschlossenen Veträge des Benutzers$/) do
+#Dann(/^sieht man alle unterschriebenen und geschlossenen Veträge des Benutzers$/) do
+Then(/^I see that user's signed and closed contracts$/) do
   @user.contracts.signed_or_closed.where(inventory_pool: @current_inventory_pool).each {|c| find("#contracts .line[data-id='#{c.id}']") }
 end
 
-Dann(/^der Name des Benutzers ist in jeder Vertragslinie angezeigt$/) do
+#Dann(/^der Name des Benutzers ist in jeder Vertragslinie angezeigt$/) do
+Then(/^the name of that user is shown on each contract line$/) do
   within "#contracts" do
     all(".line").each {|el| el.text.include? @user.name }
   end
 end
 
-Dann(/^die Personalien des Benutzers werden im Tooltip angezeigt$/) do
+#Dann(/^die Personalien des Benutzers werden im Tooltip angezeigt$/) do
+Then(/^that user's personal details are shown in the tooltip$/) do
   hover_for_tooltip find("#contracts [data-type='user-cell']", match: :first)
   within ".tooltipster-base" do
     [@user.name, @user.email, @user.address, @user.phone, @user.badge_id].each {|info| has_content? info}
   end
 end
 
-Angenommen(/^es gibt einen Benutzer, mit einer nicht genehmigter Bestellung$/) do
+#Angenommen(/^es gibt einen Benutzer, mit einer nicht genehmigter Bestellung$/) do
+Given(/^there is a user with an unapproved order$/) do
   @user = @current_inventory_pool.users.find {|u| u.contracts.submitted.exists? }
 end
 
-Wenn(/^man nach diesem Benutzer sucht$/) do
+#Wenn(/^man nach diesem Benutzer sucht$/) do
+When(/^I search for that user$/) do
   within "#search" do
     find("input#search_term").set @user.name
     find("button[type='submit']").click
   end
 end
 
-Dann(/^kann ich die nicht genehmigte Bestellung des Benutzers nicht aushändigen ohne sie vorher zu genehmigen$/) do
+#Dann(/^kann ich die nicht genehmigte Bestellung des Benutzers nicht aushändigen ohne sie vorher zu genehmigen$/) do
+Then(/^I cannot hand over the unapproved order unless I approve it first$/) do
   contract = @user.contracts.submitted.first
   line = find(".line[data-id='#{contract.id}']")
   expect(line.find(".multibutton").has_no_selector?("li", text: _("Hand Over"), visible: false)).to be true
 end
 
-Angenommen(/^es existiert ein Benutzer mit mindestens (\d+) und weniger als (\d+) Verträgen$/) do |min, max|
-  @user = @current_inventory_pool.users.find {|u| u.contracts.signed_or_closed.where(inventory_pool: @current_inventory_pool).count.between? min.to_i, max.to_i}
+#Angenommen(/^es existiert ein Benutzer mit mindestens (\d+) und weniger als (\d+) Verträgen$/) do |min, max|
+Given(/^there is a user with at least (\d+) and less than (\d+) contracts$/) do |min, max|
+  @user = @current_inventory_pool.users.find do |u|
+    u.contracts.signed_or_closed.where(inventory_pool: @current_inventory_pool).to_a.count.between? min.to_i, max.to_i # NOTE count returns a Hash because the group() in default scope
+  end
   expect(@user).not_to be_nil
 end
 
-Dann(/^man sieht keinen Link 'Zeige alle gefundenen Verträge'$/) do
+#Dann(/^man sieht keinen Link 'Zeige alle gefundenen Verträge'$/) do
+Then(/^I don't see a link labeled 'Show all matching contracts'$/) do
   expect(has_no_selector?("#contracts [data-type='show-all']")).to be true
 end
 
 Given(/^there is a "(.*?)" item in my inventory pool$/) do |arg1|
   items = @current_inventory_pool.items
   @item = case arg1
-          when "Defekt"
+          when "Broken"
             items.find &:is_broken
-          when "Ausgemustert"
+          when "Retired"
             items.find &:retired
-          when "Unvollständig"
+          when "Incomplete"
             items.find &:is_incomplete
-          when "Nicht ausleihbar"
+          when "Unborrowable"
             items.find {|i| not i.is_borrowable}
           end
   expect(@item).not_to be_nil
@@ -100,7 +116,8 @@ Given(/^there exists a closed contract with a retired item$/) do
   expect(@contract).not_to be_nil
 end
 
-Then(/^sehe den Gegenstand ihn im Gegenstände\-Container$/) do
+#Then(/^sehe den Gegenstand ihn im Gegenstände\-Container$/) do
+Then(/^I see the item in the items area$/) do
   find("#items .line", text: @item.inventory_code)
 end
 

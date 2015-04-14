@@ -12,7 +12,7 @@ When(/^a database admin deletes some (referenced|visit related access right) rec
 
   @query = case arg1
              when "visit related access right"
-               %Q(DELETE access_rights.* FROM visits LEFT JOIN access_rights ON visits.user_id = access_rights.user_id AND visits.inventory_pool_id = access_rights.inventory_pool_id)
+               %Q(DELETE access_rights.* FROM contract_lines AS cl LEFT JOIN access_rights ON cl.user_id = access_rights.user_id AND cl.inventory_pool_id = access_rights.inventory_pool_id)
 
              when "referenced"
                only_tables_no_views = @connection.execute("SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'").to_h.keys

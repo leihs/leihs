@@ -1,5 +1,5 @@
 When(/^I open the calendar of a model$/) do
-  model = (@inventory_pool.models & @current_user.models.borrowable).sample
+  model = @current_user.models.borrowable.where("models.id" => @inventory_pool.models.select("models.id")).order("RAND()").first
   visit borrow_model_path(model)
   find("[data-create-order-line][data-model-id='#{model.id}']").click
 end
@@ -13,9 +13,9 @@ Given(/^the current inventory pool has reached maximum amount of visits$/) do
 end
 
 When(/^I open the calendar of a model related to an inventory pool for which has reached maximum amount of visits$/) do
-  @inventory_pool = @current_user.inventory_pools.shuffle.detect { |ip| not ip.workday.reached_max_visits.empty? }
+  @inventory_pool = @current_user.inventory_pools.order("RAND ()").detect { |ip| not ip.workday.reached_max_visits.empty? }
   @inventory_pool ||= @current_user.inventory_pools.detect do |ip|
-    if ip.visits.where("date >= ?", Date.today)
+    if ip.visits.where.not(status: :submitted).where("date >= ?", Date.today)
       # NOTE set max visits to 1 for all days
       ip.workday.update_attributes(max_visits: (0..6).inject({}) { |h, n| h[n] = 1; h })
       true
@@ -27,9 +27,9 @@ When(/^I open the calendar of a model related to an inventory pool for which has
 end
 
 When(/^I open the calendar of a model related to an inventory pool for which the number of days between order submission and hand over is defined as (\d+)$/) do |arg1|
-  @inventory_pool = @current_user.inventory_pools.shuffle.detect { |ip| ip.workday.reservation_advance_days == arg1.to_i }
+  @inventory_pool = @current_user.inventory_pools.order("RAND ()").detect { |ip| ip.workday.reservation_advance_days == arg1.to_i }
   @inventory_pool ||= begin
-    ip = @current_user.inventory_pools.sample
+    ip = @current_user.inventory_pools.order("RAND()").first
     ip.workday.update_attributes(reservation_advance_days: arg1.to_i)
     ip
   end
@@ -88,7 +88,7 @@ When(/^I specify (.*) as (start|end) date$/) do |arg1, arg2|
             else
               raise
           end
-  step "ich setze das %s im Kalendar auf '#{I18n::l(@date)}'" % (arg2 == "start" ? _("Start Date") : _("End Date"))
+  step "I set the #{arg2} date in the calendar to '#{I18n::l(@date)}'"
 end
 
 Then(/^I receive an error message within the modal$/) do

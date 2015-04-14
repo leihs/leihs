@@ -467,9 +467,6 @@ msgstr ""
 msgid "Empty Username and/or Password"
 msgstr ""
 
-msgid "End Date"
-msgstr ""
-
 msgid "End date"
 msgstr ""
 
@@ -1244,9 +1241,6 @@ msgstr ""
 msgid "Start"
 msgstr ""
 
-msgid "Start Date"
-msgstr ""
-
 msgid "Start Date must be before End Date"
 msgstr ""
 
@@ -1593,9 +1587,6 @@ msgid "Value List for Lending Contract No."
 msgstr ""
 
 msgid "Value List for Lending Contract No. %s"
-msgstr ""
-
-msgid "Value list"
 msgstr ""
 
 msgid "View %s"

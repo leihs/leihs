@@ -275,8 +275,8 @@ class Model < ActiveRecord::Base
 #############################################
 
 # returns an array of contract_lines
-  def add_to_contract(contract, user_id, quantity = nil, start_date = nil, end_date = nil)
-    contract.add_lines(quantity, self, user_id, start_date, end_date)
+  def add_to_contract(contract, user, quantity = nil, start_date = nil, end_date = nil, delegated_user_id = nil)
+    contract.add_lines(quantity, self, user, start_date, end_date, delegated_user_id)
   end
 
 #############################################

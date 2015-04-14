@@ -1,56 +1,54 @@
-# language: de
 
-Funktionalität: Geräteparks administrieren
+Feature: Administer inventory pools
 
-  Um die Geräteparks zu administrieren
-  möchte ich als Administrator
-  die nötigen Funktionalitäten
+  As an administrator
+  I want to have admin tools spanning the entire system
+  So that I can create, update and edit inventory pools
 
   @javascript @personas
-  Szenario: Geräteparkauswahl
-    Angenommen ich bin Gino
-    Wenn ich in den Admin-Bereich wechsel
-    Dann ich sehe die Geräteparkliste
-    Wenn ich auf die Geraetepark-Auswahl klicke
-    Dann sehe ich alle Geraeteparks
-    Und die Geräteparkauswahl ist alphabetish sortiert
+  Scenario: Choosing an inventory pool
+    Given I am Gino
+    When I navigate to the admin area
+    Then I see the list of inventory pools
+    When I click on the inventory pool selection toggler again
+    Then I see all the inventory pools
+    And the list of inventory pools is sorted alphabetically
 
   @personas
-  Szenario: Den ersten Gerätepark erstellen
-    Angenommen ich bin Gino
-    Wenn ich im Admin-Bereich unter dem Reiter Geräteparks einen neuen Gerätepark erstelle
-    Und ich Name und Kurzname und Email eingebe
-    Und ich speichere
-    Dann ich sehe die Geräteparkliste
-    Und man sieht eine Bestätigungsmeldung
-    Und ist der Gerätepark gespeichert
+  Scenario: Creating an initial inventory pool
+    Given I am Gino
+    When I create a new inventory pool in the admin area's inventory pool tab
+    And I enter name, shortname and email address
+    And I save
+    Then I see all the inventory pools
+    And I receive a notification
+    And the inventory pool is saved
 
   @personas
-  Szenariogrundriss: Pflichtfelder beim erstmaligen Erstellen eines Geräteparks
-    Angenommen ich bin Ramon
-    Wenn ich im Admin-Bereich unter dem Reiter Geräteparks einen neuen Gerätepark erstelle
-    Und ich <Pflichtfeld> nicht eingebe
-    Und ich speichere
-    Dann wird mir eine Fehlermeldung angezeigt
-    Und der Gerätepark wird nicht erstellt
-
-    Beispiele:
-      | Pflichtfeld |
+  Scenario Outline: Required fields when creating an inventory pool
+    Given I am Ramon
+    When I create a new inventory pool in the admin area's inventory pool tab
+    And I don't enter <required_field>
+    And I save
+    Then I see an error message
+    And the inventory pool is not created
+    Examples:
+      | required_field |
       | Name        |
-      | Kurzname    |
+      | Short Name    |
       | E-Mail      |
 
   @personas
-  Szenario: Gerätepark ändern
-    Angenommen ich bin Ramon
-    Wenn ich im Admin-Bereich unter dem Reiter Geräteparks einen bestehenden Gerätepark ändere
-    Und ich Name und Kurzname und Email ändere
-    Und ich speichere
-    Dann ist der Gerätepark und die eingegebenen Informationen gespeichert
+  Scenario: Editing inventory pool
+    Given I am Ramon
+    When I edit in the admin area's inventory pool tab an existing inventory pool
+    And I change name, shortname and email address
+    And I save
+    Then the inventory pool is saved
 
   @javascript @personas
-  Szenario: Gerätepark löschen
-    Angenommen ich bin Ramon
-    Wenn ich im Admin-Bereich unter dem Reiter Geräteparks einen bestehenden Gerätepark lösche
-    Und der Gerätepark wurde aus der Liste gelöscht
-    Und der Gerätepark wurde aus der Datenbank gelöscht
+  Scenario: Delete inventory pool
+    Given I am Ramon
+    When I delete an existing inventory pool in the admin area's inventory pool tab
+    Then the inventory pool is removed from the list
+    And the inventory pool is deleted from the database

@@ -1,211 +1,168 @@
-# language: de
 
-Funktionalität: Modell
+Feature: Model
 
-  Grundlage:
-    Angenommen ich bin Mike
-    Und man öffnet die Liste des Inventars
+  Background:
+    Given I am Mike
+    And I open the inventory
 
-  @javascript @personas
-  Szenario: Übersicht neues Modell hinzufügen
-    Wenn ich ein neues Modell hinzufüge
-    Dann habe ich die Möglichkeit, folgende Informationen zu erfassen:
+  @javascript @personas @browser
+  Scenario: Overview when adding a new model
+    When I add a new Model
+    Then I can enter the following information:
       | Details |
-      | Bilder  |
-      | Anhänge |
-      | Zubehör |
+      | Images  |
+      | Attachments |
+      | Accessories |
 
   @javascript @browser @personas
-  Szenario: Modelldetails abfüllen
-    Wenn ich ein neues Modell hinzufüge
-    Und ich erfasse die folgenden Details
-      | Feld                              | Wert                      |
-      | Produkt                           | Test Modell               |
-      | Hersteller                        | Test Hersteller           |
-      | Beschreibung                      | Test Beschreibung         |
-      | Technische Details                | Test Technische Details   |
-      | Interne Beschreibung              | Test Interne Beschreibung |
-      | Wichtige Notizen zur Aushändigung | Test Notizen              |
-    Und ich speichere die Informationen
-    Dann ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar
+  Scenario: Filling in model details
+    When I add a new Model
+    And I enter the following details
+      | Field                         | Value                     |
+      | Product                       | Test model                |
+      | Manufacturer                  | Test manufacturer         |
+      | Description                   | Test description          |
+      | Technical Details             | Test technical details    |
+      | Internal Description          | Test internal description |
+      | Important notes for hand over | Test notes                |
+    And I save
+    Then the new model is created and can be found in the list of unused models
 
   @javascript @personas
-  Szenario: Modellzubehör bearbeiten
-    Wenn ich ein bestehendes, genutztes Modell bearbeite welches bereits Zubehör hat
-    Dann ich sehe das gesamte Zubehöre für dieses Modell
-    Und ich sehe, welches Zubehör für meinen Pool aktiviert ist
-    Wenn ich Zubehör hinzufüge und falls notwendig die Anzahl des Zubehör ins Textfeld schreibe
-    Und ich speichere die Informationen
-    Dann ist das Zubehör dem Modell hinzugefügt worden
+  Scenario: Editing model accessories
+    When I edit a model that exists, is in use and already has activated accessories
+    Then I see all the accessories for this model
+    And I see which accessories are active for my pool
+    When I add accessories and, if necessary, fill in the quantity in the text field
+    And I save
+    Then accessories are added to the model
 
   @javascript @personas
-  Szenario: Modellzubehör löschen
-    Wenn ich ein bestehendes, genutztes Modell bearbeite welches bereits Zubehör hat
-    Dann kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Pool aktiviert ist
+  Scenario: Deleting model accessories
+    When I edit a model that exists, is in use and already has accessories
+    Then I can delete a single accessory if it is not active in any other pool
 
   @javascript @personas
-  Szenario: Modellzubehör deaktivieren
-    Wenn ich ein bestehendes, genutztes Modell bearbeite welches bereits ein aktiviertes Zubehör hat
-    Dann kann ich ein einzelnes Zubehör für meinen Pool deaktivieren
+  Scenario: Deactivating model accessories
+    When I edit a model that exists, is in use and already has activated accessories
+    Then I can deactivate an accessory for my pool
 
   @javascript @browser @personas
-  Szenario: sich ergänzende Modelle entfernen (kompatibel)
-    Wenn ich ein Modell öffne, das bereits ergänzende Modelle hat
-    Und ich ein ergänzendes Modell entferne
-    Und ich speichere die Informationen
-    Dann ist das Modell ohne das gelöschte ergänzende Modell gespeichert
+  Scenario: Remove compatible models
+    When I open a model that already has compatible models
+    And I remove a compatible model
+    And I save
+    Then the model is saved without the compatible model that I removed
 
   @javascript @browser @personas
-  Szenario: Gruppenverteilung editieren
-    Angenommen ich editieren ein bestehndes Modell mit bereits zugeteilten Kapazitäten
-    Wenn ich bestehende Zuteilungen entfernen
-    Und neue Zuteilungen hinzufügen
-    Und ich speichere die Informationen
-    Dann sind die geänderten Gruppenzuteilungen gespeichert
+  Scenario: Editing group capacities
+    Given I edit a model that exists and has group capacities allocated to it
+    When I remove existing allocations
+    And I add new allocations
+    And I save
+    Then the changed allocations are saved
 
   @javascript @personas
-  Szenario: Modell löschen
-    Angenommen es existiert ein Modell mit folgenden Konditionen:
-      | in keinem Vertrag aufgeführt |
-      | keiner Bestellung zugewiesen |
-      | keine Gegenstände zugefügt   |
-    Wenn ich dieses Modell aus der Liste lösche
-    Und das Modell wurde aus der Liste gelöscht
-    Und das Modell ist gelöscht
+  Scenario: Delete model
+    Given there is a model with the following conditions:
+      | not in any contract |
+      | not in any order|
+      | no items assigned|
+    When I delete this model from the list
+    Then the model was deleted from the list
+    And the model is deleted
 
   @javascript @browser @personas
-  Szenario: sich ergänzende Modelle hinzufügen (kompatibel)
-    Wenn ich ein bestehendes, genutztes Modell bearbeite
-    Und ich ein ergänzendes Modell mittel Autocomplete Feld hinzufüge
-    Und ich speichere die Informationen
-    Dann ist dem Modell das ergänzende Modell hinzugefügt worden
+  Scenario: Add compatible models
+    When I edit a model that exists and is in use
+    And I use the autocomplete field to add a compatible model
+    And I save
+    Then a compatible model has been added to the model I am editing
 
   @javascript @browser @personas
-  Szenario: 2 Mal gleiches ergänzende Modelle hinzufügen (kompatibel)
-    Wenn ich ein Modell öffne, das bereits ergänzende Modelle hat
-    Und ich ein bereits bestehendes ergänzende Modell mittel Autocomplete Feld hinzufüge
-    Dann wurde das redundante Modell nicht hizugefügt
-    Und ich speichere die Informationen
-    Dann wurde das redundante ergänzende Modell nicht gespeichert
+  Scenario: Adding a compatible model twice in a row
+    When I open a model that already has compatible models
+    And I add an already existing compatible model using the autocomplete field
+    Then the redundant model was not added
+    When I save
+    Then the redundant compatible model was not added to this one
 
   @javascript @personas
-  Szenario: Modelanhängsel löschen
-    Angenommen es existiert ein Modell mit folgenden Konditionen:
-      | in keinem Vertrag aufgeführt     |
-      | keiner Bestellung zugewiesen     |
-      | keine Gegenstände zugefügt       |
-      | hat Gruppenkapazitäten zugeteilt |
-      | hat Eigenschaften                |
-      | hat Zubehör                      |
-      | hat Bilder                       |
-      | hat Anhänge                      |
-      | hat Kategoriezuweisungen         |
-      | hat sich ergänzende Modelle      |
-    Wenn ich dieses Modell aus der Liste lösche
-    Und das Modell ist gelöscht
-    Und es wurden auch alle Anhängsel gelöscht
+  Scenario: Delete model associations
+    Given there is a model with the following conditions:
+      | not in any contract       |
+      | not in any order          |
+      | no items assigned         |
+      | has group capacities      |
+      | has properties            |
+      | has accessories           |
+      | has images                |
+      | has attachments           |
+      | is assigned to categories |
+      | has compatible models     |
+    When I delete this model from the list
+    Then the model is deleted
+    And all associations have been deleted as well
 
   @javascript @personas @browser
-  Szenario: Modelldetails bearbeiten
-    Wenn ich ein bestehendes, genutztes Modell bearbeite
-    Und ich ändere die folgenden Details
-      | Feld                              | Wert                        |
-      | Produkt                           | Test Modell x               |
-      | Hersteller                        | Test Hersteller x           |
-      | Beschreibung                      | Test Beschreibung x         |
-      | Technische Details                | Test Technische Details x   |
-      | Interne Beschreibung              | Test Interne Beschreibung x |
-      | Wichtige Notizen zur Aushändigung | Test Notizen x              |
-    Und ich speichere die Informationen
-    Und die Informationen sind gespeichert
-    Und die Daten wurden entsprechend aktualisiert
+  Scenario: Editing model details
+    When I edit a model that exists and is in use
+    And I edit the following details
+      | Field                         | Value                       |
+      | Product                       | Test Modell x               |
+      | Manufacturer                  | Test Hersteller x           |
+      | Description                   | Test Beschreibung x         |
+      | Technical Details             | Test Technische Details x   |
+      | Internal Description          | Test Interne Beschreibung x |
+      | Important notes for hand over | Test Notizen x              |
+    And I save
+    Then the information is saved
+    And the data has been updated
 
   @javascript @personas
-  Szenariogrundriss: Attachments erstellen
-    Angenommen ich erstelle ein neues <Objekt> oder ich ändere ein bestehendes <Objekt>
-    Dann füge ich eine oder mehrere Datein den Attachments hinzu
-    Und kann Attachments auch wieder entfernen
-    Und ich speichere die Informationen
-    Dann sind die Attachments gespeichert
-  Beispiele:
-    | Objekt   |
-    | Modell   |
-    | Software |
+  Scenario Outline: Create attachments
+    Given I add or edit a <object>
+    Then I add one or more attachments
+    And I can also remove attachments again
+    And I save
+    Then the attachments are saved
+  Examples:
+    | object   |
+    | model    |
+    | software |
 
   @javascript @personas
-  Szenario: Modelanhängsel löschen
-    Angenommen es existiert ein Modell mit folgenden Konditionen:
-      | in keinem Vertrag aufgeführt     |
-      | keiner Bestellung zugewiesen     |
-      | keine Gegenstände zugefügt       |
-      | hat Gruppenkapazitäten zugeteilt |
-      | hat Eigenschaften                |
-      | hat Zubehör                      |
-      | hat Bilder                       |
-      | hat Anhänge                      |
-      | hat Kategoriezuweisungen         |
-      | hat sich ergänzende Modelle      |
-    Wenn ich dieses Modell aus der Liste lösche
-    Und das Modell ist gelöscht
-    Und es wurden auch alle Anhängsel gelöscht
+  Scenario Outline: Preventing deletion of a model
+    Given the model has an assigned <assignment>
+    Then I cannot delete the model from the list
+  Examples:
+    | assignment |
+    | contract   |
+    | order      |
+    | item       |
 
-  @javascript @personas
-  Szenariogrundriss: Modelllöschversuch verhindern
-    Angenommen das Modell hat <Zuweisung> zugewiesen
-    Dann kann ich das Modell aus der Liste nicht löschen
-  Beispiele:
-    | Zuweisung  |
-    | Vertrag    |
-    | Bestellung |
-    | Gegenstand |
-
-  @javascript @personas
-  Szenario: Modelanhängsel löschen
-    Angenommen es existiert ein Modell mit folgenden Konditionen:
-      | in keinem Vertrag aufgeführt     |
-      | keiner Bestellung zugewiesen     |
-      | keine Gegenstände zugefügt       |
-      | hat Gruppenkapazitäten zugeteilt |
-      | hat Eigenschaften                |
-      | hat Zubehör                      |
-      | hat Bilder                       |
-      | hat Anhänge                      |
-      | hat Kategoriezuweisungen         |
-      | hat sich ergänzende Modelle      |
-    Wenn ich dieses Modell aus der Liste lösche
-    Und das Modell ist gelöscht
-    Und es wurden auch alle Anhängsel gelöscht
 
   @javascript @browser @personas
-  Szenario: Modell erstellen nur mit Name
-    Wenn ich ein neues Modell hinzufüge
-    Und ich speichere die Informationen
-    Dann wird das Modell nicht gespeichert, da es keinen Namen hat
-    Und sehe ich eine Fehlermeldung
-    Wenn ich einen Namen eines existierenden Modelles eingebe
-    Und ich speichere die Informationen
-    Dann wird das Modell nicht gespeichert, da es keinen eindeutigen Namen hat
-    Und ich sehe eine Fehlermeldung
-    Wenn ich die folgenden Details ändere
-      | Feld    | Wert          |
-      | Produkt | Test Modell y |
-    Und ich speichere die Informationen
-    Dann ist das neue Modell erstellt und unter ungenutzen Modellen auffindbar
+  Scenario: Create a model with only a name
+    When I add a new Model
+    And I save
+    Then the model is not saved because it does not have a name
+    And I see an error message
+    When I enter the name of an existing model
+    And I save
+    Then the model is not saved because it does not have a unique name
+    And I see an error message
+    When I edit the following details
+      | Field   | Value         |
+      | Product | Test Modell y |
+    And I save
+    Then the new model is created and can be found in the list of unused models
 
   @javascript @personas
-  Szenario: Bilder
-    Wenn ich ein bestehendes, genutztes Modell bearbeite
-    Dann kann ich mehrere Bilder hinzufügen
-    Und ich kann Bilder auch wieder entfernen
-    Und ich speichere das Modell mit Bilder
-    Dann wurden die ausgewählten Bilder für dieses Modell gespeichert
-    Und zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert
-
-  @javascript @personas @browser
-  Szenario: Bilder
-    Wenn ich ein bestehendes, genutztes Modell bearbeite
-    Dann kann ich mehrere Bilder hinzufügen
-    Und ich kann Bilder auch wieder entfernen
-    Und ich speichere das Modell mit Bilder
-    Dann wurden die ausgewählten Bilder für dieses Modell gespeichert
-    Und zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert
+  Scenario: Images
+    When I edit a model that exists and is in use
+    And I add multiple images
+    Then I can also remove those images
+    When I save the model and its images
+    Then the remaining images are saved for that model
+    And the images are resized to their thumbnail size when I see them in lists

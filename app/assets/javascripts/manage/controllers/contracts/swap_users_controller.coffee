@@ -37,8 +37,9 @@ class window.App.SwapUsersController extends Spine.Controller
 
   swapContract: =>
     @contract.swapUser(@searchSetUserController.selectedUserId, @searchSetContactPersonController?.selectedUserId)
-    .done =>
-      window.location.reload(true)
+    .done (data)=>
+      contract = new App.Contract data
+      window.location = contract.editPath()
     .fail (e) =>
       @errorsContainer.removeClass "hidden"
       App.Button.enable @submitButton

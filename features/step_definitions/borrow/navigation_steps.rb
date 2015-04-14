@@ -1,45 +1,49 @@
 # -*- encoding : utf-8 -*-
 
-Dann(/^seh ich die Navigation$/) do
+#Dann(/^seh ich die Navigation$/) do
+Then(/^I can see the navigation bars$/) do
   find("nav", match: :first)
 end
 
-Dann(/^die Navigation beinhaltet "(.*?)"$/) do |section|
+#Dann(/^die Navigation beinhaltet "(.*?)"$/) do |section|
+Then(/^the navigation contains "(.*?)"$/) do |section|
   case section
-    when "Abzuholen"
-      find("nav a[href='#{borrow_to_pick_up_path}']") if @current_user.contract_lines.to_hand_over.to_a.sum(&:quantity) > 0
-    when "Rückgaben"
-      find("nav a[href='#{borrow_returns_path}']") if @current_user.contract_lines.to_take_back.to_a.sum(&:quantity) > 0
-    when "Bestellungen"
-      find("nav a[href='#{borrow_orders_path}']") if @current_user.contracts.submitted.count > 0
-    when "Geräteparks"
+    when "To pick up"
+      find("nav a[href='#{borrow_to_pick_up_path}']") if @current_user.contract_lines.approved.to_a.sum(&:quantity) > 0
+    when "To return"
+      find("nav a[href='#{borrow_returns_path}']") if @current_user.contract_lines.signed.to_a.sum(&:quantity) > 0
+    when "Orders"
+      find("nav a[href='#{borrow_orders_path}']") if @current_user.contract_lines.submitted.count > 0
+    when "Inventory pools"
       find("nav a[href='#{borrow_inventory_pools_path}']", :text => _("Inventory Pools"))
-    when "Benutzer"
+    when "User"
       find("nav a[href='#{borrow_current_user_path}']", :text => @current_user.short_name)
-    when "Logout"
+    when "Log out"
       find("nav a[href='#{logout_path}']")
-    when "Verwalten"
+    when "Manage"
       find("nav a[href='#{manage_root_path}']", :text => _("Manage"))
-    when "Verleih"
+    when "Lending"
       find("nav a[href='#{manage_daily_view_path(@current_inventory_pool)}']", :text => _("Lending"))
-    when "Ausleihen"
+    when "Borrow"
       find("nav a[href='#{borrow_root_path}']", :text => _("Borrow"))
     else
       raise
   end
 end
 
-Dann(/^seh ich in der Navigation den Home\-Button$/) do
+#Dann(/^seh ich in der Navigation den Home\-Button$/) do
+Then(/^I see a home button in the navigation bars$/) do
   find("nav a[href='#{borrow_root_path}']", match: :first)
 end
 
-Wenn(/^ich den Home\-Button bediene$/) do
+#Wenn(/^ich den Home\-Button bediene$/) do
+When(/^I use the home button$/) do
   find("nav a[href='#{borrow_root_path}']", match: :first).click
 end
 
-Dann(/^lande ich auf der Seite der Hauptkategorien$/) do
-  expect(current_path).to eq borrow_root_path
-end
+#Dann(/^lande ich auf der Seite der Hauptkategorien$/) do
+#  expect(current_path).to eq borrow_root_path
+#end
 
 When(/^I visit the lending section$/) do
   visit manage_daily_view_path(@current_inventory_pool)

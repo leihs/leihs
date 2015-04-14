@@ -1,295 +1,287 @@
-# language: de
-
-Funktionalität: Delegation
+Feature: Delegation
 
   @javascript @personas
-  Szenario: Einer Delegation einen gesperrten Verantwortlichen zuteilen
-    Angenommen ich bin Pius
-    Und ich befinde mich in der Editieransicht einer Delegation
-    Wenn ich einen Verantwortlichen zuteile, der für diesen Gerätepark gesperrt ist
-    Dann ist dieser bei der Auswahl rot markiert
-    Und hinter dem Namen steht in rot 'Gesperrt!'
+  Scenario: Assigning a suspended responsible person to a delegation
+    Given I am Pius
+    And I am editing a delegation
+    When I assign a responsible person that is suspended for the current inventory pool
+    Then ist dieser bei der Auswahl rot markiert
+    And I see the note 'Suspended!' next to their name
 
   @javascript @personas
-  Szenario: Einer Delegation einen gesperrten Benutzer hinzufügen
-    Angenommen ich bin Pius
-    Und ich befinde mich in der Editieransicht einer Delegation
-    Wenn ich einen Benutzer hinzufüge, der für diesen Gerätepark gesperrt ist
-    Dann ist er bei der Auswahl rot markiert
-    Und in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'
-    Und in der Auflistung der Benutzer steht hinter dem Namen in rot 'Gesperrt!'
+  Scenario: Adding a suspended user to a delegation
+    Given I am Pius
+    And I am editing a delegation
+    When I assign a responsible person that is suspended for the current inventory pool
+    Then ist er bei der Auswahl rot markiert
+    And I see the note 'Suspended!' next to their name
 
   @javascript @personas @browser
-  Szenario: Kontaktperson bei Aushändigung wählen
-    Angenommen ich bin Pius
-    Und es existiert eine Aushändigung für eine Delegation mit zugewiesenen Gegenständen
-    Und ich öffne diese Aushändigung
-    Wenn ich die Aushändigung abschliesse
-    Dann muss ich eine Kontaktperson auswählen
+  Scenario: Choosing contact person when handing over
+    Given I am Pius
+    And there is a hand over for a delegation with assigned items
+    And I open this hand over
+    When I finish this hand over
+    Then I have to specify a contact person
 
   @javascript @personas @browser
-  Szenario: Anzeige einer gesperrten Kontaktperson in Aushändigung
-    Angenommen ich bin Pius
-    Und es existiert eine Aushändigung für eine Delegation mit zugewiesenen Gegenständen
-    Und ich öffne diese Aushändigung
-    Wenn ich die Aushändigung abschliesse
-    Und ich eine gesperrte Kontaktperson wähle
-    Dann ist diese Kontaktperson bei der Auswahl rot markiert
-    Und in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'
+  Scenario: Displaying a suspended contact person while handing over
+    Given I am Pius
+    And there is a hand over for a delegation with assigned items
+    And I open this hand over
+    When I finish this hand over
+    And I choose a suspended contact person
+    Then ist diese Kontaktperson bei der Auswahl rot markiert
+    And I see the note 'Suspended!' next to their name
 
   @javascript @personas @browser
-  Szenario: Auswahl einer gesperrten Kontaktperson in Bestellung
-    Angenommen ich bin Pius
-    Und ich befinde mich in einer Bestellung
-    Und ich wechsle den Benutzer
-    Und ich wähle eine Delegation
-    Wenn ich eine Kontaktperson wähle, der für diesen Gerätepark gesperrt ist
-    Dann ist er bei der Auswahl rot markiert
-    Und in der Auwahl steht hinter dem Namen in rot 'Gesperrt!'
+  Scenario: Picking a suspended contact person while ordering
+    Given I am Pius
+    And I open an order
+    And I swap the user
+    And I pick a delegation
+    When I pick a contact person that is suspended for the current inventory pool
+    Then ist er bei der Auswahl rot markiert
+    And I see the note 'Suspended!' next to their name
 
   @javascript @personas @browser
-  Szenario: Delegation in persönliche Bestellungen ändern in Aushändigung
-    Angenommen ich bin Pius
-    Und ich öffne eine Aushändigung für eine Delegation
-    Wenn ich statt einer Delegation einen Benutzer wähle
-    Dann ist in der Aushändigung der Benutzer aufgeführt
+  Scenario: Switching an order from a delegation to a normal user while handing over
+    Given I am Pius
+    And I open a hand over for a delegation
+    When I pick a user instead of a delegation
+    Then the hand over shows the user
 
   @javascript @personas
-  Szenario: Persönliche Bestellung in Delegationsbestellung ändern in Aushändigung
-    Angenommen ich bin Pius
-    Und ich öffne eine Aushändigung
-    Wenn ich statt eines Benutzers eine Delegation wähle
-    Dann ist in der Bestellung der Name der Delegation aufgeführt
+  Scenario: Switching an order from a normal user to a delegation when handing over
+    Given I am Pius
+    And I open a hand over
+    When I pick a delegation instead of a user
+    Then the order shows the delegation
 
-  @javascript @personas
-  Szenario: Anzeige des Tooltipps
-    Angenommen ich bin Pius
-    Wenn ich nach einer Delegation suche
-    Und ich über den Delegationname fahre
-    Dann werden mir im Tooltipp der Name und der Verantwortliche der Delegation angezeigt
+  @javascript @personas @browser
+  Scenario: Tooltip display
+    Given I am Pius
+    When I search for a delegation
+    And I hover over the delegation name
+    Then the tooltip shows name and responsible person for the delegation
 
-  @javascript @personas
-  Szenario: Globale Suche
-    Angenommen ich bin Pius
-    Und ich suche 'Julie'
-    Wenn Julie in einer Delegation ist
-    Dann werden mir im alle Suchresultate von Julie oder Delegation mit Namen Julie angezeigt
-    Und mir werden alle Delegationen angezeigt, den Julie zugeteilt ist
+  @javascript @personas @browser
+  Scenario: Global search
+    Given I am Pius
+    And I search for 'Julie'
+    When Julie is in a delegation
+    Then I see all results for Julie or the delegation named Julie
+    And I see all delegations Julie is a member of
 
   @personas
-  Szenario: Gesperrte Benutzer können keine Bestellungen senden
-    Angenommen ich bin Julie
-    Wenn ich von meinem Benutzer zu einer Delegation wechsle
-    Und die Delegation ist für einen Gerätepark freigeschaltet
-    Aber ich bin für diesen Gerätepark gesperrt
-    Dann kann ich keine Gegenstände dieses Geräteparks absenden
-
-  @javascript @personas
-  Szenario: Filter der Delegationen
-    Angenommen ich bin Pius
-    Wenn ich in den Admin-Bereich wechsel
-    Und man befindet sich auf der Benutzerliste
-    Dann kann ich in der Benutzerliste nach Delegationen einschränken
-    Und ich kann in der Benutzerliste nach Benutzer einschränken
-
-  @javascript @personas
-  Szenario: Erfassung einer Delegation
-    Angenommen ich bin Pius
-    Und ich in den Admin-Bereich wechsel
-    Und ich befinde mich im Reiter 'Benutzer'
-    Wenn ich eine neue Delegation erstelle
-    Und ich der Delegation Zugriff für diesen Pool gebe
-    Und ich dieser Delegation einen Namen gebe
-    Und ich dieser Delegation keinen, einen oder mehrere Personen zuteile
-    Und ich dieser Delegation keinen, einen oder mehrere Gruppen zuteile
-    Und ich kann dieser Delegation keine Delegation zuteile
-    Und ich genau einen Verantwortlichen eintrage
-    Und ich speichere
-    Dann ist die neue Delegation mit den aktuellen Informationen gespeichert
-
-  @javascript @personas
-  Szenario: Delegation erhält Zugriff als Kunde
-    Angenommen ich bin Pius
-    Und ich in den Admin-Bereich wechsel
-    Und ich befinde mich im Reiter 'Benutzer'
-    Wenn ich eine neue Delegation erstelle
-    Dann kann ich dieser Delegation ausschliesslich Zugriff als Kunde zuteilen
+  Scenario: Suspended users can't submit orders
+    Given I am Julie
+    When ich von meinem Benutzer zu einer Delegation wechsle
+    And die Delegation ist für einen Gerätepark freigeschaltet
+    But ich bin für diesen Gerätepark gesperrt
+    Then kann ich keine Gegenstände dieses Geräteparks absenden
 
   @javascript @personas @browser
-  Szenario: Delegation in persönliche Bestellungen ändern in Bestellung
-    Angenommen ich bin Pius
-    Und es wurde für eine Delegation eine Bestellung erstellt
-    Und ich befinde mich in dieser Bestellung
-    Wenn ich statt einer Delegation einen Benutzer wähle
-    Dann ist in der Bestellung der Benutzer aufgeführt
-    Und es ist keine Kontaktperson aufgeführt
-
-  @javascript @personas
-  Szenario: Delegation erfassen ohne Pflichtfelder abzufüllen
-    Angenommen ich bin Pius
-    Und ich in den Admin-Bereich wechsel
-    Und ich befinde mich im Reiter 'Benutzer'
-    Und ich eine neue Delegation erstelle
-    Wenn ich dieser Delegation einen Namen gebe
-    Und ich keinen Verantwortlichen zuteile
-    Und ich speichere
-    Dann sehe ich eine Fehlermeldung
-    Wenn ich genau einen Verantwortlichen eintrage
-    Und ich keinen Namen angebe
-    Und ich speichere
-    Dann sehe ich eine Fehlermeldung
-
-  @javascript @personas
-  Szenario: Delegation editieren
-    Angenommen ich bin Pius
-    Und ich in den Admin-Bereich wechsel
-    Und ich befinde mich im Reiter 'Benutzer'
-    Wenn ich eine Delegation editiere
-    Und ich den Verantwortlichen ändere
-    Und ich einen bestehenden Benutzer lösche
-    Und ich der Delegation einen neuen Benutzer hinzufüge
-    Und man teilt mehrere Gruppen zu
-    Und ich speichere
-    Dann sieht man die Erfolgsbestätigung
-    Und ist die bearbeitete Delegation mit den aktuellen Informationen gespeichert
-
-  @javascript @personas
-  Szenario: Delegation Zugriff entziehen
-    Angenommen ich bin Pius
-    Wenn ich eine Delegation mit Zugriff auf das aktuelle Gerätepark editiere
-    Und ich dieser Delegation den Zugriff für den aktuellen Gerätepark entziehe
-    Und ich speichere
-    Dann können keine Bestellungen für diese Delegation für dieses Gerätepark erstellt werden
+  Scenario: Filter der Delegationen
+    Given I am Pius
+    When I navigate to the admin area
+    And I am listing users
+    Then I can restrict the user list to show only delegations
+    And I can restrict the user list to show only users
 
   @javascript @personas @browser
-  Szenario: Persönliche Bestellung in Delegationsbestellung ändern in Bestellung
-    Angenommen ich bin Pius
-    Und ich befinde mich in einer Bestellung
-    Wenn ich statt eines Benutzers eine Delegation wähle
-    Und ich eine Kontaktperson aus der Delegation wähle
-    Und ich bestätige den Benutzerwechsel
-    Dann ist in der Bestellung der Name der Delegation aufgeführt
-    Und ist in der Bestellung der Name der Kontaktperson aufgeführt
+  Scenario: Creating a delegation
+    Given I am Pius
+    And I can find the user administration features in the "Admin" area under "Users"
+    When I create a new delegation
+    And I give the delegation access to the current inventory pool
+    And I give the delegation a name
+    And I assign none, one or more people to the delegation
+    And ich dieser Delegation keinen, einen oder mehrere Gruppen zuteile
+    And I cannot assign a delegation to the delegation
+    And I enter exactly one responsible person
+    And I save
+    Then the new delegation is saved with the current information
+
+  @javascript @personas @browser
+  Scenario: Delegation gets access as a customer
+    Given I am Pius
+    And I can find the user administration features in the "Admin" area under "Users"
+    When I create a new delegation
+    Then I can at most give the delegation access on the customer level
 
   @javascript @personas
-  Szenario: Delegation löschen
-    Angenommen ich bin Gino
-    Und ich in den Admin-Bereich wechsle
-    Und ich befinde mich im Reiter 'Benutzer'
-    Wenn keine Bestellung, Aushändigung oder ein Vertrag für eine Delegation besteht
-    Und wenn für diese Delegation keine Zugriffsrechte für irgendwelches Gerätepark bestehen
-    Dann kann ich diese Delegation löschen
+  Scenario: Switching delegation to a user in an order
+    Given I am Pius
+    And there is an order for a delegation
+    And I edit the order
+    When I pick a user instead of a delegation
+    Then the order shows the user
+    And no contact person is shown
+
+  @javascript @personas @browser
+  Scenario: Trying to create a delegation without filling in required fields
+    Given I am Pius
+    And I can find the user administration features in the "Admin" area under "Users"
+    And I create a new delegation
+    When I give the delegation a name
+    And I do not enter any responsible person for the delegation
+    And I save
+    Then I see an error message
+    When I enter exactly one responsible person
+    When I do not enter any name
+    And I save
+    Then I see an error message
+
+  @javascript @personas @browser
+  Scenario: Editing a delegation
+    Given I am Pius
+    And I can find the user administration features in the "Admin" area under "Users"
+    When I edit a delegation
+    And I change the responsible person
+    And I delete an existing user from the delegation
+    And I add a user to the delegation
+    And I assign multiple groups
+    And I save
+    Then I see a confirmation of success on the list of users
+    And the edited delegation is saved with its current information
+
+  @javascript @personas
+  Scenario: Removing access from a delegation
+    Given I am Pius
+    When I edit a delegation that has access to the current inventory pool
+    And I remove access to the current inventory pool from this delegation
+    And I save
+    Then no orders can be created for this delegation in the current inventory pool
+
+  @javascript @personas
+  Scenario: Persönliche Bestellung in Delegationsbestellung ändern in Bestellung
+    Given I am Pius
+    And I open an order
+    When I pick a delegation instead of a user
+    And I pick a contact person from the delegation
+    And I confirm the user change
+    Then the order shows the name of the user
+    And the order shows the name of the contact person
+
+  @javascript @personas
+  Scenario: Delete delegation
+    Given I am Gino
+    And I can find the user administration features in the "Admin" area under "Users"
+    When there is no order, hand over or contract for a delegation
+    And that delegation has no access rights to any inventory pool
+    Then I can delete that delegation
 
   #  ANZEIGE BACKEND
 
   @personas
-  Szenario: Anzeige der Bestellungen für eine Delegation
-    Angenommen ich bin Pius
-    Und es wurde für eine Delegation eine Bestellung erstellt
-    Und ich befinde mich in dieser Bestellung
-    Dann sehe ich den Namen der Delegation
-    Und ich sehe die Kontaktperson
+  Scenario: Listing orders for a delegation
+    Given I am Pius
+    And there is an order for a delegation
+    And I edit the order
+    Then I see the delegation's name
+    And I see the contact person
 
   @javascript @personas @browser
-  Szenario: Definition Kontaktperson auf Auftragserstellung
-    Angenommen ich bin Julie
-    Wenn ich eine Bestellung für eine Delegationsgruppe erstelle
-    Dann bin ich die Kontaktperson für diesen Auftrag
-    Angenommen heute entspricht dem Startdatum der Bestellung
-    Und ich bin Pius
-    Wenn ich die Gegenstände für die Delegation an "Mina" aushändige
-    Dann ist "Mina" die neue Kontaktperson dieses Auftrages
+  Scenario: Definition of the contact person when creating an order
+    Given I am Julie
+    When I create an order for a delegation
+    Then I am saved as contact person
+    Given today corresponds to the start date of the order
+    And I am Pius
+    When I hand over the items ordered for this delegation to "Mina"
+    Then "Mina" is the new contact person for this contract
 
   @personas
-  Szenario: Anzeige der Bestellungen einer persönlichen Bestellung
-    Angenommen ich bin Pius
-    Und es existiert eine persönliche Bestellung
-    Und ich befinde mich in dieser Bestellung
-    Dann ist in der Bestellung der Name des Benutzers aufgeführt
-    Und ich sehe keine Kontatkperson
-
-  @javascript @personas
-  Szenario: Delegation in Aushändigung ändern
-    Angenommen ich bin Pius
-    Und es existiert eine Aushändigung für eine Delegation
-    Und ich öffne diese Aushändigung
-    Wenn ich die Delegation wechsle
-    Und ich bestätige den Benutzerwechsel
-    Dann lautet die Aushändigung auf diese neu gewählte Delegation
-
-  @javascript @personas
-  Szenario: Auswahl der Delegation in Aushändigung ändern
-    Angenommen ich bin Pius
-    Und ich öffne eine Aushändigung
-    Wenn ich versuche die Delegation zu wechseln
-    Dann kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Gerätepark haben
+  Scenario: Showing me my own orders
+    Given I am Pius
+    And there is an order placed by me personally
+    And I edit the order
+    Then the order shows the name of the user
+    And I don't see any contact person
 
   @javascript @personas @browser
-  Szenario: Auswahl der Kontaktperson in Aushändigung ändern
-    Angenommen ich bin Pius
-    Und es existiert eine Aushändigung für eine Delegation mit zugewiesenen Gegenständen
-    Und ich öffne diese Aushändigung
-    Wenn ich versuche die Kontaktperson zu wechseln
-    Dann kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören
-
-  @javascript @personas @browser
-  Szenario: Auswahl der Kontaktperson in Bestellung ändern
-    Angenommen ich bin Pius
-    Und ich befinde mich in einer Bestellung von einer Delegation
-    Wenn ich versuche bei der Bestellung die Kontaktperson zu wechseln
-    Dann kann ich bei der Bestellung als Kontaktperson nur diejenigen Personen wählen, die zur Delegationsgruppe gehören
-
-  @javascript @personas @browser
-  Szenario: Borrow: Bestellung erfassen mit Delegation
-    Angenommen ich bin Julie
-    Wenn ich über meinen Namen fahre
-    Und ich auf "Delegationen" drücke
-    Dann werden mir die Delegationen angezeigt, denen ich zugeteilt bin
-    Wenn ich eine Delegation wähle
-    Dann wechsle ich die Anmeldung zur Delegation
-    Angenommen man befindet sich auf der Modellliste
-    Wenn man auf einem verfügbaren Model "Zur Bestellung hinzufügen" wählt
-    Dann öffnet sich der Kalender
-    Wenn alle Angaben die ich im Kalender mache gültig sind
-    Dann lässt sich das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügen
-    Wenn ich die Bestellübersicht öffne
-    Und ich einen Zweck eingebe
-    Und man merkt sich die Bestellung
-    Und ich die Bestellung abschliesse
-    Und ich refreshe die Bestellung
-    Dann ändert sich der Status der Bestellung auf Abgeschickt
-    Und die Delegation ist als Besteller gespeichert
-    Und ich werde als Kontaktperson hinterlegt
-
-  @javascript @personas @browser
-  Szenario: Delegation in Bestellungen ändern
-    Angenommen ich bin Pius
-    Und ich befinde mich in einer Bestellung
-    Wenn ich die Delegation wechsle
-    Und ich die Kontaktperson wechsle
-    Und ich bestätige den Benutzerwechsel
-    Dann lautet die Aushändigung auf diese neu gewählte Delegation
-    Und die neu gewählte Kontaktperson wird gespeichert
+  Scenario: Changing the delegation during hand over
+    Given I am Pius
+    And there is a hand over for a delegation
+    And I open this hand over
+    When I change the delegation
+    And I confirm the user change
+    Then the hand over goes to the new delegation
 
   @javascript @personas
-  Szenario: Auswahl der Delegation in Bestellung ändern
-    Angenommen ich bin Pius
-    Und ich befinde mich in einer Bestellung
-    Wenn ich versuche die Delegation zu wechseln
-    Dann kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Gerätepark haben
+  Scenario: Which delegations are shown when changing during hand over
+    Given I am Pius
+    And I open a hand over
+    When I try to change the delegation
+    Then I can choose only those delegations that have access to this inventory pool
+
+  @javascript @personas @browser
+  Scenario: Changing contact person during hand over
+    Given I am Pius
+    And there is a hand over for a delegation with assigned items
+    And I open this hand over
+    When I try to change the contact person
+    Then I can choose only those people that belong to the delegation group
 
   @javascript @personas
-  Szenario: Delegation wechseln - nur ein Kontaktpersonfeld
-    Angenommen ich bin Pius
-    Und ich befinde mich in einer Bestellung von einer Delegation
-    Wenn ich die Delegation wechsle
-    Dann sehe ich genau ein Kontaktpersonfeld
+  Scenario: Changing contact person while editing an order
+    Given I am Pius
+    And I am editing a delegation's order
+    When I try to change the order's contact person
+    Then I can choose only those people as contact person for the order that belong to the delegation group
+
+  @javascript @personas @browser
+  Scenario: Borrow: Creating an order with a delegation
+    Given I am Julie
+    When I hover over my name
+    And I click on "Delegations"
+    Then I see the delegations I am assigned to
+    When I pick a delegation to represent
+    Then I am logged in as that delegation
+    Given I am listing models
+    When I add an existing model to the order
+    Then the calendar opens
+    When everything I input into the calendar is valid
+    Then the model has been added to the order with the respective start and end date, quantity and inventory pool
+    When I open my list of orders
+    And I enter a purpose
+    And I take note of the contract
+    And I submit the order
+    And I reload the order
+    Then the order's status changes to submitted
+    And the delegation is saved as borrower
+    And I am saved as contact person
+
+  @javascript @personas @browser
+  Scenario: Changing delegation in an order
+    Given I am Pius
+    And I open an order
+    When I change the delegation
+    And I change the contact person
+    And I confirm the user change
+    Then the hand over goes to the new delegation
+    And the newly selected contact person is saved
 
   @javascript @personas
-  Szenario: Delegation wechseln - Kontaktperson ist ein Muss
-    Angenommen ich bin Pius
-    Und ich befinde mich in einer Bestellung
-    Wenn ich die Delegation wechsle
-    Und ich keine Kontaktperson angebe
-    Und ich den Benutzerwechsel bestätige
-    Dann sehe ich im Dialog die Fehlermeldung "Die Kontaktperson ist nicht Mitglied der Delegation oder ist leer"
+  Scenario: Which delegations are shown when changing delegation in an order
+    Given I am Pius
+    And I open an order
+    When I try to change the delegation
+    Then I can choose only those delegations that have access to this inventory pool
+
+  @javascript @personas
+  Scenario: Changing delegation - only one contact person field
+    Given I am Pius
+    And I am editing a delegation's order
+    When I change the delegation
+    Then I see exactly one contact person field
+
+  @javascript @personas
+  Scenario: Changing delegation - contact person is required
+    Given I am Pius
+    And I open an order
+    When I change the delegation
+    And I do not enter any contact person
+    And I confirm the user change
+    Then an error message pops up saying "Delegated user is not member of the contract's delegation or is empty"

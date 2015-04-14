@@ -1,7 +1,7 @@
 Feature: Implement new Group feature#
 
         Background: Provide a minimal lending environment
-                Given the settings are exising
+                Given the settings are existing
                   And inventory pool 'AVZ'
                   And a lending_manager 'lending_manager' for inventory pool 'AVZ'
                   And I am logged in as 'lending_manager' with password 'foobar'
@@ -18,7 +18,7 @@ Feature: Implement new Group feature#
                 When I add 1 item of that model
                 Then 3 items of that model should be available to everybody
 
-                When I add a new group "CAST"
+                When I add a group called "CAST"
 
                 Then 3 items of that model should be available to everybody
                  And that model should not be available in any group
@@ -31,7 +31,7 @@ Feature: Implement new Group feature#
                 When I lend one item of that model to "Tomáš"
                 Then 2 items of that model should be available to everybody
 
-                When I add a new group "Video"
+                When I add a group called "Video"
                  And I assign 2 items to group "Video"
                 Then 0 items of that model should be available to "Tomáš"
 

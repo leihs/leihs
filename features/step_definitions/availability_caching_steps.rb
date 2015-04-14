@@ -7,7 +7,7 @@ end
 
 When "$who deletes the first line" do | who|
   # TODO: we should be passing through the controller/view here
-  @order.remove_line( @order.order_lines.first.id, @order.user.id )
+  @order.remove_line( @order.order_lines.first, @order.user.id )
 end
 
 Then "the availability of all $document_type lines should be cached" do |document_type|
@@ -25,10 +25,10 @@ Then "the availability of all $document_type lines should be cached" do |documen
 end
 
 #tmp#8#old-availability#
-Then "the availability of the respective orderline should be cached" do 
-  # uh, dirty...
-  step "the availability of all order lines should be cached"
-end
+# Then "the availability of the respective orderline should be cached" do
+#   # uh, dirty...
+#   step "the availability of all order lines should be cached"
+# end
 
 #tmp#8#old-availability#
 Then "the availability cache of $quantifier $document_type lines should have been invalid$ated" do |quantifier,document_type,ated|

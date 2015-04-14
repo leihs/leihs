@@ -2,12 +2,13 @@ Given(/^I am on the Inventory$/) do
   visit manage_inventory_path(@current_inventory_pool)
 end
 
-When(/^I open the Inventory$/) do
+When(/^I open the inventory$/) do
   find("#topbar .topbar-navigation .topbar-item a", :text => _("Inventory")).click
   expect(current_path).to eq manage_inventory_path(@current_inventory_pool)
 end
 
-Then(/^I can export to a csv-file$/) do
+#Then(/^I can export to a csv-file$/) do
+Then(/^I can export to a CSV file$/) do
   find("#csv-export")
 end
 
@@ -84,7 +85,7 @@ Then(/^there is no link to:$/) do |table|
 end
 
 When(/^I open a submitted order to be verified by a Group Manager$/) do
-  @contract = @current_inventory_pool.contracts.submitted.with_verifiable_user_and_model.sample
+  @contract = @current_inventory_pool.contracts.submitted.with_verifiable_user_and_model.order("RAND()").first
   step "I edit this submitted contract"
 end
 
@@ -99,7 +100,7 @@ When(/^I add a model which leads to an overbooking$/) do
 end
 
 When(/^I open a hand over editable by the Group Manager$/) do
-  @contract = @current_inventory_pool.contracts.approved.with_verifiable_user_and_model.sample
+  @contract = @current_inventory_pool.contracts.approved.with_verifiable_user_and_model.order("RAND()").first
   visit manage_hand_over_path(@current_inventory_pool, @contract.user)
   expect(has_selector?("#hand-over-view")).to be true
   step "the availability is loaded"

@@ -1,84 +1,84 @@
-# language: de
 
-Funktionalität: Anzeige von Problemen
+Feature: Displaying problems
 
-  Grundlage:
-    Angenommen ich bin Pius
-
-  @javascript @browser @personas
-  Szenario: Problemanzeige wenn Modell nicht verfügbar bei Bestellungen
-    Angenommen ich editiere eine Bestellung die nicht in der Vergangenheit liegt
-     Und ein Modell ist nichtmehr verfügbar
-     Dann sehe ich auf den beteiligten Linien die Auszeichnung von Problemen
-     Und das Problem wird wie folgt dargestellt: "Nicht verfügbar 2(3)/7"
-     Und "2" sind verfügbar für den Kunden inklusive seinen Gruppenzugehörigen
-     Und "3" sind insgesamt verfügbar inklusive diejenigen Gruppen, welchen der Kunde nicht angehört
-     Und "7" sind total im Pool bekannt (ausleihbar)
+  Background:
+    Given I am Pius
 
   @javascript @browser @personas
-  Szenario: Problemanzeige bei Rücknahme wenn Gegenstand defekt
-    Angenommen ich mache eine Rücknahme eines Gegenstandes
-     Und eine Gegenstand ist defekt
-     Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
-     Und das Problem wird wie folgt dargestellt: "Gegenstand ist defekt"
-
-  @javascript @personas @browser
-  Szenario: Problemanzeige bei Aushändigung wenn Gegenstand defekt
-    Angenommen ich mache eine Aushändigung
-     Und eine Gegenstand ist defekt
-     Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
-     Und das Problem wird wie folgt dargestellt: "Gegenstand ist defekt"
+  Scenario: Showing problems in an order when a model is not avaiable
+    #Given ich editiere eine Bestellung die nicht in der Vergangenheit liegt
+    Given I edit an order
+    And a model is no longer available
+    Then I see any problems displayed on the relevant lines
+     And the problem is displayed as: "Nicht verfügbar 2(3)/7"
+     And "2" are available for the user, also counting availability from groups the user is member of
+     And "3" are available in total, also counting availability from groups the user is not member of
+     And "7" are in this inventory pool (and borrowable)
 
   @javascript @browser @personas
-  Szenario: Problemanzeige bei Rücknahme wenn Gegenstand unvollständig
-    Angenommen ich mache eine Rücknahme eines Gegenstandes
-     Und eine Gegenstand ist unvollständig
-     Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
-     Und das Problem wird wie folgt dargestellt: "Gegenstand ist unvollständig"
+  Scenario: Showing problems in an order when taking back a defective item
+    Given I take back an item
+    And one item is defective
+     Then the affected item's line shows the item's problems
+     And the problem is displayed as: "Gegenstand ist defekt"
 
   @javascript @personas
-  Szenario: Problemanzeige bei Aushändigung wenn Gegenstand nicht ausleihbar
-    Angenommen ich mache eine Aushändigung
-     Und eine Gegenstand ist nicht ausleihbar
-     Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
-     Und das Problem wird wie folgt dargestellt: "Gegenstand nicht ausleihbar"
+  Scenario: Showing problems when handing over a defective item
+    Given I am doing a hand over
+    And one item is defective
+     Then the affected item's line shows the item's problems
+     And the problem is displayed as: "Gegenstand ist defekt"
 
   @javascript @browser @personas
-  Szenario: Problemanzeige bei Rücknahme wenn Gegenstand nicht ausleihbar
-    Angenommen ich mache eine Rücknahme eines Gegenstandes
-    Und eine Gegenstand ist nicht ausleihbar
-    Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
-    Und das Problem wird wie folgt dargestellt: "Gegenstand nicht ausleihbar"
-
-  @personas @javascript
-  Szenario: Problemanzeige wenn Modell nicht verfügbar bei Aushändigung
-    Angenommen ich mache eine Aushändigung
-     Und eine Model ist nichtmehr verfügbar
-     Dann sehe ich auf den beteiligten Linien die Auszeichnung von Problemen
-     Und das Problem wird wie folgt dargestellt: "Nicht verfügbar 2(3)/7"
-     Und "2" sind verfügbar für den Kunden inklusive seinen Gruppenzugehörigen
-     Und "3" sind insgesamt verfügbar inklusive diejenigen Gruppen, welchen der Kunde nicht angehört
-     Und "7" sind total im Pool bekannt (ausleihbar)
-
-  @personas
-  Szenario: Problemanzeige wenn Modell nicht verfügbar bei Rücknahmen
-    Angenommen ich mache eine Rücknahme, die nicht überfällig ist
-     Und eine Model ist nichtmehr verfügbar
-     Dann sehe ich auf den beteiligten Linien die Auszeichnung von Problemen
-     Und das Problem wird wie folgt dargestellt: "Nicht verfügbar 2(3)/7"
-     Und "2" sind verfügbar für den Kunden inklusive seinen Gruppenzugehörigen
-     Und "3" sind insgesamt verfügbar inklusive diejenigen Gruppen, welchen der Kunde nicht angehört
-     Und "7" sind total im Pool bekannt (ausleihbar)
-
-  @javascript @personas @browser
-  Szenario: Problemanzeige bei Aushändigung wenn Gegenstand unvollständig
-    Angenommen ich mache eine Aushändigung
-     Und eine Gegenstand ist unvollständig
-     Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
-     Und das Problem wird wie folgt dargestellt: "Gegenstand ist unvollständig"
+  Scenario: Displaying problems with incomplete items during take back
+    Given I take back an item
+     And one item is incomplete
+     Then the affected item's line shows the item's problems
+     And the problem is displayed as: "Gegenstand ist unvollständig"
 
   @javascript @personas
-  Szenario: Problemanzeige bei Rücknahme wenn verspätet
-    Angenommen ich mache eine Rücknahme eines verspäteten Gegenstandes
-     Dann sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen
-     Und das Problem wird wie folgt dargestellt: "Überfällig seit 6 Tagen"
+  Scenario: Showing problems when handing over an item that is not borrowable
+    Given I am doing a hand over
+    And one item is not borrowable
+     Then the affected item's line shows the item's problems
+     And the problem is displayed as: "Gegenstand nicht ausleihbar"
+
+  @javascript @browser @personas
+  Scenario: Showing problems when taking back an item that is not borrowable
+    Given I take back an item
+    And one item is not borrowable
+    Then the affected item's line shows the item's problems
+    And the problem is displayed as: "Gegenstand nicht ausleihbar"
+
+  @personas @javascript @browser
+  Scenario: Showing problems when item is not available while handing over
+    Given I am doing a hand over
+      And a model is no longer available
+     Then I see any problems displayed on the relevant lines
+      And the problem is displayed as: "Nicht verfügbar 2(3)/7"
+      And "2" are available for the user, also counting availability from groups the user is member of
+      And "3" are available in total, also counting availability from groups the user is not member of
+      And "7" are in this inventory pool (and borrowable)
+
+  @personas @javascript @browser
+  Scenario: Showing problems when item is not available while taking back
+    Given I open a take back, not overdue
+     And a model is no longer available
+     Then I see any problems displayed on the relevant lines
+      And the problem is displayed as: "Nicht verfügbar 2(3)/7"
+      And "2" are available for the user, also counting availability from groups the user is member of
+      And "3" are available in total, also counting availability from groups the user is not member of
+      And "7" are in this inventory pool (and borrowable)
+
+  @javascript @personas
+  Scenario: Problemanzeige bei Aushändigung wenn Gegenstand unvollständig
+    Given I am doing a hand over
+    And one item is incomplete
+    Then the affected item's line shows the item's problems
+    And the problem is displayed as: "Gegenstand ist unvollständig"
+
+  @javascript @personas
+  Scenario: Showing problems during take back if overdue
+    Given I take back a late item
+    Then the affected item's line shows the item's problems
+    And the problem is displayed as: "Überfällig seit 6 Tagen"

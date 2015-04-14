@@ -6,7 +6,7 @@
 
 class window.App.Contract extends Spine.Model
 
-  @configure "Contract", "id", "user_id", "inventory_pool_id", "status_const", "delegated_user_id"
+  @configure "Contract", "id", "user_id", "inventory_pool_id", "status", "delegated_user_id"
 
   @extend Spine.Model.Ajax
   @extend App.Modules.FindOrBuild

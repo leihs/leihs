@@ -1,11 +1,9 @@
-# language: de
+Feature: Change who ordered something
 
-Funktionalität: Bestellenden wechseln
-
-  Grundlage:
-    Angenommen ich bin Pius
+  Background:
+    Given I am Pius
 
   @javascript @personas
-  Szenario: Bestellende Person wechseln
-    Angenommen ich öffne eine Bestellung
-    Dann kann ich die bestellende Person wechseln
+  Scenario: Changing the person who ordered something
+    Given I open an order
+    Then I can change who placed this order

@@ -1,32 +1,32 @@
-# language: de
 
-Funktionalität: Kalender-Ansicht im Backend
+Feature: Calendar view in the manage section
 
-  Grundlage:
-    Angenommen ich bin Pius
+  Background:
+    Given I am Pius
 
   @javascript @personas
-  Szenario: Verfügbare Anzahl immer anzeigen
-    Wenn man den Kalender sieht
-    Dann sehe ich die Verfügbarkeit von Modellen auch an Feier- und Ferientagen sowie Wochenenden
+  Scenario: Always show available quantity
+    When I see the calendar
+    Then I see the availability of models on weekdays as well as holidays and weekends
 
   @javascript @browser @personas
-  Szenario: Anzahl im Buchungskalender während einer Bestellung überbuchen
-    Angenommen ich editiere eine Bestellung
-     Und ich öffne den Kalender
-     Dann kann ich die Anzahl unbegrenzt erhöhen / überbuchen
-     Und die Bestellung kann gespeichert werden
+  Scenario: Overbooking in the booking calendar while editing an order
+    Given I edit an order
+     And I open the booking calendar
+     Then there is no limit on augmenting the quantity, thus I can overbook
+     And the order can be saved
 
   @javascript @browser @personas
-  Szenario: Anzahl im Buchungskalender während einer Aushändigung überbuchen
-    Angenommen ich mache eine Aushändigung
-     Und ich öffne den Kalender
-     Dann kann ich die Anzahl unbegrenzt erhöhen / überbuchen
-     Und die Aushändigung kann gespeichert werden
+  Scenario: Overbooking in the booking calendar during a hand over
+    Given I am doing a hand over
+     And I open the booking calendar
+     Then there is no limit on augmenting the quantity, thus I can overbook
+     And the hand over can be saved
 
-  @personas @javascript
-  Szenario: Nicht verfügbare Zeitspannen
-    Angenommen ich mache eine Aushändigung
-     Und eine Model ist nichtmehr verfügbar
-     Und ich editiere alle Linien
-    Dann wird in der Liste unter dem Kalender die entsprechende Linie als nicht verfügbar (rot) ausgezeichnet
+  @personas @javascript @browser
+  Scenario: Unavailable time spans
+    Given I am doing a hand over
+     And a model is no longer available
+    When I select all lines
+     And I edit all lines
+    Then the list underneath the calendar shows the respective line as not available (red)

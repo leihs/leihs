@@ -13,7 +13,7 @@ class window.App.VisitsIndexController extends Spine.Controller
     @pagination = new App.ListPaginationController {el: @list, fetch: @fetch}
     @search = new App.ListSearchController {el: @el.find("#list-search"), reset: @reset}
     @range = new App.ListRangeController {el: @el.find("#list-range"), reset: @reset}
-    @tabs = new App.ListTabsController {el: @el.find("#list-tabs"), reset: @reset, data:{actions: ["hand_over", "take_back"]}}
+    @tabs = new App.ListTabsController {el: @el.find("#list-tabs"), reset: @reset, data:{status: ["approved", "signed"]}}
     do @reset
 
   reset: =>

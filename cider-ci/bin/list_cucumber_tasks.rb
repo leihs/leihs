@@ -21,7 +21,7 @@ def task_for_feature_file file_path, timeout = 200, strict = false
   task_hash(name, exec)
 end
 
-feature_files = Dir.glob("features/**/*.feature") - Dir.glob("features/personas/*.feature")
+feature_files = Dir.glob("features/**/*.feature") - Dir.glob("features/personas/*.feature") - Dir.glob("features/**/*.feature.disabled")
 filepath = "./cider-ci/tasks/cucumber.yml"
 File.open(filepath,"w") do |f|
   string = {'tasks' => feature_files.map do |f|
@@ -35,7 +35,7 @@ filepath = "./cider-ci/tasks/cucumber_scenarios.yml"
 File.open(filepath,"w") do |f|
   h1 = {}
   `egrep -R -n -B 1 "^\s*(Scenario|Szenario)" features/*`.split("--\n").map{|x| x.split("\n")}.each do |t, s|
-    next if t =~ /@old-ui|@upcoming|@generating_personas/
+    next if t =~ /@old-ui|@upcoming|@generating_personas|@manual/
     splitted_string = s.split(/:\s*(Scenario|Szenario)( Outline| Template|grundriss)?: /)
     k, v = splitted_string.first.split(':')
     h1[k] ||= []

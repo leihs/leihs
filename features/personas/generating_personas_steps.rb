@@ -199,34 +199,34 @@ Given(/^the following holidays exist$/) do |table|
   end
 end
 
-Given(/^(\d+) (unsubmitted|submitted|approved) contracts?(?: for user "(.*)")? exists?$/) do |n, status, user_email|
+Given(/^(\d+) (unsubmitted|submitted|approved) contract lines?(?: for user "(.*)")? exists?$/) do |n, status, user_email|
   attrs = {status: status.to_sym}
   attrs[:user] = User.find_by_email(user_email) if user_email
 
   n.to_i.times do
-    attrs[:inventory_pool] = attrs[:user].inventory_pools.sample if attrs[:user]
-    FactoryGirl.create :contract_with_lines, attrs
+    attrs[:inventory_pool] = attrs[:user].inventory_pools.order("RAND()").first if attrs[:user]
+    FactoryGirl.create :contract_line, attrs
   end
 end
 
 Given(/^all unsubmitted contract lines are available$/) do
-  expect(Contract.unsubmitted.flat_map(&:lines).all? {|line| line.available? }).to be true
+  expect(ContractLine.unsubmitted.all? {|line| line.available? }).to be true
 end
 
-Given(/^users with deleted access rights and closed contracts exist$/) do |table|
-  hashes_with_evaled_and_nilified_values(table).each do |hash_row|
-    hash_row["quantity users"].to_i.times do
-      user = FactoryGirl.create(:user)
-      inventory_pool = InventoryPool.find_by_name hash_row["inventory pool"]
-      FactoryGirl.create :access_right, inventory_pool: inventory_pool, deleted_at: Date.today, user: user, role: :customer
-      contract = FactoryGirl.create :contract_with_lines, inventory_pool: inventory_pool, status: :approved, user: user
-      manager = User.find_by_login "ramon"
-      contract.sign(manager)
-      contract.lines.each { |cl| cl.update_attributes(returned_date: Date.today, returned_to_user_id: manager.id) }
-      contract.close
-    end
-  end
-end
+# Given(/^users with deleted access rights and closed contracts exist$/) do |table|
+#   hashes_with_evaled_and_nilified_values(table).each do |hash_row|
+#     hash_row["quantity users"].to_i.times do
+#       user = FactoryGirl.create(:user)
+#       inventory_pool = InventoryPool.find_by_name hash_row["inventory pool"]
+#       FactoryGirl.create :access_right, inventory_pool: inventory_pool, deleted_at: Date.today, user: user, role: :customer
+#       contract = FactoryGirl.create :contract_with_lines, inventory_pool: inventory_pool, status: :approved, user: user
+#       manager = User.find_by_login "ramon"
+#       contract.sign(manager)
+#       contract.lines.each { |cl| cl.update_attributes(returned_date: Date.today, returned_to_user_id: manager.id) }
+#       contract.close
+#     end
+#   end
+# end
 
 Given(/^the following building exists:$/) do |table|
   hashes_with_evaled_and_nilified_values(table).each do |hash_row|
@@ -265,7 +265,7 @@ Given(/^the following categories have the following models:$/) do |table|
   end
 end
 
-Given(/^the following items exists:$/) do |table|
+Given(/^the following items exist:$/) do |table|
   hashes_with_evaled_and_nilified_values(table).each do |hash_row|
     building = Building.find_by_code hash_row["building code"]
 
@@ -441,7 +441,7 @@ Given(/^the following licenses exist:$/) do |table|
   end
 end
 
-Given(/^the following software exist:$/) do |table|
+Given(/^the following software exists:$/) do |table|
   hashes_with_evaled_and_nilified_values(table).each do |hash_row|
     FactoryGirl.create(:software, product: hash_row["product"], technical_detail: hash_row["technical detail"])
   end
@@ -473,30 +473,8 @@ Given(/^each of the models has from (\d+) to (\d+) accessories possibly activate
   end
 end
 
-Given(/^an? (submitted|approved|rejected) contract with following properties exist:$/) do |status, table|
+Given(/^(\d+) to (\d+)( more)? (submitted|approved|rejected) (item|license|option) lines? with following properties exists:$/) do |from, to, more, status, line_type, table|
   attrs = {status: status.to_sym}
-  table.rows_hash.each_pair do |key, value|
-    case key
-      when "user email"
-        attrs[:user] = User.find_by_email value
-      when "delegation name"
-        attrs[:user] = User.as_delegations.find_by_firstname value
-      when "delegated user email"
-        attrs[:delegated_user] = User.find_by_email value
-      when "inventory pool name"
-        attrs[:inventory_pool] = InventoryPool.find_by_name value
-      else
-        raise
-    end
-  end
-  @contract = FactoryGirl.create(:contract, attrs)
-  expect(@contract.valid?).to be true
-end
-
-Given(/^this contract has from (\d+) to (\d+) (item|license|option) lines:$/) do |from, to, line_type, table|
-  attrs = {
-      contract: @contract
-  }
 
   # initialize variables accessed later in the block scope
   assigned = false
@@ -507,6 +485,14 @@ Given(/^this contract has from (\d+) to (\d+) (item|license|option) lines:$/) do
   properties.each_pair do |key, value|
     value = substitute_with_eval value
     case key
+      when "user email"
+        attrs[:user] = User.find_by_email value
+      when "delegation name"
+        attrs[:user] = User.as_delegations.find_by_firstname value
+      when "delegated user email"
+        attrs[:delegated_user] = User.find_by_email value
+      when "inventory pool name"
+        attrs[:inventory_pool] = InventoryPool.find_by_name value
       when "", "item location"
         # do nothing
       when "assigned"
@@ -515,10 +501,6 @@ Given(/^this contract has from (\d+) to (\d+) (item|license|option) lines:$/) do
         attrs[:start_date] = Date.parse(value)
       when "end date"
         attrs[:end_date] = Date.parse(value)
-      when "returned date"
-        attrs[:returned_date] = Date.parse(value)
-      when "returned to user"
-        attrs[:returned_to_user] = User.find_by_email value
       when "quantity"
         attrs[:quantity] = value.to_i
       when "model name"
@@ -528,16 +510,16 @@ Given(/^this contract has from (\d+) to (\d+) (item|license|option) lines:$/) do
       when "item"
         case value
           when "in_stock"
-            attrs[:item] = @contract.inventory_pool.items.in_stock.where(:model_id => attrs[:model]).first
+            attrs[:item] = attrs[:inventory_pool].items.in_stock.where(:model_id => attrs[:model]).first
           when "owned"
-            h = {owner: @contract.inventory_pool}
+            h = {owner: attrs[:inventory_pool]}
             if properties["item location"] == "nil"
               h[:location] = nil
             end
             attrs[:item] = FactoryGirl.create(:item, h)
             attrs[:model] = attrs[:item].model
           else
-            attrs[:item] = @contract.inventory_pool.items.find_by_inventory_code(value)
+            attrs[:item] = attrs[:inventory_pool].items.find_by_inventory_code(value)
             attrs[:model] = attrs[:item].model
         end
       when "inventory code"
@@ -550,11 +532,11 @@ Given(/^this contract has from (\d+) to (\d+) (item|license|option) lines:$/) do
         attrs[:purpose] = FactoryGirl.create(:purpose, :description => value)
       when "real overbooking"
         if value == "true"
-          from = to = attrs[:model].borrowable_items.where(inventory_pool_id: @contract.inventory_pool).count + 1
+          from = to = attrs[:model].borrowable_items.where(inventory_pool_id: attrs[:inventory_pool]).count + 1
         end
       when "soft overbooking"
         if value == "true"
-          availability = attrs[:model].availability_in @contract.inventory_pool
+          availability = attrs[:model].availability_in attrs[:inventory_pool]
           attrs[:start_date] = availability.changes.first.first
           from = to = 1 + availability.changes.first.second[nil][:in_quantity]
         end
@@ -564,42 +546,66 @@ Given(/^this contract has from (\d+) to (\d+) (item|license|option) lines:$/) do
   end
 
   attrs[:purpose] ||= FactoryGirl.create(:purpose)
-
+  if more
+    @contract_lines ||= []
+  else
+    @contract_lines = []
+  end
   rand(from.to_i..to.to_i).times do
-    @contract.contract_lines << if line_type == "item" or line_type == "license"
-                                  attrs1 = if attrs[:model]
-                                             attrs
-                                           else
-                                             item ||= FactoryGirl.create line_type.to_sym, inventory_pool: @contract.inventory_pool
-                                             attrs2 = attrs.merge(model: item.model)
-                                             attrs2[:item] = item if assigned
-                                             item = nil # reset to nil in order to regenerate a new one later in the loop
-                                             attrs2
-                                           end
-                                  FactoryGirl.create(:contract_line, attrs1)
-                                elsif line_type == "option"
-                                  option ||= FactoryGirl.create :option, inventory_pool: @contract.inventory_pool
-                                  attrs1 = attrs.merge(model: option.model)
-                                  option = nil # reset to nil in order to regenerate a new one later in the loop
-                                  FactoryGirl.create(:option_line, attrs1)
-                                end
+    contract_line = if line_type == "item" or line_type == "license"
+                      attrs1 = if attrs[:model]
+                                 attrs
+                               else
+                                 item ||= FactoryGirl.create line_type.to_sym, inventory_pool: attrs[:inventory_pool]
+                                 attrs2 = attrs.merge(model: item.model)
+                                 attrs2[:item] = item if assigned
+                                 item = nil # reset to nil in order to regenerate a new one later in the loop
+                                 attrs2
+                               end
+                      FactoryGirl.create(:item_line, attrs1)
+                    elsif line_type == "option"
+                      option ||= FactoryGirl.create :option, inventory_pool: attrs[:inventory_pool]
+                      attrs1 = attrs.merge(model: option.model)
+                      option = nil # reset to nil in order to regenerate a new one later in the loop
+                      FactoryGirl.create(:option_line, attrs1)
+                    end
+    expect(contract_line.valid?).to be true
+    expect(contract_line.item).not_to be_nil if assigned
+    @contract_lines << contract_line
+  end
+end
+
+Given(/^(\d+) to (\d+) of these (item|license|option) lines? is returned:$/) do |from, to, line_type, table|
+  attrs = {}
+  table.rows_hash.each_pair do |key, value|
+    value = substitute_with_eval value
+    case key
+      when "returned date"
+        attrs[:returned_date] = Date.parse(value)
+      when "returned to user"
+        attrs[:returned_to_user] = User.find_by_email value
+    end
   end
 
-  expect(@contract.reload.valid?).to be true
-  expect(@contract.lines.all?(&:item)).to be true if assigned
+  rand(from.to_i..to.to_i).times do
+    contract_line = @contract_lines.select{|cl| cl.status == :signed}.sample
+    contract_line.update_attributes(attrs)
+    expect(contract_line.valid?).to be true
+    expect(contract_line.status).to be :closed
+  end
 end
 
 Given(/^this contract is signed by "(.*?)"$/) do |user_email|
-  @contract.reload.sign User.find_by_email(user_email)
-  expect(@contract.reload.status).to be :signed
+  contract_container = @contract_lines.first.user.contracts.approved.find_by(inventory_pool_id: @contract_lines.first.inventory_pool)
+  @contract = contract_container.sign(User.find_by_email(user_email), @contract_lines)
+  expect(@contract.valid?).to be true
 end
 
 Given(/^this contract is closed on "(.*?)" by "(.*?)"$/) do |date_eval, user_email|
   date = substitute_with_eval date_eval
   user = User.find_by_email user_email
   @contract.lines.each { |cl| cl.update_attributes(returned_date: date, returned_to_user_id: user) }
-  @contract.close
-  expect(@contract.reload.status).to be :closed
+  expect(@contract.lines.all? {|cl| cl.status == :closed }).to be true
 end
 
 Given(/^the item with inventory code "(.*?)" has now the following properties:$/) do |inv_code, table|

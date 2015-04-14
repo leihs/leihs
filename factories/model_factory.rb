@@ -24,7 +24,7 @@ FactoryGirl.define do
     hand_over_note { Faker::Lorem.sentence }
 
     factory :model_with_items do
-      ignore do
+      transient do
         inventory_pool { FactoryGirl.create :inventory_pool }
       end
       after(:create) do |model, evaluator|

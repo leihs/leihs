@@ -1,87 +1,68 @@
-# language: de
 
-Funktionalität: Bestellübersicht
+Feature: Viewing my orders
 
-  Um die Bestellung in der Übersicht zu sehen
-  möchte ich als Ausleiher
-  die Möglichkeit haben meine bestellten Gegenstände in der Übersicht zu sehen
-
-  Grundlage:
-    Angenommen ich bin Normin
-    Und ich habe Gegenstände der Bestellung hinzugefügt
-    Wenn ich die Bestellübersicht öffne
+  Background:
+    Given I am Normin
+    And I have added items to an order
+    When I open my list of orders
 
   @personas
-  Szenario: Bestellübersicht Auflistung der Gegenstände
-    Dann sehe ich die Einträge gruppiert nach Startdatum und Gerätepark
-    Und die Modelle sind alphabetisch sortiert
-    Und für jeden Eintrag sehe ich die folgenden Informationen
-    |Bild|
-    |Anzahl|
-    |Modellname|
-    |Hersteller|
-    |Anzahl der Tage|
-    |Enddatum|
-    |die versch. Aktionen|
+  Scenario: Listing items in an order
+    Then I see entries grouped by start date and inventory pool
+    And the models are ordered alphabetically
+    And each entry has the following information
+    |Image|
+    |Quantity|
+    |Model name|
+    |Manufacturer|
+    |Number of days|
+    |End date|
+    |the various actions|
 
   @javascript @browser @personas
-  Szenario: Bestellübersicht Aktion 'löschen'
-    Wenn ich einen Eintrag lösche
-    Dann die Gegenstände sind wieder zur Ausleihe verfügbar
-     Und wird der Eintrag aus der Bestellung entfernt
+  Scenario: Deleting things in my order overview
+    When I delete an entry
+    Then the items are available for borrowing again
+     And the entry is removed from the order
 
   @javascript @personas
-  Szenario: Zeit überschritten
-    Wenn ich ein Modell der Bestellung hinzufüge
-    Dann sehe ich die Zeitanzeige
-    Wenn man befindet sich auf der Bestellübersicht
-    Und  die Zeit überschritten ist
-    Dann werde ich auf die Timeout Page weitergeleitet
-
-  @javascript @personas @browser
-  Szenario: Bestellübersicht Aktion 'ändern'
-    Wenn ich den Eintrag ändere
-    Dann öffnet der Kalender
-    Und ich ändere die aktuellen Einstellung
-    Und speichere die Einstellungen
-    Dann wird der Eintrag gemäss aktuellen Einstellungen geändert
-    Und der Eintrag wird in der Liste anhand der des aktuellen Startdatums und des Geräteparks gruppiert
+  Scenario: Timeout
+    Given the timeout is set to 1 minute
+    When I add a model to an order
+    Then I see a timer
+    When I am viewing my current order
+    Then I see the timer formatted as "mm:ss"
+    When the timer has run down
+    Then I am redirected to the timeout page
 
   @javascript @personas
-  Szenario: Zeitentität, Ablauf der erlaubten Zeit anzeigen
-    Dann sehe ich die Zeitinformationen in folgendem Format "mm:ss"
-    Und die Zeitanzeige zählt von 30 Minuten herunter
-
-  @personas
-  Szenario: Zeit zurücksetzen
-    Angenommen die Bestellung ist nicht leer
-    Dann sehe ich die Zeitanzeige
-    Wenn ich den Time-Out zurücksetze
-    Dann wird die Zeit zurückgesetzt
-
-  @javascript @personas
-  Szenario: Zeit abgelaufen
-    Wenn die Zeit abgelaufen ist
-    Dann werde ich auf die Timeout Page weitergeleitet
+  Scenario: Changing one of my orders
+    When I change the entry
+    Then the calendar opens
+    When I change the date
+    And I save the booking calendar
+    Then the entry's date is changed accordingly
+    And the entry is grouped based on its current start date and inventory pool
 
   @javascript @browser @personas
-  Szenario: Bestellübersicht Bestellung löschen
-    Wenn ich die Bestellung lösche
-    Dann werde ich gefragt ob ich die Bestellung wirklich löschen möchte
-    Und ich befinde mich wieder auf der Startseite
-    Und alle Einträge werden aus der Bestellung gelöscht
-    Und die Gegenstände sind wieder zur Ausleihe verfügbar
+  Scenario: Deleting an order from my order overview
+    When I delete the order
+    Then I am asked whether I really want to delete the order
+    And I am again on the borrow section's start page
+    And all entries are deleted from the order
+    And the items are available for borrowing again
 
   @personas
-  Szenario: Bestellübersicht Bestellen
-    Wenn ich einen Zweck eingebe
-    Und ich die Bestellung abschliesse
-    Dann ändert sich der Status der Bestellung auf Abgeschickt
-    Und ich erhalte eine Bestellbestätigung
-    Und in der Bestellbestätigung wird mitgeteilt, dass die Bestellung in Kürze bearbeitet wird
-    Und ich befinde mich wieder auf der Startseite
+  Scenario: Ordering
+    When I enter a purpose
+    And I submit the order
+    And I reload the order
+    Then the order's status changes to submitted
+    And I see an order confirmation
+    And the order confirmation lets me know that my order will be handled soon
+    And I am again on the borrow section's start page
 
   @personas
-  Szenario: Bestellübersicht Zweck nicht eingegeben
-    Wenn der Zweck nicht abgefüllt wird
-    Dann hat der Benutzer keine Möglichkeit die Bestellung abzuschicken
+  Scenario: Forgetting to fill in the purpose
+    When I don't fill in the purpose
+    Then I can't submit my order

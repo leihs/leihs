@@ -1,12 +1,11 @@
-# language: de
 
-Funktionalität: Geräteparks
+Feature: Inventory pools
 
   @personas
-  Szenario: Gerätepark Informationen
-    Angenommen ich bin Normin
-    Wenn ich den Gerätepark Link drücke
-    Dann sehe ich die Geräteparks für die ich berechtigt bin
-    Und ich sehe nur die Geräteparks, die ausleihbare Gegenstände enthalten
-    Und sehe die Beschreibung für jeden Gerätepark
-    Und die Geräteparks sind auf dieser Seite alphabetisch sortiert
+  Scenario: Inventory pool information
+    Given I am Normin
+    When I click on the inventory pool link
+    Then I see the inventory pools I have access to
+    And I see only inventory pools containing borrowable items
+    And I see a description for each inventory pool
+    And the inventory pools are sorted alphabetically on this page

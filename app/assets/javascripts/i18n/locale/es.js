@@ -655,10 +655,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Value list": [
-         null,
-         "Lista de precios"
-      ],
       "Warning": [
          null,
          ""

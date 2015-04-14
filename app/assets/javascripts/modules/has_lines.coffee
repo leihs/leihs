@@ -52,7 +52,7 @@ App.Modules.HasLines =
     return result
 
   groupByDateAndPool: (lines, mergeModels = false)->
-    merge = _.groupBy lines, (l)-> JSON.stringify({start_date: l.start_date, inventory_pool_id: l.contract().inventory_pool_id})
+    merge = _.groupBy lines, (l)-> JSON.stringify({start_date: l.start_date, inventory_pool_id: l.inventory_pool_id})
     for k, v of merge
       merge[k] = _.chain(v)
       .sortBy((l)-> l.model().name())

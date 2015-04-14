@@ -7,7 +7,7 @@ Feature: Hand over visits
     And all contracts and contract lines are deleted
 
   Scenario: Inventory pool returns a list of hand over visits per user
-    Given there are open contracts for all users of a specific inventory pool
+    Given there are open contracts for all users
     And every contract has a different start date
     And there are hand over visits for the specific inventory pool
     When all the contract lines of all the events are combined

@@ -14,10 +14,10 @@ Given(/^I open (a|the) picking list( for a signed contract)?$/) do |arg1, arg2|
   else
     @contract = case arg1
                   when "a"
-                    @current_inventory_pool.contracts.sample
+                    @current_inventory_pool.contracts.order("RAND()").first
                   when "the"
                     if arg2
-                      @current_inventory_pool.contracts.signed.sample
+                      @current_inventory_pool.contracts.signed.order("RAND()").first
                     end
                 end
     visit manage_picking_list_path(@current_inventory_pool, @contract)
@@ -131,7 +131,7 @@ end
 
 Then(/^the missing location information for options, are displayed with "(.*?)"$/) do |arg1|
   (@selected_lines || @contract.lines).select { |line| line.is_a? OptionLine }.each do |line|
-    find("section.list .model_name", match: :prefer_exact, text: line.model.name).find(:xpath, "./..").find(".location", text: arg1)
+    find("section.list .model_name", match: :prefer_exact, text: line.model.name).find(:xpath, "./..").find(".location", text: _(arg1))
   end
 end
 

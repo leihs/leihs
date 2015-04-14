@@ -1,5 +1,5 @@
 Then /^I see the contract's purpose$/ do
-  find("#purpose", :text => @contract.purpose.description)
+  find("#purpose", :text => @contract.purpose)
 end
 
 When /^I change the contract's purpose$/ do
@@ -14,5 +14,5 @@ end
 Then /^the contract's purpose is changed$/ do
   find("#purpose", :text => @new_purpose)
   visit current_path
-  expect(@contract.reload.purpose.description).to eq @new_purpose
+  expect(@contract.reload.purpose).to eq @new_purpose
 end

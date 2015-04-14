@@ -1,88 +1,90 @@
-# language: de
 
-Funktionalität: Gegenstand kopieren
+Feature: Copy item
 
-  Grundlage:
-    Angenommen ich bin Mike
-
-  @javascript @personas
-  Szenario: Gegenstand erstellen und kopieren
-    Angenommen man erstellt einen Gegenstand
-    | Feldname                     | Type         | Wert                          |
-    | Modell                       | autocomplete | Sharp Beamer 456              |
-    | Ausmusterung                 | checkbox     | unchecked                     |
-    | Zustand                      | radio        | OK                            |
-    | Vollständigkeit              | radio        | OK                            |
-    | Ausleihbar                   | radio        | OK                            |
-    | Inventarrelevant             | select       | Ja                            |
-    | Letzte Inventur              |              | 01.01.2013                    |
-    | Verantwortliche Abteilung    | autocomplete | A-Ausleihe                    |
-    | Verantwortliche Person       |              | Matus Kmit                    |
-    | Benutzer/Verwendung          |              | Test Verwendung               |
-    | Umzug                        | select       | sofort entsorgen              |
-    | Zielraum                     |              | Test Raum                     |
-    | Ankunftsdatum                |              | 01.01.2013                    |
-    | Ankunftszustand              | select       | transportschaden              |
-    | Ankunftsnotiz                |              | Test Notiz                    |
-    | Seriennummer                 |              | Test Seriennummer             |
-    | MAC-Adresse                  |              | Test MAC-Adresse              |
-    | IMEI-Nummer                  |              | Test IMEI-Nummer              |
-    | Name                         |              | Test Name                     |
-    | Notiz                        |              | Test Notiz                    |
-    | Gebäude                      | autocomplete | Keine/r                       |
-    | Raum                         |              | Test Raum                     |
-    | Gestell                      |              | Test Gestell                  |
-    | Bezug                        | radio must   | investment                    |
-    | Projektnummer                |              | Test Nummer                   |
-    | Rechnungsnummer              |              | Test Nummer                   |
-    | Rechnungsdatum               |              | 01.01.2013                    |
-    | Anschaffungswert             |              | 50.00                         |
-    #| Lieferant                    | autocomplete | Neuer Lieferant               |
-    | Garantieablaufdatum          |              | 01.01.2013                    |
-    | Vertragsablaufdatum          |              | 01.01.2013                    |
-    Wenn man speichert und kopiert
-    Dann wird der Gegenstand gespeichert
-    Und eine neue Gegenstandserstellungsansicht wird geöffnet
-    Und man sieht den Seitentitel 'Kopierten Gegenstand erstellen'
-    Und man sieht den Abbrechen-Knopf
-    Und alle Felder bis auf die folgenden wurden kopiert:
-    | Inventarcode                 |
-    | Name                         |
-    | Seriennummer                 |
-    Und der Inventarcode ist vorausgefüllt
-    Wenn ich speichere
-    Dann wird der kopierte Gegenstand gespeichert
-    Und man wird zur Liste des Inventars zurückgeführt
-
-  @javascript @browser @personas
-  Szenario: Bestehenden Gegenstand aus Liste kopieren
-    Angenommen man befindet sich auf der Liste des Inventars
-    Wenn man einen Gegenstand kopiert
-    Dann wird eine neue Gegenstandskopieransicht geöffnet
-    Und alle Felder bis auf Inventarcode, Seriennummer und Name wurden kopiert
-
-  @javascript @browser @personas
-  Szenario: Bestehenden Gegenstand aus Editieransicht kopieren
-    Wenn ich mich in der Editieransicht einer Gegenstand befinde
-    Und man speichert und kopiert
-    Dann wird eine neue Gegenstandskopieransicht geöffnet
-    Und alle Felder bis auf Inventarcode, Seriennummer und Name wurden kopiert
+  Background:
+    Given I am Mike
 
   @javascript @personas
-  Szenario: Gegenstand aus einem anderem Gerätepark kopieren
-    Angenommen I go to logout
-    Und ich bin Matti
-    Und man editiert ein Gegenstand eines anderen Besitzers
-    Wenn man speichert und kopiert
-    Dann wird eine neue Gegenstandskopieransicht geöffnet
-    Und alle Felder sind editierbar, da man jetzt Besitzer von diesem Gegenstand ist
+  Scenario: Create and copy items
+    Given I create an item
+    And I choose "Investment"
+    And I make a note of the original inventory code
+    And I enter the following item information
+      | field                  | type         | value               |
+      | Borrowable             | radio        | OK                  |
+      | Building               | autocomplete | None                |
+      | Check-In Date          |              | 01/01/2013          |
+      | Check-In Note          |              | Test note           |
+      | Check-In State         | select       | transportschaden    |
+      | Completeness           | radio        | OK                  |
+      | Contract expiration    |              | 01/01/2013          |
+      | IMEI-Number            |              | Test IMEI number    |
+      | Initial Price          |              | 50.00               |
+      | Invoice Date           |              | 01/01/2013          |
+      | Invoice Number         |              | Test number         |
+      | Last Checked           |              | 01/01/2013          |
+      | MAC-Address            |              | Test MAC address    |
+      | Model                  | autocomplete | Sharp Beamer 456    |
+      | Move                   | select       | sofort entsorgen    |
+      | Name                   |              | Test name           |
+      | Note                   |              | Test note           |
+      | Project Number         |              | Test number         |
+      | Relevant for inventory | select       | Yes                 |
+      | Responsible department | autocomplete | A-Ausleihe          |
+      | Responsible person     |              | Matus Kmit          |
+      | Retirement             | checkbox     | unchecked           |
+      | Room                   |              | Test room           |
+      | Serial Number          |              | Test serial number  |
+      | Shelf                  |              | Test shelf          |
+      | Supply Category        | select       | Workshop Technology |
+      | Target area            |              | Test room           |
+      | User/Typical usage     |              | Test use            |
+      | Warranty expiration    |              | 01/01/2013          |
+      | Working order          | radio        | OK                  |
+    When I save and copy
+    Then the item is saved
+    And I can create a new item
+    # This is not the case in the system
+    #And the page title is 'Create copied item'
+    And I can cancel
+    And all fields except the following were copied:
+    | Inventory Code |
+    | Name           |
+    | Serial Number  |
+    And the inventory code is already filled in
+    When I save
+    Then the copied item is saved
+    And I am redirected to the inventory list
+
+  @javascript @personas
+  Scenario: Copying an item selected from a list
+    Given I open the inventory
+    When I copy an item
+    Then an item copy screen is shown
+    And all fields except inventory code, serial number and name are copied
+
+  @javascript @personas
+  Scenario: Copying an item from the edit view
+    When I am editing an item
+    And I save and copy
+    Then an item copy screen is shown
+    And all fields except inventory code, serial number and name are copied
+
+  @javascript @personas
+  Scenario: Copying an item from another inventory pool
+    Given I go to logout
+    And I am Matti
+    And I edit an item belonging to a different inventory pool
+    And I save and copy
+    Then an item copy screen is shown
+    And all fields are editable, because the current inventory pool owns this new item
 
   @javascript @browser @personas
-  Szenario: Neuen Lieferanten erstellen falls nicht vorhanden
-    Angenommen man einen Gegenstand kopiert
-    Dann wird eine neue Gegenstandskopieransicht geöffnet
-    Wenn ich einen nicht existierenen Lieferanten angebe
-    Und ich merke mir den Inventarcode für weitere Schritte
-    Und ich speichere
-    Dann wird der neue Lieferant erstellt
-    Und bei dem kopierten Gegestand ist der neue Lieferant eingetragen
+  Scenario: Creating a new supplier while copying an item
+    Given I copy an item
+    Then an item copy screen is shown
+    When I enter a supplier that does not exist
+    And I make a note of the inventory code for further steps
+    And I save
+    Then a new supplier is created
+    And the copied item has the new supplier

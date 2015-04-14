@@ -14,10 +14,10 @@
 
           .row
             %h2.padding-bottom-s= inventory_pool.name
-                
+
           .row
             - if inventory_pool.description and inventory_pool.description.length > 0
-              %p.pre<= inventory_pool.description
+              %p.pre= inventory_pool.description
             - else 
               %p.grey-text= _("No description")
 

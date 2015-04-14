@@ -28,7 +28,7 @@ When /^I delete multiple lines of this contract$/ do
 end
 
 When(/^I add a model that is not already part of that contract$/) do
-  @item = (@current_inventory_pool.models - @contract.models).sample.items.sample
+  @item = (@current_inventory_pool.models.order("RAND()") - @contract.models).first.items.order("RAND()").first
   step 'I add a model by typing in the inventory code of an item of that model to the quick add'
 end
 
@@ -55,7 +55,7 @@ Then /^none of the lines are deleted$/ do
 end
 
 When(/^I delete a hand over$/) do
-  @visit = @current_inventory_pool.visits.hand_over.where(date: Date.today).sample
+  @visit = @current_inventory_pool.visits.hand_over.where(date: Date.today).order("RAND()").first
   expect(@visit).not_to be_nil
   expect(@visit.lines.empty?).to be false
   @visit_line_ids = @visit.lines.map(&:id)

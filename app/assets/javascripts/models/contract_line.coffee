@@ -6,10 +6,12 @@
 
 class window.App.ContractLine extends Spine.Model
 
-  @configure "ContractLine", "id", "inventory_pool_id", "contract_id", "model_id", "option_id", "purpose_id", "quantity", "start_date", "end_date", "item_id"
+  @configure "ContractLine", "id", "inventory_pool_id", "user_id", "delegated_user_id", "status", "contract_id", "model_id", "option_id", "purpose_id", "quantity", "start_date", "end_date", "item_id"
 
   @belongsTo "contract", "App.Contract", "contract_id"
   @belongsTo "inventory_pool", "App.InventoryPool", "inventory_pool_id"
+  @belongsTo "user", "App.User", "user_id"
+  @belongsTo "delegatedUser", "App.User", "delegated_user_id"
   @belongsTo "model", "App.Model", "model_id"
   @belongsTo "option", "App.Option", "option_id"
   @belongsTo "purpose", "App.Purpose", "purpose_id"
@@ -36,5 +38,3 @@ class window.App.ContractLine extends Spine.Model
       @item().inventory_code
     else if @option()
       @option().inventory_code
-
-  user: -> @contract().user()

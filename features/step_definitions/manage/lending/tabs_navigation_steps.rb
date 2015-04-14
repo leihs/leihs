@@ -20,7 +20,7 @@ end
 
 Then(/^I see all inventory pools for which I am a manager$/) do
   within "#ip-dropdown-menu" do
-    @current_user.managed_inventory_pools.each {|ip| has_content? ip.name unless ip == @current_inventory_pool}
+    @current_user.inventory_pools.managed.each {|ip| has_content? ip.name unless ip == @current_inventory_pool}
   end
 end
 
@@ -40,6 +40,6 @@ When(/^I click somewhere outside of the inventory pool menu list$/) do
   find("body").click
 end
 
-Dann(/^the inventory pool menu list closes$/) do
+Then(/^the inventory pool menu list closes$/) do
   expect(page).to have_no_selector "#ip-dropdown-menu"
 end

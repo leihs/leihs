@@ -16,7 +16,7 @@ Feature: Assign items during hand over
      Then the item line is assigned to the selected inventory code
 
   # CI-ISSUE: cannot be reproduced with live data in development mode, but with the test data in test mode yes. Seems to be some subtle bug, happening sporadically, possibly having something to do with ajax requests, rendering and timing.
-   @javascript @personas @browser
+   @javascript @personas
   Scenario: Assign an inventory code by providing an inventory code of an item and a set of selected lines
      When I open a hand over which has multiple unassigned lines and models in stock
       And I select a linegroup

@@ -45,18 +45,18 @@ Feature: Inventory
        When the category 'Video' is selected   
        Then there are 1 models belonging to that category
 
-  @old-ui
-  Scenario: Tell the user if we can't create a new Package
-       Given inventory pool 'ABC'
-       And inventory pool short name 'ABC'
-       Given item 'P-ABC124' of model 'Book' exists
-       Given a inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
-        # monkeypatch Item.proposed_inventory_code
-        When the broken alorithm proposes wrongly a duplicate inventory code 'ABC124'
-         And the lending_manager creates a new package
-        Then it will fail with an error
-        # un-monkeypatch Item.proposed_inventory_code
-         And we need to fix the algorithm again so subsequent tests won't fail
+#  @old-ui
+#  Scenario: Tell the user if we can't create a new Package
+#       Given inventory pool 'ABC'
+#       And inventory pool short name 'ABC'
+#       Given item 'P-ABC124' of model 'Book' exists
+#       Given a inventory_manager for inventory pool 'ABC' logs in as 'inv_man_0'
+#        # monkeypatch Item.proposed_inventory_code
+#        When the broken alorithm proposes wrongly a duplicate inventory code 'ABC124'
+#         And the lending_manager creates a new package
+#        Then it will fail with an error
+#        # un-monkeypatch Item.proposed_inventory_code
+#         And we need to fix the algorithm again so subsequent tests won't fail
 
 
   Scenario Outline: What we want new generated inventory codes to look like
@@ -100,28 +100,28 @@ Feature: Inventory
       # first free inventory code after 'ABC01' is 'ABC4'
       Then the generated_code should look like this 'ABC4'
 
-  @old-ui
-  Scenario: Level 2 managers should only be able and allowed to assign items to their own pool
-      Given inventory pool 'ABC'
-      And inventory pool short name 'ABC'
-      Given a model 'Trumpet' exists
-       And a lending_manager 'George' for inventory pool 'ABC'
-       And his password is 'pass'
-      When I log in as 'George' with password 'pass'
-       And I press "Backend"
-       And I follow "Items (0)"
-       And I follow "New Item"
-       Then the item should only be assignable to the 'ABC' departement
-
-  @old-ui
-  Scenario: Level 3 managers should be able and allowed to assign items to whatever pool
-      Given inventory pool 'ABC'
-      And inventory pool short name 'ABC'
-       Given a model 'Trumpet' exists
-         And a inventory_manager 'George' for inventory pool 'ABC'
-         And his password is 'pass'
-        When I log in as 'George' with password 'pass'
-         And I press "Backend"
-         And I follow "Items (0)"
-         And I follow "New Item"
-         Then the item should be assignable to the 'None' departement
+#  @old-ui
+#  Scenario: Level 2 managers should only be able and allowed to assign items to their own pool
+#      Given inventory pool 'ABC'
+#      And inventory pool short name 'ABC'
+#      Given a model 'Trumpet' exists
+#       And a lending_manager 'George' for inventory pool 'ABC'
+#       And his password is 'pass'
+#      When I log in as 'George' with password 'pass'
+#       And I press "Backend"
+#       And I follow "Items (0)"
+#       And I follow "New Item"
+#       Then the item should only be assignable to the 'ABC' departement
+#
+#  @old-ui
+#  Scenario: Level 3 managers should be able and allowed to assign items to whatever pool
+#      Given inventory pool 'ABC'
+#      And inventory pool short name 'ABC'
+#       Given a model 'Trumpet' exists
+#         And a inventory_manager 'George' for inventory pool 'ABC'
+#         And his password is 'pass'
+#        When I log in as 'George' with password 'pass'
+#         And I press "Backend"
+#         And I follow "Items (0)"
+#         And I follow "New Item"
+#         Then the item should be assignable to the 'None' departement

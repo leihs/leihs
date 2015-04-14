@@ -2,10 +2,6 @@
 # customer should come to pick up or return items - or from the other perspective:
 # when an inventory pool manager should hand over some items to or get them back from the customer.
 #
-# 'action' says if we want to have hand_overs or take_backs. action can be either of those two:
-# * "hand_over"
-# * "take_back"
-#
 # Reading a MySQL View
 class Visit < ActiveRecord::Base
   include LineModules::GroupedAndMergedLines
@@ -30,31 +26,31 @@ class Visit < ActiveRecord::Base
     false
   end
   #######################################################
-  
+
   belongs_to :user
   belongs_to :inventory_pool
-  
-  has_many :visit_lines
-  has_many :contract_lines, :through => :visit_lines
-  alias :lines :contract_lines
 
-#  def line_ids
-#    contract_line_ids.split(',').map(&:to_i)
-#  end
-#  def contract_lines
-#    @contract_lines ||= ContractLine.includes(:model).find(line_ids)
-#  end
+  has_many :contract_lines, -> (r){ if r.status == :approved
+                                      where(start_date: r.date)
+                                    else
+                                      where(end_date: r.date)
+                                    end.where(inventory_pool_id: r.inventory_pool_id, user_id: r.user_id) }, foreign_key: :status, primary_key: :status
+  alias :lines :contract_lines
+  def contract_line_ids
+    contract_lines.pluck(:id)
+  end
 
   #######################################################
-  
-  scope :hand_over, lambda { where(:status => :approved) }
-  scope :take_back, lambda { where(:status => :signed) }
+
+  scope :potential_hand_over, lambda { where(status: :submitted) }
+  scope :hand_over, lambda { where(status: :approved) }
+  scope :take_back, lambda { where(status: :signed) }
   scope :take_back_overdue, lambda { take_back.where("date < ?", Date.today) }
 
   #######################################################
 
   scope :search, lambda { |query|
-    sql = all
+    sql = where.not(status: :submitted)
     return sql if query.blank?
 
     # TODO search on contract_lines' models and items
@@ -69,28 +65,35 @@ class Visit < ActiveRecord::Base
   }
 
   def self.filter(params, inventory_pool = nil)
-    visits = inventory_pool.nil? ? all : inventory_pool.visits
-    visits = visits.where Visit.arel_table[:action].eq(params[:type]) if params[:type]
-    visits = visits.where(:action => params[:actions]) if params[:actions]
+    visits = if inventory_pool.nil?
+               all
+             else
+               inventory_pool.visits
+             end.where.not(status: :submitted)
+    visits = visits.where(status: params[:status]) if params[:status]
     visits = visits.search(params[:search_term]) unless params[:search_term].blank?
-    visits = visits.where Visit.arel_table[:date].lteq(params[:date]) if params[:date] and params[:date_comparison] == "lteq"
-    visits = visits.where Visit.arel_table[:date].eq(params[:date]) if params[:date] and params[:date_comparison] == "eq"
+    visits = visits.where arel_table[:date].lteq(params[:date]) if params[:date] and params[:date_comparison] == "lteq"
+    visits = visits.where arel_table[:date].eq(params[:date]) if params[:date] and params[:date_comparison] == "eq"
 
     if r = params[:range]
-      visits = visits.where(Visit.arel_table[:date].gteq(r[:start_date])) if r[:start_date]
-      visits = visits.where(Visit.arel_table[:date].lteq(r[:end_date])) if r[:end_date]
+      visits = visits.where(arel_table[:date].gteq(r[:start_date])) if r[:start_date]
+      visits = visits.where(arel_table[:date].lteq(r[:end_date])) if r[:end_date]
     end
 
     visits = visits.default_paginate params unless params[:paginate] == "false"
     visits
   end
 
-  #######################################################
-
-  # compares two objects in order to sort them
-  # def <=>(other)
-    # self.date <=> other.date
-  # end  
+  def action
+    case status
+      when :submitted
+        :potential_hand_over
+      when :approved
+        :hand_over
+      when :signed
+        :take_back
+    end
+  end
 
   def status
     read_attribute(:status).to_sym

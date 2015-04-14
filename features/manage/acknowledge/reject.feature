@@ -10,8 +10,7 @@ Feature: Reject Order
 
   @javascript @personas @browser
   Scenario: Reject a contract on the daily view
-    When I open the daily view
-     And I navigate to the open orders
+    When I navigate to the open orders
      And I reject a contract
     Then I see a summary of that contract
      And I can write a reason why I reject that contract
@@ -20,8 +19,7 @@ Feature: Reject Order
 
   @javascript @personas @browser
   Scenario: Reject a contract on the edit view
-    When I open the daily view
-    And I navigate to the open orders
+    When I navigate to the open orders
     And I open a contract for acknowledgement
     And I reject this contract
     Then I see a summary of that contract

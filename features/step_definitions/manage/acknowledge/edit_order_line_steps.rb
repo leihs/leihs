@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 
 When /^I open a contract for acknowledgement( with more then one line)?(, whose start date is not in the past)?$/ do |arg1, arg2|
-  contracts = @current_inventory_pool.contracts.submitted
+  contracts = @current_inventory_pool.contracts.submitted.order("RAND()")
   contracts = contracts.select {|c| c.lines.size > 1 and c.lines.map(&:model_id).uniq.size > 1 } if arg1
   contracts = contracts.select {|c| c.min_date >= Date.today} if arg2
 
-  @contract = contracts.sample
+  @contract = contracts.first
   expect(@contract).not_to be_nil
 
   @customer = @contract.user
@@ -24,7 +24,7 @@ end
 
 When /^I edit the timerange of the selection$/ do
   if page.has_selector?(".button.green[data-hand-over-selection]") or page.has_selector?(".button.green[data-take-back-selection]")
-    step 'ich editiere alle Linien'
+    step 'I edit all lines'
   else
     find(".multibutton [data-selection-enabled][data-edit-lines='selected-lines']", :text => _("Edit Selection")).click
   end
@@ -32,7 +32,7 @@ When /^I edit the timerange of the selection$/ do
 end
 
 When /^I save the booking calendar$/ do
-  find("#submit-booking-calendar").click
+  find("#submit-booking-calendar:not(:disabled)").click
 end
 
 Then /^the booking calendar is( not)? closed$/ do |arg1|
@@ -43,9 +43,9 @@ end
 
 When /^I change a contract lines time range$/ do
   @line = if @contract
-    @contract.lines.sample
+    @contract.lines.order("RAND()").first
   else
-    @customer.visits.where(inventory_pool_id: @current_inventory_pool).hand_over.first.lines.sample
+    @customer.visits.hand_over.where(inventory_pool_id: @current_inventory_pool).first.lines.order("RAND()").first
   end
   @line_element = all(".line[data-ids*='#{@line.id}']").first || all(".line[data-id='#{@line.id}']").first
   step 'I open the booking calendar for this line'
@@ -56,7 +56,7 @@ When /^I change a contract lines time range$/ do
   end
   expect(has_selector?(".fc-widget-content .fc-day-number")).to be true
   get_fullcalendar_day_element(@new_start_date).click
-  find("#set-start-date", :text => _("Start Date")).click
+  find("#set-start-date", :text => _("Start date")).click
   step 'I save the booking calendar'
   step 'the booking calendar is closed'
 end
@@ -87,9 +87,9 @@ end
 When /^I change a contract lines quantity$/ do
   if @line_element.nil? and page.has_selector?("#hand-over-view")
     @line = if @contract
-              @contract.lines.sample
+              @contract.lines.order("RAND()").first
             else
-              @customer.visits.where(inventory_pool_id: @current_inventory_pool).hand_over.first.lines.sample
+              @customer.visits.hand_over.where(inventory_pool_id: @current_inventory_pool).first.lines.order("RAND()").first
             end
     @total_quantity = @line.contract.lines.where(:model_id => @line.model_id).sum(&:quantity)
     @new_quantity = @line.quantity + 1
@@ -131,7 +131,7 @@ When /^I change the time range for multiple lines$/ do
   step 'I edit the timerange of the selection'
   @new_start_date = [@line1.start_date, Date.today].max + 2.days
   get_fullcalendar_day_element(@new_start_date).click
-  find("#set-start-date", :text => _("Start Date")).click
+  find("#set-start-date", :text => _("Start date")).click
   step 'I save the booking calendar'
   step 'the booking calendar is closed'
 end

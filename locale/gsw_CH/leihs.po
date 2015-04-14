@@ -471,9 +471,6 @@ msgstr ""
 msgid "Empty Username and/or Password"
 msgstr "Benutzername und/oder Passwort sind läär"
 
-msgid "End Date"
-msgstr "Änd-Datum"
-
 msgid "End date"
 msgstr "Änd-Datum"
 
@@ -1245,9 +1242,6 @@ msgstr "Öppis isch schief gange!"
 msgid "Start"
 msgstr "Start"
 
-msgid "Start Date"
-msgstr "Startdatum"
-
 msgid "Start Date must be before End Date"
 msgstr "Startdatum muess vor em Enddatum si"
 
@@ -1536,7 +1530,7 @@ msgid "borrowable"
 msgstr "uuslehnbar"
 
 msgid "unborrowable"
-msgstr "Nöd uuslehnbar"
+msgstr "nöd uuslehnbar"
 
 msgid "Unborrowable"
 msgstr "Nöd uuslehnbar"
@@ -1621,9 +1615,6 @@ msgstr "Werteverzeichnis für Leihvertrag mit No."
 
 msgid "Value List for Lending Contract No. %s"
 msgstr "Werteverzeichnis für Leihvertrag mit No. %s"
-
-msgid "Value list"
-msgstr "Werteverzeichnis"
 
 msgid "View %s"
 msgstr "%s gseh"
@@ -2350,9 +2341,8 @@ msgstr "Zwäck vode Bschtelig"
 msgid "Specification of the purpose is required"
 msgstr "D Aagab vomene Zwäck isch zwingend"
 
-#, fuzzy
 msgid "Specification of the contact person is required"
-msgstr "D Aagab vomene Zwäck isch zwingend"
+msgstr "D Aagab vonere Kontaktperson isch zwingend"
 
 msgid "Change"
 msgstr "Ändere"
@@ -2689,10 +2679,9 @@ msgstr "Datei wird bim speichere ufeglade"
 msgid "Upload problems"
 msgstr "Problem bim ufelade"
 
-#, fuzzy
 msgid "%s was saved, but there were problems uploading files"
 msgstr ""
-"S Modäll isch gspeicheret worde, bim ufelade vo Dateie isch es allerdings zu "
+"%s isch gspeicheret worde, bim ufelade vo Dateie isch es allerdings zu "
 "Problem cho"
 
 msgid "Uploading files - please wait"
@@ -2841,13 +2830,11 @@ msgstr ""
 msgid "License Type"
 msgstr ""
 
-#, fuzzy
 msgid "Create new software license"
-msgstr "Noii Option erschtelä"
+msgstr "Noii Software-Lizenz erschtelä"
 
-#, fuzzy
 msgid "Create new software"
-msgstr "Noii Sach erschtelä"
+msgstr "Noii Software erschtelä"
 
 msgid "Free"
 msgstr ""
@@ -2861,52 +2848,44 @@ msgstr ""
 msgid "License Server"
 msgstr ""
 
-#, fuzzy
 msgid "License Number"
-msgstr "Rächnigsnummere"
+msgstr "Lizenznummere"
 
 msgid "Site License"
 msgstr ""
 
-#, fuzzy
 msgid "Concurrent"
-msgstr "Aktuelli Bschtellig"
+msgstr "Gliichzitig"
 
 msgid "Operating System"
 msgstr ""
 
-#, fuzzy
 msgid "Installation"
-msgstr "Zueteilige"
+msgstr "Installation"
 
 msgid "Hints"
 msgstr ""
 
-#, fuzzy
 msgid "Local"
-msgstr "Ort"
+msgstr "Lokal"
 
-#, fuzzy
 msgid "License expiration"
-msgstr "Vertragsablaufdatum"
+msgstr "Lizenzablaufdatum"
 
-#, fuzzy
 msgid "Maintenance expiration"
 msgstr "Vertragsablaufdatum"
 
-#, fuzzy
 msgid "Maintenance contract"
-msgstr "Underschribni Verträg"
+msgstr "Maintenance-Vertrag"
 
 msgid "Procured by"
-msgstr ""
+msgstr "Bschtellt vo"
 
 msgid "Picking List"
-msgstr ""
+msgstr "Rüschtliischtä"
 
-#, fuzzy
 msgid "remaining"
-msgstr "Warnig"
+msgstr "übrig"
 
 msgid "Category can have only one image."
 msgstr ""

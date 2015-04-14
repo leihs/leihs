@@ -1,49 +1,48 @@
-# language: de
 
-Funktionalität: Wartungsmodus
+Feature: Wartungsmodus
 
 Als Administrator möchte ich die Möglichkeit haben,
 für die Bereiche "Verwalten" und "Verleih" bei Wartungsarbeiten das System zu sperren und dem Benutzer eine Meldung anzuzeigen
 
-  Grundlage:
-    Angenommen ich bin Gino
+  Background:
+    Given I am Gino
 
   @javascript @personas
-  Szenario: Verwalten-Bereich sperren
-    Angenommen ich befinde mich in den Pool-übergreifenden Einstellungen
-    Wenn ich die Funktion "Verwaltung sperren" wähle
-    Dann muss ich eine Bemerkung angeben
-    Wenn ich eine Bemerkung für "Verwalten-Bereich" angebe
-    Und ich speichere
-    Dann wurde die Einstellung für "Verwalten-Bereich" erfolgreich gespeichert
-    Und der Bereich "Verwalten" ist für die Benutzer gesperrt
-    Und dem Benutzer wird die eingegebene Bemerkung angezeigt
+  Scenario: Disabling the manage section
+    Given I am in the system-wide settings
+    When I choose the function "Disable manage section"
+    Then I have to enter a note
+    When I enter a note for the "manage section"
+    And I save
+    Then the settings for the "manage section" were saved
+    And the "manage section" is disabled for users
+    And users see the note that was defined
 
   @javascript @personas
-  Szenario: Ausleihen-Bereich sperren
-    Angenommen ich befinde mich in den Pool-übergreifenden Einstellungen
-    Wenn ich die Funktion "Ausleihen sperren" wähle
-    Dann muss ich eine Bemerkung angeben
-    Wenn ich eine Bemerkung für "Ausleihen-Bereich" angebe
-    Und ich speichere
-    Dann wurde die Einstellung für "Ausleihen-Bereich" erfolgreich gespeichert
-    Und der Bereich "Ausleihen" ist für die Benutzer gesperrt
-    Und dem Benutzer wird die eingegebene Bemerkung angezeigt
+  Scenario: Disabling the borrow section
+    Given I am in the system-wide settings
+    When I choose the function "Disable borrow section"
+    Then I have to enter a note
+    When I enter a note for the "borrow section"
+    And I save
+    Then the settings for the "borrow section" were saved
+    And the "borrow section" is disabled for users
+    And users see the note that was defined
 
   @javascript @personas
-  Szenario: Verwalten-Bereich entsperren
-    Angenommen der "Verwalten" Bereich ist gesperrt
-    Und ich befinde mich in den Pool-übergreifenden Einstellungen
-    Wenn ich die Funktion "Verwaltung sperren" deselektiere
-    Und ich speichere
-    Dann ist der Bereich "Verwalten" für den Benutzer nicht mehr gesperrt
-    Und die eingegebene Meldung für "Verwalten" Bereich ist immer noch gespeichert
+  Scenario: Enabling the manage section
+    Given the "manage section" is disabled
+    And I am in the system-wide settings
+    When I deselect the "disable manage section" option
+    And I save
+    Then the "manage section" is not disabled for users
+    And the note entered for the "manage section" is still saved
 
   @javascript @personas
-  Szenario: Ausleihen-Bereich entsperren
-    Angenommen der "Ausleihen" Bereich ist gesperrt
-    Und ich befinde mich in den Pool-übergreifenden Einstellungen
-    Wenn ich die Funktion "Ausleihen sperren" deselektiere
-    Und ich speichere
-    Dann ist der Bereich "Ausleihen" für den Benutzer nicht mehr gesperrt
-    Und die eingegebene Meldung für "Ausleihen" Bereich ist immer noch gespeichert
+  Scenario: Enabling the borrow section
+    Given the "borrow section" is disabled
+    And I am in the system-wide settings
+    When I deselect the "disable borrow section" option
+    And I save
+    Then the "borrow section" is not disabled for users
+    And the note entered for the "borrow section" is still saved

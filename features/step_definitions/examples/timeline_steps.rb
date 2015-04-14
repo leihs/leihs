@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-Dann /^for each visible model I can see the Timeline$/ do
+Then /^for each visible model I can see the Timeline$/ do
 
   lines = if not all("#edit-contract-view").empty?
             ".order-line"

@@ -93,11 +93,11 @@ class window.App.HandOverDialogController extends Spine.Controller
       .fail (e)=>
         @errorContainer.find("strong").html(e.responseText)
         @errorContainer.removeClass("hidden")
-      .done =>
+      .done (data)=>
         @modal.undestroyable()
         @modal.el.detach()
         new App.DocumentsAfterHandOverController
-          contract: @contract
+          contract: new App.Contract data
           itemsCount: @itemsCount
 
   validatePurpose: => 

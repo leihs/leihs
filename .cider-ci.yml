@@ -1,0 +1,9 @@
+executions:
+
+  Tests:
+    default: true
+    specification:
+      _cider-ci_include: /cider-ci/test_spec.yml
+    description: >
+      Runs all tests. 
+      Includes the specification from the file `./cider-ci/test_spec.yml`.

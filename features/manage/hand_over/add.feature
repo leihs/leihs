@@ -67,7 +67,7 @@ Feature: Add lines during hand over
     When I select the model from the list
     Then the model is added to the hand over
 
-  @javascript @personas @browser
+  @javascript @personas
   Scenario: Add a line to the hand over providing a model name
     Given I open a hand over
     When I enter a model name which is not related to my current pool

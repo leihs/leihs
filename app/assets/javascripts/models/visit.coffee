@@ -6,7 +6,7 @@
 
 class window.App.Visit extends Spine.Model
 
-  @configure "Visit", "id", "action", "date", "quantity", "status_const", "contract_line_ids"
+  @configure "Visit", "id", "date", "quantity", "status", "contract_line_ids"
 
   @extend Spine.Model.Ajax
   @extend App.Modules.FindOrBuild
@@ -30,5 +30,5 @@ class window.App.Visit extends Spine.Model
   @url: => "/manage/#{App.InventoryPool.current.id}/visits"
 
   remind: =>
-    if @action == "take_back"
+    if @status == "signed"
       $.post "#{App.Visit.url()}/#{@id}/remind"

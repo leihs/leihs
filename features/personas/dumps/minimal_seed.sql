@@ -236,6 +236,11 @@ CREATE TABLE `contract_lines` (
   `returned_to_user_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
+  `inventory_pool_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `delegated_user_id` int(11) DEFAULT NULL,
+  `handed_over_by_user_id` int(11) DEFAULT NULL,
+  `status` enum('unsubmitted','submitted','rejected','approved','signed','closed') COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_contract_lines_on_start_date` (`start_date`),
   KEY `index_contract_lines_on_end_date` (`end_date`),
@@ -247,12 +252,21 @@ CREATE TABLE `contract_lines` (
   KEY `index_contract_lines_on_type_and_contract_id` (`type`,`contract_id`),
   KEY `contract_lines_purpose_id_fk` (`purpose_id`),
   KEY `contract_lines_returned_to_user_id_fk` (`returned_to_user_id`),
-  CONSTRAINT `contract_lines_returned_to_user_id_fk` FOREIGN KEY (`returned_to_user_id`) REFERENCES `users` (`id`),
+  KEY `index_contract_lines_on_status` (`status`),
+  KEY `contract_lines_inventory_pool_id_fk` (`inventory_pool_id`),
+  KEY `contract_lines_user_id_fk` (`user_id`),
+  KEY `contract_lines_delegated_user_id_fk` (`delegated_user_id`),
+  KEY `contract_lines_handed_over_by_user_id_fk` (`handed_over_by_user_id`),
+  CONSTRAINT `contract_lines_handed_over_by_user_id_fk` FOREIGN KEY (`handed_over_by_user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `contract_lines_contract_id_fk` FOREIGN KEY (`contract_id`) REFERENCES `contracts` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `contract_lines_delegated_user_id_fk` FOREIGN KEY (`delegated_user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `contract_lines_inventory_pool_id_fk` FOREIGN KEY (`inventory_pool_id`) REFERENCES `inventory_pools` (`id`),
   CONSTRAINT `contract_lines_item_id_fk` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`),
   CONSTRAINT `contract_lines_model_id_fk` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`),
   CONSTRAINT `contract_lines_option_id_fk` FOREIGN KEY (`option_id`) REFERENCES `options` (`id`),
-  CONSTRAINT `contract_lines_purpose_id_fk` FOREIGN KEY (`purpose_id`) REFERENCES `purposes` (`id`)
+  CONSTRAINT `contract_lines_purpose_id_fk` FOREIGN KEY (`purpose_id`) REFERENCES `purposes` (`id`),
+  CONSTRAINT `contract_lines_returned_to_user_id_fk` FOREIGN KEY (`returned_to_user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `contract_lines_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -274,24 +288,10 @@ DROP TABLE IF EXISTS `contracts`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contracts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `delegated_user_id` int(11) DEFAULT NULL,
-  `inventory_pool_id` int(11) DEFAULT NULL,
   `note` text COLLATE utf8_unicode_ci,
-  `handed_over_by_user_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `status` enum('unsubmitted','submitted','rejected','approved','signed','closed') COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `index_contracts_on_inventory_pool_id` (`inventory_pool_id`),
-  KEY `index_contracts_on_status` (`status`),
-  KEY `index_contracts_on_user_id` (`user_id`),
-  KEY `contracts_delegated_user_id_fk` (`delegated_user_id`),
-  KEY `contracts_handed_over_by_user_id_fk` (`handed_over_by_user_id`),
-  CONSTRAINT `contracts_handed_over_by_user_id_fk` FOREIGN KEY (`handed_over_by_user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `contracts_delegated_user_id_fk` FOREIGN KEY (`delegated_user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `contracts_inventory_pool_id_fk` FOREIGN KEY (`inventory_pool_id`) REFERENCES `inventory_pools` (`id`),
-  CONSTRAINT `contracts_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -486,6 +486,8 @@ DROP TABLE IF EXISTS `images`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `target_id` int(11) DEFAULT NULL,
+  `target_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `is_main` tinyint(1) DEFAULT '0',
   `content_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `filename` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -494,8 +496,6 @@ CREATE TABLE `images` (
   `width` int(11) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   `thumbnail` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `target_id` int(11) DEFAULT NULL,
-  `target_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `index_images_on_target_id_and_target_type` (`target_id`,`target_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -592,6 +592,7 @@ CREATE TABLE `items` (
   `location_id` int(11) DEFAULT NULL,
   `supplier_id` int(11) DEFAULT NULL,
   `owner_id` int(11) NOT NULL,
+  `inventory_pool_id` int(11) NOT NULL,
   `parent_id` int(11) DEFAULT NULL,
   `invoice_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `invoice_date` date DEFAULT NULL,
@@ -602,8 +603,8 @@ CREATE TABLE `items` (
   `is_broken` tinyint(1) DEFAULT '0',
   `is_incomplete` tinyint(1) DEFAULT '0',
   `is_borrowable` tinyint(1) DEFAULT '0',
+  `status_note` text COLLATE utf8_unicode_ci,
   `needs_permission` tinyint(1) DEFAULT '0',
-  `inventory_pool_id` int(11) NOT NULL,
   `is_inventory_relevant` tinyint(1) DEFAULT '0',
   `responsible` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `insurance_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -613,7 +614,6 @@ CREATE TABLE `items` (
   `properties` text COLLATE utf8_unicode_ci,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `status_note` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_items_on_inventory_code` (`inventory_code`),
   KEY `index_items_on_inventory_pool_id` (`inventory_pool_id`),
@@ -626,12 +626,12 @@ CREATE TABLE `items` (
   KEY `index_items_on_parent_id_and_retired` (`parent_id`,`retired`),
   KEY `index_items_on_model_id_and_retired_and_inventory_pool_id` (`model_id`,`retired`,`inventory_pool_id`),
   KEY `items_supplier_id_fk` (`supplier_id`),
+  CONSTRAINT `items_supplier_id_fk` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`),
   CONSTRAINT `items_inventory_pool_id_fk` FOREIGN KEY (`inventory_pool_id`) REFERENCES `inventory_pools` (`id`),
   CONSTRAINT `items_location_id_fk` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`),
   CONSTRAINT `items_model_id_fk` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`),
   CONSTRAINT `items_owner_id_fk` FOREIGN KEY (`owner_id`) REFERENCES `inventory_pools` (`id`),
-  CONSTRAINT `items_parent_id_fk` FOREIGN KEY (`parent_id`) REFERENCES `items` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `items_supplier_id_fk` FOREIGN KEY (`supplier_id`) REFERENCES `suppliers` (`id`)
+  CONSTRAINT `items_parent_id_fk` FOREIGN KEY (`parent_id`) REFERENCES `items` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -839,8 +839,8 @@ CREATE TABLE `models` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `index_models_on_is_package` (`is_package`),
-  KEY `index_models_on_type` (`type`)
+  KEY `index_models_on_type` (`type`),
+  KEY `index_models_on_is_package` (`is_package`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1076,7 +1076,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20140410180000'),('20140414100000'),('20140415083535'),('20140417113831'),('20140428092844'),('20140515131025'),('20140812132326'),('20140820100242'),('20140828082448'),('20140901141016'),('20140903105715'),('20140905091014'),('20141110113231'),('20141212132127'),('20150113215946'),('20150127203913');
+INSERT INTO `schema_migrations` VALUES ('20140410180000'),('20140903105715'),('20150129121330');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1199,27 +1199,6 @@ LOCK TABLES `users` WRITE;
 UNLOCK TABLES;
 
 --
--- Temporary table structure for view `visit_lines`
---
-
-DROP TABLE IF EXISTS `visit_lines`;
-/*!50001 DROP VIEW IF EXISTS `visit_lines`*/;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-/*!50001 CREATE TABLE `visit_lines` (
-  `visit_id` varchar(148),
-  `inventory_pool_id` int(11),
-  `user_id` int(11),
-  `delegated_user_id` int(11),
-  `status` enum('unsubmitted','submitted','rejected','approved','signed','closed'),
-  `action` varchar(9),
-  `date` date,
-  `quantity` int(11),
-  `contract_line_id` int(11)
-) ENGINE=MyISAM */;
-SET character_set_client = @saved_cs_client;
-
---
 -- Temporary table structure for view `visits`
 --
 
@@ -1232,7 +1211,6 @@ SET character_set_client = utf8;
   `inventory_pool_id` int(11),
   `user_id` int(11),
   `status` enum('unsubmitted','submitted','rejected','approved','signed','closed'),
-  `action` varchar(9),
   `date` date,
   `quantity` decimal(32,0)
 ) ENGINE=MyISAM */;
@@ -1291,24 +1269,6 @@ UNLOCK TABLES;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
--- Final view structure for view `visit_lines`
---
-
-/*!50001 DROP TABLE IF EXISTS `visit_lines`*/;
-/*!50001 DROP VIEW IF EXISTS `visit_lines`*/;
-/*!50001 SET @saved_cs_client          = @@character_set_client */;
-/*!50001 SET @saved_cs_results         = @@character_set_results */;
-/*!50001 SET @saved_col_connection     = @@collation_connection */;
-/*!50001 SET character_set_client      = utf8 */;
-/*!50001 SET character_set_results     = utf8 */;
-/*!50001 SET collation_connection      = utf8_general_ci */;
-/*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `visit_lines` AS select hex(concat_ws('_',if((`c`.`status` = 'approved'),`cl`.`start_date`,`cl`.`end_date`),`c`.`inventory_pool_id`,`c`.`user_id`,`c`.`status`)) AS `visit_id`,`c`.`inventory_pool_id` AS `inventory_pool_id`,`c`.`user_id` AS `user_id`,`c`.`delegated_user_id` AS `delegated_user_id`,`c`.`status` AS `status`,if((`c`.`status` = 'approved'),'hand_over','take_back') AS `action`,if((`c`.`status` = 'approved'),`cl`.`start_date`,`cl`.`end_date`) AS `date`,`cl`.`quantity` AS `quantity`,`cl`.`id` AS `contract_line_id` from (`contract_lines` `cl` join `contracts` `c` on((`cl`.`contract_id` = `c`.`id`))) where ((`c`.`status` in ('approved','signed')) and isnull(`cl`.`returned_date`)) order by if((`c`.`status` = 'approved'),`cl`.`start_date`,`cl`.`end_date`) */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
-/*!50001 SET character_set_results     = @saved_cs_results */;
-/*!50001 SET collation_connection      = @saved_col_connection */;
-
---
 -- Final view structure for view `visits`
 --
 
@@ -1321,7 +1281,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `visits` AS select hex(concat_ws('_',`visit_lines`.`date`,`visit_lines`.`inventory_pool_id`,`visit_lines`.`user_id`,`visit_lines`.`status`)) AS `id`,`visit_lines`.`inventory_pool_id` AS `inventory_pool_id`,`visit_lines`.`user_id` AS `user_id`,`visit_lines`.`status` AS `status`,`visit_lines`.`action` AS `action`,`visit_lines`.`date` AS `date`,sum(`visit_lines`.`quantity`) AS `quantity` from `visit_lines` group by `visit_lines`.`user_id`,`visit_lines`.`status`,`visit_lines`.`date`,`visit_lines`.`inventory_pool_id` */;
+/*!50001 VIEW `visits` AS select hex(concat_ws('_',if((`contract_lines`.`status` = 'signed'),`contract_lines`.`end_date`,`contract_lines`.`start_date`),`contract_lines`.`inventory_pool_id`,`contract_lines`.`user_id`,`contract_lines`.`status`)) AS `id`,`contract_lines`.`inventory_pool_id` AS `inventory_pool_id`,`contract_lines`.`user_id` AS `user_id`,`contract_lines`.`status` AS `status`,if((`contract_lines`.`status` = 'signed'),`contract_lines`.`end_date`,`contract_lines`.`start_date`) AS `date`,sum(`contract_lines`.`quantity`) AS `quantity` from `contract_lines` where (`contract_lines`.`status` in ('submitted','approved','signed')) group by `contract_lines`.`user_id`,`contract_lines`.`status`,if((`contract_lines`.`status` = 'signed'),`contract_lines`.`end_date`,`contract_lines`.`start_date`),`contract_lines`.`inventory_pool_id` order by if((`contract_lines`.`status` = 'signed'),`contract_lines`.`end_date`,`contract_lines`.`start_date`) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1335,4 +1295,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-02-02 12:12:10
+-- Dump completed on 2015-04-13 17:50:11

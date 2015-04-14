@@ -681,10 +681,6 @@ window.i18n.locale_data = {
          null,
          "Benutzername und/oder Passwort sind leer"
       ],
-      "End Date": [
-         null,
-         "Enddatum"
-      ],
       "End date": [
          null,
          "Enddatum"
@@ -1692,10 +1688,6 @@ window.i18n.locale_data = {
          null,
          "Start"
       ],
-      "Start Date": [
-         null,
-         "Startdatum"
-      ],
       "Start Date must be before End Date": [
          null,
          "Startdaum muss vor Enddatum liegen"
@@ -2143,10 +2135,6 @@ window.i18n.locale_data = {
       "Value List for Lending Contract No. %s": [
          null,
          "Werteverzeichnis zu Leihvertrag Nr. %s"
-      ],
-      "Value list": [
-         null,
-         "Werteverzeichnis"
       ],
       "View %s": [
          null,

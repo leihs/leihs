@@ -6,8 +6,8 @@ class CreateAllTables < ActiveRecord::Migration
     versions = ActiveRecord::Migrator.get_all_versions
     if versions.size > 0
 
-      last_required_tag = "3.5.0"
-      last_required_version = 20140402135726
+      last_required_tag = "3.23.0"
+      last_required_version = 20150127203913
 
       if versions.include? last_required_version
         # Nice, we should allready have a correctly working leihs installation.
@@ -148,9 +148,9 @@ class CreateAllTables < ActiveRecord::Migration
         t.timestamps
       end
       # create new enum with null allow
-      execute "ALTER TABLE contracts ADD COLUMN status ENUM('#{Contract::STATUSES.join("', '")}')"
+      execute "ALTER TABLE contracts ADD COLUMN status ENUM('#{ContractLine::STATUSES.join("', '")}')"
       # change enum to null not allowed
-      execute "ALTER TABLE contracts MODIFY status ENUM('#{Contract::STATUSES.join("', '")}') NOT NULL"
+      execute "ALTER TABLE contracts MODIFY status ENUM('#{ContractLine::STATUSES.join("', '")}') NOT NULL"
       change_table :contracts do |t|
         t.index :inventory_pool_id
         t.index :status
@@ -225,7 +225,7 @@ class CreateAllTables < ActiveRecord::Migration
 
 
       create_table :images, :force => true do |t|
-        t.belongs_to :model
+        t.belongs_to :target,       :polymorphic => true
         t.boolean    :is_main,      :default => false
       	### attachment_fu
         t.string  :content_type
@@ -238,7 +238,7 @@ class CreateAllTables < ActiveRecord::Migration
 	      ###
       end
       change_table :images do |t|
-        t.index :model_id
+        t.index [:target_id, :target_type]
       end
 
 
@@ -282,7 +282,8 @@ class CreateAllTables < ActiveRecord::Migration
         t.belongs_to :model
         t.belongs_to :location
         t.belongs_to :supplier
-        t.integer    :owner_id
+        t.integer    :owner_id,              :null => false
+        t.integer    :inventory_pool_id,     :null => false
         t.integer    :parent_id,             :null => true # used for packages
         t.string     :invoice_number
         t.date       :invoice_date
@@ -293,15 +294,15 @@ class CreateAllTables < ActiveRecord::Migration
         t.boolean    :is_broken,             :default => false
         t.boolean    :is_incomplete,         :default => false
         t.boolean    :is_borrowable,         :default => false
+        t.text       :status_note
         t.boolean    :needs_permission,      :default => false
-        t.belongs_to :inventory_pool
         t.boolean    :is_inventory_relevant, :default => false # per Ramon the default should be "not inventory relevant" by default
         t.string     :responsible
         t.string     :insurance_number
         t.text       :note
         t.text       :name
         t.string     :user_name
-        t.string     :properties, :limit => 2048
+        t.text       :properties
         t.timestamps
       end
       change_table :items do |t|
@@ -337,6 +338,14 @@ class CreateAllTables < ActiveRecord::Migration
       end
       change_table :locations do |t|
         t.index :building_id
+      end
+
+      create_table :mail_templates do |t|
+        t.belongs_to :inventory_pool, null: true # NOTE when null, then is system-wide
+        t.belongs_to :language
+        t.string :name
+        t.string :format
+        t.text :body
       end
 
       # acts_as_dag
@@ -375,8 +384,10 @@ class CreateAllTables < ActiveRecord::Migration
 
 
       create_table :models, :force => true do |t|
-        t.string   :name,                :null => false
+        t.string   :type,                :default => 'Model', :null => false # STI (single table inheritance)
         t.string   :manufacturer
+        t.string   :product,             :null => false
+        t.string   :version
         t.string   :description
         t.string   :internal_description
         t.string   :info_url
@@ -391,6 +402,7 @@ class CreateAllTables < ActiveRecord::Migration
         t.timestamps
       end
       change_table :models do |t|
+        t.index :type
         t.index :is_package
       end
 
@@ -423,7 +435,9 @@ class CreateAllTables < ActiveRecord::Migration
       create_table :options, :force => true do |t|
         t.belongs_to :inventory_pool
         t.string     :inventory_code
-        t.string     :name,           :null => false
+        t.string     :manufacturer
+        t.string     :product,        :null => false
+        t.string     :version
         t.decimal    :price,          :precision => 8, :scale => 2
       end
       change_table :options do |t|
@@ -481,10 +495,12 @@ class CreateAllTables < ActiveRecord::Migration
 
 
       create_table :suppliers, :force => true do |t|
-        t.string   :name
+        t.string   :name, :null => false
         t.timestamps
       end
-
+      change_table :suppliers do |t|
+        t.index   :name, :unique => true
+      end
 
       create_table :users, :force => true do |t|
         t.string     :login
@@ -518,6 +534,8 @@ class CreateAllTables < ActiveRecord::Migration
         t.boolean    :friday,        :default => true
         t.boolean    :saturday,      :default => false
         t.boolean    :sunday,        :default => false
+        t.integer    :reservation_advance_days,  :default => 0, :null => true
+        t.text       :max_visits # serialized
       end
       change_table :workdays do |t|
         t.index :inventory_pool_id
@@ -539,9 +557,9 @@ class CreateAllTables < ActiveRecord::Migration
       # acting as join table, column 'visit_id' is needed by the association
       execute("CREATE VIEW visit_lines AS " \
               "SELECT " \
-                "HEX( CONCAT( IF( status = '#{:approved}', start_date, end_date), " \
+                "HEX( CONCAT_WS( '_', IF( status = '#{:approved}', start_date, end_date), " \
                 " inventory_pool_id, user_id, status)) as visit_id, " \
-                "inventory_pool_id, user_id, status, " \
+                "inventory_pool_id, user_id, delegated_user_id, status, " \
                 "IF(status = '#{:approved}', 'hand_over', 'take_back') AS action, " \
                 "IF(status = '#{:approved}', start_date, end_date) AS date, " \
                 "quantity, cl.id AS contract_line_id " \
@@ -552,33 +570,12 @@ class CreateAllTables < ActiveRecord::Migration
 
       # column 'id' is needed by the eager-loader and the identity-map
       execute("CREATE VIEW visits AS " \
-              "SELECT " \
-                "HEX( CONCAT( date, inventory_pool_id, user_id, status)) as id, " \
-                "inventory_pool_id, user_id, status, action, date, " \
-                "SUM(quantity) AS quantity " \
-              "FROM visit_lines " \
-              "GROUP BY user_id, status, date, inventory_pool_id;")
-
-      # we don't recalculate the past
-      # if an item is already assigned, we block the availability even if the start_date is in the future
-      # if an item is already assigned but not handed over, it's never considered as late even if end_date is in the past
-      # we ignore the option_lines
-      # we get all lines which are not yet returned
-      # we ignore lines that are not handed over which the end_date is already in the past
-      execute("CREATE VIEW running_lines AS " \
-              "SELECT contract_lines.id, type, contracts.inventory_pool_id, model_id, quantity, start_date, end_date, " \
-                "(end_date < CURDATE() AND contracts.status = '#{:signed}') AS is_late, " \
-                "IF(item_id IS NOT NULL, CURDATE(), IF(start_date > CURDATE(), start_date, CURDATE())) AS unavailable_from, " \
-                "GROUP_CONCAT(groups_users.group_id) AS concat_group_ids " \
-              "FROM contract_lines " \
-              "INNER JOIN contracts ON contracts.id = contract_lines.contract_id " \
-              "LEFT JOIN groups_users ON groups_users.user_id = contracts.user_id " \
-              "WHERE type = 'ItemLine' " \
-                "AND returned_date IS NULL " \
-                "AND contracts.status != '#{:rejected}' " \
-                "AND NOT (contracts.status = '#{:unsubmitted}' AND contracts.updated_at < DATE_SUB(UTC_TIMESTAMP(), INTERVAL #{Contract::TIMEOUT_MINUTES} MINUTE)) " \
-                "AND NOT (end_date < CURDATE() AND item_id IS NULL) " \
-              "GROUP BY contract_lines.id;")
+            "SELECT " \
+              "HEX( CONCAT_WS( '_', date, inventory_pool_id, user_id, status)) as id, " \
+              "inventory_pool_id, user_id, status, action, date, " \
+              "SUM(quantity) AS quantity " \
+            "FROM visit_lines " \
+            "GROUP BY user_id, status, date, inventory_pool_id;")
 
     end
   end

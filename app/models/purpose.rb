@@ -12,12 +12,4 @@ class Purpose < ActiveRecord::Base
     "#{description}"
   end
 
-  def change_description(new_description, scoped_lines = nil)
-    if scoped_lines and not lines.all? {|l| scoped_lines.include? l}
-      Purpose.create(description: new_description, contract_lines: scoped_lines)
-    else
-      update_attributes(description: new_description) 
-    end
-  end
-
 end

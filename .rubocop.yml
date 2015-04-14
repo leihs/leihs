@@ -1,0 +1,163 @@
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+  RunRailsCops: true
+
+Lint/AmbiguousOperator:
+  Enabled: false
+
+Lint/AmbiguousRegexpLiteral:
+  Enabled: false
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+Lint/DeprecatedClassMethods:
+  Enabled: false
+
+Lint/ParenthesesAsGroupedExpression:
+  Enabled: false
+
+Lint/RescueException:
+  Enabled: false
+
+Lint/ShadowingOuterLocalVariable:
+  Enabled: false
+
+# Cop supports --auto-correct.
+Lint/UnusedBlockArgument:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 136
+
+# Configuration parameters: CountComments.
+Metrics/ClassLength:
+  Max: 128
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+# Configuration parameters: AllowURI, URISchemes.
+Metrics/LineLength:
+  Max: 83
+
+# Configuration parameters: CountComments.
+Metrics/MethodLength:
+  Max: 124
+
+Metrics/PerceivedComplexity:
+  Max: 11
+
+Style/AccessorMethodName:
+  Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/AndOr:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# Cop supports --auto-correct.
+Style/ColonMethodCall:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+# Configuration parameters: Exclude.
+Style/FileName:
+  Enabled: false
+
+# Configuration parameters: MaxLineLength.
+Style/IfUnlessModifier:
+  Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: Width.
+Style/IndentationWidth:
+  Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/MultilineOperationIndentation:
+  Enabled: false
+
+# Cop supports --auto-correct.
+Style/Not:
+  Enabled: false
+
+# Cop supports --auto-correct.
+Style/NumericLiterals:
+  MinDigits: 7
+
+# Cop supports --auto-correct.
+# Configuration parameters: AllowSafeAssignment.
+Style/ParenthesesAroundCondition:
+  Enabled: false
+
+# Cop supports --auto-correct.
+Style/RedundantBegin:
+  Enabled: false
+
+# Cop supports --auto-correct.
+Style/RedundantSelf:
+  Enabled: false
+
+Style/RescueModifier:
+  Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/SignalException:
+  Enabled: false
+
+# Cop supports --auto-correct.
+Style/SpecialGlobalVars:
+  Enabled: false
+
+Style/UnlessElse:
+  Enabled: false
+
+# Cop supports --auto-correct.
+# Configuration parameters: WordRegex.
+Style/WordArray:
+  MinSize: 2
+
+# Configuration parameters: Include.
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+# Configuration parameters: Include.
+Rails/Output:
+  Enabled: false
+
+# Configuration parameters: Include.
+Rails/ReadWriteAttribute:
+  Enabled: false
+
+# Configuration parameters: Include.
+Rails/Validation:
+  Enabled: false

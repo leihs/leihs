@@ -20,7 +20,7 @@ class window.App.ContractLinesChangeController extends window.App.BorrowBookingC
 
   # @override
   selectFirstInventoryPool: ->
-    id = @lines[0].contract().inventory_pool_id
+    id = @lines[0].inventory_pool_id
     option = @inventoryPoolSelect.find "option[data-id='#{id}']"
     if option.length
       option.prop "selected", true

@@ -14,9 +14,9 @@ window.App.Modules.LineProblems =
         @quantity
 
     # OVERDUE
-    if moment(@start_date).endOf("day").diff(moment().endOf("day"), "days") < 0 and _.include(["approved", "submitted"], @contract().status) or 
-       moment(@end_date).endOf("day").diff(moment().endOf("day"), "days") < 0 and @contract().status is "signed"
-      days = if _.include(["approved", "submitted"], @contract().status)
+    if moment(@start_date).endOf("day").diff(moment().endOf("day"), "days") < 0 and _.include(["approved", "submitted"], @status) or
+       moment(@end_date).endOf("day").diff(moment().endOf("day"), "days") < 0 and @status is "signed"
+      days = if _.include(["approved", "submitted"], @status)
         Math.abs moment(@start_date).diff(moment().endOf("day"), "days")
       else
         Math.abs moment(@end_date).diff(moment().endOf("day"), "days")

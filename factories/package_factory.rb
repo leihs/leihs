@@ -4,7 +4,7 @@ FactoryGirl.define do
     is_package true
     
     factory :package_model_with_items do
-      ignore do
+      transient do
         inventory_pool { FactoryGirl.create :inventory_pool }
       end
       after(:create) do |package, evaluator|

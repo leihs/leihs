@@ -499,10 +499,6 @@
 
   msgstr("Benutzername und/oder Passwort sind leer");
 
-  msgid("End Date");
-
-  msgstr("Enddatum");
-
   msgid("End date");
 
   msgstr("Enddatum");
@@ -1371,10 +1367,6 @@
 
   msgstr("Start");
 
-  msgid("Start Date");
-
-  msgstr("Startdatum");
-
   msgid("Start Date must be before End Date");
 
   msgstr("Startdaum muss vor Enddatum liegen");
@@ -1754,10 +1746,6 @@
   msgid("Value List for Lending Contract No. %s");
 
   msgstr("Werteverzeichnis zu Leihvertrag Nr. %s");
-
-  msgid("Value list");
-
-  msgstr("Werteverzeichnis");
 
   msgid("View %s");
 

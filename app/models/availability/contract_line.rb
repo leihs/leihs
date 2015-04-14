@@ -4,13 +4,15 @@ module Availability
     attr_accessor :allocated_group_id
     
 #################################
-    
+
     def available?
       b = if end_date < Date.today # check if it was never handed over
         false
-      elsif contract.status == :unsubmitted
-        if contract.user.timeout?
-          same_contract_summed_quantity = contract.lines.where(model_id: model_id).where("start_date <= ? AND end_date >= ?", end_date, start_date).sum(:quantity)
+      elsif status == :unsubmitted
+        if user.timeout?
+          same_contract_summed_quantity = user.contract_lines.where(inventory_pool_id: inventory_pool_id,
+                                                                    status: status,
+                                                                    model_id: model_id).where("start_date <= ? AND end_date >= ?", end_date, start_date).sum(:quantity)
           (maximum_available_quantity >= same_contract_summed_quantity)
         else
           # the unsubmitted contract_lines are also considered as running_lines for the availability, then we sum up again the current contract_line quantity (preventing self-blocking problem)
@@ -33,9 +35,9 @@ module Availability
       end
 
       # OPTIMIZE
-      if b and [:unsubmitted].include? contract.status
+      if b and [:unsubmitted].include? status
         b = (b and inventory_pool.is_open_on?(start_date) and inventory_pool.is_open_on?(end_date)) 
-        b = (b and not contract.user.access_right_for(inventory_pool).suspended?)
+        b = (b and not user.access_right_for(inventory_pool).suspended?)
       end
 
       b

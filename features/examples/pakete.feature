@@ -1,133 +1,134 @@
-# language: de
 
-Funktionalität: Modell mit Paketen erstellen
+Feature: Create model with packages
 
-  Grundlage:
-    Angenommen ich bin Mike
-    Und man öffnet die Liste des Inventars
-
-  @javascript @browser @personas
-  Szenario: Modell mit Paketzuteilung erstellen
-    Wenn ich ein neues Modell hinzufüge
-    Und ich mindestens die Pflichtfelder ausfülle
-    Und ich eines oder mehrere Pakete hinzufüge
-    Und ich diesem Paket eines oder mehrere Gegenstände hinzufügen
-    Und ich das Paket und das Modell speichere
-    Dann ist das Modell erstellt und die Pakete und dessen zugeteilten Gegenstände gespeichert
-    Und den Paketen wird ein Inventarcode zugewiesen
+  Background:
+    Given I am Mike
+    And I open the inventory
 
   @javascript @browser @personas
-  Szenario: Modell mit bereits vorhandenen Gegenständen kann kein Paket zugewiesen werden
-    Wenn ich ein Modell editiere, welches bereits Gegenstände hat
-    Dann kann ich diesem Modell keine Pakete mehr zuweisen
+  Scenario: Create model with package assignments
+    When I add a new Model
+    And I fill in at least the required fields
+    And I add one or more packages
+    And I add one or more items to this package
+    And I save both package and model
+    Then the model is created and the packages and their assigned items are saved
+    And the packages have their own inventory codes
 
   @javascript @browser @personas
-  Szenario: Pakete nicht ohne Gegenstände erstellen
-    Wenn ich einem Modell ein Paket hinzufüge
-    Dann kann ich dieses Paket nur speichern, wenn dem Paket auch Gegenstände zugeteilt sind
+  Scenario: A model that already has items cannot be turned into a package
+    When I edit a model that already has items
+
+    Then I cannot assign packages to that model
 
   @javascript @browser @personas
-  Szenario: Einzelnen Gegenstand aus Paket entfernen
-    Wenn ich ein Paket editiere
-    Dann kann ich einen Gegenstand aus dem Paket entfernen
-    Und dieser Gegenstand ist nicht mehr dem Paket zugeteilt
+  Scenario: Can't create package without items
+    When I add a package to a model
+    Then I can only save this package if I also assign items
 
   @javascript @browser @personas
-  Szenario: Paketeigenschaften abfüllen bei existierendem Modell
-    Wenn ich ein Modell editiere, welches bereits Pakete hat
-    Und ich ein bestehendes Paket editiere
-    Und ich die folgenden Informationen erfasse
-    | Feldname                     | Type         | Wert                          |
-    | Zustand                      | radio        | OK                            |
-    | Vollständigkeit              | radio        | OK                            |
-    | Ausleihbar                   | radio        | OK                            |
-    | Inventarrelevant             | select       | Ja                            |
-    | Verantwortliche Abteilung    | autocomplete | A-Ausleihe                    |
-    | Verantwortliche Person       |              | Matus Kmit                    |
-    | Benutzer/Verwendung          |              | Test Verwendung               |
-    | Name                         |              | Test Name                     |
-    | Notiz                        |              | Test Notiz                    |
-    | Gebäude                      | autocomplete | Keine/r                       |
-    | Raum                         |              | Test Raum                     |
-    | Gestell                      |              | Test Gestell                  |
-    | Anschaffungswert             |              | 50.00                         |
-    | Letzte Inventur              |              | 01.01.2013                    |
-    Und ich das Paket und das Modell speichere
-    Dann besitzt das Paket alle angegebenen Informationen
+  Scenario: Remove single item from a package
+    When I edit a package
+    Then I can remove items from the package
+    And those items are no longer assigned to the package
 
   @javascript @browser @personas
-  Szenario: Modell mit Paketzuteilung erstellen und wieder editieren
-    Wenn ich ein neues Modell hinzufüge
-    Und ich mindestens die Pflichtfelder ausfülle
-    Und ich eine Paket hinzufüge
-    Und ich die Paketeigenschaften eintrage
-    Und ich diesem Paket eines oder mehrere Gegenstände hinzufügen
-    Und ich dieses Paket speichere
-    Und ich dieses Paket wieder editiere
-    Dann kann ich die Paketeigenschaften erneut bearbeiten
-    Und ich kann diesem Paket eines oder mehrere Gegenstände hinzufügen
+  Scenario: Entering package information for an existing model
+    When I edit a model that already has packages
+    And I edit an existing Package
+    And I enter the following item information
+    | field                  | type         | value           |
+    | Working order          | radio        | OK              |
+    | Completeness           | radio        | OK              |
+    | Borrowable             | radio        | OK              |
+    | Relevant for inventory | select       | Yes             |
+    | Responsible department | autocomplete | A-Ausleihe      |
+    | Responsible person     |              | Matus Kmit      |
+    | User/Typical usage     |              | Test Verwendung |
+    | Name                   |              | Test Name       |
+    | Note                   |              | Test Notiz      |
+    | Building               | autocomplete | None            |
+    | Room                   |              | Test Raum       |
+    | Shelf                  |              | Test Gestell    |
+    | Initial Price          |              | 50.00           |
+    | Last Checked           |              | 01/01/2013      |
+    And I save both package and model
+    Then the package has all the entered information
+
+  @javascript @browser @personas
+  Scenario: Creating a model with package assignment and then editing it
+    When I add a new Model
+    And I fill in at least the required fields
+    And I add a package
+    And I enter the package properties
+    And I add one or more items to this package
+    And I save this package
+    And I edit an existing Package
+    Then I enter the package properties
+    And I add one or more items to this package
 
   #74210792
   @javascript @browser @personas
-  Szenario: Paketeigenschaften abfüllen bei neu erstelltem Modell
-    Wenn ich einem Modell ein Paket hinzufüge
-    Und ich diesem Paket eines oder mehrere Gegenstände hinzufügen
-    Und ich die folgenden Informationen erfasse
-    | Feldname                     | Type         | Wert                          |
-    | Zustand                      | radio        | OK                            |
-    | Vollständigkeit              | radio        | OK                            |
-    | Ausleihbar                   | radio        | OK                            |
-    | Inventarrelevant             | select       | Ja                            |
-    | Letzte Inventur              |              | 01.01.2013                    |
-    | Verantwortliche Abteilung    | autocomplete | A-Ausleihe                    |
-    | Verantwortliche Person       |              | Matus Kmit                    |
-    | Benutzer/Verwendung          |              | Test Verwendung               |
-    | Name                         |              | Test Name                     |
-    | Notiz                        |              | Test Notiz                    |
-    | Gebäude                      | autocomplete | Keine/r                       |
-    | Raum                         |              | Test Raum                     |
-    | Gestell                      |              | Test Gestell                  |
-    | Anschaffungswert             |              | 50.00                         |
-    Und ich das Paket und das Modell speichere
-    Dann sehe ich die Meldung "Modell gespeichert / Pakete erstellt"
-    Und besitzt das Paket alle angegebenen Informationen
-    Und alle die zugeteilten Gegenstände erhalten dieselben Werte, die auf diesem Paket erfasst sind
-    | Feldname                   |
-    | Verantwortliche Abteilung  |
-    | Verantwortliche Person     |
-    | Gebäude                    |
-    | Raum                       |
-    | Gestell                    |
-    | Toni-Ankunftsdatum         |
-    | Letzte Inventur            |
+  Scenario: Entering package properties for newly created models
+    When I add a package to a model
+    And I add one or more items to this package
+    And I enter the following item information
+    | field                  | type         | value           |
+    | Working order          | radio        | OK              |
+    | Completeness           | radio        | OK              |
+    | Borrowable             | radio        | OK              |
+    | Relevant for inventory | select       | Yes             |
+    | Responsible department | autocomplete | A-Ausleihe      |
+    | Responsible person     |              | Matus Kmit      |
+    | User/Typical usage     |              | Test Verwendung |
+    | Name                   |              | Test Name       |
+    | Note                   |              | Test Notiz      |
+    | Building               | autocomplete | None            |
+    | Room                   |              | Test Raum       |
+    | Shelf                  |              | Test Gestell    |
+    | Initial Price          |              | 50.00           |
+    | Last Checked           |              | 01/01/2013      |
+    And I save both package and model
 
+    Then I see the notice "Model saved / Packages created"
+    And the package has all the entered information
+    And all the packaged items receive these same values store to this package
+    | field                  |
+    | Responsible department |
+    | Responsible person     |
+    | Building               |
+    | Room                   |
+    | Shelf                  |
+    | Check-in Date          |
+    | Last Checked           |
+
+
+  @javascript @personas @browser
+  Scenario: Delete an item package that was never handed over
+    Given a never handed over item package is currently in stock
+    When edit the related model package
+    When I delete that item package
+    Then the item package has been deleted
+    And the packaged items are not part of that item package anymore
+    When edit the related model package
+    Then that item package is not listed
 
   @javascript @personas
-  Szenario: Delete an item package that was never handed over
-    Angenommen a never handed over item package is currently in stock
-    Wenn edit the related model package
-    Wenn I delete that item package
-    Dann the item package is deleted
-    Und the packaged items are not part of that item package anymore
-    Wenn edit the related model package
-    Dann that item package is not listed
-
-  @javascript @personas
-  Szenario: Delete an item package related to a closed contract
-    Angenommen a once handed over item package is currently in stock
-    Wenn edit the related model package
-    Wenn I delete that item package
-    Dann the item package is retired
-    Und the packaged items are not part of that item package anymore
-    Wenn edit the related model package
-    Dann that item package is not listed
+  Scenario: Delete an item package related to a closed contract
+    Given a once handed over item package is currently in stock
+    When edit the related model package
+    When I delete that item package
+    Then the item package has been retired
+    And the packaged items are not part of that item package anymore
+    When edit the related model package
+    Then that item package is not listed
 
   @personas
-  Szenario: Paket löschen schlägt fehl wenn das Paket gerade ausgeliehen ist
-    Wenn das Paket zurzeit ausgeliehen ist 
-    Dann kann ich das Paket nicht löschen
+  Scenario: Can't delete a package if it's currently not in stock
+    When the package is currently not in stock
+    Then I can't delete the package
 
   @personas @javascript @browser
-  Szenario: Nur meine Pakete werden im Modell angezeigt
-    Wenn ich ein Modell editiere, welches bereits Pakete in meine und andere Gerätepark hat
-    Dann sehe ich nur diejenigen Pakete, für welche ich verantwortlich bin
+  Scenario: A model shows only packages owned by me
+    When I edit a model that already has packages in mine and other inventory pools
+    Then I only see packages which I am responsible for

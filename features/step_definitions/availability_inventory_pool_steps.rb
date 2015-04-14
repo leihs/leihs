@@ -14,13 +14,13 @@ end
 
 ###########################################################################
 
-Then /it asks for ([0-9]+) item(s?)$/ do |number, s|
-  total = 0
-  @orders.each do |o|
-    total += o.lines.sum(:quantity)
-  end
-  expect(total).to eq number.to_i
-end
+# Then /it asks for ([0-9]+) item(s?)$/ do |number, s|
+#   total = 0
+#   @orders.each do |o|
+#     total += o.lines.sum(:quantity)
+#   end
+#   expect(total).to eq number.to_i
+# end
 
 ###########################################################################
 
@@ -34,7 +34,7 @@ Then "he sees the '$model' model" do |model|
 end
 
 Then "all order lines should be available" do
-  lines = @current_user.contracts.unsubmitted.flat_map(&:lines)
+  lines = @current_user.contract_lines.unsubmitted
   expect(lines.reload.all?{|l| l.available? }).to be true
 end
 

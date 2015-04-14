@@ -1,74 +1,73 @@
-# language: de
 
-Funktionalität: Software editieren
+Feature: Editing software
 
-  Grundlage:
-    Angenommen ich bin Mike
+  Background:
+    Given I am Mike
 
   @javascript @personas
-  Szenario: Software-Produkt editieren
-    Wenn ich eine Software editiere
-    Und ich ändere die folgenden Details
-      | Feld                   | Wert                                                           |
-      | Produkt                | Test Software I                                                |
+  Scenario: Editing a software product
+    When I edit software
+    And I edit the following details
+      | Field                   | Value                                                           |
+      | Product                | Test Software I                                                |
       | Version                | Test Version I                                                 |
-      | Hersteller             | Neuer Hersteller                                               |
-      | Software Informationen | Installationslink beachten: http://wwww.dokuwiki.ch/neue_seite |
-    Wenn ich speichere
-    Und ich mich auf der Softwareliste befinde
-    Dann die Informationen sind gespeichert
-    Und die Daten wurden entsprechend aktualisiert
+      | Manufacturer | Neuer Hersteller                                               |
+      | Software Information | Installationslink beachten: http://wwww.dokuwiki.ch/neue_seite |
+    When I save
+    And I'am on the software inventory overview
+    Then the information is saved
+    And the data has been updated
 
   #73278586
   @javascript @personas
-  Szenario: Grösse des Software Informationen-Felds
-    Angenommen eine Software-Produkt mit mehr als 6 Zeilen Text im Feld "Software Informationen" existiert
-    Wenn ich diese Software editiere
-    Und ich in das Feld "Software Informationen" klicke
-    Dann wächst das Feld, bis es den ganzen Text anzeigt
-    Wenn ich aus dem Feld herausgehe
-    Dann schrumpft das Feld wieder auf die Ausgangsgrösse
+  Scenario: Size of the software information field
+    Given a software product with more than 6 text rows in field "Software Informationen" exists
+    When I edit this software
+    And I click in the field "Software Informationen"
+    Then this field grows up till showing the complete text
+    When I release the focus from this field
+    Then this field shrinks back to the original size
 
   @javascript @personas
-  Szenario: Software-Lizenz editieren
-    Wenn ich eine bestehende Software-Lizenz mit Software-Informationen, Anzahl-Zuteilungen und Anhängen editiere
-    Dann sehe ich die "Software Informationen" angezeigt
-    Und die "Software Informationen" sind nicht editierbar
-    Und die bestehende Links der "Software Informationen" öffnen beim Klicken in neuem Browser-Tab
-    Dann sehe ich die "Anhänge" der Software angezeigt
-    Und ich kann die Anhänge in neuem Browser-Tab öffnen
-    Wenn ich eine andere Software auswähle
-    Und ich eine andere Seriennummer eingebe
-    Und ich einen anderen Aktivierungstyp wähle
-    Und ich den Wert "Ausleihbar" ändere
-    Und ich die Optionen für das Betriebssystem ändere
-    Und ich die Optionen für die Installation ändere
-    Und ich das Lizenzablaufdatum ändere
-    Und ich den Wert für den Maintenance-Vertrag ändere
-    Und ich den Wert für Bezug ändere
-    Und ich den Wert der Notiz ändere
-    Und ich die Dongle-ID ändere
-    Und ich einen der folgenden Lizenztypen wähle:
-      | Mehrplatz   |
-      | Konkurrent  |
-      | Site-Lizenz |
-    Und ich die Gesamtanzahl ändere
-    Und ich die Anzahl-Zuteilungen ändere
-    #Aber ich kann den Inventarcode nicht ändern # really? inventory manager can change the inventory number of an item right now...
-    Wenn ich speichere
-    Dann sind die Informationen dieser Software-Lizenz erfolgreich aktualisiert worden
+  Scenario: Editing a software license
+    When I edit a software license with software information, quantity allocations and attachments
+    Then I see the "Software Information"
+    And the software information is not editable
+    And the links of software information open in a new tab upon clicking
+    Then I see the attachments of the software
+    And I can open the attachments in a new tab
+    When I select some different software
+    And I enter a different serial number
+    And I select a different activation type
+    And I change the value of "Borrowable"
+    And I change the options for operating system
+    And I change the options for installation
+    And I change the license expiration date
+    And I change the value for maintenance contract
+    And I change the value for reference
+    And I change the value of the note
+    And I change the value of dongle id
+    And I choose one of the following license types
+      | Single Workplace |
+      | Concurrent       |
+      | Site License     |
+    And I change the value of total quantity
+    And I change the quantity allocations
+    #But ich kann den Inventarcode nicht ändern # really? inventory manager can change the inventory number of an item right now...
+    When I save
+    Then this software license's information has been updated successfully
 
   @javascript @personas
-  Szenario: Software-Lizenz editieren - Werte der Datenfelder löschen
-    Wenn ich eine Software-Lizenz mit gesetztem Maintenance-Ablaufdatum, Lizenzablaufdatum und Rechnungsdatum editiere
-    Und ich die Daten für die folgenden Feldern lösche:
-      | Maintenance-Ablaufdatum |
-      | Lizenzablaufdatum       |
-      | Rechnungsdatum          |
-    Und ich speichere
-    Dann ich erhalte eine Erfolgsmeldung
-    Wenn ich die gleiche Lizenz editiere
-    Dann sind die folgenden Felder der Lizenz leer:
-      | Maintenance-Ablaufdatum |
-      | Lizenzablaufdatum       |
-      | Rechnungsdatum          |
+  Scenario: Edit software license, deleting values from the fields
+    When I edit a license with set dates for maintenance expiration, license expiration and invoice date
+    And I delete the data for the following fields:
+      | Maintenance expiration |
+      | License expiration     |
+      | Invoice Date           |
+    And I save
+    Then I receive a notification of success
+    When I edit the same license
+    Then the following fields of the license are empty:
+      | Maintenance expiration |
+      | License expiration     |
+      | Invoice Date           |

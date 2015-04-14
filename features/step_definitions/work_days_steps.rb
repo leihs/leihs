@@ -48,17 +48,14 @@ When "$who try to order an item for $date" do |who, date|
   # Login                            
   post login_path(:login => user.login)
   step "I am logged in as '#{user.login}' with password '#{nil}'"
-  @contract.destroy if @contract
+  @current_user.contract_lines.unsubmitted.delete_all if @contract
   get borrow_root_path
-  post borrow_contract_lines_path(:model_id => model.id,
-                                  :quantity => 1,
-                                  :inventory_pool_id => inventory_pool.id,
-                                  :start_date => date,
-                                  :end_date => date)
-                           
-  @contract = @current_user.get_unsubmitted_contract(inventory_pool)
-  @contract.purpose = "this is the required purpose"
-  @line = @contract.contract_lines.last
+  @response = post borrow_contract_lines_path(:model_id => model.id,
+                                              :quantity => 1,
+                                              :inventory_pool_id => inventory_pool.id,
+                                              :start_date => date,
+                                              :end_date => date)
+  @contract = @current_user.contracts.unsubmitted.find_by(inventory_pool_id: inventory_pool)
 end
 
 # OPTIMIZE 0402

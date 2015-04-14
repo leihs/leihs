@@ -1,5 +1,5 @@
 When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over by providing an inventory code$/ do |item_attr, item_type|
-  existing_model_ids = @customer.get_approved_contract(@current_inventory_pool).models.map(&:id)
+  existing_model_ids = @customer.contracts.approved.find_by(inventory_pool_id: @current_inventory_pool).models.map(&:id)
   items = @current_inventory_pool.items.send(item_type.pluralize)
   @inventory_codes ||= []
   @inventory_code = case item_attr
@@ -22,7 +22,7 @@ When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over
 end
 
 When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over by using the search input field$/ do |item_attr, item_type|
-  items = @current_inventory_pool.items.send(item_type.pluralize)
+  items = @current_inventory_pool.items.unretired.send(item_type.pluralize)
   @inventory_codes ||= []
   @item = case item_attr
            when "a", "an"
@@ -31,7 +31,7 @@ When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over
              items.in_stock.where(is_borrowable: true)
            when "an unborrowable"
              items.in_stock.where(is_borrowable: false)
-           end.sample
+           end.order("RAND()").first
   @model = @item.model
   @inventory_codes << @item.inventory_code
   fill_in "assign-or-add-input", with: @item.model.name
@@ -41,7 +41,7 @@ When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over
 end
 
 Then /^the item is added to the hand over for the provided date range and the inventory code is already assigend$/ do
-  expect(@customer.get_approved_contract(@current_inventory_pool).items.include?(Item.find_by_inventory_code(@inventory_code))).to be true
+  expect(@customer.contracts.approved.find_by(inventory_pool_id: @current_inventory_pool).items.include?(Item.find_by_inventory_code(@inventory_code))).to be true
   assigned_inventory_codes = all(".line input[data-assign-item]").map(&:value)
   expect(assigned_inventory_codes).to include @inventory_code
 end
@@ -50,9 +50,14 @@ When /^I add an option to the hand over by providing an inventory code and a dat
   @inventory_code = if @option
                       @option
                     else
-                      (@current_inventory_pool.options -
-                          (@contract || @current_user.get_approved_contract(@current_inventory_pool)).option_lines.map(&:option)
-                      ).sample
+                      existing_options = if @contract
+                                           @contract.options
+                                         elsif @customer.contracts.approved.find_by(inventory_pool_id: @current_inventory_pool)
+                                           @customer.contracts.approved.find_by(inventory_pool_id: @current_inventory_pool).options
+                                         else
+                                           []
+                                         end
+                      (@current_inventory_pool.options.order("RAND()") - existing_options).first
                     end.inventory_code
   find("[data-add-contract-line]").set @inventory_code
   find("[data-add-contract-line] + .addon").click
@@ -61,7 +66,7 @@ When /^I add an option to the hand over by providing an inventory code and a dat
 end
 
 Then /^the (.*?) is added to the hand over$/ do |type|
-  contract = @customer.get_approved_contract(@current_inventory_pool)
+  contract = @customer.contracts.approved.find_by(inventory_pool_id: @current_inventory_pool)
   case type
     when "option"
       find(".line[data-line-type='option_line'] .col1of10", match: :prefer_exact, text: @inventory_code)
@@ -75,7 +80,7 @@ Then /^the (.*?) is added to the hand over$/ do |type|
 end
 
 When /^I add an option to the hand over which is already existing in the selected date range by providing an inventory code$/ do
-  option_line = @contract.option_lines.sample
+  option_line = @contract.option_lines.order("RAND()").first
   @option = option_line.option
   @quantity_before = option_line.quantity
   @n = rand(2..5)
@@ -138,17 +143,15 @@ Then /^each model of the template is added to the hand over for the provided dat
 end
 
 When /^I add so many lines that I break the maximal quantity of a model$/ do
-  @model ||= if @contract
-               @contract.lines.where(option_id: nil).sample.model
-             else
-               @customer.get_approved_contract(@current_inventory_pool).lines.sample.model
-             end
+  @model ||= (@contract || @customer.contracts.approved.find_by(inventory_pool_id: @current_inventory_pool)).item_lines.order("RAND()").first.model
   @target_name = @model.name
   quantity_to_add = if @contract
-    @model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups @contract.lines.first.start_date, @contract.lines.first.end_date, @contract.user.groups.map(&:id)
-  else
-    @model.items.size
-  end
+                      start_date = Date.parse find("#add-start-date").value
+                      end_date = Date.parse find("#add-end-date").value
+                      @model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups start_date, end_date, @contract.user.groups.map(&:id)
+                    else
+                      @model.items.size
+                    end
   @quantity_added = [quantity_to_add+1, 0].max
   @quantity_added.times do
     type_into_autocomplete "[data-add-contract-line]", @target_name
@@ -174,7 +177,7 @@ end
 Given(/^there is a model or software which all items are set to "(.*?)"$/) do |arg1|
   @model = case arg1
              when "not borrowable"
-               @current_inventory_pool.models.shuffle.detect { |m| m.items.all? { |i| not i.is_borrowable? } }
+               @current_inventory_pool.models.order("RAND ()").detect { |m| m.items.all? { |i| not i.is_borrowable? } }
              else
                "not found"
            end

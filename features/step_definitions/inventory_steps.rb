@@ -99,8 +99,7 @@ Given /(\d+) item(s?) of model '(.+)' exist(s?)/ do |number, plural1, model, plu
   end
 end
 
-Given /^(a?n? ?)item(s?) '([^']*)' of model '([^']*)' exist(s?)( only)?$/ \
-do |particle,plural, inventory_codes, model, plural2, only|
+Given /^(a?n? ?)item(s?) '([^']*)' of model '([^']*)' exist(s?)( only)?$/ do |particle,plural, inventory_codes, model, plural2, only|
   Item.delete_all if only
 
   @model = LeihsFactory.create_model(:product => model)
@@ -175,23 +174,21 @@ When "we add an item '$inventory_code'" do |inventory_code|
 end
 
 # this test is specifically for the 'New Item' page
-Then /^the item should( only)? be assignable to the '([^']*)' departement$/ do |only,name|
-  within "#item_inventory_pool_id" do
-    options = all("option")
-    if only
-      expect(options.size).to eq 1
-    else
-      expect(options.size).to be > 1
-    end
-    expect(options.detect { |option| option.text == name }).not_to be_nil
-  end
-end
+# Then /^the item should( only)? be assignable to the '([^']*)' departement$/ do |only,name|
+#   within "#item_inventory_pool_id" do
+#     options = all("option")
+#     if only
+#       expect(options.size).to eq 1
+#     else
+#       expect(options.size).to be > 1
+#     end
+#     expect(options.detect { |option| option.text == name }).not_to be_nil
+#   end
+# end
 
 # Customers
-# TODO: currently unused
-When "I give the customer '$user' access to the inventory pool '$inventory_pool'" \
-do |user, inventory_pool|
-  @user = User.find_by_login user
-  @nventory_pool = InventoryPool.find_by_name inventory_pool
-  LeihsFactory.define_role( @user, @inventory_pool )
-end
+# When "I give the customer '$user' access to the inventory pool '$inventory_pool'" do |user, inventory_pool|
+#   @user = User.find_by_login user
+#   @nventory_pool = InventoryPool.find_by_name inventory_pool
+#   LeihsFactory.define_role( @user, @inventory_pool )
+# end

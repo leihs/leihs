@@ -1,70 +1,72 @@
-# language: de
-
-Funktionalität: Ausmustern
+Feature: Retire
 
   @javascript @personas
-  Szenariogrundriss: Ausmustern
-    Angenommen ich bin Matti
-    Und man sucht nach einem nicht ausgeliehenen <Objekt>, wo man der Besitzer ist
-    Dann kann man diesen <Objekt> mit Angabe des Grundes erfolgreich ausmustern
-    Und der gerade ausgemusterte <Objekt> verschwindet sofort aus der Inventarliste
-    Beispiele:
-      | Objekt     |
-      | Gegenstand |
-      | Lizenz     |
+  Scenario Outline: Retire
+    Given I am Matti
+    And I pick a <object> that is in stock and that the current inventory pool is the owner of
+    Then I can retire this <object> if I give a reason for retiring
+    And the newly retired <object> immediately disappears from the inventory list
+    Examples:
+      | object  |
+      | item    |
+      | license |
 
   @javascript @personas
-  Szenariogrundriss: Verhinderung von Ausmusterung eines ausgeliehenen Objektes
-    Angenommen ich bin Mike
-    Und man sucht nach einem ausgeliehenen <Objekt>
-    Dann hat man keine Möglichkeit solchen <Objekt> auszumustern
-    Beispiele:
-      | Objekt     |
-      | Gegenstand |
-      | Lizenz     |
+  Scenario Outline: Preventing retiring an object that isn't in stock
+    Given I am Mike
+    And I pick a <object> that is not in stock
+    Then I cannot retire such a <object>
+    Examples:
+      | object  |
+      | item    |
+      | license |
 
   @javascript @personas
-  Szenariogrundriss: Verhinderung von Ausmusterung eines Objektes bei dem ich nicht als Besitzer eingetragen bin
-    Angenommen ich bin Matti
-    Und man sucht nach einem <Objekt> bei dem ich nicht als Besitzer eingetragen bin
-    Dann hat man keine Möglichkeit solchen <Objekt> auszumustern
-    Beispiele:
-      | Objekt     |
-      | Gegenstand |
-      | Lizenz     |
+  Scenario Outline: Preventing retiring an object I'm not the owner of
+    Given I am Matti
+    And I pick a <object> the current inventory pool is not the owner of
+    Then I cannot retire such a <object>
+    Examples:
+      | object     |
+      | item |
+      | license     |
 
   @javascript @personas
-  Szenariogrundriss: Fehlermeldung bei der Ausmusterung ohne angabe eines Grundes
-    Angenommen ich bin Matti
-    Und man sucht nach einem nicht ausgeliehenen <Objekt>, wo man der Besitzer ist
-    Und man gibt bei der Ausmusterung keinen Grund an
-    Und der <Objekt> ist noch nicht Ausgemustert
-    Beispiele:
-      | Objekt     |
-      | Gegenstand |
-      | Lizenz     |
+  Scenario Outline: Error when trying to retire without giving a reason
+    Given I am Matti
+    And I pick a <object> that is in stock and that the current inventory pool is the owner of
+    And I don't give any reason for retiring this item
+    And the <object> is not retired
+    Examples:
+      | object     |
+      | item |
+      | license     |
 
   @javascript @personas
-  Szenariogrundriss: Ausmusterung rückgangig machen
-    Angenommen ich bin Mike
-    Und man sucht nach einem ausgemusterten <Objekt>, wo man der Besitzer ist
-    Und man befindet sich auf der Editierseite von diesem <Objekt>
-    Wenn man die Ausmusterung bei diesem <Objekt> zurück setzt
-    Und die Anschaffungskategorie ist ausgewählt
-    Und ich speichere
-    Dann wurde man auf die Inventarliste geleitet
-    Und dieses <Objekt> ist nicht mehr ausgemustert
-    Beispiele:
-      | Objekt     |
-      | Gegenstand |
-      | Lizenz     |
+  Scenario Outline: Unretiring an item
+    Given I am Mike
+    And I pick a retired <object> that the current inventory pool is the owner of
+    And I am on this <object>'s edit page
+    When I unretire this <object>
+    And I fill in the supply category
+    And I save
+    Then I am redirected to the inventory list
+    And this <object> is not retired
+    Examples:
+      | object     |
+      | item |
+      | license     |
 
+
+  # Not really sure what this scenario is supposed to tell us. Why are we on
+  # an edit page? We would end up on that page anyway after picking one
+  # of those items, which is what we do explicitly in this scenario.
   @personas
-  Szenariogrundriss: Ansichtseite von einem ausgemusterten Objekt für Verantwortlichen anzeigen
-    Angenommen ich bin Mike
-    Und man sucht nach einem ausgemusterten <Objekt>, wo man der Verantwortliche und nicht der Besitzer ist
-    Dann man befindet sich auf der Editierseite von diesem <Objekt>
-    Beispiele:
-      | Objekt     |
-      | Gegenstand |
-      | Lizenz     |
+  Scenario Outline: How retired items are displayed in a responsible department/inventory pool
+    Given I am Mike
+    And I pick a retired <object> that the current inventory pool is responsible for but not the owner of
+    Then I am on this <object>'s edit page
+    Examples:
+      | object     |
+      | item |
+      | license     |

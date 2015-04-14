@@ -25,12 +25,17 @@ class Manage::ContractsController < Manage::ApplicationController
 ######################################################################
 
   def index
-    @contracts = Contract.filter params, nil, current_inventory_pool
-    set_pagination_header @contracts
+    respond_to do |format|
+      format.html
+      format.json {
+        @contracts = ContractLinesBundle.filter params, nil, current_inventory_pool
+        set_pagination_header @contracts
+      }
+    end
   end
 
   def edit
-    @contract = current_inventory_pool.contracts.includes(:contract_lines => [:model]).find(params[:id])
+    @contract = current_inventory_pool.contracts.find(params[:id])
     @user = @contract.user
     @group_ids = @user.group_ids
     add_visitor(@user)
@@ -71,8 +76,7 @@ class Manage::ContractsController < Manage::ApplicationController
   end
 
   def reject
-    if request.post? and params[:comment] and @contract.update_attributes(status: :rejected)
-      Notification.order_rejected(@contract, params[:comment], true, current_user)
+    if request.post? and params[:comment] and @contract.reject(params[:comment], current_user)
       respond_to do |format|
         format.json { render :json => true, :status => 200 }
         format.html { redirect_to manage_daily_view_path, :flash => {:success => _("Order rejected")}}
@@ -91,8 +95,6 @@ class Manage::ContractsController < Manage::ApplicationController
            note = params[:note])
     
     lines = @contract.contract_lines.find(line_ids)
-    @contract.note = note if note
-    @contract.delegated_user = @contract.user.delegated_users.find params[:delegated_user_id] if params[:delegated_user_id]
     if purpose_description
       purpose = Purpose.create :description => purpose_description
       lines.each do |line|
@@ -103,8 +105,8 @@ class Manage::ContractsController < Manage::ApplicationController
       end
     end
 
-    if @contract.sign(current_user, lines)
-      render :status => :no_content, :nothing => true
+    if (document = @contract.sign(current_user, lines, note, params[:delegated_user_id])).valid?
+      render json: @contract.user.contracts.signed.find(document.id).to_json
     else 
       render :status => :bad_request, :text => @contract.errors.full_messages.uniq.join(", ")
     end
@@ -112,14 +114,20 @@ class Manage::ContractsController < Manage::ApplicationController
 
   def swap_user
     contract = current_inventory_pool.contracts.find params[:id]
-    contract.user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
-    contract.delegated_user = ( params[:delegated_user_id] ? current_inventory_pool.users.find(params[:delegated_user_id]) : nil )
-    begin
-      contract.save!
-    rescue
-      render :status => :bad_request, :text => contract.errors.full_messages.uniq.join(", ") and return
+    user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
+    delegated_user = ( params[:delegated_user_id] ? current_inventory_pool.users.find(params[:delegated_user_id]) : nil )
+    lines = contract.contract_lines
+    ActiveRecord::Base.transaction do
+      lines.each do |line|
+        line.update_attributes(user: user, delegated_user: delegated_user)
+      end
     end
-    render :status => :no_content, :nothing => true
+    if lines.all? &:valid?
+      render json: user.contracts.find_by(status: contract.status, inventory_pool_id: current_inventory_pool).to_json
+    else
+      errors = lines.flat_map {|line| line.errors.full_messages }
+      render :status => :bad_request, :text => errors.uniq.join(", ")
+    end
   end
 
 end

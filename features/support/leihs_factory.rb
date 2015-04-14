@@ -117,49 +117,6 @@ module LeihsFactory
   end
 
   #
-  # Order
-  # 
-  #def self.create_order(attributes = {}, options = {})
-  #  default_attributes = {
-  #    :inventory_pool => create_inventory_pool(:name => "ABC")
-  #  }
-  #  o = Order.create default_attributes.merge(attributes)
-  #  options[:order_lines].times do |i|
-  #      model = LeihsFactory.create_model(:product => "model_#{i}" )
-  #      quantity = rand(3) + 1
-  #      quantity.times {
-  #        FactoryGirl.create(:item, :owner => o.inventory_pool, :model => model)
-  #      }
-  #      d = [ self.random_future_date, self.random_future_date ]
-  #      o.add_lines(quantity, model, o.user_id, d.min, d.max )
-  #  end if options[:order_lines]
-  #  o.save
-  #  o
-  #end
-
-  #
-  # Contract
-  # 
-  # copied from create_order
-  #def self.create_contract(attributes = {}, options = {})
-  #  default_attributes = {
-  #    :inventory_pool => create_inventory_pool(:name => "ABC")
-  #  }
-  #  c = Contract.create default_attributes.merge(attributes)
-  #  options[:contract_lines].times { |i|
-  #      model = LeihsFactory.create_model(:product => "model_#{i}" )
-  #      quantity = rand(3) + 1
-  #      quantity.times {
-  #        FactoryGirl.create(:item, :owner => c.inventory_pool, :model => model)
-  #      }
-  #      d = [ self.random_future_date, self.random_future_date ]
-  #      c.add_lines(quantity, model, c.user_id, d.min, d.max )
-  #  } if options[:contract_lines]
-  #  c.save
-  #  c
-  #end
-      
-  #
   # Model
   # 
   def self.create_model(attributes = {})
@@ -200,52 +157,6 @@ module LeihsFactory
     end
     DateTime.new(ret[0], ret[1], ret[2]) # TODO Date
   end
-
-  #
-  # OrderLine
-  # 
-  #def self.create_order_line(options = {})
-  #    model = LeihsFactory.create_model :product => options[:model_name]
-  #
-  #    if options[:start_date]
-  #      start_date = parsedate(options[:start_date])
-  #      end_date = start_date + 2.days
-  #    else
-  #      d = [ self.random_future_date, self.random_future_date ]
-  #      start_date = d.min
-  #      end_date = d.max
-  #    end
-  #
-  #    ol = OrderLine.new(:quantity => options[:quantity],
-  #                       :model_id => model.to_i,
-  #                       :start_date => start_date,
-  #                       :end_date => end_date,
-  #                       :inventory_pool => options[:inventory_pool])
-  #    ol
-  #end
-
-  #
-  # ContractLine
-  # 
-  #def self.create_contract_line(options = {})
-  #    model = LeihsFactory.create_model :product => options[:model_name]
-  #
-  #    if options[:start_date]
-  #      start_date = parsedate(options[:start_date])
-  #      end_date = start_date + 2.days
-  #    else
-  #      d = Array.new
-  #      2.times { d << Date.new(rand(2)+2008, rand(12)+1, rand(28)+1) }
-  #      start_date = d.min
-  #      end_date = d.max
-  #    end
-  #
-  #    ol = ContractLine.new(:quantity => options[:quantity],
-  #                          :model_id => model.to_i,
-  #                          :start_date => start_date,
-  #                          :end_date => end_date)
-  #    ol
-  #end
 
   #
   # InventoryPool

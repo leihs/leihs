@@ -676,10 +676,6 @@ window.i18n.locale_data = {
          null,
          "Benutzername und/oder Passwort sind läär"
       ],
-      "End Date": [
-         null,
-         "Änd-Datum"
-      ],
       "End date": [
          null,
          "Änd-Datum"
@@ -1687,10 +1683,6 @@ window.i18n.locale_data = {
          null,
          "Start"
       ],
-      "Start Date": [
-         null,
-         "Startdatum"
-      ],
       "Start Date must be before End Date": [
          null,
          "Startdatum muess vor em Enddatum si"
@@ -2139,10 +2131,6 @@ window.i18n.locale_data = {
       "Value List for Lending Contract No. %s": [
          null,
          "Werteverzeichnis für Leihvertrag mit No. %s"
-      ],
-      "Value list": [
-         null,
-         "Werteverzeichnis"
       ],
       "View %s": [
          null,

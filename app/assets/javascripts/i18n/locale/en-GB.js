@@ -667,10 +667,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "End Date": [
-         null,
-         ""
-      ],
       "End date": [
          null,
          ""
@@ -1666,10 +1662,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Start Date": [
-         null,
-         ""
-      ],
       "Start Date must be before End Date": [
          null,
          ""
@@ -2087,10 +2079,6 @@ window.i18n.locale_data = {
          ""
       ],
       "Value List for Lending Contract No. %s": [
-         null,
-         ""
-      ],
-      "Value list": [
          null,
          ""
       ],

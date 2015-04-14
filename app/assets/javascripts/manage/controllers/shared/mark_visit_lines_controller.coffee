@@ -24,7 +24,7 @@ class window.App.MarkVisitLinesController extends Spine.Controller
         line.removeClass("light").addClass("green")
       else if cl.option()
         line = @el.find(".line[data-id='#{id}']")
-        c_status = cl.contract().status
+        c_status = cl.status
         if c_status == "approved"
           line.removeClass("light").addClass("green") if Number(line.find("input[data-line-quantity]").val()) >= 1
         else if c_status == "signed"

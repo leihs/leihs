@@ -97,24 +97,15 @@ Then "all '$what' order lines are marked as invalid" do |what|
   expect(@response.body).to match /valid_false/
 end
 
-Then "the order should not be approvable$reason" do |reason|
-  expect(@contract.approvable?).to be false
+Then /the order should( not)? be approvable(.*)/ do |arg1, reason|
+  if arg1
+    expect(@response).to be_bad_request
+    expect(@contract).to be_nil
+  else
+    expect(@response).to be_ok
+
+    expect(@contract.approvable?).to be false
+    @contract.lines.reload.each { |line| line.purpose = Purpose.first }
+    expect(@contract.approvable?).to be true
+  end
 end
-
-Then "the order should be approvable$reason" do |reason|
-  expect(@contract.approvable?).to be true
-end
-
-###############################################
-
-require 'rspec/mocks'
-
-Given "email delivery is broken" do
-  Notification.stub!(:contract_approved).and_throw(:mail_is_borken)
-end
-
-Then "email delivery is working again" do
-  Spec::Mocks::Space#reset_all
-end
-
-###############################################

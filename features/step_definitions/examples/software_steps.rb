@@ -1,19 +1,20 @@
 # encoding: utf-8
 
-Dann(/^ist die neue Software erstellt und unter Software auffindbar$/) do
+#Dann(/^ist die neue Software erstellt und unter Software auffindbar$/) do
+Then(/^the new software product is created and can be found in the software section$/) do
   find("[data-type='license']").click
-  step "die Informationen sind gespeichert"
+  step "the information is saved"
 end
 
-Angenommen(/^ich befinde mich auf der Software\-Erstellungsseite$/) do
-  visit manage_new_model_path(inventory_pool_id: @current_inventory_pool.id, type: :software)
-end
+# Angenommen(/^ich befinde mich auf der Software\-Erstellungsseite$/) do
+#   visit manage_new_model_path(inventory_pool_id: @current_inventory_pool.id, type: :software)
+# end
 
-Dann(/^kann ich auf mehreren Zeilen Hinweise und Links anfügen$/) do
-  @line_1 = "#{Faker::Lorem.word} #{Faker::Internet.url}"
-  @line_2 = Faker::Lorem.sentence
-  find(".field", text: _("Technical Details")).find("textarea").set "#{@line_1}\r\n#{@line_2}"
-end
+# Dann(/^kann ich auf mehreren Zeilen Hinweise und Links anfügen$/) do
+#   @line_1 = "#{Faker::Lorem.word} #{Faker::Internet.url}"
+#   @line_2 = Faker::Lorem.sentence
+#   find(".field", text: _("Technical Details")).find("textarea").set "#{@line_1}\r\n#{@line_2}"
+# end
 
 Angenommen(/^ich befinde mich auf der Lizenz\-Erstellungsseite$/) do
   visit manage_new_item_path(inventory_pool_id: @current_inventory_pool.id, type: :license)
@@ -35,11 +36,14 @@ Dann(/^die Option "Ausleihbar" ist standardmässig auf "Nicht ausleihbar" gesetz
   expect(find("label", text: _("Not Borrowable")).find("input[name='item[is_borrowable]']").selected?).to be true
 end
 
-Angenommen(/^es existiert ein Software\-Produkt$/) do
-  expect(Software.all.empty?).to be false
-end
+#Angenommen(/^es existiert ein Software\-Produkt$/) do
+# Duplicate! See above
+#Given(/^a software product exists$/) do
+#  expect(Software.all.empty?).to be false
+#end
 
-Wenn(/^ein neuer Inventarcode vergeben wird$/) do
+#Wenn(/^ein neuer Inventarcode vergeben wird$/) do
+When(/^a new inventory code is assigned$/) do
   @target_inventory_code = find("input[name='item[inventory_code]']").value
   expect(@target_inventory_code.blank?).to be false
   expect(Item.find_by_inventory_code(@target_inventory_code)).to eq nil
@@ -50,19 +54,19 @@ Wenn(/^ich eine Seriennummer eingebe$/) do
   find(".field[data-type='field']", match: :first, text: _("Serial Number")).find("input").set @serial_number
 end
 
-Wenn(/^ich eine Aktivierungsart eingebe$/) do
-  within(".field", text: _("Activation Type")) do
-    @activation_type = all("option").map(&:value).sample
-    find("option[value='#{@activation_type}']").click
-  end
-end
+# Wenn(/^ich eine Aktivierungsart eingebe$/) do
+#   within(".field", text: _("Activation Type")) do
+#     @activation_type = all("option").map(&:value).sample
+#     find("option[value='#{@activation_type}']").click
+#   end
+# end
 
-Wenn(/^ich eine Lizenzart eingebe$/) do
-  within(".field", text: _("License Type")) do
-    @license_type = all("option").map(&:value).sample
-    find("option[value='#{@license_type}']").click
-  end
-end
+# Wenn(/^ich eine Lizenzart eingebe$/) do
+#   within(".field", text: _("License Type")) do
+#     @license_type = all("option").map(&:value).sample
+#     find("option[value='#{@license_type}']").click
+#   end
+# end
 
 Wenn(/^ich die den Wert "ausleihbar" setze$/) do
   @is_borrowable = true
@@ -89,25 +93,26 @@ Dann(/^sind die Informationen dieser Software\-Lizenz gespeichert$/) do
   license.properties[:quantity_allocations] == @quantity_allocations
 end
 
-Wenn(/^ich eine Software editiere$/) do
-  @software ||= Software.all.sample
-  step "I open the Inventory"
+#Wenn(/^ich eine Software editiere$/) do
+When(/^I edit software$/) do
+  @software ||= Software.order("RAND()").first
+  step "I open the inventory"
   @page_to_return = current_path
-  find("a", text: _("Software")).click
+  all("a", text: _("Software")).first.click
   find(:select, "retired").first("option").select_option
   @model_id = @software.id
   find(".line[data-type='software'][data-id='#{@software.id}']").find("a", text: _("Edit Software")).click
 end
 
-Wenn(/^ich eine bestehende Software\-Lizenz editiere$/) do
-  step "I open the Inventory"
-  @page_to_return = current_path
-  find("a", text: _("Software"), match: :first).click
-  @software = Software.all.select{|s| not s.items.empty?}.sample
-  @license = @software.items.sample
-  find(".line[data-type='software'][data-id='#{@software.id}']").find("button[data-type='inventory-expander']").click
-  find(".line[data-type='license'][data-id='#{@license.id}']").find("a", text: _("Edit License")).click
-end
+# Wenn(/^ich eine bestehende Software\-Lizenz editiere$/) do
+#   step "I open the inventory"
+#   @page_to_return = current_path
+#   find("a", text: _("Software"), match: :first).click
+#   @software = Software.order("RAND()").detect {|s| not s.items.empty?}
+#   @license = @software.items.order("RAND()").first
+#   find(".line[data-type='software'][data-id='#{@software.id}']").find("button[data-type='inventory-expander']").click
+#   find(".line[data-type='license'][data-id='#{@license.id}']").find("a", text: _("Edit License")).click
+# end
 
 Then(/^I can copy an existing software license$/) do
   step "I'am on the software inventory overview"
@@ -127,27 +132,31 @@ Then(/^I can save and copy the existing software license$/) do
   find("a[id='item-save-and-copy']", text: _("Save and copy"))
 end
 
-Wenn(/^ich eine andere Software auswähle$/) do
-  @new_software = Software.all.select{|s| s != @software}.sample
+#Wenn(/^ich eine andere Software auswähle$/) do
+When(/^I select some different software$/) do
+  @new_software = Software.where.not(id: @license.model_id).order("RAND()").first
   fill_in_autocomplete_field _("Software"), @new_software.name
 end
 
-Wenn(/^ich eine andere Seriennummer eingebe$/) do
+#Wenn(/^ich eine andere Seriennummer eingebe$/) do
+When(/^I enter a different serial number$/) do
   @new_serial_number = Faker::Lorem.characters(8)
   find(".field[data-type='field']", match: :first, text: _("Serial Number")).find("input").set @new_serial_number
 end
 
-Wenn(/^ich einen anderen Aktivierungstyp wähle$/) do
+#Wenn(/^ich einen anderen Aktivierungstyp wähle$/) do
+When(/^I select a different activation type$/) do
   @new_activation_type = find(".field", text: _("Activation Type")).all("option").map(&:value).select{|v| v != @license.properties[:activation_type]}.sample
   find(".field", text: _("Activation Type")).find("option[value='#{@new_activation_type}']").click
 end
 
-Wenn(/^ich einen anderen Lizenztyp wähle$/) do
-  @new_license_type = find(".field", text: _("License Type")).all("option").map(&:value).select{|v| v != @license.properties[:license_type]}.sample
-  find(".field", text: _("License Type")).find("option[value='#{@new_license_type}']").click
-end
+# Wenn(/^ich einen anderen Lizenztyp wähle$/) do
+#   @new_license_type = find(".field", text: _("License Type")).all("option").map(&:value).select{|v| v != @license.properties[:license_type]}.sample
+#   find(".field", text: _("License Type")).find("option[value='#{@new_license_type}']").click
+# end
 
-Wenn(/^ich den Wert "Ausleihbar" ändere$/) do
+#Wenn(/^ich den Wert "Ausleihbar" ändere$/) do
+When(/^I change the value of "Borrowable"$/) do
   find(".field", text: _("Borrowable")).find("label", text: "OK").find("input").click
 end
 
@@ -175,7 +184,8 @@ When(/^I change the options for installation$/) do
   end
 end
 
-Dann(/^sind die Informationen dieser Software\-Lizenz erfolgreich aktualisiert worden$/) do
+#Dann(/^sind die Informationen dieser Software\-Lizenz erfolgreich aktualisiert worden$/) do
+Then(/^this software license's information has been updated successfully$/) do
   expect(has_selector?("#flash .success")).to be true
   license = Item.find_by_serial_number(@new_serial_number)
   expect(license.type).to eq "License"
@@ -195,11 +205,6 @@ Dann(/^sind die Informationen dieser Software\-Lizenz erfolgreich aktualisiert w
   expect(license.note).to eq @note
   license.properties[:dongle_id] == @dongle_id
   license.properties[:quantity_allocations] == @new_quantity_allocations
-end
-
-Wenn(/^ich mich auf der Softwareliste befinde$/) do
-  expect(has_content?(_("List of Inventory"))).to be true
-  find("a", text: _("Software")).click
 end
 
 When(/^if I choose none, one or more of the available options for operating system$/) do
@@ -270,7 +275,7 @@ end
 Then(/^for "(.*?)" one can select a supplier$/) do |arg1|
   i = find(".field", text: _(arg1)).find "input"
   i.click
-  supplier = Supplier.all.sample
+  supplier = Supplier.order("RAND()").first
   find(".ui-menu-item", text: supplier.name).click
   expect(i.value).to eq supplier.name
 end
@@ -278,14 +283,14 @@ end
 Then(/^for "(.*?)" one can select an inventory pool$/) do |arg1|
   i = find(".field", text: _(arg1)).find "input"
   i.click
-  ip = InventoryPool.all.sample
+  ip = InventoryPool.order("RAND()").first
   find(".ui-menu-item", text: ip.name).click
   expect(i.value).to eq ip.name
 end
 
 When(/^I choose a date for license expiration$/) do
   @license_expiration_date = rand(12).months.from_now.to_date
-  find(".field", text: _("License expiration")).find("input").set @license_expiration_date.strftime("%d.%m.%Y")
+  find(".field", text: _("License expiration")).find("input").set I18n.l @license_expiration_date
 end
 
 When(/^I choose "(.*?)" for maintenance contract$/) do |arg1|
@@ -300,7 +305,7 @@ end
 
 When(/^I choose a date for the maintenance expiration$/) do
   @maintenance_expiration_date = rand(12).months.from_now.to_date
-  find(".field", text: _("Maintenance expiration")).find("input").set @maintenance_expiration_date.strftime("%d.%m.%Y")
+  find(".field", text: _("Maintenance expiration")).find("input").set I18n.l @maintenance_expiration_date
 end
 
 When(/^I choose "(.*?)" as reference$/) do |arg1|
@@ -310,18 +315,18 @@ When(/^I choose "(.*?)" as reference$/) do |arg1|
 end
 
 Then(/^I have to enter a project number$/) do
-  step "ich speichere"
-  step "ich sehe eine Fehlermeldung"
+  step "I save"
+  step "I see an error message"
   @project_number = Faker::Lorem.characters(10)
   find(".field", text: _("Project Number")).find("input").set @project_number
 end
 
 When(/^I change the license expiration date$/) do
   @new_license_expiration_date = rand(12).months.from_now.to_date
-  find(".field", text: _("License expiration")).find("input").set @new_license_expiration_date.strftime("%d.%m.%Y")
+  find(".field", text: _("License expiration")).find("input").set I18n.l @new_license_expiration_date
 end
 
-Wenn(/^I change the value for maintenance contract$/) do
+When(/^I change the value for maintenance contract$/) do
   within(".field", text: _("Maintenance contract")) do
     o = all("option").detect &:selected?
     find("option[value='#{@new_maintenance_contract = !(o.value == "true")}']").select_option
@@ -329,7 +334,7 @@ Wenn(/^I change the value for maintenance contract$/) do
 
   if @new_maintenance_contract
     @new_maintenance_expiration_date = rand(12).months.from_now.to_date
-    find(".field", text: _("Maintenance expiration")).find("input").set @new_maintenance_expiration_date.strftime("%d.%m.%Y")
+    find(".field", text: _("Maintenance expiration")).find("input").set I18n.l @new_maintenance_expiration_date
   end
 end
 
@@ -354,9 +359,9 @@ Given(/^there is a (.*) with the following properties:$/) do |arg1, table|
       model_attrs = {}
       @model_properties = table.raw.map do |k, v|
         case k
-          when "Name", "Produktname"
+          when "Name", "Product"
             model_attrs[:product] = v
-          when "Hersteller"
+          when "Manufacturer"
             model_attrs[:manufacturer] = v
           else
             raise
@@ -375,33 +380,34 @@ Given(/^there is a (.*) with the following properties:$/) do |arg1, table|
       item_attrs = {owner: @current_inventory_pool}
       item_properties = table.raw.map do |k, v|
         case k
-          when "Inventarcode"
+          when "Inventory code"
             item_attrs[:inventory_code] = v
-          when "Seriennummer"
+          when "Serial number"
             item_attrs[:serial_number] = v
-          when "Dongle-ID"
+          when "Dongle ID"
             item_attrs[:properties] ||= {}
             item_attrs[:properties][:activation_type] = "dongle"
             item_attrs[:properties][:dongle_id] = v
-          when "Anzahl-Zuteilung"
+          when "Quantity allocations"
             x,y = v.split(" / ")
             item_attrs[:properties][:quantity_allocations] ||= []
             item_attrs[:properties][:quantity_allocations] << [x, y]
             y
-          when "Besitzergerätepark", "verantwortlicher Gerätepark"
+          when "Owner", "Responsible inventory pool"
             ip_key = case k
-                       when "Besitzergerätepark"
+                       when "Owner"
                          :owner
-                       when "verantwortlicher Gerätepark"
+                       when "Responsible inventory pool"
                          :inventory_pool
                      end
             item_attrs[ip_key] = case v
-                                   when "Mein Gerätepark"
+                                   when "Current inventory pool"
                                      @current_inventory_pool
-                                   when "Anderer Gerätepark"
-                                     @other_inventory_pool ||= InventoryPool.where.not(id: @current_inventory_pool).sample
+                                   when "Another inventory pool"
+                                     @other_inventory_pool ||= InventoryPool.where.not(id: @current_inventory_pool).order("RAND()").first
                                  end
           else
+            puts "Don't know how to handle the field named #{k}"
             raise
         end
       end
@@ -422,7 +428,7 @@ Given(/^there is a (.*) with the following properties:$/) do |arg1, table|
 
 end
 
-When(/^I search (in inventory )?after one of those (.*)?properties$/) do |arg1, arg2|
+When(/^I search (in the inventory section )?for one of those (.*)?properties$/) do |arg1, arg2|
   search_field = if arg1
                    find("#inventory-index-view input#list-search")
                  else
@@ -438,7 +444,7 @@ When(/^I search (in inventory )?after one of those (.*)?properties$/) do |arg1, 
   search_field.native.send_key :return
 end
 
-When(/^I search (in inventory )?after following properties$/) do |arg1, table|
+When(/^I search for the following properties( in the inventory section)?:$/) do |arg1, table|
   search_field = if arg1
                    find("#inventory-index-view input#list-search")
                  else
@@ -449,7 +455,7 @@ When(/^I search (in inventory )?after following properties$/) do |arg1, table|
   search_field.native.send_key :return
 end
 
-Then(/^they appear all matched (.*)$/) do |arg1|
+Then(/^all matching (.*) appear$/) do |arg1|
   if page.has_selector? "#search-overview"
     x,y = case arg1
             when "models"
@@ -503,9 +509,12 @@ Given(/^a software license exists$/) do
 end
 
 Given(/^this software license is handed over to somebody$/) do
-  @contract_with_software_license = FactoryGirl.create :contract, {inventory_pool: @current_inventory_pool, status: :submitted}
-  @contract_with_software_license.lines << FactoryGirl.create(:item_line, {contract: @contract_with_software_license, model: @model, item: @item})
+  line = FactoryGirl.create :item_line, inventory_pool: @current_inventory_pool, status: :approved, model: @model, item: @item
+  @contract_with_software_license = line.user.contracts.approved.find_by(inventory_pool_id: @current_inventory_pool)
   expect(@contract_with_software_license.lines.reload.empty?).to be false
+  document = @contract_with_software_license.sign(@current_user, [line])
+  expect(document).to be_valid
+  @contract_with_software_license = line.user.contracts.signed.find(document.id)
 end
 
 When(/^I search after the name of that person$/) do
@@ -528,7 +537,7 @@ Given(/^there exist licenses for this software product$/) do
   rand(1..3).times do
     @model.items << FactoryGirl.create(:license, {owner: @current_inventory_pool, model: @model})
   end
-  @item = @model.items.sample
+  @item = @model.items.order("RAND()").first
 end
 
 When(/^I see these in my search result$/) do
@@ -581,7 +590,7 @@ When(/^I fill in all the required fields for the license$/) do
 end
 
 When(/^I fill in the software$/) do
-  @software = Software.all.sample
+  @software = Software.order("RAND()").first
   fill_in_autocomplete_field _("Software"), @software.name
 end
 
@@ -608,7 +617,7 @@ When(/^I delete the data for the following fields:$/) do |table|
   table.raw.flatten.each {|field| find(".field", text: _(field)).find("input").set ""}
 end
 
-Dann(/^the following fields of the license are empty:$/) do |table|
+Then(/^the following fields of the license are empty:$/) do |table|
   table.raw.flatten.each do |field|
     expect(find(".field", text: _(field)).find("input").value.empty?).to be true
   end
@@ -619,14 +628,15 @@ When(/^I edit the same license$/) do
 end
 
 When(/^I edit again this software product$/) do
-  string = @table_hashes.select {|x| ["Produkt", "Version", "Hersteller"].include? x["Feld"]}.map {|x| x["Wert"]}.join(' ')
+  string = @table_hashes.select {|x| ["Product", "Version", "Manufacturer"].include? x["Field"]}.map {|x| x["Value"]}.join(' ')
   results = Software.search(string)
   expect(results.size).to eq 1
   @software = results.first
-  step "ich eine Software editiere"
+  step "I edit software"
 end
 
-Then(/^outside the the text field, they will additionally displayed lines with link only$/) do
+#Then(/^outside the the text field, they will additionally displayed lines with link only$/) do
+Then(/^outside the the text field, all the URLs extracted from the software information field are displayed as links$/) do
   within "#form .field", text: _("Software Information") do
     find(".list-of-lines").all(".line").each do |line|
       line.find("a[target='_blank']")
@@ -634,65 +644,66 @@ Then(/^outside the the text field, they will additionally displayed lines with l
   end
 end
 
-Given(/^ich add a new (?:.+) or I change an existing (.+)$/) do |entity|
-  klass = case _(entity)
-            when "Modell" then Model
-            when "Software" then Software
-          end
-  @model = klass.all.first
-  visit manage_edit_model_path(@current_inventory_pool, @model)
-end
-
-Then(/^I see the "Software Information"$/) do
-  f = find(".field", text: _("Software Information"))
-  i = f.find("textarea")
-  expect(i.value).to eq @license.model.technical_detail.delete("\r")
-  expect(f.has_selector? "a").to be true
-end
-
-When(/^I edit an existing software license with software information, quantity allocations and attachments$/) do
-  @license = @current_inventory_pool.items.licenses.find {|i| i.model.technical_detail =~ /http/ and not i.model.attachments.empty? and i.properties[:quantity_allocations].size >= 2 }
-  expect(@license).not_to be_nil
-  visit manage_edit_item_path(@current_inventory_pool, @license)
-end
-
-Then(/^the software information is not editable$/) do
-  f = find(".field", text: _("Software Information"))
-  expect(f.find("textarea").disabled?).to be true
-end
-
-Then(/^the links of software information open in a new tab upon clicking$/) do
-  f = find(".field", text: _("Software Information"))
-  f.all("a").each do |link|
-    expect(link.native.attribute("target")).to eq "_blank"
+#Given(/^ich add a new (?:.+) or I change an existing (.+)$/) do |entity|
+Given(/^I add a new or I change an existing (.+)$/) do |entity|
+    klass = case _(entity)
+              when "model" then Model
+              when "software" then Software
+            end
+    @model = klass.all.first
+    visit manage_edit_model_path(@current_inventory_pool, @model)
   end
-end
 
-Then(/^I see the attachments of the software$/) do
-  within(".field", text: _("Attachments")) do
-    expect(@license.model.attachments.all?{|a| has_selector?("a", text: a.filename)}).to be true
+  Then(/^I see the "Software Information"$/) do
+    f = find(".field", text: _("Software Information"))
+    i = f.find("textarea")
+    expect(i.value).to eq @license.model.technical_detail.delete("\r")
+    expect(f.has_selector? "a").to be true
   end
-end
 
-Then(/^I can open the attachments in a new tab$/) do
-  f = find(".field", text: _("Attachments"))
-  f.all("a").each do |link|
-    expect(link.native.attribute("target")).to eq "_blank"
+  When(/^I edit a software license with software information, quantity allocations and attachments$/) do
+    @license = @current_inventory_pool.items.licenses.find {|i| i.model.technical_detail =~ /http/ and not i.model.attachments.empty? and i.properties[:quantity_allocations].size >= 2 }
+    expect(@license).not_to be_nil
+    visit manage_edit_item_path(@current_inventory_pool, @license)
   end
+
+  Then(/^the software information is not editable$/) do
+    f = find(".field", text: _("Software Information"))
+    expect(f.find("textarea").disabled?).to be true
+  end
+
+  Then(/^the links of software information open in a new tab upon clicking$/) do
+    f = find(".field", text: _("Software Information"))
+    f.all("a").each do |link|
+      expect(link.native.attribute("target")).to eq "_blank"
+    end
+  end
+
+  Then(/^I see the attachments of the software$/) do
+    within(".field", text: _("Attachments")) do
+      expect(@license.model.attachments.all?{|a| has_selector?("a", text: a.filename)}).to be true
+    end
+  end
+
+  Then(/^I can open the attachments in a new tab$/) do
+    f = find(".field", text: _("Attachments"))
+    f.all("a").each do |link|
+      expect(link.native.attribute("target")).to eq "_blank"
+    end
+  end
+
+  When(/^there exists already a manufacturer$/) do
+    @manufacturer = Software.manufacturers.sample
+  end
+
+  Then(/^the manufacturer can be selected from the list$/) do
+    input_field = find(".field", text: _("Manufacturer")).find("input")
+    input_field.click
+    find(".ui-menu-item", text: @manufacturer).click
+    expect(input_field.value).to eq @manufacturer
 end
 
-When(/^there exists already a manufacturer$/) do
-  @manufacturer = Software.manufacturers.sample
-end
-
-Then(/^the manufacturer can be selected from the list$/) do
-  input_field = find(".field", text: _("Manufacturer")).find("input")
-  input_field.click
-  find(".ui-menu-item", text: @manufacturer).click
-  expect(input_field.value).to eq @manufacturer
-end
-
-Wenn(/^I set a non existing manufacturer$/) do
+When(/^I set a non existing manufacturer$/) do
   input_field = find(".field", text: _("Manufacturer")).find("input")
   @manufacturer = Faker::Company.name
   while Software.manufacturers.include?(@manufacturer) do
@@ -714,8 +725,8 @@ Then(/^I choose dongle as activation type$/) do
 end
 
 Then(/^I have to provide a dongle id$/) do
-  step "ich speichere"
-  step "ich sehe eine Fehlermeldung"
+  step "I save"
+  step "I see an error message"
   @dongle_id = Faker::Lorem.characters(10)
   find(".field", text: _("Dongle ID")).find("input").set @dongle_id
 end
@@ -735,7 +746,7 @@ Given(/^a software product with more than (\d+) text rows in field "(.*?)" exist
                r ||= begin
                  td = []
                  (arg1.to_i + rand(1..10)).times { td << Faker::Lorem.paragraph }
-                 m = @current_inventory_pool.models.sample
+                 m = @current_inventory_pool.models.order("RAND()").first
                  m.update_attributes(technical_detail: td.join("\r\n"))
                  m
                end
@@ -879,51 +890,51 @@ Then(/^the (.*) is labeled as "(.*?)"$/) do |arg1, arg2|
   end
 end
 
-Dann(/^the new software license is created$/) do
+Then(/^the new software license is created$/) do
   @target_item = @current_inventory_pool.items.find_by_inventory_code(@target_inventory_code)
   expect(@target_item).not_to be_nil
 end
 
-Dann(/^the following fields were copied from the original software license$/) do |table|
+Then(/^the following fields were copied from the original software license$/) do |table|
   table.rows.flatten.each do |field|
     case field
       when "Software"
         expect(@target_item.model_id).to eq @item.model_id
-      when "Bezug"
+      when "Reference"
         expect(@target_item.properties[:reference]).to eq @item.properties[:reference]
-      when "Besitzer"
+      when "Owner"
         expect(@target_item.owner_id).to eq @item.owner_id
-      when "Verantwortliche Abteilung"
+      when "Responsible department"
         expect(@target_item.inventory_pool_id).to eq @item.inventory_pool_id
-      when "Rechnungsdatum"
+      when "Invoice Date"
         expect(@target_item.invoice_date).to eq @item.invoice_date
-      when "Anschaffungswert"
+      when "Initial Price"
         expect(@target_item.price).to eq @item.price
-      when "Lieferant"
+      when "Supplier"
         expect(@target_item.supplier_id).to eq @item.supplier_id
-      when "Beschafft durch"
+      when "Procured by"
         expect(@target_item.properties[:procured_by]).to eq @item.properties[:procured_by]
-      when "Notiz"
+      when "Note"
         expect(@target_item.note).to eq @item.note
-      when "Aktivierungstyp"
+      when "Activation type"
         expect(@target_item.properties[:activation_type]).to eq @item.properties[:activation_type]
-      when "Lizenztyp"
+      when "License Type"
         expect(@target_item.properties[:license_type]).to eq @item.properties[:license_type]
-      when "Gesamtanzahl"
+      when "Total quantity"
         expect(@target_item.properties[:quantity]).to eq @item.properties[:quantity]
-      when "Betriebssystem"
+      when "Operating System"
         expect(@target_item.properties[:operating_system]).to eq @item.properties[:operating_system]
       when "Installation"
         expect(@target_item.properties[:installation]).to eq @item.properties[:installation]
-      when "Lizenzablaufdatum"
+      when "License expiration"
         expect(@target_item.properties[:license_expiration]).to eq @item.properties[:license_expiration]
-      when "Maintenance-Vertrag"
+      when "Maintenance contract"
         expect(@target_item.properties[:maintenance_contract]).to eq @item.properties[:maintenance_contract]
-      when "Maintenance-Ablaufdatum"
+      when "Maintenance expiration"
         expect(@target_item.properties[:maintenance_expiration]).to eq @item.properties[:maintenance_expiration]
-      when "Währung"
+      when "Currency"
         expect(@target_item.properties[:maintenance_currency]).to eq @item.properties[:maintenance_currency]
-      when "Preis"
+      when "Price"
         expect(@target_item.properties[:maintenance_price]).to eq @item.properties[:maintenance_price]
       else
         raise

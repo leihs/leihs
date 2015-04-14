@@ -1,6 +1,6 @@
 When /^I change the quantity( of the model in the calendar which leads to an overbooking)?$/ do |arg1|
   n = if arg1
-        @line.model.items.where(inventory_pool_id: @line.contract.inventory_pool_id).count
+        @line.model.items.where(inventory_pool_id: @line.inventory_pool).count
       else
         1
       end

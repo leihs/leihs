@@ -1,15 +1,16 @@
 # -*- encoding : utf-8 -*-
 
-When /^I open a hand over( with at least one unassigned line)?( for today)?( with options| with models)?$/ do |arg0, arg1, arg2|
-  @current_inventory_pool = @current_user.managed_inventory_pools.detect do |ip|
-    @customer = ip.users.not_as_delegations.to_a.shuffle.detect do |user|
-      if arg0 and arg1
+When(/^I open a hand over( with at least one unassigned line)?( for today)?( with options| with models)?$/) do |unassigned_line, for_today, with_options_or_models|
+  @current_inventory_pool = @current_user.inventory_pools.managed.detect do |ip|
+
+    @customer = ip.users.not_as_delegations.order("RAND ()").detect do |user|
+      if unassigned_line and for_today
         user.visits.hand_over.any?{|v| v.lines.size >= 3 and v.lines.any? {|l| not l.item and l.start_date == ip.next_open_date(Date.today)}}
-      elsif arg1
+      elsif for_today 
         user.visits.hand_over.find {|ho| ho.date == Date.today}
-      elsif arg2
+      elsif with_options_or_models
         user.visits.hand_over.any?{|v| v.lines.any? do |l|
-          l.is_a?(case arg2
+          l.is_a?(case with_options_or_models
                     when " with options"
                       OptionLine
                     when " with models"
@@ -23,7 +24,7 @@ When /^I open a hand over( with at least one unassigned line)?( for today)?( wit
   end
   expect(@customer).not_to be_nil
 
-  step "ich eine Aushändigung an diesen Kunden mache"
+  step "I open a hand over for this customer"
   expect(has_selector?("#hand-over-view", :visible => true)).to be true
 
   @contract = @customer.contracts.where(inventory_pool_id: @current_inventory_pool).approved.first
@@ -50,7 +51,7 @@ When /^I open a hand over which has multiple( unassigned)? lines( and models in 
   expect(@hand_over).not_to be_nil
 
   @customer = @hand_over.user
-  step "ich eine Aushändigung an diesen Kunden mache"
+  step "I open a hand over for this customer"
   expect(has_selector?("#hand-over-view", :visible => true)).to be true
 end
 
@@ -72,14 +73,14 @@ When /^I open a hand over with overdue lines$/ do
     end
   end
   expect(@customer).not_to be_nil
-  step "ich eine Aushändigung an diesen Kunden mache"
+  step "I open a hand over for this customer"
 end
 
 
 
 When /^I select (an item|a license) line and assign an inventory code$/ do |arg1|
   @models_in_stock = @current_inventory_pool.items.in_stock.map(&:model).uniq
-  lines = @customer.visits.where(inventory_pool_id: @current_inventory_pool).hand_over.flat_map(&:lines)
+  lines = @customer.visits.hand_over.where(inventory_pool_id: @current_inventory_pool).flat_map(&:lines)
 
   @item_line = @line = case arg1
                          when "an item"
@@ -92,8 +93,8 @@ When /^I select (an item|a license) line and assign an inventory code$/ do |arg1
   expect(@item_line).not_to be_nil
   step 'I assign an inventory code to the item line'
   find(".button[data-edit-lines][data-ids='[#{@item_line.id}]']").click
-  step "ich setze das Startdatum im Kalendar auf '#{I18n.l(Date.today)}'"
-  step "speichere die Einstellungen"
+  step "I set the start date in the calendar to '#{I18n.l(Date.today)}'"
+  step "I save the booking calendar"
   find(".button[data-edit-lines][data-ids='[#{@item_line.id}]']")
 end
 
@@ -111,20 +112,27 @@ When /^I click hand over$/ do
 end
 
 When /^I click hand over inside the dialog$/ do
-  find(".modal .button.green[data-hand-over]", :text => _("Hand Over")).click
+  within ".modal" do
+    find(".button.green[data-hand-over]", text: _("Hand Over")).click
+  end
   check_printed_contract(page.driver.browser.window_handles)
 end
 
 Then /^the contract is signed for the selected items$/ do
-  to_take_back_lines = @customer.visits.where(inventory_pool_id: @current_inventory_pool).take_back.flat_map &:contract_lines
-  to_take_back_items = to_take_back_lines.map(&:item)
+  @contract_lines_to_take_back = @customer.contract_lines.signed.where(inventory_pool_id: @current_inventory_pool)
+  to_take_back_items = @contract_lines_to_take_back.map(&:item)
   @selected_items.each do |item|
     expect(to_take_back_items.include?(item)).to be true
   end
+  lines = @selected_items.map do |item|
+    @contract_lines_to_take_back.find_by(item_id: item)
+  end
+  expect(lines.map(&:contract).uniq.size).to be 1
+  @contract = @customer.contracts.signed.where(inventory_pool_id: @current_inventory_pool).detect {|contract_lines_bundle| contract_lines_bundle.lines.include? lines.first}
 end
 
 When /^I select an item without assigning an inventory code$/ do
-  @item_line = @customer.visits.where(inventory_pool_id: @current_inventory_pool).hand_over.first.lines.detect {|l| l.is_a?(ItemLine) and not l.item }
+  @item_line = @customer.visits.hand_over.where(inventory_pool_id: @current_inventory_pool).first.lines.detect {|l| l.is_a?(ItemLine) and not l.item }
   find(".line[data-id='#{@item_line.id}'] input[type='checkbox'][data-select-line]", :visible => true).click
 end
 
@@ -144,14 +152,14 @@ When /^I change the contract lines time range to tomorrow$/ do
   puts "@new_start_date = #{@new_start_date}"
   puts "@new_start_date_element = #{@new_start_date_element.text}"
   @new_start_date_element.click
-  find("a", match: :first, :text => /(Start Date|Startdatum)/).click
+  find("a", match: :first, :text => _("Start date")).click
   step 'I save the booking calendar'
   step 'the booking calendar is closed'
 end
 
 Then /^I see that the time range in the summary starts today$/ do
   all(".modal-body > div > div > div > p").each do |date_range|
-    expect(date_range.has_content?("#{Date.today.strftime("%d.%m.%Y")}")).to be true
+    expect(date_range.has_content?("#{I18n.l Date.today}")).to be true
   end
 end
 
@@ -160,13 +168,13 @@ Then /^the lines start date is today$/ do
 end
 
 When /^I select an overdue item line and assign an inventory code$/ do
-  @item_line = @line = @customer.visits.where(inventory_pool_id: @current_inventory_pool).hand_over.detect{|v| v.date < Date.today}.lines.detect {|l| l.class.to_s == "ItemLine" and @models_in_stock.include? l.model}
+  @item_line = @line = @customer.visits.hand_over.where(inventory_pool_id: @current_inventory_pool).detect{|v| v.date < Date.today}.lines.detect {|l| l.class.to_s == "ItemLine" and @models_in_stock.include? l.model}
   expect(@item_line).not_to be_nil
   step 'I assign an inventory code to the item line'
 end
 
 When /^I assign an inventory code to the item line$/ do
-  item = @current_inventory_pool.items.in_stock.where(model_id: @item_line.model).sample
+  item = @current_inventory_pool.items.in_stock.where(model_id: @item_line.model).order("RAND()").first
   expect(item).not_to be_nil
   @selected_items ||= []
   within(".line[data-id='#{@item_line.id}']") do

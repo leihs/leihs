@@ -10,7 +10,7 @@
         .emboss.red.padding-inset-m.text-align-center
           %strong.font-size-m
             = _("Please solve the conflicts for all highlighted lines in order to continue.")
-      - elsif unsubmitted_contracts.flat_map(&:lines).empty?
+      - elsif current_user.contract_lines.unsubmitted.empty?
         .emboss.padding-inset-m.text-align-center
           %h3.headline-m
             = _("Your order ist empty.")
@@ -35,7 +35,7 @@
 
           = render :partial => "borrow/contracts/unsubmitted/merged_lines", :collection => v, :as => :line
 
-    - if not unsubmitted_contracts.flat_map(&:lines).empty?
+    - if not current_user.contract_lines.unsubmitted.empty?
       .emboss.padding-inset-l.separated-top
         - if current_user.timeout? or @timed_out
           .row
@@ -62,7 +62,7 @@
                 = _("Purpose of the order")
                 *
               %textarea.padding-inset-s.width-full{name: "purpose", placeholder: _("Specification of the purpose is required")}
-                = unsubmitted_contracts.first.purpose
+                = current_user.contract_lines.unsubmitted.first.purpose
             .row.padding-top-l
               .col1of2
                 = link_to borrow_order_remove_path, method: :delete, data: { confirm: _("The order will be discarded.") }, class: "button red" do
@@ -74,13 +74,13 @@
 
 :coffeescript
 
-  for contract_json in #{unsubmitted_contracts.to_json}
+  for contract_json in #{current_user.contracts.unsubmitted.to_json}
     App.Contract.addRecord new App.Contract contract_json
     App.Contract.currents.push App.Contract.find(contract_json.id)
 
   App.Contract.timedOut = #{(!!@timed_out).to_json}
 
-  for contract_line in #{@lines.to_json}
+  for contract_line in #{current_user.contract_lines.unsubmitted.to_json}
     App.ContractLine.addRecord new App.ContractLine contract_line
 
   for model in #{@models.to_json}

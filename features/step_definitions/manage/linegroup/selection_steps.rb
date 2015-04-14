@@ -3,13 +3,13 @@ When /^I open a take back, hand over or I edit a contract$/ do
   type = possible_types.sample
   case type
     when "take_back"
-      @customer = @current_inventory_pool.users.detect {|x| x.contracts.signed.size > 0}
+      @customer = @current_inventory_pool.users.detect {|x| x.contracts.signed.exists? }
       visit manage_take_back_path(@current_inventory_pool, @customer)
     when "hand_over"
-      @customer = @current_inventory_pool.users.detect {|x| x.contracts.approved.size > 0}
-      step "ich eine Aushändigung an diesen Kunden mache"
+      @customer = @current_inventory_pool.users.detect {|x| x.contracts.approved.exists? }
+      step "I open a hand over for this customer"
     when "contract"
-      @customer = @current_inventory_pool.users.detect {|x| x.contracts.submitted.size > 0}
+      @customer = @current_inventory_pool.users.detect {|x| x.contracts.submitted.exists? }
       @entity = @customer.contracts.submitted.first
       visit manage_edit_contract_path(@current_inventory_pool, @entity)
   end

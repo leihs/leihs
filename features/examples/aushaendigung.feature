@@ -1,112 +1,114 @@
-# language: de
+Feature: Edit a hand over
 
-Funktionalität: Aushändigung editieren
-
-  Grundlage:
-    Angenommen ich bin Pius
+  Background:
+    Given I am Pius
 
   @javascript @browser @personas
-  Szenario: Systemfeedback bei erfolgreicher manueller Interaktion bei Aushändigung
-    Angenommen es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell
-    Und ich die Aushändigung öffne
-    Wenn ich dem nicht problematischen Modell einen Inventarcode zuweise
-    Dann wird der Gegenstand der Zeile zugeteilt
-    Und die Zeile wird selektiert
-    Und die Zeile wird grün markiert
-    Und ich erhalte eine Erfolgsmeldung
-    Wenn ich die Zeile deselektiere
-    Dann ist die Zeile nicht mehr grün eingefärbt
-    Wenn ich die Zeile wieder selektiere
-    Dann wird die Zeile grün markiert
-    Wenn ich den zugeteilten Gegenstand auf der Zeile entferne
-    Dann ist die Zeile nicht mehr grün markiert
+  Scenario: Feedback on a successful manual interaction during hand over
+    Given there is a hand over with at least one unproblematic model and an option
+    And I open the hand over
+    When I assign an inventory code to the unproblematic model
+    Then the item is assigned to the line
+    And the line is selected
+    And the line is highlighted in green
+    Then I receive a notification of success
+    When I deselect the line
+    Then the line is no longer highlighted in green
+    When I reselect the line
+    Then the line is highlighted in green
+    When I remove the assigned item from the line
+    Then the line is no longer highlighted in green
 
   @javascript @browser @personas
-  Szenario: Systemfeedback bei Zuteilen eines Gegenstandes zur problematischen Linie
-    Angenommen es gibt eine Aushändigung mit mindestens einer problematischen Linie
-    Und ich die Aushändigung öffne
-    Dann wird das Problemfeld für das problematische Modell angezeigt
-    Wenn ich dieser Linie einen Inventarcode manuell zuweise
-    Und die Zeile wird selektiert
-    Dann wird die Zeile grün markiert
-    Und die problematischen Auszeichnungen bleiben bei der Linie bestehen
+  Scenario: Feedback on assigning an item to a problematic line
+    Given there is a hand over with at least one problematic line
+    And I open the hand over
+    Then problem notifications are shown for the problematic model
+    When I manually assign an inventory code to that line
+    And the line is selected
+    And the line is highlighted in green
+    And the problem notifications remain on the line
 
   @personas @javascript
-  Szenario: Sperrstatus des Benutzers anzeigen
-    Angenommen ich eine Aushändigung mache
-    Und der Benutzer für die Aushändigung ist gesperrt
-    Dann sehe ich neben seinem Namen den Sperrstatus 'Gesperrt!'
+  Scenario: Show user's suspended state
+    Given I open a hand over
+    And the user in this hand over is suspended
+    Then I see the note 'Suspended!' next to their name
 
   @javascript @browser @personas
-  Szenario: Systemfeedback bei Zuteilen einer Option
-    Angenommen ich öffne eine Aushändigung
-    Wenn ich eine Option hinzufüge
-    Dann wird die Zeile selektiert
-    Und die Zeile wird grün markiert
-    Und ich erhalte eine Meldung
+  Scenario: System feedback when adding an option
+    Given I open a hand over
+    When I add an option
+    Then the line is selected
+    And the line is highlighted in green
+    And I receive a notification
 
   @javascript @personas
-  Szenario: Aushändigung eines bereits zugeteilten Gegenstandes
-    Angenommen ich öffne eine Aushändigung mit mindestens einem zugewiesenen Gegenstand
-    Wenn ich einen bereits hinzugefügten Gegenstand zuteile
-    Dann erhalte ich eine entsprechende Info-Meldung 'XY ist bereits diesem Vertrag zugewiesen'
-    Und die Zeile bleibt selektiert
-    Und die Zeile bleibt grün markiert
+  Scenario: Handing over an already assigned item
+    Given I open a hand over with at least one assigned item
+    When I assign an already added item
+    Then I see the error message 'XY is already assigned to this contract'
+    And the line remains selected
+    And the line remains highlighted in green
 
   @javascript @personas
-  Szenario: Standard-Vertragsnotiz
-    Angenommen für den Gerätepark ist eine Standard-Vertragsnotiz konfiguriert
-    Und ich öffne eine Aushändigung mit mindestens einem zugewiesenen Gegenstand
-    Wenn ich die Gegenstände aushändige
-    Dann erscheint ein Aushändigungsdialog
-    Und diese Standard-Vertragsnotiz erscheint im Textfeld für die Vertragsnotiz
+  Scenario: Default contract note
+    Given there is a default contract note for the inventory pool
+    And I open a hand over with at least one assigned item
+    When I hand over the items
+    Then a hand over dialog appears
+    And the contract note field in this dialog is already filled in with the default note
 
   @javascript @personas
-  Szenario: Vertragsnotiz
-    Wenn ich eine Aushändigung mache
-    Wenn ich aushändige
-    Dann erscheint ein Dialog
-    Und ich kann eine Notiz für diesen Vertrag eingeben
-    Wenn ich eine Notiz für diesen Vertrag eingebe
-    Dann erscheint diese Notiz auf dem Vertrag
+  Scenario: Contract note
+    When I open a hand over with at least one assigned item
+    And I hand over the items
+    Then a dialog appears
+    And I can enter some text in the contract note field
+    When I enter "something" in the contract note field
+    And I click hand over inside the dialog
+    Then "something" appears on the contract
 
   @javascript @browser @personas
-  Szenario: Optionen mit einer Mindestmenge 1 ausgeben
-    Angenommen ich öffne eine Aushändigung
-    Wenn ich eine Option hinzufüge
-    Und ich die Anzahl "0" in das Mengenfeld schreibe
-    Dann wird die Menge mit dem ursprünglichen Wert überschrieben
-    Wenn ich die Anzahl "-1" in das Mengenfeld schreibe
-    Dann wird die Menge mit dem ursprünglichen Wert überschrieben
-    Wenn ich die Anzahl "abc" in das Mengenfeld schreibe
-    Dann wird die Menge mit dem ursprünglichen Wert überschrieben
-    Wenn ich die Anzahl "2" in das Mengenfeld schreibe
-    Dann wird die Menge mit dem Wert "2" gespeichert
+  Scenario: Hand over options with at least quantity 1
+    When I open a hand over
+    And I add an option
+    And I change the quantity to "0"
+    Then the quantity will be restored to the original value
+    And I change the quantity to "-1"
+    Then the quantity will be restored to the original value
+    When I change the quantity to "abc"
+    Then the quantity will be restored to the original value
+    And I change the quantity to "2"
+    Then the quantity will be stored to the value "2"
 
   @javascript @browser @personas
-  Szenario: Anzeige der Seriennummer bei Zuteilung der Software-Lizenz
-    Angenommen ich öffne eine Aushändigung mit einer Software
-    Wenn ich in das Zuteilungsfeld links vom Software-Namen klicke
-    Dann wird mir der Inventarcode sowie die vollständige Seriennummer angezeigt
+  Scenario: Displaying serial number while handing over software licenses
+    When I open a hand over containing software
+    And I click on the assignment field of software names
+    Then I see the inventory codes and the complete serial numbers of that software
 
+
+  # Not implemented, so not translated.
   @javascript @browser @personas
-  Szenario: Listung von problematischen Gegenständen
-    Angenommen es existiert ein Modell mit einem problematischen Gegenstand
-    Und ich öffne eine Aushändigung für irgendeinen Benutzer
-    Wenn ich diesen Modell der Aushändigung hinzufüge
-    Und ich auf der Modelllinie die Gegenstandsauswahl öffne
-    Dann wird der problematische Gegenstand in rot aufgelistet
+  Scenario: Listing problematic items
+    Given there is a model with a problematic item
+    And ich öffne eine Aushändigung für irgendeinen Benutzer
+    When ich diesen Modell der Aushändigung hinzufüge
+    And ich auf der Modelllinie die Gegenstandsauswahl öffne
+    Then wird der problematische Gegenstand in rot aufgelistet
 
+  # Not implemented, so not translated.
   @javascript @browser @personas
-  Szenario: Keine Auflistung von ausgemusterten Gegenständen
-    Angenommen es existiert ein Modell mit einem ausgemusterten und einem ausleihbaren Gegenstand
-    Und ich öffne eine Aushändigung für irgendeinen Benutzer
-    Wenn ich diesen Modell der Aushändigung hinzufüge
-    Und ich auf der Modelllinie die Gegenstandsauswahl öffne
-    Dann wird der ausgemusterte Gegenstand nicht aufgelistet
+  Scenario: Keine Auflistung von ausgemusterten Gegenständen
+    Given es existiert ein Modell mit einem ausgemusterten und einem ausleihbaren Gegenstand
+    And ich öffne eine Aushändigung für irgendeinen Benutzer
+    When ich diesen Modell der Aushändigung hinzufüge
+    And ich auf der Modelllinie die Gegenstandsauswahl öffne
+    Then wird der ausgemusterte Gegenstand nicht aufgelistet
 
-  @personas @javascript @browser
-  Szenario: Anzeige von bereits zugewiesenen Gegenständen
-    Angenommen es besteht bereits eine Aushändigung mit mindestens 21 zugewiesenen Gegenständen für einen Benutzer
-    Wenn ich die Aushändigung öffne
-    Dann sehe ich all die bereits zugewiesenen Gegenstände mittels Inventarcodes
+  @personas @javascript
+  Scenario: Displaying already assigned items
+    Given there is a hand over with at least 21 assigned items for a user
+    When I open the hand over
+    Then I see the already assigned items and their inventory codes

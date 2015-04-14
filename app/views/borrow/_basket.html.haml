@@ -13,31 +13,31 @@
   .row.content-wrapper.straight-top-left.padding-top-xs
 
     #current-order-lines
-      - if unsubmitted_contracts.flat_map(&:lines).empty?
+      - if current_user.contract_lines.unsubmitted.empty?
         .padding-horizontal-s.padding-bottom-s.padding-top-xxs.margin-top-xxs
           .emboss.padding-inset-xs
             %p.paragraph-s
               %strong= _("Nothing selected")
       - else
-        - Hash[unsubmitted_contracts.flat_map(&:lines).group_by{|l| l.model }.sort].each_pair do |model, lines|
+        - Hash[current_user.contract_lines.unsubmitted.group_by{|l| l.model }.sort].each_pair do |model, lines|
           .row.line.small{:title => model}
             .line-col.col1of1
               %span.text-ellipsis.width-s-alt.block= "#{lines.sum(&:quantity)}x #{model}"
 
-    #order-overview-button.padding-inset-xxs{:class => unsubmitted_contracts.flat_map(&:lines).empty? ? "hidden" : ""}
+    #order-overview-button.padding-inset-xxs{class: current_user.contract_lines.unsubmitted.empty? ? "hidden" : ""}
       .row.padding-inset-s
         %a.button.green.min-width-full{href: borrow_current_order_path }= _("Complete order")
 
 :coffeescript
 
-  for contract_json in #{unsubmitted_contracts.to_json}
+  for contract_json in #{current_user.contracts.unsubmitted.to_json}
     App.Contract.addRecord new App.Contract contract_json
     App.Contract.currents.push App.Contract.find(contract_json.id)
 
-  for contract_line in #{unsubmitted_contracts.flat_map(&:lines).to_json}
+  for contract_line in #{current_user.contract_lines.unsubmitted.to_json}
     App.ContractLine.addRecord new App.ContractLine contract_line
 
-  for model in #{unsubmitted_contracts.flat_map(&:lines).map(&:model).to_json}
+  for model in #{current_user.contract_lines.unsubmitted.map(&:model).to_json}
     App.Model.addRecord new App.Model model
 
   jQuery =>

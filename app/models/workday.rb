@@ -58,7 +58,7 @@ class Workday < ActiveRecord::Base
   end
 
   def total_visits_by_date
-    (inventory_pool.visits + inventory_pool.potential_visits).group_by(&:date)
+    inventory_pool.visits.group_by(&:date)
   end
 
   def reached_max_visits

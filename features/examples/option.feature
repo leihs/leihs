@@ -1,32 +1,29 @@
-# language: de
 
-Funktionalität: Option
+Feature: Option
 
-  Grundlage:
-    Angenommen ich bin Mike
-
-  @javascript @browser @personas
-  Szenario: Option hinzufügen
-    Angenommen man öffnet die Liste des Inventars
-    Wenn ich eine neue Option hinzufüge
-    Und ich ändere die folgenden Details
-    | Feld             | Wert         |
-    | Produkt          | Test Option  |
-    | Preis            | 50           |
-    | Inventarcode     | Test Barcode |
-    Und ich speichere die Informationen
-    Dann die neue Option ist erstellt
+  Background:
+    Given I am Mike
 
   @javascript @browser @personas
-  Szenario: Option bearbeiten
-    Angenommen man öffnet die Liste des Inventars
-    Wenn ich eine bestehende Option bearbeite
-    Und ich erfasse die folgenden Details
-    | Feld             | Wert           |
-    | Produkt          | Test Option x  |
-    | Preis            | 51             |
-    | Inventarcode     | Test Barcode x |
-    Und ich speichere die Informationen
-    Dann die Informationen sind gespeichert
-    Und die Daten wurden entsprechend aktualisiert
+  Scenario: Adding options
+    Given I open the inventory
+    When I add a new Option
+    And I edit the following details
+    | Field          | Value        |
+    | Product        | Test Option  |
+    | Price          | 50           |
+    | Inventory code | Test Barcode |
+    And I save
+    Then the information is saved
 
+  @javascript @browser @personas
+  Scenario: Editing an option
+    Given I open the inventory
+    When I edit an existing Option
+    And I edit the following details
+    | Field          | Value          |
+    | Product        | Test Option x  |
+    | Price          | 51             |
+    | Inventory code | Test Barcode x |
+    And I save
+    Then the information is saved

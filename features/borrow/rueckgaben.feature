@@ -1,24 +1,22 @@
-# language: de
 
-Funktionalität: Rückgaben
-
-  @personas
-  Szenario: Anzahl und Rückgabe-Button
-    Angenommen ich bin Normin
-    Dann sehe ich die Anzahl meiner "Rückgaben" auf jeder Seite
+Feature: Returning stuff
 
   @personas
-  Szenario: Kein Rückgabe-Button im Fall nicht vorhandenen Rückgaben
-    Angenommen ich bin Ramon
-    Und man befindet sich im Ausleihen-Bereich
-    Dann sehe ich den "Rückgaben" Button nicht
+  Scenario: Quantities and return button
+    Given I am Normin
+    Then I see the number of "Returns" on each page
 
   @personas
-  Szenario: Rückgabe-Übersichtsseite
-    Angenommen ich bin Normin
-    Wenn ich auf den "Rückgaben" Link drücke
-    Dann sehe ich meine "Rückgaben"
-    Und die "Rückgaben" sind nach Datum und Gerätepark sortiert
-    Und jede der "Rückgaben" zeigt die zurückzugebenden Geräte
-    Und die Geräte sind alphabetisch sortiert nach Modellname
-    Und jedes Gerät zeigt seinen Inventarcode
+  Scenario: No return button if you don't have anything to return
+    Given I am Ramon
+    And I am in the borrow section
+    Then I don't see the "Returns" button
+
+  @personas
+  Scenario: Return overview
+    Given I am Normin
+    When I press the "Returns" link
+    Then I see my "Returns"
+    And the "Returns" are sorted by date and inventory pool
+    And each of the "Returns" shows items to return
+    And the items are sorted alphabetically by model name

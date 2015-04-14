@@ -29,7 +29,7 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
 
     @date = date ? Date.parse(date) : Date.today
     if @date == Date.today
-      @submitted_contracts_count = current_inventory_pool.contracts.submitted.count
+      @submitted_contract_lines_count = current_inventory_pool.contract_lines.submitted.count
       @overdue_hand_overs_count = current_inventory_pool.visits.hand_over.where("date < ?", @date).count
       @overdue_take_backs_count = current_inventory_pool.visits.take_back.where("date < ?", @date).count
     else
@@ -102,13 +102,13 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
     today_and_next_4_days = [date] 
     4.times { today_and_next_4_days << current_inventory_pool.next_open_date(today_and_next_4_days[-1] + 1.day) }
     
-    grouped_visits = current_inventory_pool.visits.includes(:user => {}, :contract_lines => [:model, :contract]).where("date <= ?", today_and_next_4_days.last).group_by {|x| [x.action, x.date] }
-    
+    grouped_visits = current_inventory_pool.visits.includes(:user).where("date <= ?", today_and_next_4_days.last).group_by {|x| [x.action, x.date] }
+
     chart_data = today_and_next_4_days.map do |day|
       day_name = (day == Date.today) ? _("Today") : l(day, :format => "%a %d.%m")
-      take_back_visits_on_day = grouped_visits[["take_back", day]] || []
+      take_back_visits_on_day = grouped_visits[[:take_back, day]] || []
       take_back_workload = take_back_visits_on_day.size * 4 + take_back_visits_on_day.sum(&:quantity)
-      hand_over_visits_on_day = grouped_visits[["hand_over", day]] || []
+      hand_over_visits_on_day = grouped_visits[[:hand_over, day]] || []
       hand_over_workload = hand_over_visits_on_day.size * 4 + hand_over_visits_on_day.sum(&:quantity)
       [[take_back_workload, hand_over_workload],
         {:name => day_name,

@@ -19,21 +19,28 @@ class Manage::ContractLinesController < Manage::ApplicationController
   end
 
   def update
+    # TODO params.require(:contract_line).permit(:item_id, :model_id, :option_id, :purpose_id, :quantity, :start_date, :end_date)
+    params[:contract_line].delete(:contract_id)
+
     @contract_line = current_inventory_pool.contract_lines.find(params[:line_id])
     unless @contract_line.update_attributes(params[:contract_line])
       render :status => :bad_request, :text => @contract_line.errors.full_messages.uniq.join(', ')
     end
   end
 
+  before_action only: [:create, :create_for_template, :assign_or_create] do
+    @status, user_id = params[:contract_id].split('_')[0,2]
+    @user = current_inventory_pool.users.find(user_id)
+  end
+
   def create
     begin
-      contract_id = params[:contract_id] || current_inventory_pool.users.find(params[:user_id]).get_approved_contract(current_inventory_pool).id
       record = if params[:model_id]
                  current_inventory_pool.models.find(params[:model_id])
                else
                  current_inventory_pool.options.find(params[:option_id])
                end
-      @contract_line = create_contract_line contract_id, record, 1, params[:start_date], params[:end_date], params[:purpose_id]
+      @contract_line = create_contract_line(@user, current_inventory_pool, @status, record, 1, params[:start_date], params[:end_date], params[:purpose_id])
     rescue => e
       render :status => :bad_request, :text => e
     end
@@ -46,7 +53,7 @@ class Manage::ContractLinesController < Manage::ApplicationController
       template.model_links.each do |link|
         if current_inventory_pool.models.exists?(:id => link.model_id)
           link.quantity.times do
-            @contract_lines.push create_contract_line params[:contract_id], current_inventory_pool.models.find(link.model_id), 1, params[:start_date], params[:end_date], params[:purpose_id]
+            @contract_lines.push create_contract_line(@user, current_inventory_pool, @status, current_inventory_pool.models.find(link.model_id), 1, params[:start_date], params[:end_date], params[:purpose_id])
           end
         end
       end
@@ -67,7 +74,7 @@ class Manage::ContractLinesController < Manage::ApplicationController
                         start_date = params[:start_date].try{|x| Date.parse(x)},
                         end_date = params[:end_date].try{|x| Date.parse(x)} || Date.tomorrow)
     begin
-      lines.each{|line| line.contract.update_time_line(line.id, (start_date||line.start_date), end_date, current_user)}
+      lines.each{|line| line.update_time_line((start_date||line.start_date), end_date, current_user)}
       render :status => :ok, :json => lines
     rescue => e
       render :status => :bad_request, :text => e
@@ -76,7 +83,7 @@ class Manage::ContractLinesController < Manage::ApplicationController
 
   def assign
     item = current_inventory_pool.items.find_by_inventory_code params[:inventory_code]
-    line = current_inventory_pool.contract_lines.to_hand_over.find params[:id]
+    line = current_inventory_pool.contract_lines.approved.find params[:id]
 
     if item and line and line.model_id == item.model_id
       @error = {:message => line.errors.full_messages.uniq.join(', ')} unless line.update_attributes(item: item)
@@ -111,8 +118,9 @@ class Manage::ContractLinesController < Manage::ApplicationController
                         code = params[:code],
                         line_ids = params[:line_ids])
 
-    contract = current_inventory_pool.contracts.find(params[:contract_id])
-    
+    contract = current_inventory_pool.contracts.find_by(id: params[:contract_id])
+    contract ||= @user.contracts.new(inventory_pool: current_inventory_pool, status: @status)
+
     # find model or option 
     model = if not code.blank?
       item = current_inventory_pool.items.where(:inventory_code => code).first 
@@ -141,7 +149,8 @@ class Manage::ContractLinesController < Manage::ApplicationController
         line.quantity += quantity
         line.save
       # FIXME go through contract.add_lines ??
-      elsif not line = contract.option_lines.create(:option => option, :quantity => quantity, :start_date => start_date, :end_date => end_date)
+      elsif not line = contract.user.option_lines.create(status: contract.status, inventory_pool: contract.inventory_pool,
+                                                         option: option, quantity: quantity, start_date: start_date, end_date: end_date)
         @error = _("The option could not be added" % code)
       end
     else
@@ -162,7 +171,7 @@ class Manage::ContractLinesController < Manage::ApplicationController
   end
 
   def remove_assignment
-    line = current_inventory_pool.contract_lines.to_hand_over.find params[:id]
+    line = current_inventory_pool.contract_lines.approved.find params[:id]
     line.update_attributes({:item_id => nil})
     render :nothing=> true, :status => :no_content
   end
@@ -190,27 +199,31 @@ class Manage::ContractLinesController < Manage::ApplicationController
       end
     end
 
-    # fetch all envolved contracts    
-    contracts = lines.collect(&:contract).uniq 
-
-    # close the envolved contracts where all lines are finally returned
-    contracts.each do |c|
-      c.close if c.lines.all? { |l| !l.returned_date.nil? }
-    end
-
     render :status => :no_content, :nothing => true
   end
 
   def swap_user
     user = current_inventory_pool.users.find params[:user_id]
     lines = current_inventory_pool.contract_lines.where(:id => params[:line_ids])
-    contract = user.get_approved_contract(current_inventory_pool)
     ActiveRecord::Base.transaction do
       lines.each do |line|
-        line.update_attributes(:contract_id => contract.id)
+        delegated_user = if user.is_delegation
+                           if user.delegated_users.include? line.delegated_user
+                             line.delegated_user
+                           else
+                             user.delegator_user
+                           end
+                         else
+                           nil
+                         end
+        line.update_attributes(user: user, delegated_user: delegated_user)
       end
     end
-    render status: :no_content, :nothing => true
+    if lines.all? &:valid?
+      render status: :no_content, nothing: true
+    else
+      render status: :bad_request, nothing: true
+    end
   end
 
   def print
@@ -227,15 +240,15 @@ class Manage::ContractLinesController < Manage::ApplicationController
 
   private
 
-  def create_contract_line contract_id, record, quantity, start_date, end_date, purpose_id
+  # TODO merge to ContractLinesBundle#add_lines
+  def create_contract_line(user, inventory_pool, status, record, quantity, start_date, end_date, purpose_id)
     if record.is_a? Model
-      contract_line = ItemLine.new
-      contract_line.model = record
+      contract_line = user.item_lines.new(model: record)
     elsif record.is_a? Option
-      contract_line = OptionLine.new
-      contract_line.option = record
+      contract_line = user.option_lines.new(option: record)
     end
-    contract_line.contract = current_inventory_pool.contracts.find contract_id
+    contract_line.inventory_pool = inventory_pool
+    contract_line.status = status
     contract_line.quantity = quantity.to_i
     contract_line.start_date = start_date.try{|x| Date.parse(x)} || Date.today
     contract_line.end_date = end_date.try{|x| Date.parse(x)} || Date.tomorrow

@@ -1,14 +1,13 @@
-# language: de
 
-Funktionalität: Umleitung zur Anmeldung
+Feature: Redirect to login when not logged in
 
-  Um Aktionen als authentifizierter Benutzer durchführen zu können
-  möchte ich als Benutzer
-  vom System darauf hingewiesen werden sobald ich abgemeldet bin
+  As any user
+  In order to perform actions inside the system with the proper privileges given to me
+  I want to authenticate to the system so I can prove who I am
 
   @javascript @personas
-  Szenario: Ausführung einer Aktion für authentifizierte Benutzer ohne angemeldet zu sein
-    Angenommen ich bin Pius
-    Und versuche eine Aktion im Backend auszuführen obwohl ich abgemeldet bin
-    Dann werden ich auf die Startseite weitergeleitet
-    Und sehe einen Hinweis, dass ich nicht angemeldet bin
+  Scenario: Trying to perform an action without being logged in
+    Given I am Pius
+    And I try to perform an action in the manage area without being logged in
+    Then I am redirected to the start page
+    And I am notified that I am not logged in

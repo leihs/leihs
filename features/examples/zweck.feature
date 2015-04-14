@@ -1,55 +1,56 @@
-# language: de
 
-Funktionalität: Zweck
+Feature: Purpose
 
-  Um den Zweck einer Bestellung oder Übergabe zu sehen
-  möchte ich als Verleiher
-  den vom Benutzer angegebenen Zweck sehen
-  
-  Grundlage:
-    Angenommen ich bin Pius
+  Background:
+    Given I am Pius
 
   @personas
-  Szenario: Unabhängigkeit
-    Wenn ein Zweck gespeichert wird ist er unabhängig von einer Bestellung
-     Und jeder Eintrag einer abgeschickten Bestellung referenziert auf einen Zweck
-     Und jeder Eintrag eines Vertrages kann auf einen Zweck referenzieren
+  Scenario: Independence
+    When a purpose is saved, it is independent of its orders
+     And each entry of a submitted order refers to a purpose
+     And each entry of an order can refer to a purpose
 
   @javascript @personas @browser
-  Szenario: Orte, an denen ich den Zweck sehe
-    Wenn ich eine Bestellung editiere
-    Dann sehe ich den Zweck
-    Wenn ich eine Aushändigung mache
-    Dann sehe ich auf jeder Zeile den zugewisenen Zweck
+  Scenario: Places where I see the purpose
+    When I edit an order
+    Then I see the purpose
+    When I open a hand over
+    Then I see the assigned purpose on each line
 
-  @javascript @personas @browser
-  Szenario: Orte, an denen ich den Zweck editieren kann
-    Wenn ich eine Bestellung editiere
-    Dann kann ich den Zweck editieren
-
-  @javascript @browser @personas
-  Szenario: Aushändigung mit Gegenständen teilweise ohne Zweck übertragen einen angegebenen Zweck nur auf die Gegenstände ohne Zweck
-    Wenn ich eine Aushändigung mache
-     Und einige der ausgewählten Gegenstände hat keinen Zweck angegeben
-     Und ich einen Zweck angebe
-    Dann wird nur den Gegenständen ohne Zweck der angegebene Zweck zugewiesen
+  @javascript @personas
+  Scenario: Places where I can edit the purpose
+    When I edit an order
+    Then I can edit the purpose
 
   @javascript @browser @personas
-  Szenario: Aushändigung mit Gegenständen die alle einen Zweck haben
-    Wenn ich eine Aushändigung mache
-    Und alle der ausgewählten Gegenstände haben einen Zweck angegeben
-    Dann kann ich keinen weiteren Zweck angeben
+  Scenario: Handing over items will copy the existing purposes to any blank purposes
+    When I open a hand over
+     And I click an inventory code input field of an item line
+     And I select one of those
+     And I add an item to the hand over by providing an inventory code
+     And I add an option to the hand over by providing an inventory code and a date range
+    And I define a purpose
+    Then only items without purpose are assigned that purpose
 
   @javascript @browser @personas
-  Szenario: Aushändigung ohne Zweck
-    Wenn ich eine Aushändigung mache
-    Und keine der ausgewählten Gegenstände hat einen Zweck angegeben
-    Dann werde ich beim Aushändigen darauf hingewiesen einen Zweck anzugeben
-    Und erst wenn ich einen Zweck angebebe
-    Dann kann ich die Aushändigung durchführen
+  Scenario: Handing over items that all have a purpose
+    When I open a hand over
+    And all selected items have an assigned purpose
+    Then I cannot assign any more purposes
 
   @javascript @browser @personas
-  Szenario: Aushändigung mit Gegenständen teilweise ohne Zweck können durchgeführt werden
-    Wenn ich eine Aushändigung mache
-    Und einige der ausgewählten Gegenstände hat keinen Zweck angegeben
-    Dann muss ich keinen Zweck angeben um die Aushändigung durchzuführen
+  Scenario: Handing over without purpose
+    When I open a hand over
+    And none of the selected items have an assigned purpose
+    Then I am told during hand over to assign a purpose
+    And only when I assign a purpose
+    Then I can finish the hand over
+
+  @javascript @browser @personas
+  Scenario: Hand overs with a few items that don't have a purpose are possible
+    When I open a hand over
+    And I click an inventory code input field of an item line
+    And I select one of those
+    And I add an item to the hand over by providing an inventory code
+    And I add an option to the hand over by providing an inventory code and a date range
+    Then I don't have to assign a purpose in order to finish the hand over

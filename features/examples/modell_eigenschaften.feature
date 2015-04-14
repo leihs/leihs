@@ -1,30 +1,29 @@
-# language: de
 
-Funktionalität: Modell Eigenschaften
+Feature: Model properties
 
-  Grundlage:
-    Angenommen ich bin Mike
+  Background:
+    Given I am Mike
 
-  @javascript @personas
-  Szenario: Eigenschaften erstellen
-  Angenommen ich erstelle ein Modell und gebe die Pflichtfelder an
-  Wenn ich Eigenschaften hinzufügen und die Felder mit den Platzhaltern Schlüssel und Wert angebe
-  Und ich die Eigenschaften sortiere
-  Und ich das Modell speichere
-  Dann sind die Eigenschaften gemäss Sortierreihenfolge für dieses Modell gespeichert
+  @javascript @personas @browser
+  Scenario: Creating properties
+  Given I create a model and fill in all required fields
+  When I add some properties and fill in their keys and values
+  And I sort the properties
+  And I save the model
+  Then this model's properties are saved in the order they were given
 
   @javascript @browser @personas
-  Szenario: Eigenschaften editieren
-  Angenommen ich editiere ein Modell
-  Wenn ich Eigenschaften hinzufügen und die Felder mit den Platzhaltern Schlüssel und Wert angebe
-  Und ich bestehende Eigenschaften ändere
-  Und ich die Eigenschaften sortiere
-  Und ich das Modell speichere
-  Dann sind die Eigenschaften gemäss Sortierreihenfolge für das geänderte Modell gespeichert
+  Scenario: Editing properties
+  Given I am editing a model
+  When I add some properties and fill in their keys and values
+  And I change existing properties
+  And I sort the properties
+  And I save the model
+  Then this model's properties are saved in the order they were given
 
   @javascript @personas
-  Szenario: Eigenschaften löschen
-  Angenommen ich editiere ein Modell welches bereits Eigenschaften hat
-  Wenn ich eine oder mehrere bestehende Eigenschaften lösche
-  Und ich das Modell speichere
-  Dann sind die Eigenschaften gemäss Sortierreihenfolge für das geänderte Modell gespeichert
+  Scenario: Deleting properties
+  Given I edit a model that already has properties
+  When I delete one or more existing properties
+  And I save the model
+  Then the properties for the changed model are saved in the order they were given

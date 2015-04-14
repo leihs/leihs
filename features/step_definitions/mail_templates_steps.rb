@@ -34,10 +34,10 @@ end
 Given(/^I have a contract with deadline (yesterday|tomorrow)( for the inventory pool "(.*?)")?$/) do |day, arg1, inventory_pool_name|
   @visit = if arg1
              inventory_pool = InventoryPool.find_by(name: inventory_pool_name)
-             @current_user.visits.take_back.where(inventory_pool_id: inventory_pool).sample
+             @current_user.visits.where(inventory_pool_id: inventory_pool)
            else
-             @current_user.visits.take_back.sample
-           end
+             @current_user.visits
+           end.take_back.order("RAND()").first
   expect(@visit).not_to be_nil
 
   sign = case day
@@ -166,7 +166,7 @@ Then(/^I receive an email formatted according to the (custom|system\-wide|defaul
                  File.read(File.join(Rails.root, "app/views/mailer/user/", "#{template_name}.text.liquid"))
              end
 
-  variables = MailTemplate.liquid_variables_for_user(@current_user, @visit.inventory_pool, @visit.visit_lines)
+  variables = MailTemplate.liquid_variables_for_user(@current_user, @visit.inventory_pool, @visit.contract_lines)
   expect(sent_mail.body.to_s).to eq Liquid::Template.parse(template).render(variables)
 end
 
@@ -180,7 +180,13 @@ Given(/^the custom (reminder) mail template looks like$/) do |template_name, str
   mt.update_attributes(body: string)
 end
 
+def reset_language_for_current_user
+  I18n.locale = @current_user.language.locale_name.to_sym
+  expect(I18n.locale).to eq @current_user.language.locale_name.to_sym
+end
+
 def get_reminder_for_visit(visit)
+  reset_language_for_current_user
   sent_mails = ActionMailer::Base.deliveries.select { |m| m.to.include?(@current_user.email) and m.from.include?(visit.inventory_pool.email) }
   sent_mails = sent_mails.select { |m| m.subject == _('[leihs] Reminder') }
   expect(sent_mails.size).to eq 1
@@ -223,7 +229,7 @@ Then(/^I receive an approved mail based on the system\-wide template for the lan
 end
 
 Then(/^I receive a (custom|system\-wide|default) (.*) in "(.*?)"$/) do |scope, template_name, locale_names|
-  variables = MailTemplate.liquid_variables_for_user(@current_user, @visit.inventory_pool, @visit.visit_lines)
+  variables = MailTemplate.liquid_variables_for_user(@current_user, @visit.inventory_pool, @visit.contract_lines)
   string = if scope == "default"
              template = File.read(File.join(Rails.root, "app/views/mailer/user/", "#{template_name}.text.liquid"))
              Liquid::Template.parse(template).render(variables)

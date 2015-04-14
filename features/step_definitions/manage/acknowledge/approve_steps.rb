@@ -1,6 +1,10 @@
 # -*- encoding : utf-8 -*-
 
 Given(/^I navigate to the (open orders|hand over visits|take back visits)$/) do |arg1|
+  if current_path != manage_daily_view_path(@current_inventory_pool)
+    step "I open the daily view"
+  end
+
   s = case arg1
         when "open orders"
           _("Open Orders")
@@ -15,7 +19,7 @@ Given(/^I navigate to the (open orders|hand over visits|take back visits)$/) do 
 end
 
 When(/^I quick approve a submitted order$/) do
-  @contract ||= @current_inventory_pool.contracts.submitted.shuffle.detect{|o| o.approvable? }
+  @contract ||= @current_inventory_pool.contracts.submitted.order("RAND ()").detect{|o| o.approvable? }
   within(".line[data-id='#{@contract.id}']") do
     find("[data-order-approve]", :text => _("Approve")).click
   end
@@ -26,7 +30,7 @@ Then(/^I see a link to the hand over process of that order$/) do
 end
 
 Given /^I try to approve a contract that has problems$/ do
-  @contract =  @current_inventory_pool.contracts.submitted.shuffle.detect{|o| not o.approvable?}
+  @contract =  @current_inventory_pool.contracts.submitted.order("RAND ()").detect{|o| not o.approvable?}
   step "I quick approve a submitted order"
   find(".modal")
 end
@@ -45,5 +49,11 @@ end
 
 Then /^this contract is approved$/ do
   find(".line[data-id='#{@contract.id}']", text: _("Approved"))
-  expect(@contract.reload.status).to eq :approved
+
+  approved_contract = @current_inventory_pool.contracts.approved.find_by(user_id: @contract.user)
+  @contract.lines.each do |line|
+    expect(approved_contract.contract_lines.include? line).to be true
+    expect(line.reload.status).to eq :approved
+  end
+  step "that contract has been deleted"
 end

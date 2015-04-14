@@ -448,9 +448,6 @@ msgstr "Valor"
 msgid "Value List for Lending Contract No. %s"
 msgstr ""
 
-msgid "Value list"
-msgstr "Lista de precios"
-
 msgid "Warning"
 msgstr ""
 

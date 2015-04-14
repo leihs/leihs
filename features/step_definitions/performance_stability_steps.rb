@@ -1,41 +1,56 @@
-@wip
-# TODO: What we do here is basically whitebox testing. This kind of test
-# does goes counter to the very idea of of BDD/cucumber at all. However
-# I'll check in spite of that in order to have some performance
-# test *at all*.
-#
-Given /^the MacBook availability as of (\d+\-\d+\-\d+)$/ do |date|
-  fixture = YAML::load( 
-              File.open(
-                File.join( Rails.root,
-                           'features/fixtures/availability_calculation_performance.yml')))
+Given(/^the model "(.*?)" exists$/) do |arg1|
+  @model = Model.find_by_name arg1
+end
 
-  fixture.each do |fixture_instance|
-    klass = fixture_instance.class
-    mass_attrs = [:id, :unique_id, :extended_info, :created_at, :updated_at, :type]
-    attrs = fixture_instance.attributes.select {|k,v| not mass_attrs.include? k.to_sym }
-    o = klass.new(attrs) do |r|
-      mass_attrs.each do |a|
-        r.send("#{a}=", fixture_instance.send(a)) if fixture_instance.instance_eval { respond_to? a and respond_to? "#{a}=".to_sym }
-      end
-    end
-    o.save(validate: false) # we skip validations because we are sequencially creating objects that are validating each other
+Given(/^it has at least (\d+) items in the current inventory pool$/) do |arg1|
+  arg1.to_i.times do
+    FactoryGirl.create(:item, {model: @model, owner: @current_inventory_pool})
   end
+  expect(@model.items.where(inventory_pool_id: @current_inventory_pool).count).to be >= arg1.to_i
+end
 
-  # first item inside the fixtures is the model
-  @model = Model.find fixture.first.id
+Given(/^it has at least (\d+) group partitions in the current inventory pool$/) do |arg1|
+  (@current_inventory_pool.groups - @model.partitions.map(&:group)).take(arg1.to_i).each do |group|
+    @model.partitions << Partition.create(model: @model,
+                                          inventory_pool: @current_inventory_pool,
+                                          group: group,
+                                          quantity: rand(10..20))
+  end
+  expect(@model.partitions.where(inventory_pool_id: @current_inventory_pool).count).to be >= arg1.to_i
+end
+
+Given(/^it has at least (\d+) (unsubmitted|submitted|approved|signed) lines in the current inventory pool$/) do |arg1, status|
+  attrs = { status: status.to_sym,
+            inventory_pool: @current_inventory_pool,
+            model: @model }
+  arg1.to_i.times do
+    if status.to_sym == :signed
+      attrs[:status] = :approved
+      attrs[:item] = @model.items.where(inventory_pool_id: @current_inventory_pool).detect{|item| item.contract_lines.empty? }
+    end
+
+    attrs[:start_date] = Date.today + rand(0..10).days
+    attrs[:end_date] = Date.today + rand(10..20).days
+    cl = FactoryGirl.create :contract_line, attrs
+
+    if status.to_sym == :signed
+      contract_container = cl.user.contracts.approved.find_by(inventory_pool_id: cl.inventory_pool)
+      contract = contract_container.sign(@current_user, [cl])
+      expect(contract.valid?).to be true
+    end
+  end
+  expect(@model.contract_lines.send(status.to_sym).count).to be >= arg1.to_i
 end
 
 When /^its availability is recalculate$/ do
   require 'benchmark'
   @time = Benchmark.measure {
-    @model.inventory_pools.each do |ip|
-      @model.availability_in(ip)
-    end
+    @model.availability_in(@current_inventory_pool)
   }
 end
 
-Then /^it should take at maximum (\d+) seconds$/ do |seconds|
+Then /^it should take at maximum (\d+\.\d+) seconds$/ do |seconds|
+  puts @time.real
   expect(@time.real).to be < seconds.to_f
 end
 

@@ -1,189 +1,187 @@
-# language: de
 
-Funktionalität: Modellliste
-
-  Um Modelle zu bestellen
-  möchte ich als Kunde
-  die Möglichkeit haben Modelle zu finden
+Feature: Model list
 
   @personas
-  Szenario: Modelllistenübersicht
-    Angenommen ich bin Normin
-    Wenn man sich auf der Modellliste befindet
-    Dann sieht man die Explorative Suche
-    Und man sieht die Modelle der ausgewählten Kategorie
-    Und man sieht Sortiermöglichkeiten
-    Und man sieht die Gerätepark-Auswahl
-    Und man sieht die Einschränkungsmöglichkeit eines Ausleihzeitraums
+  Scenario: Model list overview
+    Given I am Normin
+    When I am listing models
+    Then I see the explorative search
+    And I see the models of the selected category
+    And I see the sort options
+    And I see the inventory pool selector
+    And I see filters for start and end date
 
   @personas
-  Szenario: Ein einzelner Modelllisteneintrag
-    Angenommen ich bin Normin
-    Wenn man sich auf der Modellliste befindet
-    Und einen einzelner Modelleintrag beinhaltet
-    | Bild                 |
-    | Modellname           |
-    | Herstellname         |
-    | Auswahl-Schaltfläche |
+  Scenario: A single model list entry
+    Given I am Normin
+    When I am listing models
+    And a single model list entry contains:
+    | Image            |
+    | Model name       |
+    | Manufacturer     |
+    | Selection button |
 
   @javascript @browser @personas
-  Szenario: Modellliste scrollen
-    Angenommen ich bin Normin
-    Und man sieht eine Modellliste die gescroll werden muss
-    Wenn bis ans ende der bereits geladenen Modelle fährt
-    Dann wird der nächste Block an Modellen geladen und angezeigt
-    Wenn man bis zum Ende der Liste fährt
-    Dann wurden alle Modelle der ausgewählten Kategorie geladen und angezeigt
+  Scenario: Scrolling the model list
+    Given I am Normin
+    And I see a model list that can be scrolled
+    When I scroll to the end of the currently loaded list
+    Then the next block of models is loaded and shown
+    When I scroll to the end of the list
+    Then all models of the chosen category have been loaded and shown
 
   @javascript @personas
-  Szenario: Modellliste sortieren
-    Angenommen ich bin Normin
-    Und man sich auf der Modellliste befindet
-    Wenn man die Liste nach "Modellname (alphabetisch aufsteigend)" sortiert
-    Dann ist die Liste nach "Modellname" "(alphabetisch aufsteigend)" sortiert
-    Wenn man die Liste nach "Modellname (alphabetisch absteigend)" sortiert
-    Dann ist die Liste nach "Modellname" "(alphabetisch absteigend)" sortiert
-    Wenn man die Liste nach "Herstellername (alphabetisch aufsteigend)" sortiert
-    Dann ist die Liste nach "Herstellername" "(alphabetisch aufsteigend)" sortiert
-    Wenn man die Liste nach "Herstellername (alphabetisch absteigend)" sortiert
-    Dann ist die Liste nach "Herstellername" "(alphabetisch absteigend)" sortiert
+  Scenario: Sorting the model list
+    Given I am Normin
+    And I am listing models
+    When I sort the list by "Model, ascending"
+    Then the list is sorted by "Model", "ascending"
+    When I sort the list by "Model, descending"
+    Then the list is sorted by "Model", "descending"
+    When I sort the list by "Manufacturer, ascending"
+    Then the list is sorted by "Manufacturer", "ascending"
+    When I sort the list by "Manufacturer, descending"
+    Then the list is sorted by "Manufacturer", "descending"
 
   @personas
-  Szenario: Ausleihezeitraum Standarteinstellung
-    Angenommen ich bin Normin
-    Wenn man sich auf der Modellliste befindet
-    Dann ist kein Ausleihzeitraum ausgewählt
+  Scenario: Standard settings for lending period
+    Given I am Normin
+    And I am listing models
+    Then no lending period is set
 
   @javascript @personas
-  Szenario: Geräteparkauswahl kann nicht leer sein
-    Angenommen ich bin Normin
-    Wenn man sich auf der Modellliste befindet
-    Dann kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen
+  Scenario: Inventory pool selection cannot be empty
+    Given I am Normin
+    When I am listing models
+    Then I cannot deselect all the inventory pools in the inventory pool selector
 
   @personas
-  Szenario: Geräteparkauswahl sortierung
-    Angenommen ich bin Normin
-    Wenn man sich auf der Modellliste befindet
-    Dann ist die Geräteparkauswahl alphabetisch sortiert
+  Scenario: Sorting the inventory pool selection
+    Given I am Normin
+    When I am listing models
+    Then the inventory pool selection is ordered alphabetically
 
   @javascript @browser @personas
-  Szenario: Geräteparkauswahl "alle auswählen"
-    Angenommen ich bin Normin
-    Wenn man sich auf der Modellliste befindet
-    Und man wählt alle Geräteparks bis auf einen ab
-    Und man wählt "Alle Geräteparks"
-    Dann sind alle Geräteparks wieder ausgewählt
-    Und die Auswahl klappt noch nicht zu
-    Und die Liste zeigt Modelle aller Geräteparks
+  Scenario: Inventory pool selection "select all"
+    Given I am Normin
+    When I am listing models
+    And I select a specific inventory pool from the choices offered
+    And I select all inventory pools using the "All inventory pools" function
+    Then all inventory pools are selected
+    And the inventory pool selector is still expanded
+    And the model list contains models from all inventory pools
 
   @javascript @personas
-  Szenario: Geräteparkauswahl kann nicht leer sein
-    Angenommen ich bin Normin
-    Wenn man sich auf der Modellliste befindet
-    Dann kann man nicht alle Geräteparks in der Geräteparkauswahl abwählen
+  Scenario: Inventory pool selection can never be empty
+    Given I am Normin
+    When I am listing models
+    Then I cannot deselect all the inventory pools in the inventory pool selector
+
+  @javascript @personas
+  Scenario: Specifying the start date of an order
+    Given I am Petra
+    When I am listing models and some of them are unavailable
+    And I choose a start date
+    Then the end date is automatically set to the next day
+    And the list is filtered by models that are available in that time frame
+
+  @javascript @personas
+  Scenario: Specifying the end date of an order
+    Given I am Petra
+    When I am listing models and some of them are unavailable
+    And I choose an end date
+    Then the start date is automatically set to the previous day
+    And the list is filtered by models that are available in that time frame
+
+  @javascript @personas
+  Scenario: Removing the lending time frame
+    Given I am Petra
+    When I am listing models and some of them are unavailable
+    And I choose a start date
+    And I choose an end date
+    When I blank the start and end date
+    Then the list is not filtered by lending time frame
+
+  @javascript @personas
+  Scenario: Date picker for lending time frame
+    Given I am Normin
+    And I am listing models
+    Then I can also use a date picker to specify start and end date instead of entering them by hand
+
+  @javascript @personas
+  Scenario: Searching for a model
+    Given I am Normin
+    And I am listing models
+    When I enter a search term
+    And I press the Enter key
+    Then those models are shown whose names or manufacturers match the search term
+
+  @javascript @browser @personas
+  Scenario: Hovering over models
+    Given I am Normin
+    And there is a model with images, description and properties
+    And the model list contains that model
+    When I hover over that model
+    Then I see the model's name, images, description, list of properties
+    When I open the calendar for this model
+    And I hover over that model
+    Then I see the model's name, images, description, list of properties
+
+  @personas
+  Scenario: Default values for inventory pool selection
+    Given I am Normin
+    When I am listing models
+    Then all inventory pools are selected
+    And the model list shows models from all inventory pools
+    And the filter is labeled "All inventory pools"
+
+  @javascript @personas
+  Scenario: Selecting just one inventory pool
+    Given I am Normin
+    And I am listing models
+    When I select a specific inventory pool from the choices offered
+    Then all other inventory pools are deselected
+    And the model list shows only models of this inventory pool
+    And the inventory pool selector is still expanded
+    And the filter shows the name of the selected inventory pool
+
+  @javascript @personas
+  Scenario: Deselecting a single inventory pool
+    Given I am Normin
+    And I am listing models
+    When I deselect some inventory pools
+    Then the model list is filtered by the left over inventory pools
+    And the inventory pool selector is still expanded
+    And the filter shows the count of selected inventory pools
+
+  @javascript @personas
+  Scenario: Deselecting all but one inventory pool
+    Given I am Normin
+    And I am listing models
+    When I deselect all but one inventory pool
+    Then the model list is filtered by the left over inventory pool
+    And the inventory pool selector is still expanded
+    And the filter shows the name of the inventory pool that is left
 
   @javascript @personas @browser
-  Szenario: Ausleihezeitraum Startdatum wählen
-    Angenommen ich bin Petra
-    Wenn man sich auf der Modellliste befindet die nicht verfügbare Modelle beinhaltet
-    Und man ein Startdatum auswählt
-    Dann wird automatisch das Enddatum auf den folgenden Tag gesetzt
-    Und die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar sind
+  Scenario: Resetting everything
+    Given I am Normin
+    And I am listing models
+    And filters are being applied
+    And the button "Reset all filters" is visible
+    When I reset all filters
+    Then all inventory pools are selected again in the inventory pool filter
+    And start and end date are both blank
+    And the list is sorted by "Model", "ascending"
+    And the search query field is blank
+    And the model list is unfiltered
+    And the button "Reset all filters" is not visible
 
   @javascript @personas
-  Szenario: Ausleihezeitraum Enddatum wählen
-    Angenommen ich bin Petra
-    Wenn man sich auf der Modellliste befindet die nicht verfügbare Modelle beinhaltet
-    Und man ein Enddatum auswählt
-    Dann wird automatisch das Startdatum auf den vorhergehenden Tag gesetzt
-    Und die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar sind
-
-  @javascript @personas
-  Szenario: Ausleihzeitraum löschen
-    Angenommen ich bin Petra
-    Wenn man sich auf der Modellliste befindet die nicht verfügbare Modelle beinhaltet
-    Und das Startdatum und Enddatum des Ausleihzeitraums sind ausgewählt
-    Wenn man das Startdatum und Enddatum leert
-    Dann wird die Liste nichtmehr nach Ausleihzeitraum gefiltert
-
-  @javascript @personas
-  Szenario: Ausleihzeitraum Datepicker
-    Angenommen ich bin Normin
-    Und man sich auf der Modellliste befindet
-    Dann kann man für das Startdatum und für das Enddatum den Datepick benutzen
-
-  @javascript @personas
-  Szenario: Modell suchen
-    Angenommen ich bin Normin
-    Und man befindet sich auf der Modellliste 
-    Wenn man ein Suchwort eingibt
-    Dann werden diejenigen Modelle angezeigt, deren Name oder Hersteller dem Suchwort entsprechen
-
-  @javascript @browser @personas
-  Szenario: Hovern über Modellen
-    Angenommen ich bin Normin
-    Und es gibt ein Modell mit Bilder, Beschreibung und Eigenschaften
-    Und man befindet sich auf der Modellliste mit diesem Modell
-    Wenn man über das Modell hovered
-    Dann werden zusätzliche Informationen angezeigt zu Modellname, Bilder, Beschreibung, Liste der Eigenschaften
-    Und wenn ich den Kalendar für dieses Modell benutze
-    Dann können die zusätzliche Informationen immer noch abgerufen werden
-
-  @personas
-  Szenario: Geräteparkauswahl Standartwert
-    Angenommen ich bin Normin
-    Wenn man sich auf der Modellliste befindet
-    Dann sind alle Geräteparks ausgewählt
-    Und die Modellliste zeigt Modelle aller Geräteparks an
-    Und im Filter steht "Alle Geräteparks"
-
-  @javascript @personas
-  Szenario: Geräteparkauswahl Einzelauswählen
-    Angenommen ich bin Normin
-    Und man befindet sich auf der Modellliste
-    Wenn man ein bestimmten Gerätepark in der Geräteparkauswahl auswählt
-    Dann sind alle anderen Geräteparks abgewählt
-    Und die Modellliste zeigt nur Modelle dieses Geräteparks an
-    Und die Auswahl klappt noch nicht zu
-    Und im Filter steht der Name des ausgewählten Geräteparks
-
-  @javascript @personas
-  Szenario: Geräteparkauswahl Einzelabwahl
-    Angenommen ich bin Normin
-    Und man befindet sich auf der Modellliste
-    Wenn man einige Geräteparks abwählt
-    Dann wird die Modellliste nach den übrig gebliebenen Geräteparks gefiltert
-    Und die Auswahl klappt nocht nicht zu
-    Und im Filter steht die Zahl der ausgewählten Geräteparks
-
-  @javascript @personas
-  Szenario: Geräteparkauswahl Einzelabwahl bis auf einen Gerätepark
-    Angenommen ich bin Normin
-    Und man befindet sich auf der Modellliste
-    Wenn man alle Geräteparks bis auf einen abwählt
-    Dann wird die Modellliste nach dem übrig gebliebenen Gerätepark gefiltert
-    Und die Auswahl klappt nocht nicht zu
-    Und im Filter steht der Name des übriggebliebenen Geräteparks
-
-  @javascript @personas
-  Szenario: Alles zurücksetzen
-    Angenommen ich bin Normin
-    Und man befindet sich auf der Modellliste
-    Und Filter sind ausgewählt
-    Und die Schaltfläche "Alles zurücksetzen" ist aktivert
-    Wenn man "Alles zurücksetzen" wählt
-    Dann sind alle Geräteparks in der Geräteparkauswahl wieder ausgewählt
-    Und der Ausleihezeitraum ist leer
-    Und die Sortierung ist nach Modellnamen (aufsteigend)
-    Und das Suchfeld ist leer
-    Und man sieht wieder die ungefilterte Liste der Modelle
-    Und die Schaltfläche "Alles zurücksetzen" ist deaktiviert
-
-  @javascript @personas
-  Szenario: Alles zurücksetzen verschwindet automatisch, wenn die Filter wieder auf die Starteinstellungen gesetzt werden
-    Angenommen ich bin Normin
-    Und man befindet sich auf der Modellliste
-    Und Filter sind ausgewählt
-    Und die Schaltfläche "Alles zurücksetzen" ist aktivert
-    Wenn ich alle Filter manuell zurücksetze
-    Dann verschwindet auch die "Alles zurücksetzen" Schaltfläche
+  Scenario: Reset all button disappears automatically when filters were set to their default positions by hand 
+    Given I am Normin
+    And I am listing models
+    And filters are being applied
+    And the button "Reset all filters" is visible
+    When I set all filters to their default values by hand
+    Then the button "Reset all filters" is not visible

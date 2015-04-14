@@ -2,34 +2,43 @@ Given "$number reservations exist for model '$model'" do |number, model|
   # used by "0 reservations exist for model 'NEC 245'"
 end
 
-Given "a reservation exists for $quantity '$model' from $from to $to" \
-do |quantity, model, from, to|
+Given "a reservation exists for $quantity '$model' from $from to $to" do |quantity, model, from, to|
   model = Model.find_by_name(model)
-  contract = FactoryGirl.create :contract, :inventory_pool => model.inventory_pools.first # OPTIMIZE
-  contract.add_lines(quantity.to_i, model, nil, to_date(from), to_date(to))
+  inventory_pool = model.inventory_pools.select{|ip| ip.is_open_on?(to_date(from)) and ip.is_open_on?(to_date(to))}.sample
+  user = inventory_pool.users.sample
+  @contract_lines = []
+  quantity.to_i.times do
+    @contract_lines << user.item_lines.create(inventory_pool: inventory_pool,
+                                              status: :unsubmitted,
+                                              quantity: 1,
+                                              model: model,
+                                              start_date: to_date(from),
+                                              end_date: to_date(to))
+  end
+  expect(@contract_lines.size).to be >= quantity.to_i
+  contract = user.contracts.unsubmitted.find_by(inventory_pool_id: inventory_pool)
   expect(contract.submit("this is the required purpose")).to be true
-  expect(contract.lines.size).to be >= 1
-  expect(model.availability_in(contract.inventory_pool.reload).document_lines.size).to be >= 1
+  expect(model.availability_in(inventory_pool.reload).document_lines.size).to be >= 1
 end
 
-Given "a contract exists for $quantity '$model' from $from to $to" \
-do |quantity, model, from, to|
-  from = to_date(from)
-  to   = to_date(to)
-
+Given "a contract exists for $quantity '$model' from $from to $to" do |quantity, model, from, to|
   model = Model.find_by_name(model)
-  inventory_pool = model.items.sample.inventory_pool
-  user = LeihsFactory.create_user
-  FactoryGirl.create :access_right, user: user, inventory_pool: inventory_pool
-  @contract = user.get_approved_contract(inventory_pool)
-  @contract.add_lines(quantity.to_i, model, nil, from, to)
-  @contract.save
-  line = @contract.item_lines.first
-  line.update_attributes(item: model.items.first, purpose: FactoryGirl.create(:purpose))
-  @contract.reload
-  expect(@contract.lines.size).to be >= 1
-  expect(@contract.lines.first.item).not_to be_nil
-  expect(model.availability_in(@contract.inventory_pool).document_lines.size).to be >= 1
+  inventory_pool = model.inventory_pools.order("RAND()").detect {|ip| ip.is_open_on?(to_date(from)) and ip.is_open_on?(to_date(to))}
+  user = inventory_pool.users.order("RAND()").first
+  purpose = FactoryGirl.create(:purpose)
+  @contract_lines = []
+  quantity.to_i.times do
+    @contract_lines << user.item_lines.create(inventory_pool: inventory_pool,
+                                              status: :approved,
+                                              quantity: 1,
+                                              model: model,
+                                              item: model.items.in_stock.where(inventory_pool_id: inventory_pool).order("RAND()").first,
+                                              start_date: to_date(from),
+                                              end_date: to_date(to),
+                                              purpose: purpose)
+  end
+  expect(@contract_lines.size).to be >= quantity.to_i
+  expect(model.availability_in(inventory_pool.reload).document_lines.size).to be >= 1
 end
 
 
@@ -38,8 +47,7 @@ Given "the maintenance period for this model is $days days" do |days|
   @model.save
 end
 
-Given "$who marks $quantity '$model' as 'in-repair' on 18.3.2030" \
-do |who, quantity, model|
+Given "$who marks $quantity '$model' as 'in-repair' on 18.3.2030" do |who, quantity, model|
   @model = Model.find_by_name(model)
   quantity.to_i.times do |i|
     @model.items[i].is_broken = true
@@ -49,8 +57,14 @@ do |who, quantity, model|
 end
 
 Given "the $who signs the contract" do |who|
-  @contract.sign(User.find_by_login(who))
-  expect(@contract.status).to eq :signed
+  contract_container = @contract_lines.first.user.contracts.approved.find_by(inventory_pool_id: @contract_lines.first.inventory_pool)
+  contract = contract_container.sign(User.find_by_login(who), @contract_lines)
+  expect(contract.valid?).to be true
+  expect(contract.persisted?).to be true
+  expect(contract.lines == @contract_lines).to be true
+  @contract_lines.each do |line|
+    expect(line.status).to eq :signed
+  end
 end
 
 # TODO merge with next step
@@ -60,9 +74,8 @@ When "$who checks availability for '$what'" do |who, model|
 end
 
 # TODO merge with previous step
-When "$who checks availability for '$what' on $date" \
-do |who, model, date|
-  date = to_date(date)
+When "$who checks availability for '$what' on $date" do |who, model, date|
+  #date = to_date(date)
   @current_user = User.find_by_login(who)
 end
 
@@ -105,15 +118,13 @@ When "I check the availability changes for '$model'" do |model|
   visit groups_backend_inventory_pool_model_path(@inventory_pool,@model)
 end
 
-Then "$number reservation should show an influence on today's borrowability" \
-do |number|
-  today = Date.today.strftime("%d.%m.%Y")
+Then "$number reservation should show an influence on today's borrowability" do |number|
+  today = I18n.l Date.today
   Then "#{to_number(number)} reservations should show an influence on the borrowability on #{today}"
 end
 
 # the following is extremely markup structure dependent
-Then /^([^ ]*) reservation(.*)? should show an influence on the borrowability on (.*)/ do
-|number,plural,date|
+Then /^([^ ]*) reservation(.*)? should show an influence on the borrowability on (.*)/ do |number,plural,date|
   number = to_number(number)
 
   # find header line, that contains the date

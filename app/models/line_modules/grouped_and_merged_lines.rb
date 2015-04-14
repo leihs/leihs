@@ -38,7 +38,7 @@ module LineModules
                   start_date: array.first.start_date,
                   end_date: array.first.end_date
               }
-              h[:available?] = array.all? {|l| l.available? } if array.all? {|l| l.contract.status == :unsubmitted } and array.any? {|l| l.contract.user.timeout? }
+              h[:available?] = array.all? {|l| l.available? } if array.all? {|l| l.status == :unsubmitted } and array.any? {|l| l.user.timeout? }
               h
             }
           end

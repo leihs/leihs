@@ -27,7 +27,7 @@ Feature: Edit contract line during acknowledge process
     And I change the time range for multiple lines
     Then the time range for that lines is changed
 
-  @javascript @personas
+  @javascript @personas @browser
   Scenario: Do multiple things while editing lines
     When I open a contract for acknowledgement with more then one line
     And I select two lines

@@ -1,34 +1,29 @@
-# language: de
 
-Funktionalität: Startseite
-
-  Um einen Überblick über das ausleihbare Inventar zu erhalten
-  möchte ich als Ausleiher
-  einen Einstieg/Übersicht über das ausleihbare Inventar
+Feature: Start page
 
   @personas
-  Szenario: Startseite
-    Angenommen ich bin Normin
-    Und es existiert eine Hauptkategorie mit eigenem Bild
-    Und es existiert eine Hauptkategorie ohne eigenes Bild aber mit einem Modell mit Bild
-    Und man befindet sich auf der Seite der Hauptkategorien
-    Dann sieht man genau die für den User bestimmte Haupt-Kategorien mit Namen
-    Und man sieht für jede Kategorie ihr Bild, oder falls nicht vorhanden, das erste Bild eines Modells dieser Kategorie
-    Wenn man eine Hauptkategorie auswählt
-    Dann lande ich in der Modellliste für diese Hauptkategorie
+  Scenario: Start page
+    Given I am Normin
+    And there exists a main category with own image
+    And there exists a main category without own image but with a model with image
+    And I am listing the root categories
+    Then I see exactly those root categories that are useful for my user
+    And I see for each category its image, or if not set, the first image of a model from this category
+    When I choose a root category
+    Then I see the model list for this root category
 
   @javascript @personas
-  Szenario: Haupt-Kategorien aufklappen
-    Angenommen ich bin Normin
-    Und man befindet sich auf der Seite der Hauptkategorien
-    Wenn ich über eine Hauptkategorie mit Kindern fahre
-    Dann sehe ich nur die Kinder dieser Hauptkategorie, die dem User zur Verfügung stehende Gegenstände enthalten
-    Wenn ich eines dieser Kinder anwähle
-    Dann lande ich in der Modellliste für diese Kategorie
+  Scenario: Expanding root categories
+    Given I am Normin
+    And I am listing the root categories
+    When I hover over a main category with children
+    Then I see only this root category's children that are useful and available to me
+    When I choose one of these child categories
+    Then I see the model list for this category
 
   @personas
-  Szenario: Kinder-Kategorien Dropdown nicht sichtbar
-    Angenommen ich bin Normin
-    Und man befindet sich auf der Seite der Hauptkategorien
-    Und es gibt eine Hauptkategorie, derer Kinderkategorien keine dem User zur Verfügung stehende Gegenstände enthalten
-    Dann hat diese Hauptkategorie keine Kinderkategorie-Dropdown
+  Scenario: Child categories not visible in the dropdown
+    Given I am Normin
+    And I am listing the root categories
+    And there is a root category whose child categories cannot offer me any items
+    Then that root category has no child category dropdown

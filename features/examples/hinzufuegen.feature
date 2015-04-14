@@ -1,18 +1,16 @@
-# language: de
+Feature: Displaying availability 
 
-Funktionalität: Hinzufügen von Modellen
-
-  Grundlage:
-    Angenommen ich bin Pius
+  Background:
+    Given I am Pius
 
   @javascript @browser @personas
-  Szenario: Verfügbarkeitsanzeige beim Hinzufügen zu einer Bestellung
-    Angenommen ich editiere eine Bestellung
-      Und ich suche ein Modell um es hinzuzufügen
-    Dann sehe ich die Verfügbarkeit innerhalb der gefundenen Modelle im Format: "2(3)/7 Modelname Typ"
+  Scenario: Displaying availability when adding things to an order
+    Given I edit an order
+    And I search for a model to add
+    Then the availability of the model is displayed as: "2(3)/7 Model name type"
 
   @javascript @browser @personas
-  Szenario: Verfügbarkeitsanzeige beim Hinzufügen zu einer Aushändigung
-    Angenommen ich mache eine Aushändigung
-      Und ich suche ein Modell um es hinzuzufügen
-    Dann sehe ich die Verfügbarkeit innerhalb der gefundenen Modelle im Format: "2(3)/7 Modelname Typ"
+  Scenario: Displaying availability when adding things to a hand over
+    Given I am doing a hand over
+    And I search for a model to add
+    Then the availability of the model is displayed as: "2(3)/7 Model name type"

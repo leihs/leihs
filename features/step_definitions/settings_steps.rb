@@ -1,8 +1,8 @@
-Given(/^the settings are exising$/) do
+Given(/^the settings are existing$/) do
   FactoryGirl.create :setting unless Setting.first
 end
 
-When(/^the settings are not exising$/) do
+When(/^the settings are not existing$/) do
   Setting.delete_all
   expect(Setting.count.zero?).to be true
   Setting.send :remove_const, "SMTP_ADDRESS"

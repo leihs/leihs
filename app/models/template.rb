@@ -21,9 +21,9 @@ class Template < ModelGroup
   ####################################################################################
 
   # returns an array of contract_lines
-  def add_to_contract(contract, user_id, quantity = nil, start_date = nil, end_date = nil)
+  def add_to_contract(contract, user, quantity = nil, start_date = nil, end_date = nil, delegated_user_id = nil)
     model_links.flat_map do |ml|
-      ml.model.add_to_contract(contract, user_id, ml.quantity, start_date, end_date)
+      ml.model.add_to_contract(contract, user, ml.quantity, start_date, end_date, delegated_user_id)
     end
   end  
   

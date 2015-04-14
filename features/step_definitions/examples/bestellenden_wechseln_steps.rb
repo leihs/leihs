@@ -1,8 +1,9 @@
 # -*- encoding : utf-8 -*-
 
-Dann /^kann ich die bestellende Person wechseln$/ do
+# Dann /^kann ich die bestellende Person wechseln$/ do
+Then(/^I can change who placed this order$/) do
   old_user = @contract.user
-  new_user = @current_inventory_pool.users.detect {|u| u.id != old_user.id and u.visits.size > 0}
+  new_user = @current_inventory_pool.users.detect {|u| u.id != old_user.id and u.visits.where.not(status: :submitted).exists? }
   find("#swap-user").click
   within ".modal" do
     find("input#user-id", match: :first).set new_user.name
@@ -10,5 +11,10 @@ Dann /^kann ich die bestellende Person wechseln$/ do
     find(".button[type='submit']", match: :first).click
   end
   find(".content-wrapper", :text => new_user.name, match: :first)
-  expect(@contract.reload.user.id).to eq new_user.id
+
+  new_contract = new_user.contracts.find_by(status: :submitted, inventory_pool_id: @contract.inventory_pool)
+  @contract.lines.each do |line|
+    expect(new_contract.lines.include? line).to be true
+  end
+  expect{@contract.reload}.to raise_error ActiveRecord::RecordNotFound
 end

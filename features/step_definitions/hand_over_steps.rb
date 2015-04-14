@@ -1,16 +1,16 @@
-Given "the list of approved orders contains $total elements" do | total |
-  contracts = @inventory_pool.contracts.approved
-  user = LeihsFactory.create_user
-  total.to_i.times { contracts << FactoryGirl.create(:contract, :user => user, :status => :approved) }
-  expect(contracts.size).to eq total.to_i
-end
+# Given "the list of approved orders contains $total elements" do | total |
+#   contracts = @inventory_pool.contracts.approved
+#   user = LeihsFactory.create_user
+#   total.to_i.times { contracts << FactoryGirl.create(:contract, :user => user, :status => :approved) }
+#   expect(contracts.size).to eq total.to_i
+# end
 
 When "$who approves the order" do | who |
   post login_path(:login => @last_manager_login_name)
   post manage_approve_contract_path(@inventory_pool, @order, :comment => "test comment")
   @order = assigns(:order)
   expect(@order).not_to be_nil
-  @contract = @order.user.reload.approved_contract(@order.inventory_pool)
+  @contract = @order.user.reload.contracts.approved.find_by(inventory_pool_id: @order.inventory_pool)
   expect(@contract).not_to be_nil
 end
 

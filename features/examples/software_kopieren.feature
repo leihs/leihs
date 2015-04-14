@@ -1,45 +1,44 @@
-# language: de
 
-Funktionalität: Software kopieren
+Feature: Copying software
 
-  Grundlage:
-    Angenommen ich bin Mike
-
-  @personas @javascript @browser
-  Szenario: Software kopieren
-    Angenommen es existiert eine Software-Lizenz
-    Wenn ich eine bestehende Software-Lizenz kopiere
-    Dann wird die Editieransicht der neuen Software-Lizenz geöffnet
-    Und der Titel heisst "Neue Software-Lizenz erstellen"
-    Und der Speichern-Button heisst "Lizenz speichern"
-    Und ein neuer Inventarcode vergeben wird
-    Wenn ich speichere
-    Dann ist die neue Lizenz erstellt
-    Und wurden die folgenden Felder von der kopierten Lizenz übernommen
-      | Software                  |
-      | Bezug                     |
-      | Besitzer                  |
-      | Verantwortliche Abteilung |
-      | Rechnungsdatum            |
-      | Anschaffungswert          |
-      | Lieferant                 |
-      | Beschafft durch           |
-      | Notiz                     |
-      | Aktivierungstyp           |
-      | Lizenztyp                 |
-      | Gesamtanzahl              |
-      | Betriebssystem            |
-      | Installation              |
-      | Lizenzablaufdatum         |
-      | Maintenance-Vertrag       |
-      | Maintenance-Ablaufdatum   |
-      | Währung                   |
-      | Preis                     |
+  Background:
+    Given I am Mike
 
   @personas @javascript @browser
-  Szenario: Wo kann Software kopiert werden
-    Angenommen es existiert eine Software-Lizenz
-    Wenn man im Inventar Bereich ist
-    Dann kann ich die bestehende Software-Lizenz kopieren
-    Wenn ich mich in der Editieransicht einer Sofware-Lizenz befinde
-    Dann kann ich die bestehende Software-Lizenz speichern und kopieren
+  Scenario: Copying software
+    Given a software license exists
+    When I copy an existing software license
+    Then it opens the edit view of the new software license
+    And the title is labeled as "Create new software license"
+    And the save button is labeled as "Save License"
+    And a new inventory code is assigned
+    When I save
+    Then the new software license is created
+    And the following fields were copied from the original software license
+      | Software               |
+      | Reference              |
+      | Owner                  |
+      | Responsible department |
+      | Invoice Date           |
+      | Initial Price          |
+      | Supplier               |
+      | Procured by            |
+      | Note                   |
+      | Activation type        |
+      | License Type           |
+      | Total quantity         |
+      | Operating System       |
+      | Installation           |
+      | License expiration     |
+      | Maintenance contract   |
+      | Maintenance expiration |
+      | Currency               |
+      | Price                  |
+
+  @personas @javascript @browser
+  Scenario: Where can software be copied
+    Given a software license exists
+    When I open the inventory
+    Then I can copy an existing software license
+    When I am editing an software license
+    Then I can save and copy the existing software license

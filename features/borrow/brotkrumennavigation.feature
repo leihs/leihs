@@ -1,60 +1,55 @@
-# language: de
 
-Funktionalität: Brotkrumennavigation
+Feature: Breadcrumb navigation
 
-  Um mich schnell durch die Applikation bewegen zu können
-  möchte ich als Ausleiher
-  die möglichkeit haben schnell von A nach Z zu kommen
-
-  Grundlage:
-    Angenommen ich bin Normin
+  Background:
+    Given I am Normin
 
   @personas
-  Szenario: Brotkrumennavigation
-    Angenommen man befindet sich auf der Seite der Hauptkategorien
-    Dann sehe ich die Brotkrumennavigation
+  Scenario: Breadcrumb navigation
+    Given I am listing the root categories
+    Then I see the breadcrumb navigation bar
 
   @personas
-  Szenario: Home-Button der Brotkrumennavigation
-    Angenommen man befindet sich auf der Seite der Hauptkategorien
-    Und ich sehe die Brotkrumennavigation
-    Dann beinhaltet diese immer an erster Stelle das Übersichtsbutton
-    Und dieser führt mich immer zur Seite der Hauptkategorien
+  Scenario: Home button in the breadcrumb navigation
+    Given I am listing the root categories
+    And I see the breadcrumb navigation bar
+    Then the first position in the breadcrumb navigation bar is always the home button
+    And that button directs me to the root categories
 
   @personas
-  Szenario: Hauptkategorie auswählen
-    Angenommen man befindet sich auf der Seite der Hauptkategorien
-    Wenn ich eine Hauptkategorie wähle
-    Dann öffnet diese Kategorie
-    Und die Kategorie ist das zweite und letzte Element der Brotkrumennavigation
+  Scenario: Choosing main category
+    Given I am listing the root categories
+    When I choose a main category
+    Then that category opens
+    And that category is the second and last element of the breadcrumb navigation bar
 
   @javascript @personas
-  Szenario: Unterkategorie auswählen
-    Angenommen man befindet sich auf der Seite der Hauptkategorien
-    Wenn ich eine Unterkategorie wähle
-    Dann öffnet diese Kategorie
-    Und die Kategorie ist das zweite und letzte Element der Brotkrumennavigation
+  Scenario: Choosing a subcategory
+    Given I am listing the root categories
+    When I choose a subcategory
+    Then that category opens
+    And that category is the second and last element of the breadcrumb navigation bar
 
   @personas
-  Szenario: Weg bis zum Modell anzeigen
-    Angenommen man befindet sich auf der Seite der Hauptkategorien
-    Wenn ich eine Hauptkategorie wähle
-    Dann öffnet diese Kategorie
-    Und die Kategorie ist das zweite und letzte Element der Brotkrumennavigation
-    Wenn ich ein Modell öffne
-    Dann sehe ich den ganzen Weg den ich zum Modell beschritten habe
-    Und kein Element der Brotkrumennavigation ist aktiv
+  Scenario: Show the path to a model
+    Given I am listing the root categories
+    When I choose a main category
+    Then that category opens
+    And that category is the second and last element of the breadcrumb navigation bar
+    When I open a model
+    Then I see the whole path I traversed to get to the model
+    And none of the elements of the breadcrumb navigation bar are active
 
   @personas
-  Szenario: Explorative-Suche Kategorie der ersten Stufe auswählen
-    Angenommen man sich auf der Modellliste befindet
-    Wenn ich eine Kategorie der ersten stufe aus der Explorativen Suche wähle
-    Dann öffnet diese Kategorie
-    Und die Kategorie ist das zweite und letzte Element der Brotkrumennavigation
+  Scenario: Explorative search picks the the category on the first level
+    Given I am listing models
+    When I pick a first-level category from the results of the explorative search
+    Then that category opens
+    And that category is the second and last element of the breadcrumb navigation bar
 
   @personas
-  Szenario: Explorative-Suche Kategorie der zweiten Stufe auswählen
-    Angenommen man sich auf der Modellliste befindet
-    Wenn ich eine Kategorie der zweiten stufe aus der Explorativen Suche wähle
-    Dann öffnet diese Kategorie
-    Und die Kategorie ist das zweite und letzte Element der Brotkrumennavigation
+  Scenario: Explorative search: Picking a second-level category
+    Given I am listing models
+    When I pick a second-level category from the results of the explorative search
+    Then that category opens
+    And that category is the second and last element of the breadcrumb navigation bar

@@ -1,8 +1,7 @@
-# language: de
 
-Funktionalität: Kategorien
+Feature: Kategorien
 
-  Szenario: Begriffsklärung Hauptkategorien
-    Angenommen es existiert eine Hauptkategorie
-    Dann kann diese Kategorie Kinder besitzen
-    Und sie selbst ist nicht Kinde irgendeiner anderen Kategorie
+  Scenario: Begriffsklärung Hauptkategorien
+    Given es existiert eine Hauptkategorie
+    Then kann diese Kategorie Kinder besitzen
+    And sie selbst ist nicht Kinde irgendeiner anderen Kategorie

@@ -1,60 +1,63 @@
-# language: de
 
-Funktionalität: Explorative Suche
+Feature: Explorative search
 
-  Um Modelle anhand von Kategorien explorativ zu entdecken
-  möchte ich als Benutzer
-  eine entsprehende Interaktionsmöglichkeit haben
+  As a user
+  In order to discover models in their categories
+  I want to be able to browse and search
 
-  Grundlage:
-    Angenommen ich bin Pius
-
-  @javascript @personas
-  Szenario: Explorative Suche in der Liste des Inventars
-    Angenommen man öffnet die Liste des Inventars
-    Und ich die Navigation der Kategorien aufklappe
-    Wenn ich eine Kategorie anwähle
-    Dann sehe ich die darunterliegenden Kategorien
-    Und kann die darunterliegende Kategorie anwählen
-    Und ich sehe die Hauptkategorie sowie die aktuell ausgewählte und die darunterliegenden Kategorien
-    Und das Inventar wurde nach dieser Kategorie gefiltert
-    Und ich kann in einem Schritt auf die aktuelle Hauptkategorie zurücknavigieren
-    Und ich kann in einem Schritt auf die Übersicht der Hauptkategorien zurücknavigieren
-    Wenn ich die Navigation der Kategorien wieder zuklappe
-    Dann sehe ich nur noch die Liste des Inventars
+  Background:
+    Given I am Pius
 
   @javascript @personas
-  Szenario: Kategorie in der explorativen Suche suchen
-    Angenommen man öffnet die Liste des Inventars
-    Und die Navigation der Kategorien ist aufgeklappt
-    Wenn ich nach dem Namen einer Kategorie suche
-    Dann werden alle Kategorien angezeigt, welche den Namen beinhalten
-    Und ich eine Kategorie anwähle
-    Dann sehe ich die darunterliegenden Kategorien
-    Und kann die darunterliegende Kategorie anwählen
-    Und ich sehe ein Suchicon mit dem Namen des gerade gesuchten Begriffs sowie die aktuell ausgewählte und die darunterliegenden Kategorien
-    Und das Inventar wurde nach dieser Kategorie gefiltert
+  Scenario: Explorative search in the inventory list
+    Given I open the inventory
+    And I open the category filter
+    When I select a category
+    Then I see that category's children
+    And I can select the child category
+    And I see the top-level category as well as the currently selected one and its children
+    And the inventory I see is filtered by this category
+    And I can navigate back to the current top-level category in one single step
+    And I can navigate back to the list of top-level categories in one single step
+    When I collapse the category filter
+    Then I see only the list of inventory
 
   @javascript @personas
-  Szenario: Zurücknavigieren in der explorativen Suche
-    Angenommen ich befinde mich in der Unterkategorie der explorativen Suche
-    Dann kann ich in die übergeordnete Kategorie navigieren
+  Scenario: Find a category using explorative search
+    Given I open the inventory
+    And I open the category filter
+    When I search for a category name
+    Then all categories whose names match the search term are shown
+    When I select a category
+    Then I see that category's children
+    And I can select the child category
+    And I see a search indicator with the current search term as well the currently selected category and its children
+    And the inventory I see is filtered by this category
 
   @javascript @personas
-  Szenario: Explorative Suche in der Liste der Modelle
-    Angenommen man öffnet die Liste des Inventars
-    Und ich die Navigation der Kategorien aufklappe
-    Wenn ich eine Kategorie anwähle
-    Dann sehe ich die darunterliegenden Kategorien
-    Und kann die darunterliegende Kategorie anwählen
-    Und ich sehe die Hauptkategorie sowie die aktuell ausgewählte und die darunterliegenden Kategorien
-    Und die Modelle wurden nach dieser Kategorie gefiltert
+  Scenario: Navigating back in the explorative search
+    Given I used the explorative search to get to a subcategory
+    Then I can navigate to the parent category
+
+  # This is already covered by 'Explorative search in the inventory list', waste of CPU to cover it again
+  # For some reason, there are steps talking about models in explorative_suche_steps.rb,
+  # but they are never used anywhere?
+  #@javascript @personas
+  #Scenario: Explorative search in the model list
+  #  Given I open the inventory
+  #  And I open the category filter
+  #  And I select a category
+  #  Then I see that category's children
+  #  And I can select the child category
+  #  And I see the top-level category as well as the currently selected one and its children
+  #  And the inventory I see is filtered by this category
 
   @javascript @personas @browser
-  Szenario: Filter not categorized models
-    Angenommen man öffnet die Liste des Inventars
-    Und I see retired and not retired inventory
-    Und ich die Navigation der Kategorien aufklappe
-    Wenn I select the not categorized filter
-    Dann I see the models not assigned to any category
+  Scenario: Filter not categorized models
+    Given I open the inventory
+    And I see retired and not retired inventory
+    And I open the category filter
+    When I select the not categorized filter
+    Then I see the models not assigned to any category
 
+  

@@ -15,7 +15,7 @@ end
 Given "I am logged in as '$username' with password '$password'" do |username, password|
   @current_user = User.where(:login => username.downcase).first
   I18n.locale = if @current_user.language then @current_user.language.locale_name.to_sym else Language.default_language end
-  @current_inventory_pool = @current_user.managed_inventory_pools.first
+  @current_inventory_pool = @current_user.inventory_pools.managed.first
   case Capybara.current_driver
     when /selenium/
       visit "/"
@@ -39,7 +39,7 @@ end
 # This one 'really' goes through the auth process
 When /^I log in as '([^']*)' with password '([^']*)'$/ do |username, password|
   @current_user = User.where(:login => username.downcase).first
-  @current_inventory_pool = @current_user.managed_inventory_pools.first
+  @current_inventory_pool = @current_user.inventory_pools.managed.first
   post "/authenticator/db/login", {:login => {:username => username, :password => password}}
 end
 
@@ -65,7 +65,8 @@ When /^I am redirected to the "([^"]*)" section$/ do |section_name|
   find("nav#topbar .topbar-navigation .active", match: :prefer_exact, text: _(section_name))
 end
 
-Angenommen(/^man ist eingeloggt als "(.*?)"$/) do |persona|
+#Angenommen(/^man ist eingeloggt als "(.*?)"$/) do |persona|
+Given(/^I am logged in as "(.*?)"$/) do |persona|
   step "I make sure I am logged out"
   @current_user = User.where(:login => persona.downcase).first
   I18n.locale = if @current_user.language then @current_user.language.locale_name.to_sym else Language.default_language end

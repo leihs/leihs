@@ -1,65 +1,51 @@
-# language: de
+Feature: Order window
 
-Funktionalität: Bestellfensterchen
+  This all happens in the borrow section.
 
-  Um Gegenstände ausleihen zu können
-  möchte ich als Ausleiher
-  die möglichkeit haben Modelle zu bestellen
-
-  Grundlage:
-    Angenommen ich bin Normin
+  Background:
+    Given I am Normin
 
   @personas
-  Szenario: Bestellfensterchen
-    Angenommen man befindet sich auf der Seite der Hauptkategorien
-    Dann sehe ich das Bestellfensterchen
+  Scenario: Order window
+    Given I am on the root category list
+    Then I see the order window
 
   @personas
-  Szenario: Kein Bestellfensterchen
-    Angenommen man befindet sich auf der Bestellübersicht
-    Dann sehe ich kein Bestellfensterchen
+  Scenario: No order window
+    Given I am viewing my current order
+    Then I do not see the order window
 
   @personas
-  Szenario: Bestellfensterchen Inhalt
-    Angenommen ich ein Modell der Bestellung hinzufüge
-    Dann erscheint es im Bestellfensterchen
-    Und die Modelle im Bestellfensterchen sind alphabetisch sortiert
-    Und gleiche Modelle werden zusammengefasst
-    Wenn das gleiche Modell nochmals hinzugefügt wird
-    Dann wird die Anzahl dieses Modells erhöht
-    Und die Modelle im Bestellfensterchen sind alphabetisch sortiert
-    Und gleiche Modelle werden zusammengefasst
-    Und ich kann zur detaillierten Bestellübersicht gelangen
+  Scenario: Content of the order window
+    When I add a model to an order
+    Then it appears in the order window
+    And the models in the order window are sorted alphabetically
+    And identical models are collapsed
+    When I add the same model one more time
+    Then its quantity is increased
+    And the models in the order window are sorted alphabetically
+    And identical models are collapsed
+    And I can go to the detailed order overview
 
   @javascript @browser @personas
-  Szenario: Bestellfensterchen aus Kalender updaten
-    Wenn ich mit dem Kalender ein Modell der Bestellung hinzufüge
-    Dann wird das Bestellfensterchen aktualisiert
+  Scenario: Updating the order window from the calendar
+    When I add a model to the order using the calendar
+    Then the order window is updated
 
   @javascript @personas
-  Szenario: Zeit abgelaufen
-    Wenn die Zeit abgelaufen ist
-    Dann werde ich auf die Timeout Page weitergeleitet
-
-  @javascript @personas
-  Szenario: Zeit überschritten
-    Wenn ich ein Modell der Bestellung hinzufüge
-    Dann sehe ich die Zeitanzeige
-    Wenn die Zeit überschritten ist
-
-  @javascript @personas
-  Szenario: Zeitentität, Ablauf der erlaubten Zeit anzeigen
-    Angenommen meine Bestellung ist leer
-    Wenn man befindet sich auf der Seite der Hauptkategorien
-    Dann sehe ich keine Zeitanzeige
-    Wenn ich ein Modell der Bestellung hinzufüge
-    Dann sehe ich die Zeitanzeige
-    Und die Zeitanzeige ist in einer Schaltfläche im Reiter "Bestellung" auf der rechten Seite
-    Und die Zeitanzeige zählt von 30 Minuten herunter
+  Scenario: Showing how much time is left for ordering
+    Given my order is empty
+    When I am listing the root categories
+    Then I don't see a timer
+    When I add a model to an order
+    Then I see a timer
+    And the timer is near the basket
+    And the timer counts down from 30 minutes
 
   @personas
-  Szenario: Zeit zurücksetzen
-    Angenommen die Bestellung ist nicht leer
-    Dann sehe ich die Zeitanzeige
-    Wenn ich den Time-Out zurücksetze
-    Dann wird die Zeit zurückgesetzt
+  Scenario: Reset timer
+    Given my order is not empty
+    Then I see a timer
+
+    When I reset the timer
+    Then the timer is reset

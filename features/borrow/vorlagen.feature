@@ -1,60 +1,61 @@
-# language: de
 
-Funktionalität: Vorlagen
+Feature: Vorlagen
 
-  Grundlage:
-    Angenommen ich bin Normin
-
-  @personas
-  Szenario: Liste der Vorlagen finden
-    Angenommen man befindet sich auf der Seite der Hauptkategorien
-    Dann sehe ich unterhalb der Kategorien einen Link zur Liste der Vorlagen
+  Background:
+    Given I am Normin
 
   @personas
-  Szenario: Liste der Vorlagen
-    Angenommen ich schaue mir die Liste der Vorlagen an
-    Dann sehe ich die Vorlagen
-    Und die Vorlagen sind alphabetisch nach Namen sortiert
-    Und ich kann eine der Vorlagen detailliert betrachten
+  Scenario: Finding the list of templates in the borrow section
+    Given I am listing the root categories
+    Then I see a link to the templates underneath the categories
+
+  @personas
+  Scenario: List of templates
+    When I am listing templates in the borrow section
+    Then I see the templates
+    And the templates are sorted alphabetically by name
+    And I can look at one of the templates in detail
 
   @javascript @browser @personas
-  Szenario: Betrachten einer Vorlage
-    Angenommen ich sehe mir eine Vorlage an
-    Dann sehe ich alle Modelle, die diese Vorlage beinhaltet
-    Und die Modelle in dieser Vorlage sind alphabetisch sortiert
-    Und ich sehe für jedes Modell die Anzahl Gegenstände dieses Modells, welche die Vorlage vorgibt
-    Und ich kann die Anzahl jedes Modells verändern, bevor ich den Prozess fortsetze
-    Und ich kann höchstens die maximale Anzahl an verfügbaren Geräten eingeben
-    Und ich muss den Prozess zur Datumseingabe fortsetzen
+  Scenario: Viewing a template in the borrow section
+    Given I am looking at a template
+    Then I see all models that template contains
+    And the models in that template are ordered alphabetically
+    And for each model I see the quantity as specified by the template
+    And I can modify the quantity of each model before ordering
+    And I can specify at most the maximum available quantity per model
+    And I have to continue the process of specifying start and end dates
 
   @personas
-  Szenario: Warnung bei nicht erfüllbaren Vorlagen
-    Angenommen ich sehe mir eine Vorlage an
-    Und in dieser Vorlage hat es Modelle, die nicht genügeng Gegenstände haben, um die in der Vorlage gewünschte Anzahl zu erfüllen
-    Dann sehe ich eine auffällige Warnung sowohl auf der Seite wie bei den betroffenen Modellen
+  Scenario: Warning when looking at uncompletable templates
+    Given I am looking at a template
+    And this template contains models that don't have enough items to satisfy the quantity required by the template
+    Then I see a warning on the page itself and on every affected model
 
   @javascript @personas
-  Szenario: Datumseingabe nach Mengenangabe
-    Angenommen ich habe die Mengen in der Vorlage gewählt
-    Dann ist das Startdatum heute und das Enddatum morgen 
-    Und ich kann das Start- und Enddatum einer potenziellen Bestellung ändern
-    Und ich muss im Prozess weiterfahren zur Verfügbarkeitsanzeige der Vorlage
-    Und alle Einträge erhalten das ausgewählte Start- und Enddatum
+  Scenario: Entering a date after entering a quantity
+    Given I have chosen the quantities mentioned in the template
+    Then the start date is today and the end date is tomorrow
+    And I can change the start and end date of a potential order
+    And I have to follow the process to the availability display of the template
+    And all entries get the chosen start and end date
 
   @javascript @browser @personas
-  Szenario: Verfügbarkeitsansicht der Vorlage
-    Angenommen ich sehe die Verfügbarkeit einer Vorlage, die nicht verfügbare Modelle enthält
-    Dann sind diejenigen Modelle hervorgehoben, die zu diesem Zeitpunkt nicht verfügbar sind
-    Und die Modelle sind innerhalb eine Gruppe alphabetisch sortiert
-    Und ich kann Modelle aus der Ansicht entfernen
-    Und ich kann die Anzahl der Modelle ändern
-    Und ich kann das Zeitfenster für die Verfügbarkeitsberechnung einzelner Modelle ändern
-    Wenn ich sämtliche Verfügbarkeitsprobleme gelöst habe
-    Dann kann ich im Prozess weiterfahren und alle Modelle gesamthaft zu einer Bestellung hinzufügen
+  Scenario: Availability display of a template
+    Given I am looking at a template
+    And I am looking at the availability of a template that contains unavailable models
+    Then those models are highlighted that are no longer available at this time
+    And the models are sorted alphabetically within a group
+    And I can remove the models from the view
+    And I can change the quantity of the models
+    And I can change the time range for the availability calculatin of particular models
+    When I have solved all availability problems
+    Then I can continue in the process and add all models to the order at once
 
   @personas
-  Szenario: Nur verfügbaren Modelle aus Vorlage in Bestellung übernehmen
-    Angenommen ich sehe die Verfügbarkeit einer nicht verfügbaren Vorlage
-    Und einige Modelle sind nicht verfügbar
-    Dann kann ich diejenigen Modelle, die verfügbar sind, gesamthaft einer Bestellung hinzufügen
-    Und die restlichen Modelle werden verworfen
+  Scenario: Only ordering those models from a template that are available
+    Given I see the availability of a template that has items that are not available
+    Then I can follow the process to the availability display of the template
+    And some models are not available
+    Then I can add those models which are available to an order all at once
+    And the other models are ignored

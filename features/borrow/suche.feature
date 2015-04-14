@@ -1,57 +1,48 @@
-# language: de
 
-Funktionalität: Suche
+Feature: Search
 
-  Um etwas zu finden möchte ich als Ausleiher eine Suchfunktionalität
-
-  Grundlage:
-    Angenommen ich bin Normin
+  Background:
+    Given I am Normin
 
   @personas
-  Szenario: Suchfeld
-    Angenommen man befindet sich auf der Seite der Hauptkategorien
-    Dann sieht man die Suche
+  Scenario: Search field
+    Given I am listing the root categories
+    Then I can see the search box
 
   @javascript @personas
-  Szenario: Liste gemäss Suchkritieren anzeigen
-    Angenommen man befindet sich auf der Seite der Hauptkategorien
-    Wenn man einen Suchbegriff eingibt
-    Dann sieht man das Foto, den Namen und den Hersteller der ersten 6 Modelle gemäss aktuellem Suchbegriff
-    Und sieht den Link 'Alle Suchresultate anzeigen'
+  Scenario: Show list according to search criteria
+    Given I am listing the root categories
+    When I enter a search term
+    Then I see image, name and manufacturer of the first 6 matching models
+    And I see a link labeled 'Show all search results'
 
   @javascript @personas
-  Szenario: Man findet nur Modelle die man auch ausleihen kann
-    Angenommen ich nach einem Modell suche, welches in nicht ausleihen kann
-    Dann wird dieses Modell auch nicht in den Suchergebnissen angezeigt
+  Scenario: Search only for models I can actually borrow
+    Given I search for a model that I can't borrow
+    Then that model is not shown in the search results
 
   @javascript @personas
-  Szenario: Vorschlag wählen
-    Angenommen man befindet sich auf der Seite der Hauptkategorien
-    Und man wählt ein Modell von der Vorschlagsliste der Suche
-    Dann wird die Modell-Ansichtsseite geöffnet
-
-  @personas
-  Szenario: Suchfeld
-    Angenommen man befindet sich auf der Seite der Hauptkategorien
-    Dann sieht man die Suche
+  Scenario: Choosing a suggestion
+    Given I am listing the root categories
+    And I pick a model from the ones suggested
+    Then I see the model's detail page
 
   @javascript @personas
-  Szenario: Suchresultate anzeigen
-    Angenommen man befindet sich auf der Seite der Hauptkategorien
-    Und man gibt einen Suchbegriff ein
-    Und drückt ENTER
-    Dann wird die Such-Resultatseite angezeigt
-    Und man sieht alle gefundenen Modelle mit Bild, Modellname und Herstellername
-    Und man sieht die Sortiermöglichkeit
-    Und man sieht die Geräteparkeinschränkung
-    Und man sieht die Ausleihzeitraumwahl
-    Und die Vorschlagswerte sind verschwunden
+  Scenario: Displaying search results
+    Given I am listing the root categories
+    When I enter a search term
+    And I press the Enter key
+    Then the search result page is shown
+    And I see image, name and manufacturer of all matching models
+    And I see the sort options
+    And I see the inventory pool selector
+    And I see filters for start and end date 
+    And the suggestions have disappeared
 
   @javascript @personas
-  Szenario: Suchbegriff mit Leerschlag anzeigen
-    Angenommen man befindet sich auf der Seite der Hauptkategorien
-    Wenn ich einen Suchbegriff bestehend aus mindestens zwei Wörtern und einem Leerschlage eigebe
-    Und drückt ENTER
-    Dann wird die Such-Resultatseite angezeigt
-    Und man sieht alle gefundenen Modelle mit Bild, Modellname und Herstellername
-
+  Scenario: Showing search term with spaces
+    Given I am listing the root categories
+    When I search for models giving at least two space separated terms
+    And I press the Enter key
+    Then the search result page is shown
+    And I see image, name and manufacturer of all matching models

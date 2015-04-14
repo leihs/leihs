@@ -1,21 +1,19 @@
-Given "a signed contract by '$who' for item '$inventory_code'" \
-do | who, inventory_code |
-  user     = LeihsFactory.create_user( :login => who ); user.save
-  item     = Item.find_by_inventory_code( inventory_code )
-  contract = FactoryGirl.create :contract, :user => user, :status => :approved
-  contract.contract_lines << FactoryGirl.create(:contract_line, contract: contract, model: item.model, quantity: 1)
-  cl = contract.contract_lines.first
-  cl.update_attribute(:item, item) # don't validate - allow creation of *invalid* records!
-  contract.reload
-  contract.sign(@user)
-  contract.save
-end
+# Given "a signed contract by '$who' for item '$inventory_code'" do | who, inventory_code |
+#   user     = LeihsFactory.create_user( :login => who ); user.save
+#   item     = Item.find_by_inventory_code( inventory_code )
+#   contract = FactoryGirl.create :contract, :user => user, :status => :approved
+#   contract.contract_lines << FactoryGirl.create(:contract_line, contract: contract, model: item.model, quantity: 1)
+#   cl = contract.contract_lines.first
+#   cl.update_attribute(:item, item) # don't validate - allow creation of *invalid* records!
+#   contract.reload
+#   contract.sign(@user)
+#   contract.save
+# end
 
-Given "there is only a signed contract by '$who' for item '$inventory_code'" \
-do | who, inventory_code |
-  step "there are no contracts"
-  step "a signed contract by '#{who}' for item '#{inventory_code}'"
-end
+# Given "there is only a signed contract by '$who' for item '$inventory_code'" do | who, inventory_code |
+#   step "there are no contracts"
+#   step "a signed contract by '#{who}' for item '#{inventory_code}'"
+# end
 
 # copied from hand_over_steps
 When "$who clicks on 'take_back'" do | who |

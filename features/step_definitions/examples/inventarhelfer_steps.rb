@@ -1,22 +1,26 @@
 # encoding: utf-8
 
-Dann /^kann man über die Tabnavigation zum Helferschirm wechseln$/ do
+#Dann /^kann man über die Tabnavigation zum Helferschirm wechseln$/ do
+Then(/^I see a tab where I can change to the inventory helper$/) do
   find("#inventory-index-view nav a.navigation-tab-item", :text => _("Helper")).click
   find("h1", :text => _("Inventory Helper"))
 end
 
-Angenommen /^man ist auf dem Helferschirm$/ do
+#Angenommen /^man ist auf dem Helferschirm$/ do
+Given /^I am on the inventory helper screen$/ do
   visit manage_inventory_helper_path @current_inventory_pool
 end
 
-Dann /^wähle ich all die Felder über eine List oder per Namen aus$/ do
+#Dann /^wähle ich all die Felder über eine List oder per Namen aus$/ do
+Then /^I choose all fields through a list or by name$/ do
   i = find("#inventory-helper-view #field-input")
   while(i.click and page.has_selector?(".ui-menu-item a", visible: true)) do
     find(".ui-menu-item a", match: :first, :visible => true).click
   end
 end
 
-Dann /^ich setze all ihre Initalisierungswerte$/ do
+#Dann /^ich setze all ihre Initalisierungswerte$/ do
+Then /^I set all their initial values$/ do
   @parent_el ||= find("#field-selection")
   @data = {}
   Field.all.each do |field|
@@ -80,7 +84,8 @@ Dann /^ich setze all ihre Initalisierungswerte$/ do
   end
 end
 
-Dann /^ich setze das Feld "(.*?)" auf "(.*?)"$/ do |field_name, value|
+#Dann /^ich setze das Feld "(.*?)" auf "(.*?)"$/ do |field_name, value|
+Then /^I set the field "(.*?)" to "(.*?)"$/ do |field_name, value|
   field = Field.find find(".row.emboss[data-type='field']", match: :prefer_exact, text: field_name)["data-id"]
   within(".field[data-id='#{field[:id]}']") do
     case field[:type]
@@ -96,27 +101,31 @@ Dann /^ich setze das Feld "(.*?)" auf "(.*?)"$/ do |field_name, value|
   end
 end
 
-Dann /^scanne oder gebe ich den Inventarcode von einem Gegenstand ein, der am Lager und in keinem Vertrag vorhanden ist$/ do
-  @item = @current_inventory_pool.items.in_stock.sample
+#Dann /^scanne oder gebe ich den Inventarcode von einem Gegenstand ein, der am Lager und in keinem Vertrag vorhanden ist$/ do
+Then /^I scan or enter the inventory code of an item that is in stock and not in any contract$/ do
+  @item = @current_inventory_pool.items.in_stock.order("RAND()").first
   within("#item-selection") do
     find("[data-barcode-scanner-target]").set @item.inventory_code
     find("button[type=submit]").click
   end
 end
 
-Dann /^scanne oder gebe ich den Inventarcode ein(, wo man Besitzer ist)$/ do |arg1|
+
+#Dann /^scanne oder gebe ich den Inventarcode ein(, wo man Besitzer ist)$/ do |arg1|
+Then /^I scan or enter the inventory code( of an item belonging to the current inventory pool)?$/ do |arg1|
   @item ||= if arg1
-              @current_inventory_pool.items.in_stock.where(owner_id: @current_inventory_pool).sample
+              @current_inventory_pool.items.where(owner_id: @current_inventory_pool)
             else
-              @current_inventory_pool.items.in_stock.sample
-            end
+              @current_inventory_pool.items
+            end.in_stock.order("RAND()").first
   within("#item-selection") do
     find("[data-barcode-scanner-target]").set @item.inventory_code
     find("button[type=submit]").click
   end
 end
 
-Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert$/ do
+#Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert$/ do
+Then /^I see all the values of the item in an overview with model name and the modified values are already saved$/ do
   FastGettext.locale = @current_user.language.locale_name.gsub(/-/, "_")
   Field.all.each do |field|
     next if all(".field[data-id='#{field[:id]}']").empty?
@@ -166,7 +175,8 @@ Dann /^sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, di
   find("form#flexible-fields .field[data-id='#{Field.find_by_label("Model").id}']", text: @item.reload.model.name)
 end
 
-Dann /^die geänderten Werte sind hervorgehoben$/ do
+#Dann /^die geänderten Werte sind hervorgehoben$/ do
+Then /^the changed values are highlighted$/ do
   find("#field-selection .field", match: :first)
   all("#field-selection .field").each do |selected_field|
     c = all("#item-section .field[data-id='#{selected_field['data-id']}'].success").count + all("#item-section .field[data-id='#{selected_field['data-id']}'].error").count
@@ -174,17 +184,19 @@ Dann /^die geänderten Werte sind hervorgehoben$/ do
   end
 end
 
-Dann /^wähle ich die Felder über eine List oder per Namen aus$/ do
+#Dann /^wähle ich die Felder über eine List oder per Namen aus$/ do
+Then /^I choose the fields from a list or by name$/ do
   field = Field.all.select{|f| f[:readonly] == nil and f[:type] != "autocomplete-search" and f[:target_type] != "license" and not f[:visibility_dependency_field_id]}.last
   find("#field-input").click
-  find("#field-input").set field.label
-  find(".ui-menu-item a", match: :first, text: field.label).click
+  find("#field-input").set _(field.label)
+  find(".ui-menu-item a", match: :first, text: _(field.label)).click
   within "#field-selection" do
     @all_editable_fields = all(".field", :visible => true)
   end
 end
 
-Dann /^ich setze ihre Initalisierungswerte$/ do
+#Dann /^ich setze ihre Initalisierungswerte$/ do
+Then /^I set their initial values$/ do
   within "#field-selection" do
     fields = all(".field input, #field-selection .field textarea", :visible => true)
     expect(fields.count).to be > 0
@@ -194,7 +206,8 @@ Dann /^ich setze ihre Initalisierungswerte$/ do
   end
 end
 
-Dann /^scanne oder gebe ich den Inventarcode eines Gegenstandes ein der nicht gefunden wird$/ do
+#Dann /^scanne oder gebe ich den Inventarcode eines Gegenstandes ein der nicht gefunden wird$/ do
+Then /^I scan or enter the inventory code of an item that can't be found$/ do
   @not_existing_inventory_code = "THIS FOR SURE NO INVENTORY CODE"
   within("#item-selection") do
     find("[data-barcode-scanner-target]").set @not_existing_inventory_code
@@ -202,60 +215,62 @@ Dann /^scanne oder gebe ich den Inventarcode eines Gegenstandes ein der nicht ge
   end
 end
 
-Dann /^erhählt man eine Fehlermeldung$/ do
-  find("#flash .error", text: _("The Inventory Code %s was not found.") % @not_existing_inventory_code)
-end
-
-Dann /^gebe ich den Anfang des Inventarcodes eines Gegenstand ein$/ do
+#Dann /^gebe ich den Anfang des Inventarcodes eines Gegenstand ein$/ do
+Then /^I start entering an item's inventory code$/ do
   @item= @current_inventory_pool.items.first
   find("#item-selection [data-barcode-scanner-target]").set @item.inventory_code[0..1]
 end
 
-Dann /^wähle den Gegenstand über die mir vorgeschlagenen Suchtreffer$/ do
+
+#Dann /^wähle den Gegenstand über die mir vorgeschlagenen Suchtreffer$/ do
+Then /^I choose the item from the list of results$/ do
   expect(has_selector?(".ui-menu-item")).to be true
+  # This sometimes finds multiple results. How is that even possible?
   find(".ui-menu-item a", :text => @item.inventory_code).click
 end
 
-Angenommen /^man editiert ein Gerät über den Helferschirm mittels Inventarcode$/ do
-  step 'man ist auf dem Helferschirm'
-  step 'wähle ich die Felder über eine List oder per Namen aus'
-  step 'ich setze ihre Initalisierungswerte'
+#Angenommen /^man editiert ein Gerät über den Helferschirm mittels Inventarcode$/ do
+Given /^I edit an item through the inventory helper using an inventory code$/ do
+  step 'I am on the inventory helper screen'
+  step 'I choose the fields from a list or by name'
+  step 'I set their initial values'
   step 'scanne oder gebe ich den Inventarcode ein, wo man Besitzer ist'
-  step 'sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert'
-  step 'die geänderten Werte sind hervorgehoben'
+  step 'I see all the values of the item in an overview with model name and the modified values are already saved'
+  step 'the changed values are highlighted'
 end
 
-Wenn /^man die Editierfunktion nutzt$/ do
+#Wenn /^man die Editierfunktion nutzt$/ do
+When /^I use the edit feature$/ do
   find("#item-section button#item-edit", :text => _("Edit Item")).click
 end
 
-Dann /^kann man an Ort und Stelle alle Werte des Gegenstandes editieren$/ do
+#Dann /^kann man an Ort und Stelle alle Werte des Gegenstandes editieren$/ do
+Then /^I can edit all of this item's values right then and there$/ do
   @parent_el = find("#item-section")
-  step 'ich setze all ihre Initalisierungswerte'
+  step 'I set their initial values'
 end
 
-Dann /^man die Änderungen speichert$/ do
-  find("#item-section button#save-edit").click
-  find("#notifications .green")
+#Dann /^sind sie gespeichert$/ do
+Then /^my changes are saved$/ do
+  step %Q{I see all the values of the item in an overview with model name and the modified values are already saved}
 end
 
-Dann /^sind sie gespeichert$/ do
-  step %Q{sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert}
-end
-
-Wenn /^man seine Änderungen widerruft$/ do
+#Wenn /^man seine Änderungen widerruft$/ do
+When /^I cancel$/ do
   find("#item-section a", :text => _("Cancel")).click
 end
 
-Dann /^sind die Änderungen widerrufen$/ do
+#Dann /^sind die Änderungen widerrufen$/ do
+Then /^the changes are reverted$/ do
   expect(@item.to_json).to eq @item.reload.to_json
 end
 
-Dann /^man sieht alle ursprünglichen Werte des Gegenstandes in der Übersicht$/ do
-  step %Q{sehe ich alle Werte des Gegenstandes in der Übersicht mit Modellname, die geänderten Werte sind bereits gespeichert}
-end
+# Use the step inside directly, not this one
+#Dann /^man sieht alle ursprünglichen Werte des Gegenstandes in der Übersicht$/ do
+#  step %Q{I see all the values of the item in an overview with model name and the modified values are already saved}
+#end
 
-Dann(/^wähle ich das Feld "(.*?)" aus der Liste aus$/) do |field|
+Then(/^I select the field "(.*?)"$/) do |field|
   find("#field-input").click
   find("#field-input").set field
   find(".ui-menu-item a", match: :prefer_exact, text: field).click
@@ -264,79 +279,92 @@ Dann(/^wähle ich das Feld "(.*?)" aus der Liste aus$/) do |field|
   end
 end
 
-Dann(/^ich setze den Wert für das Feld "(.*?)"$/) do |field|
+Then(/^I set some value for the field "(.*?)"$/) do |field|
   find(".row.emboss", match: :prefer_exact, text: field).find("input").set "Test123"
 end
 
-Angenommen(/^es existiert ein Gegenstand, welches sich denselben Ort mit einem anderen Gegenstand teilt$/) do
+#Angenommen(/^es existiert ein Gegenstand, welches sich denselben Ort mit einem anderen Gegenstand teilt$/) do
+Given(/^there is an item that shares its location with another$/) do
   location = Location.find {|l| l.items.where(inventory_pool_id: @current_inventory_pool, parent_id: nil).count >= 2}
-  @item, @item_2 = location.items.where(inventory_pool_id: @current_inventory_pool, parent_id: nil).sample(2)
+  @item, @item_2 = location.items.where(inventory_pool_id: @current_inventory_pool, parent_id: nil).order("RAND()").limit(2)
   @item_2_location = @item_2.location
 end
 
-Dann(/^gebe ich den Anfang des Inventarcodes des spezifischen Gegenstandes ein$/) do
+#Dann(/^gebe ich den Anfang des Inventarcodes des spezifischen Gegenstandes ein$/) do
+Then(/^I enter the start of the inventory code of the specific item$/) do
   find("#item-selection [data-barcode-scanner-target]").set @item.inventory_code[0..1]
 end
 
-Dann(/^der Ort des anderen Gegenstandes ist dergleiche geblieben$/) do
+#Dann(/^der Ort des anderen Gegenstandes ist dergleiche geblieben$/) do
+Then(/^the location of the other item has remained the same$/) do
   expect(@item_2.reload.location).to eq @item_2_location
 end
 
-Wenn(/^"(.*?)" ausgewählt und auf "(.*?)" gesetzt wird, dann muss auch "(.*?)" angegeben werden$/) do |field, value, dependent_field|
+#Wenn(/^"(.*?)" ausgewählt und auf "(.*?)" gesetzt wird, dann muss auch "(.*?)" angegeben werden$/) do |field, value, dependent_field|
+When(/^"(.*?)" is selected and set to "(.*?)", then "(.*?)" must also be filled in$/) do |field, value, dependent_field|
   find("#field-input").click
   find("#field-input").set field
   find(".ui-menu-item a", match: :prefer_exact, text: field).click
-  step 'ich setze das Feld "%s" auf "%s"' % [field, value]
+  step 'I set the field "%s" to "%s"' % [field, value]
   find(".row.emboss", match: :prefer_exact, text: dependent_field)
 end
 
-Wenn(/^ein Pflichtfeld nicht ausgefüllt\/ausgewählt ist, dann lässt sich der Inventarhelfer nicht nutzen$/) do
-  step %Q{scanne oder gebe ich den Inventarcode ein}
+#Wenn(/^ein Pflichtfeld nicht ausgefüllt\/ausgewählt ist, dann lässt sich der Inventarhelfer nicht nutzen$/) do
+When(/^a required field is blank, the inventory helper cannot be used$/) do
+  step %Q{I scan or enter the inventory code}
 end
 
-Angenommen(/^man editiert das Feld "(.*?)" eines ausgeliehenen Gegenstandes$/) do |name|
-  step %Q{wähle ich das Feld "#{name}" aus der Liste aus}
-  @item = @current_inventory_pool.items.not_in_stock.sample
+#Angenommen(/^man editiert das Feld "(.*?)" eines ausgeliehenen Gegenstandes$/) do |name|
+Given(/^I edit the field "(.*?)" of an item that is not in stock$/) do |name|
+  step %Q{I select the field "#{name}"}
+  @item = @current_inventory_pool.items.not_in_stock.order("RAND()").first
   @item_before = @item.to_json
-  step %Q{scanne oder gebe ich den Inventarcode ein}
+  step %Q{I scan or enter the inventory code}
 end
 
-Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät ausgeliehen ist$/) do
-  expect(page.has_content?(_("The responsible inventory pool cannot be changed because it's not returned yet or has already been assigned to a contract line."))).to be true
+#Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät ausgeliehen ist$/) do
+Then(/^I see an error message that I can't change the responsible inventory pool for items that are not in stock$/) do
+  expect(page.has_content?(
+      _("The responsible inventory pool cannot be changed because it's not returned yet or has already been assigned to a contract line."))
+  ).to be true
   expect(@item_before).to eq @item.reload.to_json
 end
 
-Dann(/^erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät bereits ausgeliehen oder einer Vertragslinie zugewiesen ist$/) do
+#Dann(/^erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät bereits ausgeliehen oder einer Vertragslinie zugewiesen ist$/) do
+Then(/^I see an error message that I can't retire the item because it's already handed over or assigned to a contract$/) do
   expect(has_content?(_("The item cannot be retired because it's not returned yet or has already been assigned to a contract line."))).to be true
   expect(@item_before).to eq @item.reload.to_json
 end
 
-Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät in einem Vortrag vorhanden ist$/) do
+#Dann(/^erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät in einem Vortrag vorhanden ist$/) do
+Then(/^I see an error message that I can't change the model because the item is already handed over or assigned to a contract$/) do
   expect(has_content?(_("The model cannot be changed because the item is used in contracts already."))).to be true
   expect(@item_before).to eq @item.reload.to_json
 end
 
-Angenommen(/^man editiert das Feld "(.*?)" eines Gegenstandes, der im irgendeinen Vertrag vorhanden ist$/) do |name|
-  step %Q{wähle ich das Feld "#{name}" aus der Liste aus}
-  @item = @current_inventory_pool.items.not_in_stock.sample
+#Angenommen(/^man editiert das Feld "(.*?)" eines Gegenstandes, der im irgendeinen Vertrag vorhanden ist$/) do |name|
+Given(/^I edit the field "(.*?)" of an item that is part of a contract$/) do |name|
+  step %Q{I select the field "#{name}"}
+  @item = @current_inventory_pool.items.not_in_stock.order("RAND()").first
   @item_before = @item.to_json
-  fill_in_autocomplete_field name, @current_inventory_pool.models.select{|m| m != @item.model}.sample.name
-  step %Q{scanne oder gebe ich den Inventarcode ein}
+  fill_in_autocomplete_field name, @current_inventory_pool.models.order("RAND()").detect {|m| m != @item.model}.name
+  step %Q{I scan or enter the inventory code}
 end
 
-Angenommen(/^man mustert einen ausgeliehenen Gegenstand aus$/) do
-  step %Q{wähle ich das Feld "Ausmusterung" aus der Liste aus}
+#Angenommen(/^man mustert einen ausgeliehenen Gegenstand aus$/) do
+Given(/^I retire an item that is not in stock$/) do
+  step %Q{I select the field "Retiremen"}
   find(".row.emboss", match: :prefer_exact, text: _("Retirement")).find("select").select _("Yes")
   find(".row.emboss", match: :prefer_exact, text: _("Reason for Retirement")).find("input, textarea").set "Retirement reason"
-  @item = @current_inventory_pool.items.where(owner: @current_inventory_pool).not_in_stock.sample
+  @item = @current_inventory_pool.items.where(owner: @current_inventory_pool).not_in_stock.order("RAND()").first
   @item_before = @item.to_json
-  step %Q{scanne oder gebe ich den Inventarcode ein}
+  step %Q{I scan or enter the inventory code}
 end
 
-Given(/^one edits the field "Verantwortliche Abteilung" of an owned item not in stock$/) do
-  step %Q{wähle ich das Feld "Verantwortliche Abteilung" aus der Liste aus}
-  @item = @current_inventory_pool.items.where(owner: @current_inventory_pool).not_in_stock.sample
+Given(/^I edit the field "Responsible department" of an item that isn't in stock and belongs to the current inventory pool$/) do
+  step %Q{I select the field "Responsible department"}
+  @item = @current_inventory_pool.items.where(owner: @current_inventory_pool).not_in_stock.order("RAND()").first
   @item_before = @item.to_json
-  fill_in_autocomplete_field "Verantwortliche Abteilung", InventoryPool.where.not(id: @current_inventory_pool).sample.name
-  step %Q{scanne oder gebe ich den Inventarcode ein}
+  fill_in_autocomplete_field "Responsible department", InventoryPool.where.not(id: @current_inventory_pool).order("RAND()").first.name
+  step %Q{I scan or enter the inventory code}
 end

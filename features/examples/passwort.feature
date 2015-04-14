@@ -1,139 +1,138 @@
-# language: de
 
-Funktionalität: Passwörter von Benutzern
+Feature: User passwords
 
-  Als Ausleihe-Verwalter, Inventar-Verwalter oder Administrator,
-  möchte ich eine Benutzer ein Login und Passwort zuteilen
+  As inventory manager, lending manager or admin I want to be able to
+  manage users' passwords, so that they can log in.
 
   @personas
-  Szenariogrundriss: Benutzer mit Benutzernamen und Passwort erstellen
-    Angenommen ich bin <Person>
-    Und man befindet sich auf der Benutzerliste
-    Wenn ich einen Benutzer mit Login "username" und Passwort "password" erstellt habe
-    Und der Benutzer hat Zugriff auf ein Inventarpool
-    Dann kann sich der Benutzer "username" mit "password" anmelden
+  Scenario Outline: Creating a user with username and password
+    Given I am <Person>
+    And I am listing users
+    When I have created a user with login "username" and password "password"
+    And the user has access to an inventory pool
+    Then the user "username" can log in with password "password"
 
-    Beispiele:
+    Examples:
       | Person |
       | Mike   |
       | Pius   |
       | Gino   |
 
   @personas
-  Szenariogrundriss: Benutzernamen und Passwort ändern
-    Angenommen ich bin <Person>
-    Und man befindet sich auf der Benutzereditieransicht von "Normin"
-    Wenn ich den Benutzernamen auf "newnorminusername" und das Passwort auf "newnorminpassword" ändere
-    Und der Benutzer hat Zugriff auf ein Inventarpool
-    Dann kann sich der Benutzer "newnorminusername" mit "newnorminpassword" anmelden
+  Scenario Outline: Chaging username and password
+    Given I am <Person>
+    And I am editing the user "Normin"
+    When I change the username to "newnorminusername" and the password to "newnorminpassword"
+    And the user has access to an inventory pool
+    Then the user "newnorminusername" can log in with password "newnorminpassword"
 
-    Beispiele:
+    Examples:
       | Person |
       | Mike   |
       | Pius   |
       | Gino   |
 
   @personas
-  Szenariogrundriss: Benutzer mit falscher Passwort-Bestätigung erstellen
-    Angenommen ich bin <Person>
-    Und man befindet sich auf der Benutzerliste
-    Wenn ich einen Benutzer mit falscher Passwort-Bestätigung erstellen probiere
-    Dann sehe ich eine Fehlermeldung
+  Scenario Outline: Creating a user with the wrong password confirmation
+    Given I am <Person>
+    And I am listing users
+    When I try to create a user with a non-matching password confirmation
+    Then I see an error message
 
-    Beispiele:
+    Examples:
       | Person |
       | Mike   |
       | Pius   |
       | Gino   |
 
   @personas
-  Szenariogrundriss: Benutzer mit fehlenden Passwortangaben editieren
-    Angenommen ich bin <Person>
-    Und man befindet sich auf der Benutzereditieransicht von "Normin"
-    Wenn ich die Passwort-Angaben nicht eingebe und speichere
-    Dann sehe ich eine Fehlermeldung
+  Scenario Outline: Trying to edit a user with missing password
+    Given I am <Person>
+    And I am editing the user "Normin"
+    When I don't complete the password information and save
+    Then I see an error message
 
-    Beispiele:
+    Examples:
       | Person |
       | Mike   |
       | Pius   |
       | Gino   |
 
   @personas
-  Szenariogrundriss: Benutzer ohne Loginnamen erstellen
-    Angenommen ich bin <Person>
-    Und man befindet sich auf der Benutzerliste
-    Wenn ich einen Benutzer ohne Loginnamen erstellen probiere
-    Dann sehe ich eine Fehlermeldung
+  Scenario Outline: Creating a user without username
+    Given I am <Person>
+    And I am listing users
+    When I try to create a user without username
+    Then I see an error message
 
-    Beispiele:
+    Examples:
       | Person |
       | Mike   |
       | Pius   |
       | Gino   |
 
   @personas
-  Szenariogrundriss: Passwort ändern
-    Angenommen ich bin <Person>
-    Und man befindet sich auf der Benutzereditieransicht von "Normin"
-    Wenn ich das Passwort von "Normin" auf "newnorminpassword" ändere
-    Und der Benutzer hat Zugriff auf ein Inventarpool
-    Dann kann sich der Benutzer "normin" mit "newnorminpassword" anmelden
+  Scenario Outline: Change password
+    Given I am <Person>
+    And I am editing the user "Normin"
+    When I change the password for user "Normin" to "newnorminpassword"
+    And the user has access to an inventory pool
+    Then the user "Normin" can log in with password "newnorminpassword"
 
-    Beispiele:
+    Examples:
       | Person |
       | Mike   |
       | Pius   |
       | Gino   |
 
   @personas
-  Szenariogrundriss: Benutzer mit fehlenden Passwortangaben erstellen
-    Angenommen ich bin <Person>
-    Und man befindet sich auf der Benutzerliste
-    Wenn ich einen Benutzer mit fehlenden Passwortangaben erstellen probiere
-    Dann sehe ich eine Fehlermeldung
+  Scenario Outline: Trying to create a user without a password
+    Given I am <Person>
+    And I am listing users
+    When I try to create a user without a password
+    Then I see an error message
 
-    Beispiele:
+    Examples:
       | Person |
       | Mike   |
       | Pius   |
       | Gino   |
 
   @personas
-  Szenariogrundriss: Benutzer ohne Loginnamen editieren
-    Angenommen ich bin <Person>
-    Und man befindet sich auf der Benutzereditieransicht von "Normin"
-    Wenn ich den Benutzernamen von nicht ausfülle und speichere
-    Dann sehe ich eine Fehlermeldung
+  Scenario Outline: Editing user without username
+    Given I am <Person>
+    And I am editing the user "Normin"
+    When I don't fill in a username and save
+    Then I see an error message
 
-    Beispiele:
+    Examples:
       | Person |
       | Mike   |
       | Pius   |
       | Gino   |
 
   @personas
-  Szenariogrundriss: Benutzer mit falscher Passwort-Bestätigung editieren
-    Angenommen ich bin <Person>
-    Und man befindet sich auf der Benutzereditieransicht von "Normin"
-    Wenn ich eine falsche Passwort-Bestägigung eingebe und speichere
-    Dann sehe ich eine Fehlermeldung
+  Scenario Outline: Editing user with wrong password confirmation
+    Given I am <Person>
+    And I am editing the user "Normin"
+    When I fill in a wrong password confirmation and save
+    Then I see an error message
 
-    Beispiele:
+    Examples:
       | Person |
       | Mike   |
       | Pius   |
       | Gino   |
 
   @personas
-  Szenariogrundriss: Benutzernamen ändern
-    Angenommen ich bin <Person>
-    Und man befindet sich auf der Benutzereditieransicht von "Normin"
-    Wenn ich den Benutzernamen von "Normin" auf "username" ändere
-    Und der Benutzer hat Zugriff auf ein Inventarpool
-    Dann kann sich der Benutzer "username" mit "password" anmelden
+  Scenario Outline: Chaging username
+    Given I am <Person>
+    And I am editing the user "Normin"
+    When I change the username from "Normin" to "username"
+    And the user has access to an inventory pool
+    Then the user "username" can log in with password "password"
 
-    Beispiele:
+    Examples:
       | Person |
       | Mike   |
       | Pius   |

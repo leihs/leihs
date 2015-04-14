@@ -27,8 +27,8 @@ class InventoryPool < ActiveRecord::Base
 
   has_and_belongs_to_many :accessories
 
-  has_many :contracts, :dependent => :restrict_with_exception
-  has_many :contract_lines, -> { uniq }, :through => :contracts #Rails3.1# TODO still needed?
+  has_many :contracts, -> { extending BundleFinder }, class_name: "ContractLinesBundle"
+  has_many :contract_lines, :dependent => :restrict_with_exception
   has_many :visits #, :include => {:user => [:reminders, :groups]} # MySQL View based on contract_lines
 
   has_many :groups do #tmp#2#, :finder_sql => 'SELECT * FROM `groups` WHERE (`groups`.inventory_pool_id = #{id} OR `groups`.inventory_pool_id IS NULL)'
@@ -70,34 +70,21 @@ class InventoryPool < ActiveRecord::Base
   # we ignore the option_lines
   # we get all lines which are not yet returned
   # we ignore lines that are not handed over which the end_date is already in the past
+  # we consider even unsubmitted lines, but not the already timed out ones
   def running_lines
-    ItemLine.find_by_sql("SELECT contract_lines.id, contracts.inventory_pool_id, model_id, quantity, start_date, end_date, " \
-                            "(end_date < '#{Date.today}' AND contracts.status = '#{:signed}') AS is_late, " \
+    ItemLine.find_by_sql("SELECT id, inventory_pool_id, model_id, quantity, start_date, end_date, " \
+                            "(end_date < '#{Date.today}' AND status = '#{:signed}') AS is_late, " \
                             "IF(item_id IS NOT NULL, DATE('#{Date.today}'), IF(start_date > '#{Date.today}', start_date, DATE('#{Date.today}'))) AS unavailable_from, " \
                             "GROUP_CONCAT(groups_users.group_id) AS concat_group_ids " \
                           "FROM contract_lines " \
-                          "INNER JOIN contracts ON contracts.id = contract_lines.contract_id " \
-                          "LEFT JOIN groups_users ON groups_users.user_id = contracts.user_id " \
-                          "WHERE contracts.inventory_pool_id = #{self.id} " \
+                          "LEFT JOIN groups_users ON groups_users.user_id = contract_lines.user_id " \
+                          "WHERE inventory_pool_id = #{self.id} " \
                             "AND returned_date IS NULL " \
-                            "AND contracts.status != '#{:rejected}' " \
-                            "AND NOT (contracts.status = '#{:unsubmitted}' AND contracts.updated_at < '#{Time.now.utc - Contract::TIMEOUT_MINUTES.minutes}') " \
+                            "AND status != '#{:rejected}' " \
+                            "AND NOT (status = '#{:unsubmitted}' AND updated_at < '#{Time.now.utc - Contract::TIMEOUT_MINUTES.minutes}') " \
                             "AND NOT (end_date < '#{Date.today}' AND item_id IS NULL) " \
-                          "GROUP BY contract_lines.id " \
+                          "GROUP BY id " \
                           "ORDER BY start_date, end_date, id;" ) # the order is needed by the availability computation
-  end
-
-#######################################################################
-
-  def potential_visits
-    self.class.find_by_sql %Q(SELECT c.inventory_pool_id AS inventory_pool_id,
-                                     cl.start_date AS date,
-                                     SUM(cl.quantity) AS quantity,
-                                     c.user_id
-                              FROM contract_lines AS cl JOIN contracts AS c ON cl.contract_id = c.id
-                              WHERE c.status = 'submitted' AND c.inventory_pool_id = #{self.id}
-                              GROUP BY c.user_id, cl.start_date, c.inventory_pool_id
-                              ORDER BY cl.start_date;)
   end
 
 #######################################################################

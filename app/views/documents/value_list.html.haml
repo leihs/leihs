@@ -45,6 +45,6 @@
           %td{:colspan => 4}
             %strong= _("Total")
           %td.quantity
-            %strong= @contract.quantity
+            %strong= @contract.total_quantity
           %td.value
             %strong= number_to_currency(@contract.total_price, format: '%n %u', :unit => Setting::LOCAL_CURRENCY_STRING)

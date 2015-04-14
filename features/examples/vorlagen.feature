@@ -1,94 +1,90 @@
-# language: de
 
-Funktionalität: Vorlagen verwalten
+Feature: Managing templates
 
-  Als Ausleihe-Verwalter / Inventar-Verwalter möchte ich 
-  die Möglichkeit haben, Vorlagen zu verwalten
-
-  Grundlage:
-    Angenommen ich bin Mike
+  Background:
+    Given I am Mike
 
   @personas
-  Szenario: Liste aller Vorlagen anzeigen
-    Wenn ich im Inventarbereich auf den Link "Vorlagen" klicke
-    Dann öffnet sich die Seite mit der Liste der im aktuellen Inventarpool erfassten Vorlagen
-    Und die Vorlagen für dieses Inventarpool sind alphabetisch nach Namen sortiert
-
-  @javascript @browser @personas
-  Szenario: Vorlage erstellen
-    Und ich befinde mich auf der Liste der Vorlagen
-    Wenn ich auf den Button "Neue Vorlage" klicke
-    Dann öffnet sich die Seite zur Erstellung einer neuen Vorlage
-    Wenn ich den Namen der Vorlage eingebe
-    Und ich Modelle hinzufüge
-    Dann steht bei jedem Modell die höchst mögliche ausleihbare Anzahl der Gegenstände für dieses Modell
-    Und für jedes hinzugefügte Modell ist die Mindestanzahl 1
-    Wenn ich zu jedem Modell die Anzahl angebe
-    Und ich speichere
-    Dann ich wurde auf die Liste der Vorlagen weitergeleitet
-    Und ich sehe die Erfolgsbestätigung
-    Und die neue Vorlage wurde mit all den erfassten Informationen erfolgreich gespeichert
+  Scenario: Show list of all templates
+    When I click on "Templates" in the inventory area
+    Then I see a list of currently available templates for the current inventory pool
+    And the templates are ordered alphabetically by their names
 
   @javascript @personas
-  Szenario: Prüfen, ob max. Anzahl bei den Modellen überschritten ist
-    Und ich befinde mich der Seite zur Erstellung einer neuen Vorlage
-    Und ich habe den Namen der Vorlage eingegeben
-    Wenn ich Modelle hinzufüge
-    Und ich bei einem Modell eine Anzahl eingebe, welche höher ist als die höchst mögliche ausleihbare Anzahl der Gegenstände für dieses Modell
-    Wenn ich speichere
-    Dann ich sehe eine Warnmeldung wegen nicht erfüllbaren Vorlagen
-    Und die neue Vorlage wurde mit all den erfassten Informationen erfolgreich gespeichert
-    Und die Vorlage ist in der Liste als unerfüllbar markiert
-    Wenn ich die gleiche Vorlage bearbeite
-    Und ich die korrekte Anzahl angebe
-    Und ich speichere
-    Dann ich sehe die Erfolgsbestätigung
-    Und die bearbeitete Vorlage wurde mit all den erfassten Informationen erfolgreich gespeichert
-    Und die Vorlage ist in der Liste nicht als unerfüllbar markiert
+  Scenario: Create template
+    Given I am listing templates 
+    When I click the button "New Template"
+    Then I can create a new template
+    When I enter the template's name
+    And I add some models to the template
+    Then each model shows the maximum number of available items
+    And each model I've added has the minimum quantity 1
+    When I enter a quantity for each model
+    And I save
+    And I see the notice "Template created successfully"
+    Then I am listing templates
+    And the new template and all the entered information are saved
 
   @javascript @personas
-  Szenario: Vorlage löschen
-    Und ich befinde mich auf der Liste der Vorlagen
-    Dann kann ich beliebige Vorlage direkt aus der Liste löschen
-    Und die Vorlage wurde aus der Liste gelöscht
-    Und die Vorlage wurde erfolgreich aus der Datenbank gelöscht
+  Scenario: Check whether a model's maximum quantity is exhausted
+    Given I am creating a new template
+    And I enter the template's name
+    And I add some models to the template
+    When I enter a quantity for a model which exceeds its maximum number of borrowable items for this model
+    And I save
+    Then I am warned that this template cannot never be ordered due to available quantities being too low
+    And the new template and all the entered information are saved
+    And the template is marked as unaccomplishable in the list
+    When I edit the same template
+    And I use correct quantities
+    And I save
+    Then I see the notice "Template successfully saved"
+    And the edited template and all the entered information are saved
+    And the template is not marked as unaccomplishable in the list
 
   @javascript @personas
-  Szenario: Vorlage ändern
-    Und ich befinde mich auf der Liste der Vorlagen
-    Und es existiert eine Vorlage mit mindestens zwei Modellen
-    Wenn ich auf den Button "Vorlage bearbeiten" klicke
-    Dann öffnet sich die Seite zur Bearbeitung einer existierenden Vorlage
-    Wenn ich den Namen ändere
-    Und ein Modell aus der Liste lösche
-    Und ich ein zusätzliches Modell hinzufüge
-    Dann für das hinzugefügte Modell ist die Mindestanzahl 1
-    Und die Anzahl bei einem der Modell ändere
-    Und ich speichere
-    Dann ich wurde auf die Liste der Vorlagen weitergeleitet
-    Und ich sehe die Erfolgsbestätigung
-    Und die bearbeitete Vorlage wurde mit all den erfassten Informationen erfolgreich gespeichert
+  Scenario: Delete template
+    Given I am listing templates
+    Then I can delete any template directly from this list
+    And the template has been deleted from the database
 
   @javascript @personas
-  Szenario: Pflichtangaben bei der Editieransicht
-    Und ich befinde mich auf der Editieransicht einer Vorlage
-    Wenn der Name nicht ausgefüllt ist
-    Und es ist mindestens ein Modell dem Template hinzugefügt
-    Und ich speichere
-    Dann sehe ich eine Fehlermeldung
-    Wenn ich den Name ausgefüllt habe
-    Und kein Modell hinzugefügt habe
-    Und ich speichere
-    Dann sehe ich eine Fehlermeldung
+  Scenario: Change template
+    Given I am listing templates
+    And a template with at least two models exists
+    When I click the button "Edit"
+    Then I am editing an existing template
+    When I change the name
+    And I delete a model from the list
+    And I add an additional model
+    Then the minimum quantity for the newly added model is 1
+    And I change the quantity for one of the models
+    And I save
+    Then I see the notice "Template successfully saved"
+    And I am listing templates
+    And the edited template and all the entered information are saved
 
   @javascript @personas
-  Szenario: Pflichtangaben bei der Erstellungsansicht
-    Und ich befinde mich auf der Erstellungsansicht einer Vorlage
-    Wenn der Name nicht ausgefüllt ist
-    Und es ist mindestens ein Modell dem Template hinzugefügt
-    Und ich speichere
-    Dann sehe ich eine Fehlermeldung
-    Wenn ich den Name ausgefüllt habe
-    Und kein Modell hinzugefügt habe
-    Und ich speichere
-    Dann sehe ich eine Fehlermeldung
+  Scenario: Required information when editing a template
+    Given I am editing a template
+    When the name is not filled in
+    And the template has at least one model
+    And I save
+    Then I see an error message
+    When I fill in the name
+    And I have not added any models
+    And I save
+    Then I see an error message
+
+  @javascript @personas
+  Scenario: Required information when creating a template
+    Given I am creating a template
+    When the name is not filled in
+    And the template has at least one model
+    And I save
+    Then I see an error message
+    When I fill in the name
+    And I have not added any models
+    And I save
+    Then I see an error message
+

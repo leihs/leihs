@@ -11,15 +11,14 @@ gem 'binding_of_caller', group: :development
 gem 'capistrano', '2.15.5', group: :development
 gem 'capistrano-ext', group: :development
 gem 'capistrano-rbenv', '~> 1.0', group: :development
-gem 'capybara', '~> 2.4', group: [:test, :development]
 gem 'chunky_png', '~> 1.2'
 gem 'cider_client'
 gem 'coffee-rails', '~> 4.0'
 gem 'coffee-script', '~> 2.2'
 gem 'compass-rails', '~> 1.1'
-gem 'cucumber-rails', '~> 1.3', group: [:test, :development], require: false
+gem 'cucumber-rails', '~> 1.3', group: [:test, :development], require: false # it already includes capybara
 gem 'database_cleaner', group: [:test, :development]
-gem 'factory_girl', '~> 4.1', group: [:test, :development]
+gem 'execjs', '2.2.2' # NOTE '2.4.0' ExecJS::ProgramError: TypeError: Cannot set property 'root' of null (in /home/leihs/leihs-test/releases/20150410090031/vendor/assets/javascripts/spine/ajax.coffee)
 gem 'factory_girl_rails', '~> 4.1', group: [:test, :development]
 gem 'faker', '1.3.0', group: [:test, :development] # NOTE '~> 1.4' doesn't work beacause "I18n::InvalidLocale" error, see note for config.i18n in config/application.rb
 gem 'font-awesome-rails', '~> 3.2.1' # NOTE in order to upgrade to '~> 4.0', use .fa css class instead of .icon
@@ -28,6 +27,7 @@ gem 'geocoder', '~> 1.1'
 gem 'gettext_i18n_rails', '~> 1.0'
 gem 'haml', '~> 4.0'
 gem 'haml_assets', '~> 0.2'
+gem 'i18n', '0.6.11'
 gem 'jquery-rails', '~> 3.1'
 gem 'jquery-tmpl-rails', '~> 1.1'
 gem 'jquery-ui-rails', '~> 5.0'
@@ -45,9 +45,8 @@ gem 'net-ldap', require: 'net/ldap'
 gem 'nilify_blanks', '~> 1.1'
 gem 'open4', :group => :test
 gem 'paperclip', '~> 3.5' # NOTE in order to upgrate to '~> 4.0', first adapt the code to avoid the Paperclip::Errors::MissingRequiredValidatorError
-gem 'phantomjs', '~> 1.9.7', group: [:test, :development] # headless webdriver (UI & JS tests)
+gem 'phantomjs', '~> 1.9.8', group: [:test, :development] # headless webdriver (UI & JS tests)
 gem 'protected_attributes', '~> 1.0'
-gem 'pry', group: [:test, :development]
 gem 'pry-byebug', group: [:test, :development]
 gem 'pry-rails', group: [:test, :development]
 gem 'rack_session_access', "~> 0.1.1", group: :test
@@ -55,10 +54,9 @@ gem 'rails_autolink', '~> 1.0'
 gem 'rake' # So that cronjobs work -- otherwise they can't find rake
 gem 'redcarpet', group: [:test, :development] # This isn't being pulled in by yard, but it's required
 gem 'rgl', '~> 0.4.0', require: 'rgl/adjacency' # use ruby-graphviz instead ?? (already in test group)
-gem 'rspec', '~> 3.0', group: [:test, :development], require: false
 gem 'rspec-rails', '~> 3.0', group: [:test, :development], require: false
 gem 'ruby_parser', '~> 3.1' # gettext dependency that Bundler seems unable to resolve
-gem 'sass', '~> 3.2'
+gem 'rubocop', require: false
 gem 'sass-rails', '~> 4.0'
 gem 'selenium-webdriver', group: [:test, :development]
 gem 'simplecov', :require => false, :group => :test

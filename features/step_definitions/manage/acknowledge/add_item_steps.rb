@@ -6,7 +6,7 @@ When /^I add a model by typing in the inventory code of an item of that model to
 end
 
 When /^I start to type the inventory code of an item$/ do
-  @item = @current_inventory_pool.items.borrowable.sample
+  @item = @current_inventory_pool.items.borrowable.order("RAND()").first
   fill_in "add-input", :with => @item.inventory_code[0..3]
 end
 
@@ -30,21 +30,24 @@ Then /^the model is added to the contract$/ do
 end
 
 When /^I start to type the name of a model( which is not yet in the contract)?$/ do |arg1|
-  items = @current_inventory_pool.items.borrowable
-  items = items.select {|i| not @contract.models.include? i.model} if arg1
-  @item = items.sample
+  items = @current_inventory_pool.items.borrowable.order("RAND()")
+  @item = if arg1
+            items.detect {|i| not @contract.models.include? i.model}
+          else
+            items.first
+          end
   fill_in 'add-input', :with => @item.model.name[0..-2]
 end
 
 When /^I add a model to the acknowledge which is already existing in the selected date range by providing an inventory code$/ do
-  @line = @contract.lines.sample
+  @line = @contract.lines.order("RAND()").first
   @old_lines_count = @contract.lines.count
   @model = @line.model
   find(".line", match: :prefer_exact, text: @model.name)
   @line_el_count = all(".line").size
 
-  fill_in "add-start-date", with: @line.start_date.strftime("%d.%m.%Y")
-  fill_in "add-end-date", with: @line.end_date.strftime("%d.%m.%Y")
+  fill_in "add-start-date", with: I18n.l(@line.start_date)
+  fill_in "add-end-date", with: I18n.l(@line.end_date)
   fill_in 'add-input', with: @model.items.first.inventory_code
 
   find("#add-input+button").click
@@ -84,13 +87,13 @@ Given /^I search for a model with default dates and note the current availabilit
 end
 
 When /^I change the start date$/ do
-  fill_in "add-start-date", with: @new_start_date.strftime("%d.%m.%Y")
+  fill_in "add-start-date", with: @new_start_date.strftime("%d/%m/%Y")
   find("#add-start-date").click
   find(".ui-state-active").click
 end
 
 And /^I change the end date$/ do
-  fill_in "add-end-date", with: (@new_start_date + 1).strftime("%d.%m.%Y")
+  fill_in "add-end-date", with: (@new_start_date + 1).strftime("%d/%m/%Y")
   find("#add-end-date").click
   find(".ui-state-active").click
 end
@@ -105,7 +108,7 @@ Then (/^the model's availability has changed$/) do
 end
 
 When(/^I start searching some model for adding it$/) do
-  @model = @current_inventory_pool.items.borrowable.map(&:model).sample
+  @model = @current_inventory_pool.items.borrowable.order("RAND()").first.model
   find('#add-input').set @model.name[0..-2]
   find('#add-input').click
 end
@@ -138,10 +141,10 @@ end
 
 When(/^I enter a model name( which is not related to my current pool)?$/) do |arg1|
   model = if arg1
-            Model.all - @current_inventory_pool.models
+            Model.order("RAND()") - @current_inventory_pool.models
           else
-            Model.all
-          end.sample
+            Model.order("RAND()")
+          end.first
   find('#assign-or-add-input').set model.name[0..-2]
 end
 

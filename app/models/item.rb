@@ -178,7 +178,7 @@ class Item < ActiveRecord::Base
   scope :in_stock, -> { joins("LEFT JOIN contract_lines AS cl001 ON items.id=cl001.item_id AND cl001.returned_date IS NULL").where("cl001.id IS NULL AND items.parent_id IS NULL") }
   scope :not_in_stock, -> { joins("INNER JOIN contract_lines AS cl001 ON items.id=cl001.item_id AND cl001.returned_date IS NULL") }
 
-  scope :by_owner_or_responsible, lambda { |ip| where(":id IN (owner_id, inventory_pool_id)", :id => ip.id) }
+  scope :by_owner_or_responsible, lambda { |ip| where(":id IN (items.owner_id, items.inventory_pool_id)", :id => ip.id) }
 
   scope :items, -> { joins(:model).where(models: {type: "Model"}) }
   scope :licenses, -> { joins(:model).where(models: {type: "Software"}) }
@@ -387,7 +387,7 @@ class Item < ActiveRecord::Base
     if parent_id
       parent.in_stock?
     else
-      contract_lines.to_take_back.empty? and contract_lines.where(returned_date: nil).empty?
+      contract_lines.signed.empty? and contract_lines.where(returned_date: nil).empty?
     end
   end
 
@@ -399,7 +399,7 @@ class Item < ActiveRecord::Base
 
     # FIXME this is a quick fix
     if contract_line
-      _("%s until %s") % [contract_line.contract.user, contract_line.end_date.strftime("%d.%m.%Y")] # TODO 1102** patch Date.to_s => to_s(:rfc822)
+      _("%s until %s") % [contract_line.user, I18n.l(contract_line.end_date)] # TODO 1102** patch Date.to_s => to_s(:rfc822)
     end
   end
 
@@ -416,7 +416,7 @@ class Item < ActiveRecord::Base
 
   def current_borrower
     contract_line = current_contract_line
-    contract_line.contract.user if contract_line
+    contract_line.user if contract_line
   end
 
   def current_return_date
@@ -427,7 +427,7 @@ class Item < ActiveRecord::Base
   # TODO statistics
   def latest_borrower
     contract_line = latest_contract_line
-    contract_line.contract.user if contract_line
+    contract_line.user if contract_line
   end
 
   # TODO statistics

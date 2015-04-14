@@ -15,16 +15,16 @@ Angenommen(/^Das System ist für den Mailversand im Testmodus konfiguriert$/) do
 end
 
 Angenommen(/^ich habe eine verspätete Rückgabe$/) do
-  jump_to_date = @current_user.contract_lines.to_take_back.first.end_date + 1.day
+  jump_to_date = @current_user.contract_lines.signed.first.end_date + 1.day
   Dataset.back_to_date(jump_to_date)
-  overdue_lines = @current_user.contract_lines.to_take_back.where("end_date < ?", Date.today)
+  overdue_lines = @current_user.contract_lines.signed.where("end_date < ?", Date.today)
   expect(overdue_lines.empty?).to be false
 end
 
 Angenommen(/^ich habe eine nicht verspätete Rückgabe$/) do
-  jump_to_date = @current_user.contract_lines.to_take_back.first.end_date - 1.day
+  jump_to_date = @current_user.contract_lines.signed.first.end_date - 1.day
   Dataset.back_to_date(jump_to_date)
-  deadline_soon_lines = @current_user.contract_lines.to_take_back.where("end_date > ?", Date.today)
+  deadline_soon_lines = @current_user.contract_lines.signed.where("end_date > ?", Date.today)
   expect(deadline_soon_lines.empty?).to be false
 end
 

@@ -12,4 +12,5 @@ Feature: Hand overs and take backs
   Scenario: Take backs are related to signed contracts
     Given there are "take back" visits
     Then the associated contract of each such visit must be "signed"
-    And each of the lines of such contract must also be "signed"
+    And at least one line of such contract must also be "signed"
+    And the other lines of such contract must be "closed"

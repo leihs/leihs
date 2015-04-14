@@ -1,114 +1,111 @@
-# language: de
-
-Funktionalität: Bestellung editieren
+Feature: Edit order
 
   @javascript @personas
-  Szenario: Sperrstatus des Benutzers anzeigen
-    Angenommen ich bin Pius
-    Wenn I navigate to the open orders
-    Und ich öffne eine Bestellung von ein gesperrter Benutzer
-    Dann sehe ich neben seinem Namen den Sperrstatus 'Gesperrt!'
+  Scenario: View suspended status of a user
+    Given I am Pius
+    When I navigate to the open orders
+    And I open a take back for a suspended user
+    Then I see the note 'Suspended!' next to their name
 
   @javascript @personas
-  Szenario: Trotzdem genehmigen für Gruppen-Verwalter unterbinden
-    Angenommen ich bin Andi
-    Und eine Bestellung enhält überbuchte Modelle
-    Wenn ich die Bestellung editiere
-    Und die Bestellung genehmige
-    Dann ist es mir nicht möglich, die Genehmigung zu forcieren
+  Scenario: Prevent 'approve anyway' for group managers
+    Given I am Andi
+    And an order contains overbooked models
+    When I edit the order
+    And I approve the order
+    Then I cannot force the order to be approved
+
+  @personas @javascript
+  Scenario: No empty orders in the order list
+    Given I am Pius
+    Then I don't see empty orders in the list of orders
 
   @personas
-  Szenario: Keine leeren Bestellungen in der Liste der Bestellungen
-    Angenommen ich bin Pius
-    Und es existiert eine leere Bestellung
-    Dann sehe ich diese Bestellung nicht in der Liste der Bestellungen
+  Scenario: Visible tabs
+    Given I am Andi
+    When I am listing the orders
+    Then I see the tabs "All, Pending, Approved, Rejected"
 
   @personas
-  Szenario: Sichtbare Reiter
-    Angenommen ich bin Andi
-    Wenn ich mich auf der Liste der Bestellungen befinde
-    Dann sehe ich die Reiter "Alle, Offen, Genehmigt, Abgelehnt"
-
-  @personas
-  Szenario: Definition visierpflichtige Bestellungen
-    Angenommen es existiert eine visierpflichtige Bestellung
-    Dann wurde diese Bestellung von einem Benutzer aus einer visierpflichtigen Gruppe erstellt
-    Und diese Bestellung beinhaltet ein Modell aus einer visierpflichtigen Gruppe
+  Scenario: Definition of orders requiring verification
+    Given a verifiable order exists
+    Then this order was created by a user that is in a group whose orders require verification
+    And this order contains a model from a group whose orders require verification
 
   @javascript @personas
-  Szenario: Alle Bestellungen anzeigen - Reiter Alle Bestellungen
-    Angenommen ich bin Andi
-    Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
-    Und ich mich auf der Liste der Bestellungen befinde
-    Wenn ich den Reiter "Alle" einsehe
-    Dann sehe ich alle visierpflichtigen Bestellungen
-    Und diese Bestellungen sind nach Erstelltdatum aufgelistet
+  Scenario: Show all orders - tab 'All orders'
+    Given I am Andi
+    And I am in an inventory pool with verifiable orders
+    And I am listing the orders
+    When I view the tab "All"
+    Then I see all verifiable orders
+    And these orders are ordered by creation date
 
   @javascript @browser @personas
-  Szenario: Reiter Offene Bestellungen Darstellung
-    Angenommen ich bin Andi
-    Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
-    Und ich mich auf der Liste der Bestellungen befinde
-    Wenn ich den Reiter "Offen" einsehe
-    Dann sehe ich alle offenen visierpflichtigen Bestellungen
-    Und ich sehe auf der Bestellungszeile den Besteller mit Popup-Ansicht der Benutzerinformationen
-    Und ich sehe auf der Bestellungszeile das Erstelldatum
-    Und ich sehe auf der Bestellungszeile die Anzahl Gegenstände mit Popup-Ansicht der bestellten Gegenstände
-    Und ich sehe auf der Bestellungszeile die Dauer der Bestellung
-    Und ich sehe auf der Bestellungszeile den Zweck
-    Und ich kann die Bestellung genehmigen
-    Und ich kann die Bestellung ablehnen
-    Und ich kann die Bestellung editieren
-    Und ich kann keine Bestellungen aushändigen
+  Scenario: Displaying the tab of pending orders
+    Given I am Andi
+    And I am in an inventory pool with verifiable orders
+    And I am listing the orders
+    When I view the tab "Pending"
+    Then I see all pending verifiable orders
+    Then I see who placed this order on the order line and can view a popup with user details
+    And I see the order's creation date on the order line
+    And I see the number of items on the order line and can view a popup containing the items ordered
+    And I see the duration of the order on the order line
+    And I see the purpose on the order line
+    And I can approve the order
+    And I can reject the order
+    And I can edit the order
+    And I cannot hand over orders
 
   @javascript @browser @personas
-  Szenario: Reiter "Genehmigt" Darstellung
-    Angenommen ich bin Andi
-    Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
-    Und ich mich auf der Liste der Bestellungen befinde
-    Wenn ich den Reiter "Genehmigt" einsehe
-    Dann sehe ich alle genehmigten visierpflichtigen Bestellungen
-    Und ich sehe auf der Bestellungszeile den Besteller mit Popup-Ansicht der Benutzerinformationen
-    Und ich sehe auf der Bestellungszeile das Erstelldatum
-    Und ich sehe auf der Bestellungszeile die Anzahl Gegenstände mit Popup-Ansicht der bestellten Gegenstände
-    Und ich sehe auf der Bestellungszeile die Dauer der Bestellung
-    Und ich sehe auf der Bestellungszeile den Status
-    Und ich eine bereits gehmigte Bestellung editiere
-    Und gelange ich in die Ansicht der Aushändigung
-    Aber ich kann nicht aushändigen
+  Scenario: Displaying the tab of approved orders
+    Given I am Andi
+    And I am in an inventory pool with verifiable orders
+    And I am listing the orders
+    When I view the tab "Approved"
+    Then I see all verified and approved orders
+    And I see who placed this order on the order line and can view a popup with user details
+    And I see the order's creation date on the order line
+    And I see the number of items on the order line and can view a popup containing the items ordered
+    And I see the duration of the order on the order line
+    And I see the order's status on the order line
+    And I edit an already approved order
+    And I am directed to the hand over view
+    But I cannot hand over
+
 
   @javascript @browser @personas
-  Szenario: Reiter "Abgelehnt" Darstellung
-    Angenommen ich bin Andi
-    Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
-    Und ich mich auf der Liste der Bestellungen befinde
-    Wenn ich den Reiter "Abgelehnt" einsehe
-    Dann sehe ich alle abgelehnten visierpflichtigen Bestellungen
-    Und ich sehe auf der Bestellungszeile den Besteller mit Popup-Ansicht der Benutzerinformationen
-    Und ich sehe auf der Bestellungszeile das Erstelldatum
-    Und ich sehe auf der Bestellungszeile die Anzahl Gegenstände mit Popup-Ansicht der bestellten Gegenstände
-    Und ich sehe auf der Bestellungszeile die Dauer der Bestellung
-    Und ich sehe auf der Bestellungszeile den Status
+  Scenario: Displaying the tab of rejected orders
+    Given I am Andi
+    And I am in an inventory pool with verifiable orders
+    And I am listing the orders
+    When I view the tab "Rejected"
+    Then I see all verifiable rejected orders
+    And I see who placed this order on the order line and can view a popup with user details
+    And I see the order's creation date on the order line
+    And I see the number of items on the order line and can view a popup containing the items ordered
+    And I see the duration of the order on the order line
+    And I see the order's status on the order line
 
   @javascript @personas
-  Szenario: Filter zum visieren aufheben
-    Angenommen ich bin Andi
-    Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
-    Und ich mich auf der Liste der Bestellungen befinde
-    Und sehe ich alle visierpflichtigen Bestellungen
-    Wenn ich den Filter "Zu prüfen" aufhebe
-    Dann sehe ich alle Bestellungen, welche von Benutzern der visierpflichtigen Gruppen erstellt wurden
+  Scenario: Remove filter that shows orders to be verified
+    Given I am Andi
+    And I am in an inventory pool with verifiable orders
+    And I am listing the orders
+    Then I see all verifiable orders
+    When I uncheck the filter "To be verified"
+    Then I see orders placed by users in groups requiring verification
 
   @javascript @browser @personas
-  Szenario: Bereits genehmigte Bestellung zurücksetzen
-    Angenommen ich bin Andi
-    Und ich befinde mich im Gerätepark mit visierpflichtigen Bestellungen
-    Und ich mich auf der Liste der Bestellungen befinde
-    Wenn ich den Reiter "Genehmigt" einsehe
-    Und ich eine bereits gehmigte Bestellung editiere
-    Dann gelange ich in die Ansicht der Aushändigung
-    Und ich kann Modelle hinzufügen
-    Und ich kann Optionen hinzufügen
-    Aber ich kann keine Gegenstände zuteilen
-    Und ich kann nicht aushändigen
-
+  Scenario: Reset order that is already approved
+    Given I am Andi
+    And I am in an inventory pool with verifiable orders
+    And I am listing the orders
+    When I view the tab "Approved"
+    And I edit an already approved order
+    Then I am directed to the hand over view
+    And I can add models
+    And I can add options
+    But I cannot assign items
+    And I cannot hand over

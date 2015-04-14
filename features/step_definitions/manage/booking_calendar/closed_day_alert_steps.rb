@@ -15,9 +15,9 @@ When /^I pick a closed day for beeing the (start|end) date$/ do |date_target|
 
   case date_target
     when "start"
-      find("#set-start-date", text: _("Start Date")).click
+      find("#set-start-date", text: _("Start date")).click
     when "end"
-      find("#set-end-date", text: _("End Date")).click
+      find("#set-end-date", text: _("End date")).click
   end
 end
 

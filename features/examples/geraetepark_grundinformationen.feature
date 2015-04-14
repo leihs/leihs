@@ -1,141 +1,142 @@
-# language: de
 
-Funktionalität: Gerätepark-Grundinformationen
+Feature: Basic information for inventory pools
 
-  Um die Grundinformationen meines Gerätepark zu verwalten
-  möchte ich als Zuständiger
-  die Informationen/Einstellungen für einen Gerätepark bearbeiten können
+  As a person responsible for managing inventory pools
+  I want to be able to change their settings and supply basic information
+  So that each inventory pool has all the information and settings they
+  need to work efficiently (e.g. opening hours, proper addresses, etc.)
 
   @javascript @personas
-  Szenario: Grundinformationen erfassen
-    Angenommen ich bin Mike
-    Wenn ich den Admin-Bereich betrete
-    Dann kann ich die Gerätepark-Grundinformationen eingeben
+  Scenario: Make basic settings
+    Given I am Mike
+    When I navigate to the inventory pool section in the admin area
+    Then I enter the inventory pool's basic settings as follows:
     | Name |
-    | Kurzname |
+    | Short Name |
     | E-Mail |
-    | Beschreibung |
-    | Standard-Vertragsnotiz |
-    | Verträge drucken |
-    | Automatischer Zugriff |
-    Und ich kann die angegebenen Grundinformationen speichern
-    Dann sehe eine Bestätigung
-    Und sind die Informationen aktualisiert
-    Und ich bleibe auf derselben Ansicht
+    | Description |
+    | Default Contract Note|
+    | Print Contracts |
+    | Automatic access |
+    And I make a note of which page I'm on
+    And I save
+    Then I see a confirmation that the information was saved
+    And the settings are updated
+    And I am still on the same page
 
   @personas
-  Szenario: Pflichtfelder der Grundinformationen zusammen prüfen
-    Angenommen ich bin Mike
-    Und ich die Grundinformationen des Geräteparks abfüllen möchte
-    Und ich die folgenden Felder nicht befüllt habe
-      | Name     |
-      | Kurzname |
-      | E-Mail   |
-    Dann kann das Gerätepark nicht gespeichert werden
-    Und ich sehe eine Fehlermeldung
+  Scenario: Pflichtfelder der Grundinformationen zusammen prüfen
+    Given I am Mike
+    When I edit the current inventory pool
+    And I leave the following fields empty:
+      | Name       |
+      | Short Name |
+      | E-Mail     |
+    And I save
+    Then I see an error message
 
   @personas
-  Szenario: Aut. zuweisen beim Benutzererstellen ausserhalb des Geräteparks
-    Angenommen ich bin Gino
-    Und es ist bei mehreren Geräteparks aut. Zuweisung aktiviert
-    Und man befindet sich auf der Benutzerliste
-    Wenn ich einen Benutzer mit Login "username" und Passwort "password" erstellt habe
-    Dann kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut. Zuweisung die Rolle 'Kunde'
+  Scenario: Automatically grant access to new users
+    Given I am Gino
+    And multiple inventory pools are granting automatic access
+    And I am listing users
+    When I have created a user with login "username" and password "password"
+    Then the newly created user has 'customer'-level access to all inventory pools that grant automatic access
 
   @personas
-  Szenario: Aut. zuweisen beim Benutzererstellen innerhalb des Geräteparks
-    Angenommen ich bin Mike
-    Und es ist bei mehreren Geräteparks aut. Zuweisung aktiviert
-    Und es ist bei meinem Gerätepark aut. Zuweisung aktiviert
-    Wenn ich in meinem Gerätepark einen neuen Benutzer mit Rolle 'Inventar-Verwalter' erstelle
-    Dann kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut. Zuweisung ausser meinem die Rolle 'Kunde'
-    Und in meinem Gerätepark hat er die Rolle 'Inventar-Verwalter'
+  Scenario: Automatically grant access to new users from within my own inventory pool's settings
+    Given I am Mike
+    And multiple inventory pools are granting automatic access
+    And my inventory pool is granting automatic access
+    When I create a new user with the 'inventory manager' role in my inventory pool
+    Then the newly created user has 'customer'-level access to all inventory pools that grant automatic access, but not to mine
+    And in my inventory pool the user gets the role 'inventory manager'
 
   #72676850
-  @personas @javascript
-  Szenario: Aut. Zuweisen entfernen
-    Angenommen ich bin Mike
-    Und es ist bei mehreren Geräteparks aut. Zuweisung aktiviert
-    Und ich editiere eine Gerätepark bei dem die aut. Zuweisung aktiviert ist
-    Wenn ich die aut. Zuweisung deaktiviere
-    Und ich speichere
-    Dann ist die aut. Zuweisung deaktiviert
-    Angenommen ich bin Gino
-    Und man befindet sich auf der Benutzerliste
-    Wenn ich einen Benutzer mit Login "username" und Passwort "password" erstellt habe
-    Dann kriegt der neu erstellte Benutzer bei dem vorher editierten Gerätepark kein Zugriffsrecht
+  @personas @javascript @browser
+  Scenario: Remove automatic access
+    Given I am Mike
+    And multiple inventory pools are granting automatic access
+    And I edit an inventory pool that is granting automatic access
+    When I disable automatic access
+    And I save
+    Then automatic access is disabled
+    Given I am Gino
+    And I am listing users
+    When I have created a user with login "username" and password "password"
+    Then the newly created user does not have access to that inventory pool
 
   #72676850
   @personas
-  Szenariogrundriss: Checkboxen abwählen
-    Angenommen ich bin Mike
-    Und ich editiere eine Gerätepark
-    Wenn ich "<Checkbox>" aktiviere
-    Und ich speichere
-    Dann ist "<Checkbox>" aktiviert
-    Wenn ich "<Checkbox>" deaktiviere
-    Und ich speichere
-    Dann ist "<Checkbox>" deaktiviert
-    Beispiele:
-      | Checkbox                |
-      | Verträge drucken        |
-      | Automatische Sperrung   |
-      | Automatischer Zugriff   |
+  Scenario Outline: Deselect checkboxes
+    Given I am Mike
+    And I edit an inventory pool
+    When I enable "<checkbox>"
+    And I save
+    Then "<checkbox>" is enabled
+    When I disable "<checkbox>"
+    And I save
+    Then "<checkbox>" is disabled
+    Examples:
+      | checkbox                |
+      | Print contracts        |
+      | Automatic suspension   |
+      | Automatic access   |
 
   @personas
-  Szenario: Arbeitstage verwalten
-   Angenommen ich bin Mike
-   Und ich verwalte die Gerätepark Grundinformationen
-   Wenn ich die Arbeitstage Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag ändere
-   Und ich speichere
-   Dann sind die Arbeitstage gespeichert
+  Scenario: Manage workdays
+   Given I am Mike
+   And I edit my inventory pool settings
+   When I randomly set the workdays monday, tuesday, wednesday, thursday, friday, saturday and sunday to open or closed
+   And I save
+   Then those randomly chosen workdays are saved
 
   @javascript @personas
-  Szenario: Tage der Ausleihschliessung verwalten
-   Angenommen ich bin Mike
-   Und ich verwalte die Gerätepark Grundinformationen
-   Wenn ich eine oder mehrere Zeitspannen und einen Namen für die Ausleihsschliessung angebe
-   Und ich speichere
-   Dann werden die Ausleihschliessungszeiten gespeichert
-   Und ich kann die Ausleihschliessungszeiten wieder löschen
+  Scenario: Manage holidays
+   Given I am Mike
+   And I edit my inventory pool settings
+   When I set one or more time spans as holidays and give them names
+   And I save
+   Then the holidays are saved
+   And I can delete the holidays
 
   @personas
-  Szenariogrundriss: Pflichtfelder der Grundinformationen einzeln prüfen
-    Angenommen ich bin Mike
-    Wenn ich die Grundinformationen des Geräteparks abfüllen möchte
-    Und jedes Pflichtfeld des Geräteparks ist gesetzt
-    | Name        |
-    | Kurzname    |
-    | E-Mail      |
-    Wenn ich das gekennzeichnete "<Pflichtfeld>" des Geräteparks leer lasse
-    Dann kann das Gerätepark nicht gespeichert werden
-    Und ich sehe eine Fehlermeldung
-    Und die anderen Angaben wurde nicht gelöscht
-    Beispiele:
-      | Pflichtfeld |
-      | Name        |
-      | Kurzname    |
-      | E-Mail      |
+  Scenario Outline: Validate each field in inventory pool settings separately
+    Given I am Mike
+    When I edit the current inventory pool
+    And I fill in the following fields in the inventory pool settings:
+    | Name       |
+    | Short Name |
+    | E-Mail     |
+    When I leave the field "<field>" in the inventory pool settings empty
+    And I save
+    Then I see an error message
+    And the other fields still contain their data
+    Examples:
+      | field      |
+      | Name       |
+      | Short Name |
+      | E-Mail     |
 
   @personas
-  Szenario: Automatische Benutzersperrung bei verspäteter Rückgabe
-    Angenommen ich bin Mike
-    Wenn ich die Grundinformationen des Geräteparks abfüllen möchte
-    Wenn ich für den Gerätepark die automatische Sperrung von Benutzern mit verspäteten Rückgaben einschalte
-    Dann muss ich einen Sperrgrund angeben
-    Wenn ich speichere
-    Dann ist diese Konfiguration gespeichert
-    Wenn ein Benutzer wegen verspäteter Rückgaben automatisch gesperrt wird
-    Dann wird er für diesen Gerätepark gesperrt bis zum '1.1.2099'
-    Und der Sperrgrund ist derjenige, der für diesen Park gespeichert ist
-    Wenn ich "Automatische Sperrung" deaktiviere
-    Und ich speichere
-    Dann ist "Automatische Sperrung" deaktiviert
+  Scenario: Automatically suspend users with late contracts
+    Given I am Mike
+    When I edit the current inventory pool
+    When I enable "Automatic suspension"
+    Then I have to supply a reason for suspension
+    When I save
+    Then this configuration is saved
+    When a user is suspended automatically due to late contracts
+    Then they are suspended for this inventory pool until '1/1/2099'
+    And the reason for suspension is the one specified for this inventory pool
+    When I disable "Automatic suspension"
+    And I save
+    Then "Automatic suspension" is disabled
 
   @personas
-  Szenario: Automatische Benutzersperrung nur wenn Benutzer nicht schon gesperrt
-    Angenommen ich bin Mike
-    Wenn ich für den Gerätepark die automatische Sperrung von Benutzern mit verspäteter Rückgaben einschalte
-    Und ein Benutzer bereits gesperrt ist
-    Dann werden der bestehende Sperrgrund sowie die Sperrzeit dieses Benutzers nicht überschrieben
+  Scenario: Suspend users automatically only if they aren't already suspended
+    Given I am Mike
+    When on the inventory pool I enable the automatic suspension for users with overdue take backs
+    And a user is already suspended for this inventory pool
+    Then the existing suspension motivation and the suspended time for this user are not overwritten
 

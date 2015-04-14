@@ -1,23 +1,22 @@
-# language: de
 
-Funktionalität: Abholungen
-
-  @personas
-  Szenario: Anzahl und Rückgabe-Button
-    Angenommen ich bin Normin
-    Dann sehe ich die Anzahl meiner "Abholungen" auf jeder Seite
+Feature: Pick ups
 
   @personas
-  Szenario: Kein Abhol-Button im Fall nicht vorhandenen Rückgaben
-    Angenommen ich bin Peter
-    Und man befindet sich im Ausleihen-Bereich
-    Dann sehe ich den "Abholungen" Button nicht
+  Scenario: Quantity and return button
+    Given I am Normin
+    Then I see the number of "Returns" on each page
 
   @personas
-  Szenario: Abholungen-Übersichtsseite
-    Angenommen ich bin Normin
-    Wenn ich auf den "Abholungen" Link drücke
-    Dann sehe ich meine "Abholungen"
-    Und die "Abholungen" sind nach Datum und Gerätepark sortiert
-    Und jede der "Abholungen" zeigt die abzuholenden Geräte
-    Und die Geräte sind alphabetisch sortiert und gruppiert nach Modellname mit Anzahl der Geräte
+  Scenario: No pickup button when there are no returns
+    Given I am Peter
+    And I am in the borrow section
+    Then I don't see the "Pick ups" button
+
+  @personas
+  Scenario: Pick up overview
+    Given I am Normin
+    When I press the "Pick ups" link
+    Then I see my "Pick ups"
+    And the "Pick ups" are sorted by date and inventory pool
+    And each of the "Pick ups" shows items to pick up
+    And the items are sorted alphabetically and grouped by model name and number of items

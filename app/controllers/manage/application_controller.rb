@@ -54,17 +54,17 @@ class Manage::ApplicationController < ApplicationController
       end
     else
       last_ip_id = session[:current_inventory_pool_id] || current_user.latest_inventory_pool_id_before_logout
-      ip = current_user.managed_inventory_pools.detect{|x| x.id==last_ip_id} if last_ip_id
+      ip = current_user.inventory_pools.managed.detect{|x| x.id==last_ip_id} if last_ip_id
       role_for_last_ip = current_user.access_right_for(ip).try :role if ip
 
       if [:inventory_manager, nil].include?(role_for_last_ip) and current_user.access_rights.active.where(role: :inventory_manager).exists?
-        ip ||= current_user.managed_inventory_pools(:inventory_manager).first
+        ip ||= current_user.inventory_pools.managed(:inventory_manager).first
         redirect_to manage_inventory_path(ip), flash: flash
       elsif [:lending_manager, nil].include?(role_for_last_ip) and current_user.access_rights.active.where(role: :lending_manager).exists?
-        ip ||= current_user.managed_inventory_pools(:lending_manager).first
+        ip ||= current_user.inventory_pools.managed(:lending_manager).first
         redirect_to manage_daily_view_path(ip), flash: flash
       elsif [:group_manager, nil].include?(role_for_last_ip) and current_user.access_rights.active.where(role: :group_manager).exists?
-        ip ||= current_user.managed_inventory_pools(:group_manager).first
+        ip ||= current_user.inventory_pools.managed(:group_manager).first
         redirect_to manage_contracts_path(ip, status: [:approved, :submitted, :rejected]), flash: flash
       else
         render :nothing => true, :status => :bad_request
@@ -119,7 +119,7 @@ class Manage::ApplicationController < ApplicationController
     end
 
     def current_managed_inventory_pools
-      @current_managed_inventory_pools ||= (current_user.managed_inventory_pools - [current_inventory_pool]).sort
+      @current_managed_inventory_pools ||= (current_user.inventory_pools.managed - [current_inventory_pool]).sort
     end
 
     ####### Helper Methods #######

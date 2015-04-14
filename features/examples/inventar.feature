@@ -1,330 +1,313 @@
-# language: de
+Feature: Inventory
 
-Funktionalität: Inventar
-
-  Grundlage:
-    Angenommen ich bin Mike
-    Und man öffnet die Liste des Inventars
+  Background:
+    Given I am Mike
+    And I open the inventory
 
   @javascript @personas
-  Szenario: Inventar anhand eines Suchbegriffs finden
-    Angenommen es existiert ein Modell mit folgenden Eigenschaften:
+  Scenario: Finding inventory using a search term
+    Given there is a model with the following properties:
       | Name       | suchbegriff1 |
-      | Hersteller | suchbegriff4 |
-    Und es existiert ein Gegenstand mit folgenden Eigenschaften:
-      | Inventarcode | suchbegriff2 |
-    Wenn ich im Inventarbereich nach einer dieser Eigenschaften suche
-    Dann es erscheinen alle zutreffenden Modelle
-    Und es erscheinen alle zutreffenden Gegenstände
+      | Manufacturer | suchbegriff4 |
+    And there is a item with the following properties:
+      | Inventory code | suchbegriff2 |
+    When I search in the inventory section for one of those properties
+    Then all matching models appear
+    And all matching items appear
 
   @javascript @personas
-  Szenario: Pakete anhand eines Suchbegriffs finden
-    Angenommen es existiert ein Modell mit folgenden Eigenschaften:
+  Scenario: Finding packages using search term
+    Given there is a model with the following properties:
       | Name | Package Model |
-    Und diese Modell ein Paket ist
-    Und es existiert ein Gegenstand mit folgenden Eigenschaften:
-      | Inventarcode | P-AVZ40001 |
-    Und diese Paket-Gegenstand ist Teil des Pakets-Modells
-    Und es existiert ein Modell mit folgenden Eigenschaften:
+    And this model is a package
+    And there is a item with the following properties:
+      | Inventory code | P-AVZ40001 |
+    And this package item is part of this package model
+    And there is a model with the following properties:
       | Name | Normal Model |
-    Und es existiert ein Gegenstand mit folgenden Eigenschaften:
-      | Inventarcode | AVZ40020 |
-    Und dieser Gegenstand ist Teil des Paket-Gegenstandes
-    Wenn ich im Inventarbereich nach einer dieser Eigenschaften suche
-    Dann es erscheinen alle zutreffenden Paket-Modelle
-    Und es erscheinen alle zutreffenden Paket-Gegenstände
-    Und es erscheinen alle zutreffenden Gegenstände
+    And there is a item with the following properties:
+      | Inventory code | AVZ40020 |
+    And this item is part of this package item
+    When I search in the inventory section for one of those properties
+    Then all matching package models appear
+    And all matching package items appear
+    And all matching items appear
 
-  @personas @javascript
-  Szenario: Modell und Gegenstand eines Pakets in Besitzergerätepark finden
-    Angenommen es existiert ein Modell mit folgenden Eigenschaften:
+  @personas @javascript @browser
+  Scenario: Finding model and item in the inventory pool that owns them
+    Given there is a model with the following properties:
       | Name | Package Model |
-    Und diese Modell ein Paket ist
-    Und es existiert ein Gegenstand mit folgenden Eigenschaften:
-      | Inventarcode                | P-AVZ40001         |
-      | Besitzergerätepark          | Anderer Gerätepark |
-      | verantwortlicher Gerätepark | Anderer Gerätepark |
-    Und diese Paket-Gegenstand ist Teil des Pakets-Modells
-    Und es existiert ein Modell mit folgenden Eigenschaften:
+    And this model is a package
+    And there is a item with the following properties:
+      | Inventory code             | P-AVZ40001             |
+      | Owner                      | Another inventory pool |
+      | Responsible inventory pool | Another inventory pool |
+    And this package item is part of this package model
+    And there is a model with the following properties:
       | Name | Normal Model |
-    Und es existiert ein Gegenstand mit folgenden Eigenschaften:
-      | Inventarcode                | AVZ40020           |
-      | Besitzergerätepark          | Mein Gerätepark    |
-      | verantwortlicher Gerätepark | Anderer Gerätepark |
-    Und dieser Gegenstand ist Teil des Paket-Gegenstandes
-    Wenn ich im Inventarbereich nach den folgenden Eigenschaften suche
+    And there is a item with the following properties:
+      | Inventory code             | AVZ40020               |
+      | Owner                      | Current inventory pool |
+      | Responsible inventory pool | Another inventory pool |
+    And this item is part of this package item
+    When I search for the following properties in the inventory section:
       | Normal Model |
-    Dann erscheint das entsprechende Modell zum Gegenstand
-    Und es erscheint der Gegenstand
-    Wenn ich im Inventarbereich nach den folgenden Eigenschaften suche
+    Then the item corresponding to the model appears
+    And the item appears
+    When I search for the following properties in the inventory section:
       | AVZ40020 |
-    Dann erscheint das entsprechende Modell zum Gegenstand
-    Und es erscheint der Gegenstand
+    Then the item corresponding to the model appears
+    And the item appears
 
-  @personas @javascript
-  Szenariogrundriss: Modell und Gegenstand eines Pakets in Verantwortlichem Gerätepark finden
-    Angenommen es existiert ein Modell mit folgenden Eigenschaften:
+  @personas @javascript @browser
+  Scenario Outline: Finding a package's models and items in its responsible inventory pool
+    Given there is a model with the following properties:
       | Name | Package Model |
-    Und diese Modell ein Paket ist
-    Und es existiert ein Gegenstand mit folgenden Eigenschaften:
-      | Inventarcode                | P-AVZ40001      |
-      | Besitzergerätepark          | Mein Gerätepark |
-      | verantwortlicher Gerätepark | Mein Gerätepark |
-    Und diese Paket-Gegenstand ist Teil des Pakets-Modells
-    Und es existiert ein Modell mit folgenden Eigenschaften:
+    And this model is a package
+    And there is a item with the following properties:
+      | Inventory code             | P-AVZ40001             |
+      | Owner                      | Current inventory pool |
+      | Responsible inventory pool | Current inventory pool |
+    And this package item is part of this package model
+    And there is a model with the following properties:
       | Name | Normal Model |
-    Und es existiert ein Gegenstand mit folgenden Eigenschaften:
-      | Inventarcode                | AVZ40020           |
-      | Besitzergerätepark          | Anderer Gerätepark |
-      | verantwortlicher Gerätepark | Mein Gerätepark    |
-    Und dieser Gegenstand ist Teil des Paket-Gegenstandes
-    Wenn ich im Inventarbereich nach den folgenden Eigenschaften suche
-      | <Eigenschaft> |
-    Dann erscheint das entsprechende Modell zum Gegenstand
-    Und es erscheint der Gegenstand
-    Dann es erscheinen alle zutreffenden Paket-Modelle
-    Und es erscheinen alle zutreffenden Paket-Gegenstände
-    Und es erscheinen alle zutreffenden Gegenstände
-  Beispiele:
-    | Eigenschaft  |
+    And there is a item with the following properties:
+      | Inventory code             | AVZ40020               |
+      | Owner                      | Another inventory pool |
+      | Responsible inventory pool | Current inventory pool |
+    And this item is part of this package item
+    When I search for the following properties in the inventory section:
+      | <property> |
+    Then the item corresponding to the model appears
+    And the item appears
+    And all matching package models appear
+    And all matching package items appear
+    And all matching items appear
+  Examples:
+    | property     |
     | Normal Model |
     | AVZ40020     |
 
   @personas @javascript @browser
-  Szenario: Auswahlmöglichkeiten: Alle-Tab
-    Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
-      | Auswahlmöglichkeit |
-      | Alle               |
+  Scenario: The tab 'All'
+    Then I can click one of the following tabs to filter inventory by:
+      | Choice |
+      | All               |
 
   @personas @javascript @browser
-  Szenario: Auswahlmöglichkeiten: Modell-Tab
-    Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
-      | Auswahlmöglichkeit |
-      | Modelle            |
+  Scenario: The tab 'Models'
+    Then I can click one of the following tabs to filter inventory by:
+      | Choice |
+      | Models            |
 
   @personas @javascript @browser
-  Szenario: Auswahlmöglichkeiten: Modell-Tab
-    Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
-      | Auswahlmöglichkeit |
-      | Pakete             |
+  Scenario: The tab 'Packages'
+    Then I can click one of the following tabs to filter inventory by:
+      | Choice |
+      | Packages          |
+    
+  @personas @javascript @browser
+  Scenario: The tab 'Options'
+    Then I can click one of the following tabs to filter inventory by:
+      | Choice |
+      | Options           |
 
   @personas @javascript @browser
-  Szenario: Auswahlmöglichkeiten: Optionen-Tab
-    Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
-      | Auswahlmöglichkeit |
-      | Optionen           |
-
-  @personas @javascript @browser
-  Szenario: Auswahlmöglichkeiten: Software-Tab
-    Dann kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:
-      | Auswahlmöglichkeit |
+  Scenario: The tab 'Software'
+    Then I can click one of the following tabs to filter inventory by:
+      | Choice |
       | Software           |
 
   @personas @javascript @browser
-  Szenariogrundriss: Auswahlmöglichkeiten: genutzt & ungenutzt
-    Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
-    Wenn ich innerhalb des gesamten Inventars als "<Select-Feld>" die Option "<Eigenschaft>" wähle
-    Dann wird nur das "<Eigenschaft>" Inventar angezeigt
-  Beispiele:
-    | Select-Feld         | Eigenschaft   |
-    | genutzt & ungenutzt | genutzt       |
-    | genutzt & ungenutzt | nicht genutzt |
+  Scenario Outline: Filtering used and unused inventory
+    Given I see retired and not retired inventory
+    When I choose inside all inventory as "<dropdown>" the option "<property>"
+    Then only the "<property>" inventory is shown
+  Examples:
+    | dropdown        | property |
+    | used & not used | used     |
+    | used & not used | not used |
 
   @personas @javascript @browser
-  Szenariogrundriss: Auswahlmöglichkeiten: ausleihbar & nicht ausleihbar
-    Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
-    Wenn ich innerhalb des gesamten Inventars als "<Select-Feld>" die Option "<Eigenschaft>" wähle
-    Dann wird nur das "<Eigenschaft>" Inventar angezeigt
-  Beispiele:
-    | Select-Feld                   | Eigenschaft      |
-    | ausleihbar & nicht ausleihbar | ausleihbar       |
-    | ausleihbar & nicht ausleihbar | nicht ausleihbar |
+  Scenario Outline: Filtering borrowable and not borrowable inventory
+    Given I see retired and not retired inventory
+    When I choose inside all inventory as "<dropdown>" the option "<property>"
+    Then only the "<property>" inventory is shown
+  Examples:
+    | dropdown                  | property       |
+    | borrowable & unborrowable | borrowable     |
+    | borrowable & unborrowable | unborrowable   |
 
   @personas @javascript @browser
-  Szenariogrundriss: Auswahlmöglichkeiten: ausgemustert & nicht ausgemustert
-    Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
-    Wenn ich innerhalb des gesamten Inventars als "<Select-Feld>" die Option "<Eigenschaft>" wähle
-    Dann wird nur das "<Eigenschaft>" Inventar angezeigt
-  Beispiele:
-    | Select-Feld                       | Eigenschaft        |
-    | ausgemustert & nicht ausgemustert | ausgemustert       |
-    | ausgemustert & nicht ausgemustert | nicht ausgemustert |
+  Scenario Outline: Filtering retired and not retired inventory
+    Given I see retired and not retired inventory
+    When I choose inside all inventory as "<dropdown>" the option "<property>"
+    Then only the "<property>" inventory is shown
+  Examples:
+    | dropdown              | property    |
+    | retired & not retired | retired     |
+    | retired & not retired | not retired |
 
   @personas @javascript @browser
-  Szenariogrundriss: Auswahlmöglichkeiten: Checkboxen
-    Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
-    Wenn ich innerhalb des gesamten Inventars die "<Filterwahl>" setze
-    Dann wird nur das "<Filterwahl>" Inventar angezeigt
-  Beispiele:
-    | Filterwahl    |
-    | Im Besitz     |
-    | An Lager      |
-    | Unvollständig |
-    | Defekt        |
+  Scenario Outline: Filter inventory by owner, stock, completeness and defective status
+    Given I see retired and not retired inventory
+    When I set the option "<filter>" inside of the full inventory
+    Then only the "<filter>" inventory is shown
+  Examples:
+    | filter     |
+    | Owned      |
+    | In stock   |
+    | Incomplete |
+    | Broken     |
 
   @personas @javascript @browser
-  Szenario: Auswahlmöglichkeiten: verantwortliche Abteilung
-    Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
-    Wenn ich innerhalb des gesamten Inventars ein bestimmtes verantwortliche Gerätepark wähle
-    Dann wird nur das Inventar angezeigt, für welche dieses Gerätepark verantwortlich ist
+  Scenario: Filtering by responsible department
+    Given I see retired and not retired inventory
+    When I choose a certain responsible pool inside the whole inventory
+    Then only the inventory is shown for which this pool is responsible
 
   @personas @javascript
-  Szenario: Default-Filter "nicht ausgemustert"
-    Dann ist bei folgenden Inventargruppen der Filter "nicht ausgemustert" per Default eingestellt:
-      | Alle     |
-      | Modelle  |
+  Scenario: The default filter is "not retired"
+    Then for the following inventory groups the filter "not retired" is set
+      | All     |
+      | Models  |
       | Software |
 
   @personas @javascript
-  Szenario: Grundeinstellung der Listenansicht
-    Dann ist die Auswahl "Alle" aktiviert
-
-  @personas @javascript
-  Szenario: Grundeinstellung der Listenansicht
-    Dann ist die Auswahl "Alle" aktiviert
+  Scenario: Default setting for the list view
+    Then the tab "All" is active
 
   @personas
-  Szenario: Inhalt der Auswahl "Software"
-    Dann enthält die Auswahl "Software" Software und Software-Lizenzen
-    Und der Filter "Nicht Ausgemustert" ist aktiviert
+  Scenario: Default setting for the "Software" view
+    # Undefined
+    Then enthält die Auswahl "Software" Software und Software-Lizenzen
+    And der Filter "Nicht Ausgemustert" ist aktiviert
 
-  @personas @javascript
-  Szenario: Grundeinstellung der Listenansicht
-    Dann ist die Auswahl "Alle" aktiviert
-
-  @personas
-  Szenario: Inhalt der Auswahl "Software"
-    Dann enthält die Auswahl "Software" Software und Software-Lizenzen
-    Und der Filter "Nicht Ausgemustert" ist aktiviert
-
-  @personas @javascript
-  Szenario: Grundeinstellung der Listenansicht
-    Dann ist die Auswahl "Alle" aktiviert
-
-  @javascript @personas
-  Szenario: Aussehen einer Options-Zeile
-    Angenommen man befindet sich auf der Liste der Optionen
-    Dann enthält die Options-Zeile folgende Informationen
+  @javascript @personas @browser
+  Scenario: What an option line contains
+    Given one is on the list of the options
+    Then the option line contains:
       | information |
       | Barcode     |
       | Name        |
-      | Preis       |
+      | Price       |
 
-  @javascript @personas
-  Szenario: Paket-Modelle aufklappen
-    Dann kann man jedes Paket-Modell aufklappen
-    Und man sieht die Pakete dieses Paket-Modells
-    Und so eine Zeile sieht aus wie eine Gegenstands-Zeile
-    Und man kann diese Paket-Zeile aufklappen
-    Und man sieht die Bestandteile, die zum Paket gehören
-    Und so eine Zeile zeigt nur noch Inventarcode und Modellname des Bestandteils
+  @javascript @personas @browser
+  Scenario: Expand package models
+    Then I can expand each package model line
+    And I see the packages contained in this package model
+    And such a line looks like an item line
+    And I can expand this package line
+    And I see the components of this package
+    And such a line shows only inventory code and model name of the component
 
-  @javascript @personas
-  Szenario: Aussehen einer Modell-Zeile
-    Wenn man eine Modell-Zeile sieht
-    Dann enthält die Modell-Zeile folgende Informationen:
+  @javascript @personas @browser
+  Scenario: Look of a model line
+    When I see a model line
+    Then the model line contains:
       | information              |
-      | Bild                     |
-      | Name des Modells         |
-      | Anzahl verfügbar (jetzt) |
-      | Anzahl verfügbar (Total) |
+      | Image                    |
+      | Model name               |
+      | Number available (now)   |
+      | Number available (total) |
 
   @javascript @personas @browser
-  Szenario: Aussehen einer Gegenstands-Zeile
-    Wenn ich den Reiter "Modelle" einsehe
-    Und der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist
-    Dann enthält die Gegenstands-Zeile folgende Informationen:
+  Scenario: Look of an item line
+    When I view the tab "Models"
+    And the item is in stock and my department is responsible for it
+    Then the item line contains:
+      | information          |
+      | Code of the building |
+      | Room                 |
+      | Shelf                |
+    When my department is the owner but has given responsibility for the item to another department
+    Then the item line contains:
+      | information            |
+      | Responsible department |
+      | Code of the building   |
+      | Room                   |
+    When I view the tab "Models"
+    And the item is not in stock and another department is responsible for it
+    Then the item line contains:
+      | information            |
+      | Responsible department |
+      | Current borrower       |
+      | End date of contract   |
+
+  @javascript @personas @browser
+  Scenario: Look of a software license line
+    Given there exists a software license
+    And I see retired and not retired inventory
+    When I look at this license in the software list
+    Then the software license line contains:
+      | information    |
+      | Operating system |
+      | License type      |
+    Given there exists a software license of one of the following types
+      | Typ                | technical          |
+      | Concurrent         | concurrent         |
+      | Site license       | site_license       |
+      | Multiple workplace | multiple_workplace |
+    When I look at this license in the software list
+    Then the software license line contains:
       | information      |
-      | Gebäudeabkürzung |
-      | Raum             |
-      | Gestell          |
-    Wenn meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat
-    Dann enthält die Gegenstands-Zeile folgende Informationen:
-      | information               |
-      | Verantwortliche Abteilung |
-      | Gebäudeabkürzung          |
-      | Raum                      |
-    Wenn ich den Reiter "Modelle" einsehe
-    Und der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gegenstand verantwortlich ist
-    Dann enthält die Gegenstands-Zeile folgende Informationen:
-      | information               |
-      | Verantwortliche Abteilung |
-      | Aktueller Ausleihender    |
-      | Enddatum der Ausleihe     |
-
-  @javascript @personas @browser
-  Szenario: Aussehen einer Software-Lizenz-Zeile
-    Angenommen es gibt eine Software-Lizenz
-    Und ich sehe ausgemustertes und nicht ausgemustertes Inventar
-    Wenn ich diese Lizenz in der Softwareliste anschaue
-    Dann enthält die Software-Lizenz-Zeile folgende Informationen:
-      | information    |
-      | Betriebssystem |
-      | Lizenztyp      |
-    Angenommen es gibt eine Software-Lizenz mit einem der folgenden Typen:
-      | Typ         | technical          |
-      | Konkurrent  | concurrent         |
-      | Site-Lizenz | site_license       |
-      | Mehrplatz   | multiple_workplace |
-    Wenn ich diese Lizenz in der Softwareliste anschaue
-    Dann enthält die Software-Lizenz-Zeile folgende Informationen:
-      | information    |
-      | Betriebssystem |
-      | Lizenztyp      |
-      | Anzahl         |
-    Angenommen es gibt eine Software-Lizenz, wo meine Abteilung der Besitzer ist, die Verantwortung aber auf eine andere Abteilung abgetreten hat
-    Wenn ich diese Lizenz in der Softwareliste anschaue
-    Dann enthält die Software-Lizenz-Zeile folgende Informationen:
-      | information               |
-      | Verantwortliche Abteilung |
-      | Betriebssystem            |
-      | Lizenztyp                 |
-    Angenommen es gibt eine Software-Lizenz, die nicht an Lager ist und eine andere Abteilung für die Software-Lizenz verantwortlich ist
-    Wenn ich diese Lizenz in der Softwareliste anschaue
-    Dann enthält die Software-Lizenz-Zeile folgende Informationen:
-      | information               |
-      | Verantwortliche Abteilung |
-      | Aktueller Ausleihender    |
-      | Enddatum der Ausleihe     |
-      | Betriebssystem            |
-      | Lizenztyp                 |
+      | Operating system |
+      | License type     |
+      | Quantity         |
+    Given there exists a software license, owned by my inventory pool, but given responsibility to another inventory pool
+    When I look at this license in the software list
+    Then the software license line contains:
+      | information            |
+      | Responsible department |
+      | Operating system       |
+      | License type           |
+    Given there exists a software license, which is not in stock and another inventory pool is responsible for it
+    When I look at this license in the software list
+    Then the software license line contains:
+      | information            |
+      | Responsible department |
+      | Current borrower       |
+      | End date of contract   |
+      | Operating system       |
+      | License type           |
 
   @javascript @personas
-  Szenario: Keine Resultate auf der Liste des Inventars
-    Wenn ich eine resultatlose Suche mache
-    Dann sehe ich "Kein Eintrag gefunden"
+  Scenario: How to display no results after a search
+    When I make a search without any results
+    Then I see 'No entries found'
 
   @javascript @personas @browser
-  Szenario: Modell aufklappen
-    Dann kann man jedes Modell aufklappen
-    Und man sieht die Gegenstände, die zum Modell gehören
-    Und so eine Zeile sieht aus wie eine Gegenstands-Zeile
+  Scenario: Expand model
+    Then I can expand each model line
+    And I see the items belonging to the model
+    And such a line looks like an item line
 
   #73278620
+  # No steps for this seem to be defined?
    @personas
-  Szenario: Verhalten nach Speichern
-    Wenn ich einen Reiter auswähle
-    Und ich eine oder mehrere Filtermöglichkeiten verwende
-    Wenn ich eine aufgeführte Zeile editiere
-    Und ich speichere
-    Dann werde ich zur Liste des eben gewählten Reiters mit den eben ausgewählten Filtern zurueckgefuehrt
-
-  @personas @javascript
-  Szenariogrundriss: Auszeichnung von defekten, ausgemusterten, unvollständigen oder nicht ausleihbaren Gegenstandszeilen
-    Angenommen ich befinde mich auf der Liste eines "<Zustand>"en Inventars
-    Wenn ich eine Modellzeile öffne
-    Dann ist die Gegenstandszeile mit "<Zustand>" in rot ausgezeichnet
-    Beispiele:
-      | Zustand          |
-      | Defekt           |
-      | Ausgemustert     |
-      | Unvollständig    |
-      | Nicht ausleihbar |
+  Scenario: Verhalten nach Speichern
+    When ich einen Reiter auswähle
+    And ich eine oder mehrere Filtermöglichkeiten verwende
+    When ich eine aufgeführte Zeile editiere
+    And I save
+    Then werde ich zur Liste des eben gewählten Reiters mit den eben ausgewählten Filtern zurueckgefuehrt
 
   @personas @javascript @browser
-  Szenario: Auszeichnung von mehreren Zuständen auf der Gegenstandszeile
-    Angenommen ich sehe ausgemustertes und nicht ausgemustertes Inventar
-    Und es exisitert ein Gegenstand mit mehreren Problemen
-    Wenn ich nach diesem Gegenstand in der Inventarliste suche
-    Und ich öffne die Modellzeile von diesem Gegenstand
-    Dann sind die Probleme des Gegestandes komma getrennt aneinander gereiht
+  Scenario Outline: Labeling of broken, retired, incomplete and unborrowable items
+    Given I see the list of "<condition>" inventory
+    When I open a model line
+    Then the item line ist marked as "<condition>" in red
+    Examples:
+      | condition    |
+      | Broken       |
+      | Retired      |
+      | Incomplete   |
+      | Unborrowable |
+
+  @personas @javascript @browser
+  Scenario: Displaying multiple problems on an item line
+    Given I see retired and not retired inventory
+    And there exists an item with many problems
+    When I search after this item in the inventory list
+    And I open the model line of this item
+    Then the problems of this item are displayed separated by a comma

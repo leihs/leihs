@@ -76,14 +76,14 @@ end
 def change_line_start_date(line, days = 2)
   new_start_date = line.start_date + days.days
   get_fullcalendar_day_element(new_start_date).click
-  find(".button#set-start-date", :text => _("Start Date")).click
+  find(".button#set-start-date", :text => _("Start date")).click
   step 'I save the booking calendar'
   step 'the booking calendar is closed'
   new_start_date
 end
 
 def hover_for_tooltip(target)
-  step 'man bis zum Ende der Liste fährt' # move mouse somewhere else to ensure its currently not over the target
+  step 'I scroll to the end of the list' # move mouse somewhere else to ensure its currently not over the target
   target.click
   find(".tooltipster-content") # there should be just one
 end

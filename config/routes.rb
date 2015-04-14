@@ -180,8 +180,8 @@ Leihs::Application.routes.draw do
       ## Visits
       delete  'visits/:visit_id',        to: 'visits#destroy'
       post    'visits/:visit_id/remind', to: 'visits#remind'
-      get     'visits/hand_overs',       to: 'visits#index',     type: "hand_over"
-      get     'visits/take_backs',       to: 'visits#index',     type: "take_back"
+      get     'visits/hand_overs',       to: 'visits#index',     status: "approved"
+      get     'visits/take_backs',       to: 'visits#index',     status: "signed"
       get     'visits',                  to: "visits#index",     as: "inventory_pool_visits"
 
       ## Workload

@@ -82,38 +82,38 @@ Feature: Handling of workdays
     Then the order should be approvable
 
 
-  @old-ui
-  Scenario: Hand Over on a Sunday
-
-    Given today is Sunday 3.10.2030
-    When an inventory_manager clicks 'hand over'
-    And he tries to hand over an item to a customer
-    Then that should be possible
-    When trying to set the end date to the same date
-    Then that should be possible because the inventory_manager wants to be able to decide when he takes back things
-    Given today is today again for test sanity's sake
-
-  @old-ui
-  Scenario: Hand Over during holiday
-
-    Given 1.1.2030 is free because of New Year
-    And today is Sunday 1.1.2030
-    When an inventory_manager clicks 'hand over'
-    And he tries to hand over an item to a customer
-    Then that should be possible
-    When trying to set the end date to the same date
-    Then that should be possible because the inventory_manager wants to be able to decide when he takes back things
-    Given today is today again for test sanity's sake
-
-  @old-ui
-  Scenario: Changing Workdays
-
-    When an inventory_manager clicks 'Opening Times'
-    Then he sees that his inventory pool is currently open on monday, tuesday, wednesday, thursday, friday
-    When he deselects the following days: tuesday, thursday, friday
-    And he clicks 'Opening Times'
-    Then he sees that his inventory pool is currently open on monday, wednesday
-    When he selects the following day: friday
-    And he clicks 'Opening Times'
-    Then he sees that his inventory pool is currently open on monday, wednesday, friday
+#  @old-ui
+#  Scenario: Hand Over on a Sunday
+#
+#    Given today is Sunday 3.10.2030
+#    When an inventory_manager clicks 'hand over'
+#    And he tries to hand over an item to a customer
+#    Then that should be possible
+#    When trying to set the end date to the same date
+#    Then that should be possible because the inventory_manager wants to be able to decide when he takes back things
+#    Given today is today again for test sanity's sake
+#
+#  @old-ui
+#  Scenario: Hand Over during holiday
+#
+#    Given 1.1.2030 is free because of New Year
+#    And today is Sunday 1.1.2030
+#    When an inventory_manager clicks 'hand over'
+#    And he tries to hand over an item to a customer
+#    Then that should be possible
+#    When trying to set the end date to the same date
+#    Then that should be possible because the inventory_manager wants to be able to decide when he takes back things
+#    Given today is today again for test sanity's sake
+#
+#  @old-ui
+#  Scenario: Changing Workdays
+#
+#    When an inventory_manager clicks 'Opening Times'
+#    Then he sees that his inventory pool is currently open on monday, tuesday, wednesday, thursday, friday
+#    When he deselects the following days: tuesday, thursday, friday
+#    And he clicks 'Opening Times'
+#    Then he sees that his inventory pool is currently open on monday, wednesday
+#    When he selects the following day: friday
+#    And he clicks 'Opening Times'
+#    Then he sees that his inventory pool is currently open on monday, wednesday, friday
 

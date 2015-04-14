@@ -1,86 +1,74 @@
-# language: de
+Feature: Take back
 
-Funktionalität: Rücknahme
+  As a lending manager
+  To put items back on the shelve so they can be borrowed again
+  I want to mark them as back in stock in.
 
-  Um eine Gegenstände wieder dem Verleih zuzuführen
-  möchte ich als Ausleih-Verwalter
-  Gegenstände Zurücknehmen können
-
-  Grundlage:
-    Angenommen ich bin Pius
+  Background:
+  Given I am Pius
 
   @javascript @personas
-  Szenario: Hinzufügen eines Gegenstandes in der Rücknahme
-    Angenommen ich befinde mich in einer Rücknahme
-    Wenn ich einen Gegenstand über das Zuweisenfeld zurücknehme
-    Dann wird die Zeile selektiert
-    Und die Zeile wird grün markiert
-    Und ich erhalte eine Erfolgsmeldung
+  Scenario: Taking back an item
+    Given I am taking something back
+    When I take back an item using the assignment field
+    Then the line is selected
+    And the line is highlighted in green
+    And I receive a notification of success
 
   @personas @javascript
-  Szenario: Deselektieren einer Linie
-    Angenommen ich befinde mich in einer Rücknahme
-    Wenn ich einen Gegenstand über das Zuweisenfeld zurücknehme
-    Und ich die Zeile deselektiere
-    Dann ist die Zeile nicht mehr grün markiert
+  Scenario: Deselecting a line
+    Given I am taking something back
+    When I take back an item using the assignment field
+    And I deselect the line
+    Then the line is no longer highlighted in green
 
   @javascript @personas
-  Szenario: Zurückzugebender Gegenstand hat Verspätung
-    Angenommen ich befinde mich in einer Rücknahme mit mindestens einem verspäteten Gegenstand
-    Wenn ich einen verspäteten Gegenstand über das Zuweisenfeld zurücknehme
-    Dann wird die Zeile grün markiert
-    Und die Zeile wird selektiert
-    Und das Problemfeld für die Linie wird angezeigt
-    Und ich erhalte eine Erfolgsmeldung
+  Scenario: Item to return is overdue
+    Given I am taking back at least one overdue item
+    When I take back an overdue item using the assignment field
+    Then the line is highlighted in green
+    And the line is selected
+    And the problem indicator for the line is displayed
+    Then I receive a notification of success
 
   @javascript @browser @personas
-  Szenario: Festhalten wer einen Gegenstand zurückgenommen hat
-    Wenn ich einen Gegenstand zurücknehme
-    Dann wird festgehalten, dass ich diesen Gegenstand zurückgenommen habe
+  Scenario: Making a note of who took back an item
+    When I open a take back
+    And I select all lines of an open contract
+    And I click take back
+    And I see a summary of the things I selected for take back
+    And I click take back inside the dialog
+    And the contract is closed and all items are returned
+    Then a note is made that it was me who took back the item
+
+  @personas @javascript @browser
+  Scenario: Showing whether a user is suspended
+    Given I navigate to the open orders
+    And I open a suspended user's order
+    Then I see the note 'Suspended!' next to their name
+
+  @javascript @personas
+  Scenario: Returning an option
+    Given I am on a take back with at least two of the same options
+    When I take back an option using the assignment field
+    Then the line is selected
+    And the line is not highlighted in green
+    When I take back all options of the same line
+    Then the line is highlighted in green
+    And I receive a notification of success
 
   @personas
-  Szenario: Sperrstatus des Benutzers anzeigen
-    Angenommen ich befinde mich in einer Rücknahme für ein gesperrter Benutzer
-    Dann sehe ich neben seinem Namen den Sperrstatus 'Gesperrt!'
+  Scenario: Correct order for contracts
+    Given there is a user with at least 2 take back s on 2 different days
+    When I open a take back for this user
+    Then the take backs are ordered by date in ascending order
 
   @javascript @personas
-  Szenario: Zurückgeben einer Option
-    Angenommen ich befinde mich in einer Rücknahme mit mindestens zwei gleichen Optionen
-    Wenn ich eine Option über das Zuweisenfeld zurücknehme
-    Dann wird die Zeile selektiert
-    Und ich erhalte eine Erfolgsmeldung
-    Und die Zeile ist nicht grün markiert
-    Wenn ich alle Optionen der gleichen Zeile zurücknehme
-    Dann wird die Zeile grün markiert
-    Und ich erhalte eine Erfolgsmeldung
-
-  @javascript @browser @personas
-  Szenario: Inspektion während einer Rücknahme
-    Angenommen ich befinde mich in einer Rücknahme mit mindestens einem Gegenstand und einer Option
-    Wenn ich bei der Option eine Stückzahl von 1 eingebe
-    Und beim Gegenstand eine Inspektion durchführe
-    Und ich setze "Zustand" auf "Defekt"
-    Und I write a status note
-    Und ich speichere
-    Dann steht bei der Option die zuvor angegebene Stückzahl
-
-  @javascript @browser @personas
-  Szenario: Festhalten wer einen Gegenstand zurückgenommen hat
-    Wenn ich einen Gegenstand zurücknehme
-    Dann wird festgehalten, dass ich diesen Gegenstand zurückgenommen habe
-
-  @personas
-  Szenario: Korrekte Reihenfolge mehrerer Verträge
-    Und es existiert ein Benutzer mit mindestens 2 Rückgaben an 2 verschiedenen Tagen
-    Wenn man die Rücknahmenansicht für den Benutzer öffnet
-    Dann sind die Rücknahmen aufsteigend nach Datum sortiert
-
-  @javascript @personas
-  Szenario: Optionen in mehreren Zeitfenstern vorhanden
-    Angenommen es existiert ein Benutzer mit einer zurückzugebender Option in zwei verschiedenen Zeitfenstern
-    Und ich öffne die Rücknahmeansicht für diesen Benutzer
-    Wenn ich diese Option zurücknehme
-    Dann wird die Option dem ersten Zeitfenster hinzugefügt
-    Wenn im ersten Zeitfenster bereits die maximale Anzahl dieser Option erreicht ist
-    Und ich dieselbe Option nochmals hinzufüge
-    Dann wird die Option dem zweiten Zeitfenster hinzugefügt
+  Scenario: Treating options with multiple time windows
+    Given there is a user with an option to return in two different time windows
+    And I open a take back for this user
+    When I take back this option
+    Then the option is added to the first time window
+    When the first time window has already reached the maximum quantity of this option
+    And I add the same option again
+    Then the option is added to the second time window

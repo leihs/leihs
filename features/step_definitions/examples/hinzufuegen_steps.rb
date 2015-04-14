@@ -1,12 +1,14 @@
 # -*- encoding : utf-8 -*-
 
-Angenommen /^ich suche ein Modell um es hinzuzufügen$/ do
-  @truncated_model_name = @current_user.managed_inventory_pools.first.items.first.model.name[0]
+#Angenommen /^ich suche ein Modell um es hinzuzufügen$/ do
+  Given(/^I search for a model to add$/) do
+  @truncated_model_name = @current_user.inventory_pools.managed.first.items.first.model.name[0]
   find("[data-add-contract-line]").set @truncated_model_name
   find(".ui-autocomplete .ui-menu-item", match: :first)
 end
 
-Dann /^sehe ich die Verfügbarkeit innerhalb der gefundenen Modelle im Format: "(.*?)"$/ do |arg1|
+#Dann /^sehe ich die Verfügbarkeit innerhalb der gefundenen Modelle im Format: "(.*?)"$/ do |arg1|
+Then(/^the availability of the model is displayed as: "(?:.*?)"$/) do
   start_date = Date.parse find("#add-start-date").value
   end_date = Date.parse find("#add-end-date").value
   find(".ui-autocomplete .ui-menu-item", match: :first)

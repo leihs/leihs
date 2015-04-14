@@ -1,227 +1,185 @@
-# language: de
+Feature: Editing an item
 
-Funktionalität: Gegenstand bearbeiten
-
-  Grundlage:
-    Angenommen ich bin Matti
+  Background:
+    Given I am Matti
 
   @javascript @personas
-  Szenario: Reihenfolge der Felder
-    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
-    Wenn I select "Ja" from "item[retired]"
-    Wenn I choose "Investition"
-    Dann sehe ich die Felder in folgender Reihenfolge:
-      | Inventarcode                 |
-      | Modell                       |
-      | - Zustand -                  |
-      | Ausmusterung                 |
-      | Grund der Ausmusterung       |
-      | Zustand                      |
-      | Vollständigkeit              |
-      | Ausleihbar                   |
-      | Statusnotiz                  |
-      | - Inventar -                 |
-      | Inventarrelevant             |
-      | Anschaffungskategorie        |
-      | Besitzer                     |
-      | Letzte Inventur              |
-      | Verantwortliche Abteilung    |
-      | Verantwortliche Person       |
-      | Benutzer/Verwendung          |
-      | - Umzug -                    |
-      | Umzug                        |
-      | Zielraum                     |
-      | - Toni Ankunftskontrolle -   |
-      | Ankunftsdatum                |
-      | Ankunftszustand              |
-      | Ankunftsnotiz                |
-      | - Allgemeine Informationen - |
-      | Seriennummer                 |
-      | MAC-Adresse                  |
-      | IMEI-Nummer                  |
-      | Name                         |
-      | Notiz                        |
-      | - Ort -                      |
-      | Gebäude                      |
-      | Raum                         |
-      | Gestell                      |
-      | - Rechnungsinformationen -   |
-      | Bezug                        |
-      | Projektnummer                |
-      | Rechnungsnummer              |
-      | Rechnungsdatum               |
-      | Anschaffungswert             |
-      | Lieferant                    |
-      | Garantieablaufdatum          |
-      | Vertragsablaufdatum          |
+  Scenario: Order of the fields when editing an item
+    Given I edit an item that belongs to the current inventory pool
+    # TODO: Remove web_steps.rb
+    When I select "Yes" from "item[retired]"
+    When I choose "Investment"
+    Then I see form fields in the following order:
+      | field                      |
+      | Inventory Code             |
+      | Model                      |
+      | - Status -                 |
+      | Retirement                 |
+      | Reason for Retirement      |
+      | Working order              |
+      | Completeness               |
+      | Borrowable                 |
+      | Status note                |
+      | - Inventory -              |
+      | Relevant for inventory     |
+      | Supply Category            |
+      | Owner                      |
+      | Last Checked               |
+      | Responsible department     |
+      | Responsible person         |
+      | User/Typical usage         |
+      | - Move -                   |
+      | Move                       |
+      | Target area                |
+      | - Toni Ankunftskontrolle - |
+      | Check-In Date              |
+      | Check-In State             |
+      | Check-In Note              |
+      | - General Information -    |
+      | Serial Number              |
+      | MAC-Address                |
+      | IMEI-Number                |
+      | Name                       |
+      | Note                       |
+      | - Location -               |
+      | Building                   |
+      | Room                       |
+      | Shelf                      |
+      | - Invoice Information -    |
+      | Reference                  |
+      | Project Number             |
+      | Invoice Number             |
+      | Invoice Date               |
+      | Initial Price              |
+      | Supplier                   |
+      | Warranty expiration        |
+      | Contract expiration        |
 
   @javascript @personas
-  Szenario: Lieferanten löschen
-    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
-    Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes mit gesetztem Lieferanten
-    Wenn ich den Lieferanten lösche
-    Und ich speichere
-    Dann ist bei dem bearbeiteten Gegenstand keiner Lieferant eingetragen
-
-  @javascript @personas @browser
-  Szenario: Einen Gegenstand mit allen Informationen editieren
-    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist, der am Lager und in keinem Vertrag vorhanden ist
-    Wenn ich die folgenden Informationen erfasse
-      | Feldname               | Type         | Wert                |
-
-      | Inventarcode           |              | Test Inventory Code |
-      | Modell                 | autocomplete | Sharp Beamer 456    |
-
-      | Ausmusterung           | select       | Ja                  |
-      | Grund der Ausmusterung |              | Ja                  |
-      | Zustand                | radio        | OK                  |
-      | Vollständigkeit        | radio        | OK                  |
-      | Ausleihbar             | radio        | OK                  |
-
-      | Inventarrelevant       | select       | Ja                  |
-      | Anschaffungskategorie  | select       | Werkstatt-Technik   |
-
-    Und ich speichere
-    Dann man wird zur Liste des Inventars zurueckgefuehrt
-    Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
+  Scenario: Delete supplier
+    Given I edit an item that belongs to the current inventory pool
+    And I navigate to the edit page of an item that has a supplier
+    When I delete the supplier
+    And I save
+    Then the item has no supplier
 
   @javascript @personas
-  Szenario: Ein Modell ohne Version für den Gegestand wählen
-    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
-    Und ein Modell existiert, welches keine Version hat
-    Wenn ich dieses Modell dem Gegestand zuweise
-    Dann steht in dem Modellfeld nur der Produktname dieses Modell
+  Scenario: Edit all an item's information
+    Given I edit an item that belongs to the current inventory pool and is in stock and is not part of any contract
+    When I enter the following item information
+      | field                  | type         | value               |
+
+      | Inventory Code         |              | Test Inventory Code |
+      | Model                  | autocomplete | Sharp Beamer 456    |
+
+      | Retirement             | select       | Yes                 |
+      | Reason for Retirement  |              | Some reason         |
+      | Working order          | radio        | OK                  |
+      | Completeness           | radio        | OK                  |
+      | Borrowable             | radio        | OK                  |
+
+      | Relevant for inventory | select       | Yes                 |
+      | Supply Category        | select       | Workshop Technology |
+    And I save
+    Then I am redirected to the inventory list
+    And the item is saved with all the entered information
 
   @javascript @personas
-  Szenario: Lieferanten ändern
-    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
-    Wenn ich den Lieferanten ändere
-    Und ich speichere
-    Dann ist bei dem bearbeiteten Gegestand der geänderte Lieferant eingetragen
-
-  @javascript @personas @browser
-  Szenario: Bei ausgeliehenen Gegenständen kann man die verantwortliche Abteilung nicht editieren
-    Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist und wo man Besitzer ist
-    Wenn ich die verantwortliche Abteilung ändere
-    Und ich speichere
-    Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät ausgeliehen ist
-
-  @javascript @personas @browser
-  Szenario: Einen Gegenstand mit allen Informationen editieren
-    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist, der am Lager und in keinem Vertrag vorhanden ist
-    Wenn ich die folgenden Informationen erfasse
-      | Feldname              | Type         | Wert                |
-
-      | Inventarcode          |              | Test Inventory Code |
-      | Modell                | autocomplete | Sharp Beamer 456    |
-
-      | Inventarrelevant      | select       | Ja                  |
-      | Anschaffungskategorie | select       | Werkstatt-Technik   |
-
-      | Umzug                 | select       | sofort entsorgen    |
-      | Zielraum              |              | Test Raum           |
-
-      | Ankunftsdatum         |              | 01.01.2013          |
-      | Ankunftszustand       | select       | transportschaden    |
-      | Ankunftsnotiz         |              | Test Notiz          |
-
-      | Seriennummer          |              | Test Seriennummer   |
-      | MAC-Adresse           |              | Test MAC-Adresse    |
-      | IMEI-Nummer           |              | Test IMEI-Nummer    |
-      | Name                  |              | Test Name           |
-      | Notiz                 |              | Test Notiz          |
-
-      | Gebäude               | autocomplete | Keine/r             |
-      | Raum                  |              | Test Raum           |
-      | Gestell               |              | Test Gestell        |
-
-    Und ich speichere
-    Dann man wird zur Liste des Inventars zurueckgefuehrt
-    Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
+  Scenario: Choosing a model without a version
+    Given I edit an item that belongs to the current inventory pool
+    And there is a model without a version
+    When I assign this model to the item
+    Then there is only product name in the input field of the model
 
   @javascript @personas
-  Szenario: Pflichtfelder
-    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
-    Dann muss der "Bezug" unter "Rechnungsinformationen" ausgewählt werden
-    Wenn "Investition" bei "Bezug" ausgewählt ist muss auch "Projektnummer" angegeben werden
-    Wenn "Ja" bei "Inventarrelevant" ausgewählt ist muss auch "Anschaffungskategorie" ausgewählt werden
-    Wenn "Ja" bei "Ausmusterung" ausgewählt ist muss auch "Grund der Ausmusterung" angegeben werden
-    Dann sind alle Pflichtfelder mit einem Stern gekenzeichnet
-    Wenn ein Pflichtfeld nicht ausgefüllt/ausgewählt ist, dann lässt sich der Gegenstand nicht speichern
-    Und ich sehe eine Fehlermeldung
-    Und die nicht ausgefüllten/ausgewählten Pflichtfelder sind rot markiert
+  Scenario: Change supplier
+    Given I edit an item that belongs to the current inventory pool
+    When I change the supplier
+    And I save
+    Then the edited item has the new supplier
 
   @javascript @personas
-  Szenario: Neuen Lieferanten erstellen falls nicht vorhanden
-    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
-    Wenn ich einen nicht existierenen Lieferanten angebe
-    Und ich speichere
-    Dann wird der neue Lieferant erstellt
-    Und bei dem bearbeiteten Gegestand ist der neue Lieferant eingetragen
+  Scenario: You can't change the responsible department for items that are not in stock
+    Given I edit an item that belongs to the current inventory pool and is not in stock
+    When I change the responsible department
+    And I save
+    Then I see an error message that I can't change the responsible inventory pool for items that are not in stock
 
   @javascript @personas
-  Szenario: Neuen Lieferanten nicht erstellen falls einer mit gleichem Namen schon vorhanden
-    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist
-    Wenn ich einen existierenen Lieferanten angebe
-    Und ich speichere
-    Dann wird kein neuer Lieferant erstellt
-    Und bei dem bearbeiteten Gegestand ist der bereits vorhandenen Lieferant eingetragen
-  
+  Scenario: Editing an item an all its information
+    Given I edit an item that belongs to the current inventory pool and is in stock and is not part of any contract
+    When I enter the following item information
+      | field                  | type         | value               |
+      | Inventory Code         |              | Test Inventory Code |
+      | Model                  | autocomplete | Sharp Beamer 456    |
+      | Relevant for inventory | select       | Yes                 |
+      | Supply Category        | select       | Workshop Technology |
+      | Move                   | select       | sofort entsorgen    |
+      | Target area            |              | Test room           |
+      | Check-In Date          |              | 01/01/2013          |
+      | Check-In State         | select       | transportschaden    |
+      | Check-In Note          |              | Test note           |
+      | Serial Number          |              | Test serial number  |
+      | MAC-Address            |              | Test MAC address    |
+      | IMEI-Number            |              | Test IMEI number    |
+      | Name                   |              | Test name           |
+      | Note                   |              | Test note           |
+      | Building               | autocomplete | None                |
+      | Room                   |              | Test room           |
+      | Shelf                  |              | Test shelf          |
+      | Reference              | radio must   | Investment          |
+      | Project Number         |              | Test number         |
+      | Invoice Number         |              | Test number         |
+      | Invoice Date           |              | 01/01/2013          |
+      | Initial Price          |              | 50.00               |
+      | Warranty expiration    |              | 01/01/2013          |
+      | Contract expiration    |              | 01/01/2013          |
+      | Last Checked           |              | 01/01/2013          |
+      | Responsible department | autocomplete | A-Ausleihe          |
+      | Responsible person     |              | Matus Kmit          |
+      | User/Typical usage     |              | Test use            |
+    And I save
+    Then I am redirected to the inventory list
+    And the item is saved with all the entered information
 
   @javascript @personas
-  Szenario: Bei Gegenständen, die in Verträgen vorhanden sind, kann man das Modell nicht ändern
-    Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der in einem Vertrag vorhanden ist
-    Wenn ich das Modell ändere
-    Und ich speichere
-    Dann erhält man eine Fehlermeldung, dass man diese Eigenschaft nicht editieren kann, da das Gerät in einem Vortrag vorhanden ist
+  Scenario: Required fields
+    Given I edit an item that belongs to the current inventory pool
+    Then "Reference" must be selected in the "Invoice Information" section
+    When "Investment" is selected for "Reference", "Project Number" must also be supplied
+    When "Yes" is selected for "Relevant for inventory", "Supply Category" must also be selected
+    When "Yes" is selected for "Retirement", "Reason for Retirement" must also be supplied
+    Then all required fields are marked with an asterisk
+    And I cannot save the item if a required field is empty
+    And I see an error message
+    And the required fields are highlighted in red
 
   @javascript @personas
-  Szenario: Einen Gegenstand, der ausgeliehen ist, kann man nicht ausmustern
-    Angenommen man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist und wo man Besitzer ist
-    Wenn ich den Gegenstand ausmustere
-    Und ich speichere
-    Dann erhält man eine Fehlermeldung, dass man den Gegenstand nicht ausmustern kann, da das Gerät bereits ausgeliehen oder einer Vertragslinie zugewiesen ist
+  Scenario: Create new supplier if it does not already exist
+    Given I edit an item that belongs to the current inventory pool
+    When I enter a supplier that does not exist
+    And I save
+    Then a new supplier is created
+    And the edited item has the new supplier
 
-  @javascript @personas @browser
-  Szenario: Einen Gegenstand mit allen Informationen editieren
-    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist, der am Lager und in keinem Vertrag vorhanden ist
-    Wenn ich die folgenden Informationen erfasse
-      | Feldname              | Type         | Wert                |
+  @javascript @personas
+  Scenario: Do not create a new supplier if one of the same name already exists
+    Given I edit an item that belongs to the current inventory pool
+    When I enter a supplier
+    And I save
+    Then no new supplier is created
+    And the edited item has the existing supplier
 
-      | Inventarcode          |              | Test Inventory Code |
-      | Modell                | autocomplete | Sharp Beamer 456    |
+  @javascript @personas
+  Scenario: Can't change the model for items that are in contracts
+    Given I edit an item that belongs to the current inventory pool and is not in stock
+    When I change the model
+    And I save
+    Then I see an error message that I can't change the model because the item is already handed over or assigned to a contract
 
-      | Inventarrelevant      | select       | Ja                  |
-      | Anschaffungskategorie | select       | Werkstatt-Technik   |
-
-      | Bezug                 | radio must   | Investition         |
-      | Projektnummer         |              | Test Nummer         |
-      | Rechnungsnummer       |              | Test Nummer         |
-      | Rechnungsdatum        |              | 01.01.2013          |
-      | Anschaffungswert      |              | 50.00               |
-      | Garantieablaufdatum   |              | 01.01.2013          |
-      | Vertragsablaufdatum   |              | 01.01.2013          |
-
-    Und ich speichere
-    Dann man wird zur Liste des Inventars zurueckgefuehrt
-    Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
-
-  @javascript @personas @browser
-  Szenario: Einen Gegenstand mit allen Informationen editieren
-    Angenommen man editiert einen Gegenstand, wo man der Besitzer ist, der am Lager und in keinem Vertrag vorhanden ist
-    Wenn ich die folgenden Informationen erfasse
-      | Feldname                  | Type         | Wert                |
-
-      | Inventarcode              |              | Test Inventory Code |
-      | Modell                    | autocomplete | Sharp Beamer 456    |
-
-      | Inventarrelevant          | select       | Ja                  |
-      | Anschaffungskategorie     | select       | Werkstatt-Technik   |
-      | Letzte Inventur           |              | 01.01.2013          |
-      | Verantwortliche Abteilung | autocomplete | A-Ausleihe          |
-      | Verantwortliche Person    |              | Matus Kmit          |
-      | Benutzer/Verwendung       |              | Test Verwendung     |
-
-    Und ich speichere
-    Dann man wird zur Liste des Inventars zurueckgefuehrt
-    Und ist der Gegenstand mit all den angegebenen Informationen gespeichert
+  @javascript @personas
+  Scenario: Can't retire an item that is not in stock
+    Given I edit an item that belongs to the current inventory pool and is not in stock
+    When I retire the item
+    And I save
+    Then I see an error message that I can't retire the item because it's already handed over or assigned to a contract

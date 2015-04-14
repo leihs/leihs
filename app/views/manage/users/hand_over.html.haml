@@ -45,7 +45,7 @@
 
     App.User.addRecord new App.User $.extend {groupIds: #{@group_ids}}, #{@user.to_json}
 
-    for purpose in #{@purposes.to_json}
+    for purpose in #{@lines.map(&:purpose).uniq.to_json}
       if purpose != null
         App.Purpose.addRecord new App.Purpose purpose 
 
@@ -72,4 +72,4 @@
     new App.HandOverController
       el: "#hand-over-view"
       user: App.User.find(#{@user.id})
-      contract: App.Contract.find #{@contract.id}
+      contract: App.Contract.find '#{@contract.id}'

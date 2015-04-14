@@ -38,7 +38,7 @@ class window.App.ContractLinesCreateController extends window.App.ContractLinesC
         else
           App.Contract.ajaxFetch
             data: $.param
-              ids: [contractLine.contract_id]
+              id: contractLine.contract_id
           .done (data)=>
             contract = App.Contract.find data[0].id
             App.Contract.currents.push contract unless _.find App.Contract.currents, (c) -> c.id is contract.id

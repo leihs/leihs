@@ -1,52 +1,45 @@
-# language: de
 
-Funktionalität: Verfügbarkeit
+Feature: Verfügbarkeit
 
-  Grundlage:
-    Angenommen ich bin Normin
-    Und ich habe eine offene Bestellung mit Modellen
-    Und die Bestellung Timeout ist 30 Minuten
-
-  @personas
-  Szenario: Überbuchung durch Ausleih-Manager
-    Wenn ich ein Modell der Bestellung hinzufüge
-    Angenommen ich bin Pius
-    Wenn ich dasselbe Modell einer Bestellung hinzufüge
-    Und die maximale Anzahl der Gegenstände überschritten ist
-    Angenommen ich bin Normin
-    Wenn ich die Bestellübersicht öffne
-    Und ich die Bestellung abschliesse
-    Dann wird die Bestellung nicht abgeschlossen
-    Und ich lande auf der Seite der Bestellübersicht
-    Und ich erhalte eine Fehlermeldung
+  Background:
+    Given I am Normin
+    And I have an unsubmitted order with models
+    And the contract timeout is set to 30 minutes
 
   @personas
-  Szenario: Blockieren der Modelle
-    Wenn ich eine Aktivität ausführe
-    Dann bleiben die Modelle in der Bestellung blockiert
+  Scenario: Overbooking by lending managers
+    When I add a model to an order
+    Given I am Pius
+    When I add the same model to an order
+    And the maximum quantity of items is exhausted
+    Given I am Normin
+    When I open my list of orders
+    And I submit the order
+    Then the order is not submitted
+    And I am redirected to my current order
+    And I see an error message
 
   @personas
-  Szenario: Freigabe der Modelle
-    Wenn ich länger als 30 Minuten keine Aktivität ausgeführt habe
-    Dann werden die Modelle meiner Bestellung freigegeben
+  Scenario: Blocking models
+    When I perform some activity
+    Then the models in my order remain blocked
 
   @personas
-  Szenario: Erneutes Blockieren nach Inaktivität
-    Angenommen ich länger als 30 Minuten keine Aktivität ausgeführt habe
-    Und alle Modelle verfügbar sind
-    Wenn ich eine Aktivität ausführe
-    Dann kann man sein Prozess fortsetzen
-    Und die Modelle werden blockiert
+  Scenario: Releasing blocked models
+    When I have performed no activity for more than 30 minutes
+    Then the models in my order are released
 
   @personas
-  Szenario: Modelle nach langer Inaktivität nicht mehr verfügbar
-    Angenommen ein Modell ist nicht verfügbar
-    Und ich länger als 30 Minuten keine Aktivität ausgeführt habe
-    Wenn ich eine Aktivität ausführe
-    Dann werde ich auf die Timeout Page geleitet
-    
-    
-    
-    
-    
-    
+  Scenario: Reblocking after inactivity
+    When I have performed no activity for more than 30 minutes
+    And all models are available
+    When I perform some activity
+    Then I can continue my order process
+    And the models in my order remain blocked
+
+  @personas
+  Scenario: Models become unavailable after long inactivity
+    Given a model is not available
+    When I have performed no activity for more than 30 minutes
+    When I perform some activity
+    Then I am redirected to the timeout page

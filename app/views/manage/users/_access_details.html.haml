@@ -2,11 +2,7 @@
 
 .row.margin-vertical-s
 
-  .row.padding-inset-s.emboss.margin-bottom-xxs
-    .col1of2
-      %strong.font-size-m= _("Badge ID")
-    .col1of2.text-align-right
-      %input{type: "text", name: "user[badge_id]", value: @user.badge_id}
+  = render partial: "badge"
 
   = render "access_right_for_ip"
 
