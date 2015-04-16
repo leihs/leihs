@@ -555,6 +555,11 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         "features/manage/software/software_create.feature"
+- name: manage/suppliers
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        "features/manage/suppliers.feature"
 - name: manage/take_back/close_contract
   scripts:
     cucumber:

@@ -3005,6 +3005,31 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         features/manage/software/software_create.feature:11 DEFAULT_BROWSER=firefox
+- name: features/manage/suppliers.feature:8
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        features/manage/suppliers.feature:8 DEFAULT_BROWSER=firefox
+- name: features/manage/suppliers.feature:12
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        features/manage/suppliers.feature:12 DEFAULT_BROWSER=firefox
+- name: features/manage/suppliers.feature:19
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        features/manage/suppliers.feature:19 DEFAULT_BROWSER=firefox
+- name: features/manage/suppliers.feature:26
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        features/manage/suppliers.feature:26 DEFAULT_BROWSER=firefox
+- name: features/manage/suppliers.feature:33
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        features/manage/suppliers.feature:33 DEFAULT_BROWSER=firefox
 - name: features/manage/take_back/close_contract.feature:11
   scripts:
     cucumber:
