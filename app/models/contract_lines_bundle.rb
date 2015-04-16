@@ -46,8 +46,8 @@ class ContractLinesBundle < ActiveRecord::Base
   belongs_to :inventory_pool
   belongs_to :user
 
-  belongs_to :document, class_name: "Contract", foreign_key: :id
-  delegate :note, to: :document
+  belongs_to :contract, foreign_key: :id
+  delegate :note, to: :contract
 
   LINE_CONDITIONS = -> (r){ where("(contract_lines.status IN ('#{:signed}', '#{:closed}') AND contract_lines.contract_id = ?)
                                     OR (contract_lines.status NOT IN ('#{:signed}', '#{:closed}') AND contract_lines.user_id = ? AND contract_lines.status = ?)",
@@ -239,20 +239,6 @@ class ContractLinesBundle < ActiveRecord::Base
     end
 
     new_lines
-  end
-
-  ################################################################
-
-  def swap_line(line_id, model_id, user_id)
-    line = lines.find(line_id.to_i)
-    if (line.model.id != model_id.to_i)
-      model = Model.find(model_id.to_i)
-      change = _("Swapped %{from} for %{to}") % {:from => line.model.name, :to => model.name}
-      line.item = nil if line.is_a?(ItemLine)
-      line.model = model
-      line.save
-      line.log_change(change, user_id)
-    end
   end
 
   ################################################################

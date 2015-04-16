@@ -21,12 +21,12 @@ module Availability
       elsif is_a?(OptionLine)
         true
       elsif not inventory_pool.running_lines.detect {|x| x == self} # NOTE doesn't work with include?(self) because are running_lines
-        # we use array select instead of sql where condition to fetch once all document_lines during the same request, instead of hit the db multiple times
+        # we use array select instead of sql where condition to fetch once all running_lines during the same request, instead of hit the db multiple times
         true
       else
         # if an item is already assigned, but the start_date is in the future, we only consider the real start-end range dates
         a = model.availability_in(inventory_pool)
-        group_id = a.document_lines.detect {|x| x == self}.allocated_group_id # NOTE doesn't work self.allocated_group_id because is not a running_line
+        group_id = a.running_lines.detect {|x| x == self}.allocated_group_id # NOTE doesn't work self.allocated_group_id because is not a running_line
         
         # first we check if the user is member of the allocated group (if false, then it's a soft-overbooking)
         (group_id.nil? or self.user.group_ids.include?(group_id)) and

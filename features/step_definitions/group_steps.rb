@@ -126,8 +126,7 @@ When /^I lend (\w+) item(s?) of that model to "([^"]*)"$/ do |n, plural, user_lo
   contract_lines.each do |cl|
     cl.update_attributes(item: cl.model.items.borrowable.in_stock.where(inventory_pool: cl.inventory_pool).sample )
   end
-  document = contract.sign(@user, contract_lines)
-  expect(document).to be_valid
+  expect(contract.sign(@user, contract_lines)).to be_valid
 end
 
 When /^"([^"]*)" returns the item$/ do |user|

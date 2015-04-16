@@ -105,8 +105,8 @@ class Manage::ContractsController < Manage::ApplicationController
       end
     end
 
-    if (document = @contract.sign(current_user, lines, note, params[:delegated_user_id])).valid?
-      render json: @contract.user.contracts.signed.find(document.id).to_json
+    if (contract = @contract.sign(current_user, lines, note, params[:delegated_user_id])).valid?
+      render json: @contract.user.contracts.signed.find(contract.id).to_json
     else 
       render :status => :bad_request, :text => @contract.errors.full_messages.uniq.join(", ")
     end

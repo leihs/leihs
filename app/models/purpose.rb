@@ -2,7 +2,7 @@ class Purpose < ActiveRecord::Base
   has_many :contract_lines
 
   # TODO delete not associated purposes
-  # validates has at leas one document_line
+  # validates has at least one contract_line
 
   def lines
    contract_lines

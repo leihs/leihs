@@ -4,42 +4,41 @@
 
   .row.content-wrapper.min-height-xl.min-width-full
 
+    = render partial: "admin/statistics/index"
+
     .row.margin-top-l.padding-horizontal-m
 
       .row
-        %h1.headline-l.float-left= yield :title
+        .headline-xxl.float-left
+          %i.icon-bar-chart
+          = _(@statistics.detect {|s| s.parameterize == params[:id] })
 
-      .row
-        = form_tag admin_statistics_path, :method => :get do
-          %label{:for => "add_start_date"}= _("Start date")
+      .row.text-align-right.padding-top-l.padding-bottom-l
+        = form_tag url_for(), method: :get do
           %label
-            %input.has-addon.datepicker{:type => "text", :name => "start_date", :id => "add_start_date", :title => _("Start date"), :value => params[:start_date]}
+            %input.has-addon.datepicker{type: "text", name: "start_date", placeholder: _("Start date"), value: params[:start_date]}
             .addon
               %i.icon-calendar
-          = "-"
-          %label{:for => "add_end_date"}= _("End date")
           %label
-            %input.has-addon.datepicker{:type => "text", :name => "end_date", :id => "add_end_date", :title => _("End date"), :value => params[:end_date]}
+            %input.has-addon.datepicker{type: "text", name: "end_date", placeholder: _("End date"), value: params[:end_date]}
             .addon
               %i.icon-calendar
-          = submit_tag _("Filter"), :class => "button"
+          %button.button.white{type: "submit", style: "vertical-align: top"}= _("Filter")
 
       .row.emboss.margin-vertical-s
-        %h1.headline-l.float-left= _("Who borrowed the most things?")
         .list.users
-          = render partial: "admin/statistics/show/line", collection: @list_1
+          = render partial: "admin/statistics/show/line", collection: @list
 
-
-      .row.emboss.margin-vertical-s
-        %h1.headline-l.float-left= _("Which inventory pool is busiest?")
-        .list.inventory_pools
-          = render partial: "admin/statistics/show/line", collection: @list_2
-
-      .row.emboss.margin-vertical-s
-        %h1.headline-l.float-left= _("Who bought the most items?")
-        .list.item_values
-          = render partial: "admin/statistics/show/line", collection: @list_3
+:scss
+  .collapsed + .children {
+    display: none;
+  }
 
 :coffeescript
   jQuery ->
     $(".datepicker").datepicker()
+
+    $(".toggle").on "click", ->
+      $(this).closest(".row").toggleClass("collapsed")
+      $(this).find(".arrow").toggleClass("right")
+      $(this).find(".arrow").toggleClass("down")

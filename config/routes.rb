@@ -37,7 +37,8 @@ Leihs::Application.routes.draw do
 
   namespace :admin do
     # Statistics
-    get "statistics", to: "statistics#show", as: "statistics"
+    get "statistics",     to: "statistics#index", as: "statistics"
+    get "statistics/:id", to: "statistics#show",  as: "statistic"
 
     # Database Check
     get "database/indexes", to: "database#indexes"

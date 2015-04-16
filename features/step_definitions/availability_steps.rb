@@ -18,7 +18,7 @@ Given "a reservation exists for $quantity '$model' from $from to $to" do |quanti
   expect(@contract_lines.size).to be >= quantity.to_i
   contract = user.contracts.unsubmitted.find_by(inventory_pool_id: inventory_pool)
   expect(contract.submit("this is the required purpose")).to be true
-  expect(model.availability_in(inventory_pool.reload).document_lines.size).to be >= 1
+  expect(model.availability_in(inventory_pool.reload).running_lines.size).to be >= 1
 end
 
 Given "a contract exists for $quantity '$model' from $from to $to" do |quantity, model, from, to|
@@ -38,7 +38,7 @@ Given "a contract exists for $quantity '$model' from $from to $to" do |quantity,
                                               purpose: purpose)
   end
   expect(@contract_lines.size).to be >= quantity.to_i
-  expect(model.availability_in(inventory_pool.reload).document_lines.size).to be >= 1
+  expect(model.availability_in(inventory_pool.reload).running_lines.size).to be >= 1
 end
 
 

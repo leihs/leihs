@@ -1,0 +1,5 @@
+- @statistics.each do |statistic|
+  .row.margin-top-m.padding-horizontal-m
+    %a.button.large{href: admin_statistic_path(statistic.parameterize, start_date: params[:start_date], end_date: params[:end_date]), class: params[:id] == statistic.parameterize ? "green" : "white"}
+      %i.icon-bar-chart
+      = _(statistic)

@@ -1,14 +1,13 @@
-.row.line
+.row.line.collapsed
 
-  .col1of8.line-col
+  .col2of8.line-col.text-align-right
+    - s = "%s %s" % [number_with_delimiter(line[:quantity]), line[:unit]]
     - unless line[:children].blank?
-      .toggle
-        .text{:title => _('expand')}
-          .icon
-          = line[:children].size
-
-  .col1of8.line-col
-    = "%s %s" % [number_with_delimiter(line[:quantity]), line[:unit]]
+      %button.button.inset.small.width-full.toggle
+        %i.arrow.right
+        %span= s
+    - else
+      = s
   .col1of8.line-col
     = line[:object]
   .col5of8.line-col.text-align-left

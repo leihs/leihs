@@ -77,26 +77,6 @@ class Manage::ApplicationController < ApplicationController
 
 ###############################################################  
 
-  # swap model for a given line
-  def generic_swap_model_line(document)
-    if request.post?
-      if params[:model_id].nil?
-        flash[:notice] = _("Model must be selected")
-      else
-        document.swap_line(params[:line_id], params[:model_id], current_user.id)
-      end
-      redirect_to :action => 'show', :id => document.id     
-    else
-      redirect_to :controller => 'models', 
-                  :layout => 'modal',
-                  :user_id => document.user_id,
-                  :source_path => request.env['REQUEST_URI'],
-                  "#{document.class.to_s.underscore}_line_id" => params[:line_id]
-    end
-  end
-
-###############################################################  
-
   protected
 
     helper_method :is_owner?, :is_privileged_user?, :is_super_user?, :is_inventory_manager?, :is_lending_manager?, :is_group_manager?, :current_managed_inventory_pools

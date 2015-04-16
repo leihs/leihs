@@ -29,6 +29,7 @@ class InventoryPool < ActiveRecord::Base
 
   has_many :contracts, -> { extending BundleFinder }, class_name: "ContractLinesBundle"
   has_many :contract_lines, :dependent => :restrict_with_exception
+  has_many :item_lines, dependent: :restrict_with_exception
   has_many :visits #, :include => {:user => [:reminders, :groups]} # MySQL View based on contract_lines
 
   has_many :groups do #tmp#2#, :finder_sql => 'SELECT * FROM `groups` WHERE (`groups`.inventory_pool_id = #{id} OR `groups`.inventory_pool_id IS NULL)'
@@ -57,35 +58,25 @@ class InventoryPool < ActiveRecord::Base
       h = {Group::GENERAL_GROUP_ID => 0} if h.empty?
       h
     end
-
-    def array_for_model_and_groups(model, groups)
-      group_ids = groups.map{|x| x.try(:id) }
-      select{|p| p.model_id == model.id and group_ids.include? p.group_id}
-    end
   end
 
   # we don't recalculate the past
   # if an item is already assigned, we block the availability even if the start_date is in the future
   # if an item is already assigned but not handed over, it's never considered as late even if end_date is in the past
   # we ignore the option_lines
-  # we get all lines which are not yet returned
+  # we get all lines which are not rejected or closed
   # we ignore lines that are not handed over which the end_date is already in the past
   # we consider even unsubmitted lines, but not the already timed out ones
-  def running_lines
-    ItemLine.find_by_sql("SELECT id, inventory_pool_id, model_id, quantity, start_date, end_date, " \
-                            "(end_date < '#{Date.today}' AND status = '#{:signed}') AS is_late, " \
-                            "IF(item_id IS NOT NULL, DATE('#{Date.today}'), IF(start_date > '#{Date.today}', start_date, DATE('#{Date.today}'))) AS unavailable_from, " \
-                            "GROUP_CONCAT(groups_users.group_id) AS concat_group_ids " \
-                          "FROM contract_lines " \
-                          "LEFT JOIN groups_users ON groups_users.user_id = contract_lines.user_id " \
-                          "WHERE inventory_pool_id = #{self.id} " \
-                            "AND returned_date IS NULL " \
-                            "AND status != '#{:rejected}' " \
-                            "AND NOT (status = '#{:unsubmitted}' AND updated_at < '#{Time.now.utc - Contract::TIMEOUT_MINUTES.minutes}') " \
-                            "AND NOT (end_date < '#{Date.today}' AND item_id IS NULL) " \
-                          "GROUP BY id " \
-                          "ORDER BY start_date, end_date, id;" ) # the order is needed by the availability computation
-  end
+  has_many :running_lines, -> {
+    select("id, inventory_pool_id, model_id, item_id, quantity, start_date, end_date, returned_date, status,
+            GROUP_CONCAT(groups_users.group_id) AS concat_group_ids").
+    joins("LEFT JOIN groups_users ON groups_users.user_id = contract_lines.user_id").
+    where.not(status: [:rejected, :closed]).
+    where.not("status = '#{:unsubmitted}' AND updated_at < '#{Time.now.utc - Contract::TIMEOUT_MINUTES.minutes}'").
+    where.not("end_date < '#{Date.today}' AND item_id IS NULL").
+    group(:id).
+    order(:start_date, :end_date) # the order is needed by the availability computation
+  }, class_name: "ItemLine"
 
 #######################################################################
 

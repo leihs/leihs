@@ -28,7 +28,7 @@
   # iterate through model reservations and prepare necessary parameters to construct events inside with Timeline
   def reservations_to_events(av)
     events = {}
-    av.document_lines.each do |line|
+    av.running_lines.each do |line|
       line.reload # NOTE this is quick fix because we have a running_line
       user = line.user
       group_id = line.allocated_group_id.to_i
