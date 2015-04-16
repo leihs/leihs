@@ -743,6 +743,9 @@ msgstr "Leivertrag Nr. %s"
 msgid "Lending Contracts No. %s"
 msgstr "Leiverträg Nr. %s"
 
+msgid "List of %s"
+msgstr "Liste der %s"
+
 msgid "List of available variables"
 msgstr ""
 
@@ -1277,6 +1280,9 @@ msgstr "Erfolgriich zuegwise"
 
 msgid "Supplier"
 msgstr "Liferant"
+
+msgid "Suppliers"
+msgstr "Liferanten"
 
 msgid "Swapped %{from} for %{to}"
 msgstr "%{from} dur %{to} ersetzt"

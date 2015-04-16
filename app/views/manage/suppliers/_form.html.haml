@@ -1,0 +1,38 @@
+.row.margin-top-l.padding-horizontal-m
+
+  .row
+    %h1.headline-l.float-left= @supplier.name || _("Create %s") % _("Supplier")
+
+    %div.float-right
+      %a.button.grey{:href => "/manage/suppliers"}= _("Cancel")
+      %button.button.green{:type => :submit}= _("Save")
+
+  .row.margin-top-m
+
+    .col1of2.padding-right-xs
+
+      %h2.headline-m.padding-left-s= _("Basic Information")
+
+      .row.margin-vertical-s
+
+        .row.padding-inset-s.emboss.margin-bottom-xxs
+          .col1of3
+            %strong.font-size-m= "#{_("Name")} *"
+          .col2of3.text-align-right
+            %input.min-width-full{type: "text", name: "supplier[name]", value: @supplier.name}
+
+    .col1of2.padding-left-xs
+
+      - if @supplier.items.exists?
+        %h2.headline-m.padding-left-s= _("Items")
+
+        .row.margin-vertical-s
+
+          - @supplier.items.order(:inventory_pool_id).includes(:model, :inventory_pool).each do |i|
+            .row.padding-inset-s.emboss.margin-bottom-xxs
+              .col2of3
+                = i.inventory_code
+                %br
+                = i.model
+              .col1of3
+                = i.inventory_pool

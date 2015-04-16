@@ -1307,6 +1307,9 @@ msgstr ""
 msgid "Supplier"
 msgstr ""
 
+msgid "Suppliers"
+msgstr ""
+
 msgid "Swapped %{from} for %{to}"
 msgstr ""
 

@@ -738,6 +738,9 @@ msgstr ""
 msgid "Lending Contracts No. %s"
 msgstr ""
 
+msgid "List of %s"
+msgstr ""
+
 msgid "List of available variables"
 msgstr ""
 
@@ -1275,6 +1278,9 @@ msgid "Successfully set."
 msgstr ""
 
 msgid "Supplier"
+msgstr ""
+
+msgid "Suppliers"
 msgstr ""
 
 msgid "Swapped %{from} for %{to}"

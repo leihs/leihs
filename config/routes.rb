@@ -113,13 +113,21 @@ Leihs::Application.routes.draw do
     # Location
     get 'locations', to: "locations#index"
 
-    # Building
+    # Buildings
     get     'buildings',          to: 'buildings#index'
     get     'buildings/new',      to: 'buildings#new',      as: 'new_building'
     post    'buildings',          to: 'buildings#create'
     get     'buildings/:id/edit', to: 'buildings#edit',     as: 'edit_building'
     put     'buildings/:id',      to: 'buildings#update',   as: 'update_building'
     delete  'buildings/:id',      to: 'buildings#destroy',  as: 'delete_building'
+
+    # Suppliers
+    get     'suppliers',          to: 'suppliers#index'
+    get     'suppliers/new',      to: 'suppliers#new',      as: 'new_supplier'
+    post    'suppliers',          to: 'suppliers#create'
+    get     'suppliers/:id/edit', to: 'suppliers#edit',     as: 'edit_supplier'
+    put     'suppliers/:id',      to: 'suppliers#update',   as: 'update_supplier'
+    delete  'suppliers/:id',      to: 'suppliers#destroy',  as: 'delete_supplier'
 
     # Users
     post "users/:id/set_start_screen", to: "users#set_start_screen"

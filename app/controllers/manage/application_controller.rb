@@ -88,7 +88,7 @@ class Manage::ApplicationController < ApplicationController
 
       # TODO 28** patch to Rails: actionpack/lib/action_controller/...
       # i.e. /inventory_pools/123 generates automatically params[:inventory_pools_id] additionaly to params[:id]
-      unless ["users", "buildings"].include? controller_name
+      unless ["users", "buildings", "suppliers"].include? controller_name
         params[:inventory_pool_id] ||= params[:id] if params[:id]
       end
 

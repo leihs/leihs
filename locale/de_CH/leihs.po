@@ -750,6 +750,9 @@ msgstr "Leihvertrag Nr. %s"
 msgid "Lending Contracts No. %s"
 msgstr "Leihverträge Nr. %s"
 
+msgid "List of %s"
+msgstr "Liste der %s"
+
 msgid "List of available variables"
 msgstr "Liste der verfügbaren Variablen"
 
@@ -1292,6 +1295,9 @@ msgstr "Erfolgreich zugewiesen"
 
 msgid "Supplier"
 msgstr "Lieferant"
+
+msgid "Suppliers"
+msgstr "Lieferanten"
 
 msgid "Swapped %{from} for %{to}"
 msgstr "%{from} durch %{to} ersetzt"
