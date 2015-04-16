@@ -12,7 +12,8 @@ namespace :leihs do
   desc "set the deploy information as footer"
   task :set_deploy_information_footer do |branch|
     branch = ENV["BRANCH"]
-    sha = File.read(ENV["REVISION_PATH"])
+    sha = File.read(ENV["REVISION_PATH"]) if ENV["REVISION_PATH"]
+    sha = ENV["REVISION"] if ENV["REVISION"]
 
     url = URI.parse("https://api.github.com/repos/zhdk/leihs/commits/#{branch}")
     request = Net::HTTP::Get.new(url.path)
