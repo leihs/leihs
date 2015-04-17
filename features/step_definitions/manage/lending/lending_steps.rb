@@ -378,7 +378,6 @@ Then /^all these items are listed$/ do
 end
 
 Then /^I see one line per model$/ do
-  step 'all these items are listed'
   within(".tooltipster-default", match: :first, :visible => true) do
     find(".exclude-last-child", match: :first)
     all(".exclude-last-child").each do |div|
@@ -389,7 +388,6 @@ Then /^I see one line per model$/ do
 end
 
 Then /^each line shows the sum of items of the respective model$/ do
-  step 'all these items are listed'
   within(".tooltipster-default", match: :first, :visible => true) do
     find(".row .col1of8:nth-child(1)", match: :first)
     quantities = all(".row .col1of8:nth-child(1)", text: /.+/).map{|x| x.text.to_i}
