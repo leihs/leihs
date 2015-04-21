@@ -30,14 +30,14 @@ class Visit < ActiveRecord::Base
   belongs_to :user
   belongs_to :inventory_pool
 
-  has_many :contract_lines, -> (r){ if r.status == :approved
+  has_many :reservations, -> (r){ if r.status == :approved
                                       where(start_date: r.date)
                                     else
                                       where(end_date: r.date)
                                     end.where(inventory_pool_id: r.inventory_pool_id, user_id: r.user_id) }, foreign_key: :status, primary_key: :status
-  alias :lines :contract_lines
-  def contract_line_ids
-    contract_lines.pluck(:id)
+  alias :lines :reservations
+  def reservation_ids
+    reservations.pluck(:id)
   end
 
   #######################################################
@@ -53,7 +53,7 @@ class Visit < ActiveRecord::Base
     sql = where.not(status: :submitted)
     return sql if query.blank?
 
-    # TODO search on contract_lines' models and items
+    # TODO search on reservations' models and items
     query.split.each{|q|
       q = "%#{q}%"
       sql = sql.where(User.arel_table[:login].matches(q).

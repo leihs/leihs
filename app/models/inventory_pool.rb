@@ -27,10 +27,11 @@ class InventoryPool < ActiveRecord::Base
 
   has_and_belongs_to_many :accessories
 
-  has_many :contracts, -> { extending BundleFinder }, class_name: "ContractLinesBundle"
-  has_many :contract_lines, :dependent => :restrict_with_exception
+  has_many :reservations, dependent: :restrict_with_exception
+  has_many :reservations_bundles, -> { extending BundleFinder }
+  # TODO ?? # has_many :contracts, through: :reservations_bundles
   has_many :item_lines, dependent: :restrict_with_exception
-  has_many :visits #, :include => {:user => [:reminders, :groups]} # MySQL View based on contract_lines
+  has_many :visits #, :include => {:user => [:reminders, :groups]} # MySQL View based on reservations
 
   has_many :groups do #tmp#2#, :finder_sql => 'SELECT * FROM `groups` WHERE (`groups`.inventory_pool_id = #{id} OR `groups`.inventory_pool_id IS NULL)'
     def with_general
@@ -70,7 +71,7 @@ class InventoryPool < ActiveRecord::Base
   has_many :running_lines, -> {
     select("id, inventory_pool_id, model_id, item_id, quantity, start_date, end_date, returned_date, status,
             GROUP_CONCAT(groups_users.group_id) AS concat_group_ids").
-    joins("LEFT JOIN groups_users ON groups_users.user_id = contract_lines.user_id").
+    joins("LEFT JOIN groups_users ON groups_users.user_id = reservations.user_id").
     where.not(status: [:rejected, :closed]).
     where.not("status = '#{:unsubmitted}' AND updated_at < '#{Time.now.utc - Contract::TIMEOUT_MINUTES.minutes}'").
     where.not("end_date < '#{Date.today}' AND item_id IS NULL").

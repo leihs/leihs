@@ -82,7 +82,7 @@ Then(/^my attempt to add it fails$/) do
   within ".modal" do
     find("#booking-calendar")
   end
-  models = @current_user.contract_lines.unsubmitted.flat_map(&:model)
+  models = @current_user.reservations.unsubmitted.flat_map(&:model)
   expect(models.include? @model).to be false
 end
 
@@ -122,7 +122,7 @@ When(/^everything I input into the calendar is valid$/) do
     find("option", match: :first)
     @inventory_pool = InventoryPool.find all("option").detect{|o| o.selected?}["data-id"]
   end
-  @quantity = 1 + @current_user.contract_lines.unsubmitted.select{|line| line.model == @model}.sum(&:quantity)
+  @quantity = 1 + @current_user.reservations.unsubmitted.select{|line| line.model == @model}.sum(&:quantity)
   #step "ich setze die Anzahl im Kalendar auf #{1}"
   step "I set the quantity in the calendar to #{1}"
 
@@ -138,7 +138,7 @@ Then(/^the model has been added to the order with the respective start and end d
     find(".line", match: :first)
     find(".line", :text => "#{@quantity}x #{@model.name}")
   end
-  expect(@current_user.contract_lines.unsubmitted.detect{|line| line.model == @model}).not_to be_nil
+  expect(@current_user.reservations.unsubmitted.detect{|line| line.model == @model}).not_to be_nil
 end
 
 #Dann(/^lässt sich das Modell mit Start\- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügen$/) do
@@ -212,7 +212,7 @@ end
 
 #Angenommen(/^es existiert ein Modell für das eine Bestellung vorhanden ist$/) do
 Given(/^there is a model for which an order exists$/) do
-  @model = @current_user.inventory_pools.flat_map(&:contract_lines).select do |cl|
+  @model = @current_user.inventory_pools.flat_map(&:reservations).select do |cl|
     cl.is_a?(ItemLine) and cl.start_date > Date.today and cl.model.categories.exists? # NOTE cl.start_date.future? doesn't work properly because timezone
   end.sample.model
 end
@@ -449,5 +449,5 @@ Then(/^I cannot order that model unless I am part of that group$/) do
   find(".fc-widget-content", :match => :first)
   step "I save the booking calendar"
   expect(find("#current-order-lines").has_content?(@model.name)).to be true
-  expect(@current_user.contract_lines.unsubmitted.map(&:model).include?(@model)).to be true
+  expect(@current_user.reservations.unsubmitted.map(&:model).include?(@model)).to be true
 end

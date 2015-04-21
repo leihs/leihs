@@ -26,7 +26,7 @@
           %a.button.white{href: manage_contracts_path(current_inventory_pool, status: [:submitted])}
             %i.icon-thumbs-up
             = _("Open Orders")
-            %span.badge= @submitted_contract_lines_count
+            %span.badge= @submitted_reservations_count
 
         - if is_lending_manager?
           :ruby

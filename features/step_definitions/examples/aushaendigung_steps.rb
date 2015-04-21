@@ -12,7 +12,7 @@ end
 
 #Angenommen(/^es besteht bereits eine Aushändigung mit mindestens (\d+) zugewiesenen Gegenständen für einen Benutzer$/) do |count|
 Given(/^there is a hand over with at least (\d+) assigned items for a user$/) do |count|
-  @hand_over = @current_inventory_pool.visits.hand_over.find {|ho| ho.contract_lines.select(&:item).size >= count.to_i}
+  @hand_over = @current_inventory_pool.visits.hand_over.find {|ho| ho.reservations.select(&:item).size >= count.to_i}
   expect(@hand_over).not_to be_nil
 end
 
@@ -24,7 +24,7 @@ end
 
 #Dann(/^sehe ich all die bereits zugewiesenen Gegenstände mittels Inventarcodes$/) do
 Then(/^I see the already assigned items and their inventory codes$/) do
-  @hand_over.contract_lines.each do |line|
+  @hand_over.reservations.each do |line|
     next if not line.is_a?(ItemLine) or line.item_id.nil?
     find("[data-assign-item][disabled][value='#{line.item.inventory_code}']")
   end
@@ -40,7 +40,7 @@ end
 # Superseded by sign_contract_steps.rb
 #Angenommen(/^ich öffne eine Aushändigung( mit einer Software)?$/) do |arg1|
 Given(/^I open a hand over containing software$/) do
-  @hand_over = @current_inventory_pool.visits.hand_over.order("RAND ()").detect {|v| v.contract_lines.any?{|cl| cl.model.is_a? Software } }
+  @hand_over = @current_inventory_pool.visits.hand_over.order("RAND ()").detect {|v| v.reservations.any?{|cl| cl.model.is_a? Software } }
   step "I open the hand over"
 end
 
@@ -84,8 +84,8 @@ end
 
 #Wenn(/^ich dem nicht problematischen Modell einen Inventarcode zuweise$/) do
 When(/^I assign an inventory code to the unproblematic model$/) do
-  @contract_line = @hand_over.lines.find {|l| !l.start_date.past? and !l.item and @models_in_stock.include?(l.model) }
-  @line_css = ".line[data-id='#{@contract_line.id}']"
+  @reservation = @hand_over.lines.find {|l| !l.start_date.past? and !l.item and @models_in_stock.include?(l.model) }
+  @line_css = ".line[data-id='#{@reservation.id}']"
   within @line_css do
     find("input[data-assign-item]").click
     find("li.ui-menu-item a", match: :first).click
@@ -95,7 +95,7 @@ end
 #Dann(/^wird der Gegenstand der Zeile zugeteilt$/) do
 Then(/^the item is assigned to the line$/) do
   find("#flash")
-  expect(@contract_line.reload.item).not_to be_nil
+  expect(@reservation.reload.item).not_to be_nil
 end
 
 
@@ -138,7 +138,7 @@ end
 
 #Dann(/^wird das Problemfeld für das problematische Modell angezeigt$/) do
 Then(/^problem notifications are shown for the problematic model$/) do
-  @contract_line = @hand_over.lines.find do |l|
+  @reservation = @hand_over.lines.find do |l|
     if l.is_a? ItemLine
       #old#
       # av = l.model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(l.start_date, l.end_date, @hand_over.user.group_ids)
@@ -146,7 +146,7 @@ Then(/^problem notifications are shown for the problematic model$/) do
       not l.complete?
     end
   end
-  @line_css = ".line[data-id='#{@contract_line.id}']"
+  @line_css = ".line[data-id='#{@reservation.id}']"
   step "the problem notifications remain on the line"
 end
 
@@ -168,11 +168,11 @@ end
 
 #Wenn(/^ich einen bereits hinzugefügten Gegenstand zuteile$/) do
 When(/^I assign an already added item$/) do
-  @contract_line = @hand_over.lines.find {|l| l.is_a? ItemLine and l.item}
-  @line_css = ".line[data-id='#{@contract_line.id}']"
+  @reservation = @hand_over.lines.find {|l| l.is_a? ItemLine and l.item}
+  @line_css = ".line[data-id='#{@reservation.id}']"
   find(@line_css).find("input[type='checkbox']").click
 
-  find("input#assign-or-add-input").set @contract_line.item.inventory_code
+  find("input#assign-or-add-input").set @reservation.item.inventory_code
   find("form#assign-or-add button .icon-plus-sign-alt", match: :first).click
 end
 
@@ -180,7 +180,7 @@ end
 
 #Dann(/^erhalte ich eine entsprechende Info\-Meldung 'XY ist bereits diesem Vertrag zugewiesen'$/) do
 Then(/^I see the error message 'XY is already assigned to this contract'$/) do
-  find "#flash", text: _("%s is already assigned to this contract") % @contract_line.item.inventory_code
+  find "#flash", text: _("%s is already assigned to this contract") % @reservation.item.inventory_code
 end
 
 
@@ -252,19 +252,19 @@ end
 
 Given(/^a line has no item assigned yet and this line is marked$/) do
   step "I can add models"
-  @contract_line = @hand_over.lines.order(created_at: :desc).first
-  @line_css = ".line[data-id='#{@contract_line.id}']"
+  @reservation = @hand_over.lines.order(created_at: :desc).first
+  @line_css = ".line[data-id='#{@reservation.id}']"
 end
 
 Given(/^a line with an assigned item which doesn't have a location is marked$/) do
-  @contract_line = @hand_over.lines.where(type: "ItemLine").find {|l| l.item and (l.item.location.nil? or (l.item.location.room.blank? and l.item.location.shelf.blank?)) }
-  @line_css = ".line[data-id='#{@contract_line.id}']"
+  @reservation = @hand_over.lines.where(type: "ItemLine").find {|l| l.item and (l.item.location.nil? or (l.item.location.room.blank? and l.item.location.shelf.blank?)) }
+  @line_css = ".line[data-id='#{@reservation.id}']"
   step "ich die Zeile wieder selektiere"
 end
 
 Given(/^an option line is marked$/) do
-  @contract_line = @hand_over.lines.where(type: "OptionLine").order("RAND()").first
-  @line_css = ".line[data-id='#{@contract_line.id}']"
+  @reservation = @hand_over.lines.where(type: "OptionLine").order("RAND()").first
+  @line_css = ".line[data-id='#{@reservation.id}']"
   step "ich die Zeile wieder selektiere"
 end
 

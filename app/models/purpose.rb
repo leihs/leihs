@@ -1,11 +1,11 @@
 class Purpose < ActiveRecord::Base
-  has_many :contract_lines
+  has_many :reservations
 
   # TODO delete not associated purposes
-  # validates has at least one contract_line
+  # validates has at least one reservation
 
   def lines
-   contract_lines
+   reservations
   end
 
   def to_s

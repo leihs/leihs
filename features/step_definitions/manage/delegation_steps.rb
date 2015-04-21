@@ -156,7 +156,7 @@ end
 
 #Angenommen(/^es wurde für eine Delegation eine Bestellung erstellt$/) do
 Given(/^there is an order for a delegation$/) do
-  @contract = @current_inventory_pool.contracts.submitted.find {|c| c.user.is_delegation }
+  @contract = @current_inventory_pool.reservations_bundles.submitted.find {|c| c.user.is_delegation }
   expect(@contract).not_to be_nil
 end
 
@@ -166,7 +166,7 @@ end
 
 #Angenommen(/^ich befinde mich in einer Bestellung von einer Delegation$/) do
 Given(/^I am editing a delegation's order$/) do
-  @contract = @current_inventory_pool.contracts.find {|c| [:submitted, :approved].include? c.status and c.delegated_user and c.user.delegated_users.count >= 2}
+  @contract = @current_inventory_pool.reservations_bundles.find {|c| [:submitted, :approved].include? c.status and c.delegated_user and c.user.delegated_users.count >= 2}
   @delegation = @contract.user
   step 'I edit the order'
 end
@@ -183,7 +183,7 @@ end
 
 #Angenommen(/^es existiert eine persönliche Bestellung$/) do
 Given(/^there is an order placed by me personally$/) do
-  @contract = @current_inventory_pool.contracts.submitted.find {|c| not c.user.is_delegation }
+  @contract = @current_inventory_pool.reservations_bundles.submitted.find {|c| not c.user.is_delegation }
   expect(@contract).not_to be_nil
 end
 
@@ -356,7 +356,7 @@ end
 
 #Wenn(/^keine Bestellung, Aushändigung oder ein Vertrag für eine Delegation besteht$/) do
 When(/^there is no order, hand over or contract for a delegation$/) do
-  @delegations = User.as_delegations.select {|d| d.contracts.blank?}
+  @delegations = User.as_delegations.select {|d| d.reservations_bundles.blank?}
 end
 
 #Wenn(/^wenn für diese Delegation keine Zugriffsrechte für irgendwelches Gerätepark bestehen$/) do
@@ -497,7 +497,7 @@ end
 
 #Wenn(/^ich die Gegenstände für die Delegation an "(.*?)" aushändige$/) do |contact_person|
 When(/^I hand over the items ordered for this delegation to "(.*?)"$/) do |contact_person|
-  @contract = @delegation.contracts.submitted.first
+  @contract = @delegation.reservations_bundles.submitted.first
   @contract.approve Faker::Lorem.sentence
   visit manage_hand_over_path(@current_inventory_pool, @delegation)
   expect(has_selector?("input[data-assign-item]")).to be true
@@ -517,7 +517,7 @@ end
 
 #Dann(/^ist "(.*?)" die neue Kontaktperson dieses Auftrages$/) do |contact_person|
 Then(/^"(.*?)" is the new contact person for this contract$/) do |contact_person|
-  expect(@delegation.contracts.signed.first.delegated_user).to eq @contact
+  expect(@delegation.reservations_bundles.signed.first.delegated_user).to eq @contact
 end
 
 #Dann(/^ist in der Aushändigung der Benutzer aufgeführt$/) do
@@ -689,13 +689,13 @@ end
 
 #Und(/^man merkt sich die Bestellung$/) do
 And(/^I take note of the contract$/) do
-  @contracts = @current_user.contracts.unsubmitted
+  @contracts = @current_user.reservations_bundles.unsubmitted
 end
 
 #Und(/^ich refreshe die Bestellung$/) do
 And(/^I reload the order$/) do
   reloaded_contracts = @contracts.map do |contract|
-    contract.user.contracts.find_by(status: :submitted, inventory_pool_id: contract.inventory_pool)
+    contract.user.reservations_bundles.find_by(status: :submitted, inventory_pool_id: contract.inventory_pool)
   end
   @contracts = reloaded_contracts
 end

@@ -23,12 +23,12 @@ class window.App.TakeBackController extends Spine.Controller
       do @fetchAvailability
     do @setupAutocomplete
     new App.TimeLineController {el: @el}
-    new App.ContractLinesEditController {el: @el, user: @user, contract: @contract, startDateDisabled: true, quantityDisabled: true}
+    new App.ReservationsEditController {el: @el, user: @user, contract: @contract, startDateDisabled: true, quantityDisabled: true}
     new PreChange "[data-quantity-returned]"
 
   delegateEvents: =>
     super
-    App.ContractLine.on "refresh", @fetchAvailability
+    App.Reservation.on "refresh", @fetchAvailability
     App.Item.on "refresh", => @render(true)
 
   fetchAvailability: =>
@@ -59,7 +59,7 @@ class window.App.TakeBackController extends Spine.Controller
 
   takeBack: => 
     returnedQuantity = {}
-    lines = (App.ContractLine.find id for id in App.LineSelectionController.selected)
+    lines = (App.Reservation.find id for id in App.LineSelectionController.selected)
     for line in lines
       if line.option_id?
         quantity = @getQuantity(line)
@@ -83,7 +83,7 @@ class window.App.TakeBackController extends Spine.Controller
       App.LineSelectionController.add line.id
       @increaseOption line if line.option_id
     # line for assignment not found because it was already assigned maximum possible before
-    else if App.ContractLine.findByAttribute("option_id", App.Option.findByAttribute("inventory_code", inventoryCode)?.id)
+    else if App.Reservation.findByAttribute("option_id", App.Option.findByAttribute("inventory_code", inventoryCode)?.id)
       App.Flash
         type: "error"
         message: _jed "You can not take back more options then you handed over"
@@ -138,7 +138,7 @@ class window.App.TakeBackController extends Spine.Controller
 
   changeQuantity: (e)=>
     target = $ e.currentTarget
-    line = App.ContractLine.find target.closest("[data-id]").data "id"
+    line = App.Reservation.find target.closest("[data-id]").data "id"
     App.LineSelectionController.add(line.id)
     @lineSelection.markVisitLinesController?.update App.LineSelectionController.selected
     quantity = parseInt target.val()

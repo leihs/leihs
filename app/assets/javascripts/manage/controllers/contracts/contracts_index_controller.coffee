@@ -25,7 +25,7 @@ class window.App.ContractsIndexController extends Spine.Controller
   fetch: (page, target)=>
     @fetchContracts(page).done =>
       @fetchUsers(page).done =>
-        @fetchContractLines page, =>
+        @fetchReservations page, =>
           @fetchPurposes page, => 
             @render target, @contracts[page], page
 
@@ -41,12 +41,12 @@ class window.App.ContractsIndexController extends Spine.Controller
       contracts = (App.Contract.find(datum.id) for datum in data)
       @contracts[page] = contracts
 
-  fetchContractLines: (page, callback)=>
+  fetchReservations: (page, callback)=>
     ids = _.map @contracts[page], (o) -> o.id
     do callback unless ids.length
     done = _.after Math.ceil(ids.length/300), callback
     _(ids).each_slice 300, (slice)=>
-      App.ContractLine.ajaxFetch
+      App.Reservation.ajaxFetch
         data: $.param
           contract_ids: slice
       .done done

@@ -31,7 +31,7 @@ class window.App.SwapUsersController extends Spine.Controller
     @errorsContainer.addClass "hidden"
     App.Button.disable @submitButton
     if @lines?
-      do @swapContractLines
+      do @swapReservations
     else
       do @swapContract
 
@@ -45,8 +45,8 @@ class window.App.SwapUsersController extends Spine.Controller
       App.Button.enable @submitButton
       @errorsContainer.find("strong").text e.responseText
 
-  swapContractLines: =>
-    App.ContractLine.swapUser(@lines, @searchSetUserController.selectedUserId)
+  swapReservations: =>
+    App.Reservation.swapUser(@lines, @searchSetUserController.selectedUserId)
     .done => 
       window.location = App.User.find(@searchSetUserController.selectedUserId).url("hand_over")
     .fail =>

@@ -86,11 +86,11 @@ Then(/^the items are sorted alphabetically and grouped by model name and number 
            @current_user.visits.hand_over
          end.joins(:inventory_pool).order("date", "inventory_pools.name").map(&:lines)
 
-  t = temp.map{|contract_lines| contract_lines.map(&:model).uniq.map(&:name).sort }.flatten
+  t = temp.map{|reservations| reservations.map(&:model).uniq.map(&:name).sort }.flatten
   expect(t).to eq all(".row.line .col6of10").map(&:text)
 
   temp.
-    map{|contract_lines| contract_lines.group_by {|l| l.model.name}}.
+    map{|reservations| reservations.group_by {|l| l.model.name}}.
     map {|h| h.sort}.
     flatten(1).
     map{|vl| [vl.first, (if vl.second.first.is_a? OptionLine then vl.second.first.quantity else vl.second.length end)]}.
@@ -104,14 +104,14 @@ end
 Then(/^the items are sorted alphabetically by model name$/) do
   t = @current_user.visits.take_back.
         joins(:inventory_pool).order("date", "inventory_pools.name").
-        map(&:lines).map{|contract_lines| contract_lines.map(&:model)}.
+        map(&:lines).map{|reservations| reservations.map(&:model)}.
         map{|visit_models| visit_models.map(&:name)}.
         map{|visit_model_names| visit_model_names.sort}.flatten
   expect(t).to eq all(".row.line .col6of10").map(&:text)
 end
 
 # Dann(/^jedes Gerät zeigt seinen Inventarcode$/) do
-#   @current_user.contract_lines.to_take_back.each do |line|
+#   @current_user.reservations.to_take_back.each do |line|
 #     expect(find(".line.row", match: :first, text: line.model.name).has_content?(line.item.inventory_code)).to be true
 #   end
 # end

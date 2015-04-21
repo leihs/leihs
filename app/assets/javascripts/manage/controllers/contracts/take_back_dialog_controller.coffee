@@ -23,7 +23,7 @@ class window.App.TakeBackDialogController extends Spine.Controller
   takeBack: =>
     @modal.undestroyable()
     @modal.el.detach()
-    App.ContractLine.takeBack(@lines, @returnedQuantity)
+    App.Reservation.takeBack(@lines, @returnedQuantity)
     .done (data)=> @showDocuments @lines
 
   showDocuments: (lines)=>

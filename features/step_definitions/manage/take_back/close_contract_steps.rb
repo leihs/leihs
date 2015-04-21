@@ -1,5 +1,5 @@
 When /^I open a take back(, not overdue)?( with at least an option handed over before today)?$/ do |arg1, arg2|
-  contracts = ContractLinesBundle.signed.where(inventory_pool_id: @current_user.inventory_pools.managed).order("RAND()")
+  contracts = ReservationsBundle.signed.where(inventory_pool_id: @current_user.inventory_pools.managed).order("RAND()")
   contract = if arg1
                contracts.detect {|c| not c.lines.any? {|l| l.end_date < Date.today} }
              elsif arg2
@@ -12,12 +12,12 @@ When /^I open a take back(, not overdue)?( with at least an option handed over b
   @customer = contract.user
   visit manage_take_back_path(@current_inventory_pool, @customer)
   expect(has_selector?("#take-back-view")).to be true
-  @contract_lines_to_take_back = @customer.contract_lines.signed.where(inventory_pool_id: @current_inventory_pool)
+  @reservations_to_take_back = @customer.reservations.signed.where(inventory_pool_id: @current_inventory_pool)
 end
 
 When /^I select all lines of an open contract$/ do
   within("#assign") do
-    @contract_lines_to_take_back.each do |line|
+    @reservations_to_take_back.each do |line|
       line.quantity.times do
         find("[data-barcode-scanner-target]").set line.item.inventory_code
         find("[data-barcode-scanner-target]").native.send_key :enter
@@ -30,7 +30,7 @@ end
 
 Then /^I see a summary of the things I selected for take back$/ do
   within(".modal") do
-    @contract_lines_to_take_back.each do |line|
+    @reservations_to_take_back.each do |line|
       has_content?(line.item.model.name)
     end
   end
@@ -47,10 +47,10 @@ end
 
 Then /^the contract is closed and all items are returned$/ do
   find(".modal .multibutton", text: _("Finish this take back"))
-  @contract_lines_to_take_back.each do |line|
+  @reservations_to_take_back.each do |line|
     line.reload
     expect(line.item.in_stock?).to be true unless line.is_a? OptionLine
     expect(line.status).to eq :closed
   end
-  expect(@customer.contract_lines.signed.where(inventory_pool_id: @current_inventory_pool)).to be_empty
+  expect(@customer.reservations.signed.where(inventory_pool_id: @current_inventory_pool)).to be_empty
 end

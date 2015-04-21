@@ -205,12 +205,12 @@ Given(/^(\d+) (unsubmitted|submitted|approved) contract lines?(?: for user "(.*)
 
   n.to_i.times do
     attrs[:inventory_pool] = attrs[:user].inventory_pools.order("RAND()").first if attrs[:user]
-    FactoryGirl.create :contract_line, attrs
+    FactoryGirl.create :reservation, attrs
   end
 end
 
 Given(/^all unsubmitted contract lines are available$/) do
-  expect(ContractLine.unsubmitted.all? {|line| line.available? }).to be true
+  expect(Reservation.unsubmitted.all? {|line| line.available? }).to be true
 end
 
 # Given(/^users with deleted access rights and closed contracts exist$/) do |table|
@@ -547,12 +547,12 @@ Given(/^(\d+) to (\d+)( more)? (submitted|approved|rejected) (item|license|optio
 
   attrs[:purpose] ||= FactoryGirl.create(:purpose)
   if more
-    @contract_lines ||= []
+    @reservations ||= []
   else
-    @contract_lines = []
+    @reservations = []
   end
   rand(from.to_i..to.to_i).times do
-    contract_line = if line_type == "item" or line_type == "license"
+    reservation = if line_type == "item" or line_type == "license"
                       attrs1 = if attrs[:model]
                                  attrs
                                else
@@ -569,9 +569,9 @@ Given(/^(\d+) to (\d+)( more)? (submitted|approved|rejected) (item|license|optio
                       option = nil # reset to nil in order to regenerate a new one later in the loop
                       FactoryGirl.create(:option_line, attrs1)
                     end
-    expect(contract_line.valid?).to be true
-    expect(contract_line.item).not_to be_nil if assigned
-    @contract_lines << contract_line
+    expect(reservation.valid?).to be true
+    expect(reservation.item).not_to be_nil if assigned
+    @reservations << reservation
   end
 end
 
@@ -588,16 +588,16 @@ Given(/^(\d+) to (\d+) of these (item|license|option) lines? is returned:$/) do 
   end
 
   rand(from.to_i..to.to_i).times do
-    contract_line = @contract_lines.select{|cl| cl.status == :signed}.sample
-    contract_line.update_attributes(attrs)
-    expect(contract_line.valid?).to be true
-    expect(contract_line.status).to be :closed
+    reservation = @reservations.select{|cl| cl.status == :signed}.sample
+    reservation.update_attributes(attrs)
+    expect(reservation.valid?).to be true
+    expect(reservation.status).to be :closed
   end
 end
 
 Given(/^this contract is signed by "(.*?)"$/) do |user_email|
-  contract_container = @contract_lines.first.user.contracts.approved.find_by(inventory_pool_id: @contract_lines.first.inventory_pool)
-  @contract = contract_container.sign(User.find_by_email(user_email), @contract_lines)
+  contract_container = @reservations.first.user.reservations_bundles.approved.find_by(inventory_pool_id: @reservations.first.inventory_pool)
+  @contract = contract_container.sign(User.find_by_email(user_email), @reservations)
   expect(@contract.valid?).to be true
 end
 

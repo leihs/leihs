@@ -9,16 +9,16 @@ end
 
 #Wenn /^jeder Eintrag einer abgeschickten Bestellung referenziert auf einen Zweck$/ do
 When /^each entry of a submitted order refers to a purpose$/ do
-  contract_lines = rand(3..6).times.map { FactoryGirl.create :contract_line, status: :submitted }
-  contract_lines.each do |line|
+  reservations = rand(3..6).times.map { FactoryGirl.create :reservation, status: :submitted }
+  reservations.each do |line|
     expect(line.purpose.is_a?(Purpose)).to be true
   end
 end
 
 #Wenn /^jeder Eintrag eines Vertrages kann auf einen Zweck referenzieren$/ do
 Wenn /^each entry of an order can refer to a purpose$/ do
-  contract_lines = rand(3..6).times.map { FactoryGirl.create :contract_line }
-  contract_lines.each do |line|
+  reservations = rand(3..6).times.map { FactoryGirl.create :reservation }
+  reservations.each do |line|
     line.purpose = FactoryGirl.create :purpose
     expect(line.purpose.is_a?(Purpose)).to be true
   end
@@ -34,7 +34,7 @@ end
 
 #Dann /^sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
 Then /^I see the assigned purpose on each line$/ do
-  @customer.contracts.approved.find_by(inventory_pool_id: @current_inventory_pool).lines.each do |line|
+  @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool).lines.each do |line|
     target = find(".line[data-id='#{line.id}'] [data-tooltip-template*='purpose']")
     hover_for_tooltip target
     find(".tooltipster-default .tooltipster-content", text: line.purpose.description)
@@ -91,9 +91,9 @@ end
 
 #Dann /^kann ich die Aushändigung durchführen$/ do
 Then /^I can finish the hand over$/ do
-  signed_contracts_size = @customer.contracts.signed.to_a.count # NOTE count returns a Hash because the group() in default scope
+  signed_contracts_size = @customer.reservations_bundles.signed.to_a.count # NOTE count returns a Hash because the group() in default scope
   step 'I click hand over inside the dialog'
-  expect(@customer.contracts.signed.to_a.count).to be > signed_contracts_size # NOTE count returns a Hash because the group() in default scope
+  expect(@customer.reservations_bundles.signed.to_a.count).to be > signed_contracts_size # NOTE count returns a Hash because the group() in default scope
 end
 
 #Dann /^muss ich keinen Zweck angeben um die Aushändigung durchzuführen$/ do
@@ -117,7 +117,7 @@ When /^I define a purpose$/ do
   find("#add-purpose").click
   @added_purpose = "Another Purpose"
   find("#purpose").set @added_purpose
-  @approved_lines = @customer.contracts.approved.find_by(inventory_pool_id: @current_inventory_pool).lines
+  @approved_lines = @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool).lines
   step 'kann ich die Aushändigung durchführen'
 end
 
@@ -130,7 +130,7 @@ end
 
 #Wenn /^alle der ausgewählten Gegenstände haben einen Zweck angegeben$/ do
 When /^all selected items have an assigned purpose$/ do
-  @contract = @customer.contracts.approved.find_by(inventory_pool_id: @current_inventory_pool)
+  @contract = @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool)
   lines = @contract.lines
   lines.each do |line|
     @item_line = line

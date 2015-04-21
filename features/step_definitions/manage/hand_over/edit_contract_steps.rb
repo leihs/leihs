@@ -53,7 +53,7 @@ end
 #  find("input#assign-or-add-input").set @option.inventory_code
 #  find("form#assign-or-add .ui-menu-item a", match: :first).click
 #  find("#flash")
-#  @option_line = @hand_over.user.contracts.approved.flat_map(&:lines).find{|l| l.item == @option}
+#  @option_line = @hand_over.user.reservations_bundles.approved.flat_map(&:lines).find{|l| l.item == @option}
 #  @line_css = ".line[data-id='#{@option_line.id}']"
 #end
 

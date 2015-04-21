@@ -11,7 +11,7 @@ When /^I delete a line of this contract$/ do
   end
 end
 
-Then /^this contractline is deleted$/ do
+Then /^this reservation is deleted$/ do
   expect(has_no_selector?(".line", match: :prefer_exact, :text => @line.model.name)).to be true
   expect(@contract.lines.reload.include?(@line)).to be false
 end
@@ -32,7 +32,7 @@ When(/^I add a model that is not already part of that contract$/) do
   step 'I add a model by typing in the inventory code of an item of that model to the quick add'
 end
 
-Then /^these contractlines are deleted$/ do
+Then /^these reservations are deleted$/ do
   step "the availability is loaded"
   expect { @line1.reload }.to raise_error(ActiveRecord::RecordNotFound)
   expect { @line2.reload }.to raise_error(ActiveRecord::RecordNotFound)
@@ -71,6 +71,6 @@ Then(/^all lines of that hand over are deleted$/) do
   end
   expect { @visit.reload }.to raise_error(ActiveRecord::RecordNotFound)
   @visit_line_ids.each do |line_id|
-    expect { ContractLine.find(line_id) }.to raise_error(ActiveRecord::RecordNotFound)
+    expect { Reservation.find(line_id) }.to raise_error(ActiveRecord::RecordNotFound)
   end
 end

@@ -1,0 +1,15 @@
+- content_for :title, "#{_("Value List")}"
+
+.value_list
+
+  = render 'documents/reservations/title_and_date'
+
+  = render 'documents/reservations/borrower_and_ip'
+
+  %section.list
+    %table
+      = render 'documents/reservations/table_header'
+
+      = render "documents/reservations/#{params[:merge] ? "merged_lines" : "lines"}"
+
+      = render 'documents/reservations/table_footer'

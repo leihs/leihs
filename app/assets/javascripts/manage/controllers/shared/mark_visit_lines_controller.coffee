@@ -18,7 +18,7 @@ class window.App.MarkVisitLinesController extends Spine.Controller
 
   markSelectedLines: (ids) =>
     for id in ids
-      cl = App.ContractLine.find(id)
+      cl = App.Reservation.find(id)
       if cl.item()
         line = @el.find(".line[data-id='#{id}']")
         line.removeClass("light").addClass("green")

@@ -175,9 +175,9 @@ end
 #Angenommen(/^es existiert eine Aushändigung mit mindestens zwei Modellen und einer Option, wo die Bestellmenge mindestens drei pro Modell ist$/) do
 Given(/^there is an order with at least two models and at least two items per model were ordered$/) do
   @hand_over = @current_inventory_pool.visits.hand_over.detect do |ho|
-    ho.contract_lines.where(type: "OptionLine").exists? and
-      ho.contract_lines.where(type: "ItemLine").exists? and
-        (g = ho.contract_lines.where(type: "ItemLine").group_by(&:model_id)) and
+    ho.reservations.where(type: "OptionLine").exists? and
+      ho.reservations.where(type: "ItemLine").exists? and
+        (g = ho.reservations.where(type: "ItemLine").group_by(&:model_id)) and
           g.keys.size >= 2 and
             g.values.detect {|x| x.size >= 3}
   end
@@ -271,9 +271,9 @@ end
 
 #Angenommen(/^es existiert eine Bestellung mit mindestens zwei Modellen, wo die Bestellmenge mindestens drei pro Modell ist$/) do
 Given(/^there is an order with at least two models and a quantity of at least three per model$/) do
-  @order = @current_inventory_pool.contracts.submitted.find do |o|
-    o.contract_lines.map(&:model).instance_eval do
-      uniq.count >= 2 and select{|m| o.contract_lines.select{|l| l.model == m}.count >= 3 }.uniq.count >= 2
+  @order = @current_inventory_pool.reservations_bundles.submitted.find do |o|
+    o.reservations.map(&:model).instance_eval do
+      uniq.count >= 2 and select{|m| o.reservations.select{|l| l.model == m}.count >= 3 }.uniq.count >= 2
     end
   end
   expect(@order).not_to be_nil

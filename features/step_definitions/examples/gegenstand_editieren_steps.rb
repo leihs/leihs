@@ -7,7 +7,7 @@ Given(/^I edit an item that belongs to the current inventory pool( and is in sto
   items = items.in_stock if in_stock
 
   @item = if not_in_contract
-            items.detect { |i| ContractLine.where(item_id: i.id).empty? }
+            items.detect { |i| Reservation.where(item_id: i.id).empty? }
           else
             items.first
           end

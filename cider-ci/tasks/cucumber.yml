@@ -505,11 +505,11 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         "features/manage/hand_over/delete.feature"
-- name: manage/hand_over/edit_contract_line
+- name: manage/hand_over/edit_reservation
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/hand_over/edit_contract_line.feature"
+        "features/manage/hand_over/edit_reservation.feature"
 - name: manage/hand_over/sign_contract
   scripts:
     cucumber:

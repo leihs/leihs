@@ -9,11 +9,11 @@ end
 Then(/^the navigation contains "(.*?)"$/) do |section|
   case section
     when "To pick up"
-      find("nav a[href='#{borrow_to_pick_up_path}']") if @current_user.contract_lines.approved.to_a.sum(&:quantity) > 0
+      find("nav a[href='#{borrow_to_pick_up_path}']") if @current_user.reservations.approved.to_a.sum(&:quantity) > 0
     when "To return"
-      find("nav a[href='#{borrow_returns_path}']") if @current_user.contract_lines.signed.to_a.sum(&:quantity) > 0
+      find("nav a[href='#{borrow_returns_path}']") if @current_user.reservations.signed.to_a.sum(&:quantity) > 0
     when "Orders"
-      find("nav a[href='#{borrow_orders_path}']") if @current_user.contract_lines.submitted.count > 0
+      find("nav a[href='#{borrow_orders_path}']") if @current_user.reservations.submitted.count > 0
     when "Inventory pools"
       find("nav a[href='#{borrow_inventory_pools_path}']", :text => _("Inventory Pools"))
     when "User"

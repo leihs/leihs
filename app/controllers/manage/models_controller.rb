@@ -247,7 +247,7 @@ class Manage::ModelsController < Manage::ApplicationController
       else
         item = Item.find_by_id(package["id"])
         if package["_destroy"] == "1"
-          if item.contract_lines.empty?
+          if item.reservations.empty?
             item.destroy
           else
             item.retired = true

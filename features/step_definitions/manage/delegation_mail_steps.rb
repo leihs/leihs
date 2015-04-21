@@ -2,7 +2,7 @@
 
 #Angenommen(/^es existiert eine Bestellung von einer Delegation die nicht von einem Delegationsverantwortlichen erstellt wurde$/) do
 Given(/^there is an order for a delegation that was not placed by a person responsible for that delegation$/) do
-  @contract = @current_inventory_pool.contracts.submitted.where(user_id: User.as_delegations).order("RAND()").first
+  @contract = @current_inventory_pool.reservations_bundles.submitted.where(user_id: User.as_delegations).order("RAND()").first
   expect(@contract.user.delegator_user).not_to eq @contract.delegated_user
   expect(ActionMailer::Base.deliveries.count).to eq 0
 end
@@ -20,7 +20,7 @@ end
 
 #Angenommen(/^es existiert eine Rücknahme von einer Delegation$/) do
 Given(/^there is a take back for a delegation$/) do
-  @contract = @current_inventory_pool.contracts.signed.where(user_id: User.as_delegations).order("RAND()").first
+  @contract = @current_inventory_pool.reservations_bundles.signed.where(user_id: User.as_delegations).order("RAND()").first
   expect(@contract.user.delegator_user).not_to eq @contract.delegated_user
   expect(ActionMailer::Base.deliveries.count).to eq 0
 end

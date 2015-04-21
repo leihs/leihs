@@ -7,7 +7,7 @@ Then(/^I see the number of submitted, unapproved orders on every page$/) do
    borrow_current_order_path,
    borrow_current_user_path].each do |path|
     visit path
-    expect(find("nav a[href='#{borrow_orders_path}'] .badge", match: :first).text.to_i).to eq @current_user.contract_lines.submitted.count
+    expect(find("nav a[href='#{borrow_orders_path}'] .badge", match: :first).text.to_i).to eq @current_user.reservations.submitted.count
   end
 end
 
@@ -19,7 +19,7 @@ end
 
 #Dann(/^sehe ich meine abgeschickten, noch nicht genehmigten Bestellungen$/) do
 Then(/^I see my submitted, unapproved orders$/) do
-  @current_user.contracts.submitted.each do |contract|
+  @current_user.reservations_bundles.submitted.each do |contract|
     expect(has_content?(contract.inventory_pool.name)).to be true
   end
 end
@@ -38,7 +38,7 @@ end
 
 #Dann(/^jede Bestellung zeigt die zu genehmigenden Geräte$/) do
 Then(/^each order shows the items to approve$/) do
-  @current_user.contract_lines.submitted.each do |line|
+  @current_user.reservations.submitted.each do |line|
     find(".line", match: :prefer_exact, text: line.model.name)
   end
 end

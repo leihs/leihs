@@ -5,7 +5,7 @@ class window.App.UnsubmittedContractsShowController extends Spine.Controller
     ".emboss.red": "conflictsWarning"
 
   events:
-    "click [data-change-order-lines]": "changeContractLines"
+    "click [data-change-order-lines]": "changeReservations"
 
   constructor: ->
     super
@@ -19,12 +19,12 @@ class window.App.UnsubmittedContractsShowController extends Spine.Controller
     App.Contract.bind "refresh", (data)=>
       do @render
 
-  changeContractLines: (e)=>
+  changeReservations: (e)=>
     do e.preventDefault
     target = $(e.currentTarget)
-    lines = _.map target.data("ids"), (id) -> App.ContractLine.find id
+    lines = _.map target.data("ids"), (id) -> App.Reservation.find id
     quantity = _.reduce lines, ((mem, l)-> mem + l.quantity), 0
-    new App.ContractLinesChangeController
+    new App.ReservationsChangeController
       modelId: target.data("model-id")
       lines: lines
       quantity: quantity

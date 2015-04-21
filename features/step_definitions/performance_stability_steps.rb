@@ -26,20 +26,20 @@ Given(/^it has at least (\d+) (unsubmitted|submitted|approved|signed) lines in t
   arg1.to_i.times do
     if status.to_sym == :signed
       attrs[:status] = :approved
-      attrs[:item] = @model.items.where(inventory_pool_id: @current_inventory_pool).detect{|item| item.contract_lines.empty? }
+      attrs[:item] = @model.items.where(inventory_pool_id: @current_inventory_pool).detect{|item| item.reservations.empty? }
     end
 
     attrs[:start_date] = Date.today + rand(0..10).days
     attrs[:end_date] = Date.today + rand(10..20).days
-    cl = FactoryGirl.create :contract_line, attrs
+    cl = FactoryGirl.create :reservation, attrs
 
     if status.to_sym == :signed
-      contract_container = cl.user.contracts.approved.find_by(inventory_pool_id: cl.inventory_pool)
+      contract_container = cl.user.reservations_bundles.approved.find_by(inventory_pool_id: cl.inventory_pool)
       contract = contract_container.sign(@current_user, [cl])
       expect(contract.valid?).to be true
     end
   end
-  expect(@model.contract_lines.send(status.to_sym).count).to be >= arg1.to_i
+  expect(@model.reservations.send(status.to_sym).count).to be >= arg1.to_i
 end
 
 When /^its availability is recalculate$/ do

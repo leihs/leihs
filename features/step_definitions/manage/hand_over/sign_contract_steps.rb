@@ -27,7 +27,7 @@ When(/^I open a hand over( with at least one unassigned line)?( for today)?( wit
   step "I open a hand over for this customer"
   expect(has_selector?("#hand-over-view", :visible => true)).to be true
 
-  @contract = @customer.contracts.where(inventory_pool_id: @current_inventory_pool).approved.first
+  @contract = @customer.reservations_bundles.where(inventory_pool_id: @current_inventory_pool).approved.first
 end
 
 When /^I open a hand over which has multiple( unassigned)? lines( and models in stock)?( with software)?$/ do |arg1, arg2, arg3|
@@ -68,7 +68,7 @@ end
 When /^I open a hand over with overdue lines$/ do
   @models_in_stock = @current_inventory_pool.items.in_stock.map(&:model).uniq
   @customer = @current_inventory_pool.users.to_a.detect do |u|
-    u.contracts.approved.exists? and u.contracts.approved.any? do |c|
+    u.reservations_bundles.approved.exists? and u.reservations_bundles.approved.any? do |c|
       c.lines.any? {|l| l.start_date < Date.today and l.end_date >= Date.today and @models_in_stock.include? l.model}
     end
   end
@@ -119,16 +119,16 @@ When /^I click hand over inside the dialog$/ do
 end
 
 Then /^the contract is signed for the selected items$/ do
-  @contract_lines_to_take_back = @customer.contract_lines.signed.where(inventory_pool_id: @current_inventory_pool)
-  to_take_back_items = @contract_lines_to_take_back.map(&:item)
+  @reservations_to_take_back = @customer.reservations.signed.where(inventory_pool_id: @current_inventory_pool)
+  to_take_back_items = @reservations_to_take_back.map(&:item)
   @selected_items.each do |item|
     expect(to_take_back_items.include?(item)).to be true
   end
   lines = @selected_items.map do |item|
-    @contract_lines_to_take_back.find_by(item_id: item)
+    @reservations_to_take_back.find_by(item_id: item)
   end
   expect(lines.map(&:contract).uniq.size).to be 1
-  @contract = @customer.contracts.signed.where(inventory_pool_id: @current_inventory_pool).detect {|contract_lines_bundle| contract_lines_bundle.lines.include? lines.first}
+  @contract = @customer.reservations_bundles.signed.where(inventory_pool_id: @current_inventory_pool).detect {|reservations_bundle| reservations_bundle.lines.include? lines.first}
 end
 
 When /^I select an item without assigning an inventory code$/ do

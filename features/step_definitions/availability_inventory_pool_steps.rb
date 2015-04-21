@@ -34,7 +34,7 @@ Then "he sees the '$model' model" do |model|
 end
 
 Then "all order lines should be available" do
-  lines = @current_user.contract_lines.unsubmitted
+  lines = @current_user.reservations.unsubmitted
   expect(lines.reload.all?{|l| l.available? }).to be true
 end
 

@@ -17,10 +17,10 @@ end
 
 #Angenommen(/^man ist ein Kunde mit Verträge$/) do
 Given(/^I am a customer with contracts$/) do
-  user = ContractLine.closed.where.not(returned_to_user_id: nil).order("RAND()").map(&:user).select{|u| not u.access_rights.active.blank?}.uniq.first
+  user = Reservation.closed.where.not(returned_to_user_id: nil).order("RAND()").map(&:user).select{|u| not u.access_rights.active.blank?}.uniq.first
   step 'I am logged in as "%s"' % user.login
 end
 
 When(/^I am in an inventory pool with verifiable orders$/) do
-  @current_inventory_pool = @current_user.inventory_pools.managed.find {|ip| not ip.contracts.with_verifiable_user_and_model.empty? }
+  @current_inventory_pool = @current_user.inventory_pools.managed.find {|ip| not ip.reservations_bundles.with_verifiable_user_and_model.empty? }
 end

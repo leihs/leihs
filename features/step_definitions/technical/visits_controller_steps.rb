@@ -5,18 +5,18 @@ end
 
 Given /^test data setup for scenario "Writing an unavailable inventory code"$/ do
   model = @inventory_pool.models.detect do |m|
-    m.contract_lines.joins(:contract).where(contracts: {inventory_pool_id: @inventory_pool}, returned_date: nil, item_id: nil).exists? and
-      m.contract_lines.joins(:contract).where(contracts: {inventory_pool_id: @inventory_pool}, returned_date: nil).where.not(item_id: nil).exists?
+    m.reservations.joins(:contract).where(contracts: {inventory_pool_id: @inventory_pool}, returned_date: nil, item_id: nil).exists? and
+      m.reservations.joins(:contract).where(contracts: {inventory_pool_id: @inventory_pool}, returned_date: nil).where.not(item_id: nil).exists?
   end
   expect(model).not_to be_nil
-  @line = model.contract_lines.joins(:contract).where(contracts: {inventory_pool_id: @inventory_pool}, returned_date: nil, item_id: nil).order("RAND()").first
+  @line = model.reservations.joins(:contract).where(contracts: {inventory_pool_id: @inventory_pool}, returned_date: nil, item_id: nil).order("RAND()").first
   expect(@line).not_to eq nil
-  @item = model.contract_lines.joins(:contract).where(contracts: {inventory_pool_id: @inventory_pool}, returned_date: nil).where.not(item_id: nil).order("RAND()").first.item
+  @item = model.reservations.joins(:contract).where(contracts: {inventory_pool_id: @inventory_pool}, returned_date: nil).where.not(item_id: nil).order("RAND()").first.item
   expect(@line.item).to eq nil
 end
 
 When /^an unavailable inventory code is assigned to a contract line$/ do
-  @response = post "/manage/#{@inventory_pool.id}/contract_lines/#{@line.id}/assign", {:inventory_code => @item.inventory_code}
+  @response = post "/manage/#{@inventory_pool.id}/reservations/#{@line.id}/assign", {:inventory_code => @item.inventory_code}
 end
 
 Then /^the response from this action should( not)? be successful$/ do |arg1|

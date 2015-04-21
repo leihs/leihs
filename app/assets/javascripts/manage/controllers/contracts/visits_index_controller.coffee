@@ -23,7 +23,7 @@ class window.App.VisitsIndexController extends Spine.Controller
 
   fetch: (page, target)=>
     @fetchVisits(page).done =>
-      @fetchContractLines page, =>
+      @fetchReservations page, =>
         @fetchUsers(page).done =>
           @fetchPurposes page, => 
             @render target, @visits[page], page
@@ -39,12 +39,12 @@ class window.App.VisitsIndexController extends Spine.Controller
       visits = (App.Visit.find(datum.id) for datum in data)
       @visits[page] = visits
 
-  fetchContractLines: (page, callback)=>
-    ids = _.flatten _.map @visits[page], (v)-> v.contract_line_ids
+  fetchReservations: (page, callback)=>
+    ids = _.flatten _.map @visits[page], (v)-> v.reservation_ids
     do callback unless ids.length
     done = _.after Math.ceil(ids.length/300), callback
     _(ids).each_slice 300, (slice)=>
-      App.ContractLine.ajaxFetch
+      App.Reservation.ajaxFetch
         data: $.param
           ids: slice
       .done done

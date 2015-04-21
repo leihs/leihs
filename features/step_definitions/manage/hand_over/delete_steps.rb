@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 When /^I delete a line$/ do
-  @contract = @customer.contracts.approved.find_by(inventory_pool_id: @current_inventory_pool)
+  @contract = @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool)
   @line = @contract.lines.first
   step 'I delete this line element'
 end
@@ -39,11 +39,11 @@ Then /^these lines are deleted$/ do
   @selected_line_ids.each do |line_id|
     expect(has_no_selector?(".line[data-id='#{line_id}']")).to be true
   end
-  @selected_line_ids.each {|id| expect { ContractLine.find(id) }.to raise_error(ActiveRecord::RecordNotFound)}
+  @selected_line_ids.each {|id| expect { Reservation.find(id) }.to raise_error(ActiveRecord::RecordNotFound)}
 end
 
 When /^I delete all lines of a model thats availability is blocked by these lines$/ do
-  unless @customer.contracts.approved.find_by(inventory_pool_id: @current_inventory_pool).lines.first.available?
+  unless @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool).lines.first.available?
     step 'I add an item to the hand over by providing an inventory code'
     @model = Item.find_by_inventory_code(@inventory_code).model
     find(".line", match: :prefer_exact, text: @model.name).find("input[type='checkbox'][data-select-line]").click

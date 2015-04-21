@@ -5,7 +5,7 @@ Then(/^I don't see empty orders in the list of orders$/) do
   within "#contracts" do
     expect(has_selector? ".line[data-id]").to be true
     all(".line[data-id]").each do |line|
-      contract = @current_inventory_pool.contracts.find(line["data-id"])
+      contract = @current_inventory_pool.reservations_bundles.find(line["data-id"])
       expect(contract.lines.empty?).to be false
     end
   end
@@ -13,7 +13,7 @@ end
 
 #When(/^ich öffne eine Bestellung von ein gesperrter Benutzer$/) do
 When(/^I open a suspended user's order$/) do
-  user = @current_inventory_pool.contracts.submitted.order("RAND()").first.user
+  user = @current_inventory_pool.reservations_bundles.submitted.order("RAND()").first.user
   ensure_suspended_user(user, @current_inventory_pool)
   step "I navigate to the open orders"
   step 'I open an order placed by "%s"' % user
@@ -31,7 +31,7 @@ def ensure_suspended_user(user, inventory_pool, suspended_until = rand(1.years.f
 end
 
 Given(/^an order contains overbooked models$/) do
-  @contract = @current_inventory_pool.contracts.submitted.with_verifiable_user_and_model.detect {|c| not c.approvable?}
+  @contract = @current_inventory_pool.reservations_bundles.submitted.with_verifiable_user_and_model.detect {|c| not c.approvable?}
   expect(@contract).not_to be_nil
 end
 
@@ -65,7 +65,7 @@ end
 
 #Given(/^es existiert eine visierpflichtige Bestellung$/) do
 Given(/^a verifiable order exists$/) do
-  @contract = ContractLinesBundle.with_verifiable_user_and_model.first
+  @contract = ReservationsBundle.with_verifiable_user_and_model.first
   expect(@contract).not_to be_nil
 end
 
@@ -89,7 +89,7 @@ end
 #Dann(/^sehe ich alle visierpflichtigen Bestellungen$/) do
 Then(/^I see all verifiable orders$/) do
   step 'I scroll to the end of the list'
-  @contracts = @current_inventory_pool.contracts.where(status: [:submitted, :approved, :rejected]).with_verifiable_user_and_model
+  @contracts = @current_inventory_pool.reservations_bundles.where(status: [:submitted, :approved, :rejected]).with_verifiable_user_and_model
   @contracts.each {|c|
     expect(has_selector?("[data-type='contract'][data-id='#{c.id}']")).to be true
   }
@@ -103,7 +103,7 @@ end
 #Dann(/^sehe ich alle offenen visierpflichtigen Bestellungen$/) do
 Then(/^I see all pending verifiable orders$/) do
   step 'I scroll to the end of the list'
-  @contracts = @current_inventory_pool.contracts.where(status: :submitted).with_verifiable_user_and_model
+  @contracts = @current_inventory_pool.reservations_bundles.where(status: :submitted).with_verifiable_user_and_model
   @contracts.each {|c|
     expect(has_selector?("[data-type='contract'][data-id='#{c.id}']")).to be true
   }
@@ -174,7 +174,7 @@ end
 #Dann(/^sehe ich alle genehmigten visierpflichtigen Bestellungen$/) do
 Then(/^I see all verified and approved orders$/) do
   step 'I scroll to the end of the list'
-  @contracts = @current_inventory_pool.contracts.where(status: :approved).with_verifiable_user_and_model
+  @contracts = @current_inventory_pool.reservations_bundles.where(status: :approved).with_verifiable_user_and_model
   @contracts.each {|c|
     expect(has_selector?("[data-type='contract'][data-id='#{c.id}']")).to be true
   }
@@ -190,7 +190,7 @@ end
 #Dann(/^sehe ich alle abgelehnten visierpflichtigen Bestellungen$/) do
 Then(/^I see all verifiable rejected orders$/) do
   step 'I scroll to the end of the list'
-  @contracts = @current_inventory_pool.contracts.where(status: :rejected).with_verifiable_user_and_model
+  @contracts = @current_inventory_pool.reservations_bundles.where(status: :rejected).with_verifiable_user_and_model
   @contracts.each {|c|
     expect(has_selector?("[data-type='contract'][data-id='#{c.id}']")).to be true
   }
@@ -207,7 +207,7 @@ end
 Then(/^I see orders placed by users in groups requiring verification$/) do
   step 'I scroll to the end of the list'
   within "#contracts" do
-    @contracts = @current_inventory_pool.contracts.where(status: [:submitted, :approved, :rejected]).with_verifiable_user
+    @contracts = @current_inventory_pool.reservations_bundles.where(status: [:submitted, :approved, :rejected]).with_verifiable_user
     @contracts.each do |contract|
       find(".line[data-type='contract'][data-id='#{contract.id}']")
     end
@@ -300,9 +300,9 @@ end
 Given(/^(orders|contracts|visits) exist$/) do |arg1|
   @contracts = case arg1
                  when "orders"
-                   @current_inventory_pool.contracts.where(status: [:submitted, :approved, :rejected])
+                   @current_inventory_pool.reservations_bundles.where(status: [:submitted, :approved, :rejected])
                  when "contracts"
-                   @current_inventory_pool.contracts.signed_or_closed
+                   @current_inventory_pool.reservations_bundles.signed_or_closed
                  when "visits"
                    @current_inventory_pool.visits.where.not(status: :submitted)
                  else

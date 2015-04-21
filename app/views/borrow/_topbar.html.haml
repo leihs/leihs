@@ -12,7 +12,7 @@
       %li#topbar-search.topbar-item.topbar-search.position-absolute-left
         = render :partial => 'topbar_search'
 
-      - if (q3 = current_user.contract_lines.submitted.count) > 0
+      - if (q3 = current_user.reservations.submitted.count) > 0
         %li.topbar-item{:class => current_page?(:controller => :contracts) ? "active" : nil}
           %a.topbar-item-inner{href: borrow_orders_path}
             != n_("%s Order", "%s Orders", q3) % "<span class='badge'>#{q3}</span>"

@@ -1,5 +1,5 @@
 # Given "the list of approved orders contains $total elements" do | total |
-#   contracts = @inventory_pool.contracts.approved
+#   contracts = @inventory_pool.reservations_bundles.approved
 #   user = LeihsFactory.create_user
 #   total.to_i.times { contracts << FactoryGirl.create(:contract, :user => user, :status => :approved) }
 #   expect(contracts.size).to eq total.to_i
@@ -10,7 +10,7 @@ When "$who approves the order" do | who |
   post manage_approve_contract_path(@inventory_pool, @order, :comment => "test comment")
   @order = assigns(:order)
   expect(@order).not_to be_nil
-  @contract = @order.user.reload.contracts.approved.find_by(inventory_pool_id: @order.inventory_pool)
+  @contract = @order.user.reload.reservations_bundles.approved.find_by(inventory_pool_id: @order.inventory_pool)
   expect(@contract).not_to be_nil
 end
 
@@ -82,13 +82,13 @@ end
 When "$who tries to assign '$item' to line $number" do | who, item, number |
   post change_line_backend_inventory_pool_user_hand_over_path(
 	 @inventory_pool, @visit.user,
-         :contract_line_id => @contract.contract_lines[number.to_i].id, :code => item )
+         :reservation_id => @contract.reservations[number.to_i].id, :code => item )
   @flash = flash
 end
 
 When "he signs the contract" do
   post sign_contract_backend_inventory_pool_user_hand_over_path(
-	 @inventory_pool, @visit.user, :lines => [@contract.contract_lines.first.id] )
+	 @inventory_pool, @visit.user, :lines => [@contract.reservations.first.id] )
 end
 
 Then "a new contract is generated" do
@@ -96,7 +96,7 @@ Then "a new contract is generated" do
 end
 
 Then /^he sees ([0-9]+) contract line(s?) for all approved order lines$/ do | size, s |
-  expect(@contract.contract_lines.size).to eq size.to_i
+  expect(@contract.reservations.size).to eq size.to_i
 end
 
 Then "the total number of contracts is $n_contracts" do |n_contracts|
@@ -121,8 +121,8 @@ Then "that should not check that line since it's not from this day on" do
 end
 
 Then "the contract should only contain the item '$item'" do |item|
-  expect(@contract.contract_lines.size).to eq 1
-  @contract.contract_lines.first.item.inventory_code.shoul == item
+  expect(@contract.reservations.size).to eq 1
+  @contract.reservations.first.item.inventory_code.shoul == item
 end
 
 # see http://wiki.github.com/jarib/celerity/ajax

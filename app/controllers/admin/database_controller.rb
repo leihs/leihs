@@ -33,19 +33,19 @@ class Admin::DatabaseController < Admin::ApplicationController
           # ["audits", ["created_at"]],
           # ["audits", ["thread_id"]],
           # ["audits", ["user_id", "user_type"]],
-          ["contract_lines", ["status"]],
-          ["contract_lines", ["inventory_pool_id"]],
-          ["contract_lines", ["user_id"]],
-          ["contract_lines", ["delegated_user_id"]],
-          ["contract_lines", ["handed_over_by_user_id"]],
-          ["contract_lines", ["contract_id"]],
-          ["contract_lines", ["end_date"]],
-          ["contract_lines", ["item_id"]],
-          ["contract_lines", ["model_id"]],
-          ["contract_lines", ["option_id"]],
-          ["contract_lines", ["returned_date", "contract_id"]],
-          ["contract_lines", ["start_date"]],
-          ["contract_lines", ["type", "contract_id"]],
+          ["reservations", ["status"]],
+          ["reservations", ["inventory_pool_id"]],
+          ["reservations", ["user_id"]],
+          ["reservations", ["delegated_user_id"]],
+          ["reservations", ["handed_over_by_user_id"]],
+          ["reservations", ["contract_id"]],
+          ["reservations", ["end_date"]],
+          ["reservations", ["item_id"]],
+          ["reservations", ["model_id"]],
+          ["reservations", ["option_id"]],
+          ["reservations", ["returned_date", "contract_id"]],
+          ["reservations", ["start_date"]],
+          ["reservations", ["type", "contract_id"]],
           ["groups", ["inventory_pool_id"]],
           ["groups_users", ["group_id"]],
           ["groups_users", ["user_id", "group_id"], :unique => true],
@@ -136,7 +136,7 @@ class Admin::DatabaseController < Admin::ApplicationController
 
   def consistency
     @only_tables_no_views = @connection.execute("SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'").to_h.keys
-    @excluded_models = [ContractLinesBundle]
+    @excluded_models = [ReservationsBundle]
 
     @references = []
 

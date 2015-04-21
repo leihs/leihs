@@ -14,20 +14,20 @@ Then /^the item is selected and the box is checked$/ do
 end
 
 When /^I try to complete a hand over that contains a model with unborrowable items$/ do
-  @contract_line = nil
-  @contract = @current_inventory_pool.contracts.approved.detect do |c|
-    @contract_line = c.item_lines.where(item_id: nil).detect do |l|
+  @reservation = nil
+  @contract = @current_inventory_pool.reservations_bundles.approved.detect do |c|
+    @reservation = c.item_lines.where(item_id: nil).detect do |l|
       l.model.items.unborrowable.where(inventory_pool_id: @current_inventory_pool).first
     end
   end
-  @model = @contract_line.model
+  @model = @reservation.model
   @customer = @contract.user
   step "I open a hand over for this customer"
   expect(has_selector?("#hand-over-view", :visible => true)).to be true
 end
 
 When /^I try to assign an inventory code to this model$/ do
-  @item_line_element = find(".line[data-id='#{@contract_line.id}']", :visible => true)
+  @item_line_element = find(".line[data-id='#{@reservation.id}']", :visible => true)
   @item_line_element.find("[data-assign-item]").click
 end
 
@@ -50,7 +50,7 @@ end
 #Wenn /^ich eine Bestellung editiere$/ do
 When(/^I edit an order$/) do
   @event = "order"
-  @contract = @current_inventory_pool.contracts.submitted.order("RAND()").first
+  @contract = @current_inventory_pool.reservations_bundles.submitted.order("RAND()").first
   @user = @contract.user
   @customer = @contract.user
   step "I edit the order"
@@ -137,7 +137,7 @@ When /^I open a hand over for a customer that has things to pick up today as wel
 end
 
 When /^I scan something \(assign it using its inventory code\) and it is already assigned to a future contract$/ do
-  @model = @customer.contracts.approved.find_by(inventory_pool_id: @current_inventory_pool).models.order("RAND()").detect do |model|
+  @model = @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool).models.order("RAND()").detect do |model|
     @item = model.items.borrowable.in_stock.where(inventory_pool: @current_inventory_pool).order("RAND()").first
   end
   find("[data-add-contract-line]").set @item.inventory_code
@@ -152,7 +152,7 @@ end
 
 When /^it doesn't exist in any future contracts$/ do
   @model_not_in_contract = (@current_inventory_pool.items.borrowable.in_stock.map(&:model).uniq -
-                              @customer.contracts.approved.find_by(inventory_pool_id: @current_inventory_pool).models).sample
+                              @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool).models).sample
   @item = @model_not_in_contract.items.borrowable.in_stock.order("RAND()").first
   find("#add-start-date").set I18n.l(Date.today+7.days)
   find("#add-end-date").set I18n.l(Date.today+8.days)
@@ -229,7 +229,7 @@ end
 When /^I inspect an item$/ do
   find(".line[data-line-type='item_line']", match: :first)
   within all(".line[data-line-type='item_line']").to_a.sample.find(".multibutton") do
-    @item = ContractLine.find(JSON.parse(find("[data-ids]")["data-ids"]).first).item
+    @item = Reservation.find(JSON.parse(find("[data-ids]")["data-ids"]).first).item
     find(".dropdown-toggle").click
     find(".dropdown-holder .dropdown-item", text: _("Inspect")).click
   end
@@ -399,13 +399,13 @@ Then /^I open an order( placed by "(.*?)")$/ do |arg0, arg1|
   step %Q(I uncheck the "No verification required" button)
 
   if arg0
-    @contract = @current_inventory_pool.contracts.find find(".line", match: :prefer_exact, :text => arg1)["data-id"]
+    @contract = @current_inventory_pool.reservations_bundles.find find(".line", match: :prefer_exact, :text => arg1)["data-id"]
     within(".line", match: :prefer_exact, :text => arg1) do
       find(".line-actions .multibutton .dropdown-holder").click
       find(".dropdown-item", :text => _("Edit")).click
     end
   else
-    @contract = @current_inventory_pool.contracts.submitted.order("RAND()").first
+    @contract = @current_inventory_pool.reservations_bundles.submitted.order("RAND()").first
     visit manage_edit_contract_path(@current_inventory_pool, @contract)
   end
   @user = @contract.user
@@ -437,7 +437,7 @@ When(/^I enter something in the "(.*?)" field$/) do |field_label|
 end
 
 When(/^I open a take back that contains options$/) do
-  @customer = @current_inventory_pool.users.all.select {|x| x.contracts.signed.exists? and !x.contracts.signed.detect{|c| c.options.exists? }.nil? }.first
+  @customer = @current_inventory_pool.users.all.select {|x| x.reservations_bundles.signed.exists? and !x.reservations_bundles.signed.detect{|c| c.options.exists? }.nil? }.first
   visit manage_take_back_path(@current_inventory_pool, @customer)
   expect(has_selector?("#take-back-view")).to be true
 end

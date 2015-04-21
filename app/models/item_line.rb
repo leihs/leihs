@@ -1,5 +1,5 @@
 # An ItemLine is a line in a #Contract and as such derived from the
-# more general ContractLine. It only contains #Item s but NOT
+# more general Reservation. It only contains #Item s but NOT
 # #Option s.
 #
 # An ItemLine at first only contains a #Model and a desired quantity
@@ -10,10 +10,10 @@
 # See also the page "Flow" inside the models.graffle document for a
 # description of the various steps the lending process goes through.
 #
-class ItemLine < ContractLine
+class ItemLine < Reservation
   
   belongs_to :item, inverse_of: :item_lines
-  belongs_to :model, inverse_of: :contract_lines
+  belongs_to :model, inverse_of: :reservations
 
   validates_numericality_of :quantity, :equal_to => 1
   validate :validate_item
@@ -64,11 +64,11 @@ class ItemLine < ContractLine
       # model matching
       errors.add(:base, _("The item doesn't match with the reserved model")) unless item.model_id == model_id
 
-      if item.contract_lines.handed_over_or_assigned_but_not_returned.where(["id != ? AND user_id = ? AND status = ?", id, user_id, status]).exists?
+      if item.reservations.handed_over_or_assigned_but_not_returned.where(["id != ? AND user_id = ? AND status = ?", id, user_id, status]).exists?
         # check if already assigned to the same contract
         errors.add(:base, _("%s is already assigned to this contract") % item.inventory_code)
 
-      elsif item.contract_lines.handed_over_or_assigned_but_not_returned.where(["id != ? AND user_id != ?", id, user_id]).exists?
+      elsif item.reservations.handed_over_or_assigned_but_not_returned.where(["id != ? AND user_id != ?", id, user_id]).exists?
         # check if available
         errors.add(:base, _("%s is already assigned to a different contract") % item.inventory_code) 
       end

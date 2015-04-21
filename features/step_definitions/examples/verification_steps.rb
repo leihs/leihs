@@ -85,7 +85,7 @@ Then(/^there is no link to:$/) do |table|
 end
 
 When(/^I open a submitted order to be verified by a Group Manager$/) do
-  @contract = @current_inventory_pool.contracts.submitted.with_verifiable_user_and_model.order("RAND()").first
+  @contract = @current_inventory_pool.reservations_bundles.submitted.with_verifiable_user_and_model.order("RAND()").first
   step "I edit this submitted contract"
 end
 
@@ -100,7 +100,7 @@ When(/^I add a model which leads to an overbooking$/) do
 end
 
 When(/^I open a hand over editable by the Group Manager$/) do
-  @contract = @current_inventory_pool.contracts.approved.with_verifiable_user_and_model.order("RAND()").first
+  @contract = @current_inventory_pool.reservations_bundles.approved.with_verifiable_user_and_model.order("RAND()").first
   visit manage_hand_over_path(@current_inventory_pool, @contract.user)
   expect(has_selector?("#hand-over-view")).to be true
   step "the availability is loaded"

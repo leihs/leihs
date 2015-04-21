@@ -3,7 +3,7 @@
 Given(/^I open (a|the) picking list( for a signed contract)?$/) do |arg1, arg2|
   if @hand_over and arg1 == "the"
     within "#lines" do
-      @selected_lines = @current_inventory_pool.contract_lines.find all(".line input[type='checkbox'][checked='checked']").map { |x| x.find(:xpath, "./../../../../..")["data-id"] }
+      @selected_lines = @current_inventory_pool.reservations.find all(".line input[type='checkbox'][checked='checked']").map { |x| x.find(:xpath, "./../../../../..")["data-id"] }
     end
     step "I can open the picking list"
 
@@ -14,10 +14,10 @@ Given(/^I open (a|the) picking list( for a signed contract)?$/) do |arg1, arg2|
   else
     @contract = case arg1
                   when "a"
-                    @current_inventory_pool.contracts.order("RAND()").first
+                    @current_inventory_pool.reservations_bundles.order("RAND()").first
                   when "the"
                     if arg2
-                      @current_inventory_pool.contracts.signed.order("RAND()").first
+                      @current_inventory_pool.reservations_bundles.signed.order("RAND()").first
                     end
                 end
     visit manage_picking_list_path(@current_inventory_pool, @contract)

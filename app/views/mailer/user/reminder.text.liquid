@@ -5,7 +5,7 @@ Dear {{ user.name }},
 The following items are overdue or need to be inspected:
 
 {{ quantity }} item(s) due on {{ due_date | date: '%d/%m/%Y' }} at the inventory pool {{ inventory_pool.name }}
-{% for l in contract_lines %}
+{% for l in reservations %}
 * {{ l.quantity }} {{ l.model_name }} ({{ l.item_inventory_code }}), {{ l.start_date | date: '%d/%m/%Y' }} - {{ l.end_date | date: '%d/%m/%Y' }}
 {% endfor %}
 

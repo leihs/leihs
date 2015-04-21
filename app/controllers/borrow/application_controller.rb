@@ -16,10 +16,10 @@ class Borrow::ApplicationController < ApplicationController
     # ok, refreshed
     respond_to do |format|
       format.html {render :nothing => true}
-      date = if current_user.contract_lines.unsubmitted.empty?
+      date = if current_user.reservations.unsubmitted.empty?
                Time.now
              else
-               current_user.contract_lines.unsubmitted.first.updated_at
+               current_user.reservations.unsubmitted.first.updated_at
              end
       format.json do
         render :json => { date: date }
@@ -44,10 +44,10 @@ class Borrow::ApplicationController < ApplicationController
                borrow_order_remove_path,
                borrow_order_remove_lines_path,
                borrow_change_time_range_path].include? request.path
-    if current_user.timeout? and current_user.contract_lines.unsubmitted.any? {|l| not l.available? }
+    if current_user.timeout? and current_user.reservations.unsubmitted.any? {|l| not l.available? }
       redirect_to borrow_order_timed_out_path
     else
-      current_user.contract_lines.unsubmitted.each &:touch
+      current_user.reservations.unsubmitted.each &:touch
     end
   end
 

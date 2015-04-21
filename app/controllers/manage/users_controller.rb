@@ -280,8 +280,8 @@ class Manage::UsersController < Manage::ApplicationController
 
   def hand_over
     set_shared_visit_variables 0 do
-      @contract = @user.contracts.approved.find_by(inventory_pool_id: current_inventory_pool)
-      @contract ||= @user.contracts.approved.new(inventory_pool: current_inventory_pool) do |x|
+      @contract = @user.reservations_bundles.approved.find_by(inventory_pool_id: current_inventory_pool)
+      @contract ||= @user.reservations_bundles.approved.new(inventory_pool: current_inventory_pool) do |x|
         # simply choose the first delegated user in order to pass contract validation. the delegated user has to be chosen again in the hand over process anyway
         x.delegated_user = @user.delegated_users.first if @user.is_delegation
       end
@@ -298,8 +298,8 @@ class Manage::UsersController < Manage::ApplicationController
 
   def take_back
     set_shared_visit_variables 1 do
-      @lines = @user.contract_lines.signed.where(inventory_pool_id: current_inventory_pool).includes([:purpose, :model, :item])
-      @contracts = @user.contracts.signed.where(inventory_pool_id: current_inventory_pool)
+      @lines = @user.reservations.signed.where(inventory_pool_id: current_inventory_pool).includes([:purpose, :model, :item])
+      @contracts = @user.reservations_bundles.signed.where(inventory_pool_id: current_inventory_pool)
       @models = @contracts.flat_map(&:models).uniq
       @options = @contracts.flat_map(&:options).uniq
       @items = @contracts.flat_map(&:items).uniq

@@ -26,7 +26,7 @@ class Item < ActiveRecord::Base
   belongs_to :inventory_pool, inverse_of: :items
 
   has_many :item_lines, dependent: :restrict_with_exception
-  alias :contract_lines :item_lines
+  alias :reservations :item_lines
   has_many :histories, -> { order(:created_at) }, as: :target, dependent: :delete_all
   store :properties
 
@@ -149,7 +149,7 @@ class Item < ActiveRecord::Base
   end
 
   before_destroy do
-    if model.is_package? and contract_lines.empty?
+    if model.is_package? and reservations.empty?
       # NOTE only never handed over packages can be deleted
     else
       errors.add(:base, "Item cannot be deleted")
@@ -175,8 +175,8 @@ class Item < ActiveRecord::Base
   #temp# scope :packaged, -> {where("parent_id IS NOT NULL")}
 
   # Added parent_id to "in_stock" so items that are in packages are considered to not be available
-  scope :in_stock, -> { joins("LEFT JOIN contract_lines AS cl001 ON items.id=cl001.item_id AND cl001.returned_date IS NULL").where("cl001.id IS NULL AND items.parent_id IS NULL") }
-  scope :not_in_stock, -> { joins("INNER JOIN contract_lines AS cl001 ON items.id=cl001.item_id AND cl001.returned_date IS NULL") }
+  scope :in_stock, -> { joins("LEFT JOIN reservations AS cl001 ON items.id=cl001.item_id AND cl001.returned_date IS NULL").where("cl001.id IS NULL AND items.parent_id IS NULL") }
+  scope :not_in_stock, -> { joins("INNER JOIN reservations AS cl001 ON items.id=cl001.item_id AND cl001.returned_date IS NULL") }
 
   scope :by_owner_or_responsible, lambda { |ip| where(":id IN (items.owner_id, items.inventory_pool_id)", :id => ip.id) }
 
@@ -382,12 +382,12 @@ class Item < ActiveRecord::Base
 
 ####################################################################
 
-# an item is in stock if it's not handed over or it's not assigned to an approved contract_line
+# an item is in stock if it's not handed over or it's not assigned to an approved reservation
   def in_stock?
     if parent_id
       parent.in_stock?
     else
-      contract_lines.signed.empty? and contract_lines.where(returned_date: nil).empty?
+      reservations.signed.empty? and reservations.where(returned_date: nil).empty?
     end
   end
 
@@ -395,11 +395,11 @@ class Item < ActiveRecord::Base
 # TODO include Statistic module
 
   def current_borrowing_info
-    contract_line = current_contract_line
+    reservation = current_reservation
 
     # FIXME this is a quick fix
-    if contract_line
-      _("%s until %s") % [contract_line.user, I18n.l(contract_line.end_date)] # TODO 1102** patch Date.to_s => to_s(:rfc822)
+    if reservation
+      _("%s until %s") % [reservation.user, I18n.l(reservation.end_date)] # TODO 1102** patch Date.to_s => to_s(:rfc822)
     end
   end
 
@@ -415,19 +415,19 @@ class Item < ActiveRecord::Base
   end
 
   def current_borrower
-    contract_line = current_contract_line
-    contract_line.user if contract_line
+    reservation = current_reservation
+    reservation.user if reservation
   end
 
   def current_return_date
-    contract_line = current_contract_line
-    contract_line.end_date if contract_line
+    reservation = current_reservation
+    reservation.end_date if reservation
   end
 
   # TODO statistics
   def latest_borrower
-    contract_line = latest_contract_line
-    contract_line.user if contract_line
+    reservation = latest_reservation
+    reservation.user if reservation
   end
 
   # TODO statistics
@@ -436,14 +436,14 @@ class Item < ActiveRecord::Base
 
   private
   # TODO has_one
-  def current_contract_line
-    # TODO 1102** make sure is only max 1 contract_line
-    contract_lines.where(:returned_date => nil).first
+  def current_reservation
+    # TODO 1102** make sure is only max 1 reservation
+    reservations.where(:returned_date => nil).first
   end
 
   # TODO has_one/has_many
-  def latest_contract_line
-    contract_lines.where.not(returned_date: nil).order("returned_date").last
+  def latest_reservation
+    reservations.where.not(returned_date: nil).order("returned_date").last
   end
 
   public
@@ -557,7 +557,7 @@ class Item < ActiveRecord::Base
   end
 
   def validates_changes
-    unless contract_lines.empty?
+    unless reservations.empty?
       errors.add(:base, _("The model cannot be changed because the item is used in contracts already.")) if model_id_changed?
     end
     unless in_stock?

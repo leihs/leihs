@@ -11,13 +11,13 @@ Feature: Delete lines of an open order
   Scenario: Delete a single line of an open contract
     When I open a contract for acknowledgement with more then one line
     And I delete a line of this contract
-    Then this contractline is deleted
+    Then this reservation is deleted
 
   @javascript @personas
   Scenario: Delete multiple lines of an open contract
     When I open a contract for acknowledgement with more then one line
     And I delete multiple lines of this contract
-    Then these contractlines are deleted
+    Then these reservations are deleted
 
   @javascript @personas
   Scenario: Delete all lines of an open contract

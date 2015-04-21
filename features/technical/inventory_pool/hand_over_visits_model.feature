@@ -13,7 +13,7 @@ Feature: Hand over visits
     When all the contract lines of all the events are combined
     Then the result is a set of contract lines that are associated with the users' contracts
 
-  Scenario: Inventory pool should return a visit containing contract_lines for items that are reserved from the same day on by a user
+  Scenario: Inventory pool should return a visit containing reservations for items that are reserved from the same day on by a user
     Given there is an open contract with lines for a user
     And the first contract line starts on the same date as the second one
     And the third contract line starts on a different date as the other two

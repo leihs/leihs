@@ -51,14 +51,14 @@ end
 #   hover_for_tooltip find(".line .problems", match: first)
 # end
 
-def check_printed_contract(window_handles, ip = nil, contract_line = nil)
+def check_printed_contract(window_handles, ip = nil, reservation = nil)
   while (page.driver.browser.window_handles - window_handles).empty? do end
   new_window = page.windows.find {|window|
     window if window.handle == (page.driver.browser.window_handles - window_handles).first
   }
   within_window new_window do
     find(".contract")
-    expect(current_path).to eq manage_contract_path(ip, contract_line.reload.contract) if ip and contract_line
+    expect(current_path).to eq manage_contract_path(ip, reservation.reload.contract) if ip and reservation
     expect(page.evaluate_script("window.printed")).to eq 1
   end
 end

@@ -66,7 +66,7 @@ Given(/^there is a? (.+) with the following conditions:$/) do |entity, table|
   conditions = table.raw.flatten.map do |condition|
     case condition
       when "not in any contract", "not in any order"
-        lambda {|m| m.contract_lines.empty?}
+        lambda {|m| m.reservations.empty?}
       when "no items assigned"
         lambda {|m| m.items.items.empty?}
       when "has no licenses"
@@ -102,7 +102,7 @@ Given /^the model has an assigned (.+)$/ do |assoc|
   @model = @current_inventory_pool.models.find do |m|
     case assoc
       when "contract", "order"
-        not m.contract_lines.empty?
+        not m.reservations.empty?
       when "item"
         not m.items.empty?
     end

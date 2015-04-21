@@ -24,7 +24,7 @@ When /^I open the booking calendar$/ do
                find(".line[data-line-type='item_line']", match: :first)
              end
   id = @line_el["data-id"] || JSON.parse(@line_el["data-ids"]).first
-  @line = ContractLine.find_by_id id
+  @line = Reservation.find_by_id id
   @line_el.find(".multibutton .button[data-edit-lines]", :text => _("Change entry")).click
   find(".fc-day-content", match: :first)
 end

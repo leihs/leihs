@@ -69,20 +69,20 @@ class MailTemplate < ActiveRecord::Base
     ]
   end
 
-  def self.liquid_variables_for_user(user, inventory_pool, contract_lines)
+  def self.liquid_variables_for_user(user, inventory_pool, reservations)
     {user: {name: user.name},
      inventory_pool: {name: inventory_pool.name,
                       description: inventory_pool.description},
      email_signature: Setting::EMAIL_SIGNATURE,
-     contract_lines: contract_lines.map do |l|
+     reservations: reservations.map do |l|
        {quantity: l.quantity,
         model_name: l.model.name,
         item_inventory_code: l.item.inventory_code,
         start_date: l.start_date,
         end_date: l.end_date}
      end,
-     quantity: contract_lines.to_a.sum(&:quantity),
-     due_date: contract_lines.first.end_date
+     quantity: reservations.to_a.sum(&:quantity),
+     due_date: reservations.first.end_date
     }.deep_stringify_keys
   end
 

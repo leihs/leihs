@@ -47,7 +47,7 @@ class AccessRight < ActiveRecord::Base
       errors.add(:base, _("Inventory Pool is missing")) if inventory_pool.nil?
 
       if deleted_at
-        check_for_existing_contract_lines
+        check_for_existing_reservations
       end
     end
   end
@@ -63,7 +63,7 @@ class AccessRight < ActiveRecord::Base
   end
 
   before_destroy do
-    check_for_existing_contract_lines
+    check_for_existing_reservations
     errors.empty?
   end
 
@@ -92,9 +92,9 @@ class AccessRight < ActiveRecord::Base
 
   private
 
-  def check_for_existing_contract_lines
+  def check_for_existing_reservations
     if inventory_pool
-      lines = inventory_pool.contract_lines.where(user_id: user)
+      lines = inventory_pool.reservations.where(user_id: user)
       errors.add(:base, _("Currently has open orders")) if lines.submitted.exists? or lines.approved.exists?
       errors.add(:base, _("Currently has items to return")) if lines.signed.exists?
     end

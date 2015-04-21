@@ -5,7 +5,7 @@
 #end
 
 When /^I reject a contract$/ do
-  @contract = @current_inventory_pool.contracts.submitted.order("RAND()").first
+  @contract = @current_inventory_pool.reservations_bundles.submitted.order("RAND()").first
 
   step %Q(I uncheck the "No verification required" button)
 
@@ -46,9 +46,9 @@ Then /^the contract is rejected$/ do
     end
   end
 
-  rejected_contract = @current_inventory_pool.contracts.rejected.find_by(user_id: @contract.user)
+  rejected_contract = @current_inventory_pool.reservations_bundles.rejected.find_by(user_id: @contract.user)
   @contract.lines.each do |line|
-    expect(rejected_contract.contract_lines.include? line).to be true
+    expect(rejected_contract.reservations.include? line).to be true
     expect(line.reload.status).to eq :rejected
   end
   step "that contract has been deleted"

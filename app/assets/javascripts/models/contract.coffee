@@ -14,7 +14,7 @@ class window.App.Contract extends Spine.Model
 
   @belongsTo "user", "App.User", "user_id"
   @belongsTo "delegatedUser", "App.User", "delegated_user_id"
-  @hasMany "lines", "App.ContractLine", "contract_id"
+  @hasMany "lines", "App.Reservation", "contract_id"
 
   @url: => "/contracts"
 

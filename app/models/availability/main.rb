@@ -64,34 +64,34 @@ module Availability
       end
       @changes = Changes[Date.today => initial_change]
 
-      @running_lines.each do |contract_line|
-        contract_line_group_ids = contract_line.concat_group_ids.to_s.split(',').map(&:to_i) # read from the running_line
+      @running_lines.each do |reservation|
+        reservation_group_ids = reservation.concat_group_ids.to_s.split(',').map(&:to_i) # read from the running_line
 
         # if overdue, extend end_date to today
         # given a reservation is running until the 24th and maintenance period is 0 days:
         # - if today is the 15th, thus the item is available again from the 25th
         # - if today is the 27th, thus the item is available again from the 28th
         # the replacement_interval is 1 month
-        unavailable_until = [(contract_line.is_late? ? Date.today + 1.month : contract_line.end_date), Date.today].max + @model.maintenance_period.day
+        unavailable_until = [(reservation.is_late? ? Date.today + 1.month : reservation.end_date), Date.today].max + @model.maintenance_period.day
 
         # we don't recalculate the past
-        unavailable_from = contract_line.item_id ? Date.today : [contract_line.start_date, Date.today].max
+        unavailable_from = reservation.item_id ? Date.today : [reservation.start_date, Date.today].max
         inner_changes = @changes.insert_changes_and_get_inner(unavailable_from, unavailable_until)
 
         # this is the order on the groups we check on:
-        # 1. groups that this particular contract_line can be possibly assigned to, TODO sort groups by quantity desc ??
+        # 1. groups that this particular reservation can be possibly assigned to, TODO sort groups by quantity desc ??
         # 2. general group
         # 3. groups which the user is not even member
-        groups_to_check = (contract_line_group_ids & @inventory_pool_and_model_group_ids) + [Group::GENERAL_GROUP_ID] + (@inventory_pool_and_model_group_ids - contract_line_group_ids)
+        groups_to_check = (reservation_group_ids & @inventory_pool_and_model_group_ids) + [Group::GENERAL_GROUP_ID] + (@inventory_pool_and_model_group_ids - reservation_group_ids)
         maximum = available_quantities_for_groups(groups_to_check, inner_changes)
         # if still no group has enough available quantity, we allocate to general as fallback
-        contract_line.allocated_group_id = groups_to_check.detect(proc {Group::GENERAL_GROUP_ID}) {|group_id| maximum[group_id] >= contract_line.quantity }
+        reservation.allocated_group_id = groups_to_check.detect(proc {Group::GENERAL_GROUP_ID}) {|group_id| maximum[group_id] >= reservation.quantity }
 
         inner_changes.each_pair do |key, ic|
-          qty = ic[contract_line.allocated_group_id]
-          qty[:in_quantity] -= contract_line.quantity
+          qty = ic[reservation.allocated_group_id]
+          qty[:in_quantity] -= reservation.quantity
           qty[:running_lines]["ItemLine"] ||= []
-          qty[:running_lines]["ItemLine"] << contract_line.id
+          qty[:running_lines]["ItemLine"] << reservation.id
         end
       end
     end

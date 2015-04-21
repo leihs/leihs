@@ -132,7 +132,7 @@ end
 #   if @contract
 #     expect(@contract.models.include? model).to be true
 #   else
-#     expect(@customer.contracts.map(&:models).flatten.include? model).to be true
+#     expect(@customer.reservations_bundles.map(&:models).flatten.include? model).to be true
 #   end
 # end
 

@@ -15,7 +15,7 @@ class window.App.SearchResultsOrdersController extends App.SearchResultsControll
     @fetchOrders(page).done (data)=>
       orders = (App.Contract.find datum.id for datum in data)
       @fetchUsers(orders).done =>
-        @fetchContractLines(orders).done =>
+        @fetchReservations(orders).done =>
           @fetchPurposes(orders).done =>
             do callback
 
@@ -37,10 +37,10 @@ class window.App.SearchResultsOrdersController extends App.SearchResultsControll
       users = (App.User.find datum.id for datum in data)
       App.User.fetchDelegators users
 
-  fetchContractLines: (orders)=>
+  fetchReservations: (orders)=>
     ids = _.flatten _.map orders, (r)-> r.id
     return {done: (c)->c()} unless ids.length
-    App.ContractLine.ajaxFetch
+    App.Reservation.ajaxFetch
       data: $.param
         contract_ids: ids
 

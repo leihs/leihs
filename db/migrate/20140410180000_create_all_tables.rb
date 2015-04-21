@@ -148,9 +148,9 @@ class CreateAllTables < ActiveRecord::Migration
         t.timestamps
       end
       # create new enum with null allow
-      execute "ALTER TABLE contracts ADD COLUMN status ENUM('#{ContractLine::STATUSES.join("', '")}')"
+      execute "ALTER TABLE contracts ADD COLUMN status ENUM('#{Reservation::STATUSES.join("', '")}')"
       # change enum to null not allowed
-      execute "ALTER TABLE contracts MODIFY status ENUM('#{ContractLine::STATUSES.join("', '")}') NOT NULL"
+      execute "ALTER TABLE contracts MODIFY status ENUM('#{Reservation::STATUSES.join("', '")}') NOT NULL"
       change_table :contracts do |t|
         t.index :inventory_pool_id
         t.index :status

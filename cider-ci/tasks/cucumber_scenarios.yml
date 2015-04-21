@@ -2805,36 +2805,36 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         features/manage/hand_over/delete.feature:30 DEFAULT_BROWSER=firefox
-- name: features/manage/hand_over/edit_contract_line.feature:11
+- name: features/manage/hand_over/edit_reservation.feature:11
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/manage/hand_over/edit_contract_line.feature:11 DEFAULT_BROWSER=firefox
-- name: features/manage/hand_over/edit_contract_line.feature:17
+        features/manage/hand_over/edit_reservation.feature:11 DEFAULT_BROWSER=firefox
+- name: features/manage/hand_over/edit_reservation.feature:17
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/manage/hand_over/edit_contract_line.feature:17 DEFAULT_BROWSER=firefox
-- name: features/manage/hand_over/edit_contract_line.feature:23
+        features/manage/hand_over/edit_reservation.feature:17 DEFAULT_BROWSER=firefox
+- name: features/manage/hand_over/edit_reservation.feature:23
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/manage/hand_over/edit_contract_line.feature:23 DEFAULT_BROWSER=firefox
-- name: features/manage/hand_over/edit_contract_line.feature:29
+        features/manage/hand_over/edit_reservation.feature:23 DEFAULT_BROWSER=firefox
+- name: features/manage/hand_over/edit_reservation.feature:29
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/manage/hand_over/edit_contract_line.feature:29 DEFAULT_BROWSER=firefox
-- name: features/manage/hand_over/edit_contract_line.feature:36
+        features/manage/hand_over/edit_reservation.feature:29 DEFAULT_BROWSER=firefox
+- name: features/manage/hand_over/edit_reservation.feature:36
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/manage/hand_over/edit_contract_line.feature:36 DEFAULT_BROWSER=firefox
-- name: features/manage/hand_over/edit_contract_line.feature:45
+        features/manage/hand_over/edit_reservation.feature:36 DEFAULT_BROWSER=firefox
+- name: features/manage/hand_over/edit_reservation.feature:45
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/manage/hand_over/edit_contract_line.feature:45 DEFAULT_BROWSER=firefox
+        features/manage/hand_over/edit_reservation.feature:45 DEFAULT_BROWSER=firefox
 - name: features/manage/hand_over/sign_contract.feature:11
   scripts:
     cucumber:

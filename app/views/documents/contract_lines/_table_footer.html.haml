@@ -1,8 +1,0 @@
-%tfoot.total
-  %tr
-    %td{:colspan => 4}
-      %strong= _("Total")
-    %td.quantity
-      %strong= @contract_lines.to_a.sum(&:quantity)
-    %td.value
-      %strong= number_to_currency(@contract_lines.to_a.sum(&:price_or_max_price), format: '%n %u', :unit => Setting::LOCAL_CURRENCY_STRING)

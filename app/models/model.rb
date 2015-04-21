@@ -13,7 +13,7 @@ class Model < ActiveRecord::Base
   include DefaultPagination
 
   before_destroy do
-    if is_package? and contract_lines.empty?
+    if is_package? and reservations.empty?
       items.destroy_all
     end
   end
@@ -51,7 +51,7 @@ class Model < ActiveRecord::Base
   # MySQL View based on partitions and items
   has_many :partitions_with_generals
 
-  has_many :contract_lines, dependent: :restrict_with_exception
+  has_many :reservations, dependent: :restrict_with_exception
   has_many :properties, :dependent => :destroy
   accepts_nested_attributes_for :properties, :allow_destroy => true
 
@@ -262,7 +262,7 @@ class Model < ActiveRecord::Base
   end
 
   def lines
-    contract_lines
+    reservations
   end
 
   def needs_permission
@@ -274,7 +274,7 @@ class Model < ActiveRecord::Base
 
 #############################################
 
-# returns an array of contract_lines
+# returns an array of reservations
   def add_to_contract(contract, user, quantity = nil, start_date = nil, end_date = nil, delegated_user_id = nil)
     contract.add_lines(quantity, self, user, start_date, end_date, delegated_user_id)
   end

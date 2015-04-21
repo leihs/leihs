@@ -1,15 +1,15 @@
-def make_sure_no_end_date_is_identical_to_any_other!(open_contract_lines)
-  last_date = open_contract_lines.map(&:end_date).max { |a, b| a <=> b }
-  open_contract_lines.each do |cl|
+def make_sure_no_end_date_is_identical_to_any_other!(open_reservations)
+  last_date = open_reservations.map(&:end_date).max { |a, b| a <=> b }
+  open_reservations.each do |cl|
     cl.end_date = last_date
     last_date = cl.end_date.tomorrow
     cl.save
   end
 end
 
-def make_sure_no_start_date_is_identical_to_any_other!(open_contract_lines)
+def make_sure_no_start_date_is_identical_to_any_other!(open_reservations)
   previous_date = Date.tomorrow
-  open_contract_lines.each do |cl|
+  open_reservations.each do |cl|
     cl.start_date = previous_date
     cl.end_date = cl.start_date + 2.days
     previous_date = previous_date.tomorrow
@@ -17,33 +17,33 @@ def make_sure_no_start_date_is_identical_to_any_other!(open_contract_lines)
   end
 end
 
-def end_first_contract_line_on_same_date_as_second!(contract_lines)
+def end_first_reservation_on_same_date_as_second!(reservations)
   # these two should now be in the same Event
-  contract_lines[0].end_date = contract_lines[1].end_date
-  contract_lines[0].save
+  reservations[0].end_date = reservations[1].end_date
+  reservations[0].save
 end
 
-def end_third_contract_line_on_different_date!(contract_lines)
-  # just make sure the third contract_line isn't on the same day
-  if contract_lines[2].end_date == contract_lines[1].end_date
-    contract_lines[2].end_date = contract_lines[1].end_date.tomorrow
-    contract_lines[2].save
+def end_third_reservation_on_different_date!(reservations)
+  # just make sure the third reservation isn't on the same day
+  if reservations[2].end_date == reservations[1].end_date
+    reservations[2].end_date = reservations[1].end_date.tomorrow
+    reservations[2].save
   end
 end
 
-def start_first_contract_line_on_same_date_as_second!(contract_lines)
+def start_first_reservation_on_same_date_as_second!(reservations)
   # these two should now be in the same Event
-  contract_lines[0].start_date = contract_lines[1].start_date
-  contract_lines[0].end_date = contract_lines[0].start_date + 2.days
-  contract_lines[0].save
+  reservations[0].start_date = reservations[1].start_date
+  reservations[0].end_date = reservations[0].start_date + 2.days
+  reservations[0].save
 end
 
-def start_third_contract_line_on_different_date!(contract_lines)
-  # just make sure the third contract_line isn't on the same day
-  if contract_lines[2].start_date == contract_lines[1].start_date
-    contract_lines[2].start_date = contract_lines[1].start_date.tomorrow
-    contract_lines[2].end_date = contract_lines[2].start_date + 2.days
-    contract_lines[2].save
+def start_third_reservation_on_different_date!(reservations)
+  # just make sure the third reservation isn't on the same day
+  if reservations[2].start_date == reservations[1].start_date
+    reservations[2].start_date = reservations[1].start_date.tomorrow
+    reservations[2].end_date = reservations[2].start_date + 2.days
+    reservations[2].save
   end
 end
 
@@ -64,17 +64,17 @@ end
 
 Given /^all contracts and contract lines are deleted$/ do
   Contract.delete_all
-  ContractLine.delete_all
+  Reservation.delete_all
 end
 
 Given /^there are open contracts for all users$/ do
-  @open_contract_lines = User.all.flat_map { |user|
-    rand(3..6).times.map { FactoryGirl.create :contract_line, user: user, inventory_pool: @current_inventory_pool, status: :approved }
+  @open_reservations = User.all.flat_map { |user|
+    rand(3..6).times.map { FactoryGirl.create :reservation, user: user, inventory_pool: @current_inventory_pool, status: :approved }
   }
 end
 
 Given /^every contract has a different start date$/ do
-  make_sure_no_start_date_is_identical_to_any_other! @open_contract_lines
+  make_sure_no_start_date_is_identical_to_any_other! @open_reservations
 end
 
 Given /^there are hand over visits for the specific inventory pool$/ do
@@ -82,23 +82,23 @@ Given /^there are hand over visits for the specific inventory pool$/ do
 end
 
 When /^all the contract lines of all the events are combined$/ do
-  @hand_over_visits.flat_map(&:contract_lines)
+  @hand_over_visits.flat_map(&:reservations)
 end
 
 Then /^the result is a set of contract lines that are associated with the users' contracts$/ do
-  expect(@hand_over_visits.to_a.count).to eq @open_contract_lines.count # NOTE count returns a Hash because the group() in default scope
+  expect(@hand_over_visits.to_a.count).to eq @open_reservations.count # NOTE count returns a Hash because the group() in default scope
 end
 
 Given /^there is an open contract with lines for a user$/ do
-  @open_contract_lines = rand(3..6).times.map { FactoryGirl.create :contract_line, user: User.first, inventory_pool: @current_inventory_pool, status: :approved }
+  @open_reservations = rand(3..6).times.map { FactoryGirl.create :reservation, user: User.first, inventory_pool: @current_inventory_pool, status: :approved }
 end
 
 Given /^the first contract line starts on the same date as the second one$/ do
-  start_first_contract_line_on_same_date_as_second! @open_contract_lines
+  start_first_reservation_on_same_date_as_second! @open_reservations
 end
 
 Given /^the third contract line starts on a different date as the other two$/ do
-  start_third_contract_line_on_different_date! @open_contract_lines
+  start_third_reservation_on_different_date! @open_reservations
 end
 
 When /^the visits of the inventory pool are fetched$/ do
@@ -110,13 +110,13 @@ Then /^the first two contract lines should now be grouped inside the first visit
 end
 
 Given /^there are 2 different contracts for 2 different users$/ do
-  @open_contract_line0 = FactoryGirl.create :contract_line, :user => User.first, :inventory_pool => @current_inventory_pool, :status => :approved
-  @open_contract_line1 = FactoryGirl.create :contract_line, :user => User.last, :inventory_pool => @current_inventory_pool, :status => :approved
+  @open_reservation0 = FactoryGirl.create :reservation, :user => User.first, :inventory_pool => @current_inventory_pool, :status => :approved
+  @open_reservation1 = FactoryGirl.create :reservation, :user => User.last, :inventory_pool => @current_inventory_pool, :status => :approved
 end
 
 Given /^there are 2 different contracts with lines for 2 different users$/ do
-  @open_contract_lines2 = rand(3..6).times.map { FactoryGirl.create :contract_line, user: User.first, inventory_pool: @current_inventory_pool, status: :approved }
-  @open_contract_lines3 = rand(3..6).times.map { FactoryGirl.create :contract_line, user: User.last, inventory_pool: @current_inventory_pool, status: :approved }
+  @open_reservations2 = rand(3..6).times.map { FactoryGirl.create :reservation, user: User.first, inventory_pool: @current_inventory_pool, status: :approved }
+  @open_reservations3 = rand(3..6).times.map { FactoryGirl.create :reservation, user: User.last, inventory_pool: @current_inventory_pool, status: :approved }
 end
 
 Then /^there are 2 hand over visits for the given inventory pool$/ do
@@ -128,18 +128,18 @@ Then /^there are 2 take back visits for the given inventory pool$/ do
 end
 
 Given /^1st contract line of 2nd contract has the same start date as the 1st contract line of the 1st contract$/ do
-  @open_contract_line1.start_date = @open_contract_line0.start_date
-  @open_contract_line1.save
+  @open_reservation1.start_date = @open_reservation0.start_date
+  @open_reservation1.save
 end
 
 Given /^1st contract line of 2nd contract has the same end date as the 1st contract line of the 1st contract$/ do
-  @open_contract_lines3[0].end_date = @open_contract_lines2[0].end_date
-  @open_contract_lines3[0].save
+  @open_reservations3[0].end_date = @open_reservations2[0].end_date
+  @open_reservations3[0].save
 end
 
 Given /^1st contract line of 2nd contract has the end date 2 days ahead of its start date$/ do
-  @open_contract_line1.end_date = @open_contract_line1.start_date + 2.days
-  @open_contract_line1.save
+  @open_reservation1.end_date = @open_reservation1.start_date + 2.days
+  @open_reservation1.save
 end
 
 Then /^there should be different visits for 2 users with same start and end date$/ do
@@ -148,20 +148,20 @@ Then /^there should be different visits for 2 users with same start and end date
 end
 
 Given /^make sure no end date is identical to any other$/ do
-  make_sure_no_end_date_is_identical_to_any_other! @open_contract_lines
+  make_sure_no_end_date_is_identical_to_any_other! @open_reservations
 end
 
 Given /^to each contract line an item is assigned$/ do
   # assign contract lines
-  @open_contract_lines.each do |cl|
+  @open_reservations.each do |cl|
     cl.update_attributes(item: cl.model.items.borrowable.in_stock.first)
   end
 end
 
 Given /^all contracts are signed|the contract is signed$/ do
   # sign the contract
-  contract_container = @open_contract_lines.first.user.contracts.approved.find_by(inventory_pool_id: @open_contract_lines.first.inventory_pool)
-  contract_container.sign(@manager, @open_contract_lines)
+  contract_container = @open_reservations.first.user.reservations_bundles.approved.find_by(inventory_pool_id: @open_reservations.first.inventory_pool)
+  contract_container.sign(@manager, @open_reservations)
 end
 
 When /^the take back visits of the given inventory pool are fetched$/ do
@@ -169,23 +169,23 @@ When /^the take back visits of the given inventory pool are fetched$/ do
 end
 
 Then /^there should be as many events as there are different start dates$/ do
-  expect(@take_back_visits.to_a.count).to eq @open_contract_lines.map(&:end_date).uniq.count # NOTE count returns a Hash because the group() in default scope
+  expect(@take_back_visits.to_a.count).to eq @open_reservations.map(&:end_date).uniq.count # NOTE count returns a Hash because the group() in default scope
 end
 
 When /^all the contract lines of all the visits are combined$/ do
-  @take_back_lines = @take_back_visits.flat_map(&:contract_lines)
+  @take_back_lines = @take_back_visits.flat_map(&:reservations)
 end
 
 Then /^one should get the set of contract lines that are associated with the users' contracts$/ do
-  expect(@take_back_lines.count).to eq @open_contract_lines.count
+  expect(@take_back_lines.count).to eq @open_reservations.count
 end
 
 Given /^1st contract line ends on the same date as 2nd$/ do
-  end_first_contract_line_on_same_date_as_second! @open_contract_lines
+  end_first_reservation_on_same_date_as_second! @open_reservations
 end
 
 Given /^3rd contract line ends on a different date than the other two$/ do
-  end_third_contract_line_on_different_date! @open_contract_lines
+  end_third_reservation_on_different_date! @open_reservations
 end
 
 Then /^the first 2 contract lines should be grouped inside the 1st visit, which makes it two visits in total$/ do
@@ -193,13 +193,13 @@ Then /^the first 2 contract lines should be grouped inside the 1st visit, which 
 end
 
 Given /^to each contract line of the user's contract an item is assigned$/ do
-  @open_contract_lines.each do |cl|
+  @open_reservations.each do |cl|
     cl.update_attributes(item: cl.model.items.borrowable.in_stock.first)
   end
 end
 
 Given /^to each contract line of both contracts an item is assigned$/ do
-  [@open_contract_lines2, @open_contract_lines3].each do |c|
+  [@open_reservations2, @open_reservations3].each do |c|
     # assign contract lines
     c.each do |cl|
       cl.update_attributes(item: cl.model.items.borrowable.in_stock.first)
@@ -208,10 +208,10 @@ Given /^to each contract line of both contracts an item is assigned$/ do
 end
 
 Given /^both contracts are signed$/ do
-  [@open_contract_lines2, @open_contract_lines3].each do |contract_lines|
+  [@open_reservations2, @open_reservations3].each do |reservations|
     # sign the contract
-    contract_container = contract_lines.first.user.contracts.approved.find_by(inventory_pool_id: contract_lines.first.inventory_pool)
-    contract_container.sign(@manager, contract_lines)
+    contract_container = reservations.first.user.reservations_bundles.approved.find_by(inventory_pool_id: reservations.first.inventory_pool)
+    contract_container.sign(@manager, reservations)
   end
 end
 

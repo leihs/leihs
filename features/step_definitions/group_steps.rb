@@ -110,7 +110,7 @@ end
 When /^I lend (\w+) item(s?) of that model to "([^"]*)"$/ do |n, plural, user_login|
   user = User.find_by_login user_login
   purpose = FactoryGirl.create :purpose, description: "this is the required purpose"
-  contract_lines = to_number(n).times.map { FactoryGirl.create :contract_line,
+  reservations = to_number(n).times.map { FactoryGirl.create :reservation,
                                                                inventory_pool: @inventory_pool,
                                                                user: user,
                                                                model: @model,
@@ -118,15 +118,15 @@ When /^I lend (\w+) item(s?) of that model to "([^"]*)"$/ do |n, plural, user_lo
                                                                start_date: Date.today,
                                                                end_date: Date.tomorrow }
 
-  contract = user.contracts.unsubmitted.find_by(inventory_pool_id: @inventory_pool)
+  contract = user.reservations_bundles.unsubmitted.find_by(inventory_pool_id: @inventory_pool)
   expect(contract.submit("this is the required purpose")).to be true
-  contract = user.contracts.submitted.find_by(inventory_pool_id: @inventory_pool)
+  contract = user.reservations_bundles.submitted.find_by(inventory_pool_id: @inventory_pool)
   expect(contract.approve("foo'lish comment")).to be true
-  contract = user.contracts.approved.find_by(inventory_pool_id: @inventory_pool)
-  contract_lines.each do |cl|
+  contract = user.reservations_bundles.approved.find_by(inventory_pool_id: @inventory_pool)
+  reservations.each do |cl|
     cl.update_attributes(item: cl.model.items.borrowable.in_stock.where(inventory_pool: cl.inventory_pool).sample )
   end
-  expect(contract.sign(@user, contract_lines)).to be_valid
+  expect(contract.sign(@user, reservations)).to be_valid
 end
 
 When /^"([^"]*)" returns the item$/ do |user|

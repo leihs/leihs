@@ -12,7 +12,7 @@ Then(/^I can change who placed this order$/) do
   end
   find(".content-wrapper", :text => new_user.name, match: :first)
 
-  new_contract = new_user.contracts.find_by(status: :submitted, inventory_pool_id: @contract.inventory_pool)
+  new_contract = new_user.reservations_bundles.find_by(status: :submitted, inventory_pool_id: @contract.inventory_pool)
   @contract.lines.each do |line|
     expect(new_contract.lines.include? line).to be true
   end

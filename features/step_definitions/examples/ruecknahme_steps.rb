@@ -2,7 +2,7 @@
 
 #Dann(/^wird festgehalten, dass ich diesen Gegenstand zurückgenommen habe$/) do
 Then(/^a note is made that it was me who took back the item$/) do
-  expect(@contract_lines_to_take_back.map(&:returned_to_user_id).uniq.first).to eq @current_user.id
+  expect(@reservations_to_take_back.map(&:returned_to_user_id).uniq.first).to eq @current_user.id
   step 'sieht man bei den betroffenen Linien die rücknehmende Person im Format "V. Nachname"'
 end
 
@@ -70,7 +70,7 @@ Given(/^I am taking back at least one overdue item$/) do
 end
 
 When(/^I take back an( overdue)? (item|option) using the assignment field$/) do |arg1, arg2|
-  @contract_line = case arg2
+  @reservation = case arg2
                      when "item"
                        if arg1
                          @take_back.lines.find{|l| l.end_date.past?}
@@ -81,10 +81,10 @@ When(/^I take back an( overdue)? (item|option) using the assignment field$/) do 
                        @take_back.lines.find {|l| l.quantity >= 2 }
                    end
   within "form#assign" do
-    find("input#assign-input").set @contract_line.item.inventory_code
+    find("input#assign-input").set @reservation.item.inventory_code
     find("button .icon-ok-sign").click
   end
-  @line_css = ".line[data-id='#{@contract_line.id}']"
+  @line_css = ".line[data-id='#{@reservation.id}']"
 end
 
 #Dann(/^das Problemfeld für die Linie wird angezeigt$/) do
@@ -107,9 +107,9 @@ end
 
 #Wenn(/^ich alle Optionen der gleichen Zeile zurücknehme$/) do
 When(/^I take back all options of the same line$/) do
-  (@contract_line.quantity - find(@line_css).find("input[data-quantity-returned]").value.to_i).times do
+  (@reservation.quantity - find(@line_css).find("input[data-quantity-returned]").value.to_i).times do
     within "form#assign" do
-      find("input#assign-input").set @contract_line.item.inventory_code
+      find("input#assign-input").set @reservation.item.inventory_code
       find("button .icon-ok-sign").click
     end
   end

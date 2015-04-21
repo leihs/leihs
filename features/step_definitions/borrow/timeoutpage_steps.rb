@@ -38,7 +38,7 @@ end
 
 #Dann(/^die nicht mehr verfügbaren Modelle sind hervorgehoben$/) do
 Then(/^the no longer available items are highlighted$/) do
-  @current_user.contract_lines.unsubmitted.each do |line|
+  @current_user.reservations.unsubmitted.each do |line|
     unless line.available?
       find("[data-ids*='#{line.id}']", match: :first).find(:xpath, "./../../..").find(".line-info.red[title='#{_("Not available")}']")
     end
@@ -84,7 +84,7 @@ end
 Given(/^I delete one entry$/) do
   line = all(".row.line").to_a.sample
   @line_ids = line.find("button[data-ids]")["data-ids"].gsub(/\[|\]/, "").split(',').map(&:to_i)
-  expect(@line_ids.all? { |id| @current_user.contract_lines.unsubmitted.map(&:id).include?(id) }).to be true
+  expect(@line_ids.all? { |id| @current_user.reservations.unsubmitted.map(&:id).include?(id) }).to be true
   line.find(".dropdown-toggle").click
   line.find("a", text: _("Delete")).click
   alert = page.driver.browser.switch_to.alert
@@ -94,7 +94,7 @@ end
 #Dann(/^wird der Eintrag aus der Bestellung gelöscht$/) do
 Then(/^the entry is deleted from the order$/) do
   expect(@line_ids.all? { |id| page.has_no_selector? "button[data-ids='[#{id}]']" }).to be true
-  expect(@line_ids.all? { |id| not @current_user.contract_lines.unsubmitted.map(&:id).include?(id) }).to be true
+  expect(@line_ids.all? { |id| not @current_user.reservations.unsubmitted.map(&:id).include?(id) }).to be true
 end
 
 #########################################################################
@@ -146,7 +146,7 @@ end
 
 #Wenn(/^ein Modell nicht verfügbar ist$/) do
 #When(/^a model is not available$/) do
-#  expect(@current_user.contract_lines.unsubmitted.any? { |l| not l.available? }).to be true
+#  expect(@current_user.reservations.unsubmitted.any? { |l| not l.available? }).to be true
 #end
 
 
@@ -173,19 +173,19 @@ end
 
 #When(/^werden die nicht verfügbaren Modelle aus der Bestellung gelöscht$/) do
 When(/^the unavailable models are deleted from the order$/) do
-  expect(@current_user.contract_lines.unsubmitted.all? { |l| l.available? }).to be true
+  expect(@current_user.reservations.unsubmitted.all? { |l| l.available? }).to be true
 end
 
 #Wenn(/^ich einen der Fehler korrigiere$/) do
 When(/^I correct one of the errors$/) do
-  @line_ids = @current_user.contract_lines.unsubmitted.select { |l| not l.available? }.map(&:id)
-  resolve_conflict_for_contract_line @line_ids.delete_at(0)
+  @line_ids = @current_user.reservations.unsubmitted.select { |l| not l.available? }.map(&:id)
+  resolve_conflict_for_reservation @line_ids.delete_at(0)
 end
 
 #Wenn(/^ich alle Fehler korrigiere$/) do
 When(/^I correct all errors$/) do
   @line_ids.each do |line_id|
-    resolve_conflict_for_contract_line line_id
+    resolve_conflict_for_reservation line_id
   end
 end
 
@@ -194,7 +194,7 @@ Then(/^the error message appears$/) do
   expect(has_no_content? _("Please solve the conflicts for all highlighted lines in order to continue.")).to be true
 end
 
-def resolve_conflict_for_contract_line(line_id)
+def resolve_conflict_for_reservation(line_id)
   within ".line[data-ids='[#{line_id}]']" do
     find(".button", :text => _("Change entry")).click
   end

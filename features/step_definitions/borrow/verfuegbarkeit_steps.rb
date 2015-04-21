@@ -2,7 +2,7 @@
 
 #Angenommen(/^ich habe eine offene Bestellung mit Modellen$/) do
 Given(/^I have an unsubmitted order with models$/) do
-  expect(@current_user.contracts.unsubmitted.to_a.count).to be >= 1
+  expect(@current_user.reservations_bundles.unsubmitted.to_a.count).to be >= 1
 end
 
 #Angenommen(/^die Bestellung Timeout ist (\d+) Minuten$/) do |arg1|
@@ -15,31 +15,31 @@ end
 #Wenn(/^ich ein Modell der Bestellung hinzufüge$/) do
 When(/^I add a model to an order$/) do
   @inventory_pool = @current_user.inventory_pools.first # OPTIMIZE
-  @new_contract_line = FactoryGirl.create(:contract_line, user: @current_user, status: :unsubmitted, inventory_pool: @inventory_pool)
-  expect(@new_contract_line.reload.available?).to be true
+  @new_reservation = FactoryGirl.create(:reservation, user: @current_user, status: :unsubmitted, inventory_pool: @inventory_pool)
+  expect(@new_reservation.reload.available?).to be true
 end
 
 #Wenn(/^ich dasselbe Modell einer Bestellung hinzufüge$/) do
 When(/^I add the same model to an order$/) do
-  (@new_contract_line.maximum_available_quantity + 1).times do
-    FactoryGirl.create(:contract_line,
+  (@new_reservation.maximum_available_quantity + 1).times do
+    FactoryGirl.create(:reservation,
                        status: :submitted,
                        inventory_pool: @inventory_pool,
-                       start_date: @new_contract_line.start_date,
-                       end_date: @new_contract_line.end_date,
-                       model_id: @new_contract_line.model_id)
+                       start_date: @new_reservation.start_date,
+                       end_date: @new_reservation.end_date,
+                       model_id: @new_reservation.model_id)
   end
 end
 
 #Wenn(/^die maximale Anzahl der Gegenstände überschritten ist$/) do
 When(/^the maximum quantity of items is exhausted$/) do
-  expect(@new_contract_line.reload.available?).to be false
+  expect(@new_reservation.reload.available?).to be false
 end
 
 #Dann(/^wird die Bestellung nicht abgeschlossen$/) do
 Then(/^the order is not submitted$/) do
-  @current_user.contract_lines.unsubmitted.each do |contract_line|
-    expect(contract_line.status).to eq :unsubmitted
+  @current_user.reservations.unsubmitted.each do |reservation|
+    expect(reservation.status).to eq :unsubmitted
   end
 end
 
@@ -58,7 +58,7 @@ Given(/^(a|\d+) model(?:s)? (?:is|are) not available$/) do |n|
           n.to_i
       end
 
-  lines = @current_user.contract_lines.unsubmitted
+  lines = @current_user.reservations.unsubmitted
   available_lines, unavailable_lines = lines.partition {|line| line.available? }
 
   available_lines.take(n - unavailable_lines.size).each do |line|
@@ -71,7 +71,7 @@ Given(/^(a|\d+) model(?:s)? (?:is|are) not available$/) do |n|
                          :end_date => line.end_date)
     end
   end
-  expect(@current_user.contract_lines.unsubmitted.select{|line| not line.available?}.size).to eq n
+  expect(@current_user.reservations.unsubmitted.select{|line| not line.available?}.size).to eq n
 end
 
 #Wenn(/^ich eine Aktivität ausführe$/) do
@@ -89,7 +89,7 @@ end
 #Dann(/^werden die Modelle meiner Bestellung freigegeben$/) do
 #Dann(/^bleiben die Modelle in der Bestellung blockiert$/) do
 Then(/^the models in my order (are released|remain blocked)$/) do |arg1|
-  expect(@current_user.contract_lines.unsubmitted.all? { |line|
+  expect(@current_user.reservations.unsubmitted.all? { |line|
            case arg1
              when "are released"
                not line.inventory_pool.running_lines.detect { |l| l.id == line.id }
@@ -103,7 +103,7 @@ end
 
 #Angenommen(/^alle Modelle verfügbar sind$/) do
 Given(/^all models are available$/) do
-  expect(@current_user.contract_lines.unsubmitted.all? {|line| line.available? }).to be true
+  expect(@current_user.reservations.unsubmitted.all? {|line| line.available? }).to be true
 end
 
 #Dann(/^kann man sein Prozess fortsetzen$/) do

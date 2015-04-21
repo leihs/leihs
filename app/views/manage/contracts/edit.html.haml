@@ -59,8 +59,8 @@
     for model in #{@models.to_json}
       App.Model.addRecord new App.Model model
 
-    for contract_line in #{@contract_lines.to_json}
-      App.ContractLine.addRecord new App.ContractLine contract_line
+    for reservation in #{@reservations.to_json}
+      App.Reservation.addRecord new App.Reservation reservation
 
     new App.ContractsEditController
       el: "#edit-contract-view"

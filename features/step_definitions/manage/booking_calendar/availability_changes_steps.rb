@@ -1,7 +1,7 @@
 When /^I open a booking calendar to edit a singe line$/ do
   # high frequently booked model
   @model = @current_inventory_pool.models.max {|a,b| a.availability_in(@current_inventory_pool).changes.length <=> b.availability_in(@current_inventory_pool).changes.length}
-  @contract = @current_inventory_pool.contracts.submitted.detect {|c| c.lines.any? {|cl| cl.model_id == @model.id} }
+  @contract = @current_inventory_pool.reservations_bundles.submitted.detect {|c| c.lines.any? {|cl| cl.model_id == @model.id} }
   step "I edit the order"
   @edited_line = find(".line", :text => @model.name)
   @edited_line.find("[data-edit-lines]").click

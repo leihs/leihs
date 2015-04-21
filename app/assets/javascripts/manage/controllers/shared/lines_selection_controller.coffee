@@ -25,7 +25,7 @@ class window.App.LineSelectionController extends Spine.Controller
     @el.on "change", "input[data-select-lines], input[data-select-line]", @update
     @el.on "mouseenter", "input[data-select-lines]", @focusLines
     @el.on "mouseleave", "input[data-select-lines]", @blurLines
-    App.ContractLine.on "destroy", @update
+    App.Reservation.on "destroy", @update
     App.Contract.on "refresh", @update
 
   toggleLine: (e)=>

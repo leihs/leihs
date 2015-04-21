@@ -2,8 +2,8 @@
 #   user     = LeihsFactory.create_user( :login => who ); user.save
 #   item     = Item.find_by_inventory_code( inventory_code )
 #   contract = FactoryGirl.create :contract, :user => user, :status => :approved
-#   contract.contract_lines << FactoryGirl.create(:contract_line, contract: contract, model: item.model, quantity: 1)
-#   cl = contract.contract_lines.first
+#   contract.reservations << FactoryGirl.create(:reservation, contract: contract, model: item.model, quantity: 1)
+#   cl = contract.reservations.first
 #   cl.update_attribute(:item, item) # don't validate - allow creation of *invalid* records!
 #   contract.reload
 #   contract.sign(@user)
@@ -26,13 +26,13 @@ end
 When "$manager chooses to take back $customer's entry" do | manager, customer |
   @user = User.find_by_login( customer )
   get manage_take_back_path( @inventory_pool, @user )
-  @contract_lines = assigns(:contract_lines)
+  @reservations = assigns(:reservations)
 end
 
 When "$who selects all lines and takes the items back" do | who |
   post close_contract_backend_inventory_pool_user_take_back_path(
 	 @inventory_pool, @user,
-         :lines => @contract_lines.map { |cl| cl.id } )
+         :lines => @reservations.map { |cl| cl.id } )
   @response = response
   @flash = flash
 end

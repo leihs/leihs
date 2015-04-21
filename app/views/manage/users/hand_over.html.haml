@@ -60,8 +60,8 @@
     for option in #{@options.to_json}
       App.Option.addRecord new App.Option option
 
-    for contract_line in #{@lines.to_json}
-      App.ContractLine.addRecord new App.ContractLine contract_line
+    for reservation in #{@lines.to_json}
+      App.Reservation.addRecord new App.Reservation reservation
 
     for item in #{@items.to_json}
       App.Item.addRecord new App.Item item

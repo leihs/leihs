@@ -173,7 +173,7 @@
 #       When I follow "Hand Over" within "list_table"
 #        # TODO: the following line needs to be migrated to capybara:
 #         And I fill in 1st of "line_item_inventory_code_" with "AV_SOUNDGARDEN_1"
-#       Then the "contract_lines_" checkbox should be checked
+#       Then the "reservations_" checkbox should be checked
 #       #Then that should check that line since it's from this day on
 #        When he assigns 'AV_SOUNDGARDEN_2' to line 1
 #       Then that should not check that line since it's not from this day on

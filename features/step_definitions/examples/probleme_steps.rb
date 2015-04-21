@@ -23,18 +23,18 @@ Given /^a model is no longer available$/ do
     @entity = if @contract
                 @contract
               else
-                @customer.contracts.approved.find_by(inventory_pool_id: @current_inventory_pool)
+                @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool)
               end
-    contract_line = @entity.item_lines.order("RAND()").first
-    @model = contract_line.model
+    reservation = @entity.item_lines.order("RAND()").first
+    @model = reservation.model
     @initial_quantity = @contract.lines.where(model_id: @model.id).count
-    @max_before = contract_line.model.availability_in(@entity.inventory_pool).maximum_available_in_period_summed_for_groups(contract_line.start_date, contract_line.end_date, contract_line.group_ids)
+    @max_before = reservation.model.availability_in(@entity.inventory_pool).maximum_available_in_period_summed_for_groups(reservation.start_date, reservation.end_date, reservation.group_ids)
     step 'I add so many lines that I break the maximal quantity of a model'
   else
-    contract_line = @contract_lines_to_take_back.where(option_id: nil).order("RAND()").first
-    @model = contract_line.model
+    reservation = @reservations_to_take_back.where(option_id: nil).order("RAND()").first
+    @model = reservation.model
     step "I open a hand over to this customer"
-    @max_before = @model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(contract_line.start_date, contract_line.end_date, contract_line.group_ids)
+    @max_before = @model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(reservation.start_date, reservation.end_date, reservation.group_ids)
     step 'I add so many lines that I break the maximal quantity of a model'
     visit manage_take_back_path(@current_inventory_pool, @customer)
   end
@@ -54,9 +54,9 @@ Then /^I see any problems displayed on the relevant lines$/ do
   @reference_line = @lines.first
   @reference_problem = @problems.first
   @line = if @reference_line["data-id"]
-            ContractLine.find @reference_line["data-id"]
+            Reservation.find @reference_line["data-id"]
           else
-            ContractLine.find JSON.parse(@reference_line["data-ids"]).first
+            Reservation.find JSON.parse(@reference_line["data-ids"]).first
           end
   @av = @line.model.availability_in(@line.inventory_pool)
 end
@@ -113,7 +113,7 @@ Given /^one item is not borrowable$/ do
     when "hand_over"
       @item = @current_inventory_pool.items.in_stock.unborrowable.order("RAND()").first
       step 'I add an item to the hand over'
-      @line_id = ContractLine.where(item_id: @item.id).first.id
+      @line_id = Reservation.where(item_id: @item.id).first.id
       find(".line[data-id='#{@line_id}']", text: @item.model.name).find("[data-assign-item][disabled]")
     when "take_back"
       @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
@@ -128,7 +128,7 @@ Given /^I take back a(n)?( late)? item$/ do |grammar, is_late|
   overdued_take_backs = @current_inventory_pool.visits.take_back.select{|v| v.lines.any? {|l| l.is_a? ItemLine}}
   overdued_take_backs = overdued_take_backs.select { |x| x.date < Date.today } if is_late
   overdued_take_back = overdued_take_backs.sample
-  @line_id = overdued_take_back.contract_lines.where(type: "ItemLine").order("RAND()").first.id
+  @line_id = overdued_take_back.reservations.where(type: "ItemLine").order("RAND()").first.id
   visit manage_take_back_path(@current_inventory_pool, overdued_take_back.user)
   expect(has_selector?(".line[data-id='#{@line_id}']")).to be true
 end

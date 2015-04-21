@@ -5,7 +5,7 @@ Feature: Send email upon confirmation
   Background:
     Given required test data for contract tests existing
 
-  @personas
+  @personas @javascript
   Scenario: A confirmation email should be sent when a contract is confirmed
     Given I am Ramon
     And a submitted contract with lines existing

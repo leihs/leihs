@@ -54,7 +54,7 @@
 #   @contract.log_history("user submits contract", 1)
 #   @contract.save
 #   expect(@contract.has_changes?).to be false
-#   expect(@contract.contract_lines[0].model.name).to eq model
+#   expect(@contract.reservations[0].model.name).to eq model
 # end
 #
 # When "he asks for another $number items of model '$model'" do |number, model|
@@ -84,7 +84,7 @@
 # When "$who asks for $quantity '$what' from $from" do | who, quantity, what, from |
 #   from = I18n.l(Date.today) if from == "today"
 #   quantity.times do
-#     @contract.contract_lines << FactoryGirl.create(:contract_line,
+#     @contract.reservations << FactoryGirl.create(:reservation,
 #                                                    :model_name => what,
 #                                                    :start_date => from)
 #   end
@@ -122,13 +122,13 @@
 #   step "I am logged in as '#{who}' with password '#{nil}'"
 #   get borrow_root_path
 #   model_id = Model.find_by_name(model).id
-#   post borrow_contract_lines_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
-#   @contract_lines = @current_user.contracts.first.lines
+#   post borrow_reservations_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
+#   @reservations = @current_user.reservations_bundles.first.lines
 # end
 #
 # When "'$user' contracts another $quantity '$model' for the same time" do |user, quantity, model|
 #   model_id = Model.find_by_name(model).id
-#   post borrow_contract_lines_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
+#   post borrow_reservations_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
 #   #old??# @contract = assigns(:contract)
 # end
 #
@@ -138,7 +138,7 @@
 #   get borrow_root_path
 #   model_id = Model.find_by_name(model).id
 #   inv_pool = InventoryPool.find_by_name(ip)
-#   post borrow_contract_lines_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => inv_pool.id)
+#   post borrow_reservations_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => inv_pool.id)
 #   @contract = @current_user.get_unsubmitted_contract
 #
 #   @total_quantity ||= 0
@@ -155,7 +155,7 @@
 #
 # Then /([0-9]+) contract(s?) exist(s?) for inventory pool (.*)/ do |size, s1, s2, ip|
 #   inventory_pool = InventoryPool.find_by_name(ip)
-#   @contracts = inventory_pool.contracts.submitted
+#   @contracts = inventory_pool.reservations_bundles.submitted
 #   expect(@contracts.size).to eq size.to_i
 # end
 #
@@ -180,10 +180,10 @@ Given /^there is a "(.*?)" contract with (\d+) lines?$/ do |contract_type, no_of
   @no_of_lines_at_start = no_of_lines.to_i
 
   status = contract_type.downcase.to_sym
-  user = @inventory_pool.users.detect {|u| u.contracts.where(inventory_pool_id: @inventory_pool, status: status).empty? }
+  user = @inventory_pool.users.detect {|u| u.reservations_bundles.where(inventory_pool_id: @inventory_pool, status: status).empty? }
   expect(user).not_to be_nil
-  @no_of_lines_at_start.times.map { FactoryGirl.create :contract_line, user: user, inventory_pool: @inventory_pool, status: status }
-  @contract = user.contracts.find_by(inventory_pool_id: @inventory_pool, status: status)
+  @no_of_lines_at_start.times.map { FactoryGirl.create :reservation, user: user, inventory_pool: @inventory_pool, status: status }
+  @contract = user.reservations_bundles.find_by(inventory_pool_id: @inventory_pool, status: status)
 end
 
 When /^one tries to delete a line$/ do
@@ -203,7 +203,7 @@ Then /^the amount of lines remains unchanged$/ do
 end
 
 Given /^required test data for contract tests existing$/ do
-  @inventory_pool = InventoryPool.all.shuffle.detect {|ip| ip.users.customers.exists? and ip.contract_lines.unsubmitted.exists? and ip.contract_lines.submitted.exists? }
+  @inventory_pool = InventoryPool.all.shuffle.detect {|ip| ip.users.customers.exists? and ip.reservations.unsubmitted.exists? and ip.reservations.submitted.exists? }
   @model_with_items = @inventory_pool.items.sample.model
 end
 
@@ -213,8 +213,8 @@ end
 
 Given /^an empty contract of (.*) existing$/ do |allowed_type|
   status = allowed_type.downcase.to_sym
-  line = @inventory_pool.contract_lines.where(status: status).sample
-  @contract = line.user.contracts.find_by(inventory_pool_id: @inventory_pool, status: status)
+  line = @inventory_pool.reservations.where(status: status).sample
+  @contract = line.user.reservations_bundles.find_by(inventory_pool_id: @inventory_pool, status: status)
   @contract.lines.each &:destroy
   @contract.lines.reload
 end
@@ -232,14 +232,14 @@ end
 
 Given /^an? (submitted|unsubmitted) contract with lines existing$/ do |arg1|
   User.order("RAND()").detect do |user|
-    @contract = user.contracts.where(status: arg1).sample
+    @contract = user.reservations_bundles.where(status: arg1).sample
   end
 end
 
 When /^I approve the contract of the borrowing user$/ do
   @contract.approve("That will be fine.", @current_user)
-  @contract.lines.each do |contract_line|
-    expect(contract_line.reload.status).to eq :approved
+  @contract.lines.each do |reservation|
+    expect(reservation.reload.status).to eq :approved
   end
 end
 

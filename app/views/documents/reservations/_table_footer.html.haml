@@ -1,0 +1,8 @@
+%tfoot.total
+  %tr
+    %td{:colspan => 4}
+      %strong= _("Total")
+    %td.quantity
+      %strong= @reservations.to_a.sum(&:quantity)
+    %td.value
+      %strong= number_to_currency(@reservations.to_a.sum(&:price_or_max_price), format: '%n %u', :unit => Setting::LOCAL_CURRENCY_STRING)

@@ -139,7 +139,7 @@ end
 Then(/^I can add those models which are available to an order all at once$/) do
   expect(has_selector?(".separated-top .row.line .line-info.red")).to be true
   @unavailable_model_ids = all(".separated-top .row.line .line-info.red").map {|x| x.first(:xpath, "./..").find("input[name='lines[][model_id]']", match: :first, visible: false).value.to_i}
-  @unavailable_model_ids -= @current_user.contract_lines.unsubmitted.map(&:model_id).uniq
+  @unavailable_model_ids -= @current_user.reservations.unsubmitted.map(&:model_id).uniq
   find(".button.green.dropdown-toggle", match: :first).click
   expect(has_content?(_("Continue with available models only"))).to be true
   find("[name='force_continue']", match: :first, :text => _("Continue with available models only")).click
@@ -147,7 +147,7 @@ end
 
 #Dann(/^die restlichen Modelle werden verworfen$/) do
 Then(/^the other models are ignored$/) do
-  expect(@unavailable_model_ids - @current_user.contract_lines.unsubmitted.reload.map(&:model_id).uniq).to eq @unavailable_model_ids
+  expect(@unavailable_model_ids - @current_user.reservations.unsubmitted.reload.map(&:model_id).uniq).to eq @unavailable_model_ids
 end
 
 #Dann(/^die Modelle sind innerhalb eine Gruppe alphabetisch sortiert$/) do
@@ -210,7 +210,7 @@ end
 Then(/^I can continue in the process and add all models to the order at once$/) do
   find(".button.green", match: :first, text: _("Add to order")).click
   find("#current-order-show", match: :first)
-  expect(@current_user.contract_lines.unsubmitted.map(&:model)).to include @model
+  expect(@current_user.reservations.unsubmitted.map(&:model)).to include @model
 end
 
 #Angenommen(/^ich sehe die Verfügbarkeit einer Vorlage, die nicht verfügbare Modelle enthält$/) do

@@ -1,6 +1,6 @@
 Given(/^there are at least (\d+) users with late take backs from at least (\d+) inventory pools where automatic suspension is activated$/) do |users_n, ips_n|
-  @contract_lines = ContractLine.signed.where("end_date < ?", Date.today).uniq{|cl| cl.inventory_pool and cl.user}
-  expect(@contract_lines.count).to be >= 2
+  @reservations = Reservation.signed.where("end_date < ?", Date.today).uniq{|cl| cl.inventory_pool and cl.user}
+  expect(@reservations.count).to be >= 2
 end
 
 When(/^the cronjob executes the rake task for reminding and suspending all late users$/) do
@@ -8,7 +8,7 @@ When(/^the cronjob executes the rake task for reminding and suspending all late 
 end
 
 Then(/^every such user is suspended until '(\d+)\.(\d+)\.(\d+)' in the corresponding inventory pool$/) do |day, month, year|
-  @contract_lines.each do |c|
+  @reservations.each do |c|
     ip = c.inventory_pool
     u = c.user
     ar = u.access_right_for(ip)
@@ -17,7 +17,7 @@ Then(/^every such user is suspended until '(\d+)\.(\d+)\.(\d+)' in the correspon
 end
 
 Then(/^the suspended reason is the one configured for the corresponding inventory pool$/) do
-  @contract_lines.each do |c|
+  @reservations.each do |c|
     ip = c.inventory_pool
     u = c.user
     ar = u.access_right_for(ip)

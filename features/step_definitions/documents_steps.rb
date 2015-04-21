@@ -25,7 +25,7 @@ end
 
 #Dann(/^für jede Vertrag sehe ich folgende Informationen$/) do |table|
 Then(/^I see the following information for each contract:$/) do |table|
-  contracts = @current_user.contracts.signed_or_closed.sort {|a,b| b.time_window_min <=> a.time_window_min}
+  contracts = @current_user.reservations_bundles.signed_or_closed.sort {|a,b| b.time_window_min <=> a.time_window_min}
   contracts.each do |contract|
     within(".line[data-id='#{contract.id}']") do
       table.raw.flatten.each do |s|
@@ -58,7 +58,7 @@ end
 
 #Angenommen(/^ich drücke auf den Wertelistelink$/) do
 Given(/^I click the value list link$/) do
-  @contract = @current_user.contracts.signed_or_closed.order("RAND()").first
+  @contract = @current_user.reservations_bundles.signed_or_closed.order("RAND()").first
   within(".row.line[data-id='#{@contract.id}']") do
     find(".dropdown-toggle").click
     document_window = window_opened_by do
@@ -75,7 +75,7 @@ end
 
 #Angenommen(/^ich drücke auf den Vertraglink$/) do
 Given(/^I click the contract link$/) do
-  @contract = @current_user.contracts.signed_or_closed.order("RAND()").first
+  @contract = @current_user.reservations_bundles.signed_or_closed.order("RAND()").first
   document_window = window_opened_by do
     find("a[href='#{borrow_user_contract_path(@contract.id)}']", text: _("Contract")).click
   end
@@ -89,7 +89,7 @@ end
 
 #Wenn(/^ich eine Werteliste aus meinen Dokumenten öffne$/) do
 When(/^I open a value list from my documents$/) do
-  @contract = @current_user.contracts.signed_or_closed.order("RAND()").first
+  @contract = @current_user.reservations_bundles.signed_or_closed.order("RAND()").first
   visit borrow_user_value_list_path(@contract.id)
   #step "öffnet sich die Werteliste"
   step 'the value list opens'
@@ -98,7 +98,7 @@ end
 
 #Wenn(/^ich einen Vertrag aus meinen Dokumenten öffne$/) do
 When(/^I open a contract from my documents$/) do
-  @contract = @current_user.contracts.signed_or_closed.order("RAND()").first
+  @contract = @current_user.reservations_bundles.signed_or_closed.order("RAND()").first
   visit borrow_user_contract_path(@contract.id)
   #step "öffnet sich der Vertrag"
   step 'the contract opens'
@@ -107,7 +107,7 @@ end
 
 #Wenn(/^ich einen Vertrag mit zurück gebrachten Gegenständen aus meinen Dokumenten öffne$/) do
 When(/^I open a contract with returned items from my documents$/) do
-  @contract = @current_user.contracts.signed_or_closed.find {|c| c.lines.any? &:returned_to_user}
+  @contract = @current_user.reservations_bundles.signed_or_closed.find {|c| c.lines.any? &:returned_to_user}
   visit borrow_user_contract_path(@contract.id)
   step "öffnet sich der Vertrag"
 end
@@ -153,8 +153,8 @@ end
 
 #Dann(/^sieht man bei den betroffenen Linien die rücknehmende Person im Format "V. Nachname"$/) do
 Then(/^the relevant lines show the person taking back the item in the format "F. Lastname"$/) do
-  if @contract_lines_to_take_back
-    @contract_lines_to_take_back.map(&:contract).uniq.each do |contract|
+  if @reservations_to_take_back
+    @reservations_to_take_back.map(&:contract).uniq.each do |contract|
       new_window = window_opened_by do
         find(".button[target='_blank'][href='#{manage_contract_path(@current_inventory_pool, contract)}']").click
       end

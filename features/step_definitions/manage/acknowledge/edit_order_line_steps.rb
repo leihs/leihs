@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 When /^I open a contract for acknowledgement( with more then one line)?(, whose start date is not in the past)?$/ do |arg1, arg2|
-  contracts = @current_inventory_pool.contracts.submitted.order("RAND()")
+  contracts = @current_inventory_pool.reservations_bundles.submitted.order("RAND()")
   contracts = contracts.select {|c| c.lines.size > 1 and c.lines.map(&:model_id).uniq.size > 1 } if arg1
   contracts = contracts.select {|c| c.min_date >= Date.today} if arg2
 

@@ -21,7 +21,7 @@ class Borrow::TemplatesController < Borrow::ApplicationController
       availability and render :availability
     else
       available_lines.each do |l|
-        contract = current_user.contracts.unsubmitted.find_or_initialize_by(inventory_pool_id: l[:inventory_pool].id)
+        contract = current_user.reservations_bundles.unsubmitted.find_or_initialize_by(inventory_pool_id: l[:inventory_pool].id)
         l[:model].add_to_contract(contract, current_user, l[:quantity], l[:start_date], l[:end_date], session[:delegated_user_id])
       end
       redirect_to borrow_current_order_path, :flash => {:success => _("The template has been added to your order.")}

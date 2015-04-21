@@ -215,71 +215,6 @@ LOCK TABLES `buildings` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `contract_lines`
---
-
-DROP TABLE IF EXISTS `contract_lines`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `contract_lines` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `contract_id` int(11) DEFAULT NULL,
-  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ItemLine',
-  `item_id` int(11) DEFAULT NULL,
-  `model_id` int(11) DEFAULT NULL,
-  `quantity` int(11) DEFAULT '1',
-  `start_date` date DEFAULT NULL,
-  `end_date` date DEFAULT NULL,
-  `returned_date` date DEFAULT NULL,
-  `option_id` int(11) DEFAULT NULL,
-  `purpose_id` int(11) DEFAULT NULL,
-  `returned_to_user_id` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `inventory_pool_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `delegated_user_id` int(11) DEFAULT NULL,
-  `handed_over_by_user_id` int(11) DEFAULT NULL,
-  `status` enum('unsubmitted','submitted','rejected','approved','signed','closed') COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `index_contract_lines_on_start_date` (`start_date`),
-  KEY `index_contract_lines_on_end_date` (`end_date`),
-  KEY `index_contract_lines_on_option_id` (`option_id`),
-  KEY `index_contract_lines_on_contract_id` (`contract_id`),
-  KEY `index_contract_lines_on_item_id` (`item_id`),
-  KEY `index_contract_lines_on_model_id` (`model_id`),
-  KEY `index_contract_lines_on_returned_date_and_contract_id` (`returned_date`,`contract_id`),
-  KEY `index_contract_lines_on_type_and_contract_id` (`type`,`contract_id`),
-  KEY `contract_lines_purpose_id_fk` (`purpose_id`),
-  KEY `contract_lines_returned_to_user_id_fk` (`returned_to_user_id`),
-  KEY `index_contract_lines_on_status` (`status`),
-  KEY `contract_lines_inventory_pool_id_fk` (`inventory_pool_id`),
-  KEY `contract_lines_user_id_fk` (`user_id`),
-  KEY `contract_lines_delegated_user_id_fk` (`delegated_user_id`),
-  KEY `contract_lines_handed_over_by_user_id_fk` (`handed_over_by_user_id`),
-  CONSTRAINT `contract_lines_handed_over_by_user_id_fk` FOREIGN KEY (`handed_over_by_user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `contract_lines_contract_id_fk` FOREIGN KEY (`contract_id`) REFERENCES `contracts` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `contract_lines_delegated_user_id_fk` FOREIGN KEY (`delegated_user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `contract_lines_inventory_pool_id_fk` FOREIGN KEY (`inventory_pool_id`) REFERENCES `inventory_pools` (`id`),
-  CONSTRAINT `contract_lines_item_id_fk` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`),
-  CONSTRAINT `contract_lines_model_id_fk` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`),
-  CONSTRAINT `contract_lines_option_id_fk` FOREIGN KEY (`option_id`) REFERENCES `options` (`id`),
-  CONSTRAINT `contract_lines_purpose_id_fk` FOREIGN KEY (`purpose_id`) REFERENCES `purposes` (`id`),
-  CONSTRAINT `contract_lines_returned_to_user_id_fk` FOREIGN KEY (`returned_to_user_id`) REFERENCES `users` (`id`),
-  CONSTRAINT `contract_lines_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `contract_lines`
---
-
-LOCK TABLES `contract_lines` WRITE;
-/*!40000 ALTER TABLE `contract_lines` DISABLE KEYS */;
-/*!40000 ALTER TABLE `contract_lines` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `contracts`
 --
 
@@ -1058,6 +993,71 @@ LOCK TABLES `purposes` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `reservations`
+--
+
+DROP TABLE IF EXISTS `reservations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reservations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `contract_id` int(11) DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ItemLine',
+  `item_id` int(11) DEFAULT NULL,
+  `model_id` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT '1',
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
+  `returned_date` date DEFAULT NULL,
+  `option_id` int(11) DEFAULT NULL,
+  `purpose_id` int(11) DEFAULT NULL,
+  `returned_to_user_id` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `inventory_pool_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `delegated_user_id` int(11) DEFAULT NULL,
+  `handed_over_by_user_id` int(11) DEFAULT NULL,
+  `status` enum('unsubmitted','submitted','rejected','approved','signed','closed') COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_contract_lines_on_start_date` (`start_date`),
+  KEY `index_contract_lines_on_end_date` (`end_date`),
+  KEY `index_contract_lines_on_option_id` (`option_id`),
+  KEY `index_contract_lines_on_contract_id` (`contract_id`),
+  KEY `index_contract_lines_on_item_id` (`item_id`),
+  KEY `index_contract_lines_on_model_id` (`model_id`),
+  KEY `index_contract_lines_on_returned_date_and_contract_id` (`returned_date`,`contract_id`),
+  KEY `index_contract_lines_on_type_and_contract_id` (`type`,`contract_id`),
+  KEY `contract_lines_purpose_id_fk` (`purpose_id`),
+  KEY `contract_lines_returned_to_user_id_fk` (`returned_to_user_id`),
+  KEY `index_reservations_on_status` (`status`),
+  KEY `reservations_inventory_pool_id_fk` (`inventory_pool_id`),
+  KEY `reservations_user_id_fk` (`user_id`),
+  KEY `reservations_delegated_user_id_fk` (`delegated_user_id`),
+  KEY `reservations_handed_over_by_user_id_fk` (`handed_over_by_user_id`),
+  CONSTRAINT `reservations_handed_over_by_user_id_fk` FOREIGN KEY (`handed_over_by_user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `contract_lines_contract_id_fk` FOREIGN KEY (`contract_id`) REFERENCES `contracts` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `contract_lines_item_id_fk` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`),
+  CONSTRAINT `contract_lines_model_id_fk` FOREIGN KEY (`model_id`) REFERENCES `models` (`id`),
+  CONSTRAINT `contract_lines_option_id_fk` FOREIGN KEY (`option_id`) REFERENCES `options` (`id`),
+  CONSTRAINT `contract_lines_purpose_id_fk` FOREIGN KEY (`purpose_id`) REFERENCES `purposes` (`id`),
+  CONSTRAINT `contract_lines_returned_to_user_id_fk` FOREIGN KEY (`returned_to_user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `reservations_delegated_user_id_fk` FOREIGN KEY (`delegated_user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `reservations_inventory_pool_id_fk` FOREIGN KEY (`inventory_pool_id`) REFERENCES `inventory_pools` (`id`),
+  CONSTRAINT `reservations_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reservations`
+--
+
+LOCK TABLES `reservations` WRITE;
+/*!40000 ALTER TABLE `reservations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reservations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `schema_migrations`
 --
 
@@ -1281,7 +1281,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8 */;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50001 VIEW `visits` AS select hex(concat_ws('_',if((`contract_lines`.`status` = 'signed'),`contract_lines`.`end_date`,`contract_lines`.`start_date`),`contract_lines`.`inventory_pool_id`,`contract_lines`.`user_id`,`contract_lines`.`status`)) AS `id`,`contract_lines`.`inventory_pool_id` AS `inventory_pool_id`,`contract_lines`.`user_id` AS `user_id`,`contract_lines`.`status` AS `status`,if((`contract_lines`.`status` = 'signed'),`contract_lines`.`end_date`,`contract_lines`.`start_date`) AS `date`,sum(`contract_lines`.`quantity`) AS `quantity` from `contract_lines` where (`contract_lines`.`status` in ('submitted','approved','signed')) group by `contract_lines`.`user_id`,`contract_lines`.`status`,if((`contract_lines`.`status` = 'signed'),`contract_lines`.`end_date`,`contract_lines`.`start_date`),`contract_lines`.`inventory_pool_id` order by if((`contract_lines`.`status` = 'signed'),`contract_lines`.`end_date`,`contract_lines`.`start_date`) */;
+/*!50001 VIEW `visits` AS select hex(concat_ws('_',if((`reservations`.`status` = 'signed'),`reservations`.`end_date`,`reservations`.`start_date`),`reservations`.`inventory_pool_id`,`reservations`.`user_id`,`reservations`.`status`)) AS `id`,`reservations`.`inventory_pool_id` AS `inventory_pool_id`,`reservations`.`user_id` AS `user_id`,`reservations`.`status` AS `status`,if((`reservations`.`status` = 'signed'),`reservations`.`end_date`,`reservations`.`start_date`) AS `date`,sum(`reservations`.`quantity`) AS `quantity` from `reservations` where (`reservations`.`status` in ('submitted','approved','signed')) group by `reservations`.`user_id`,`reservations`.`status`,if((`reservations`.`status` = 'signed'),`reservations`.`end_date`,`reservations`.`start_date`),`reservations`.`inventory_pool_id` order by if((`reservations`.`status` = 'signed'),`reservations`.`end_date`,`reservations`.`start_date`) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1295,4 +1295,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-16 17:39:16
+-- Dump completed on 2015-04-21 10:46:46

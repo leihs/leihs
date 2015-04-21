@@ -166,7 +166,7 @@ Then(/^I receive an email formatted according to the (custom|system\-wide|defaul
                  File.read(File.join(Rails.root, "app/views/mailer/user/", "#{template_name}.text.liquid"))
              end
 
-  variables = MailTemplate.liquid_variables_for_user(@current_user, @visit.inventory_pool, @visit.contract_lines)
+  variables = MailTemplate.liquid_variables_for_user(@current_user, @visit.inventory_pool, @visit.reservations)
   expect(sent_mail.body.to_s).to eq Liquid::Template.parse(template).render(variables)
 end
 
@@ -206,7 +206,7 @@ end
 
 When(/^one of my submitted orders to an inventory pool without custom approved mail templates get approved$/) do
   expect(ActionMailer::Base.deliveries.count).to eq 0
-  @contract = @current_user.contracts.submitted.detect { |c| c.approvable? and c.inventory_pool.mail_templates.where(name: "approved").empty? }
+  @contract = @current_user.reservations_bundles.submitted.detect { |c| c.approvable? and c.inventory_pool.mail_templates.where(name: "approved").empty? }
   @contract.approve(Faker::Lorem.sentence)
   expect(ActionMailer::Base.deliveries.count).to be > 0
 end
@@ -229,7 +229,7 @@ Then(/^I receive an approved mail based on the system\-wide template for the lan
 end
 
 Then(/^I receive a (custom|system\-wide|default) (.*) in "(.*?)"$/) do |scope, template_name, locale_names|
-  variables = MailTemplate.liquid_variables_for_user(@current_user, @visit.inventory_pool, @visit.contract_lines)
+  variables = MailTemplate.liquid_variables_for_user(@current_user, @visit.inventory_pool, @visit.reservations)
   string = if scope == "default"
              template = File.read(File.join(Rails.root, "app/views/mailer/user/", "#{template_name}.text.liquid"))
              Liquid::Template.parse(template).render(variables)

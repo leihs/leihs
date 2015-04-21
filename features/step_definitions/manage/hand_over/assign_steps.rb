@@ -1,5 +1,5 @@
 When /^I click an inventory code input field of an item line$/ do
-  @item_line = @customer.contracts.approved.find_by(inventory_pool_id: @current_inventory_pool).item_lines.where(item_id: nil).order("RAND()").first
+  @item_line = @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool).item_lines.where(item_id: nil).order("RAND()").first
   @item_line_element = find(".line", match: :prefer_exact, :text => @item_line.model.name)
   @item_line_element.find("[data-assign-item]").click
 end
@@ -83,13 +83,13 @@ Then /^the assignment of the line to an inventory code is removed$/ do
 end
 
 When(/^I click on the assignment field of software names$/) do
-  @contract_line = @hand_over.lines.find {|l| l.model.is_a? Software }
-  find(".line[data-id='#{@contract_line.id}'] input[data-assign-item]").click
+  @reservation = @hand_over.lines.find {|l| l.model.is_a? Software }
+  find(".line[data-id='#{@reservation.id}'] input[data-assign-item]").click
 end
 
 Then(/^I see the inventory codes and the complete serial numbers of that software$/) do
   within ".ui-autocomplete" do
-    @contract_line.model.items.each do |item|
+    @reservation.model.items.each do |item|
       within(".ui-menu-item a[title='#{item.inventory_code}']", text: item.serial_number) do
         find(".col3of4", text: item.serial_number)
         expect(has_no_selector?(".col3of4.text-ellipsis", text: item.serial_number)).to be true

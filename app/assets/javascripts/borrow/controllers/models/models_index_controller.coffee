@@ -4,7 +4,7 @@ class window.App.ModelsIndexController extends Spine.Controller
     "#model-list": "list"
 
   events:
-    "click [data-create-order-line]": "createContractLine"
+    "click [data-create-order-line]": "createReservation"
 
   constructor: ->
     super
@@ -24,9 +24,9 @@ class window.App.ModelsIndexController extends Spine.Controller
     App.PlainAvailability.on "refresh", @render
     App.Model.on "ajaxSuccess", (e,status,xhr)=> @pagination.setData JSON.parse(xhr.getResponseHeader("X-Pagination"))
     
-  createContractLine: (e)=>
+  createReservation: (e)=>
     do e.preventDefault
-    new App.ContractLinesCreateController
+    new App.ReservationsCreateController
       modelId: $(e.currentTarget).data("model-id")
       titel: _jed("Add to order")
       buttonText: _jed("Add")

@@ -3,21 +3,21 @@
 #Angenommen(/^ich habe Gegenstände der Bestellung hinzugefügt$/) do
 Given(/^I have added items to an order$/) do
   step "I have an unsubmitted order with models"
-  @contracts = @current_user.contracts.unsubmitted
+  @contracts = @current_user.reservations_bundles.unsubmitted
 end
 
 #Wenn(/^ich die Bestellübersicht öffne$/) do
 When(/^I open my list of orders$/) do
   visit borrow_current_order_path
   expect(has_content?(_("Order overview"))).to be true
-  expect(all(".line").count).to eq @current_user.contract_lines.unsubmitted.count
+  expect(all(".line").count).to eq @current_user.reservations.unsubmitted.count
 end
 
 #############################################################################
 
 #Dann(/^sehe ich die Einträge gruppiert nach Startdatum und Gerätepark$/) do
 Then(/^I see entries grouped by start date and inventory pool$/) do
-  @current_user.contract_lines.unsubmitted.group_by{|l| [l.start_date, l.inventory_pool]}.each do |k,v|
+  @current_user.reservations.unsubmitted.group_by{|l| [l.start_date, l.inventory_pool]}.each do |k,v|
     find("#current-order-lines .row", text: /#{I18n.l(k[0])}.*#{k[1].name}/)
   end
 end
@@ -33,21 +33,21 @@ end
 #Dann(/^für jeden Eintrag sehe ich die folgenden Informationen$/) do |table|
 Then(/^each entry has the following information$/) do |table|
   all(".line").each do |line|
-    contract_lines = ContractLine.find JSON.parse line["data-ids"]
+    reservations = Reservation.find JSON.parse line["data-ids"]
     table.raw.map{|e| e.first}.each do |row|
       case row
         when "Image"
-          expect(line.find("img", match: :first)[:src][contract_lines.first.model.id.to_s]).to be
+          expect(line.find("img", match: :first)[:src][reservations.first.model.id.to_s]).to be
         when "Quantity"
-          expect(line.has_content?(contract_lines.sum(&:quantity))).to be true
+          expect(line.has_content?(reservations.sum(&:quantity))).to be true
         when "Model name"
-          expect(line.has_content?(contract_lines.first.model.name)).to be true
+          expect(line.has_content?(reservations.first.model.name)).to be true
         when "Manufacturer"
-          expect(line.has_content?(contract_lines.first.model.manufacturer)).to be true
+          expect(line.has_content?(reservations.first.model.manufacturer)).to be true
         when "Number of days"
-          expect(line.has_content?(((contract_lines.first.end_date - contract_lines.first.start_date).to_i+1).to_s)).to be true
+          expect(line.has_content?(((reservations.first.end_date - reservations.first.start_date).to_i+1).to_s)).to be true
         when "End date"
-          expect(line.has_content?(I18n.l contract_lines.first.end_date)).to be true
+          expect(line.has_content?(I18n.l reservations.first.end_date)).to be true
         when "the various actions"
           line.find(".line-actions", match: :first)
         else
@@ -61,7 +61,7 @@ end
 
 def before_max_available(user)
   h = {}
-  lines = user.contract_lines.unsubmitted
+  lines = user.reservations.unsubmitted
   lines.each do |order_line|
     h[order_line.id] = order_line.model.availability_in(order_line.inventory_pool).maximum_available_in_period_summed_for_groups(order_line.start_date, order_line.end_date)
   end
@@ -82,14 +82,14 @@ end
 
 #Dann(/^wird der Eintrag aus der Bestellung entfernt$/) do
 Then(/^the entry is removed from the order$/) do
-  expect(all(".line").count).to eq @current_user.contract_lines.unsubmitted.count
+  expect(all(".line").count).to eq @current_user.reservations.unsubmitted.count
 end
 
 #############################################################################
 
 #Wenn(/^ich die Bestellung lösche$/) do
 When(/^I delete the order$/) do
-  @contracts = @current_user.contracts.unsubmitted
+  @contracts = @current_user.reservations_bundles.unsubmitted
 
   @before_max_available = before_max_available(@current_user)
 
@@ -105,15 +105,15 @@ end
 
 #Dann(/^alle Einträge werden aus der Bestellung gelöscht$/) do
 Then(/^all entries are deleted from the order$/) do
-  expect(@current_user.contract_lines.unsubmitted).to be_empty
-  expect(@current_user.contracts.unsubmitted).to be_empty
+  expect(@current_user.reservations.unsubmitted).to be_empty
+  expect(@current_user.reservations_bundles.unsubmitted).to be_empty
 end
 
 #Dann(/^die Gegenstände sind wieder zur Ausleihe verfügbar$/) do
 Then(/^the items are available for borrowing again$/) do
-  @current_user.contract_lines.unsubmitted.each do |contract_line|
-    after_max_available = contract_line.model.availability_in(contract_line.inventory_pool).maximum_available_in_period_summed_for_groups(contract_line.start_date, contract_line.end_date)
-    expect(after_max_available).to eq @before_max_available[contract_line.id]
+  @current_user.reservations.unsubmitted.each do |reservation|
+    after_max_available = reservation.model.availability_in(reservation.inventory_pool).maximum_available_in_period_summed_for_groups(reservation.start_date, reservation.end_date)
+    expect(after_max_available).to eq @before_max_available[reservation.id]
   end
 end
 
@@ -175,18 +175,18 @@ When(/^I change the entry$/) do
   if @just_changed_line
     @just_changed_line.click
   else
-    # try to get contract_lines where quantity is still increasable
+    # try to get reservations where quantity is still increasable
     line_to_edit = all("[data-change-order-lines]").detect do |line|
-      contract_lines = ContractLine.find JSON.parse line["data-ids"]
-      if contract_lines.first.maximum_available_quantity > 0
-        @changed_lines = contract_lines
+      reservations = Reservation.find JSON.parse line["data-ids"]
+      if reservations.first.maximum_available_quantity > 0
+        @changed_lines = reservations
       end
     end
 
     if line_to_edit
       line_to_edit.click
     else
-      @changed_lines = ContractLine.find JSON.parse find("[data-change-order-lines]", match: :first)["data-ids"]
+      @changed_lines = Reservation.find JSON.parse find("[data-change-order-lines]", match: :first)["data-ids"]
       find("[data-change-order-lines]", match: :first).click
     end
   end
@@ -217,7 +217,7 @@ Then(/^the entry's date is changed accordingly$/) do
   end
   if @new_quantity
     line = @changed_lines.first
-    t = line.user.contract_lines.where(inventory_pool_id: line.inventory_pool_id,
+    t = line.user.reservations.where(inventory_pool_id: line.inventory_pool_id,
                                        status: line.status,
                                        model_id: line.model_id,
                                        start_date: line.start_date,
@@ -230,7 +230,7 @@ end
 
 #Dann(/^der Eintrag wird in der Liste anhand der des aktuellen Startdatums und des Geräteparks gruppiert$/) do
 Then(/^the entry is grouped based on its current start date and inventory pool$/) do
-  @current_user.contracts.unsubmitted.each(&:reload)
+  @current_user.reservations_bundles.unsubmitted.each(&:reload)
   step 'I see entries grouped by start date and inventory pool'
 end
 

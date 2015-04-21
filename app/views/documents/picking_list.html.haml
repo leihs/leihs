@@ -42,7 +42,7 @@
 
 
   - else
-    - lines_by_start_date = (@contract_lines || @contract.lines).includes(:model).group_by{|line| line.start_date }
+    - lines_by_start_date = (@reservations || @contract.lines).includes(:model).group_by{|line| line.start_date }
     - lines_by_start_date.each_pair do |start_date, lines|
       %section.list
         %table

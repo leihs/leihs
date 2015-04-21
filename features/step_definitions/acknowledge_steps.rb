@@ -26,7 +26,7 @@ When "$who adds $quantity item '$model'" do |who, quantity, model|
   model_id = Model.find_by_name(model).id
   post add_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @contract, :model_id => model_id, :quantity => quantity)
   @contract = assigns(:contract)
-  @contract.contract_lines.each do | line |
+  @contract.reservations.each do | line |
     expect(line.model).not_to be_nil
   end
   @response = response #new#
@@ -41,21 +41,21 @@ end
 When "$who chooses 'swap' on order line '$model'" do |who, model|
   line = find_line(model)
   get swap_model_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @contract, :line_id => line.id)
-  @contract_line_id = line.id
+  @reservation_id = line.id
   @response = response    
 end
 
 When "$who searches for '$model'" do |who, model|
   get manage_inventory_path(@inventory_pool, :query => model, :user_id => @contract.user_id,
-                                        :source_path => swap_model_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @contract, :line_id => @contract_line_id),
-                                        :contract_line_id => @contract_line_id )
+                                        :source_path => swap_model_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @contract, :line_id => @reservation_id),
+                                        :reservation_id => @reservation_id )
   @models = assigns(:models)
   expect(@models).not_to be_nil
 end
 
 When "$who selects '$model'" do |who, model|
   model_id = Model.find_by_name(model).id
-  post swap_model_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @contract, :line_id => @contract_line_id, :model_id => model_id)
+  post swap_model_line_backend_inventory_pool_acknowledge_path(@inventory_pool, @contract, :line_id => @reservation_id, :model_id => model_id)
   @contract = assigns(:contract)
   expect(@contract).not_to be_nil
 end
@@ -79,7 +79,7 @@ end
 #end
 
 Then "Swap Item screen opens" do 
-  expect(@response.redirect_url).to include("/backend/inventory_pools/#{@inventory_pool.id}/models?layout=modal&contract_line_id=#{@contract_line_id}&source_path=%2Fbackend%2Finventory_pools%2F#{@inventory_pool.id}%2Facknowledge%2F#{@contract.id}%2Fswap_model_line%3Fline_id%3D#{@contract_line_id}")
+  expect(@response.redirect_url).to include("/backend/inventory_pools/#{@inventory_pool.id}/models?layout=modal&reservation_id=#{@reservation_id}&source_path=%2Fbackend%2Finventory_pools%2F#{@inventory_pool.id}%2Facknowledge%2F#{@contract.id}%2Fswap_model_line%3Fline_id%3D#{@reservation_id}")
 end
 
 Then "a choice of $size item appears" do |size|

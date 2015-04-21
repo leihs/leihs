@@ -6,7 +6,7 @@
 
 class window.App.Visit extends Spine.Model
 
-  @configure "Visit", "id", "date", "quantity", "status", "contract_line_ids"
+  @configure "Visit", "id", "date", "quantity", "status", "reservation_ids"
 
   @extend Spine.Model.Ajax
   @extend App.Modules.FindOrBuild
@@ -21,7 +21,7 @@ class window.App.Visit extends Spine.Model
     App.Visit.addRecord @ if not App.Visit.exists(@id)?
 
   lines: =>
-    all: => (App.ContractLine.find id for id in @contract_line_ids)
+    all: => (App.Reservation.find id for id in @reservation_ids)
 
   isOverdue: => moment().startOf("day").diff(moment(@date).startOf("day"), "days") >= 1
 

@@ -15,18 +15,18 @@ class window.App.HandOverController extends Spine.Controller
       "Model": "Item"
       "Software": "License"
     do @initalFetch
-    new App.ContractLinesDestroyController {el: @el}
-    new App.ContractLineAssignItemController {el: @el}
+    new App.ReservationsDestroyController {el: @el}
+    new App.ReservationAssignItemController {el: @el}
     new App.TimeLineController {el: @el}
-    new App.ContractLineAssignOrCreateController {el: @el.find("#assign-or-add"), user: @user, contract: @contract}
-    new App.ContractLinesEditController {el: @el, user: @user, contract: @contract}
+    new App.ReservationAssignOrCreateController {el: @el.find("#assign-or-add"), user: @user, contract: @contract}
+    new App.ReservationsEditController {el: @el, user: @user, contract: @contract}
     new App.OptionLineChangeController {el: @el}
 
   delegateEvents: =>
     super
-    App.ContractLine.on "change destroy", (data)=> if data.option_id? then @render(true) else do @fetchAvailability
+    App.Reservation.on "change destroy", (data)=> if data.option_id? then @render(true) else do @fetchAvailability
     App.Contract.on "refresh", @fetchAvailability
-    App.ContractLine.on "update", (data)=>
+    App.Reservation.on "update", (data)=>
       fi = @fetchItems() if @notFetchedItemIds().length
       fl = @fetchLicenses() if @notFetchedLicenseIds().length
       if fi or fl
@@ -95,12 +95,12 @@ class window.App.HandOverController extends Spine.Controller
         message: _jed('End Date cannot be in the past')
 
   swapUser: =>
-    lines = (App.ContractLine.find id for id in App.LineSelectionController.selected)
+    lines = (App.Reservation.find id for id in App.LineSelectionController.selected)
     new App.SwapUsersController
       lines: lines
 
   validate: =>
-    lines = (App.ContractLine.find id for id in App.LineSelectionController.selected)
+    lines = (App.Reservation.find id for id in App.LineSelectionController.selected)
     _.all lines, (line)->
       # checking if end_date are in the past
       not moment(line.end_date).isBefore(moment().format("YYYY-MM-DD"))

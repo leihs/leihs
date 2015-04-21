@@ -64,11 +64,12 @@ class User < ActiveRecord::Base
 
   has_many :notifications, :dependent => :delete_all
 
-  has_many :contracts, -> { extending BundleFinder }, class_name: "ContractLinesBundle"
-  has_many :contract_lines, dependent: :restrict_with_exception
+  has_many :reservations, dependent: :restrict_with_exception
+  has_many :reservations_bundles, -> { extending BundleFinder }
+  # TODO ?? # has_many :contracts, through: :reservations_bundles
   has_many :item_lines, dependent: :restrict_with_exception
   has_many :option_lines, dependent: :restrict_with_exception
-  has_many :visits #, :include => :inventory_pool # MySQL View based on contract_lines
+  has_many :visits #, :include => :inventory_pool # MySQL View based on reservations
 
   validates_presence_of     :firstname
   validates_presence_of     :lastname, :email, :login, unless: :is_delegation
@@ -209,24 +210,24 @@ class User < ActiveRecord::Base
 
   def self.remind_and_suspend_all
     # TODO dry
-    grouped_contract_lines = Visit.take_back_overdue.flat_map(&:lines).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: (vl.delegated_user_id || vl.user_id)} }
-    grouped_contract_lines.each_pair do |k, contract_lines|
+    grouped_reservations = Visit.take_back_overdue.flat_map(&:lines).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: (vl.delegated_user_id || vl.user_id)} }
+    grouped_reservations.each_pair do |k, reservations|
       user = User.find(k[:user_id])
-      user.remind(contract_lines)
+      user.remind(reservations)
     end
     # TODO dry
-    grouped_contract_lines = Visit.take_back_overdue.flat_map(&:lines).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: vl.user_id} }
-    grouped_contract_lines.each_pair do |k, contract_lines|
+    grouped_reservations = Visit.take_back_overdue.flat_map(&:lines).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: vl.user_id} }
+    grouped_reservations.each_pair do |k, reservations|
       user = User.find(k[:user_id])
       user.automatic_suspend(k[:inventory_pool])
     end
   end
 
   def self.send_deadline_soon_reminder_to_everybody
-    grouped_contract_lines = Visit.take_back.where("date = ?", Date.tomorrow).flat_map(&:lines).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: (vl.delegated_user_id || vl.user_id)} }
-    grouped_contract_lines.each_pair do |k, contract_lines|
+    grouped_reservations = Visit.take_back.where("date = ?", Date.tomorrow).flat_map(&:lines).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: (vl.delegated_user_id || vl.user_id)} }
+    grouped_reservations.each_pair do |k, reservations|
       user = User.find(k[:user_id])
-      user.send_deadline_soon_reminder(contract_lines)
+      user.send_deadline_soon_reminder(reservations)
     end
   end
 
@@ -238,15 +239,15 @@ class User < ActiveRecord::Base
     end
   end
 
-  def remind(contract_lines, reminder_user = self)
-    unless contract_lines.empty?
+  def remind(reservations, reminder_user = self)
+    unless reservations.empty?
       begin
-        Notification.remind_user(self, contract_lines)
-        create_history _("Reminded %{q} items for contracts %{c}"), contract_lines, reminder_user
+        Notification.remind_user(self, reservations)
+        create_history _("Reminded %{q} items for contracts %{c}"), reservations, reminder_user
         puts "Reminded: #{self.name}"
         return true
       rescue Exception => exception
-        create_history _("Unsuccessful reminder of %{q} items for contracts %{c}"), contract_lines, reminder_user
+        create_history _("Unsuccessful reminder of %{q} items for contracts %{c}"), reservations, reminder_user
         puts "Failed to remind: #{self.name}"
         # archive problem in the log, so the admin/developper
         # can look up what happened
@@ -256,11 +257,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def send_deadline_soon_reminder(contract_lines, reminder_user = self)
-    unless contract_lines.empty?
+  def send_deadline_soon_reminder(reservations, reminder_user = self)
+    unless reservations.empty?
       begin
-        Notification.deadline_soon_reminder(self, contract_lines)
-        create_history _("Deadline soon reminder sent for %{q} items on contracts %{c}"), contract_lines, reminder_user
+        Notification.deadline_soon_reminder(self, reservations)
+        create_history _("Deadline soon reminder sent for %{q} items on contracts %{c}"), reservations, reminder_user
         puts "Deadline soon: #{self.name}"
       rescue
         puts "Couldn't send reminder: #{self.name}"
@@ -270,16 +271,16 @@ class User < ActiveRecord::Base
 
   private
 
-  def create_history text, contract_lines, user
+  def create_history text, reservations, user
     histories.create \
-      text: text % hash_for_quantity_and_contracts(contract_lines),
+      text: text % hash_for_quantity_and_contracts(reservations),
       user_id: user,
       type_const: History::REMIND
   end
 
-  def hash_for_quantity_and_contracts contract_lines
-    { :q => contract_lines.to_a.sum(&:quantity),
-      :c => contract_lines.map(&:contract_id).uniq.join(',') }
+  def hash_for_quantity_and_contracts reservations
+    { :q => reservations.to_a.sum(&:quantity),
+      :c => reservations.map(&:contract_id).uniq.join(',') }
   end
 
   public
@@ -316,13 +317,13 @@ class User < ActiveRecord::Base
 #################### End role_requirement
 
   def deletable?
-    contracts.empty? and access_rights.active.empty?
+    reservations_bundles.empty? and access_rights.active.empty?
   end
 
   ############################################
 
   def timeout?
-    contract_lines.unsubmitted.where("updated_at < ?", Time.now - Contract::TIMEOUT_MINUTES.minutes).exists?
+    reservations.unsubmitted.where("updated_at < ?", Time.now - Contract::TIMEOUT_MINUTES.minutes).exists?
   end
 
 end

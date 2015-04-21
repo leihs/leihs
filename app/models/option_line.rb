@@ -1,7 +1,7 @@
 # an OptionLine is a line in a #Contract that can only contain
 # #Option's and NOT #Item's.
 #
-class OptionLine < ContractLine
+class OptionLine < Reservation
 
   belongs_to :option, inverse_of: :option_lines
 

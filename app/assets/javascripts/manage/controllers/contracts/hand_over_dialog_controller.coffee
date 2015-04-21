@@ -10,7 +10,7 @@ class window.App.HandOverDialogController extends Spine.Controller
 
   constructor: (options)->
     @user = options.user
-    @lines = (App.ContractLine.find id for id in App.LineSelectionController.selected)
+    @lines = (App.Reservation.find id for id in App.LineSelectionController.selected)
     @purpose = (_.uniq _.map @lines, (l)->l.purpose().description).join ", "
     if @validateDialog()
       do @setupModal

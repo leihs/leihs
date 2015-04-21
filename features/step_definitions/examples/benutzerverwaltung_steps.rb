@@ -796,7 +796,7 @@ end
 
 #Angenommen(/^man sucht sich einen Benutzer ohne Zugriffsrechte, Bestellungen und Verträge aus$/) do
 Given(/^I pick a user without access rights, orders or contracts$/) do
-  @user = User.find { |u| u.access_rights.active.empty? and u.contracts.empty? }
+  @user = User.find { |u| u.access_rights.active.empty? and u.reservations_bundles.empty? }
 end
 
 #Wenn(/^ich diesen Benutzer aus der Liste lösche$/) do
@@ -834,9 +834,9 @@ end
 #Angenommen(/^man sucht sich je einen Benutzer mit Zugriffsrechten, Bestellungen und Verträgen aus$/) do
 Given(/^I pick one user with access rights, one with orders and one with contracts$/) do
   @users = []
-  @users << User.find { |u| not u.access_rights.active.empty? and u.contracts.empty? }
-  @users << User.find { |u| not u.contracts.empty? }
-  @users << User.find { |u| u.contracts.empty? }
+  @users << User.find { |u| not u.access_rights.active.empty? and u.reservations_bundles.empty? }
+  @users << User.find { |u| not u.reservations_bundles.empty? }
+  @users << User.find { |u| u.reservations_bundles.empty? }
 end
 
 # Dann(/^wird der Delete Button für diese Benutzer nicht angezeigt$/) do
@@ -851,7 +851,7 @@ end
 
 # Angenommen(/^man editiert einen Benutzer der Zugriff auf ein Inventarpool hat( und keine Gegenstände hat)?$/) do |arg1|
 #   access_right = AccessRight.order("RAND ()").detect { |ar| ar.role == :customer and
-#                                                        ar.inventory_pool.contract_lines.where(user: ar.user).empty? }
+#                                                        ar.inventory_pool.reservations.where(user: ar.user).empty? }
 #   @user = access_right.user
 #   @current_inventory_pool = access_right.inventory_pool
 #   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
@@ -863,12 +863,12 @@ Given(/^I am editing a user who has access to (and no items from )?(the current|
     when "the current"
       access_rights = @current_inventory_pool.access_rights.active.where(role: :customer)
       @user = if arg1
-                access_rights.detect { |ar| @current_inventory_pool.contract_lines.where(user_id: ar.user).empty? }
+                access_rights.detect { |ar| @current_inventory_pool.reservations.where(user_id: ar.user).empty? }
               else
                 access_rights.order("RAND()").first
               end.user
     when "an"
-      access_right = AccessRight.active.where(role: :customer).order("RAND ()").detect {|ar| ar.inventory_pool.contract_lines.where(user: ar.user).empty? }
+      access_right = AccessRight.active.where(role: :customer).order("RAND ()").detect {|ar| ar.inventory_pool.reservations.where(user: ar.user).empty? }
       @user = access_right.user
       @current_inventory_pool = access_right.inventory_pool
   end
@@ -966,7 +966,7 @@ Given(/^there exists a contract with status "(.*?)" for a user without any other
             when "signed" then
               :signed
           end
-  @contract = @current_inventory_pool.contracts.send(state).detect { |c| c.user.contracts.all? { |c| c.status == state } }
+  @contract = @current_inventory_pool.reservations_bundles.send(state).detect { |c| c.user.reservations_bundles.all? { |c| c.status == state } }
   expect(@contract).not_to be_nil
 end
 

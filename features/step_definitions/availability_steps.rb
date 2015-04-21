@@ -6,17 +6,17 @@ Given "a reservation exists for $quantity '$model' from $from to $to" do |quanti
   model = Model.find_by_name(model)
   inventory_pool = model.inventory_pools.select{|ip| ip.is_open_on?(to_date(from)) and ip.is_open_on?(to_date(to))}.sample
   user = inventory_pool.users.sample
-  @contract_lines = []
+  @reservations = []
   quantity.to_i.times do
-    @contract_lines << user.item_lines.create(inventory_pool: inventory_pool,
+    @reservations << user.item_lines.create(inventory_pool: inventory_pool,
                                               status: :unsubmitted,
                                               quantity: 1,
                                               model: model,
                                               start_date: to_date(from),
                                               end_date: to_date(to))
   end
-  expect(@contract_lines.size).to be >= quantity.to_i
-  contract = user.contracts.unsubmitted.find_by(inventory_pool_id: inventory_pool)
+  expect(@reservations.size).to be >= quantity.to_i
+  contract = user.reservations_bundles.unsubmitted.find_by(inventory_pool_id: inventory_pool)
   expect(contract.submit("this is the required purpose")).to be true
   expect(model.availability_in(inventory_pool.reload).running_lines.size).to be >= 1
 end
@@ -26,9 +26,9 @@ Given "a contract exists for $quantity '$model' from $from to $to" do |quantity,
   inventory_pool = model.inventory_pools.order("RAND()").detect {|ip| ip.is_open_on?(to_date(from)) and ip.is_open_on?(to_date(to))}
   user = inventory_pool.users.order("RAND()").first
   purpose = FactoryGirl.create(:purpose)
-  @contract_lines = []
+  @reservations = []
   quantity.to_i.times do
-    @contract_lines << user.item_lines.create(inventory_pool: inventory_pool,
+    @reservations << user.item_lines.create(inventory_pool: inventory_pool,
                                               status: :approved,
                                               quantity: 1,
                                               model: model,
@@ -37,7 +37,7 @@ Given "a contract exists for $quantity '$model' from $from to $to" do |quantity,
                                               end_date: to_date(to),
                                               purpose: purpose)
   end
-  expect(@contract_lines.size).to be >= quantity.to_i
+  expect(@reservations.size).to be >= quantity.to_i
   expect(model.availability_in(inventory_pool.reload).running_lines.size).to be >= 1
 end
 
@@ -57,12 +57,12 @@ Given "$who marks $quantity '$model' as 'in-repair' on 18.3.2030" do |who, quant
 end
 
 Given "the $who signs the contract" do |who|
-  contract_container = @contract_lines.first.user.contracts.approved.find_by(inventory_pool_id: @contract_lines.first.inventory_pool)
-  contract = contract_container.sign(User.find_by_login(who), @contract_lines)
+  contract_container = @reservations.first.user.reservations_bundles.approved.find_by(inventory_pool_id: @reservations.first.inventory_pool)
+  contract = contract_container.sign(User.find_by_login(who), @reservations)
   expect(contract.valid?).to be true
   expect(contract.persisted?).to be true
-  expect(contract.lines == @contract_lines).to be true
-  @contract_lines.each do |line|
+  expect(contract.lines == @reservations).to be true
+  @reservations.each do |line|
     expect(line.status).to eq :signed
   end
 end

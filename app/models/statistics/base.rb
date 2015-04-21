@@ -38,43 +38,43 @@ module Statistics
         klass = klasses.first
         klasses = klasses.drop(1)
 
-        contract_lines = ContractLine.arel_table
+        reservations = Reservation.arel_table
 
         query = klass.unscoped.
-                   select("#{klass.name.tableize}.id, SUM(contract_lines.quantity) AS quantity").
-                   where(contract_lines[:type].eq("ItemLine").
-                         and(contract_lines[:item_id].not_eq(nil)).
-                         and(contract_lines[:returned_date].not_eq(nil))).
+                   select("#{klass.name.tableize}.id, SUM(reservations.quantity) AS quantity").
+                   where(reservations[:type].eq("ItemLine").
+                         and(reservations[:item_id].not_eq(nil)).
+                         and(reservations[:returned_date].not_eq(nil))).
                    order("quantity DESC").
                    limit(options[:limit])
 
         query = case klass.name
           when "User"
-            query.joins(:contract_lines).
-              group("contract_lines.#{klass.name.foreign_key}").
+            query.joins(:reservations).
+              group("reservations.#{klass.name.foreign_key}").
               select("CAST(CONCAT_WS(' ', users.firstname, users.lastname) AS CHAR) AS label")
           when "InventoryPool"
-            query.joins(:contract_lines).
-              group("contract_lines.#{klass.name.foreign_key}").
+            query.joins(:reservations).
+              group("reservations.#{klass.name.foreign_key}").
               select("inventory_pools.name AS label")
           when "Model"
-            query.joins(:contract_lines).
-              group("contract_lines.#{klass.name.foreign_key}").
+            query.joins(:reservations).
+              group("reservations.#{klass.name.foreign_key}").
               select("CONCAT_WS(' ', models.manufacturer, models.product, models.version) AS label")
           when "Item"
             query.joins(:item_lines => :model).
-                group("contract_lines.#{klass.name.foreign_key}").
+                group("reservations.#{klass.name.foreign_key}").
                 select("CONCAT_WS(' ', items.inventory_code, models.manufacturer, models.product, models.version) AS label")
           else
             raise "#{klass} not supported"
         end
 
-        query = query.where(contract_lines: {user_id: options[:user_id]}) unless options[:user_id].blank?
-        query = query.where(contract_lines: {inventory_pool_id: options[:inventory_pool_id]}) unless options[:inventory_pool_id].blank?
-        query = query.where(contract_lines: {model_id: options[:model_id]}) unless options[:model_id].blank?
-        query = query.where(contract_lines: {item_id: options[:item_id]}) unless options[:item_id].blank?
-        query = query.where(contract_lines[:start_date].gteq(Date.parse(options[:start_date]).to_s(:db))) unless options[:start_date].blank?
-        query = query.where(contract_lines[:returned_date].lteq(Date.parse(options[:end_date]).to_s(:db))) unless options[:end_date].blank?
+        query = query.where(reservations: {user_id: options[:user_id]}) unless options[:user_id].blank?
+        query = query.where(reservations: {inventory_pool_id: options[:inventory_pool_id]}) unless options[:inventory_pool_id].blank?
+        query = query.where(reservations: {model_id: options[:model_id]}) unless options[:model_id].blank?
+        query = query.where(reservations: {item_id: options[:item_id]}) unless options[:item_id].blank?
+        query = query.where(reservations[:start_date].gteq(Date.parse(options[:start_date]).to_s(:db))) unless options[:start_date].blank?
+        query = query.where(reservations[:returned_date].lteq(Date.parse(options[:end_date]).to_s(:db))) unless options[:end_date].blank?
 
         query.map do |x|
           h = { type: "statistic",
@@ -101,33 +101,33 @@ module Statistics
         klass = klasses.first
         klasses = klasses.drop(1)
 
-        contract_lines = ContractLine.arel_table
+        reservations = Reservation.arel_table
 
         query = klass.unscoped.
             select("#{klass.name.tableize}.id, COUNT(DISTINCT contracts.id) AS quantity").
-            where(contract_lines: {status: [:signed, :closed]}).
+            where(reservations: {status: [:signed, :closed]}).
             order("quantity DESC").
             limit(options[:limit])
 
         query = case klass.name
                   when "User"
-                    query.joins(:contract_lines => :contract).
-                        group("contract_lines.#{klass.name.foreign_key}").
+                    query.joins(:reservations => :contract).
+                        group("reservations.#{klass.name.foreign_key}").
                         select("CAST(CONCAT_WS(' ', users.firstname, users.lastname) AS CHAR) AS label")
                   when "InventoryPool"
-                    query.joins(:contract_lines => :contract).
-                        group("contract_lines.#{klass.name.foreign_key}").
+                    query.joins(:reservations => :contract).
+                        group("reservations.#{klass.name.foreign_key}").
                         select("inventory_pools.name AS label")
                   else
                     raise "#{klass} not supported"
                 end
 
-        query = query.where(contract_lines: {user_id: options[:user_id]}) unless options[:user_id].blank?
-        query = query.where(contract_lines: {inventory_pool_id: options[:inventory_pool_id]}) unless options[:inventory_pool_id].blank?
-        query = query.where(contract_lines: {model_id: options[:model_id]}) unless options[:model_id].blank?
-        query = query.where(contract_lines: {item_id: options[:item_id]}) unless options[:item_id].blank?
-        query = query.where(contract_lines[:start_date].gteq(Date.parse(options[:start_date]).to_s(:db))) unless options[:start_date].blank?
-        query = query.where(contract_lines[:returned_date].lteq(Date.parse(options[:end_date]).to_s(:db))) unless options[:end_date].blank?
+        query = query.where(reservations: {user_id: options[:user_id]}) unless options[:user_id].blank?
+        query = query.where(reservations: {inventory_pool_id: options[:inventory_pool_id]}) unless options[:inventory_pool_id].blank?
+        query = query.where(reservations: {model_id: options[:model_id]}) unless options[:model_id].blank?
+        query = query.where(reservations: {item_id: options[:item_id]}) unless options[:item_id].blank?
+        query = query.where(reservations[:start_date].gteq(Date.parse(options[:start_date]).to_s(:db))) unless options[:start_date].blank?
+        query = query.where(reservations[:returned_date].lteq(Date.parse(options[:end_date]).to_s(:db))) unless options[:end_date].blank?
 
         query.map do |x|
           h = { type: "statistic",
@@ -164,7 +164,7 @@ module Statistics
 
         query = case klass.name
           #when "User"
-          #  query.joins(:contract_lines).
+          #  query.joins(:reservations).
           #    group("contracts.#{klass.name.foreign_key}").
           #    select("CAST(CONCAT_WS(' ', users.firstname, users.lastname) AS CHAR) AS label")
           when "InventoryPool"

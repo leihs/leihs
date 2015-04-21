@@ -23,17 +23,17 @@ class window.App.ContractsEditController extends Spine.Controller
     new App.TimeLineController {el: @el}
     new App.ContractsApproveController {el: @el, done: @contractApproved}
     new App.ContractsRejectController {el: @el, async: false}
-    new App.ContractLinesDestroyController {el: @el}
-    new App.ContractLinesEditController {el: @el, user: @contract.user(), contract: @contract}
+    new App.ReservationsDestroyController {el: @el}
+    new App.ReservationsEditController {el: @el, user: @contract.user(), contract: @contract}
 
   delegateEvents: =>
     super
     App.Purpose.on "update", @renderPurpose
-    App.ContractLine.on "change destroy", @fetchAvailability
+    App.Reservation.on "change destroy", @fetchAvailability
     App.Contract.on "refresh", @fetchAvailability
   
   setupAddLine: =>
-    new App.ContractLinesAddController
+    new App.ReservationsAddController
       el: @el.find("#add")
       user: @contract.user()
       status: @status
