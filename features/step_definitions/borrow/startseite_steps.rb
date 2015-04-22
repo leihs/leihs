@@ -29,7 +29,7 @@ end
 #Wenn(/^ich über eine Hauptkategorie mit Kindern fahre$/) do
 When(/^I hover over a main category with children$/) do
   @main_category = (@current_user.all_categories & Category.roots).find do |c|
-    borrowable_children = (Category.with_borrowable_models_for_user(@current_user) & c.children)
+    borrowable_children = (@current_user.categories.with_borrowable_items & c.children)
     c.children.size != borrowable_children.size and borrowable_children.size > 0
   end
   within("[data-category_id]", text: @main_category.name) do
@@ -40,7 +40,7 @@ end
 #Dann(/^sehe ich nur die Kinder dieser Hauptkategorie, die dem User zur Verfügung stehende Gegenstände enthalten$/) do
 Then(/^I see only this root category's children that are useful and available to me$/) do
   second_level_categories = @main_category.children
-  visible_2nd_level_categories = (Category.with_borrowable_models_for_user(@current_user) & @main_category.children)
+  visible_2nd_level_categories = (@current_user.categories.with_borrowable_items & @main_category.children)
   @second_level_category = visible_2nd_level_categories.first
   find("a", match: :first, text: @second_level_category.name)
 
@@ -72,7 +72,7 @@ end
 #Angenommen(/^es gibt eine Hauptkategorie, derer Kinderkategorien keine dem User zur Verfügung stehende Gegenstände enthalten$/) do
 Given(/^there is a root category whose child categories cannot offer me any items$/) do
   @main_category = (@current_user.all_categories & Category.roots).find do |c|
-    (Category.with_borrowable_models_for_user(@current_user) & c.children).size == 0
+    (@current_user.categories.with_borrowable_items & c.children).size == 0
   end
 end
 

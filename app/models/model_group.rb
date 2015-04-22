@@ -33,10 +33,6 @@ class ModelGroup < ActiveRecord::Base
     self.images.first || all_models.detect {|m| not m.image.blank? }.try(:image)
   end
 
-  scope :with_borrowable_models_for_user, lambda { |user|
-    joins(:models).where("models.id IN (#{user.models.borrowable.select("models.id").to_sql})").uniq
-  }
-
   scope :roots, -> {joins("LEFT JOIN model_group_links AS mgl ON mgl.descendant_id = model_groups.id").where("mgl.descendant_id IS NULL")}
 
   # scope :accessible_roots, lambda do |user_id|     

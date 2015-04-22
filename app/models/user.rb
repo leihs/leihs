@@ -37,13 +37,21 @@ class User < ActiveRecord::Base
     end
   end
 
-  has_many :categories, -> { uniq }, :through => :models # (nested)
+  has_many :categories, -> { uniq }, :through => :models do
+    def with_borrowable_items
+      where(items: {retired: nil, is_borrowable: true, parent_id: nil}).
+      joins("INNER JOIN `partitions_with_generals` ON `models`.`id` = `partitions_with_generals`.`model_id`
+                                              AND `inventory_pools`.`id` = `partitions_with_generals`.`inventory_pool_id`
+                                              AND `partitions_with_generals`.`quantity` > 0
+                                              AND (`partitions_with_generals`.`group_id` IN (SELECT `group_id` FROM `groups_users` WHERE `user_id` = #{proxy_association.owner.id}) OR `partitions_with_generals`.`group_id` IS NULL)")
+    end
+  end
 
   def all_categories
-    borrowable_categories = Category.with_borrowable_models_for_user(self)
+    borrowable_categories = categories.with_borrowable_items
 
     ancestors = Category.joins("INNER JOIN `model_group_links` ON `model_groups`.`id` = `model_group_links`.`ancestor_id`").
-                  where(:model_group_links => {:descendant_id => borrowable_categories}).uniq
+                          where(model_group_links: {descendant_id: borrowable_categories.pluck(:id)}).uniq
 
     [borrowable_categories, ancestors].flatten.uniq
   end

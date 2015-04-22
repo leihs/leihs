@@ -256,7 +256,7 @@ end
 #Dann(/^die Liste wird gefiltert nach Modellen die in diesem Zeitraum verfügbar sind$/) do
 Then(/^the list is filtered by models that are available in that time frame$/) do
   within "#model-list" do
-    expect(has_selector?(".line[data-id]")).to be true
+    find(".line[data-id]", match: :first)
     all(".line[data-id]").each do |model_el|
       model = Model.find_by_id(model_el["data-id"]) || Model.find_by_id(model_el.reload["data-id"])
       expect(model).not_to be_nil

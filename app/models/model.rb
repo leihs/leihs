@@ -85,10 +85,7 @@ class Model < ActiveRecord::Base
 
 #############################################
 
-# OPTIMIZE Mysql::Error: Not unique table/alias: 'items'
   scope :active, -> { joins(:items).where(items: {retired: nil}).uniq }
-# workaround preventing redundant inner joins (should be fixed in Arel >= 5.0 ??)
-  scope :active_without_extra_join, -> { where(items: {retired: nil}).uniq }
 
   scope :without_items, -> { select("models.*").joins("LEFT JOIN items ON items.model_id = models.id").
       where(['items.model_id IS NULL']) }
@@ -115,7 +112,7 @@ class Model < ActiveRecord::Base
       where(["ml.model_group_id IN (?)", categories]) }
 
   scope :from_category_and_all_its_descendants, lambda { |category_id|
-    joins(:categories).where(:"model_groups.id" => [Category.find(category_id)] + Category.find(category_id).descendants) }
+      joins(:categories).where(model_groups: {id: Category.find(category_id).self_and_descendants}) }
 
   scope :order_by_attribute_and_direction, (lambda do |attr, direction|
     if ["product", "version", "manufacturer"].include? attr and ["asc", "desc"].include? direction

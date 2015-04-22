@@ -25,10 +25,10 @@ class Borrow::ModelsController < Borrow::ApplicationController
       format.json 
       format.html {
         @child_categories = @category.children
-        @child_categories.reject! {|c| @models.from_category_and_all_its_descendants(c).active_without_extra_join.blank?}
+        @child_categories.reject! {|c| @models.from_category_and_all_its_descendants(c).active.blank?}
         @grand_children = {}
         @child_categories.each do |category|
-          @grand_children[category.id] = category.children.reject{|c| @models.from_category_and_all_its_descendants(c).active_without_extra_join.blank?}
+          @grand_children[category.id] = category.children.reject{|c| @models.from_category_and_all_its_descendants(c).active.blank?}
         end
         @inventory_pools = current_user.inventory_pools.order(:name)
       }
