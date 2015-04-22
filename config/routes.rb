@@ -325,6 +325,14 @@ Leihs::Application.routes.draw do
       get 'mail_templates/:dir/:name', to: 'mail_templates#edit'
       put 'mail_templates/:dir/:name', to: 'mail_templates#update'
 
+      # Suppliers
+      get     'suppliers',          to: 'suppliers#index'
+      #get     'suppliers/new',      to: 'suppliers#new',      as: 'new_inventory_pool_supplier'
+      #post    'suppliers',          to: 'suppliers#create'
+      get     'suppliers/:id/edit', to: 'suppliers#edit',     as: 'edit_inventory_pool_supplier'
+      #put     'suppliers/:id',      to: 'suppliers#update',   as: 'update_inventory_pool_supplier'
+      delete  'suppliers/:id',      to: 'suppliers#destroy',  as: 'delete_inventory_pool_supplier'
+
     end
 
   end

@@ -20,6 +20,11 @@
 
       - if is_inventory_manager?
         %li
+          %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => "/manage/#{current_inventory_pool.id}/suppliers",
+                                                                                  :class => (defined? active_tab and active_tab == :suppliers) ? "active" : ""}
+            = _("Suppliers")
+
+        %li
           %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => "/manage/#{current_inventory_pool.id}/mail_templates",
                                                                                   :class => (defined? active_tab and active_tab == :mail_templates) ? "active" : ""}
             = _("Mail Templates")

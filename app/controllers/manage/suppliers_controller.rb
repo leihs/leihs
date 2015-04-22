@@ -5,7 +5,11 @@ class Manage::SuppliersController < Manage::ApplicationController
   end
 
   def index
-    @suppliers = Supplier.filter(params)
+    @suppliers = if current_inventory_pool
+                   current_inventory_pool.suppliers
+                 else
+                   Supplier
+                 end.filter(params)
   end
 
   def new
@@ -24,6 +28,11 @@ class Manage::SuppliersController < Manage::ApplicationController
   end
 
   def edit
+    @items = if current_inventory_pool
+               @supplier.items.where("#{current_inventory_pool.id} IN (inventory_pool_id, owner_id)")
+             else
+               @supplier.items.order(:inventory_pool_id)
+             end.includes(:model, :inventory_pool)
   end
 
   def update

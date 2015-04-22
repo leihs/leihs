@@ -4,7 +4,7 @@
     %strong= supplier.name
 
   .col1of4.line-col
-    %strong= _("%d items") % supplier.items.count
+    %strong= _("%d items") % (current_inventory_pool ? supplier.items.where("#{current_inventory_pool.id} IN (inventory_pool_id, owner_id)").count : supplier.items.count)
 
   .col1of4.line-col.line-actions
 
@@ -12,8 +12,8 @@
 
       .multibutton
 
-        %a.button.white{href: manage_edit_supplier_path(supplier)}
-          = _("Edit")
+        %a.button.white{href: polymorphic_path([:manage, :edit, current_inventory_pool, supplier].compact)}
+          = current_inventory_pool ? _("Show") : _("Edit")
 
         .dropdown-holder.inline-block
           .button.white.dropdown-toggle
@@ -28,5 +28,5 @@
 
     - else
 
-      %a.button.white{href: manage_edit_supplier_path(supplier)}
-        = _("Edit")
+      %a.button.white{href: polymorphic_path([:manage, :edit, current_inventory_pool, supplier].compact)}
+        = current_inventory_pool ? _("Show") : _("Edit")

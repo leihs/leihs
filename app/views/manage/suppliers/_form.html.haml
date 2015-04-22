@@ -19,16 +19,19 @@
           .col1of3
             %strong.font-size-m= "#{_("Name")} *"
           .col2of3.text-align-right
-            %input.min-width-full{type: "text", name: "supplier[name]", value: @supplier.name}
+            - if current_inventory_pool
+              .headline-m.text-align-left= @supplier.name
+            - else
+              %input.min-width-full{type: "text", name: "supplier[name]", value: @supplier.name}
 
     .col1of2.padding-left-xs
 
-      - if @supplier.items.exists?
+      - if @items
         %h2.headline-m.padding-left-s= _("Items")
 
         .row.margin-vertical-s
 
-          - @supplier.items.order(:inventory_pool_id).includes(:model, :inventory_pool).each do |i|
+          - @items.each do |i|
             .row.padding-inset-s.emboss.margin-bottom-xxs
               .col2of3
                 = i.inventory_code

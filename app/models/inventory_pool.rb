@@ -41,7 +41,9 @@ class InventoryPool < ActiveRecord::Base
 
   has_many :mail_templates, :dependent => :delete_all
 
-  before_create :create_workday
+  def suppliers
+    Supplier.joins(:items).where(":id IN (items.owner_id, items.inventory_pool_id)", id: id).uniq
+  end
 
 #######################################################################
 
@@ -80,6 +82,8 @@ class InventoryPool < ActiveRecord::Base
   }, class_name: "ItemLine"
 
 #######################################################################
+
+  before_create :create_workday
 
   validates_presence_of :name, :shortname, :email
   validates_presence_of :automatic_suspension_reason, if: :automatic_suspension?
