@@ -49,7 +49,7 @@ When(/^I enter the timeline of a model with hand overs, take backs or pending or
   within "#inventory" do
     find(".line[data-type='model']", match: :first)
     all(".line[data-type='model']").each do |line|
-      if @current_inventory_pool.running_lines.detect { |rl| rl.model_id == line["data-id"].to_i }
+      if @current_inventory_pool.running_reservations.detect { |rl| rl.model_id == line["data-id"].to_i }
         line.find(".line-actions > a", text: _("Timeline")).click
         break
       end

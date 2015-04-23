@@ -33,7 +33,7 @@ Feature: Lending
     When I open a hand over
     And the chosen items contain some from a future hand over
     And I click hand over
-    Then I see the error message "you cannot hand out lines which are starting in the future"
+    Then I see the error message "you cannot hand out reservations which are starting in the future"
     And I cannot hand over the items
 
   # https://www.pivotaltracker.com/story/show/29455957

@@ -19,10 +19,10 @@
             %p.paragraph-s
               %strong= _("Nothing selected")
       - else
-        - Hash[current_user.reservations.unsubmitted.group_by{|l| l.model }.sort].each_pair do |model, lines|
+        - Hash[current_user.reservations.unsubmitted.group_by{|l| l.model }.sort].each_pair do |model, reservations|
           .row.line.small{:title => model}
             .line-col.col1of1
-              %span.text-ellipsis.width-s-alt.block= "#{lines.sum(&:quantity)}x #{model}"
+              %span.text-ellipsis.width-s-alt.block= "#{reservations.sum(&:quantity)}x #{model}"
 
     #order-overview-button.padding-inset-xxs{class: current_user.reservations.unsubmitted.empty? ? "hidden" : ""}
       .row.padding-inset-s

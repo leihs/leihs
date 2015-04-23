@@ -4,7 +4,7 @@
   = _("No.")
   = contract.id
 
-= render :partial => "manage/lines/cell", :locals => {:lines => contract.lines}
+= render :partial => "manage/reservations/cell", :locals => {:reservations => contract.reservations}
 
 .col1of8.line-col
   %strong= _("Closed")

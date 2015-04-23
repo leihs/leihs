@@ -416,6 +416,7 @@ Given(/^I add a model to the order that is available across all the still remain
       @model = model
     end
   end
+  expect(@model).not_to be_nil
   find(:xpath, "(//*[@id='ip-selector']//input)[2]", :visible => true).click
   expect(has_selector?(".line[data-id]", :visible => true)).to be true
   @inventory_pools.shift

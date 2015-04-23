@@ -25,12 +25,12 @@ When "he tries to hand over an item to a customer" do
   get manage_hand_over_path(@inventory_pool, @user)
   
   @contract = assigns(:contract)
-  expect(@contract.lines.size).to eq 0
+  expect(@contract.reservations.size).to eq 0
   
   post add_line_backend_inventory_pool_user_hand_over_path(@inventory_pool, @user, :model_id => Model.first.id, :quantity => 1)
                              
   @contract = assigns(:contract)
-  expect(@contract.lines.size).to eq 1
+  expect(@contract.reservations.size).to eq 1
 end
 
 
@@ -88,7 +88,7 @@ end
 
 When "he signs the contract" do
   post sign_contract_backend_inventory_pool_user_hand_over_path(
-	 @inventory_pool, @visit.user, :lines => [@contract.reservations.first.id] )
+	 @inventory_pool, @visit.user, :reservations => [@contract.reservations.first.id] )
 end
 
 Then "a new contract is generated" do

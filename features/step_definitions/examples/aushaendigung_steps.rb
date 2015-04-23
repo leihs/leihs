@@ -48,11 +48,11 @@ end
 Given(/^there is a hand over with at least one unproblematic model( and an option)?$/) do |arg1|
   @models_in_stock = @current_inventory_pool.items.in_stock.map(&:model).uniq
   @hand_over = @current_inventory_pool.visits.hand_over.detect do |v|
-    b = v.lines.select do |line|
+    b = v.reservations.select do |line|
       !line.start_date.past? and !line.item and @models_in_stock.include?(line.model)
     end.count >= 1
     if arg1 and b
-      b = (b and v.lines.any? {|line| line.is_a? OptionLine })
+      b = (b and v.reservations.any? {|line| line.is_a? OptionLine })
     end
     b
   end
@@ -63,7 +63,7 @@ end
 #Angenommen(/^es gibt eine Aushändigung mit mindestens (einer problematischen Linie|einem Gegenstand ohne zugeteilt Raum und Gestell)$/) do |arg1|
 Given(/^there is a hand over with at least (one problematic line|an item without room or shelf)$/) do |arg1|
   @hand_over = @current_inventory_pool.visits.hand_over.find do |ho|
-    ho.lines.any? do |l|
+    ho.reservations.any? do |l|
       if l.is_a? ItemLine
         case arg1
           when "one problematic line"
@@ -84,7 +84,7 @@ end
 
 #Wenn(/^ich dem nicht problematischen Modell einen Inventarcode zuweise$/) do
 When(/^I assign an inventory code to the unproblematic model$/) do
-  @reservation = @hand_over.lines.find {|l| !l.start_date.past? and !l.item and @models_in_stock.include?(l.model) }
+  @reservation = @hand_over.reservations.find {|l| !l.start_date.past? and !l.item and @models_in_stock.include?(l.model) }
   @line_css = ".line[data-id='#{@reservation.id}']"
   within @line_css do
     find("input[data-assign-item]").click
@@ -138,7 +138,7 @@ end
 
 #Dann(/^wird das Problemfeld für das problematische Modell angezeigt$/) do
 Then(/^problem notifications are shown for the problematic model$/) do
-  @reservation = @hand_over.lines.find do |l|
+  @reservation = @hand_over.reservations.find do |l|
     if l.is_a? ItemLine
       #old#
       # av = l.model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(l.start_date, l.end_date, @hand_over.user.group_ids)
@@ -168,7 +168,7 @@ end
 
 #Wenn(/^ich einen bereits hinzugefügten Gegenstand zuteile$/) do
 When(/^I assign an already added item$/) do
-  @reservation = @hand_over.lines.find {|l| l.is_a? ItemLine and l.item}
+  @reservation = @hand_over.reservations.find {|l| l.is_a? ItemLine and l.item}
   @line_css = ".line[data-id='#{@reservation.id}']"
   find(@line_css).find("input[type='checkbox']").click
 
@@ -186,7 +186,7 @@ end
 
 #Angenommen(/^ich öffne eine Aushändigung mit mindestens einem zugewiesenen Gegenstand$/) do
 Given(/^I open a hand over with at least one assigned item$/) do
-  @hand_over = @current_inventory_pool.visits.hand_over.find {|ho| ho.lines.any? &:item_id}
+  @hand_over = @current_inventory_pool.visits.hand_over.find {|ho| ho.reservations.any? &:item_id}
   step "I open the hand over"
 end
 
@@ -252,18 +252,18 @@ end
 
 Given(/^a line has no item assigned yet and this line is marked$/) do
   step "I can add models"
-  @reservation = @hand_over.lines.order(created_at: :desc).first
+  @reservation = @hand_over.reservations.order(created_at: :desc).first
   @line_css = ".line[data-id='#{@reservation.id}']"
 end
 
 Given(/^a line with an assigned item which doesn't have a location is marked$/) do
-  @reservation = @hand_over.lines.where(type: "ItemLine").find {|l| l.item and (l.item.location.nil? or (l.item.location.room.blank? and l.item.location.shelf.blank?)) }
+  @reservation = @hand_over.reservations.where(type: "ItemLine").find {|l| l.item and (l.item.location.nil? or (l.item.location.room.blank? and l.item.location.shelf.blank?)) }
   @line_css = ".line[data-id='#{@reservation.id}']"
   step "ich die Zeile wieder selektiere"
 end
 
 Given(/^an option line is marked$/) do
-  @reservation = @hand_over.lines.where(type: "OptionLine").order("RAND()").first
+  @reservation = @hand_over.reservations.where(type: "OptionLine").order("RAND()").first
   @line_css = ".line[data-id='#{@reservation.id}']"
   step "ich die Zeile wieder selektiere"
 end

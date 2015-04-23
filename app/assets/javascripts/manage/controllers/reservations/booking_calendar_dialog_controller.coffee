@@ -9,8 +9,8 @@ class window.App.ManageBookingCalendarDialogController extends App.BookingCalend
 
   # overwrite
   setupDates: =>
-    @startDateEl.val (_.min @lines, (l)-> Date.parse l.start_date).start_date
-    @endDateEl.val (_.max @lines, (l)-> Date.parse l.end_date).end_date
+    @startDateEl.val (_.min @reservations, (l)-> Date.parse l.start_date).start_date
+    @endDateEl.val (_.max @reservations, (l)-> Date.parse l.end_date).end_date
 
   # overwrite
   fetchData: =>
@@ -69,7 +69,7 @@ class window.App.ManageBookingCalendarDialogController extends App.BookingCalend
       quantityEl: @dialog.find "#booking-calendar-quantity"
       groupIds: @user.groupIds
       partitions: @partitions
-      lines: @lines
+      reservations: @reservations
       models: @models
       renderFunctionCallback: @calendarRendered
 

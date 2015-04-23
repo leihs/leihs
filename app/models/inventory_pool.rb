@@ -67,10 +67,10 @@ class InventoryPool < ActiveRecord::Base
   # if an item is already assigned, we block the availability even if the start_date is in the future
   # if an item is already assigned but not handed over, it's never considered as late even if end_date is in the past
   # we ignore the option_lines
-  # we get all lines which are not rejected or closed
-  # we ignore lines that are not handed over which the end_date is already in the past
-  # we consider even unsubmitted lines, but not the already timed out ones
-  has_many :running_lines, -> {
+  # we get all reservations which are not rejected or closed
+  # we ignore reservations that are not handed over which the end_date is already in the past
+  # we consider even unsubmitted reservations, but not the already timed out ones
+  has_many :running_reservations, -> {
     select("id, inventory_pool_id, model_id, item_id, quantity, start_date, end_date, returned_date, status,
             GROUP_CONCAT(groups_users.group_id) AS concat_group_ids").
     joins("LEFT JOIN groups_users ON groups_users.user_id = reservations.user_id").

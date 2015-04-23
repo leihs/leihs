@@ -2,7 +2,7 @@
 
 When /^I delete a line$/ do
   @contract = @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool)
-  @line = @contract.lines.first
+  @line = @contract.reservations.first
   step 'I delete this line element'
 end
 
@@ -19,8 +19,8 @@ Then /^this line is deleted$/ do
   expect { @line.reload }.to raise_error(ActiveRecord::RecordNotFound)
 end
 
-When /^I select multiple lines$/ do
-  @selected_line_ids = @hand_over.lines.order("RAND()").limit(rand(1..@hand_over.lines.count)).map &:id
+When /^I select multiple reservations$/ do
+  @selected_line_ids = @hand_over.reservations.order("RAND()").limit(rand(1..@hand_over.reservations.count)).map &:id
   expect(has_selector?(".line[data-id]", match: :first)).to be true
   @selected_line_ids.each do |id|
     cb = find(".line[data-id='#{id}'] input[type='checkbox'][data-select-line]")
@@ -28,27 +28,27 @@ When /^I select multiple lines$/ do
   end
 end
 
-When /^I delete the seleted lines$/ do
+When /^I delete the seleted reservations$/ do
   find(".multibutton .button[data-selection-enabled] + .dropdown-holder").click
   within(".multibutton .button[data-selection-enabled] + .dropdown-holder") do
     find(".dropdown-item.red[data-destroy-selected-lines]", text: _("Delete Selection")).click
   end
 end
 
-Then /^these lines are deleted$/ do
+Then /^these seleted reservations are deleted$/ do
   @selected_line_ids.each do |line_id|
     expect(has_no_selector?(".line[data-id='#{line_id}']")).to be true
   end
   @selected_line_ids.each {|id| expect { Reservation.find(id) }.to raise_error(ActiveRecord::RecordNotFound)}
 end
 
-When /^I delete all lines of a model thats availability is blocked by these lines$/ do
-  unless @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool).lines.first.available?
+When /^I delete all reservations of a model thats availability is blocked by these reservations$/ do
+  unless @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool).reservations.first.available?
     step 'I add an item to the hand over by providing an inventory code'
     @model = Item.find_by_inventory_code(@inventory_code).model
     find(".line", match: :prefer_exact, text: @model.name).find("input[type='checkbox'][data-select-line]").click
   end
-  step 'I add so many lines that I break the maximal quantity of a model'
+  step 'I add so many reservations that I break the maximal quantity of a model'
   step 'the availability is loaded'
   target_linegroup = find("[data-selected-lines-container]", text: /#{find("#add-start-date").value}.*#{find("#add-end-date").value}/)
 

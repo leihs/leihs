@@ -1,4 +1,4 @@
-.line.light.row.focus-hover-thin{:"data-line-type" => "option_line", :"data-id" => "{{>id}}"}
+.line.light.row.focus-hover-thin{:"data-line-type" => "item_line", :"data-id" => "{{>id}}"}
 
   %div{:class => "line-info{{if ~renderAvailability && anyProblems()}} red{{/if}}"}
   
@@ -8,19 +8,11 @@
         %label.padding-inset-s
           %input{:type => :checkbox, :"data-select-line" => true, :autocomplete => :off}
 
-  .col1of10.line-col
-    .row.table
-      .table-row
-        .col2of3.table-cell.vertical-align-middle.line-height-xxl
-          %input.small.width-full.text-align-center{:type => :text, :autocomplete => :off, :"data-quantity-returned" => true, :inputmode => :numeric}
-        .col1of3.table-cell.vertical-align-middle.line-height-xxl
-          %span /{{>quantity}}
-
-  .col1of10.line-col.text-align-center
-    %span.grey-text {{>option().inventory_code}}
+  .col2of10.line-col.text-align-center
+    .row {{>item().inventory_code}}
 
   .col4of10.line-col.text-align-left
-    %strong {{>option().name()}}
+    %strong {{>model().name()}}
 
   .col1of10.line-col.text-align-center
     {{if purpose_id}}
@@ -30,9 +22,9 @@
 
   .col1of10.line-col.text-align-center
     {{if ~renderAvailability && anyProblems()}}
-    .emboss.red.padding-inset-xxs-alt.text-align-center.tooltip{:"data-tooltip-data" => "{{JSON getProblems()/}}", :"data-tooltip-template" => "manage/views/lines/problems_tooltip"}
+    .emboss.red.padding-inset-xxs-alt.text-align-center.tooltip{:"data-tooltip-data" => "{{JSON getProblems()/}}", :"data-tooltip-template" => "manage/views/reservations/problems_tooltip"}
       %strong {{>getProblems().length}}
-    {{else ~renderAvailability && !anyProblems()}}
+    {{else ~renderAvailability && !anyProblems() && item()}}
     .padding-inset-xxs-alt.text-align-center
       %i.icon-ok
     {{/if}}
@@ -49,3 +41,11 @@
               %i.icon-file-alt
               {{jed "Contract"/}}
               {{>contract().id}}
+          %li
+            %a.dropdown-item{:"data-open-time-line" => true, :"data-model-id" => "{{>model().id}}"}
+              %i.icon-align-left
+              {{jed "Timeline"/}}
+          %li
+            %a.dropdown-item{:"data-inspect-item" => true, :"data-item-id" => "{{>item_id}}"}
+              %i.icon-search
+              {{jed "Inspect"/}}

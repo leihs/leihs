@@ -11,9 +11,9 @@
   .col2of10.line-col.text-align-center
     .row
       - if line.item_id
-        = render :partial => "manage/lines/hand_over_line/assigned_item", :locals => {:line => line}
+        = render :partial => "manage/reservations/hand_over_line/assigned_item", :locals => {:line => line}
       - else
-        = render :partial => "manage/lines/hand_over_line/unassigned_item", :locals => {:line => line}
+        = render :partial => "manage/reservations/hand_over_line/unassigned_item", :locals => {:line => line}
 
   .col4of10.line-col.text-align-left
     %strong= line.model.name

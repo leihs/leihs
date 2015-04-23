@@ -13,7 +13,7 @@
     {{diffToday date/}}
     {{/if}}
 
-  .col1of5.line-col.text-align-center{:"data-type" => "lines-cell"} {{include tmpl='manage/views/lines/cell'/}}
+  .col1of5.line-col.text-align-center{:"data-type" => "lines-cell"} {{include tmpl='manage/views/reservations/cell'/}}
 
   {{if isOverdue()}}
   .col1of5.line-col.latest-reminder-cell.text-align-center{:"data-user-id" => "{{>user().id}}", :"data-visit-id" => "{{>id}}"}

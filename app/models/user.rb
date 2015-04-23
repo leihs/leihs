@@ -218,13 +218,13 @@ class User < ActiveRecord::Base
 
   def self.remind_and_suspend_all
     # TODO dry
-    grouped_reservations = Visit.take_back_overdue.flat_map(&:lines).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: (vl.delegated_user_id || vl.user_id)} }
+    grouped_reservations = Visit.take_back_overdue.flat_map(&:reservations).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: (vl.delegated_user_id || vl.user_id)} }
     grouped_reservations.each_pair do |k, reservations|
       user = User.find(k[:user_id])
       user.remind(reservations)
     end
     # TODO dry
-    grouped_reservations = Visit.take_back_overdue.flat_map(&:lines).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: vl.user_id} }
+    grouped_reservations = Visit.take_back_overdue.flat_map(&:reservations).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: vl.user_id} }
     grouped_reservations.each_pair do |k, reservations|
       user = User.find(k[:user_id])
       user.automatic_suspend(k[:inventory_pool])
@@ -232,7 +232,7 @@ class User < ActiveRecord::Base
   end
 
   def self.send_deadline_soon_reminder_to_everybody
-    grouped_reservations = Visit.take_back.where("date = ?", Date.tomorrow).flat_map(&:lines).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: (vl.delegated_user_id || vl.user_id)} }
+    grouped_reservations = Visit.take_back.where("date = ?", Date.tomorrow).flat_map(&:reservations).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: (vl.delegated_user_id || vl.user_id)} }
     grouped_reservations.each_pair do |k, reservations|
       user = User.find(k[:user_id])
       user.send_deadline_soon_reminder(reservations)

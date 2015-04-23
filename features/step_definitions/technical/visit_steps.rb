@@ -16,15 +16,15 @@ Then /^the associated contract of each such visit must be "(.*?)"$/ do |contract
   expect(@visits.all? { |visit| object_with_sign_state? visit, contract_state }).to be true
 end
 
-Then /^(each of the lines|at least one line) of such contract must also be "(.*?)"$/ do |arg1, line_state|
+Then /^(each of the reservations|at least one line) of such contract must also be "(.*?)"$/ do |arg1, line_state|
   @visits.each do |visit|
     m = case arg1
-          when "each of the lines"
+          when "each of the reservations"
             :all?
           when "at least one line"
             :any?
         end
-    t = visit.lines.send(m) do |line|
+    t = visit.reservations.send(m) do |line|
       object_with_sign_state? line, line_state
     end
     expect(t).to be true
@@ -35,9 +35,9 @@ Then /^every visit with date < today is overdue$/ do
   expect(@visits.all?{ |visit| visit.date < Date.today }).to be true
 end
 
-Then(/^the other lines of such contract must be "(.*?)"$/) do |line_state|
+Then(/^the other reservations of such contract must be "(.*?)"$/) do |line_state|
   @visits.each do |visit|
-    signed_lines, other_lines = visit.lines.partition {|line| object_with_sign_state? line, "signed" }
+    signed_lines, other_lines = visit.reservations.partition {|line| object_with_sign_state? line, "signed" }
     unless other_lines.empty?
       other_lines.all? {|line| object_with_sign_state? line, line_state }
     end

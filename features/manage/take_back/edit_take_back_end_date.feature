@@ -22,7 +22,7 @@ Feature: Edit take back end date
     And the start date of that line is not changed
 
   @javascript @personas @browser
-  Scenario: Change the time range of multiple contract lines
-     When I open a take back which has multiple lines
-      And I change the end date for all contract lines, envolving option and item lines
-     Then the end date for all contract lines is changed
+  Scenario: Change the time range of multiple contract reservations
+     When I open a take back which has multiple reservations
+      And I change the end date for all contract reservations, envolving option and item reservations
+     Then the end date for all contract reservations is changed

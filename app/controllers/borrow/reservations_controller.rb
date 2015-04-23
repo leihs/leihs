@@ -19,8 +19,8 @@ class Borrow::ReservationsController < Borrow::ApplicationController
     unless model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(@start_date, @end_date, current_user.group_ids) >= quantity
       @errors << _("Item is not available in that time range")
     end
-    if @errors.empty? and (lines = model.add_to_contract(@target_contract, current_user, quantity, @start_date, @end_date, session[:delegated_user_id])) and lines.all?(&:valid?)
-      render :status => :ok, :json => lines.first
+    if @errors.empty? and (reservations = model.add_to_contract(@target_contract, current_user, quantity, @start_date, @end_date, session[:delegated_user_id])) and reservations.all?(&:valid?)
+      render :status => :ok, :json => reservations.first
     else
       render :status => :bad_request, :json => @errors.uniq.join(", ")
     end
@@ -36,9 +36,9 @@ class Borrow::ReservationsController < Borrow::ApplicationController
   end
 
   def change_time_range
-    lines = @target_contract.lines.find(params[:line_ids])
-    if @errors.empty? and lines.each{|line| line.update_time_line(@start_date, @end_date, current_user); line.reload }
-      render :status => :ok, :json => lines
+    reservations = @target_contract.reservations.find(params[:line_ids])
+    if @errors.empty? and reservations.each{|line| line.update_time_line(@start_date, @end_date, current_user); line.reload }
+      render :status => :ok, :json => reservations
     else
       render :status => :bad_request, :json => @errors.uniq.join(", ")
     end

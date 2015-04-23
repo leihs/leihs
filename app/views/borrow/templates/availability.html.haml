@@ -16,7 +16,7 @@
           .padding-top-l.padding-left-l.padding-right-l
             .emboss.red.padding-inset-m.text-align-center
               %strong.font-size-m
-                = _("Please solve the conflicts for all highlighted lines in order to continue.")
+                = _("Please solve the conflicts for all highlighted reservations in order to continue.")
 
         #template-lines
           - @grouped_and_merged_lines.each_pair do |k, v|
@@ -56,7 +56,7 @@
 
   App.Template.addRecord new App.Template #{@template.to_json}
 
-  App.TemplateLine.create line for line in #{@lines.to_json}
+  App.TemplateLine.create line for line in #{@reservations.to_json}
 
   jQuery ->
     new App.TemplateAvailabilityController

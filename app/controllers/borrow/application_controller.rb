@@ -42,7 +42,7 @@ class Borrow::ApplicationController < ApplicationController
               [borrow_order_timed_out_path,
                borrow_order_delete_unavailables_path,
                borrow_order_remove_path,
-               borrow_order_remove_lines_path,
+               borrow_order_remove_reservations_path,
                borrow_change_time_range_path].include? request.path
     if current_user.timeout? and current_user.reservations.unsubmitted.any? {|l| not l.available? }
       redirect_to borrow_order_timed_out_path

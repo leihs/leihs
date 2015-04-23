@@ -1,7 +1,7 @@
 class window.App.UnsubmittedContractsBasketController extends Spine.Controller
 
   elements:
-    "#current-order-lines": "linesContainer"
+    "#current-order-lines": "reservationsContainer"
     "#order-overview-button": "orderOverviewButton"
 
   constructor: ->
@@ -17,13 +17,13 @@ class window.App.UnsubmittedContractsBasketController extends Spine.Controller
 
   render: =>
     data = []
-    all_lines = _.flatten(_.map App.Contract.currents, (c)-> c.lines().all())
-    for model_id, lines of _.groupBy all_lines, "model_id"
+    all_reservations = _.flatten(_.map App.Contract.currents, (c)-> c.reservations().all())
+    for model_id, reservations of _.groupBy all_reservations, "model_id"
       data.push
         model: App.Model.find model_id
-        quantity: _.reduce lines, ((mem, line)=> mem+line.quantity), 0
+        quantity: _.reduce reservations, ((mem, line)=> mem+line.quantity), 0
     data = _.sortBy data, (entry)-> entry.model.name()
-    @linesContainer.html App.Render "borrow/views/order/basket/line", data
+    @reservationsContainer.html App.Render "borrow/views/order/basket/line", data
     if _.size(data) > 0
       @orderOverviewButton.removeClass "hidden"
     else

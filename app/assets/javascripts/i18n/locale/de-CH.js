@@ -657,7 +657,7 @@ window.i18n.locale_data = {
          null,
          "Auswahl editieren"
       ],
-      "Edit multiple selected lines": [
+      "Edit multiple selected reservations": [
          null,
          "Mehrere ausgewählte Linien editieren"
       ],
@@ -1892,7 +1892,7 @@ window.i18n.locale_data = {
          null,
          "Die Eigenschaften wurden aktualisiert."
       ],
-      "The selected lines have been moved": [
+      "The selected reservations have been moved": [
          null,
          "Die ausgewählten Zeilen wurden verschoben"
       ],
@@ -1904,15 +1904,15 @@ window.i18n.locale_data = {
          null,
          "Der Benutzer hat keine E-Mail-Adresse"
       ],
-      "This contract is not signable because it doesn't have any contract lines.": [
+      "This contract is not signable because it doesn't have any contract reservations.": [
          null,
          "Dieser Vertrag kann nicht unterschrieben werden, weil er keine Zeilen hat."
       ],
-      "This contract is not signable because none of the lines have a purpose.": [
+      "This contract is not signable because none of the reservations have a purpose.": [
          null,
          "Der Vertrag kann nicht unterschrieben werden, weil keine seiner Zeilen einen Zweck hat."
       ],
-      "This contract is not signable because some lines are not assigned.": [
+      "This contract is not signable because some reservations are not assigned.": [
          null,
          "Der Vertrag kann nicht unterschrieben werden, weil einige Zeilen noch nicht zugewiesen wurden."
       ],
@@ -2212,7 +2212,7 @@ window.i18n.locale_data = {
          null,
          "Ein Paket kann nicht einem Paket hinzugefügt werden."
       ],
-      "You cannot delete all lines of an order. Perhaps you want to reject it instead?": [
+      "You cannot delete all reservations of an order. Perhaps you want to reject it instead?": [
          null,
          "Sie können nicht alle Zeilen einer Bestellung löschen. Möchten Sie sie vielleicht lieber ablehnen?"
       ],
@@ -2577,7 +2577,7 @@ window.i18n.locale_data = {
          null,
          "während Herausgabe gelöscht wurde für"
       ],
-      "while deleting multiple order lines": [
+      "while deleting multiple order reservations": [
          null,
          "während mehrere Bestellungs-Zeilen gelöscht wurden"
       ],
@@ -2597,15 +2597,15 @@ window.i18n.locale_data = {
          null,
          "ohne Konflikt"
       ],
-      "you cannot hand out lines which are starting in the future": [
+      "you cannot hand out reservations which are starting in the future": [
          null,
          "Sie können keine Zeilen aushändigen, deren Startdatum in der Zukunft liegt"
       ],
-      "you cannot hand out lines which are ending in the past": [
+      "you cannot hand out reservations which are ending in the past": [
          null,
          "Sie können keine Zeilen aushändigen, deren Enddatum in der Vergangenheit liegt"
       ],
-      "you cannot hand out lines with unassigned inventory codes": [
+      "you cannot hand out reservations with unassigned inventory codes": [
          null,
          "Sie können keine Zeilen aushändigen, die keine Inventarcodes zugewiesen haben"
       ],
@@ -3111,7 +3111,7 @@ window.i18n.locale_data = {
          null,
          "Diese Bestellung fortsetzen"
       ],
-      "Please solve the conflicts for all highlighted lines in order to continue.": [
+      "Please solve the conflicts for all highlighted reservations in order to continue.": [
          null,
          "Um fortzufahren, beheben Sie bitte die Konflikte der hervorgehobenen Einträge"
       ],

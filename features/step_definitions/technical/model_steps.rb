@@ -1,6 +1,6 @@
 When /^list of all available models$/ do
   @models = Model.all
-  # @models_with_reservations = Visit.all.flat_map{|x| x.lines.flat_map(&:model) }.uniq
+  # @models_with_reservations = Visit.all.flat_map{|x| x.reservations.flat_map(&:model) }.uniq
   # @models_without_reservations = @all_models - @models_with_reservations
 end
 

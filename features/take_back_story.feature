@@ -23,9 +23,9 @@
 #	  And a signed contract by 'Toshi' for item 'AV_NEC245_1'
 #	When lending_manager clicks on 'take_back'
 #	 And he chooses to take back Joe's entry
-#	 And he selects all lines and takes the items back
+#	 And he selects all reservations and takes the items back
 #        Then Joe's contract should be closed
 #	When lending_manager clicks on 'take_back'
 #	 And he chooses to take back Toshi's entry
-#	 And he selects all lines and takes the items back
+#	 And he selects all reservations and takes the items back
 #        Then Toshi's contract should be closed

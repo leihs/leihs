@@ -62,7 +62,7 @@ Given /^inventory pool model test data setup$/ do
   @manager = LeihsFactory.create_user({:login => "hammer"}, {:role => :lending_manager})
 end
 
-Given /^all contracts and contract lines are deleted$/ do
+Given /^all contracts and contract reservations are deleted$/ do
   Contract.delete_all
   Reservation.delete_all
 end
@@ -81,15 +81,15 @@ Given /^there are hand over visits for the specific inventory pool$/ do
   @hand_over_visits = @current_inventory_pool.visits.hand_over
 end
 
-When /^all the contract lines of all the events are combined$/ do
+When /^all the contract reservations of all the events are combined$/ do
   @hand_over_visits.flat_map(&:reservations)
 end
 
-Then /^the result is a set of contract lines that are associated with the users' contracts$/ do
+Then /^the result is a set of contract reservations that are associated with the users' contracts$/ do
   expect(@hand_over_visits.to_a.count).to eq @open_reservations.count # NOTE count returns a Hash because the group() in default scope
 end
 
-Given /^there is an open contract with lines for a user$/ do
+Given /^there is an open contract with reservations for a user$/ do
   @open_reservations = rand(3..6).times.map { FactoryGirl.create :reservation, user: User.first, inventory_pool: @current_inventory_pool, status: :approved }
 end
 
@@ -105,7 +105,7 @@ When /^the visits of the inventory pool are fetched$/ do
   @hand_over_visits = @current_inventory_pool.visits.hand_over
 end
 
-Then /^the first two contract lines should now be grouped inside the first visit, which makes it two visits in total$/ do
+Then /^the first two contract reservations should now be grouped inside the first visit, which makes it two visits in total$/ do
   expect(@hand_over_visits.to_a.count).to eq 2 # NOTE count returns a Hash because the group() in default scope
 end
 
@@ -114,7 +114,7 @@ Given /^there are 2 different contracts for 2 different users$/ do
   @open_reservation1 = FactoryGirl.create :reservation, :user => User.last, :inventory_pool => @current_inventory_pool, :status => :approved
 end
 
-Given /^there are 2 different contracts with lines for 2 different users$/ do
+Given /^there are 2 different contracts with reservations for 2 different users$/ do
   @open_reservations2 = rand(3..6).times.map { FactoryGirl.create :reservation, user: User.first, inventory_pool: @current_inventory_pool, status: :approved }
   @open_reservations3 = rand(3..6).times.map { FactoryGirl.create :reservation, user: User.last, inventory_pool: @current_inventory_pool, status: :approved }
 end
@@ -152,7 +152,7 @@ Given /^make sure no end date is identical to any other$/ do
 end
 
 Given /^to each contract line an item is assigned$/ do
-  # assign contract lines
+  # assign contract reservations
   @open_reservations.each do |cl|
     cl.update_attributes(item: cl.model.items.borrowable.in_stock.first)
   end
@@ -172,11 +172,11 @@ Then /^there should be as many events as there are different start dates$/ do
   expect(@take_back_visits.to_a.count).to eq @open_reservations.map(&:end_date).uniq.count # NOTE count returns a Hash because the group() in default scope
 end
 
-When /^all the contract lines of all the visits are combined$/ do
+When /^all the contract reservations of all the visits are combined$/ do
   @take_back_lines = @take_back_visits.flat_map(&:reservations)
 end
 
-Then /^one should get the set of contract lines that are associated with the users' contracts$/ do
+Then /^one should get the set of contract reservations that are associated with the users' contracts$/ do
   expect(@take_back_lines.count).to eq @open_reservations.count
 end
 
@@ -188,7 +188,7 @@ Given /^3rd contract line ends on a different date than the other two$/ do
   end_third_reservation_on_different_date! @open_reservations
 end
 
-Then /^the first 2 contract lines should be grouped inside the 1st visit, which makes it two visits in total$/ do
+Then /^the first 2 contract reservations should be grouped inside the 1st visit, which makes it two visits in total$/ do
   expect(@take_back_visits.to_a.count).to eq 2 # NOTE count returns a Hash because the group() in default scope
 end
 
@@ -200,7 +200,7 @@ end
 
 Given /^to each contract line of both contracts an item is assigned$/ do
   [@open_reservations2, @open_reservations3].each do |c|
-    # assign contract lines
+    # assign contract reservations
     c.each do |cl|
       cl.update_attributes(item: cl.model.items.borrowable.in_stock.first)
     end
@@ -215,7 +215,7 @@ Given /^both contracts are signed$/ do
   end
 end
 
-Then /^the first 2 contract lines should now be grouped inside the 1st visit, which makes it 2 visits in total$/ do
+Then /^the first 2 contract reservations should now be grouped inside the 1st visit, which makes it 2 visits in total$/ do
   expect(@take_back_visits.to_a.count).to eq 2 # NOTE count returns a Hash because the group() in default scope
 end
 

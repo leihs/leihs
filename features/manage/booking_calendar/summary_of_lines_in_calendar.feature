@@ -1,4 +1,4 @@
-Feature: Summary of lines in calendar
+Feature: Summary of reservations in calendar
 
   In order to recognize which line gets unavailable in the booking calendar and why
   as InventoryPool manager

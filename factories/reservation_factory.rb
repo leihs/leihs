@@ -25,7 +25,7 @@ FactoryGirl.define do
 
     quantity 1
     model {
-      inventory_pool.models.shuffle.detect { |model| av = model.availability_in(inventory_pool); av.partitions[nil] > 0 and av.running_lines.empty? } ||
+      inventory_pool.models.shuffle.detect { |model| av = model.availability_in(inventory_pool); av.partitions[nil] > 0 and av.running_reservations.empty? } ||
           FactoryGirl.create(:model_with_items, :inventory_pool => inventory_pool)
     }
   end

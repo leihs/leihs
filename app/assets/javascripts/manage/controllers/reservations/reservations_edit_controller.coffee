@@ -13,12 +13,12 @@ class window.App.ReservationsEditController extends Spine.Controller
         null 
       else 
         _.reduce mergedLines, (mem, l)-> 
-          mem + (if l.sublines? then _.reduce(l.sublines, ((mem, l)-> mem+l.quantity), 0) else l.quantity)
+          mem + (if l.subreservations? then _.reduce(l.subreservations, ((mem, l)-> mem+l.quantity), 0) else l.quantity)
         , 0
     models = _.unique _.map(_.filter(mergedLines, (l)->l.model_id?), (l)-> l.model()), false, (m) -> m.id
     new App.ReservationsChangeController
       mergedLines: mergedLines
-      lines: reservations
+      reservations: reservations
       user: @user
       models: models
       quantity: quantity

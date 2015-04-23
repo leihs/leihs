@@ -71,14 +71,14 @@ When "$who clicks '$action'" do |who, action|
 end
 
 Then "that should be possible$reason" do |reason|
-  expect(@contract.lines.size).to eq 1
-  line = @contract.lines.first
+  expect(@contract.reservations.size).to eq 1
+  line = @contract.reservations.first
   line.start_date = LeihsFactory.parsedate(@date)
   expect(line.save).to be true
 end
 
 When "trying to set the end date to the same date" do  
-  line = @contract.lines.first
+  line = @contract.reservations.first
   line.end_date = LeihsFactory.parsedate(@date)
   @save_successful = line.save
 end

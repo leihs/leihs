@@ -58,8 +58,8 @@ Given(/^(a|\d+) model(?:s)? (?:is|are) not available$/) do |n|
           n.to_i
       end
 
-  lines = @current_user.reservations.unsubmitted
-  available_lines, unavailable_lines = lines.partition {|line| line.available? }
+  reservations = @current_user.reservations.unsubmitted
+  available_lines, unavailable_lines = reservations.partition {|line| line.available? }
 
   available_lines.take(n - unavailable_lines.size).each do |line|
     (line.maximum_available_quantity + 1).times do
@@ -92,9 +92,9 @@ Then(/^the models in my order (are released|remain blocked)$/) do |arg1|
   expect(@current_user.reservations.unsubmitted.all? { |line|
            case arg1
              when "are released"
-               not line.inventory_pool.running_lines.detect { |l| l.id == line.id }
+               not line.inventory_pool.running_reservations.detect { |l| l.id == line.id }
              when "remain blocked"
-               line.inventory_pool.running_lines.detect { |l| l.id == line.id }
+               line.inventory_pool.running_reservations.detect { |l| l.id == line.id }
            end
          }).to be true
 end

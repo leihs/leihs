@@ -1,6 +1,6 @@
-Feature: Order update lines
+Feature: Order update reservations
 
   Model test (instance methods)
 
   @upcoming
-    Scenario: Update lines
+    Scenario: Update reservations

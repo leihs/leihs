@@ -14,8 +14,8 @@
 
 
   - if [:signed, :closed].include?(@contract.status)
-    - lines_by_end_date = @contract.lines.includes(:item).group_by{|line| line.end_date }
-    - lines_by_end_date.each_pair do |end_date, lines|
+    - lines_by_end_date = @contract.reservations.includes(:item).group_by{|line| line.end_date }
+    - lines_by_end_date.each_pair do |end_date, reservations|
       %section.list
         %table
           %thead
@@ -28,7 +28,7 @@
               %td.model_name= _("Model")
               %td.location= "%s / %s" % [_("Room"), _("Shelf")]
           %tbody
-            - sorted_lines = lines.sort_by{|line| (line.item.respond_to?(:location) and line.item.location) ? "%s / %s" % [line.item.location.room, line.item.location.shelf] : "zzzz (no locations displayed at the end of the list)" }
+            - sorted_lines = reservations.sort_by{|line| (line.item.respond_to?(:location) and line.item.location) ? "%s / %s" % [line.item.location.room, line.item.location.shelf] : "zzzz (no locations displayed at the end of the list)" }
             - sorted_lines.each do |line|
               %tr{style: "vertical-align: top"}
                 %td.quantity= line.quantity
@@ -42,8 +42,8 @@
 
 
   - else
-    - lines_by_start_date = (@reservations || @contract.lines).includes(:model).group_by{|line| line.start_date }
-    - lines_by_start_date.each_pair do |start_date, lines|
+    - lines_by_start_date = (@reservations || @contract.reservations).includes(:model).group_by{|line| line.start_date }
+    - lines_by_start_date.each_pair do |start_date, reservations|
       %section.list
         %table
           %thead
@@ -56,10 +56,10 @@
               %td.model_name= _("Model")
               %td.location= "%s x %s / %s" % [_("available quantity"), _("Room"), _("Shelf")]
           %tbody
-            - models_lines = lines.group_by{|line| [line.model, line.item] }
-            - Hash[models_lines.sort_by {|k,v| k.first.to_s or k.last }].each_pair do |model_item, lines|
+            - models_lines = reservations.group_by{|line| [line.model, line.item] }
+            - Hash[models_lines.sort_by {|k,v| k.first.to_s or k.last }].each_pair do |model_item, reservations|
               %tr{style: "vertical-align: top"}
-                %td.quantity= lines.sum &:quantity
+                %td.quantity= reservations.sum &:quantity
                 %td.inventory_code= model_item.last.inventory_code if model_item.last
                 %td.model_name= model_item.first.name
                 %td.location

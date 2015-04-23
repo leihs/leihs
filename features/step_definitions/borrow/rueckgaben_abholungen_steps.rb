@@ -72,7 +72,7 @@ Then(/^each of the "(.*?)" shows items to (?:.+)$/) do |visit_type|
   when "Pick ups"
     @current_user.visits.hand_over
   end.each do |visit|
-    visit.lines.each do |line|
+    visit.reservations.each do |line|
       expect(has_selector?(".row.line", text: line.model.name)).to be true
     end
   end
@@ -84,7 +84,7 @@ Then(/^the items are sorted alphabetically and grouped by model name and number 
            @current_user.visits.take_back
          elsif current_path == borrow_to_pick_up_path
            @current_user.visits.hand_over
-         end.joins(:inventory_pool).order("date", "inventory_pools.name").map(&:lines)
+         end.joins(:inventory_pool).order("date", "inventory_pools.name").map(&:reservations)
 
   t = temp.map{|reservations| reservations.map(&:model).uniq.map(&:name).sort }.flatten
   expect(t).to eq all(".row.line .col6of10").map(&:text)
@@ -104,7 +104,7 @@ end
 Then(/^the items are sorted alphabetically by model name$/) do
   t = @current_user.visits.take_back.
         joins(:inventory_pool).order("date", "inventory_pools.name").
-        map(&:lines).map{|reservations| reservations.map(&:model)}.
+        map(&:reservations).map{|reservations| reservations.map(&:model)}.
         map{|visit_models| visit_models.map(&:name)}.
         map{|visit_model_names| visit_model_names.sort}.flatten
   expect(t).to eq all(".row.line .col6of10").map(&:text)

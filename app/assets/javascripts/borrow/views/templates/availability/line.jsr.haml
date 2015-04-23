@@ -1,10 +1,10 @@
 .row.line{:"data-model_link_id" => "{{>model_link_id}}"}
 
-  %input{:type => :hidden, :name => "lines[][model_id]", :value => "{{>model_id}}"}
-  %input{:type => :hidden, :name => "lines[][quantity]", :value => "{{>quantity}}"}
-  %input{:type => :hidden, :name => "lines[][start_date]", :value => "{{>start_date}}"}
-  %input{:type => :hidden, :name => "lines[][end_date]", :value => "{{>end_date}}"}
-  %input{:type => :hidden, :name => "lines[][inventory_pool_id]", :value => "{{>inventory_pool_id}}"}
+  %input{:type => :hidden, :name => "reservations[][model_id]", :value => "{{>model_id}}"}
+  %input{:type => :hidden, :name => "reservations[][quantity]", :value => "{{>quantity}}"}
+  %input{:type => :hidden, :name => "reservations[][start_date]", :value => "{{>start_date}}"}
+  %input{:type => :hidden, :name => "reservations[][end_date]", :value => "{{>end_date}}"}
+  %input{:type => :hidden, :name => "reservations[][inventory_pool_id]", :value => "{{>inventory_pool_id}}"}
 
   {{if !available}}
   .line-info.red{:title => "{{jed 'Not available'/}}"}

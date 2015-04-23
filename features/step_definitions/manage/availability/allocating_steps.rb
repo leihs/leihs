@@ -3,7 +3,7 @@ Given /^a list of changes\/availabilities$/ do
   @reference = @model.availability_in(@current_inventory_pool).available_total_quantities
 end
 
-When /^I request that list multiple times the allocation of the lines should always be the same$/ do
+When /^I request that list multiple times the allocation of the reservations should always be the same$/ do
   50.times do
     expect(@reference.to_json).to eq @model.availability_in(@current_inventory_pool).available_total_quantities.to_json
   end

@@ -83,6 +83,6 @@ Feature: Rüstliste
     When I visit the lending section on the list of closed contracts
     And I see at least a contract
     Then I can open the picking list of any contract line
-    When I open a hand over which has multiple lines
+    When I open a hand over which has multiple reservations
     And I select at least one line
     Then I can open the picking list

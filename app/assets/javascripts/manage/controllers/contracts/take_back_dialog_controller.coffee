@@ -6,11 +6,11 @@ class window.App.TakeBackDialogController extends Spine.Controller
     @el.on "click", "[data-take-back]", @takeBack
 
   setupModal: =>
-    lines = _.map @lines, (line)-> 
+    reservations = _.map @reservations, (line)->
       line.end_date = moment().format("YYYY-MM-DD")
       line
     data = 
-      groupedLines: App.Modules.HasLines.groupByDateRange lines, true
+      groupedLines: App.Modules.HasLines.groupByDateRange reservations, true
       user: @user
       itemsCount: @getItemsCount()
     options = 
@@ -18,16 +18,16 @@ class window.App.TakeBackDialogController extends Spine.Controller
     @modal = new App.Modal App.Render "manage/views/users/take_back_dialog", data, options
     @el = @modal.el
 
-  getItemsCount: => _.reduce @lines, ((mem,l)=> (@returnedQuantity[l.id]||l.quantity) + mem), 0
+  getItemsCount: => _.reduce @reservations, ((mem,l)=> (@returnedQuantity[l.id]||l.quantity) + mem), 0
 
   takeBack: =>
     @modal.undestroyable()
     @modal.el.detach()
-    App.Reservation.takeBack(@lines, @returnedQuantity)
-    .done (data)=> @showDocuments @lines
+    App.Reservation.takeBack(@reservations, @returnedQuantity)
+    .done (data)=> @showDocuments @reservations
 
-  showDocuments: (lines)=>
-    contracts = _.uniq(_.map(lines, (l)->l.contract()), (c) -> c.id)
+  showDocuments: (reservations)=>
+    contracts = _.uniq(_.map(reservations, (l)->l.contract()), (c) -> c.id)
     tmpl = App.Render "manage/views/users/take_back_documents_dialog", {user: @user, contracts: contracts, itemsCount: @getItemsCount()}
     modal = new App.Modal tmpl
     modal.undestroyable()

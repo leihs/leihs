@@ -258,10 +258,6 @@ class Model < ActiveRecord::Base
     images.offset(offset).first
   end
 
-  def lines
-    reservations
-  end
-
   def needs_permission
     items.each do |item|
       return true if item.needs_permission

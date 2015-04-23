@@ -50,7 +50,7 @@ end
 #Dann(/^sehe ich alle Modelle, die diese Vorlage beinhaltet$/) do
 Then(/^I see all models that template contains$/) do
   @template.model_links.each do |model_link|
-    find(".line", match: :prefer_exact, text: model_link.model.name).find("input[name='lines[][quantity]'][value='#{model_link.quantity}']")
+    find(".line", match: :prefer_exact, text: model_link.model.name).find("input[name='reservations[][quantity]'][value='#{model_link.quantity}']")
   end
 end
 
@@ -64,21 +64,21 @@ end
 #When(/^ich sehe für jedes Modell die Anzahl Gegenstände dieses Modells, welche die Vorlage vorgibt$/) do
 Then(/^for each model I see the quantity as specified by the template$/) do
   @template.model_links.each do |model_link|
-    find(".row", match: :first, text: model_link.model.name).find("input[name='lines[][quantity]'][value='#{model_link.quantity}']", match: :first)
+    find(".row", match: :first, text: model_link.model.name).find("input[name='reservations[][quantity]'][value='#{model_link.quantity}']", match: :first)
   end
 end
 
 #When(/^ich kann die Anzahl jedes Modells verändern, bevor ich den Prozess fortsetze$/) do
 When(/^I can modify the quantity of each model before ordering$/) do
   @model_link = @template.model_links.order("RAND()").first
-  find(".row", match: :first, text: @model_link.model.name).find("input[name='lines[][quantity]'][value='#{@model_link.quantity}']", match: :first).set rand(10)
+  find(".row", match: :first, text: @model_link.model.name).find("input[name='reservations[][quantity]'][value='#{@model_link.quantity}']", match: :first).set rand(10)
 end
 
 #When(/^ich kann höchstens die maximale Anzahl an verfügbaren Geräten eingeben$/) do
 Then(/^I can specify at most the maximum available quantity per model$/) do
-  max = find(".row", match: :first, text: @model_link.model.name).find("input[name='lines[][quantity]']", match: :first)[:max].to_i
-  find(".row", match: :first, text: @model_link.model.name).find("input[name='lines[][quantity]']", match: :first).set max+1
-  expect(find(".row", match: :first, text: @model_link.model.name).find("input[name='lines[][quantity]']", match: :first).value.to_i).to eq max
+  max = find(".row", match: :first, text: @model_link.model.name).find("input[name='reservations[][quantity]']", match: :first)[:max].to_i
+  find(".row", match: :first, text: @model_link.model.name).find("input[name='reservations[][quantity]']", match: :first).set max+1
+  expect(find(".row", match: :first, text: @model_link.model.name).find("input[name='reservations[][quantity]']", match: :first).value.to_i).to eq max
 end
 
 #When(/^sehe ich eine auffällige Warnung sowohl auf der Seite wie bei den betroffenen Modellen$/) do
@@ -131,14 +131,14 @@ end
 
 #Angenommen(/^einige Modelle sind nicht verfügbar$/) do
 Given(/^some models are not available$/) do
-  find(".emboss.red", match: :first, text: _("Please solve the conflicts for all highlighted lines in order to continue."))
+  find(".emboss.red", match: :first, text: _("Please solve the conflicts for all highlighted reservations in order to continue."))
   find(".separated-top .row.line .line-info.red", match: :first)
 end
 
 #Dann(/^kann ich diejenigen Modelle, die verfügbar sind, gesamthaft einer Bestellung hinzufügen$/) do
 Then(/^I can add those models which are available to an order all at once$/) do
   expect(has_selector?(".separated-top .row.line .line-info.red")).to be true
-  @unavailable_model_ids = all(".separated-top .row.line .line-info.red").map {|x| x.first(:xpath, "./..").find("input[name='lines[][model_id]']", match: :first, visible: false).value.to_i}
+  @unavailable_model_ids = all(".separated-top .row.line .line-info.red").map {|x| x.first(:xpath, "./..").find("input[name='reservations[][model_id]']", match: :first, visible: false).value.to_i}
   @unavailable_model_ids -= @current_user.reservations.unsubmitted.map(&:model_id).uniq
   find(".button.green.dropdown-toggle", match: :first).click
   expect(has_content?(_("Continue with available models only"))).to be true

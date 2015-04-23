@@ -92,7 +92,7 @@ Then "$who sees $quantity items of model '$model'" do |who, quantity, model|
   expect(line.quantity).to eq quantity.to_i
 end
 
-Then "all '$what' order lines are marked as invalid" do |what|
+Then "all '$what' order reservations are marked as invalid" do |what|
   # TODO: VERY ugly - we need have_tag "td.valid_false"
   expect(@response.body).to match /valid_false/
 end
@@ -105,7 +105,7 @@ Then /the order should( not)? be approvable(.*)/ do |arg1, reason|
     expect(@response).to be_ok
 
     expect(@contract.approvable?).to be false
-    @contract.lines.reload.each { |line| line.purpose = Purpose.first }
+    @contract.reservations.reload.each { |line| line.purpose = Purpose.first }
     expect(@contract.approvable?).to be true
   end
 end

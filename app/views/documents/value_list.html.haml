@@ -27,7 +27,7 @@
 
       %tbody
         - consecutive_number = 0
-        - @contract.lines.sort.each do |line|
+        - @contract.reservations.sort.each do |line|
           %tr
             %td.consecutive_number
               - if line.quantity > 1

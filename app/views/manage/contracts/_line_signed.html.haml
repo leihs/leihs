@@ -2,7 +2,7 @@
 
 .col1of8.line-col= l created_at.to_date
 
-= render :partial => "manage/lines/cell", :locals => {:lines => contract.lines}
+= render :partial => "manage/reservations/cell", :locals => {:reservations => contract.reservations}
 
 .col1of8.line-col
   = contract.max_range

@@ -94,9 +94,9 @@ class AccessRight < ActiveRecord::Base
 
   def check_for_existing_reservations
     if inventory_pool
-      lines = inventory_pool.reservations.where(user_id: user)
-      errors.add(:base, _("Currently has open orders")) if lines.submitted.exists? or lines.approved.exists?
-      errors.add(:base, _("Currently has items to return")) if lines.signed.exists?
+      reservations = inventory_pool.reservations.where(user_id: user)
+      errors.add(:base, _("Currently has open orders")) if reservations.submitted.exists? or reservations.approved.exists?
+      errors.add(:base, _("Currently has items to return")) if reservations.signed.exists?
     end
   end
 

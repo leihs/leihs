@@ -671,7 +671,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Edit multiple selected lines": [
+      "Edit multiple selected reservations": [
          null,
          ""
       ],
@@ -1926,7 +1926,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "The selected lines have been moved": [
+      "The selected reservations have been moved": [
          null,
          ""
       ],
@@ -1946,15 +1946,15 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "This contract is not signable because it doesn't have any contract lines.": [
+      "This contract is not signable because it doesn't have any contract reservations.": [
          null,
          ""
       ],
-      "This contract is not signable because none of the lines have a purpose.": [
+      "This contract is not signable because none of the reservations have a purpose.": [
          null,
          ""
       ],
-      "This contract is not signable because some lines are not assigned.": [
+      "This contract is not signable because some reservations are not assigned.": [
          null,
          ""
       ],
@@ -2259,7 +2259,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "You cannot delete all lines of an order. Perhaps you want to reject it instead?": [
+      "You cannot delete all reservations of an order. Perhaps you want to reject it instead?": [
          null,
          ""
       ],
@@ -2640,7 +2640,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "while deleting multiple order lines": [
+      "while deleting multiple order reservations": [
          null,
          ""
       ],
@@ -2660,15 +2660,15 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "you cannot hand out lines which are starting in the future": [
+      "you cannot hand out reservations which are starting in the future": [
          null,
          ""
       ],
-      "you cannot hand out lines which are ending in the past": [
+      "you cannot hand out reservations which are ending in the past": [
          null,
          ""
       ],
-      "you cannot hand out lines with unassigned inventory codes": [
+      "you cannot hand out reservations with unassigned inventory codes": [
          null,
          ""
       ],
@@ -3174,7 +3174,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Please solve the conflicts for all highlighted lines in order to continue.": [
+      "Please solve the conflicts for all highlighted reservations in order to continue.": [
          null,
          ""
       ],

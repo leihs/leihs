@@ -10,7 +10,7 @@ Feature: Close Contract
   @javascript @browser @personas
   Scenario: Take back all items of a contract
      When I open a take back
-      And I select all lines of an open contract
+      And I select all reservations of an open contract
       And I click take back
      Then I see a summary of the things I selected for take back
      When I click take back inside the dialog

@@ -25,8 +25,8 @@ class window.App.TimeoutCountdownController extends Spine.Controller
   timeout: => document.location = "/borrow/order/timed_out"
 
   validateStart: =>
-    all_lines = _.flatten(_.map App.Contract.currents, (c)-> c.lines().all())
-    if all_lines.length != 0
+    all_reservations = _.flatten(_.map App.Contract.currents, (c)-> c.reservations().all())
+    if all_reservations.length != 0
       do @countdown.start
       do @renderTime
       @el.removeClass "hidden"

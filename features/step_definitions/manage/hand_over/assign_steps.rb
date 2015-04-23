@@ -14,7 +14,7 @@ end
 
 When /^I assign an item to the hand over by providing an inventory code and a date range$/ do
   @inventory_code = @current_user.inventory_pools.managed.first.items.in_stock.first.inventory_code unless @inventory_code
-  model_already_there = @customer.visits.hand_over.where(inventory_pool_id: @current_inventory_pool).flat_map(&:lines).any? {|l| l.model == Item.find_by_inventory_code(@inventory_code).model}
+  model_already_there = @customer.visits.hand_over.where(inventory_pool_id: @current_inventory_pool).flat_map(&:reservations).any? {|l| l.model == Item.find_by_inventory_code(@inventory_code).model}
   line_amount_before = all(".line").count
   assigned_amount_before = all(".line [data-assign-item][disabled]").count
 
@@ -48,25 +48,25 @@ When /^I select a linegroup$/ do
   find("[data-selected-lines-container] input[data-select-lines]", match: :first).click
 end
 
-When /^I add an item which is matching the model of one of the selected unassigned lines to the hand over by providing an inventory code$/ do
+When /^I add an item which is matching the model of one of the selected unassigned reservations to the hand over by providing an inventory code$/ do
   expect(has_selector?(".line")).to be true
   selected_ids = all(".line [data-select-line]:checked").map {|cb| cb.find(:xpath, "ancestor::div[@data-id]")["data-id"]}
-  @item = @hand_over.lines.select{|l| !l.item and selected_ids.include?(l.id.to_s) and l.model.items.in_stock.where(inventory_pool_id: @current_inventory_pool).exists?}.first.model.items.in_stock.first
+  @item = @hand_over.reservations.select{|l| !l.item and selected_ids.include?(l.id.to_s) and l.model.items.in_stock.where(inventory_pool_id: @current_inventory_pool).exists?}.first.model.items.in_stock.first
   find("[data-add-contract-line]").set @item.inventory_code
   find("[data-add-contract-line] + .addon").click
 end
 
 Then /^the first itemline in the selection matching the provided inventory code is assigned$/ do
   expect(has_selector?(".line.green")).to be true
-  line = @hand_over.reload.lines.detect{|line| line.item == @item}
+  line = @hand_over.reload.reservations.detect{|line| line.item == @item}
   expect(line).not_to be_nil
 end
 
 Then /^no new line is added to the hand over$/ do
-  expect(@hand_over.lines.size).to eq @hand_over.reload.lines.size
+  expect(@hand_over.reservations.size).to eq @hand_over.reload.reservations.size
 end
 
-When /^I clean the inventory code of one of the lines$/ do
+When /^I clean the inventory code of one of the reservations$/ do
   within(".line[data-line-type='item_line'][data-id='#{@item_line.id}']") do
     find(".col4of10 strong", text: @item_line.model.name)
     expect(find("[data-assign-item][disabled]").value).to eq @selected_inventory_code
@@ -83,7 +83,7 @@ Then /^the assignment of the line to an inventory code is removed$/ do
 end
 
 When(/^I click on the assignment field of software names$/) do
-  @reservation = @hand_over.lines.find {|l| l.model.is_a? Software }
+  @reservation = @hand_over.reservations.find {|l| l.model.is_a? Software }
   find(".line[data-id='#{@reservation.id}'] input[data-assign-item]").click
 end
 

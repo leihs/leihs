@@ -142,7 +142,7 @@ Then /^each model of the template is added to the hand over for the provided dat
   end
 end
 
-When /^I add so many lines that I break the maximal quantity of a model$/ do
+When /^I add so many reservations that I break the maximal quantity of a model$/ do
   @model ||= (@contract || @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool)).item_lines.order("RAND()").first.model
   @target_name = @model.name
   quantity_to_add = if @contract
@@ -160,7 +160,7 @@ When /^I add so many lines that I break the maximal quantity of a model$/ do
   end
 end
 
-Then /^I see that all lines of that model have availability problems$/ do
+Then /^I see that all reservations of that model have availability problems$/ do
   find(".line[data-line-type='item_line']", match: :prefer_exact, :text => @target_name)
   @lines = all(".line[data-line-type='item_line']", :text => @target_name)
   @lines.each do |line|

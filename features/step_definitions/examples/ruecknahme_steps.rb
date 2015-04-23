@@ -21,10 +21,10 @@ Then(/^the take backs are ordered by date in ascending order$/) do
   expect(has_selector?(".line[data-line-type]")).to be true
 
   take_backs = @user.visits.take_back.select{|v| v.inventory_pool == @current_inventory_pool}.sort {|d1, d2| d1.date <=> d2.date }
-  lines = take_backs.flat_map &:lines
+  reservations = take_backs.flat_map &:reservations
 
   all(".line[data-line-type='item_line']").each_with_index do |line, i|
-    ar_line = lines[i]
+    ar_line = reservations[i]
 
     if ar_line.is_a? ItemLine
       line.text.instance_eval do
@@ -47,7 +47,7 @@ end
 
 #Angenommen(/^ich befinde mich in einer Rücknahme$/) do
 Given(/^I am taking something back$/) do
-  @take_back = @current_inventory_pool.visits.take_back.order("RAND()").detect {|v| v.lines.any? {|l| l.is_a? ItemLine}}
+  @take_back = @current_inventory_pool.visits.take_back.order("RAND()").detect {|v| v.reservations.any? {|l| l.is_a? ItemLine}}
   @user = @take_back.user
   step "man die Rücknahmenansicht für den Benutzer öffnet"
 end
@@ -64,7 +64,7 @@ end
 
 #Angenommen(/^ich befinde mich in einer Rücknahme mit mindestens einem verspäteten Gegenstand$/) do
 Given(/^I am taking back at least one overdue item$/) do
-  @take_back = @current_inventory_pool.visits.take_back.find {|v| v.lines.any? {|l| l.end_date.past? }}
+  @take_back = @current_inventory_pool.visits.take_back.find {|v| v.reservations.any? {|l| l.end_date.past? }}
   @user = @take_back.user
   step "man die Rücknahmenansicht für den Benutzer öffnet"
 end
@@ -73,12 +73,12 @@ When(/^I take back an( overdue)? (item|option) using the assignment field$/) do 
   @reservation = case arg2
                      when "item"
                        if arg1
-                         @take_back.lines.find{|l| l.end_date.past?}
+                         @take_back.reservations.find{|l| l.end_date.past?}
                        else
-                         @take_back.lines.order("RAND()").detect {|l| l.is_a? ItemLine}
+                         @take_back.reservations.order("RAND()").detect {|l| l.is_a? ItemLine}
                        end
                      when "option"
-                       @take_back.lines.find {|l| l.quantity >= 2 }
+                       @take_back.reservations.find {|l| l.quantity >= 2 }
                    end
   within "form#assign" do
     find("input#assign-input").set @reservation.item.inventory_code
@@ -95,7 +95,7 @@ end
 
 #Angenommen(/^ich befinde mich in einer Rücknahme mit mindestens zwei gleichen Optionen$/) do
 Given(/^I am on a take back with at least two of the same options$/) do
-  @take_back = @current_inventory_pool.visits.take_back.find {|v| v.lines.any? {|l| l.quantity >= 2 }}
+  @take_back = @current_inventory_pool.visits.take_back.find {|v| v.reservations.any? {|l| l.quantity >= 2 }}
   @user = @take_back.user
   step "man die Rücknahmenansicht für den Benutzer öffnet"
 end
@@ -118,7 +118,7 @@ end
 #Angenommen(/^es existiert ein Benutzer mit einer zurückzugebender Option in zwei verschiedenen Zeitfenstern$/) do
 Given(/^there is a user with an option to return in two different time windows$/) do
   @user = User.find do |u|
-    option_lines = u.visits.take_back.select{|v| v.inventory_pool == @current_inventory_pool}.flat_map(&:lines).select {|l| l.is_a? OptionLine}
+    option_lines = u.visits.take_back.select{|v| v.inventory_pool == @current_inventory_pool}.flat_map(&:reservations).select {|l| l.is_a? OptionLine}
     option_lines.uniq(&:option).size < option_lines.size
   end
   expect(@user).not_to be_nil
@@ -159,7 +159,7 @@ Then(/^the option is added to the second time window$/) do
 end
 
 Given(/^I open a take back with at least one item and one option$/) do
-  @take_back = @current_inventory_pool.visits.take_back.find {|v| v.lines.any? {|l| l.is_a? OptionLine} and v.lines.any? {|l| l.is_a? ItemLine}}
+  @take_back = @current_inventory_pool.visits.take_back.find {|v| v.reservations.any? {|l| l.is_a? OptionLine} and v.reservations.any? {|l| l.is_a? ItemLine}}
   expect(@take_back).not_to be_nil
   visit manage_take_back_path(@current_inventory_pool, @take_back.user)
 end

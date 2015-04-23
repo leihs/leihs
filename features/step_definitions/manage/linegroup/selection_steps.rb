@@ -15,7 +15,7 @@ When /^I open a take back, hand over or I edit a contract$/ do
   end
 end
 
-When /^I select all lines of an linegroup$/ do
+When /^I select all reservations of an linegroup$/ do
   within "#lines" do
     @linegroup = find("[data-selected-lines-container]", match: :first)
     @linegroup.all(".line").each do |line|
@@ -28,7 +28,7 @@ Then /^the linegroup is selected$/ do
   @linegroup.find("input[type=checkbox][data-select-lines]:checked")
 end
 
-Then /^the count matches the amount of selected lines$/ do
+Then /^the count matches the amount of selected reservations$/ do
   expect(all("input[type=checkbox][data-select-line]").select{|x| x.checked? }.size).to eq find("#line-selection-counter").text.to_i
 end
 
@@ -42,7 +42,7 @@ When /^I select the linegroup$/ do
   end
 end
 
-Then /^all lines of that linegroup are selected$/ do
+Then /^all reservations of that linegroup are selected$/ do
   @linegroup.all(".line").each do |line|
     line.find("input[type=checkbox][data-select-line]:checked")
   end

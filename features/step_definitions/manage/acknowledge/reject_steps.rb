@@ -47,7 +47,7 @@ Then /^the contract is rejected$/ do
   end
 
   rejected_contract = @current_inventory_pool.reservations_bundles.rejected.find_by(user_id: @contract.user)
-  @contract.lines.each do |line|
+  @contract.reservations.each do |line|
     expect(rejected_contract.reservations.include? line).to be true
     expect(line.reload.status).to eq :rejected
   end

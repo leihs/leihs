@@ -3,7 +3,7 @@ name: Leihs
 
 task_defaults:
   eager_trials: 1
-  auto_trials: 2
+  auto_trials: 5
   environment_variables:
     _cider-ci_include: 'cider-ci/partials/environment_variables.yml'
   traits:

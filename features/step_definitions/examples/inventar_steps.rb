@@ -431,7 +431,7 @@ Then /^I can export this data as a CSV file$/ do
 end
 
 #Dann /^die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden \(inkl\. Filter\)$/ do
-Then /^the file contains the same lines as are shown right now, including any filtering$/ do
+Then /^the file contains the same reservations as are shown right now, including any filtering$/ do
   # not really downloading the file, but invoking directly the model class method
   @csv = CSV.parse InventoryPool.csv_export(@current_inventory_pool, @params),
                    {col_sep: ";", quote_char: "\"", force_quotes: true, headers: :first_row}
@@ -450,7 +450,7 @@ Then /^the file contains the same lines as are shown right now, including any fi
 end
 
 #Dann(/^die Zeilen enthalten die folgenden Felder in aufgeführter Reihenfolge$/) do |table|
-Then(/^the lines contain the following fields in order:$/) do |table|
+Then(/^the reservations contain the following fields in order:$/) do |table|
   csv_headers = @csv.headers
   table.hashes.each do |row|
     expect(csv_headers).to include row["Fields"]

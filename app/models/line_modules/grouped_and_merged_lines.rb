@@ -10,8 +10,8 @@ module LineModules
 
     module ClassMethods
 
-      def grouped_and_merged_lines(lines, date = :start_date)
-        gmlines = lines.group_by do |l|
+      def grouped_and_merged_lines(reservations, date = :start_date)
+        gmlines = reservations.group_by do |l|
           case date
             when :start_date
               {start_date: l.start_date, inventory_pool: l.inventory_pool}

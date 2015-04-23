@@ -18,7 +18,7 @@
               = _("You can modify the time range for each separate model in the next step.")
 
         .separated-top
-          = render :partial => "borrow/templates/select_dates/line", :collection => @lines, as: :line
+          = render :partial => "borrow/templates/select_dates/line", :collection => @reservations, as: :line
 
         .emboss.padding-inset-l.separated-top.margin-top-l
 

@@ -123,7 +123,7 @@
 #   get borrow_root_path
 #   model_id = Model.find_by_name(model).id
 #   post borrow_reservations_path(:model_id => model_id, :quantity => quantity, :inventory_pool_id => @inventory_pool.id)
-#   @reservations = @current_user.reservations_bundles.first.lines
+#   @reservations = @current_user.reservations_bundles.first.reservations
 # end
 #
 # When "'$user' contracts another $quantity '$model' for the same time" do |user, quantity, model|
@@ -173,7 +173,7 @@ When(/^that contract has been deleted$/) do
   expect { @contract.reload }.to raise_error(ActiveRecord::RecordNotFound)
 end
 
-Given /^there is a "(.*?)" contract with (\d+) lines?$/ do |contract_type, no_of_lines|
+Given /^there is a "(.*?)" contract with (\d+) reservations?$/ do |contract_type, no_of_lines|
   # FIXME before testing these 2 status, we need to improve our factories, adapting them to our validations
   pending if [:signed, :closed].include? contract_type.downcase.to_sym
 
@@ -187,19 +187,19 @@ Given /^there is a "(.*?)" contract with (\d+) lines?$/ do |contract_type, no_of
 end
 
 When /^one tries to delete a line$/ do
-  @result_of_line_removal = @contract.remove_line(@contract.lines.last, FactoryGirl.create(:user).id)
+  @result_of_line_removal = @contract.remove_line(@contract.reservations.last, FactoryGirl.create(:user).id)
 end
 
-Then /^the amount of lines decreases by one$/ do
-  expect(@contract.lines.size).to eq(@no_of_lines_at_start - 1)
+Then /^the amount of reservations decreases by one$/ do
+  expect(@contract.reservations.size).to eq(@no_of_lines_at_start - 1)
 end
 
 Then /^that line has (.*)(?:\s?)been deleted$/ do |not_specifier|
   expect(@result_of_line_removal).to eq not_specifier.blank?
 end
 
-Then /^the amount of lines remains unchanged$/ do
-  expect(@contract.lines.size).to eq @no_of_lines_at_start
+Then /^the amount of reservations remains unchanged$/ do
+  expect(@contract.reservations.size).to eq @no_of_lines_at_start
 end
 
 Given /^required test data for contract tests existing$/ do
@@ -215,22 +215,22 @@ Given /^an empty contract of (.*) existing$/ do |allowed_type|
   status = allowed_type.downcase.to_sym
   line = @inventory_pool.reservations.where(status: status).sample
   @contract = line.user.reservations_bundles.find_by(inventory_pool_id: @inventory_pool, status: status)
-  @contract.lines.each &:destroy
-  @contract.lines.reload
+  @contract.reservations.each &:destroy
+  @contract.reservations.reload
 end
 
-When /^I add some lines for this contract$/ do
+When /^I add some reservations for this contract$/ do
   @quantity = 3
-  expect(@contract.lines.size).to eq 0
+  expect(@contract.reservations.size).to eq 0
   @contract.add_lines(@quantity, @model_with_items, @user, Date.tomorrow, Date.tomorrow + 1.week)
 end
 
-Then /^the size of the contract should increase exactly by the amount of lines added$/ do
-  expect(@contract.reload.lines.size).to eq @quantity
+Then /^the size of the contract should increase exactly by the amount of reservations added$/ do
+  expect(@contract.reload.reservations.size).to eq @quantity
   expect(@contract.valid?).to be true
 end
 
-Given /^an? (submitted|unsubmitted) contract with lines existing$/ do |arg1|
+Given /^an? (submitted|unsubmitted) contract with reservations existing$/ do |arg1|
   User.order("RAND()").detect do |user|
     @contract = user.reservations_bundles.where(status: arg1).sample
   end
@@ -238,7 +238,7 @@ end
 
 When /^I approve the contract of the borrowing user$/ do
   @contract.approve("That will be fine.", @current_user)
-  @contract.lines.each do |reservation|
+  @contract.reservations.each do |reservation|
     expect(reservation.reload.status).to eq :approved
   end
 end
@@ -258,7 +258,7 @@ When /^the contract is submitted with the purpose description "(.*?)"$/ do |purp
 end
 
 Then /^each line associated with the contract must have the same purpose description$/ do
-  @contract.lines.each do |l|
+  @contract.reservations.each do |l|
     expect(l.purpose.description).to eq @purpose
   end
 end

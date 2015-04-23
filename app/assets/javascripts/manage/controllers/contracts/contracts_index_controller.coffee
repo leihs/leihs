@@ -63,7 +63,7 @@ class window.App.ContractsIndexController extends Spine.Controller
       App.User.fetchDelegators users
 
   fetchPurposes: (page, callback)=>
-    ids = _.compact _.filter (_.map (_.flatten (_.map @contracts[page], (o) -> o.lines().all())), (l) -> l.purpose_id), (id) -> not App.Purpose.exists(id)?
+    ids = _.compact _.filter (_.map (_.flatten (_.map @contracts[page], (o) -> o.reservations().all())), (l) -> l.purpose_id), (id) -> not App.Purpose.exists(id)?
 
     do callback unless ids.length
     done = _.after Math.ceil(ids.length/300), callback

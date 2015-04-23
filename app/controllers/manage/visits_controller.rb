@@ -15,7 +15,7 @@ class Manage::VisitsController < Manage::ApplicationController
     unless visit.blank?
       contract = visit.user.reservations_bundles.approved.find_by(inventory_pool_id: current_inventory_pool)
       Contract.transaction do
-        visit.lines.each { |l| contract.remove_line(l, current_user.id) }
+        visit.reservations.each { |l| contract.remove_line(l, current_user.id) }
       end
     end
     render :status => :no_content, :nothing => true

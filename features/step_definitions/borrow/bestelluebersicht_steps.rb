@@ -61,8 +61,8 @@ end
 
 def before_max_available(user)
   h = {}
-  lines = user.reservations.unsubmitted
-  lines.each do |order_line|
+  reservations = user.reservations.unsubmitted
+  reservations.each do |order_line|
     h[order_line.id] = order_line.model.availability_in(order_line.inventory_pool).maximum_available_in_period_summed_for_groups(order_line.start_date, order_line.end_date)
   end
   h

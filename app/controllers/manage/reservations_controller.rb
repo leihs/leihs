@@ -70,12 +70,12 @@ class Manage::ReservationsController < Manage::ApplicationController
     end
   end
 
-  def change_time_range(lines = current_inventory_pool.reservations.find(params[:line_ids]),
+  def change_time_range(reservations = current_inventory_pool.reservations.find(params[:line_ids]),
                         start_date = params[:start_date].try{|x| Date.parse(x)},
                         end_date = params[:end_date].try{|x| Date.parse(x)} || Date.tomorrow)
     begin
-      lines.each{|line| line.update_time_line((start_date||line.start_date), end_date, current_user)}
-      render :status => :ok, :json => lines
+      reservations.each{|line| line.update_time_line((start_date||line.start_date), end_date, current_user)}
+      render :status => :ok, :json => reservations
     rescue => e
       render :status => :bad_request, :text => e
     end
@@ -138,14 +138,14 @@ class Manage::ReservationsController < Manage::ApplicationController
     # create new line or assign
     if model
       # try to assign for (selected)line_ids first
-      line = contract.lines.where(:id => line_ids, :model_id => item.model, :item_id => nil).first if line_ids and code
-      # try to assign to contract lines of the customer
-      line ||= contract.lines.where(:model_id => model.id, :item_id => nil).order(:start_date).first if code
+      line = contract.reservations.where(:id => line_ids, :model_id => item.model, :item_id => nil).first if line_ids and code
+      # try to assign to contract reservations of the customer
+      line ||= contract.reservations.where(:model_id => model.id, :item_id => nil).order(:start_date).first if code
       # add new line
       line ||= model.add_to_contract(contract, contract.user, quantity, start_date, end_date).first
       @error = line.errors.values.join if model_group_id.nil? and item and line and not line.update_attributes(item: item)
     elsif option
-      if line = contract.lines.where(:option_id => option.id, :start_date => start_date, :end_date => end_date).first
+      if line = contract.reservations.where(:option_id => option.id, :start_date => start_date, :end_date => end_date).first
         line.quantity += quantity
         line.save
       # FIXME go through contract.add_lines ??
@@ -178,16 +178,16 @@ class Manage::ReservationsController < Manage::ApplicationController
 
   def take_back
     returned_quantity = params[:returned_quantity]      
-    lines = current_inventory_pool.reservations.find(params[:ids])
+    reservations = current_inventory_pool.reservations.find(params[:ids])
 
-    lines.each do |l|
+    reservations.each do |l|
       l.update_attributes(:returned_date => Date.today, :returned_to_user_id => current_user.id)
       l.item.histories.create(:user => current_user, :text => _("Item taken back"), :type_const => History::ACTION) unless l.item.is_a? Option
     end
 
     if returned_quantity
       returned_quantity.each_pair do |k,v|
-        line = lines.detect {|l| l.id == k.to_i }
+        line = reservations.detect {|l| l.id == k.to_i }
         if line and v.to_i < line.quantity
           # NOTE: line is an OptionLine, since the ItemLine's quantity is always 1
           new_line = line.dup # NOTE use .dup instead of .clone (from Rails 3.1)
@@ -204,9 +204,9 @@ class Manage::ReservationsController < Manage::ApplicationController
 
   def swap_user
     user = current_inventory_pool.users.find params[:user_id]
-    lines = current_inventory_pool.reservations.where(:id => params[:line_ids])
+    reservations = current_inventory_pool.reservations.where(:id => params[:line_ids])
     ActiveRecord::Base.transaction do
-      lines.each do |line|
+      reservations.each do |line|
         delegated_user = if user.is_delegation
                            if user.delegated_users.include? line.delegated_user
                              line.delegated_user
@@ -219,7 +219,7 @@ class Manage::ReservationsController < Manage::ApplicationController
         line.update_attributes(user: user, delegated_user: delegated_user)
       end
     end
-    if lines.all? &:valid?
+    if reservations.all? &:valid?
       render status: :no_content, nothing: true
     else
       render status: :bad_request, nothing: true
@@ -254,7 +254,7 @@ class Manage::ReservationsController < Manage::ApplicationController
     reservation.end_date = end_date.try{|x| Date.parse(x)} || Date.tomorrow
     reservation.purpose = Purpose.where(id: purpose_id).first
 
-    # NOTE we need to store because the availability reads the persisted reservations (as running_lines)
+    # NOTE we need to store because the availability reads the persisted reservations (as running_reservations)
     # then we rollback on failing conditions
     Reservation.transaction do
       reservation.save!

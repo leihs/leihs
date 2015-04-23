@@ -18,7 +18,7 @@ Given "a reservation exists for $quantity '$model' from $from to $to" do |quanti
   expect(@reservations.size).to be >= quantity.to_i
   contract = user.reservations_bundles.unsubmitted.find_by(inventory_pool_id: inventory_pool)
   expect(contract.submit("this is the required purpose")).to be true
-  expect(model.availability_in(inventory_pool.reload).running_lines.size).to be >= 1
+  expect(model.availability_in(inventory_pool.reload).running_reservations.size).to be >= 1
 end
 
 Given "a contract exists for $quantity '$model' from $from to $to" do |quantity, model, from, to|
@@ -38,7 +38,7 @@ Given "a contract exists for $quantity '$model' from $from to $to" do |quantity,
                                               purpose: purpose)
   end
   expect(@reservations.size).to be >= quantity.to_i
-  expect(model.availability_in(inventory_pool.reload).running_lines.size).to be >= 1
+  expect(model.availability_in(inventory_pool.reload).running_reservations.size).to be >= 1
 end
 
 
@@ -61,7 +61,7 @@ Given "the $who signs the contract" do |who|
   contract = contract_container.sign(User.find_by_login(who), @reservations)
   expect(contract.valid?).to be true
   expect(contract.persisted?).to be true
-  expect(contract.lines == @reservations).to be true
+  expect(contract.reservations == @reservations).to be true
   @reservations.each do |line|
     expect(line.status).to eq :signed
   end

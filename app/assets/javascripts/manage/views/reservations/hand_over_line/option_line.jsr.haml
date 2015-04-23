@@ -1,4 +1,4 @@
-.line.light.row.focus-hover-thin{:"data-line-type" => "item_line", :"data-id" => "{{>id}}"}
+.line.light.row.focus-hover-thin{:"data-line-type" => "option_line", :"data-id" => "{{>id}}"}
 
   %div{:class => "line-info{{if ~renderAvailability && anyProblems()}} red{{/if}}"}
   
@@ -8,11 +8,14 @@
         %label.padding-inset-s
           %input{:type => :checkbox, :"data-select-line" => true, :autocomplete => :off}
 
-  .col2of10.line-col.text-align-center
-    .row {{>item().inventory_code}}
+  .col1of10.line-col
+    %input.small.width-full.text-align-center{:type => :text, :value => "{{>quantity}}",  :"data-line-quantity" => true}
+
+  .col1of10.line-col.text-align-center
+    %span.grey-text {{>option().inventory_code}}
 
   .col4of10.line-col.text-align-left
-    %strong {{>model().name()}}
+    %strong {{>option().name()}}
 
   .col1of10.line-col.text-align-center
     {{if purpose_id}}
@@ -22,30 +25,25 @@
 
   .col1of10.line-col.text-align-center
     {{if ~renderAvailability && anyProblems()}}
-    .emboss.red.padding-inset-xxs-alt.text-align-center.tooltip{:"data-tooltip-data" => "{{JSON getProblems()/}}", :"data-tooltip-template" => "manage/views/lines/problems_tooltip"}
+    .emboss.red.padding-inset-xxs-alt.text-align-center.tooltip{:"data-tooltip-data" => "{{JSON getProblems()/}}", :"data-tooltip-template" => "manage/views/reservations/problems_tooltip"}
       %strong {{>getProblems().length}}
-    {{else ~renderAvailability && !anyProblems() && item()}}
+    {{else ~renderAvailability && !anyProblems()}}
     .padding-inset-xxs-alt.text-align-center
       %i.icon-ok
     {{/if}}
 
   .col2of10.line-col.line-actions.padding-left-xxs.padding-right-s
     .multibutton
-      %button.button.white.text-ellipsis{:"data-edit-lines" => true, :"data-ids" => "[{{>id}}]"} {{jed "Change entry"/}}
+      %button.button.white.text-ellipsis{:"data-edit-lines" => true, :"data-ids" => "[{{>id}}]"} {{jed 'Change entry'/}}
       .dropdown-holder.inline-block
         .button.white.dropdown-toggle
           .arrow.down
         %ul.dropdown.right
           %li
-            %a.dropdown-item{:href => "{{>contract().url()}}", :target => "_blank"}
-              %i.icon-file-alt
-              {{jed "Contract"/}}
-              {{>contract().id}}
-          %li
             %a.dropdown-item{:"data-open-time-line" => true, :"data-model-id" => "{{>model().id}}"}
               %i.icon-align-left
               {{jed "Timeline"/}}
           %li
-            %a.dropdown-item{:"data-inspect-item" => true, :"data-item-id" => "{{>item_id}}"}
-              %i.icon-search
-              {{jed "Inspect"/}}
+            %a.dropdown-item.red{:"data-destroy-line" => true}
+              %i.icon-trash
+              {{jed "Delete"/}}

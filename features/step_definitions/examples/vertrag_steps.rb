@@ -2,11 +2,11 @@
 
 #Angenommen /^man öffnet einen Vertrag bei der Aushändigung( mit Software)?$/ do |arg1|
 Given /^I open a contract during hand over( that contains software)?$/ do |arg1|
-  step "I open a hand over which has multiple unassigned lines and models in stock%s" % (arg1 ? " with software" : nil)
+  step "I open a hand over which has multiple unassigned reservations and models in stock%s" % (arg1 ? " with software" : nil)
 
 
   step 'I select a license line and assign an inventory code' if arg1
-  max = [@hand_over.lines.where(item_id: nil, option_id: nil).select {|l| l.available? }.count, 1].max
+  max = [@hand_over.reservations.where(item_id: nil, option_id: nil).select {|l| l.available? }.count, 1].max
   rand(1..max).times do
     step 'I select an item line and assign an inventory code'
   end
@@ -71,21 +71,21 @@ Then /^list (\d+) and list (\d+) contain the following columns:$/ do |arg1, arg2
     table.hashes.each do |area|
       case area["Column name"]
         when "Quantity"
-          @contract.lines.each {|line|
+          @contract.reservations.each {|line|
             within("section.list tr", :text=> line.item.inventory_code) do
               find(".quantity", :text=> line.quantity.to_s)
             end
           }
         when "Inventory code"
-          @contract.lines.each {|line| find("section.list tr", :text=> line.item.inventory_code) }
+          @contract.reservations.each {|line| find("section.list tr", :text=> line.item.inventory_code) }
         when "Model name"
-          @contract.lines.each {|line|
+          @contract.reservations.each {|line|
             within("section.list tr", :text=> line.item.inventory_code) do
               find(".model_name", :text=> line.item.model.name)
             end
           }
         when "Start date"
-          @contract.lines.each {|line|
+          @contract.reservations.each {|line|
             line_element = find("section.list tr", :text=> line.item.inventory_code)
             within line_element.find(".start_date") do
               expect(has_content? line.start_date.year).to be true
@@ -94,7 +94,7 @@ Then /^list (\d+) and list (\d+) contain the following columns:$/ do |arg1, arg2
             end
           }
         when "End date"
-          @contract.lines.each {|line|
+          @contract.reservations.each {|line|
             line_element = find("section.list tr", :text=> line.item.inventory_code)
             within line_element.find(".end_date") do
               expect(has_content? line.end_date.year).to be true
@@ -103,7 +103,7 @@ Then /^list (\d+) and list (\d+) contain the following columns:$/ do |arg1, arg2
             end
           }
         when "Return date"
-          @contract.lines.each {|line|
+          @contract.reservations.each {|line|
             unless line.returned_date.blank?
               line_element = find("section.list tr", :text=> line.item.inventory_code)
               within line_element.find(".returning_date") do
@@ -120,12 +120,12 @@ end
 
 #Dann /^sehe ich eine Liste Zwecken, getrennt durch Kommas$/ do
 Then /^I see a comma-separated list of purposes$/ do
-  @contract.lines.each {|line| expect(@contract_element.find(".purposes").has_content? line.purpose.to_s).to be true }
+  @contract.reservations.each {|line| expect(@contract_element.find(".purposes").has_content? line.purpose.to_s).to be true }
 end
 
 #Dann /^jeder identische Zweck ist maximal einmal aufgelistet$/ do
 Then /^each unique purpose is listed only once$/ do
-  purposes = @contract.lines.sort.map{|l| l.purpose.to_s }.uniq.join('; ')
+  purposes = @contract.reservations.sort.map{|l| l.purpose.to_s }.uniq.join('; ')
   @contract_element.find(".purposes > p", text: purposes)
 end
 
@@ -181,7 +181,7 @@ end
 #Wenn /^es Gegenstände gibt, die zurückgegeben wurden$/ do
 When /^there are returned items$/ do
   visit manage_take_back_path(@current_inventory_pool, @customer)
-  step 'I select all lines of an open contract'
+  step 'I select all reservations of an open contract'
   step 'I click take back'
   step 'I see a summary of the things I selected for take back'
   step 'I click take back inside the dialog'
@@ -214,7 +214,7 @@ end
 
 #Wenn /^es Gegenstände gibt, die noch nicht zurückgegeben wurden$/ do
 When /^there are unreturned items$/ do
-  @not_returned = @contract.lines.select{|lines| lines.returned_date.nil?}
+  @not_returned = @contract.reservations.select{|reservations| reservations.returned_date.nil?}
 end
 
 #Dann /^diese Liste enthält Gegenstände, die ausgeliehen und noch nicht zurückgegeben wurden$/ do
@@ -229,7 +229,7 @@ end
 
 #When(/^die Modelle sind innerhalb ihrer Gruppe alphabetisch sortiert$/) do
 Then(/^the models are sorted alphabetically within their group$/) do
-  not_returned_lines, returned_lines = @contract.lines.partition {|line| line.returned_date.blank? }
+  not_returned_lines, returned_lines = @contract.reservations.partition {|line| line.returned_date.blank? }
 
   unless returned_lines.empty?
     names = all(".contract .returned_items tbody .model_name").map{|name| name.text}

@@ -3,7 +3,7 @@
 .col1of8.line-col
   = _("%s") % time_ago_in_words(contract.created_at)
 
-= render :partial => "manage/lines/cell", :locals => {:lines => contract.lines}
+= render :partial => "manage/reservations/cell", :locals => {:reservations => contract.reservations}
 
 .col1of8.line-col
   = contract.max_range

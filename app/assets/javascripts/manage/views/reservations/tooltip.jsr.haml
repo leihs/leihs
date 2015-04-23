@@ -9,14 +9,14 @@
           {{date end_date/}}
       .col1of2.text-align-right
         %strong {{diffDatesInDays start_date end_date/}}
-    {{for lines}}
+    {{for reservations}}
     .row.padding-top-xs
       .col1of8.text-align-center
         .paragraph-s.line-height-s 
           {{if ~quantity}}
           {{>~quantity}}
-          {{else sublines}}
-          {{sum sublines "quantity"/}}
+          {{else subreservations}}
+          {{sum subreservations "quantity"/}}
           {{else}}
           {{>quantity}}
           {{/if}}

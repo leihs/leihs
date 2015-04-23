@@ -40,8 +40,8 @@ When /^I start to type the name of a model( which is not yet in the contract)?$/
 end
 
 When /^I add a model to the acknowledge which is already existing in the selected date range by providing an inventory code$/ do
-  @line = @contract.lines.order("RAND()").first
-  @old_lines_count = @contract.lines.count
+  @line = @contract.reservations.order("RAND()").first
+  @old_lines_count = @contract.reservations.count
   @model = @line.model
   find(".line", match: :prefer_exact, text: @model.name)
   @line_el_count = all(".line").size
@@ -60,16 +60,16 @@ end
 
 Then /^an additional line has been created in the backend system$/ do
   find("#flash")
-  expect(@contract.lines.reload.count).to eq @old_lines_count + 1
+  expect(@contract.reservations.reload.count).to eq @old_lines_count + 1
 end
 
 Then /^the new line is getting visually merged with the existing line$/ do
   within "#edit-contract-view #lines" do
     find(".line", match: :prefer_exact, text: @model.name)
-    lines = @contract.reload.lines.where(model_id: @model)
+    reservations = @contract.reload.reservations.where(model_id: @model)
     expect(all(".line").count).to eq @line_el_count
-    expect(all(".line", text: @model.name).sum{|l| l.find("div:nth-child(3) > span:nth-child(1)").text.to_i}).to eq lines.count
-    expect(lines.count).to eq lines.to_a.sum(&:quantity)
+    expect(all(".line", text: @model.name).sum{|l| l.find("div:nth-child(3) > span:nth-child(1)").text.to_i}).to eq reservations.count
+    expect(reservations.count).to eq reservations.to_a.sum(&:quantity)
   end
 end
 

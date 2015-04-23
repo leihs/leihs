@@ -652,7 +652,7 @@ window.i18n.locale_data = {
          null,
          "Uuswahl ändere"
       ],
-      "Edit multiple selected lines": [
+      "Edit multiple selected reservations": [
          null,
          "Mehreri aagwählti Linie bearbeite"
       ],
@@ -1887,7 +1887,7 @@ window.i18n.locale_data = {
          null,
          "D Eigeschafte sind aktualisiert worde."
       ],
-      "The selected lines have been moved": [
+      "The selected reservations have been moved": [
          null,
          "Di uusgwählte Ziile sind verschobe worde"
       ],
@@ -1899,15 +1899,15 @@ window.i18n.locale_data = {
          null,
          "De Benutzer hät kei E-Mail-Adresse"
       ],
-      "This contract is not signable because it doesn't have any contract lines.": [
+      "This contract is not signable because it doesn't have any contract reservations.": [
          null,
          "De Vertrag cha nöd underschribe werde, will er kei Ziile hät."
       ],
-      "This contract is not signable because none of the lines have a purpose.": [
+      "This contract is not signable because none of the reservations have a purpose.": [
          null,
          "Dä Vertrag cha nöd underschribe werde, will keini vode Ziile en Zwäck enthaltet."
       ],
-      "This contract is not signable because some lines are not assigned.": [
+      "This contract is not signable because some reservations are not assigned.": [
          null,
          "Dä Vertrag cha nöd underschribe werde, will einigi Ziile nöd zuegwise sind."
       ],
@@ -2208,7 +2208,7 @@ window.i18n.locale_data = {
          null,
          "Si chönd käs Paket zumene Pakte dezue tue"
       ],
-      "You cannot delete all lines of an order. Perhaps you want to reject it instead?": [
+      "You cannot delete all reservations of an order. Perhaps you want to reject it instead?": [
          null,
          "Si chönd nöd all Ziile vonere Bschtellig lösche. Wännd Si si vilich lieber ablehnä?"
       ],
@@ -2573,7 +2573,7 @@ window.i18n.locale_data = {
          null,
          "während d Uusgab glöscht worde isch für"
       ],
-      "while deleting multiple order lines": [
+      "while deleting multiple order reservations": [
          null,
          "während em lösche vo mehrere Ussgabelinie"
       ],
@@ -2593,15 +2593,15 @@ window.i18n.locale_data = {
          null,
          "ohni Konflikt"
       ],
-      "you cannot hand out lines which are starting in the future": [
+      "you cannot hand out reservations which are starting in the future": [
          null,
          "Si chönd kei Ziile usegäh, wos Startdatum i de Zuekunft händ"
       ],
-      "you cannot hand out lines which are ending in the past": [
+      "you cannot hand out reservations which are ending in the past": [
          null,
          "Si chönd kei Ziile usegäh, wos Enddatum i de Vergangeheit händ"
       ],
-      "you cannot hand out lines with unassigned inventory codes": [
+      "you cannot hand out reservations with unassigned inventory codes": [
          null,
          "Si chönd kei Ziile usegäh wo kän Inventarcode zuegwise händ"
       ],
@@ -3107,7 +3107,7 @@ window.i18n.locale_data = {
          null,
          "Wiiterfahre mit dere Bschtelig"
       ],
-      "Please solve the conflicts for all highlighted lines in order to continue.": [
+      "Please solve the conflicts for all highlighted reservations in order to continue.": [
          null,
          "Lösed si bitte d Konflikt für ali markierte Ziile zum wiitermache."
       ],

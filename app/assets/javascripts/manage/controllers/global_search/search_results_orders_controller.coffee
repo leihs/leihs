@@ -45,7 +45,7 @@ class window.App.SearchResultsOrdersController extends App.SearchResultsControll
         contract_ids: ids
 
   fetchPurposes: (orders)=>
-    ids = _.compact _.filter (_.map (_.flatten (_.map orders, (o) -> o.lines().all())), (l) -> l.purpose_id), (id) -> not App.Purpose.exists(id)?
+    ids = _.compact _.filter (_.map (_.flatten (_.map orders, (o) -> o.reservations().all())), (l) -> l.purpose_id), (id) -> not App.Purpose.exists(id)?
     return {done: (c)=>c()} unless ids.length
     App.Purpose.ajaxFetch
       data: $.param

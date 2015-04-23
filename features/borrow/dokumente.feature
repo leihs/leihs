@@ -25,7 +25,7 @@ Feature: User documents
   @javascript @personas
   Scenario: Person taking back
     When I open a contract with returned items from my documents
-    Then the relevant lines show the person taking back the item in the format "F. Lastname"
+    Then the relevant reservations show the person taking back the item in the format "F. Lastname"
 
   @javascript @personas
   Scenario: Opening value list

@@ -19,7 +19,7 @@ Given(/^it has at least (\d+) group partitions in the current inventory pool$/) 
   expect(@model.partitions.where(inventory_pool_id: @current_inventory_pool).count).to be >= arg1.to_i
 end
 
-Given(/^it has at least (\d+) (unsubmitted|submitted|approved|signed) lines in the current inventory pool$/) do |arg1, status|
+Given(/^it has at least (\d+) (unsubmitted|submitted|approved|signed) reservations in the current inventory pool$/) do |arg1, status|
   attrs = { status: status.to_sym,
             inventory_pool: @current_inventory_pool,
             model: @model }

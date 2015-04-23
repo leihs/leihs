@@ -27,14 +27,14 @@ end
 
 #Dann /^sehe ich den Zweck$/ do
 Then /^I see the purpose$/ do
-  if @contract.lines.first.purpose
-    expect(has_content?(@contract.lines.first.purpose.description)).to be true
+  if @contract.reservations.first.purpose
+    expect(has_content?(@contract.reservations.first.purpose.description)).to be true
   end
 end
 
 #Dann /^sehe ich auf jeder Zeile den zugewisenen Zweck$/ do
 Then /^I see the assigned purpose on each line$/ do
-  @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool).lines.each do |line|
+  @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool).reservations.each do |line|
     target = find(".line[data-id='#{line.id}'] [data-tooltip-template*='purpose']")
     hover_for_tooltip target
     find(".tooltipster-default .tooltipster-content", text: line.purpose.description)
@@ -50,7 +50,7 @@ Then /^I can edit the purpose$/ do
     find("button[type=submit]").click
   end
   find("#purpose", text: @new_purpose_description)
-  expect(@contract.reload.lines.first.purpose.description).to eq @new_purpose_description
+  expect(@contract.reload.reservations.first.purpose.description).to eq @new_purpose_description
 end
 
 # Dann /^kann ich einen Zweck hinzufügen$/ do
@@ -117,7 +117,7 @@ When /^I define a purpose$/ do
   find("#add-purpose").click
   @added_purpose = "Another Purpose"
   find("#purpose").set @added_purpose
-  @approved_lines = @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool).lines
+  @approved_lines = @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool).reservations
   step 'kann ich die Aushändigung durchführen'
 end
 
@@ -131,24 +131,24 @@ end
 #Wenn /^alle der ausgewählten Gegenstände haben einen Zweck angegeben$/ do
 When /^all selected items have an assigned purpose$/ do
   @contract = @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool)
-  lines = @contract.lines
-  lines.each do |line|
+  reservations = @contract.reservations
+  reservations.each do |line|
     @item_line = line
     begin
       step 'I select one of those'
     rescue
-      # if we ran out of available items, and an Capybara::Element not found exception was raised, just ensure that all the selected and assigned contract lines so far, have a purpose
-      expect(lines.reload.select(&:item).all?(&:purpose)).to be true
+      # if we ran out of available items, and an Capybara::Element not found exception was raised, just ensure that all the selected and assigned contract reservations so far, have a purpose
+      expect(reservations.reload.select(&:item).all?(&:purpose)).to be true
       break
     end
   end
 
-  # select all lines if no one is selected yet
+  # select all reservations if no one is selected yet
   if all("input[type='checkbox']:checked").empty?
-    step "I select all lines selecting all linegroups"
+    step "I select all reservations selecting all linegroups"
   end
-  # ensure that only lines with assigned items are selected before continuing with the test
-  lines.reload.select{|l| !l.item}.each do |l|
+  # ensure that only reservations with assigned items are selected before continuing with the test
+  reservations.reload.select{|l| !l.item}.each do |l|
     cb = find(".line[data-id='#{l.id}'] input[type='checkbox']")
     cb.click if cb.checked?
   end
@@ -159,12 +159,12 @@ When /^all selected items have an assigned purpose$/ do
   step 'the booking calendar is closed'
 
   within "#lines" do
-    lines = lines.select {|line| line.item and find(".line[data-id='#{line.id}'] input[type='checkbox'][data-select-line]").checked? }
+    reservations = reservations.select {|line| line.item and find(".line[data-id='#{line.id}'] input[type='checkbox'][data-select-line]").checked? }
   end
 
   find(".multibutton .button[data-hand-over-selection]").click
   within(".modal") do
-    lines.each do |line|
+    reservations.each do |line|
       find(".row", match: :first, text: line.purpose.to_s)
     end
   end

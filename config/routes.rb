@@ -74,7 +74,7 @@ Leihs::Application.routes.draw do
     post    "reservations",                   to: "reservations#create"
     post    "reservations/change_time_range", to: "reservations#change_time_range", as: "change_time_range"
     delete  "reservations/:line_id",          to: "reservations#destroy"
-    delete  "order/remove_lines", to: "contracts#remove_lines"
+    delete  "order/remove_reservations", to: "contracts#remove_reservations"
     get     "order/timed_out", to: "contracts#timed_out"
     post    "order/delete_unavailables", to: "contracts#delete_unavailables"
     get     "orders", to: "contracts#index", as: "orders"

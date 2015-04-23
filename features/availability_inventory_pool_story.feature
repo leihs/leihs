@@ -67,9 +67,9 @@ Feature: Availability depending on Pools
     And this model has 3 items in inventory pool 1
     And customer 'samantha' has access to inventory pool 1
     When 'samantha' orders 3 'Pink Hairbrush'
-    Then all order lines should be available
+    Then all order reservations should be available
     When 'samantha' orders another 2 'Pink Hairbrush' for the same time
-    Then these additional order lines were not created
+    Then these additional order reservations were not created
 
   Scenario: Customer can decide from which pool he orders
     Given 2 inventory pools
@@ -79,7 +79,7 @@ Feature: Availability depending on Pools
     And customer 'jack' has access to inventory pool 1
     And customer 'jack' has access to inventory pool 2
     When 'jack' orders 2 'Coffee Mug' from inventory pool 1
-    Then all order lines should be available
+    Then all order reservations should be available
     When 'jack' orders 2 'Coffee Mug' from inventory pool 2
-    Then some order lines were not created
+    Then some order reservations were not created
 

@@ -119,7 +119,7 @@
 #        And he chooses Joe's order
 #       Then Joe's order is shown
 #       When lending_manager changes number of items of model 'NEC 245' to 2
-#       Then all 'NEC 245' order lines are marked as invalid
+#       Then all 'NEC 245' order reservations are marked as invalid
 #
 # Does not work due to completely new UI /  (Ticket für dieses neue Feature erstellt)
 #@old-ui @delete

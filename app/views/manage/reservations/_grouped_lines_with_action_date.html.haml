@@ -6,4 +6,4 @@
       = I18n.t('date.day_names')[group[:date].wday]
       = l(group[:date])
     
-  = render :partial => "manage/lines/grouped_lines", :locals => {:grouped_lines => group[:grouped_lines], :line_partial => line_partial}
+  = render :partial => "manage/reservations/grouped_lines", :locals => {:grouped_lines => group[:grouped_lines], :line_partial => line_partial}

@@ -35,7 +35,6 @@ class Visit < ActiveRecord::Base
                                     else
                                       where(end_date: r.date)
                                     end.where(inventory_pool_id: r.inventory_pool_id, user_id: r.user_id) }, foreign_key: :status, primary_key: :status
-  alias :lines :reservations
   def reservation_ids
     reservations.pluck(:id)
   end

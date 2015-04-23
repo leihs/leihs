@@ -511,7 +511,7 @@ end
 Given(/^this software license is handed over to somebody$/) do
   line = FactoryGirl.create :item_line, inventory_pool: @current_inventory_pool, status: :approved, model: @model, item: @item
   @contract_with_software_license = line.user.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool)
-  expect(@contract_with_software_license.lines.reload.empty?).to be false
+  expect(@contract_with_software_license.reservations.reload.empty?).to be false
   contract = @contract_with_software_license.sign(@current_user, [line])
   expect(contract).to be_valid
   @contract_with_software_license = line.user.reservations_bundles.signed.find(contract.id)
@@ -635,7 +635,7 @@ When(/^I edit again this software product$/) do
   step "I edit software"
 end
 
-#Then(/^outside the the text field, they will additionally displayed lines with link only$/) do
+#Then(/^outside the the text field, they will additionally displayed reservations with link only$/) do
 Then(/^outside the the text field, all the URLs extracted from the software information field are displayed as links$/) do
   within "#form .field", text: _("Software Information") do
     find(".list-of-lines").all(".line").each do |line|

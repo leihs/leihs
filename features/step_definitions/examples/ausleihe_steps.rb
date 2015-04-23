@@ -14,7 +14,7 @@
 
 
 Dann /^werden mir diejenigen Gegenstände vorgeschlagen, die in den dargestellten Rücknahmen vorkommen$/ do
-  @customer.visits.take_back.where(inventory_pool_id: @current_inventory_pool).first.lines.all do |line|
+  @customer.visits.take_back.where(inventory_pool_id: @current_inventory_pool).first.reservations.all do |line|
     expect(find(".ui-autocomplete", match: :first).has_content? line.item.inventory_code).to be true
   end
 end

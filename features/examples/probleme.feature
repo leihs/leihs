@@ -9,7 +9,7 @@ Feature: Displaying problems
     #Given ich editiere eine Bestellung die nicht in der Vergangenheit liegt
     Given I edit an order
     And a model is no longer available
-    Then I see any problems displayed on the relevant lines
+    Then I see any problems displayed on the relevant reservations
      And the problem is displayed as: "Nicht verfügbar 2(3)/7"
      And "2" are available for the user, also counting availability from groups the user is member of
      And "3" are available in total, also counting availability from groups the user is not member of
@@ -54,7 +54,7 @@ Feature: Displaying problems
   Scenario: Showing problems when item is not available while handing over
     Given I am doing a hand over
       And a model is no longer available
-     Then I see any problems displayed on the relevant lines
+     Then I see any problems displayed on the relevant reservations
       And the problem is displayed as: "Nicht verfügbar 2(3)/7"
       And "2" are available for the user, also counting availability from groups the user is member of
       And "3" are available in total, also counting availability from groups the user is not member of
@@ -64,7 +64,7 @@ Feature: Displaying problems
   Scenario: Showing problems when item is not available while taking back
     Given I open a take back, not overdue
      And a model is no longer available
-     Then I see any problems displayed on the relevant lines
+     Then I see any problems displayed on the relevant reservations
       And the problem is displayed as: "Nicht verfügbar 2(3)/7"
       And "2" are available for the user, also counting availability from groups the user is member of
       And "3" are available in total, also counting availability from groups the user is not member of

@@ -107,7 +107,7 @@ end
 
 #Wenn(/^ich einen Vertrag mit zurück gebrachten Gegenständen aus meinen Dokumenten öffne$/) do
 When(/^I open a contract with returned items from my documents$/) do
-  @contract = @current_user.reservations_bundles.signed_or_closed.find {|c| c.lines.any? &:returned_to_user}
+  @contract = @current_user.reservations_bundles.signed_or_closed.find {|c| c.reservations.any? &:returned_to_user}
   visit borrow_user_contract_path(@contract.id)
   step "öffnet sich der Vertrag"
 end
@@ -152,22 +152,22 @@ Then(/^I see the contract and it looks like in the manage section$/) do
 end
 
 #Dann(/^sieht man bei den betroffenen Linien die rücknehmende Person im Format "V. Nachname"$/) do
-Then(/^the relevant lines show the person taking back the item in the format "F. Lastname"$/) do
+Then(/^the relevant reservations show the person taking back the item in the format "F. Lastname"$/) do
   if @reservations_to_take_back
     @reservations_to_take_back.map(&:contract).uniq.each do |contract|
       new_window = window_opened_by do
         find(".button[target='_blank'][href='#{manage_contract_path(@current_inventory_pool, contract)}']").click
       end
       within_window new_window do
-        contract.lines.each do |cl|
+        contract.reservations.each do |cl|
           find(".contract .list.returned_items tr", text: /#{cl.quantity}.*#{cl.item.inventory_code}.*#{I18n.l cl.end_date}/).find(".returning_date", text: cl.returned_to_user.short_name)
         end
       end
     end
   elsif @contract
-    lines = @contract.lines.where.not(returned_date: nil)
-    expect(lines.size).to be > 0
-    lines.each do |cl|
+    reservations = @contract.reservations.where.not(returned_date: nil)
+    expect(reservations.size).to be > 0
+    reservations.each do |cl|
       find(".contract .list.returned_items tr", text: cl.item.inventory_code).find(".returning_date", text: cl.returned_to_user.short_name)
     end
   end

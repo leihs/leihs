@@ -8,16 +8,16 @@
     %span 
       {{if ~quantity}}
       {{>~quantity}}
-      {{else sublines}}
-      {{sum sublines "quantity"/}}
+      {{else subreservations}}
+      {{sum subreservations "quantity"/}}
       {{else}}
       {{>quantity}}
       {{/if}}
     {{if model().availability}}
     %span.grey-text 
       \/
-      {{if sublines}}
-      {{>model().availability().withoutLines(sublines).maxAvailableForGroups(~start_date, ~end_date, ~groupIds)}}
+      {{if subreservations}}
+      {{>model().availability().withoutLines(subreservations).maxAvailableForGroups(~start_date, ~end_date, ~groupIds)}}
       {{else}}
       {{>model().availability().withoutLines([#view.data]).maxAvailableForGroups(~start_date, ~end_date, ~groupIds)}}
       {{/if}}

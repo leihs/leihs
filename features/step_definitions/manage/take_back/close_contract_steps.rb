@@ -1,9 +1,9 @@
 When /^I open a take back(, not overdue)?( with at least an option handed over before today)?$/ do |arg1, arg2|
   contracts = ReservationsBundle.signed.where(inventory_pool_id: @current_user.inventory_pools.managed).order("RAND()")
   contract = if arg1
-               contracts.detect {|c| not c.lines.any? {|l| l.end_date < Date.today} }
+               contracts.detect {|c| not c.reservations.any? {|l| l.end_date < Date.today} }
              elsif arg2
-               contracts.detect {|c| c.lines.any? {|l| l.is_a? OptionLine and l.start_date < Date.today} }
+               contracts.detect {|c| c.reservations.any? {|l| l.is_a? OptionLine and l.start_date < Date.today} }
              else
                contracts.first
              end
@@ -15,7 +15,7 @@ When /^I open a take back(, not overdue)?( with at least an option handed over b
   @reservations_to_take_back = @customer.reservations.signed.where(inventory_pool_id: @current_inventory_pool)
 end
 
-When /^I select all lines of an open contract$/ do
+When /^I select all reservations of an open contract$/ do
   within("#assign") do
     @reservations_to_take_back.each do |line|
       line.quantity.times do

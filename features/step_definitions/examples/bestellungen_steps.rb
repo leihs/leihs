@@ -6,7 +6,7 @@ Then(/^I don't see empty orders in the list of orders$/) do
     expect(has_selector? ".line[data-id]").to be true
     all(".line[data-id]").each do |line|
       contract = @current_inventory_pool.reservations_bundles.find(line["data-id"])
-      expect(contract.lines.empty?).to be false
+      expect(contract.reservations.empty?).to be false
     end
   end
 end
@@ -133,7 +133,7 @@ end
 
 #Dann(/^ich sehe auf der Bestellungszeile die Anzahl Gegenstände mit Popup\-Ansicht der bestellten Gegenstände$/) do
 Then(/^I see the number of items on the order line and can view a popup containing the items ordered$/) do
-  find("#{@line_css} [data-type='lines-cell']", text: "#{@contract.lines.count} #{n_("Item", "Items", @contract.lines.count)}")
+  find("#{@line_css} [data-type='lines-cell']", text: "#{@contract.reservations.count} #{n_("Item", "Items", @contract.reservations.count)}")
   find("#{@line_css} [data-type='lines-cell']").hover
   @contract.models.each {|m|
     expect(has_selector?(".tooltipster-base", text: m.name)).to be true

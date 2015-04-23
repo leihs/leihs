@@ -285,7 +285,7 @@ class Manage::UsersController < Manage::ApplicationController
         # simply choose the first delegated user in order to pass contract validation. the delegated user has to be chosen again in the hand over process anyway
         x.delegated_user = @user.delegated_users.first if @user.is_delegation
       end
-      @lines = @contract.lines.includes([:purpose, :model])
+      @reservations = @contract.reservations.includes([:purpose, :model])
       @models = @contract.models.where(type: :Model)
       @software = @contract.models.where(type: :Software)
       @options = @contract.options
@@ -298,14 +298,14 @@ class Manage::UsersController < Manage::ApplicationController
 
   def take_back
     set_shared_visit_variables 1 do
-      @lines = @user.reservations.signed.where(inventory_pool_id: current_inventory_pool).includes([:purpose, :model, :item])
+      @reservations = @user.reservations.signed.where(inventory_pool_id: current_inventory_pool).includes([:purpose, :model, :item])
       @contracts = @user.reservations_bundles.signed.where(inventory_pool_id: current_inventory_pool)
       @models = @contracts.flat_map(&:models).uniq
       @options = @contracts.flat_map(&:options).uniq
       @items = @contracts.flat_map(&:items).uniq
     end
-    @start_date = @lines.map(&:start_date).min || Date.today
-    @end_date = @lines.map(&:end_date).max || Date.today
+    @start_date = @reservations.map(&:start_date).min || Date.today
+    @end_date = @reservations.map(&:end_date).max || Date.today
     add_visitor(@user)
   end
 
@@ -315,16 +315,16 @@ class Manage::UsersController < Manage::ApplicationController
     @user = User.find(params[:id]) if params[:id]
     @group_ids = @user.group_ids
     yield
-    @grouped_lines = @lines.group_by{|g| [g.start_date, g.end_date]}
-    @grouped_lines.each_pair do |k,lines|
-      @grouped_lines[k] = lines.sort_by{|line| [line.model.name, line.id]}
+    @grouped_lines = @reservations.group_by{|g| [g.start_date, g.end_date]}
+    @grouped_lines.each_pair do |k,reservations|
+      @grouped_lines[k] = reservations.sort_by{|line| [line.model.name, line.id]}
     end
     @count_today = @grouped_lines.keys.select{|range| range[date_index] == Date.today}.length
     @count_future = @grouped_lines.keys.select{|range| range[date_index] > Date.today}.length
     @count_overdue = @grouped_lines.keys.select{|range| range[date_index] < Date.today}.length
     @grouped_lines_by_date = []
-    @grouped_lines.each_pair do |range, lines|
-      @grouped_lines_by_date.push({:date => range[date_index], :grouped_lines => {range => lines}})
+    @grouped_lines.each_pair do |range, reservations|
+      @grouped_lines_by_date.push({:date => range[date_index], :grouped_lines => {range => reservations}})
     end
     @grouped_lines_by_date = @grouped_lines_by_date.sort_by{|g| g[:date]}
   end

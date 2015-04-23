@@ -1,4 +1,4 @@
-When /^I select all lines$/ do
+When /^I select all reservations$/ do
   all(".line").each do |line|
     cb = line.find("input[type=checkbox][data-select-line]")
     cb.click unless cb.checked?
@@ -6,11 +6,11 @@ When /^I select all lines$/ do
   expect(all(".line input[type=checkbox][data-select-line]").all? {|x| x.checked? }).to be true
 end
 
-When /^I change the time range for all contract lines, envolving option and item lines$/ do
+When /^I change the time range for all contract reservations, envolving option and item reservations$/ do
   step 'I add an option to the hand over by providing an inventory code and a date range'
-  step 'I select all lines'
+  step 'I select all reservations'
   step 'I edit the timerange of the selection'
-  @line = @hand_over.lines.first
+  @line = @hand_over.reservations.first
   @old_start_date = @line.start_date
   @new_start_date = if @line.start_date + 1.day < Date.today
       Date.today
@@ -23,8 +23,8 @@ When /^I change the time range for all contract lines, envolving option and item
   step 'the booking calendar is closed'
 end
 
-Then /^the time range for all contract lines is changed$/ do
-  @customer.visits.hand_over.where(inventory_pool_id: @current_inventory_pool).detect{|x| x.lines.size > 1}.lines.each do |line|
+Then /^the time range for all contract reservations is changed$/ do
+  @customer.visits.hand_over.where(inventory_pool_id: @current_inventory_pool).detect{|x| x.reservations.size > 1}.reservations.each do |line|
     expect(line.start_date).to eq @new_start_date
   end
 end
@@ -53,7 +53,7 @@ end
 #  find("input#assign-or-add-input").set @option.inventory_code
 #  find("form#assign-or-add .ui-menu-item a", match: :first).click
 #  find("#flash")
-#  @option_line = @hand_over.user.reservations_bundles.approved.flat_map(&:lines).find{|l| l.item == @option}
+#  @option_line = @hand_over.user.reservations_bundles.approved.flat_map(&:reservations).find{|l| l.item == @option}
 #  @line_css = ".line[data-id='#{@option_line.id}']"
 #end
 

@@ -9,8 +9,8 @@ class window.App.SwapUsersController extends Spine.Controller
     "button[type='submit']": "submitButton"
 
   constructor: (data)->
-    @contract = if data.lines?
-      data.lines[0].contract()
+    @contract = if data.reservations?
+      data.reservations[0].contract()
     else 
       data.contract
     @modal = new App.Modal App.Render "manage/views/contracts/edit/swap_user_modal", @contract
@@ -30,7 +30,7 @@ class window.App.SwapUsersController extends Spine.Controller
     e.preventDefault()
     @errorsContainer.addClass "hidden"
     App.Button.disable @submitButton
-    if @lines?
+    if @reservations?
       do @swapReservations
     else
       do @swapContract
@@ -46,7 +46,7 @@ class window.App.SwapUsersController extends Spine.Controller
       @errorsContainer.find("strong").text e.responseText
 
   swapReservations: =>
-    App.Reservation.swapUser(@lines, @searchSetUserController.selectedUserId)
+    App.Reservation.swapUser(@reservations, @searchSetUserController.selectedUserId)
     .done => 
       window.location = App.User.find(@searchSetUserController.selectedUserId).url("hand_over")
     .fail =>

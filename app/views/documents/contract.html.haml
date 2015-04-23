@@ -17,7 +17,7 @@
     = render "documents/inventory_pool"
     .clear
 
-  - not_returned_lines, returned_lines = @contract.lines.partition {|line| line.returned_date.blank? }
+  - not_returned_lines, returned_lines = @contract.reservations.partition {|line| line.returned_date.blank? }
 
   - unless returned_lines.empty?
     %section.list.returned_items

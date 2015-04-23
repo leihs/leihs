@@ -453,7 +453,7 @@ msgstr "Zwäck ändere"
 msgid "Edit Selection"
 msgstr "Uuswahl ändere"
 
-msgid "Edit multiple selected lines"
+msgid "Edit multiple selected reservations"
 msgstr "Mehreri aagwählti Linie bearbeite"
 
 msgid "Edit purpose for order from"
@@ -1417,7 +1417,7 @@ msgstr "S Eltereobjäkt exischtiert nöd (parent_id: %d)"
 msgid "The properties have been updated."
 msgstr "D Eigeschafte sind aktualisiert worde."
 
-msgid "The selected lines have been moved"
+msgid "The selected reservations have been moved"
 msgstr "Di uusgwählte Ziile sind verschobe worde"
 
 msgid "The selected model is not a package"
@@ -1427,15 +1427,15 @@ msgid "The user does not have an email address"
 msgstr "De Benutzer hät kei E-Mail-Adresse"
 
 msgid ""
-"This contract is not signable because it doesn't have any contract lines."
+"This contract is not signable because it doesn't have any contract reservations."
 msgstr "De Vertrag cha nöd underschribe werde, will er kei Ziile hät."
 
-msgid "This contract is not signable because none of the lines have a purpose."
+msgid "This contract is not signable because none of the reservations have a purpose."
 msgstr ""
 "Dä Vertrag cha nöd underschribe werde, will keini vode Ziile en Zwäck "
 "enthaltet."
 
-msgid "This contract is not signable because some lines are not assigned."
+msgid "This contract is not signable because some reservations are not assigned."
 msgstr ""
 "Dä Vertrag cha nöd underschribe werde, will einigi Ziile nöd zuegwise sind."
 
@@ -1681,7 +1681,7 @@ msgid "You can't add a package to a package."
 msgstr "Si chönd käs Paket zumene Pakte dezue tue"
 
 msgid ""
-"You cannot delete all lines of an order. Perhaps you want to reject it "
+"You cannot delete all reservations of an order. Perhaps you want to reject it "
 "instead?"
 msgstr ""
 "Si chönd nöd all Ziile vonere Bschtellig lösche. Wännd Si si vilich lieber "
@@ -1962,7 +1962,7 @@ msgstr "währed em lösche vonere Bschteligs-Ziile"
 msgid "while deleting hand over for"
 msgstr "während d Uusgab glöscht worde isch für"
 
-msgid "while deleting multiple order lines"
+msgid "while deleting multiple order reservations"
 msgstr "während em lösche vo mehrere Ussgabelinie"
 
 msgid "while deleting order line for"
@@ -1977,13 +1977,13 @@ msgstr "mitere Bemerkig"
 msgid "without conflict"
 msgstr "ohni Konflikt"
 
-msgid "you cannot hand out lines which are starting in the future"
+msgid "you cannot hand out reservations which are starting in the future"
 msgstr "Si chönd kei Ziile usegäh, wos Startdatum i de Zuekunft händ"
 
-msgid "you cannot hand out lines which are ending in the past"
+msgid "you cannot hand out reservations which are ending in the past"
 msgstr "Si chönd kei Ziile usegäh, wos Enddatum i de Vergangeheit händ"
 
-msgid "you cannot hand out lines with unassigned inventory codes"
+msgid "you cannot hand out reservations with unassigned inventory codes"
 msgstr "Si chönd kei Ziile usegäh wo kän Inventarcode zuegwise händ"
 
 msgid "Helper"
@@ -2366,7 +2366,7 @@ msgid "Continue this order"
 msgstr "Wiiterfahre mit dere Bschtelig"
 
 msgid ""
-"Please solve the conflicts for all highlighted lines in order to continue."
+"Please solve the conflicts for all highlighted reservations in order to continue."
 msgstr "Lösed si bitte d Konflikt für ali markierte Ziile zum wiitermache."
 
 msgid "You have permission to access the following inventory pool"

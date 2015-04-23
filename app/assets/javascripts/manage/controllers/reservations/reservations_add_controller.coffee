@@ -111,7 +111,7 @@ class window.App.ReservationsAddController extends Spine.Controller
       focus: => return false
       select: @select
     .data("uiAutocomplete")._renderItem = (ul, item) => 
-      $(App.Render "manage/views/lines/add/autocomplete_element", item).data("value", item).appendTo(ul)
+      $(App.Render "manage/views/reservations/add/autocomplete_element", item).data("value", item).appendTo(ul)
     @input.autocomplete("search")
 
   search: (request, response)=>
@@ -186,7 +186,7 @@ class window.App.ReservationsAddController extends Spine.Controller
 
 
   addOption: (option, startDate, endDate)=>
-    line = _.find @contract.lines().all(), (l)-> 
+    line = _.find @contract.reservations().all(), (l)->
       l.option_id == option.id and
       moment(l.start_date).diff(startDate, "days") == 0 and
       moment(l.end_date).diff(endDate, "days") == 0
@@ -222,8 +222,8 @@ class window.App.ReservationsAddController extends Spine.Controller
       contract_id: @contract.id
       purpose_id: @purpose?.id
       template_id: template.id
-    .done (lines)=>
-      App.LineSelectionController.add line.id for line in lines
+    .done (reservations)=>
+      App.LineSelectionController.add line.id for line in reservations
       App.Flash
         type: "notice"
         message: _jed("Added %s", template.name)

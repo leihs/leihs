@@ -4,11 +4,11 @@
 
 .row.line{:"data-model_link_id" => line[:model_link_id]}
 
-  %input{:type => :hidden, :name => "lines[][model_id]", :value => line[:model_id]}
-  %input{:type => :hidden, :name => "lines[][quantity]", :value => line[:quantity]}
-  %input{:type => :hidden, :name => "lines[][start_date]", :value => line[:start_date]}
-  %input{:type => :hidden, :name => "lines[][end_date]", :value => line[:end_date]}
-  %input{:type => :hidden, :name => "lines[][inventory_pool_id]", :value => line[:inventory_pool_id]}
+  %input{:type => :hidden, :name => "reservations[][model_id]", :value => line[:model_id]}
+  %input{:type => :hidden, :name => "reservations[][quantity]", :value => line[:quantity]}
+  %input{:type => :hidden, :name => "reservations[][start_date]", :value => line[:start_date]}
+  %input{:type => :hidden, :name => "reservations[][end_date]", :value => line[:end_date]}
+  %input{:type => :hidden, :name => "reservations[][inventory_pool_id]", :value => line[:inventory_pool_id]}
 
   - if line.has_key?(:available) and not line[:available]
     .line-info.red{title: _("Not available")}

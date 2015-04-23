@@ -27,15 +27,15 @@ Given /^a model is no longer available$/ do
               end
     reservation = @entity.item_lines.order("RAND()").first
     @model = reservation.model
-    @initial_quantity = @contract.lines.where(model_id: @model.id).count
+    @initial_quantity = @contract.reservations.where(model_id: @model.id).count
     @max_before = reservation.model.availability_in(@entity.inventory_pool).maximum_available_in_period_summed_for_groups(reservation.start_date, reservation.end_date, reservation.group_ids)
-    step 'I add so many lines that I break the maximal quantity of a model'
+    step 'I add so many reservations that I break the maximal quantity of a model'
   else
     reservation = @reservations_to_take_back.where(option_id: nil).order("RAND()").first
     @model = reservation.model
     step "I open a hand over to this customer"
     @max_before = @model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(reservation.start_date, reservation.end_date, reservation.group_ids)
-    step 'I add so many lines that I break the maximal quantity of a model'
+    step 'I add so many reservations that I break the maximal quantity of a model'
     visit manage_take_back_path(@current_inventory_pool, @customer)
   end
   find(".line", text: @model.name, match: :first)
@@ -45,10 +45,10 @@ Given /^a model is no longer available$/ do
 end
 
 #Dann /^sehe ich auf den beteiligten Linien die Auszeichnung von Problemen$/ do
-Then /^I see any problems displayed on the relevant lines$/ do
+Then /^I see any problems displayed on the relevant reservations$/ do
   @problems = []
   @lines.each do |line|
-      hover_for_tooltip line.find("[data-tooltip-template='manage/views/lines/problems_tooltip']")
+      hover_for_tooltip line.find("[data-tooltip-template='manage/views/reservations/problems_tooltip']")
     @problems << find(".tooltipster-content strong", match: :first).text
   end
   @reference_line = @lines.first
@@ -95,7 +95,7 @@ end
 Then /^"(.*?)" are available in total, also counting availability from groups the user is not member of$/ do |arg1|
   max = @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @av.inventory_pool_and_model_group_ids)
   if [:unsubmitted, :submitted].include? @line.status
-    max += @line.contract.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size
+    max += @line.contract.reservations.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size
   else
     max += @line.quantity
   end
@@ -125,7 +125,7 @@ end
 
 Given /^I take back a(n)?( late)? item$/ do |grammar, is_late|
   @event = "take_back"
-  overdued_take_backs = @current_inventory_pool.visits.take_back.select{|v| v.lines.any? {|l| l.is_a? ItemLine}}
+  overdued_take_backs = @current_inventory_pool.visits.take_back.select{|v| v.reservations.any? {|l| l.is_a? ItemLine}}
   overdued_take_backs = overdued_take_backs.select { |x| x.date < Date.today } if is_late
   overdued_take_back = overdued_take_backs.sample
   @line_id = overdued_take_back.reservations.where(type: "ItemLine").order("RAND()").first.id

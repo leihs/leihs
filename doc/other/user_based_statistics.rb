@@ -29,8 +29,8 @@ def csv_counts_for_year(year)
       contract_count = interesting_contracts.size.to_i
       
       interesting_contracts.each do |co|
-        @line_count = co.lines.count
-        co.lines.each do |cl|
+        @line_count = co.reservations.count
+        co.reservations.each do |cl|
           items += cl.quantity            
         end
       end

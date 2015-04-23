@@ -1,6 +1,6 @@
 .row.line.height-xs
 
-  %input{:type => :hidden, :name => "lines[][model_id]", :value => line.model.id}
+  %input{:type => :hidden, :name => "reservations[][model_id]", :value => line.model.id}
 
   - if @unaccomplishable_models.include?(line.model)
     .line-info.red{title: _("Not available")}
@@ -9,7 +9,7 @@
 
     .row
       .col3of5
-        %input.width-full.text-align-center{:type => :number, :max => line.model.total_borrowable_items_for_user(current_user), :min => 0, :value => line.quantity, :name => "lines[][quantity]"}
+        %input.width-full.text-align-center{:type => :number, :max => line.model.total_borrowable_items_for_user(current_user), :min => 0, :value => line.quantity, :name => "reservations[][quantity]"}
 
       .col2of5.font-size-m.padding-top-s.text-align-left.padding-left-xs
         = "/"

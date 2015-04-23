@@ -1,4 +1,4 @@
-- grouped_lines.each_pair do |dates, lines|
+- grouped_lines.each_pair do |dates, reservations|
   
   .emboss.deep.padding-bottom-s.margin-bottom-m{:"data-selected-lines-container" => true}
 
@@ -19,12 +19,12 @@
 
     .row
 
-      - if lines.is_a? Array
+      - if reservations.is_a? Array
 
-        = render :partial => line_partial, :collection => lines, :as => :line
+        = render :partial => line_partial, :collection => reservations, :as => :line
 
       - else
 
-        - lines.each_pair do |model, lines|
+        - reservations.each_pair do |model, reservations|
 
-          = render :partial => line_partial, :locals => {:model => model, :lines => lines}
+          = render :partial => line_partial, :locals => {:model => model, :reservations => reservations}

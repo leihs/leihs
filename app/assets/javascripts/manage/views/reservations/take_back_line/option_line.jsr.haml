@@ -9,7 +9,12 @@
           %input{:type => :checkbox, :"data-select-line" => true, :autocomplete => :off}
 
   .col1of10.line-col
-    %input.small.width-full.text-align-center{:type => :text, :value => "{{>quantity}}",  :"data-line-quantity" => true}
+    .row.table
+      .table-row
+        .col2of3.table-cell.vertical-align-middle.line-height-xxl
+          %input.small.width-full.text-align-center{:type => :text, :autocomplete => :off, :"data-quantity-returned" => true, :inputmode => :numeric}
+        .col1of3.table-cell.vertical-align-middle.line-height-xxl
+          %span /{{>quantity}}
 
   .col1of10.line-col.text-align-center
     %span.grey-text {{>option().inventory_code}}
@@ -25,7 +30,7 @@
 
   .col1of10.line-col.text-align-center
     {{if ~renderAvailability && anyProblems()}}
-    .emboss.red.padding-inset-xxs-alt.text-align-center.tooltip{:"data-tooltip-data" => "{{JSON getProblems()/}}", :"data-tooltip-template" => "manage/views/lines/problems_tooltip"}
+    .emboss.red.padding-inset-xxs-alt.text-align-center.tooltip{:"data-tooltip-data" => "{{JSON getProblems()/}}", :"data-tooltip-template" => "manage/views/reservations/problems_tooltip"}
       %strong {{>getProblems().length}}
     {{else ~renderAvailability && !anyProblems()}}
     .padding-inset-xxs-alt.text-align-center
@@ -34,16 +39,13 @@
 
   .col2of10.line-col.line-actions.padding-left-xxs.padding-right-s
     .multibutton
-      %button.button.white.text-ellipsis{:"data-edit-lines" => true, :"data-ids" => "[{{>id}}]"} {{jed 'Change entry'/}}
+      %button.button.white.text-ellipsis{:"data-edit-lines" => true, :"data-ids" => "[{{>id}}]"} {{jed "Change entry"/}}
       .dropdown-holder.inline-block
         .button.white.dropdown-toggle
           .arrow.down
         %ul.dropdown.right
           %li
-            %a.dropdown-item{:"data-open-time-line" => true, :"data-model-id" => "{{>model().id}}"}
-              %i.icon-align-left
-              {{jed "Timeline"/}}
-          %li
-            %a.dropdown-item.red{:"data-destroy-line" => true}
-              %i.icon-trash
-              {{jed "Delete"/}}
+            %a.dropdown-item{:href => "{{>contract().url()}}", :target => "_blank"}
+              %i.icon-file-alt
+              {{jed "Contract"/}}
+              {{>contract().id}}

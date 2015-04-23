@@ -17,8 +17,8 @@ When /^lending_manager clicks to add an additional model$/ do
   #follow_redirect!
 end
 
-#Then /^he sees 0 lines 'Khil Remix'$/ do
-# the check actually doesn't bother about lines at all...
+#Then /^he sees 0 reservations 'Khil Remix'$/ do
+# the check actually doesn't bother about reservations at all...
 Then /^(.*) sees (\d*) line(s?) '(.*)'$/ do |who, number, plural, text|
   expect(@response.body.scan(text).size).to eq number.to_i
 end

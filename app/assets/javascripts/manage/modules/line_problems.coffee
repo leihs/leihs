@@ -6,10 +6,10 @@ window.App.Modules.LineProblems =
     problems = []
 
     if @model_id?
-      linesToExclude = if @sublines? then @sublines else [@]
-      maxAvailableForUser = @model().availability().withoutLines(linesToExclude).maxAvailableForGroups(@start_date, @end_date, @user().groupIds)
-      quantity = if @sublines? 
-        _.reduce @sublines, ((mem, l)-> mem + l.quantity), 0
+      reservationsToExclude = if @subreservations? then @subreservations else [@]
+      maxAvailableForUser = @model().availability().withoutLines(reservationsToExclude).maxAvailableForGroups(@start_date, @end_date, @user().groupIds)
+      quantity = if @subreservations?
+        _.reduce @subreservations, ((mem, l)-> mem + l.quantity), 0
       else
         @quantity
 
@@ -26,7 +26,7 @@ window.App.Modules.LineProblems =
 
     # AVAILABILITY
     else if maxAvailableForUser? and maxAvailableForUser < quantity
-      maxAvailableInTotal = @model().availability().withoutLines(linesToExclude, true).maxAvailableInTotal(@start_date, @end_date)
+      maxAvailableInTotal = @model().availability().withoutLines(reservationsToExclude, true).maxAvailableInTotal(@start_date, @end_date)
       problems.push 
         type: "availability"
         message: "#{_jed("Not available")} #{maxAvailableForUser}(#{maxAvailableInTotal})/#{@model().availability().total_rentable}"

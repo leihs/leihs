@@ -171,7 +171,7 @@ class window.App.SearchOverviewController extends Spine.Controller
             @render @orders, "manage/views/contracts/line", contracts, xhr
 
   fetchPurposes: (contracts)=>
-    ids = _.compact _.filter (_.map (_.flatten (_.map contracts, (o) -> o.lines().all())), (l) -> l.purpose_id), (id) -> not App.Purpose.exists(id)?
+    ids = _.compact _.filter (_.map (_.flatten (_.map contracts, (o) -> o.reservations().all())), (l) -> l.purpose_id), (id) -> not App.Purpose.exists(id)?
     return {done: (c)=>c()} unless ids.length
     App.Purpose.ajaxFetch
       data: $.param

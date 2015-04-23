@@ -15,7 +15,7 @@ class window.App.ManageBookingCalendar extends App.BookingCalendar
     if options.startDateDisabled
       @startDate_el.prop "disabled", true
       @startDate_el.val moment().format("YYYY-MM-DD")
-    @lines = options.lines
+    @reservations = options.reservations
     @models = options.models
     do @setupPartitionSelector
 
@@ -24,11 +24,11 @@ class window.App.ManageBookingCalendar extends App.BookingCalendar
   setDayElement: (date, dayElement, holidays)=>
     available = true
     for model in @models
-      availability = model.availability().withoutLines(@lines, true)
+      availability = model.availability().withoutLines(@reservations, true)
       requiredQuantity = if @quantity_el.val().length
           parseInt @quantity_el.val() 
         else 
-          _.reduce @lines, (mem, l) -> 
+          _.reduce @reservations, (mem, l) ->
             if l.model_id is model.id
               mem+l.quantity 
             else mem

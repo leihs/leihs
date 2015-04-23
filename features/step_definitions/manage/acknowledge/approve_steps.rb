@@ -51,7 +51,7 @@ Then /^this contract is approved$/ do
   find(".line[data-id='#{@contract.id}']", text: _("Approved"))
 
   approved_contract = @current_inventory_pool.reservations_bundles.approved.find_by(user_id: @contract.user)
-  @contract.lines.each do |line|
+  @contract.reservations.each do |line|
     expect(approved_contract.reservations.include? line).to be true
     expect(line.reload.status).to eq :approved
   end

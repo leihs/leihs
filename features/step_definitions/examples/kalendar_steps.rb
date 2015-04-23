@@ -42,16 +42,16 @@ Then /^the (order|hand over) can be saved$/ do |arg1|
   step 'the booking calendar is closed'
   case arg1
     when "order"
-      expect(@line.contract.lines.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size).to eq @size
+      expect(@line.contract.reservations.where(:start_date => @line.start_date, :end_date => @line.end_date, :model_id => @line.model).size).to eq @size
     when "hand over"
-      expect(@line.contract.lines.where(:model_id => @line.model).size).to be >= @size
+      expect(@line.contract.reservations.where(:model_id => @line.model).size).to be >= @size
     else
       raise
   end
 end
 
 #Angenommen /^ich editiere alle Linien$/ do
-Given /^I edit all lines$/ do
+Given /^I edit all reservations$/ do
   find(".multibutton .green.dropdown-toggle").click
   find(".multibutton .dropdown-item[data-edit-lines='selected-lines']", :text => _("Edit Selection")).click
 end

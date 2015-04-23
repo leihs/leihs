@@ -5,7 +5,7 @@ class Borrow::TemplatesController < Borrow::ApplicationController
   end
 
   def add_to_order
-    lines = params[:lines].map do |line|
+    reservations = params[:reservations].map do |line|
       {
         :model => Model.find_by_id(line["model_id"]),
         :quantity => line["quantity"].to_i,
@@ -15,7 +15,7 @@ class Borrow::TemplatesController < Borrow::ApplicationController
       }
     end
 
-    unavailable_lines, available_lines = lines.partition {|l| l[:inventory_pool].blank? or not l[:model].availability_in(l[:inventory_pool]).maximum_available_in_period_summed_for_groups(l[:start_date], l[:end_date], current_user.groups.map(&:id)) >= l[:quantity] }
+    unavailable_lines, available_lines = reservations.partition {|l| l[:inventory_pool].blank? or not l[:model].availability_in(l[:inventory_pool]).maximum_available_in_period_summed_for_groups(l[:start_date], l[:end_date], current_user.groups.map(&:id)) >= l[:quantity] }
 
     if not unavailable_lines.empty? and params[:force_continue].blank?
       availability and render :availability
@@ -31,7 +31,7 @@ class Borrow::TemplatesController < Borrow::ApplicationController
   def select_dates
     model_links = @template.model_links
     @models = @template.models
-    @lines = params[:lines].delete_if{|l| l["quantity"].to_i == 0}.map do |line|
+    @reservations = params[:reservations].delete_if{|l| l["quantity"].to_i == 0}.map do |line|
       model = @models.detect{|m| m.id == line["model_id"].to_i}
       quantity = line["quantity"].to_i
       {
@@ -47,7 +47,7 @@ class Borrow::TemplatesController < Borrow::ApplicationController
     unborrowable_models = @template.unaccomplishable_models current_user, 1
     model_links = @template.model_links
     @models = @template.models
-    @lines = params[:lines].delete_if{|l| l["quantity"].to_i == 0}.map do |line|
+    @reservations = params[:reservations].delete_if{|l| l["quantity"].to_i == 0}.map do |line|
       model = @models.detect{|m| m.id == line["model_id"].to_i}
       quantity = line["quantity"].to_i
       start_date = line["start_date"] ? Date.parse(line["start_date"]) : Date.parse(params[:start_date])
@@ -70,7 +70,7 @@ class Borrow::TemplatesController < Borrow::ApplicationController
         unborrowable: unborrowable_models.include?(model)
       }
     end
-    @grouped_and_merged_lines = @lines.group_by do |l|
+    @grouped_and_merged_lines = @reservations.group_by do |l|
       {start_date: l[:start_date], inventory_pool_name: InventoryPool.find_by_id(l[:inventory_pool_id]).try(&:name), inventory_pool_id: l[:inventory_pool_id]}
     end
   end

@@ -13,21 +13,16 @@ class Contract < ActiveRecord::Base
 
   validate do
     if reservations.empty?
-      errors.add(:base, _("This contract is not signable because it doesn't have any contract lines."))
+      errors.add(:base, _("This contract is not signable because it doesn't have any contract reservations."))
     else
-      errors.add(:base, _("The assigned contract lines have to be marked either as signed or as closed")) if reservations.any? { |line| not [:signed, :closed].include?(line.status) }
+      errors.add(:base, _("The assigned contract reservations have to be marked either as signed or as closed")) if reservations.any? { |line| not [:signed, :closed].include?(line.status) }
       errors.add(:base, _("The start_date is not unique")) if reservations.map(&:start_date).uniq.size != 1
-      errors.add(:base, _("This contract is not signable because none of the lines have a purpose.")) unless reservations.any? &:purpose
-      errors.add(:base, _("This contract is not signable because some lines are not assigned.")) unless reservations.all? &:item
+      errors.add(:base, _("This contract is not signable because none of the reservations have a purpose.")) unless reservations.any? &:purpose
+      errors.add(:base, _("This contract is not signable because some reservations are not assigned.")) unless reservations.all? &:item
       errors.add(:base, _("Start Date must be before End Date")) if reservations.any? {|l| l.end_date < Date.today }
     end
   end
   #########################################################################
-
-  # alias
-  def lines(reload = false)
-    reservations(reload)
-  end
 
   # compares two objects in order to sort them
   def <=>(other)

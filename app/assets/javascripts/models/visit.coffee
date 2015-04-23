@@ -20,7 +20,7 @@ class window.App.Visit extends Spine.Model
     super
     App.Visit.addRecord @ if not App.Visit.exists(@id)?
 
-  lines: =>
+  reservations: =>
     all: => (App.Reservation.find id for id in @reservation_ids)
 
   isOverdue: => moment().startOf("day").diff(moment(@date).startOf("day"), "days") >= 1

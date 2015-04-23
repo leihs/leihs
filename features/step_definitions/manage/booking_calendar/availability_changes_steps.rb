@@ -1,7 +1,7 @@
 When /^I open a booking calendar to edit a singe line$/ do
   # high frequently booked model
   @model = @current_inventory_pool.models.max {|a,b| a.availability_in(@current_inventory_pool).changes.length <=> b.availability_in(@current_inventory_pool).changes.length}
-  @contract = @current_inventory_pool.reservations_bundles.submitted.detect {|c| c.lines.any? {|cl| cl.model_id == @model.id} }
+  @contract = @current_inventory_pool.reservations_bundles.submitted.detect {|c| c.reservations.any? {|cl| cl.model_id == @model.id} }
   step "I edit the order"
   @edited_line = find(".line", :text => @model.name)
   @edited_line.find("[data-edit-lines]").click
@@ -59,9 +59,9 @@ Then /^I see all availabilities in that calendar, where the small number is the 
           # the quantity is considering only the partitions with groups we are member of (exclude soft overbookings)
           if change_date_el[:class].match("selected") != nil
             x = c[2].select {|h| ([nil] + @contract.user.group_ids).include? h[:group_id]}
-            y = x.map {|h| h[:running_lines]}
+            y = x.map {|h| h[:running_reservations]}
             z = y.flat_map {|h| h["ItemLine"]}
-            quantity_to_restore = (z & @contract.lines.pluck(:id)).size
+            quantity_to_restore = (z & @contract.reservations.pluck(:id)).size
             quantity_for_borrower += quantity_to_restore
           end
 

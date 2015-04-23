@@ -10,8 +10,8 @@
 
   .col1of10.line-col.text-align-center
     %span 
-      {{if sublines}}
-      {{sum sublines "quantity"/}}
+      {{if subreservations}}
+      {{sum subreservations "quantity"/}}
       {{else}}
       {{>quantity}}
       {{/if}}
@@ -19,8 +19,8 @@
     {{if ~renderAvailability}}
     %span.grey-text 
       \/
-      {{if sublines}}
-      {{>model().availability().withoutLines(sublines).maxAvailableForGroups(start_date, end_date, user().groupIds)}}
+      {{if subreservations}}
+      {{>model().availability().withoutLines(subreservations).maxAvailableForGroups(start_date, end_date, user().groupIds)}}
       {{else}}
       {{>model().availability().withoutLines([#view.data]).maxAvailableForGroups(start_date, end_date, user().groupIds)}}
       {{/if}}
@@ -31,7 +31,7 @@
 
   .col1of10.line-col.text-align-left.padding-horizontal-m
     {{if ~renderAvailability && anyProblems()}}
-    .emboss.red.padding-inset-xxs-alt.text-align-center.tooltip{:"data-tooltip-data" => "{{JSON getProblems()/}}", :"data-tooltip-template" => "manage/views/lines/problems_tooltip"}
+    .emboss.red.padding-inset-xxs-alt.text-align-center.tooltip{:"data-tooltip-data" => "{{JSON getProblems()/}}", :"data-tooltip-template" => "manage/views/reservations/problems_tooltip"}
       %strong {{>getProblems().length}}
     {{/if}}
 

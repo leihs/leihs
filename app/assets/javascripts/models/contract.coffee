@@ -14,14 +14,14 @@ class window.App.Contract extends Spine.Model
 
   @belongsTo "user", "App.User", "user_id"
   @belongsTo "delegatedUser", "App.User", "delegated_user_id"
-  @hasMany "lines", "App.Reservation", "contract_id"
+  @hasMany "reservations", "App.Reservation", "contract_id"
 
   @url: => "/contracts"
 
-  isAvailable: => _.all @.lines().all(), (line) -> line["available?"]
+  isAvailable: => _.all @.reservations().all(), (line) -> line["available?"]
 
   quantity: =>
-    _.reduce @.lines().all(), ((mem, line) -> mem + line["quantity"]), 0
+    _.reduce @.reservations().all(), ((mem, line) -> mem + line["quantity"]), 0
 
   concatenatedPurposes: =>
-    (_.uniq _.map @.lines().all(), (l)->l.purpose().description).join ", "
+    (_.uniq _.map @.reservations().all(), (l)->l.purpose().description).join ", "

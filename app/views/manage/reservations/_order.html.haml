@@ -1,4 +1,4 @@
-.order-line.line.light.row.focus-hover-thin{:"data-ids" => lines.map(&:id)}
+.order-line.line.light.row.focus-hover-thin{:"data-ids" => reservations.map(&:id)}
 
   .line-info
   
@@ -9,7 +9,7 @@
           %input{:type => :checkbox, :"data-select-line" => true, :autocomplete => :off}
 
   .col1of10.line-col.text-align-center
-    %span= lines.size
+    %span= reservations.size
 
   .col7of10.line-col.text-align-left
     %strong= model
@@ -27,6 +27,6 @@
               %i.icon-align-left
               = _("Timeline")
           %li
-            %a.dropdown-item.red{:"data-destroy-lines" => true, :"data-ids" => lines.map(&:id)}
+            %a.dropdown-item.red{:"data-destroy-lines" => true, :"data-ids" => reservations.map(&:id)}
               %i.icon-trash
               = _("Delete")

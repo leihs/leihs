@@ -6,7 +6,7 @@ end
 
 def find_line(model)
   id = 0
-  @contract.lines.each do |line|
+  @contract.reservations.each do |line|
     if model == line.model.name
       return line
     end

@@ -34,7 +34,7 @@ def yearly_contracts(year)
     contracts = contracts_for(:inventory_pool_id => ip.id, :year => year)
     contracts.each do |c|
       ip_contract_total += 1
-      c.lines.each do |l|
+      c.reservations.each do |l|
         ip_item_total += l.quantity
       end
     end
@@ -64,8 +64,8 @@ def csv_counts_for_year_by_user(year)
       contract_count = interesting_contracts.size.to_i
       
       interesting_contracts.each do |co|
-        @line_count = co.lines.count
-        co.lines.each do |cl|
+        @line_count = co.reservations.count
+        co.reservations.each do |cl|
           items += cl.quantity            
         end
       end

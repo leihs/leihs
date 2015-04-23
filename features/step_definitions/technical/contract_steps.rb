@@ -11,11 +11,11 @@ When /^I create an approved contract for "(.*?)" with a contract line without an
                                       user: user
 
   @contract = user.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool)
-  expect(@contract.lines.count).to eq 1
+  expect(@contract.reservations.count).to eq 1
 end
 
 When /^I sign the contract$/ do
-  @contract.sign(@current_user, @contract.lines)
+  @contract.sign(@current_user, @contract.reservations)
 end
 
 Then /^the contract is still approved$/ do

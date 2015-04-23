@@ -7,4 +7,4 @@ Feature: Changing the borrower
   @javascript @personas
   Scenario: Changing the borrower of a reservation
     Given I am doing a hand over
-    Then I can change the borrower for all the lines I've selected
+    Then I can change the borrower for all the reservations I've selected

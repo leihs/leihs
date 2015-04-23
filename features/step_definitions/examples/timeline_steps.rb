@@ -16,7 +16,7 @@ Then /^for each visible model I can see the Timeline$/ do
             raise "unknown page"
           end
 
-  raise "no lines found for this page" if lines.size.zero?
+  raise "no reservations found for this page" if lines.size.zero?
 
   find(".line", match: :first)
 

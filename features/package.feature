@@ -36,9 +36,9 @@
 #       Then Joe's order is shown
 #       When lending_manager clicks to add an additional model
 #       Then lending_manager sees 1 line 'Trololo Complete Edition'
-#        And he sees 0 lines 'Khil Remix'
+#        And he sees 0 reservations 'Khil Remix'
 #        And even though 'Khil Remix' is not part of a package in inventory pool 2!
-#        And he sees 0 lines 'Khil Original'
+#        And he sees 0 reservations 'Khil Original'
 #
 #@old-ui
 #Scenario: If a Model is completely packaged in one Inventory Pool it can have an independent Item in another Inventory
@@ -54,6 +54,6 @@
 #       Then Toshi's order is shown
 #       When lending_manager clicks to add an additional model
 #       Then lending_manager sees 0 line 'Trololo Complete Edition'
-#        And he sees 1 lines 'Khil Remix'
-#        And he sees 0 lines 'Khil Original'
+#        And he sees 1 reservations 'Khil Remix'
+#        And he sees 0 reservations 'Khil Original'
 #

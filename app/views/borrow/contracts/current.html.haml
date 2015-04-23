@@ -9,7 +9,7 @@
       - if current_user.timeout? and @grouped_and_merged_lines.values.flatten.any?{|x| not x[:available?]}
         .emboss.red.padding-inset-m.text-align-center
           %strong.font-size-m
-            = _("Please solve the conflicts for all highlighted lines in order to continue.")
+            = _("Please solve the conflicts for all highlighted reservations in order to continue.")
       - elsif current_user.reservations.unsubmitted.empty?
         .emboss.padding-inset-m.text-align-center
           %h3.headline-m

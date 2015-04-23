@@ -63,32 +63,32 @@ Then /^the value list contains the following columns:$/ do |table|
     table.hashes.each do |area|
       case area["Column"]
         when "Consecutive number"
-          @contract.lines.each {|line| find("tr", text: line.item.inventory_code).find(".consecutive_number") }
+          @contract.reservations.each {|line| find("tr", text: line.item.inventory_code).find(".consecutive_number") }
         when "Inventory code"
-          lines = if @list_element[:class] == "picking_list"
-                    @selected_lines_by_date ? @selected_lines_by_date : @contract.lines
+          reservations = if @list_element[:class] == "picking_list"
+                    @selected_lines_by_date ? @selected_lines_by_date : @contract.reservations
                   elsif @list_element[:class] == "value_list"
-                    @contract.lines
+                    @contract.reservations
                   else
                     raise
                   end
-          lines.each do |line|
+          reservations.each do |line|
             next if line.item_id.nil?
             find("tr .inventory_code", text: line.item.inventory_code)
           end
         when "Model name"
           if @list_element[:class] == "picking_list"
-            lines = @selected_lines_by_date ? @selected_lines_by_date : @contract.lines
-            lines.group_by(&:model).each_pair do |model, lines|
+            reservations = @selected_lines_by_date ? @selected_lines_by_date : @contract.reservations
+            reservations.group_by(&:model).each_pair do |model, reservations|
               find("tr", match: :prefer_exact, text: model).find(".model_name", text: model.name)
             end
           elsif @list_element[:class] == "value_list"
-            @contract.lines.each {|line| find("tr", text: line.item.inventory_code).find(".model_name", text: line.model.name) }
+            @contract.reservations.each {|line| find("tr", text: line.item.inventory_code).find(".model_name", text: line.model.name) }
           else
             raise
           end
         when "End date"
-          @contract.lines.each {|line|
+          @contract.reservations.each {|line|
             within find("tr", text: line.item.inventory_code).find(".end_date") do
               expect(has_content? line.end_date.year).to be true
               expect(has_content? line.end_date.month).to be true
@@ -97,25 +97,25 @@ Then /^the value list contains the following columns:$/ do |table|
           }
         when "Quantity"
           if @list_element[:class] == "picking_list"
-            picking_lines = @selected_lines_by_date ? @selected_lines_by_date : @contract.lines
-            picking_lines.group_by(&:model).each_pair do |model, lines|
-              find("tr", match: :prefer_exact, text: model).find(".quantity", text: lines.sum(&:quantity))
+            picking_lines = @selected_lines_by_date ? @selected_lines_by_date : @contract.reservations
+            picking_lines.group_by(&:model).each_pair do |model, reservations|
+              find("tr", match: :prefer_exact, text: model).find(".quantity", text: reservations.sum(&:quantity))
             end
           elsif @list_element[:class] == "value_list"
-            @contract.lines.each {|line|
+            @contract.reservations.each {|line|
               find("tr", text: line.item.inventory_code).find(".quantity", text: line.quantity)
             }
           else
             raise
           end
         when "Price"
-          @contract.lines.each {|line|
+          @contract.reservations.each {|line|
             expect(find("tbody tr", text: line.item.inventory_code).find(".item_price").text.gsub(/\D/, "")).to eq ("%.2f" % line.price).gsub(/\D/, "")
           }
         when "Raum / Gestell"
           find("table thead tr td.location", text: "%s / %s" % [_("Room"), _("Shelf")])
-          lines = @selected_lines_by_date ? @selected_lines_by_date : @contract.lines
-          lines.each {|line|
+          reservations = @selected_lines_by_date ? @selected_lines_by_date : @contract.reservations
+          reservations.each {|line|
             find("tbody tr", text: line.item.inventory_code).find(".location", text:
                 if line.model.is_a?(Option) or line.item.location.nil? or (line.item.location.room.blank? and line.item.location.shelf.blank?)
                   _("Location not defined")
@@ -125,8 +125,8 @@ Then /^the value list contains the following columns:$/ do |table|
           }
         when "verfügbare Anzahl x Raum / Gestell"
           find("table thead tr td.location", text: "%s x %s / %s" % [_("available quantity"), _("Room"), _("Shelf")])
-          lines = @selected_lines_by_date ? @selected_lines_by_date : @contract.lines
-          lines.each do |line|
+          reservations = @selected_lines_by_date ? @selected_lines_by_date : @contract.reservations
+          reservations.each do |line|
             within find("tr", match: :prefer_exact, text: line.model).find(".location") do
               locations = line.model.items.in_stock.where(inventory_pool_id: @current_inventory_pool).select("COUNT(items.location_id) AS count, locations.room AS room, locations.shelf AS shelf").joins(:location).group(:location_id).order("count DESC")
               locations.delete_if {|location| location.room.blank? and location.shelf.blank? }
@@ -160,7 +160,7 @@ Then /^that shows the totals of the columns:$/ do |table|
       when "Quantity"
         expect(@total.find(".quantity", match: :first).has_content? @contract.total_quantity).to be true
       when "Value"
-        expect(@total.find(".value", match: :first).text.gsub(/\D/, "")).to eq ("%.2f" % @contract.lines.map(&:price).sum).gsub(/\D/, "")
+        expect(@total.find(".value", match: :first).text.gsub(/\D/, "")).to eq ("%.2f" % @contract.reservations.map(&:price).sum).gsub(/\D/, "")
     end
   end
 end
@@ -182,31 +182,31 @@ Given(/^there is an order with at least two models and at least two items per mo
             g.values.detect {|x| x.size >= 3}
   end
   expect(@hand_over).not_to be_nil
-  @lines = @hand_over.lines
+  @reservations = @hand_over.reservations
 end
 
 #Wenn(/^es ist pro Modell genau einer Linie ein Gegenstand zugewiesen$/) do
 When(/^each model has exactly one assigned item$/) do
-  @models = @lines.select{|l| l.is_a? ItemLine}.map(&:model)
+  @models = @reservations.select{|l| l.is_a? ItemLine}.map(&:model)
 
   @models.uniq.each do |m|
-    l = @lines.find{|l| l.model == m}
+    l = @reservations.find{|l| l.model == m}
     l.update_attribute(:item, l.model.borrowable_items.where(inventory_pool_id: @current_inventory_pool).order("RAND()").first) unless l.is_a? OptionLine
   end
 end
 
 #Wenn(/^ich mehrere Linien von der Bestellung auswähle$/) do
 #Wenn(/^ich mehrere Linien von der Aushändigung auswähle$/) do
-When(/^I select multiple lines of the (order|hand over)$/) do |arg1|
+When(/^I select multiple reservations of the (order|hand over)$/) do |arg1|
   within "#lines" do
     expect(has_selector?(".line input[type='checkbox']")).to be true
     case arg1
       when "order"
-        @number_of_selected_lines = @order.lines.size
+        @number_of_selected_lines = @order.reservations.size
         all(".emboss .row input[type='checkbox']").each {|i| i.click unless i.checked? }
       when "hand over"
         @number_of_selected_lines = all(".line input[type='checkbox']").size
-        @lines.map(&:id).each do |id|
+        @reservations.map(&:id).each do |id|
           cb = find(".line[data-id='#{id}'] input[type='checkbox']")
           cb.click unless cb.checked?
         end
@@ -224,19 +224,19 @@ When(/^I open the value list$/) do
 end
 
 #Dann(/^sehe ich das Werteverzeichniss für die ausgewählten Linien$/) do
-Then(/^I see the value list for the selected lines$/) do
+Then(/^I see the value list for the selected reservations$/) do
   expect(has_content? _("Value List")).to be true
   find("tfoot.total .quantity").text == @number_of_selected_lines.to_s
 end
 
 #Dann(/^für die nicht zugewiesenen Linien ist der Preis der höchste Preis eines Gegenstandes eines Models innerhalb des Geräteparks$/) do
-Then(/^the price shown for the unassigned lines is equal to the highest price of any of the items of that model within this inventory pool$/) do
+Then(/^the price shown for the unassigned reservations is equal to the highest price of any of the items of that model within this inventory pool$/) do
   @models.each do |m|
-    lines = @lines.select {|l| l.is_a? ItemLine and l.model == m and not l.item.try(:inventory_code)}
-    quantity = lines.size
+    reservations = @reservations.select {|l| l.is_a? ItemLine and l.model == m and not l.item.try(:inventory_code)}
+    quantity = reservations.size
     line = all("tr", text: m.name).find {|line| line.find(".inventory_code").text == "" }
     if line
-      price = @lines.reload.find{|l| not l.item and l.model == m}.price_or_max_price * quantity
+      price = @reservations.reload.find{|l| not l.item and l.model == m}.price_or_max_price * quantity
       formatted_price = ActionController::Base.helpers.number_to_currency(price, format: '%n %u', :unit => Setting::LOCAL_CURRENCY_STRING)
       line.find(".item_price", text: formatted_price)
     end
@@ -244,16 +244,16 @@ Then(/^the price shown for the unassigned lines is equal to the highest price of
 end
 
 #Dann(/^für die zugewiesenen Linien ist der Preis der des Gegenstandes$/) do
-Then(/^the price shown for the assigned lines is that of the assigned item$/) do
-  lines = @lines.select {|l| l.item.try(:inventory_code)}
-  lines.each do |line|
+Then(/^the price shown for the assigned reservations is that of the assigned item$/) do
+  reservations = @reservations.select {|l| l.item.try(:inventory_code)}
+  reservations.each do |line|
     formatted_price = ActionController::Base.helpers.number_to_currency(line.price_or_max_price, format: '%n %u', :unit => Setting::LOCAL_CURRENCY_STRING)
     find("tr", text: line.item.inventory_code).find(".item_price", text: formatted_price)
   end
 end
 
 #Dann(/^die nicht zugewiesenen Linien sind zusammengefasst$/) do
-Then(/^the unassigned lines are summarized$/) do
+Then(/^the unassigned reservations are summarized$/) do
   @models.each do |m|
     expect(all("tr", text: m.name).select{|line| line.find(".inventory_code").text == "" }.size).to be <= 1 # for models with quantity 1 and an assigned item size == 0, that's why <= 1
   end
@@ -261,8 +261,8 @@ end
 
 #Dann(/^der Preis einer Option ist der innerhalb des Geräteparks$/) do
 Then(/^any options are priced according to their price set in the inventory pool$/) do
-  lines = @lines.select {|l| l.is_a? OptionLine }
-  lines.each do |l|
+  reservations = @reservations.select {|l| l.is_a? OptionLine }
+  reservations.each do |l|
     line = find("tr", text: l.model.name)
     formatted_price = ActionController::Base.helpers.number_to_currency(@current_inventory_pool.options.find(l.item.id).price * l.quantity, format: '%n %u', :unit => Setting::LOCAL_CURRENCY_STRING)
     line.find(".item_price", text: formatted_price)
@@ -277,8 +277,8 @@ Given(/^there is an order with at least two models and a quantity of at least th
     end
   end
   expect(@order).not_to be_nil
-  @lines = @order.lines
-  @models = @lines.select{|l| l.is_a? ItemLine}.map(&:model)
+  @reservations = @order.reservations
+  @models = @reservations.select{|l| l.is_a? ItemLine}.map(&:model)
 end
 
 #Wenn(/^ich eine Bestellung öffne$/) do

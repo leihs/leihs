@@ -571,15 +571,15 @@ window.i18n.locale_data = {
          null,
          "Estos son los comentarios del administrador de inventario:"
       ],
-      "This contract is not signable because it doesn't have any contract lines.": [
+      "This contract is not signable because it doesn't have any contract reservations.": [
          null,
          ""
       ],
-      "This contract is not signable because none of the lines have a purpose.": [
+      "This contract is not signable because none of the reservations have a purpose.": [
          null,
          ""
       ],
-      "This contract is not signable because some lines are not assigned.": [
+      "This contract is not signable because some reservations are not assigned.": [
          null,
          ""
       ],
@@ -683,7 +683,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "You cannot delete all lines of an order. Perhaps you want to reject it instead?": [
+      "You cannot delete all reservations of an order. Perhaps you want to reject it instead?": [
          null,
          ""
       ],
@@ -855,11 +855,11 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "you cannot hand out lines wich are starting in the future": [
+      "you cannot hand out reservations wich are starting in the future": [
          null,
          ""
       ],
-      "you cannot hand out lines with unassigned inventory codes": [
+      "you cannot hand out reservations with unassigned inventory codes": [
          null,
          ""
       ],

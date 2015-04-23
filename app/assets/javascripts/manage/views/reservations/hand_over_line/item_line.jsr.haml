@@ -11,9 +11,9 @@
   .col2of10.line-col.text-align-center
     .row 
       {{if item()}}
-      {{partial 'manage/views/lines/hand_over_line/assigned_item' #view.data/}}
+      {{partial 'manage/views/reservations/hand_over_line/assigned_item' #view.data/}}
       {{else}}
-      {{partial 'manage/views/lines/hand_over_line/unassigned_item' #view.data/}}
+      {{partial 'manage/views/reservations/hand_over_line/unassigned_item' #view.data/}}
       {{/if}}
 
   .col4of10.line-col.text-align-left
@@ -31,7 +31,7 @@
 
   .col1of10.line-col.text-align-center
     {{if ~renderAvailability && anyProblems()}}
-    .emboss.red.padding-inset-xxs-alt.text-align-center.tooltip{:"data-tooltip-data" => "{{JSON getProblems()/}}", :"data-tooltip-template" => "manage/views/lines/problems_tooltip"}
+    .emboss.red.padding-inset-xxs-alt.text-align-center.tooltip{:"data-tooltip-data" => "{{JSON getProblems()/}}", :"data-tooltip-template" => "manage/views/reservations/problems_tooltip"}
       %strong {{>getProblems().length}}
     {{/if}}
 

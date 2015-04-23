@@ -151,7 +151,7 @@ end
 
 
 # Dann(/^ich erhalte einen Fehler$/) do
-#   expect(has_content?(_("Please solve the conflicts for all highlighted lines in order to continue."))).to be true
+#   expect(has_content?(_("Please solve the conflicts for all highlighted reservations in order to continue."))).to be true
 # end
 
 #########################################################################
@@ -191,7 +191,7 @@ end
 
 #Dann(/^verschwindet die Fehlermeldung$/) do
 Then(/^the error message appears$/) do
-  expect(has_no_content? _("Please solve the conflicts for all highlighted lines in order to continue.")).to be true
+  expect(has_no_content? _("Please solve the conflicts for all highlighted reservations in order to continue.")).to be true
 end
 
 def resolve_conflict_for_reservation(line_id)

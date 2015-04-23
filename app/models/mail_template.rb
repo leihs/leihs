@@ -35,13 +35,13 @@ class MailTemplate < ActiveRecord::Base
      inventory_pool: {name: order.inventory_pool.name,
                       description: order.inventory_pool.description},
      email_signature: Setting::EMAIL_SIGNATURE,
-     order_lines: order.lines.map do |l|
+     order_lines: order.reservations.map do |l|
        {quantity: l.quantity,
         model_name: l.model.name,
         start_date: l.start_date,
         end_date: l.end_date}
      end,
-     histories: order.lines.flat_map  do |line|
+     histories: order.reservations.flat_map  do |line|
        line.histories.where(type_const: History::CHANGE).map do |h|
          {text: h.text}
        end

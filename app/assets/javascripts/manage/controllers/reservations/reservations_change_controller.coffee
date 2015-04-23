@@ -6,7 +6,7 @@ class window.App.ReservationsChangeController extends window.App.ManageBookingCa
       start_date: @getStartDate().format("YYYY-MM-DD")
       end_date: @getEndDate().format("YYYY-MM-DD")
       contract_id: @contract?.id
-      purpose_id: _.first(@lines).purpose_id
+      purpose_id: _.first(@reservations).purpose_id
       quantity: 1
     .fail (e)=>
       @fail(e)
@@ -31,28 +31,28 @@ class window.App.ReservationsChangeController extends window.App.ManageBookingCa
     
   storeItemLine: =>
     difference = @getQuantity() - @quantity
-    if difference < 0  # destroy lines in the amount of the quantity difference
-      linesToBeDestroyed = @lines[0..(Math.abs(difference)-1)]
-      deletionDone = _.after linesToBeDestroyed.length, @changeRange
-      @lines = _.reject @lines, (l)-> _.include(linesToBeDestroyed, l)
-      for line in linesToBeDestroyed
+    if difference < 0  # destroy reservations in the amount of the quantity difference
+      reservationsToBeDestroyed = @reservations[0..(Math.abs(difference)-1)]
+      deletionDone = _.after reservationsToBeDestroyed.length, @changeRange
+      @reservations = _.reject @reservations, (l)-> _.include(reservationsToBeDestroyed, l)
+      for line in reservationsToBeDestroyed
         do (line)->
           App.Reservation.ajaxChange(line, "destroy", {}).done =>
             line.remove()
             do deletionDone
-    else if difference > 0 # create new lines in the amount of the quantity difference
+    else if difference > 0 # create new reservations in the amount of the quantity difference
       finish = _.after difference, @changeRange
       for time in [1..difference]
         @createReservation()
         .done (datum) =>
-          @lines.push App.Reservation.find datum.id
+          @reservations.push App.Reservation.find datum.id
           do finish
     else # no quantity difference, try to change the range
       do @changeRange
 
   storeOptionLine: =>
     if @getQuantity()?
-      line = _.first @lines
+      line = _.first @reservations
       line.updateAttributes 
         quantity: @getQuantity()
         start_date: @getStartDate().format("YYYY-MM-DD")
@@ -63,7 +63,7 @@ class window.App.ReservationsChangeController extends window.App.ManageBookingCa
 
   changeRange: => 
     if @getStartDate().format("YYYY-MM-DD") != @startDate or @getEndDate().format("YYYY-MM-DD") != @endDate
-      App.Reservation.changeTimeRange(@lines, (@getStartDate() unless @startDateDisabled), @getEndDate())
+      App.Reservation.changeTimeRange(@reservations, (@getStartDate() unless @startDateDisabled), @getEndDate())
       .done(@done)
       .fail @fail
     else

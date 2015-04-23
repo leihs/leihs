@@ -18,4 +18,4 @@ Feature: Allocating of capacities inside the availability
   @personas
   Scenario: Allocating should be always the same
    Given a list of changes/availabilities
-    When I request that list multiple times the allocation of the lines should always be the same
+    When I request that list multiple times the allocation of the reservations should always be the same

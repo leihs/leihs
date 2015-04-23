@@ -2,7 +2,7 @@
 
   Marked Lines
  
-  This script sets up functionalities for marking selected visit lines
+  This script sets up functionalities for marking selected visit reservations
   
 ###
 

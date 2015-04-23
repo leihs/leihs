@@ -72,15 +72,15 @@ Then(/^the lists are sorted by (hand over|take back) date$/) do |arg1|
 end
 
 Then(/^each list contains following columns$/) do |table|
-  (@selected_lines || @contract.lines).group_by { |x| x.send @s1 }.each_pair do |date, lines|
-    @selected_lines_by_date = lines
+  (@selected_lines || @contract.reservations).group_by { |x| x.send @s1 }.each_pair do |date, reservations|
+    @selected_lines_by_date = reservations
     @list = find("section.list", text: "%s: %s" % [@s2, I18n.l(date)])
     step "beinhaltet die Liste folgende Spalten:", table
   end
 end
 
 Then(/^each list will sorted after (models, then sorted after )?room and shelf( of the most available locations)?$/) do |arg1, arg2|
-  (@selected_lines || @contract.lines).group_by { |x| x.send @s1 }.each_key do |date|
+  (@selected_lines || @contract.reservations).group_by { |x| x.send @s1 }.each_key do |date|
     within find("section.list", text: "%s: %s" % [@s2, I18n.l(date)]) do
       if arg1
         model_texts = all("tbody .model_name").map(&:text)
@@ -114,7 +114,7 @@ Then(/^I can open the picking list$/) do
 end
 
 Then(/^the items without location, are displayed with (the available quantity for this customer and )?"(.*?)"$/) do |arg1, arg2|
-  (@selected_lines || @contract.lines).select { |line| line.is_a? ItemLine }.each do |line|
+  (@selected_lines || @contract.reservations).select { |line| line.is_a? ItemLine }.each do |line|
     if line.item_id
       next if line.item.location and not line.item.location.room.blank? and not line.item.location.shelf.blank?
       find("section.list .model_name", match: :prefer_exact, text: line.model.name).find(:xpath, "./..").find(".location", text: arg2)
@@ -130,13 +130,13 @@ Then(/^the items without location, are displayed with (the available quantity fo
 end
 
 Then(/^the missing location information for options, are displayed with "(.*?)"$/) do |arg1|
-  (@selected_lines || @contract.lines).select { |line| line.is_a? OptionLine }.each do |line|
+  (@selected_lines || @contract.reservations).select { |line| line.is_a? OptionLine }.each do |line|
     find("section.list .model_name", match: :prefer_exact, text: line.model.name).find(:xpath, "./..").find(".location", text: _(arg1))
   end
 end
 
 Then(/^the not available items, are displayed with "(.*?)"$/) do |arg1|
-  (@selected_lines || @contract.lines).select { |line| not line.available? }.each do |line|
+  (@selected_lines || @contract.reservations).select { |line| not line.available? }.each do |line|
     find("section.list .model_name", match: :prefer_exact, text: line.model.name).find(:xpath, "./..").find(".location", text: arg1)
   end
 end

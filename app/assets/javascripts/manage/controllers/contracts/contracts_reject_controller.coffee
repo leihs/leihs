@@ -25,7 +25,7 @@ class window.App.ContractsRejectController extends Spine.Controller
   fetchData: (record, callback)=>
     modelIds = []
     optionIds = []
-    for line in record.lines().all()
+    for line in record.reservations().all()
       if line.model_id?
         modelIds.push(line.model_id) unless App.Model.exists(line.model_id)?
       else if line.option_id?

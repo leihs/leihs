@@ -199,7 +199,7 @@ Given(/^the following holidays exist$/) do |table|
   end
 end
 
-Given(/^(\d+) (unsubmitted|submitted|approved) contract lines?(?: for user "(.*)")? exists?$/) do |n, status, user_email|
+Given(/^(\d+) (unsubmitted|submitted|approved) contract reservations?(?: for user "(.*)")? exists?$/) do |n, status, user_email|
   attrs = {status: status.to_sym}
   attrs[:user] = User.find_by_email(user_email) if user_email
 
@@ -209,7 +209,7 @@ Given(/^(\d+) (unsubmitted|submitted|approved) contract lines?(?: for user "(.*)
   end
 end
 
-Given(/^all unsubmitted contract lines are available$/) do
+Given(/^all unsubmitted contract reservations are available$/) do
   expect(Reservation.unsubmitted.all? {|line| line.available? }).to be true
 end
 
@@ -222,7 +222,7 @@ end
 #       contract = FactoryGirl.create :contract_with_lines, inventory_pool: inventory_pool, status: :approved, user: user
 #       manager = User.find_by_login "ramon"
 #       contract.sign(manager)
-#       contract.lines.each { |cl| cl.update_attributes(returned_date: Date.today, returned_to_user_id: manager.id) }
+#       contract.reservations.each { |cl| cl.update_attributes(returned_date: Date.today, returned_to_user_id: manager.id) }
 #       contract.close
 #     end
 #   end
@@ -473,7 +473,7 @@ Given(/^each of the models has from (\d+) to (\d+) accessories possibly activate
   end
 end
 
-Given(/^(\d+) to (\d+)( more)? (submitted|approved|rejected) (item|license|option) lines? with following properties exists:$/) do |from, to, more, status, line_type, table|
+Given(/^(\d+) to (\d+)( more)? (submitted|approved|rejected) (item|license|option) reservations? with following properties exists:$/) do |from, to, more, status, line_type, table|
   attrs = {status: status.to_sym}
 
   # initialize variables accessed later in the block scope
@@ -575,7 +575,7 @@ Given(/^(\d+) to (\d+)( more)? (submitted|approved|rejected) (item|license|optio
   end
 end
 
-Given(/^(\d+) to (\d+) of these (item|license|option) lines? is returned:$/) do |from, to, line_type, table|
+Given(/^(\d+) to (\d+) of these (item|license|option) reservations? is returned:$/) do |from, to, line_type, table|
   attrs = {}
   table.rows_hash.each_pair do |key, value|
     value = substitute_with_eval value
@@ -604,8 +604,8 @@ end
 Given(/^this contract is closed on "(.*?)" by "(.*?)"$/) do |date_eval, user_email|
   date = substitute_with_eval date_eval
   user = User.find_by_email user_email
-  @contract.lines.each { |cl| cl.update_attributes(returned_date: date, returned_to_user_id: user) }
-  expect(@contract.lines.all? {|cl| cl.status == :closed }).to be true
+  @contract.reservations.each { |cl| cl.update_attributes(returned_date: date, returned_to_user_id: user) }
+  expect(@contract.reservations.all? {|cl| cl.status == :closed }).to be true
 end
 
 Given(/^the item with inventory code "(.*?)" has now the following properties:$/) do |inv_code, table|

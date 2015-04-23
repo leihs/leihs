@@ -1,7 +1,7 @@
 class window.App.UnsubmittedContractsShowController extends Spine.Controller
 
   elements:
-    "#current-order-lines": "linesContainer"
+    "#current-order-lines": "reservationsContainer"
     ".emboss.red": "conflictsWarning"
 
   events:
@@ -22,11 +22,11 @@ class window.App.UnsubmittedContractsShowController extends Spine.Controller
   changeReservations: (e)=>
     do e.preventDefault
     target = $(e.currentTarget)
-    lines = _.map target.data("ids"), (id) -> App.Reservation.find id
-    quantity = _.reduce lines, ((mem, l)-> mem + l.quantity), 0
+    reservations = _.map target.data("ids"), (id) -> App.Reservation.find id
+    quantity = _.reduce reservations, ((mem, l)-> mem + l.quantity), 0
     new App.ReservationsChangeController
       modelId: target.data("model-id")
-      lines: lines
+      reservations: reservations
       quantity: quantity
       startDate: target.data("start-date")
       endDate: target.data("end-date")
@@ -36,6 +36,6 @@ class window.App.UnsubmittedContractsShowController extends Spine.Controller
     return false
 
   render: =>
-    lines = _.flatten(_.map App.Contract.currents, (c)-> c.lines().all())
-    @linesContainer.html App.Render "borrow/views/order/grouped_and_merged_lines", App.Modules.HasLines.groupByDateAndPool(lines, true)
-    @conflictsWarning.addClass("hidden") if _.all lines, (l) -> l.available()
+    reservations = _.flatten(_.map App.Contract.currents, (c)-> c.reservations().all())
+    @reservationsContainer.html App.Render "borrow/views/order/grouped_and_merged_lines", App.Modules.HasLines.groupByDateAndPool(reservations, true)
+    @conflictsWarning.addClass("hidden") if _.all reservations, (l) -> l.available()

@@ -200,9 +200,9 @@ end
 #Angenommen(/^es existiert eine Aushändigung( für eine Delegation)?( mit zugewiesenen Gegenständen)?$/) do |arg1, arg2|
 Given(/^there is a hand over( for a delegation)?( with assigned items)?$/) do |arg1, arg2|
   @hand_over = if arg1 and arg2
-                 @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation and v.lines.all?(&:item) and Date.today >= v.date }
+                 @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation and v.reservations.all?(&:item) and Date.today >= v.date }
                elsif arg1
-                 @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation and v.lines.any? &:item and not v.date > Date.today } # NOTE v.date.future? doesn't work properly because timezone
+                 @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation and v.reservations.any? &:item and not v.date > Date.today } # NOTE v.date.future? doesn't work properly because timezone
                else
                  @current_inventory_pool.visits.hand_over.order("RAND()").first
                end
@@ -214,24 +214,24 @@ Given(/^I open this hand over$/) do
   visit manage_hand_over_path @current_inventory_pool, @hand_over.user
 end
 
-When /^I select all lines selecting all linegroups$/ do
+When /^I select all reservations selecting all linegroups$/ do
   all("input[data-select-lines]").each {|el| el.click unless el.checked?}
 end
 
 #Wenn(/^ich die Delegation wechsle$/) do
 When(/^I change the delegation$/) do
   expect(has_selector?("input[data-select-lines]", match: :first)).to be true
-  step "I select all lines selecting all linegroups"
+  step "I select all reservations selecting all linegroups"
   multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
   multibutton.find(".dropdown-toggle").click
   find("#swap-user", match: :first).click
   find(".modal", match: :first)
-  @contract ||= @hand_over.lines.map(&:contract).uniq.first
+  @contract ||= @hand_over.reservations.map(&:contract).uniq.first
   @old_delegation = @contract.user
   @new_delegation = @current_inventory_pool.users.find {|u| u.is_delegation and u.firstname != @old_delegation.firstname}
   find("input#user-id", match: :first).set @new_delegation.name
   find(".ui-menu-item a", match: :first).click
-  @contract.lines.reload.all? {|c| c.user == @new_delegation }
+  @contract.reservations.reload.all? {|c| c.user == @new_delegation }
 end
 
 #Wenn(/^ich versuche die Delegation zu wechseln$/) do
@@ -259,7 +259,7 @@ end
 #Wenn(/^ich versuche die Kontaktperson zu wechseln$/) do
 When(/^I try to change the contact person$/) do
   expect(has_selector?("input[data-select-lines]", match: :first)).to be true
-  step "I select all lines selecting all linegroups"
+  step "I select all reservations selecting all linegroups"
   find("button", text: _("Hand Over Selection")).click
   @delegation = @hand_over.user
   @contact = @delegation.delegated_users.order("RAND()").first
@@ -314,7 +314,7 @@ end
 
 #Wenn(/^ich statt einer Delegation einen Benutzer wähle$/) do
 When(/^I pick a user instead of a delegation$/) do
-  @contract ||= @hand_over.lines.map(&:contract).uniq.first
+  @contract ||= @hand_over.reservations.map(&:contract).uniq.first
   @delegation = @contract.user
   @delegated_user = @contract.delegated_user
   @new_user = @current_inventory_pool.users.not_as_delegations.order("RAND()").first
@@ -341,7 +341,7 @@ end
 #Dann(/^ist in der Bestellung der Benutzer aufgeführt$/) do
 Then(/^the order shows the user$/) do
   find(".content-wrapper", :text => @new_user.name, match: :first)
-  @contract.lines do |line|
+  @contract.reservations.each do |line|
     expect(line.reload.user).to eq @new_user
   end
 end
@@ -349,7 +349,7 @@ end
 #Dann(/^es ist keine Kontaktperson aufgeführt$/) do
 Then(/^no contact person is shown$/) do
   expect(has_no_content?("(#{@delegated_user.name})")).to be true
-  @contract.lines do |line|
+  @contract.reservations.each do |line|
     expect(line.reload.delegated_user).to eq nil
   end
 end
@@ -536,11 +536,11 @@ end
 
 #Wenn(/^ich statt eines Benutzers eine Delegation wähle$/) do
 When(/^I pick a delegation instead of a user$/) do
-  @contract ||= @hand_over.lines.map(&:contract).uniq.first
+  @contract ||= @hand_over.reservations.map(&:contract).uniq.first
   @user = @contract.user
   @delegation = @current_inventory_pool.users.as_delegations.order("RAND()").first
   expect(has_selector?("input[data-select-lines]", match: :first)).to be true
-  step "I select all lines selecting all linegroups"
+  step "I select all reservations selecting all linegroups"
   multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
   multibutton.find(".dropdown-toggle").click if multibutton
   find("#swap-user", match: :first).click
@@ -590,7 +590,7 @@ end
 
 #Dann(/^die neu gewählte Kontaktperson wird gespeichert$/) do
 Then(/^the newly selected contact person is saved$/) do
-  @contract.lines.each do |line|
+  @contract.reservations.each do |line|
     expect(line.reload.delegated_user).to eq @contact
   end
 end

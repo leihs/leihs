@@ -473,7 +473,7 @@ msgstr ""
 msgid "Edit Selection"
 msgstr ""
 
-msgid "Edit multiple selected lines"
+msgid "Edit multiple selected reservations"
 msgstr ""
 
 msgid "Edit purpose for order from"
@@ -1446,7 +1446,7 @@ msgstr ""
 msgid "The properties have been updated."
 msgstr ""
 
-msgid "The selected lines have been moved"
+msgid "The selected reservations have been moved"
 msgstr ""
 
 msgid "The selected model is not a package"
@@ -1464,13 +1464,13 @@ msgid "These are the comments of the inventory manager:"
 msgstr ""
 
 msgid ""
-"This contract is not signable because it doesn't have any contract lines."
+"This contract is not signable because it doesn't have any contract reservations."
 msgstr ""
 
-msgid "This contract is not signable because none of the lines have a purpose."
+msgid "This contract is not signable because none of the reservations have a purpose."
 msgstr ""
 
-msgid "This contract is not signable because some lines are not assigned."
+msgid "This contract is not signable because some reservations are not assigned."
 msgstr ""
 
 msgid ""
@@ -1719,7 +1719,7 @@ msgid "You can't add a package to a package."
 msgstr ""
 
 msgid ""
-"You cannot delete all lines of an order. Perhaps you want to reject it "
+"You cannot delete all reservations of an order. Perhaps you want to reject it "
 "instead?"
 msgstr ""
 
@@ -2015,7 +2015,7 @@ msgstr ""
 msgid "while deleting hand over for"
 msgstr ""
 
-msgid "while deleting multiple order lines"
+msgid "while deleting multiple order reservations"
 msgstr ""
 
 msgid "while deleting order line for"
@@ -2030,13 +2030,13 @@ msgstr ""
 msgid "without conflict"
 msgstr ""
 
-msgid "you cannot hand out lines which are starting in the future"
+msgid "you cannot hand out reservations which are starting in the future"
 msgstr ""
 
-msgid "you cannot hand out lines which are ending in the past"
+msgid "you cannot hand out reservations which are ending in the past"
 msgstr ""
 
-msgid "you cannot hand out lines with unassigned inventory codes"
+msgid "you cannot hand out reservations with unassigned inventory codes"
 msgstr ""
 
 msgid "Helper"
@@ -2419,7 +2419,7 @@ msgid "Continue this order"
 msgstr ""
 
 msgid ""
-"Please solve the conflicts for all highlighted lines in order to continue."
+"Please solve the conflicts for all highlighted reservations in order to continue."
 msgstr ""
 
 msgid "You have permission to access the following inventory pool"

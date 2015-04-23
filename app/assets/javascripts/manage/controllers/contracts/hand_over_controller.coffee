@@ -2,7 +2,7 @@ class window.App.HandOverController extends Spine.Controller
 
   elements:
     "#status": "status"
-    "#lines": "linesContainer"
+    "#lines": "reservationsContainer"
 
   events:
     "click [data-hand-over-selection]": "handOver"
@@ -59,7 +59,7 @@ class window.App.HandOverController extends Spine.Controller
     else
       @status.html App.Render "manage/views/users/hand_over/no_handover_found"
 
-  getLines: => _.flatten _.map(@user.contracts().all(), (c)->c.lines().all())
+  getLines: => _.flatten _.map(@user.contracts().all(), (c)->c.reservations().all())
 
   fetchFunctionsSetup: (classTypePairs) =>
     # macro for providing functions like 'notFetchedItemIds' and 'fetchItems'
@@ -79,8 +79,8 @@ class window.App.HandOverController extends Spine.Controller
       this["fetch" + itemClassName + "s"] = => fetchHelper itemClassName, do this[filterFunctionName]
 
   render: (renderAvailability)=> 
-    @linesContainer.html App.Render "manage/views/lines/grouped_lines_with_action_date", App.Modules.HasLines.groupByDateRange(@getLines(), false, "start_date"), 
-      linePartial: "manage/views/lines/hand_over_line"
+    @reservationsContainer.html App.Render "manage/views/reservations/grouped_lines_with_action_date", App.Modules.HasLines.groupByDateRange(@getLines(), false, "start_date"),
+      linePartial: "manage/views/reservations/hand_over_line"
       renderAvailability: renderAvailability
     do @lineSelection.restore
 
@@ -95,12 +95,12 @@ class window.App.HandOverController extends Spine.Controller
         message: _jed('End Date cannot be in the past')
 
   swapUser: =>
-    lines = (App.Reservation.find id for id in App.LineSelectionController.selected)
+    reservations = (App.Reservation.find id for id in App.LineSelectionController.selected)
     new App.SwapUsersController
-      lines: lines
+      reservations: reservations
 
   validate: =>
-    lines = (App.Reservation.find id for id in App.LineSelectionController.selected)
-    _.all lines, (line)->
+    reservations = (App.Reservation.find id for id in App.LineSelectionController.selected)
+    _.all reservations, (line)->
       # checking if end_date are in the past
       not moment(line.end_date).isBefore(moment().format("YYYY-MM-DD"))

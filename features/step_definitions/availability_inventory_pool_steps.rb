@@ -17,7 +17,7 @@ end
 # Then /it asks for ([0-9]+) item(s?)$/ do |number, s|
 #   total = 0
 #   @orders.each do |o|
-#     total += o.lines.sum(:quantity)
+#     total += o.reservations.sum(:quantity)
 #   end
 #   expect(total).to eq number.to_i
 # end
@@ -33,15 +33,15 @@ Then "he sees the '$model' model" do |model|
   expect(@models_json.map{|x| x["label"]}.include?(m.name)).to be true
 end
 
-Then "all order lines should be available" do
-  lines = @current_user.reservations.unsubmitted
-  expect(lines.reload.all?{|l| l.available? }).to be true
+Then "all order reservations should be available" do
+  reservations = @current_user.reservations.unsubmitted
+  expect(reservations.reload.all?{|l| l.available? }).to be true
 end
 
-Then(/^these additional order lines were not created$/) do
-  expect(@current_user.orders.first.lines.reload).to eq @order_lines
+Then(/^these additional order reservations were not created$/) do
+  expect(@current_user.orders.first.reservations.reload).to eq @order_lines
 end
 
-Then(/^some order lines were not created$/) do
-  expect(@current_user.orders.first.lines.length).to eq @total_quantity
+Then(/^some order reservations were not created$/) do
+  expect(@current_user.orders.first.reservations.length).to eq @total_quantity
 end

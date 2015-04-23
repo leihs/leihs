@@ -92,10 +92,10 @@ Feature: Contract
   @javascript @browser @personas
   Scenario: Rücknehmende Person
     Given I open a take back
-    And I select all lines of an open contract
+    And I select all reservations of an open contract
     And I click take back
     And I click take back inside the dialog
-    Then the relevant lines show the person taking back the item in the format "F. Lastname"
+    Then the relevant reservations show the person taking back the item in the format "F. Lastname"
 
   @javascript @browser @personas
   Scenario: Lender

@@ -2,7 +2,7 @@ class window.App.TakeBackController extends Spine.Controller
 
   elements:
     "#status": "status"
-    "#lines": "linesContainer"
+    "#lines": "reservationsContainer"
     "form#assign": "form"
     "#assign-input": "input"
 
@@ -48,19 +48,19 @@ class window.App.TakeBackController extends Spine.Controller
     else
       do done
 
-  getLines: => _.flatten _.map(@user.contracts().all(), (c)->c.lines().all())
+  getLines: => _.flatten _.map(@user.contracts().all(), (c)->c.reservations().all())
 
   render: (renderAvailability)=> 
-    @linesContainer.html App.Render "manage/views/lines/grouped_lines_with_action_date", App.Modules.HasLines.groupByDateRange(@getLines(), false, "end_date"), 
-      linePartial: "manage/views/lines/take_back_line"
+    @reservationsContainer.html App.Render "manage/views/reservations/grouped_lines_with_action_date", App.Modules.HasLines.groupByDateRange(@getLines(), false, "end_date"),
+      linePartial: "manage/views/reservations/take_back_line"
       renderAvailability: renderAvailability
     do @returnedQuantitiesController.restore
     do @lineSelection.restore
 
   takeBack: => 
     returnedQuantity = {}
-    lines = (App.Reservation.find id for id in App.LineSelectionController.selected)
-    for line in lines
+    reservations = (App.Reservation.find id for id in App.LineSelectionController.selected)
+    for line in reservations
       if line.option_id?
         quantity = @getQuantity(line)
         if quantity == 0
@@ -70,7 +70,7 @@ class window.App.TakeBackController extends Spine.Controller
           return false
         else
           returnedQuantity[line.id] = @getQuantity(line)
-    new App.TakeBackDialogController {user: @user, lines: lines, returnedQuantity: returnedQuantity}
+    new App.TakeBackDialogController {user: @user, reservations: reservations, returnedQuantity: returnedQuantity}
 
   assign: (e)=>
     e.preventDefault() if e?
@@ -128,7 +128,7 @@ class window.App.TakeBackController extends Spine.Controller
       focus: => return false
       select: @select
     .data("uiAutocomplete")._renderItem = (ul, item) => 
-      $(App.Render "manage/views/lines/assign/autocomplete_element", item).data("value", item).appendTo(ul)
+      $(App.Render "manage/views/reservations/assign/autocomplete_element", item).data("value", item).appendTo(ul)
 
   select: (e, ui)=>
     @input.val ui.item.record.inventoryCode()

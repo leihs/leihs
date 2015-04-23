@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 #Dann /^kann ich die reservierende Person für eine Auswahl an Linien wechseln$/ do
-Then /^I can change the borrower for all the lines I've selected$/ do
-  step 'I select all lines of an linegroup'
+Then /^I can change the borrower for all the reservations I've selected$/ do
+  step 'I select all reservations of an linegroup'
   find(".multibutton [data-selection-enabled] + .dropdown-holder").click
   find("a", :text => _("Change Borrower")).click
   find(".modal")

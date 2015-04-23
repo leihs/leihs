@@ -44,7 +44,7 @@
 #               And he submits the new order
 #               And lending_manager approves the order
 #               And lending_manager clicks on 'hand_over'
-#       Then he sees 2 lines with a total quantity of 11
+#       Then he sees 2 reservations with a total quantity of 11
 #               And line 1 has a quantity of 7 for customer 'Joe'
 #               And line 2 has a quantity of 4 for customer 'Joe'
 #       When 'Jack' places a new order
@@ -54,13 +54,13 @@
 #               And he submits the new order
 #               And lending_manager approves the order
 #               And lending_manager clicks on 'hand_over'
-#       Then he sees 4 lines with a total quantity of 17
+#       Then he sees 4 reservations with a total quantity of 17
 #               And line 1 has a quantity of 2 for customer 'Jack'
 #               And line 2 has a quantity of 7 for customer 'Joe'
 #               And line 3 has a quantity of 4 for customer 'Jack'
 #               And line 4 has a quantity of 4 for customer 'Joe'
 #@old-ui
-#Scenario: Generation of contract lines based on the approved order lines of a given customer
+#Scenario: Generation of contract reservations based on the approved order reservations of a given customer
 #
 #       Given 15 items of model 'NEC 245' exist
 #         And 12 items of model 'BENQ 19' exist
@@ -73,11 +73,11 @@
 #               And lending_manager approves the order
 #       Then a new contract is generated
 #       When lending_manager clicks on 'hand_over'
-#       Then he sees 2 lines with a total quantity of 6
+#       Then he sees 2 reservations with a total quantity of 6
 #       When lending_manager chooses one line
-#       Then he sees 6 contract lines for all approved order lines
+#       Then he sees 6 contract reservations for all approved order reservations
 #@old-ui
-#Scenario: Select order lines to hand over
+#Scenario: Select order reservations to hand over
 #
 #       Given 15 items of model 'NEC 245' exist
 #         And 12 items of model 'BENQ 19' exist
@@ -91,7 +91,7 @@
 #       Then he sees 1 line with a total quantity of 4
 #       When lending_manager chooses one line
 #       Then a new contract is generated
-#               And he sees 4 contract lines for all approved order lines
+#               And he sees 4 contract reservations for all approved order reservations
 #      When he assigns items to the first 3 items
 #      When he selects to hand over the first 3 items
 #      And he clicks the button 'hand_over'

@@ -35,7 +35,7 @@ class RefactorContracts < ActiveRecord::Migration
 
     Contract.where.not(status: [:signed, :closed]).joins(:reservations).flat_map do |c|
       History.where(target_type: "Contract", target_id: c.id).each do |h|
-        c.lines.first.histories << h
+        c.reservations.first.histories << h
       end
     end
 

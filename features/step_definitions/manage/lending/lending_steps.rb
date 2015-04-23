@@ -10,7 +10,7 @@ Then /^the item is selected and the box is checked$/ do
     find("input[type='checkbox'][data-select-line]:checked")
     expect(@item_line.reload.item.inventory_code).to eq @selected_inventory_code
   end
-  step 'the count matches the amount of selected lines'
+  step 'the count matches the amount of selected reservations'
 end
 
 When /^I try to complete a hand over that contains a model with unborrowable items$/ do
@@ -449,5 +449,5 @@ end
 
 Then(/^the option is selected and the box is checked$/) do
   @option_line.find("input[data-select-line]:checked")
-  step 'the count matches the amount of selected lines'
+  step 'the count matches the amount of selected reservations'
 end

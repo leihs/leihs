@@ -468,19 +468,19 @@ Feature: Generating Personas
 
     Then there are 10 partitions in total
 
-    And 3 unsubmitted contract line exists
-    And 3 unsubmitted contract line for user "normin@zhdk.ch" exists
+    And 3 unsubmitted contract reservation exists
+    And 3 unsubmitted contract reservation for user "normin@zhdk.ch" exists
 
-    And all unsubmitted contract lines are available
+    And all unsubmitted contract reservations are available
     
-    And 3 to 5 submitted item lines with following properties exists:
+    And 3 to 5 submitted item reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
       | purpose    | Benötige ich für die Aufnahmen meiner Abschlussarbeit. |
       | start date | #{Date.today + 7.days}                                 |
       | end date   | #{Date.today + 10.days}                                |
       | model name | Kamera Nikon X12                                       |
-    And 3 to 5 submitted item lines with following properties exists:
+    And 3 to 5 submitted item reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
       | purpose    | Benötige ich für die Aufnahmen meiner Abschlussarbeit. |
@@ -488,7 +488,7 @@ Feature: Generating Personas
       | end date   | #{Date.today + 10.days}                                |
       | model name | Kamera Stativ 123                                      |
 
-    And 1 to 1 submitted item lines with following properties exists:
+    And 1 to 1 submitted item reservations with following properties exists:
       | user email          | customer6@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | assigned   | false                 |
@@ -496,51 +496,51 @@ Feature: Generating Personas
       | start date | #{Date.today}         |
       | end date   | #{Date.today + 1.day} |
 
-    And 4 submitted contract lines for user "normin@zhdk.ch" exist
+    And 4 submitted contract reservations for user "normin@zhdk.ch" exist
 
     And today is "#{Time.now - rand(1..7).days}"
-    And 3 to 5 submitted item lines with following properties exists:
+    And 3 to 5 submitted item reservations with following properties exists:
       | user email          | customer1@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | purpose | Ersatzstativ für die Ausstellung. |
-    And 1 to 1 submitted item lines with following properties exists:
+    And 1 to 1 submitted item reservations with following properties exists:
       | user email          | customer1@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | purpose    | Ersatzstativ für die Ausstellung. |
       | model name | MacBook Air                       |
     And today is back to initial random date
 
-    And 3 to 5 submitted item lines with following properties exists:
+    And 3 to 5 submitted item reservations with following properties exists:
       | user email          | customer2@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | purpose | Ersatzstativ für die Ausstellung. |
-    And 1 to 1 submitted item lines with following properties exists:
+    And 1 to 1 submitted item reservations with following properties exists:
       | user email          | customer2@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | purpose    | Ersatzstativ für die Ausstellung. |
       | model name | Thinkpad X301                     |
 
-    And 3 to 5 submitted item lines with following properties exists:
+    And 3 to 5 submitted item reservations with following properties exists:
       | user email          | customer3@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | purpose | Ersatzstativ für die Ausstellung. |
 
-    And 3 to 5 submitted item lines with following properties exists:
+    And 3 to 5 submitted item reservations with following properties exists:
       | user email          | customer4@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | purpose | Ersatzstativ für die Ausstellung. |
 
-    And 3 to 5 submitted item lines with following properties exists:
+    And 3 to 5 submitted item reservations with following properties exists:
       | user email          | customer5@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | purpose | Ersatzstativ für die Ausstellung. |
 
     And today is "#{Time.now - rand(1..7).days}"
-    And 3 to 5 submitted item lines with following properties exists:
+    And 3 to 5 submitted item reservations with following properties exists:
       | user email          | customer1@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | purpose | Ersatzstativ für die Ausstellung. |
-    And 2 to 2 submitted item lines with following properties exists:
+    And 2 to 2 submitted item reservations with following properties exists:
       | user email          | customer1@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | purpose    | Ersatzstativ für die Ausstellung. |
@@ -548,27 +548,27 @@ Feature: Generating Personas
     And today is back to initial random date
 
     And today is "#{Time.now - rand(1..7).days}"
-    And 3 to 5 submitted item lines with following properties exists:
+    And 3 to 5 submitted item reservations with following properties exists:
       | user email          | customer1@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | purpose | Ersatzstativ für die Ausstellung. |
     And today is back to initial random date
 
-    And 1 to 1 submitted item lines with following properties exists:
+    And 1 to 1 submitted item reservations with following properties exists:
       | user email          | petra@zhdk.ch |
       | inventory pool name | A-Ausleihe    |
       | purpose    | Für meinen aktuellen Kurs. |
       | start date | #{Date.today + 7.days}     |
       | end date   | #{Date.today + 10.days}    |
       | model name | Kamera Nikon X12           |
-    And 1 to 1 submitted item lines with following properties exists:
+    And 1 to 1 submitted item reservations with following properties exists:
       | user email          | petra@zhdk.ch |
       | inventory pool name | A-Ausleihe    |
       | purpose    | Für meinen aktuellen Kurs. |
       | start date | #{Date.today + 7.days}     |
       | end date   | #{Date.today + 10.days}    |
       | model name | Kamera Stativ 123          |
-    And 1 to 1 submitted item lines with following properties exists:
+    And 1 to 1 submitted item reservations with following properties exists:
       | user email          | petra@zhdk.ch |
       | inventory pool name | A-Ausleihe    |
       | purpose    | Für meinen aktuellen Kurs. |
@@ -576,7 +576,7 @@ Feature: Generating Personas
       | end date   | #{Date.today + 11.days}    |
       | model name | Kamera Stativ 123          |
 
-    And 1 to 1 submitted item lines with following properties exists:
+    And 1 to 1 submitted item reservations with following properties exists:
       | user email          | petra@zhdk.ch |
       | inventory pool name | A-Ausleihe    |
       | purpose    | Für meinen aktuellen Kurs. |
@@ -584,23 +584,23 @@ Feature: Generating Personas
       | end date   | #{Date.today + 1.days}     |
       | model name | Ultra Compact Beamer       |
 
-    And 1 approved contract line exists
+    And 1 approved contract reservation exists
 
-    And 30 to 40 approved item lines with following properties exists:
+    And 30 to 40 approved item reservations with following properties exists:
       | user email          | customer9@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | assigned | true |
-    And 1 to 2 approved item lines with following properties exists:
+    And 1 to 2 approved item reservations with following properties exists:
       | user email          | customer9@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | assigned | false |
 
     And today is "#{Time.now - rand(1..7).days}"
-    And 3 to 5 approved item lines with following properties exists:
+    And 3 to 5 approved item reservations with following properties exists:
       | user email          | customer1@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | purpose | Ersatzstativ für die Ausstellung. |
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | user email          | customer1@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | purpose    | Ersatzstativ für die Ausstellung. |
@@ -608,7 +608,7 @@ Feature: Generating Personas
     And today is back to initial random date
 
     And today is "#{Time.now - rand(3..5).months}"
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | user email          | customer1@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | assigned   | true                              |
@@ -619,24 +619,24 @@ Feature: Generating Personas
     And this contract is closed on "#{Date.today}" by "pius@zhdk.ch"
     And today is back to initial random date
 
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | user email          | customer8@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | assigned | true |
-    And 1 to 1 more approved option lines with following properties exists:
+    And 1 to 1 more approved option reservations with following properties exists:
       | user email          | customer8@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | quantity | 2 |
     And this contract is signed by "pius@zhdk.ch"
 
-    And 1 to 1 approved option lines with following properties exists:
+    And 1 to 1 approved option reservations with following properties exists:
       | user email          | peter@silie.com |
       | inventory pool name | A-Ausleihe      |
       | inventory code | sandsack123       |
       | quantity       | 2                 |
       | start date     | #{Date.yesterday} |
       | end date       | #{Date.today}     |
-    And 1 to 1 more approved option lines with following properties exists:
+    And 1 to 1 more approved option reservations with following properties exists:
       | user email          | peter@silie.com |
       | inventory pool name | A-Ausleihe      |
       | inventory code | sandsack123             |
@@ -645,23 +645,23 @@ Feature: Generating Personas
       | end date       | #{Date.today + 1.month} |
     And this contract is signed by "pius@zhdk.ch"
 
-    And 1 to 1 approved license lines with following properties exists:
+    And 1 to 1 approved license reservations with following properties exists:
       | inventory pool name | A-Ausleihe |
       | assigned | true |
     And this contract is signed by "pius@zhdk.ch"
 
     And today is "#{Time.now - 5.days}"
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | inventory pool name | IT-Ausleihe |
       | start date | #{Date.today}          |
       | end date   | #{Date.today + 4.days} |
-    And 1 to 1 approved option lines with following properties exists:
+    And 1 to 1 approved option reservations with following properties exists:
       | inventory pool name | IT-Ausleihe |
       | start date | #{Date.today}          |
       | end date   | #{Date.today + 4.days} |
     And today is back to initial random date
 
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | inventory pool name | A-Ausleihe |
       | assigned       | true       |
       | inventory code | minibeam56 |
@@ -671,7 +671,7 @@ Feature: Generating Personas
       | retired        | #{Date.today}            |
       | retired reason | #{Faker::Lorem.sentence} |
 
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | inventory pool name | A-Ausleihe |
       | assigned       | true       |
       | inventory code | minibeam78 |
@@ -681,14 +681,14 @@ Feature: Generating Personas
       | inventory pool name | IT-Ausleihe |
       | owner name          | IT-Ausleihe |
 
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | user email          | customer7@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | assigned | true |
     And this contract is signed by "pius@zhdk.ch"
     And this contract is closed on "#{Date.today}" by "pius@zhdk.ch"
 
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | user email          | customer7@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | model package name | Kamera Set2 |
@@ -701,24 +701,24 @@ Feature: Generating Personas
       | user email          | customer7@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
     
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
       | purpose    | Ersatzstativ für die Ausstellung. |
       | model name | Kamera Stativ 123                 |
 
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
       | purpose    | Für das zweite Austellungswochenende. |
       | model name | Kamera Stativ 123                     |
-    And 1 to 1 more approved item lines with following properties exists:
+    And 1 to 1 more approved item reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
       | purpose    | Für das zweite Austellungswochenende. |
       | model name | Sharp Beamer 123                      |
 
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
       | purpose    | Für das dritte Austellungswochenende. |
@@ -726,42 +726,42 @@ Feature: Generating Personas
       | end date   | #{Date.today + 8.days}                |
       | model name | Kamera Stativ 123                     |
 
-    And 3 to 3 approved item lines with following properties exists:
+    And 3 to 3 approved item reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
       | purpose    | Für die Abschlussarbeit. |
       | model name | Sharp Beamer 123         |
 
-    And 3 to 3 approved item lines with following properties exists:
+    And 3 to 3 approved item reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
       | purpose    | Ersatzstativ für die Ausstellung. |
       | model name | Kamera Nikon X12                  |
-    And 3 to 3 more approved item lines with following properties exists:
+    And 3 to 3 more approved item reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
       | purpose    | Ersatzstativ für die Ausstellung. |
       | model name | Kamera Stativ 123                 |
-    And 1 to 1 more approved option lines with following properties exists:
+    And 1 to 1 more approved option reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
       | purpose        | Ersatzstativ für die Ausstellung. |
       | inventory code | akku-aa                           |
       | quantity       | 5                                 |
 
-    And 1 to 1 approved license lines with following properties exists:
+    And 1 to 1 approved license reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
       | purpose | Bestellung mit Software |
 
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
       | purpose       | Bestellung mit Gegenstand ohne Ort |
       | item          | owned                              |
       | item location | nil                                |
 
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
       | assigned   | true                                       |
@@ -773,7 +773,7 @@ Feature: Generating Personas
     And this contract is signed by "pius@zhdk.ch"
 
     And today is "#{Time.now - 5.days}"
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | user email          | lisa@zhdk.ch |
       | inventory pool name | A-Ausleihe   |
       | assigned   | true                   |
@@ -782,14 +782,14 @@ Feature: Generating Personas
       | end date   | #{Date.today + 4.days} |
       | model name | Inspiron 7000          |
       | item       | in_stock               |
-    And 1 to 1 more approved option lines with following properties exists:
+    And 1 to 1 more approved option reservations with following properties exists:
       | user email          | lisa@zhdk.ch |
       | inventory pool name | A-Ausleihe   |
       | quantity | 1 |
     And this contract is signed by "pius@zhdk.ch"
     And today is back to initial random date
 
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
       | assigned   | true              |
@@ -798,7 +798,7 @@ Feature: Generating Personas
       | item       | owned             |
     And this contract is signed by "pius@zhdk.ch"
 
-    And 2 to 2 approved item lines with following properties exists:
+    And 2 to 2 approved item reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | IT-Ausleihe    |
       | assigned   | true                                       |
@@ -806,11 +806,11 @@ Feature: Generating Personas
       | start date | #{Date.yesterday}                          |
       | end date   | #{Date.today}                              |
     And this contract is signed by "pius@zhdk.ch"
-    And 1 to 1 of these item lines is returned:
+    And 1 to 1 of these item reservations is returned:
       | returned date    | #{Date.today}                              |
       | returned to user | pius@zhdk.ch                               |
 
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | IT-Ausleihe    |
       | assigned   | true                                       |
@@ -819,14 +819,14 @@ Feature: Generating Personas
       | end date   | #{Date.today}                              |
       | model name | Sharp Beamer 123                           |
       | item       | lic111                                     |
-    And 1 to 1 more approved item lines with following properties exists:
+    And 1 to 1 more approved item reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | IT-Ausleihe    |
       | assigned | true    |
       | item     | beam749 |
     And this contract is signed by "pius@zhdk.ch"
 
-    And 1 to 1 approved license lines with following properties exists:
+    And 1 to 1 approved license reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | IT-Ausleihe    |
       | assigned   | true              |
@@ -835,7 +835,7 @@ Feature: Generating Personas
       | item       | owned             |
     And this contract is signed by "pius@zhdk.ch"
 
-    And 1 to 1 approved license lines with following properties exists:
+    And 1 to 1 approved license reservations with following properties exists:
       | user email          | normin@zhdk.ch |
       | inventory pool name | A-Ausleihe     |
       | assigned           | true              |
@@ -846,21 +846,21 @@ Feature: Generating Personas
       | item               | in_stock          |
     And this contract is signed by "pius@zhdk.ch"
 
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | user email          | petra@zhdk.ch |
       | inventory pool name | A-Ausleihe    |
       | purpose    | Ersatzstativ für die Ausstellung. |
       | start date | #{Date.yesterday - 1.day}         |
       | end date   | #{Date.today + 1.day}             |
       | model name | Sharp Beamer 123                  |
-    And 1 to 1 more approved item lines with following properties exists:
+    And 1 to 1 more approved item reservations with following properties exists:
       | user email          | petra@zhdk.ch |
       | inventory pool name | A-Ausleihe    |
       | purpose    | Ersatzstativ für die Ausstellung. |
       | start date | #{Date.yesterday - 1.day}         |
       | end date   | #{Date.today + 1.day}             |
 
-    And 1 to 1 submitted item lines with following properties exists:
+    And 1 to 1 submitted item reservations with following properties exists:
       | user email          | lisa@zhdk.ch |
       | inventory pool name | A-Ausleihe   |
       | assigned         | false                                             |
@@ -868,7 +868,7 @@ Feature: Generating Personas
       | model name       | Thinkpad Carbon                                   |
       | soft overbooking | true                                              |
 
-    And 1 to 1 approved item lines with following properties exists:
+    And 1 to 1 approved item reservations with following properties exists:
       | user email          | petra@zhdk.ch |
       | inventory pool name | A-Ausleihe    |
       | assigned   | true                                       |
@@ -877,7 +877,7 @@ Feature: Generating Personas
       | end date   | #{Date.today}                              |
       | model name | Sharp Beamer 123                           |
       | item       | in_stock                                   |
-    And 1 to 1 more approved option lines with following properties exists:
+    And 1 to 1 more approved option reservations with following properties exists:
       | user email          | petra@zhdk.ch |
       | inventory pool name | A-Ausleihe    |
       | purpose        | Um meine Abschlussarbeit zu fotografieren. |
@@ -886,7 +886,7 @@ Feature: Generating Personas
       | end date       | #{Date.today}                              |
     And this contract is signed by "pius@zhdk.ch"
 
-    And 1 to 1 submitted item lines with following properties exists:
+    And 1 to 1 submitted item reservations with following properties exists:
       | user email          | lisa@zhdk.ch |
       | inventory pool name | A-Ausleihe   |
       | assigned   | false                           |
@@ -895,7 +895,7 @@ Feature: Generating Personas
       | end date   | #{Date.today + 45.days}         |
       | model name | Kamera Nikon X12                |
 
-    And 1 to 1 submitted item lines with following properties exists:
+    And 1 to 1 submitted item reservations with following properties exists:
       | user email          | lisa@zhdk.ch |
       | inventory pool name | A-Ausleihe   |
       | assigned         | false                                 |
@@ -905,27 +905,27 @@ Feature: Generating Personas
       | model name       | Kamera Nikon X12                      |
       | real overbooking | true                                  |
 
-    And 3 to 5 submitted item lines with following properties exists:
+    And 3 to 5 submitted item reservations with following properties exists:
       | delegation name      | Delegation 1 |
       | delegated user email | mina@zhdk.ch |
       | inventory pool name  | A-Ausleihe   |
       | assigned | false |
 
-    And 3 to 5 approved item lines with following properties exists:
+    And 3 to 5 approved item reservations with following properties exists:
       | delegation name      | Delegation 1  |
       | delegated user email | julie@zhdk.ch |
       | inventory pool name  | A-Ausleihe    |
       | assigned   | false         |
       | start date | #{Date.today} |
 
-    And 3 to 5 approved item lines with following properties exists:
+    And 3 to 5 approved item reservations with following properties exists:
       | delegation name      | Delegation 5       |
       | delegated user email | delegated1@zhdk.ch |
       | inventory pool name  | A-Ausleihe         |
       | assigned   | true          |
       | start date | #{Date.today} |
 
-    And 3 to 5 approved item lines with following properties exists:
+    And 3 to 5 approved item reservations with following properties exists:
       | delegation name      | Delegation 1 |
       | delegated user email | mina@zhdk.ch |
       | inventory pool name  | A-Ausleihe   |
@@ -934,7 +934,7 @@ Feature: Generating Personas
     And this contract is signed by "pius@zhdk.ch"
 
     And today is "#{Time.now - 5.days}"
-    And 3 to 5 approved item lines with following properties exists:
+    And 3 to 5 approved item reservations with following properties exists:
       | delegation name      | Delegation 1 |
       | delegated user email | mina@zhdk.ch |
       | inventory pool name  | A-Ausleihe   |
@@ -944,11 +944,11 @@ Feature: Generating Personas
     And today is back to initial random date
 
     And today is "#{Time.now - rand(1..7).days}"
-    And 3 to 5 rejected item lines with following properties exists:
+    And 3 to 5 rejected item reservations with following properties exists:
       | user email          | customer1@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | purpose | Ersatzstativ für die Ausstellung. |
-    And 1 to 1 rejected item lines with following properties exists:
+    And 1 to 1 rejected item reservations with following properties exists:
       | user email          | customer1@zhdk.ch |
       | inventory pool name | A-Ausleihe        |
       | purpose    | Ersatzstativ für die Ausstellung. |
@@ -957,6 +957,6 @@ Feature: Generating Personas
 
     Then there are 18 contracts in total
 
-    And all unsubmitted contract lines are available
+    And all unsubmitted contract reservations are available
 
     Then the current time dump is generated

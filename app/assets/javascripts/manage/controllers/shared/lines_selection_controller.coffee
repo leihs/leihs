@@ -2,7 +2,7 @@
 
   Selected Lines
  
-  This script sets up functionalities for selection based functionalities for multiple lines.
+  This script sets up functionalities for selection based functionalities for multiple reservations.
   
 ###
 
@@ -53,15 +53,15 @@ class window.App.LineSelectionController extends Spine.Controller
   blurLines: (e)=> $(e.currentTarget).closest(".emboss").removeClass("focus-thin")
 
   update: =>
-    lines = $("[data-select-line]:checked").closest ".line"
-    @store lines
+    reservations = $("[data-select-line]:checked").closest ".line"
+    @store reservations
     @markVisitLinesController?.update App.LineSelectionController.selected
-    @lineSelectionCounter.html lines.length
-    if lines.length then @enable() else @disable()
+    @lineSelectionCounter.html reservations.length
+    if reservations.length then @enable() else @disable()
     do @storeIds
 
-  store: (lines)->
-    ids = _.flatten _.map lines, (line) -> ($(line).data("ids") ? [$(line).data("id")])
+  store: (reservations)->
+    ids = _.flatten _.map reservations, (line) -> ($(line).data("ids") ? [$(line).data("id")])
     App.LineSelectionController.selected = ids
 
   restore: =>

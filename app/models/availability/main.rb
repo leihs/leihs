@@ -48,24 +48,24 @@ module Availability
 #########################################################
 
   class Main
-    attr_reader :running_lines, :partitions, :changes, :inventory_pool_and_model_group_ids
+    attr_reader :running_reservations, :partitions, :changes, :inventory_pool_and_model_group_ids
 
     def initialize(attr)
       @model          = attr[:model]
       @inventory_pool = attr[:inventory_pool]
-      # we use array select instead of sql where condition to fetch once all running_lines during the same request, instead of hit the db multiple times
-      @running_lines = @inventory_pool.running_lines.select {|line| line.model_id == @model.id}
+      # we use array select instead of sql where condition to fetch once all running_reservations during the same request, instead of hit the db multiple times
+      @running_reservations = @inventory_pool.running_reservations.select {|line| line.model_id == @model.id}
       @partitions     = @inventory_pool.partitions_with_generals.hash_for_model_and_groups(@model)
       @inventory_pool_and_model_group_ids = (@inventory_pool.loaded_group_ids ||= @inventory_pool.group_ids) & @partitions.keys
 
       initial_change = {}
       @partitions.each_pair do |group_id, quantity|
-        initial_change[group_id] = {:in_quantity => quantity, :running_lines => {}}
+        initial_change[group_id] = {:in_quantity => quantity, :running_reservations => {}}
       end
       @changes = Changes[Date.today => initial_change]
 
-      @running_lines.each do |reservation|
-        reservation_group_ids = reservation.concat_group_ids.to_s.split(',').map(&:to_i) # read from the running_line
+      @running_reservations.each do |reservation|
+        reservation_group_ids = reservation.concat_group_ids.to_s.split(',').map(&:to_i) # read from the running_reservation
 
         # if overdue, extend end_date to today
         # given a reservation is running until the 24th and maintenance period is 0 days:
@@ -90,8 +90,8 @@ module Availability
         inner_changes.each_pair do |key, ic|
           qty = ic[reservation.allocated_group_id]
           qty[:in_quantity] -= reservation.quantity
-          qty[:running_lines]["ItemLine"] ||= []
-          qty[:running_lines]["ItemLine"] << reservation.id
+          qty[:running_reservations]["ItemLine"] ||= []
+          qty[:running_reservations]["ItemLine"] << reservation.id
         end
       end
     end

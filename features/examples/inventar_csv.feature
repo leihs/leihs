@@ -13,8 +13,8 @@ Feature: Inventory (CSV export)
     And I open the inventory
     When I view the tab "Models"
     Then I can export this data as a CSV file
-    And the file contains the same lines as are shown right now, including any filtering
-    And the lines contain the following fields in order:
+    And the file contains the same reservations as are shown right now, including any filtering
+    And the reservations contain the following fields in order:
       | Fields                        |
       | Created at                    |
       | Updated at                    |
@@ -66,8 +66,8 @@ Feature: Inventory (CSV export)
       | Check-In Note                 |
     When I view the tab "Software"
     Then I can export this data as a CSV file
-    And the file contains the same lines as are shown right now, including any filtering
-    And the lines contain the following fields in order:
+    And the file contains the same reservations as are shown right now, including any filtering
+    And the reservations contain the following fields in order:
       | Fields                 |
       | Created at             |
       | Updated at             |

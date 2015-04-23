@@ -17,7 +17,7 @@
         = render :partial => "manage/users/visits/visits_overview"
 
     #status.padding-horizontal-m.margin-top-m
-      - if @lines.count > 0
+      - if @reservations.count > 0
         .emboss.blue.padding-inset-s
           %p.paragraph-s
             %img.margin-right-s.max-width-micro{:src => asset_path("loading.gif")}
@@ -37,7 +37,7 @@
 
         .float-right= render :partial => "manage/users/hand_over/selection"
 
-    #lines.padding-inset-m.padding-top-xxs= render :partial => "manage/lines/grouped_lines_with_action_date", :locals => {:grouped_lines_by_date => @grouped_lines_by_date, :line_partial => "manage/lines/hand_over"}
+    #lines.padding-inset-m.padding-top-xxs= render :partial => "manage/reservations/grouped_lines_with_action_date", :locals => {:grouped_lines_by_date => @grouped_lines_by_date, :line_partial => "manage/reservations/hand_over"}
 
 :coffeescript
 
@@ -45,7 +45,7 @@
 
     App.User.addRecord new App.User $.extend {groupIds: #{@group_ids}}, #{@user.to_json}
 
-    for purpose in #{@lines.map(&:purpose).uniq.to_json}
+    for purpose in #{@reservations.map(&:purpose).uniq.to_json}
       if purpose != null
         App.Purpose.addRecord new App.Purpose purpose 
 
@@ -60,7 +60,7 @@
     for option in #{@options.to_json}
       App.Option.addRecord new App.Option option
 
-    for reservation in #{@lines.to_json}
+    for reservation in #{@reservations.to_json}
       App.Reservation.addRecord new App.Reservation reservation
 
     for item in #{@items.to_json}

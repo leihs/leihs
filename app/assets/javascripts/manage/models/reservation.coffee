@@ -30,15 +30,15 @@ window.App.Reservation.destroyMultiple = (ids)->
       _method: "delete"
   App.Reservation.trigger "destroy", ids
 
-window.App.Reservation.changeTimeRange = (lines, startDate, endDate)=>
+window.App.Reservation.changeTimeRange = (reservations, startDate, endDate)=>
   startDate = moment(startDate).format("YYYY-MM-DD") if startDate
   endDate = moment(endDate).format("YYYY-MM-DD")
   $.post "/manage/#{App.InventoryPool.current.id}/reservations/change_time_range",
-    line_ids: _.map(lines,(l)->l.id)
+    line_ids: _.map(reservations,(l)->l.id)
     start_date: startDate
     end_date: endDate
   .done =>
-    for line in lines
+    for line in reservations
       data = {end_date: endDate}
       data["start_date"] = startDate if startDate
       line.refresh data
@@ -47,14 +47,14 @@ window.App.Reservation.changeTimeRange = (lines, startDate, endDate)=>
 window.App.Reservation.assignOrCreate = (data)->
   $.post("/manage/#{App.InventoryPool.current.id}/reservations/assign_or_create", data)
 
-window.App.Reservation.takeBack = (lines, returnedQuantity)->
+window.App.Reservation.takeBack = (reservations, returnedQuantity)->
   $.post "/manage/#{App.InventoryPool.current.id}/reservations/take_back",
-    ids: (line.id for line in lines)
+    ids: (line.id for line in reservations)
     returned_quantity: returnedQuantity
 
-window.App.Reservation.swapUser = (lines, userId)->
+window.App.Reservation.swapUser = (reservations, userId)->
   $.post "/manage/#{App.InventoryPool.current.id}/reservations/swap_user",
-    line_ids: (line.id for line in lines)
+    line_ids: (line.id for line in reservations)
     user_id: userId
 
 Spine.Model.include.call App.Reservation, App.Modules.LineProblems

@@ -27,6 +27,6 @@ Feature: Calendar view in the manage section
   Scenario: Unavailable time spans
     Given I am doing a hand over
      And a model is no longer available
-    When I select all lines
-     And I edit all lines
+    When I select all reservations
+     And I edit all reservations
     Then the list underneath the calendar shows the respective line as not available (red)

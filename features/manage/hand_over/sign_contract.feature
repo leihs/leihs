@@ -19,13 +19,13 @@ Feature: Sign Contract
     Then the quantity of options is handed over
 
   @javascript @browser @personas
-  Scenario: Hand over lines which start in the history
-    When I open a hand over with overdue lines
+  Scenario: Hand over reservations which start in the history
+    When I open a hand over with overdue reservations
     And I select an overdue item line and assign an inventory code
     And I click hand over
     Then I see that the time range in the summary starts today
     When I click hand over inside the dialog
-    Then the lines start date is today
+    Then the reservations start date is today
 
   @javascript @browser @personas
   Scenario: Hand over a selection of items
@@ -44,4 +44,4 @@ Feature: Sign Contract
     # continue
     And I select an item without assigning an inventory code
     And I click hand over
-    Then I got an error that i have to assign all selected item lines
+    Then I got an error that i have to assign all selected item reservations

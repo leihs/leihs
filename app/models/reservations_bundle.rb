@@ -14,7 +14,7 @@ class ReservationsBundle < ActiveRecord::Base
 
   default_scope -> {
     select("IFNULL(reservations.contract_id, CONCAT_WS('_', reservations.status, reservations.user_id, reservations.inventory_pool_id)) AS id,
-            MAX(reservations.status) AS status, # NOTE this is a trick to get 'signed' in case there are both 'signed' and 'closed' lines
+            MAX(reservations.status) AS status, # NOTE this is a trick to get 'signed' in case there are both 'signed' and 'closed' reservations
             reservations.user_id,
             reservations.inventory_pool_id,
             reservations.delegated_user_id,
@@ -59,7 +59,6 @@ class ReservationsBundle < ActiveRecord::Base
   has_many :models, -> { order('models.product ASC').uniq }, :through => :item_lines
   has_many :items, :through => :item_lines
   has_many :options, -> { uniq }, :through => :option_lines
-  alias :lines :reservations
 
   # NOTE we need this method because the association has a inventory_pool_id as primary_key
   def reservation_ids
@@ -171,35 +170,35 @@ class ReservationsBundle < ActiveRecord::Base
   ############################################
 
   def min_date
-    unless lines.blank?
-      lines.min { |x| x.start_date }[:start_date]
+    unless reservations.blank?
+      reservations.min { |x| x.start_date }[:start_date]
     else
       nil
     end
   end
 
   def max_date
-    unless lines.blank?
-      lines.max { |x| x.end_date }[:end_date]
+    unless reservations.blank?
+      reservations.max { |x| x.end_date }[:end_date]
     else
       nil
     end
   end
 
   def max_range
-    return nil if lines.blank?
-    line = lines.max_by { |x| (x.end_date - x.start_date).to_i }
+    return nil if reservations.blank?
+    line = reservations.max_by { |x| (x.end_date - x.start_date).to_i }
     (line.end_date - line.start_date).to_i + 1
   end
 
   ############################################
 
   def time_window_min
-    lines.minimum(:start_date) || Date.today
+    reservations.minimum(:start_date) || Date.today
   end
 
   def time_window_max
-    lines.maximum(:end_date) || Date.today
+    reservations.maximum(:end_date) || Date.today
   end
 
   def next_open_date(x)
@@ -228,7 +227,7 @@ class ReservationsBundle < ActiveRecord::Base
 
     new_lines = quantity.to_i.times.map do
       line = user.item_lines.create(attrs) do |l|
-        l.purpose = lines.first.purpose if status == :submitted and lines.first.try :purpose
+        l.purpose = reservations.first.purpose if status == :submitted and reservations.first.try :purpose
       end
 
       unless line.new_record?
@@ -246,7 +245,7 @@ class ReservationsBundle < ActiveRecord::Base
   def remove_line(line, user_id)
     if [:unsubmitted, :submitted, :approved].include?(status)
       line.log_change _("Removed %{q} %{m}") % {:q => line.quantity, :m => line.model.name}, user_id # OPTIMIZE we log before actually remove because association
-      if lines.include? line and line.destroy
+      if reservations.include? line and line.destroy
         true
       else
         false
@@ -260,7 +259,7 @@ class ReservationsBundle < ActiveRecord::Base
 
   def purpose_descriptions
     # join purposes
-    lines.sort.map { |x| x.purpose.to_s }.uniq.delete_if { |x| x.blank? }.join("; ")
+    reservations.sort.map { |x| x.purpose.to_s }.uniq.delete_if { |x| x.blank? }.join("; ")
   end
   alias :purpose :purpose_descriptions
 
@@ -320,7 +319,7 @@ class ReservationsBundle < ActiveRecord::Base
   end
 
   def reject(comment, current_user)
-    lines.all? {|line| line.update_attributes(status: :rejected) } and Notification.order_rejected(self, comment, true, current_user)
+    reservations.all? {|line| line.update_attributes(status: :rejected) } and Notification.order_rejected(self, comment, true, current_user)
   end
 
   def sign(current_user, selected_lines, note = nil, delegated_user_id = nil)
@@ -354,7 +353,7 @@ class ReservationsBundle < ActiveRecord::Base
 
   def handed_over_by_user
     if [:signed, :closed].include? status
-      lines.first.handed_over_by_user
+      reservations.first.handed_over_by_user
     else
       nil
     end
@@ -363,11 +362,11 @@ class ReservationsBundle < ActiveRecord::Base
   ################################################################
 
   def total_quantity
-    lines.sum(:quantity)
+    reservations.sum(:quantity)
   end
 
   def total_price
-    lines.to_a.sum(&:price)
+    reservations.to_a.sum(&:price)
   end
 
   #######################
@@ -375,13 +374,13 @@ class ReservationsBundle < ActiveRecord::Base
 
   def log_history(text, user_id)
     user_id = user_id.id if user_id.is_a? User
-    lines.each do |line|
+    reservations.each do |line|
       line.histories.create(text: text, user_id: user_id, type_const: History::ACTION)
     end
   end
 
   def has_changes?
-    lines.any? do |line|
+    reservations.any? do |line|
       history = line.histories.order('created_at DESC, id DESC').first
       history.nil? ? false : history.type_const == History::CHANGE
     end
