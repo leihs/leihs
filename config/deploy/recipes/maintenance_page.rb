@@ -3,5 +3,5 @@ task :enable_maintenance_page do
 end
 
 task :disable_maintenance_page do
-  run "rm #{previous_release}/public/maintenance.enable"
+  run "rm #{current_release}/public/maintenance.enable"
 end
