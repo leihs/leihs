@@ -20,6 +20,7 @@ load 'config/deploy/recipes/bundle_install'
 load 'config/deploy/recipes/precompile_assets'
 load 'config/deploy/recipes/set_deploy_information'
 load 'config/deploy/recipes/send_mail'
+load 'config/deploy/recipes/maintenance_page'
 
 namespace :deploy do
   task :start do
@@ -38,6 +39,8 @@ namespace :deploy do
 end
 
 before "deploy", "retrieve_db_config"
+before "deploy", "enable_maintenance_page"
+
 before "deploy:cold", "retrieve_db_config"
 
 before "deploy:create_symlink", :link_config
@@ -54,3 +57,4 @@ after "link_config", "precompile_assets"
 before "deploy:restart", :make_tmp
 
 after "deploy", "deploy:cleanup"
+after "deploy", "disable_maintenance_page"
