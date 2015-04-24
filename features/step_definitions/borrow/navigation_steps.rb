@@ -13,7 +13,7 @@ Then(/^the navigation contains "(.*?)"$/) do |section|
     when "To return"
       find("nav a[href='#{borrow_returns_path}']") if @current_user.reservations.signed.to_a.sum(&:quantity) > 0
     when "Orders"
-      find("nav a[href='#{borrow_orders_path}']") if @current_user.reservations.submitted.count > 0
+      find("nav a[href='#{borrow_orders_path}']") if @current_user.reservations.submitted.exists?
     when "Inventory pools"
       find("nav a[href='#{borrow_inventory_pools_path}']", :text => _("Inventory Pools"))
     when "User"
