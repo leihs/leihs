@@ -17,13 +17,13 @@ class RefactorContracts < ActiveRecord::Migration
     end
     execute "ALTER TABLE reservations ADD COLUMN status ENUM('#{Reservation::STATUSES.join("', '")}') NOT NULL;"
 
-    execute %Q(UPDATE reservations AS cl
-                INNER JOIN contracts AS c ON cl.contract_id = c.id
-               SET cl.inventory_pool_id = c.inventory_pool_id,
-                    cl.user_id = c.user_id,
-                    cl.delegated_user_id = c.delegated_user_id,
-                    cl.handed_over_by_user_id = c.handed_over_by_user_id,
-                    cl.status = c.status;)
+    execute %Q(UPDATE reservations AS r
+                INNER JOIN contracts AS c ON r.contract_id = c.id
+               SET r.inventory_pool_id = c.inventory_pool_id,
+                    r.user_id = c.user_id,
+                    r.delegated_user_id = c.delegated_user_id,
+                    r.handed_over_by_user_id = c.handed_over_by_user_id,
+                    r.status = IF(r.returned_date IS NULL, c.status, '#{:closed}');)
 
     change_table :reservations do |t|
       t.index :status
