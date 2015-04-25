@@ -109,8 +109,7 @@ class ReservationsBundle < ActiveRecord::Base
                        #                 models.manufacturer, models.product, models.version, options.product,
                        #                 options.version, items.inventory_code, items.properties) LIKE '%#{qq}%'"
 
-                       ##arel_table[:id].eq(q.numeric? ? q : 0) # NOTE we cannot use eq(q) because alphanumeric string is truncated and casted to integer, causing wrong matches (contracts.id)
-                       arel_table[:id].eq(q)
+                       arel_table[:contract_id].eq(q.numeric? ? q : 0) # NOTE we cannot use eq(q) because alphanumeric string is truncated and casted to integer, causing wrong matches (contracts.id)
                            .or(Contract.arel_table[:note].matches(qq))
                            .or(User.arel_table[:login].matches(qq))
                            .or(User.arel_table[:firstname].matches(qq))
