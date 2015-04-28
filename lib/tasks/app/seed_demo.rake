@@ -1,7 +1,5 @@
 namespace :app do
-
   namespace :seed do
-
 
     def set_stupid_password_for(user)
       dba = DatabaseAuthentication.where(login: user.login).first
@@ -15,15 +13,13 @@ namespace :app do
       puts '[START] Seeding the demo data'
       require 'factory_girl'
       require 'faker'
-#      require 'pry'
-      #FactoryGirl.find_definitions
 
       ip1 = FactoryGirl.create(:inventory_pool, name: 'General Reservation Desk')
       ip2 = FactoryGirl.create(:inventory_pool, name: 'Chemistry Lab')
       ip3 = FactoryGirl.create(:inventory_pool, name: 'Film Studio')
 
       # Some customers so that the database doesn't look so empty
-      20.times do  
+      20.times do
         us = FactoryGirl.create(:user)
         us.access_rights.build(role: :customer, inventory_pool: ip1)
         us.access_rights.build(role: :customer, inventory_pool: ip2)
@@ -38,8 +34,6 @@ namespace :app do
       normal_user.access_rights.build(role: :customer, inventory_pool: ip3)
       normal_user.save
       set_stupid_password_for(normal_user)
-
-      
 
       # An inventory manager
       manager_user = FactoryGirl.create(:user, login: 'manager_user', firstname: 'Inventory', lastname: 'Manager')
@@ -76,7 +70,6 @@ namespace :app do
       tt1.categories << chem
       tt1.save
 
-
       tt2 = FactoryGirl.create(:model, product: 'Test tube, 10 cm', manufacturer: 'ACME')
       tt2.categories << chem
       tt2.save
@@ -88,7 +81,7 @@ namespace :app do
       bb = FactoryGirl.create(:model, product: 'Bunsen burner', manufacturer: 'ACME')
       bb.categories << chem
       bb.save
-      
+
       cob = FactoryGirl.create(:model, product: 'Chalice of blood', manufacturer: 'ACME')
       cob.categories << chem
       cob.save
@@ -96,10 +89,9 @@ namespace :app do
       # Inventory that is exlusive to the chemistry guys
       10.times do
         [tt1, tt2, tt3, bb, cob].each do |model|
-          i = FactoryGirl.create(:item, model: model, owner: ip2, inventory_pool: ip2)
+          FactoryGirl.create(:item, model: model, owner: ip2, inventory_pool: ip2)
         end
       end
-
 
       lc = FactoryGirl.create(:model, product: 'Lighting case Arri Start-Up-Kit Fresnel', manufacturer: 'Arri')
       lc.categories << lighting
@@ -112,7 +104,7 @@ namespace :app do
       arri1 =  FactoryGirl.create(:model, product: 'Arri Alexa PLUS DTE-SXS Super 35mm', manufacturer: 'Arri')
       arri1.categories = [cams, film]
       arri1.save
-      
+
       genelec = FactoryGirl.create(:model, product: 'Genelec 8020B', manufacturer: 'Genelec')
       genelec.categories << speakers
       genelec.save
@@ -137,23 +129,20 @@ namespace :app do
       sony_h.categories << head
       sony_h.save
 
-
       # General pool and film guys share some equipment that might work for both
       10.times do
         [pb, genelec, sony, pana, manfrotto, acer, sony_h].each do |model|
-          i = FactoryGirl.create(:item, model: model, owner: ip1, inventory_pool: ip1)
-          i = FactoryGirl.create(:item, model: model, owner: ip3, inventory_pool: ip3)
-        end
-      end
-
-      10.times do
-        [lc, arri1].each do |model|
-          i = FactoryGirl.create(:item, model: model, owner: ip3, inventory_pool: ip3)
+          FactoryGirl.create(:item, model: model, owner: ip1, inventory_pool: ip1)
+          FactoryGirl.create(:item, model: model, owner: ip3, inventory_pool: ip3)
         end
       end
 
       # Some items for those models
-
+      10.times do
+        [lc, arri1].each do |model|
+          FactoryGirl.create(:item, model: model, owner: ip3, inventory_pool: ip3)
+        end
+      end
 
       puts '[END] Seeding the demo data'
     end

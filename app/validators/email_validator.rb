@@ -1,5 +1,5 @@
 class EmailValidator < ActiveModel::EachValidator
-  def validate_each(record,attribute,value)
+  def validate_each(record,_attribute,value)
     
     unless value.to_s.empty? # email can be blank 
       

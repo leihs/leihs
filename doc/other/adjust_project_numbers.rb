@@ -11,7 +11,7 @@ def adjust_from_file(path)
         puts msg
         logfile.puts msg
       else
-        msg = "Error processing: #{csv[0]}. Error was: #{result.to_s}"
+        msg = "Error processing: #{csv[0]}. Error was: #{result}"
         puts msg
         logfile.puts msg
     end

@@ -72,7 +72,7 @@ module LeihsFactory
   #
   # User
   # 
-  def self.create_db_auth(attributes = {}, options = {})
+  def self.create_db_auth(attributes = {}, _options = {})
     default_attributes = {
       login: 'jerome',
       password: 'pass'

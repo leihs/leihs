@@ -175,7 +175,7 @@ Then /^the following user information is included on the contract:$/ do |table|
        when 'City'
          expect(@customer_element.has_content?(@customer.city)).to be true
      end
-   end
+  end
 end
 
 #Wenn /^es Gegenstände gibt, die zurückgegeben wurden$/ do

@@ -24,7 +24,7 @@ def available_quantities_between(from, to, available_quantities)
   else
     aq = available_quantities.select do |available_quantity|
            available_quantity.date >= from and available_quantity.date <= to 
-         end
+    end
     return aq
   end
 end

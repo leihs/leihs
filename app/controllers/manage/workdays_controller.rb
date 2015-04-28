@@ -30,7 +30,7 @@ class Manage::WorkdaysController < Manage::ApplicationController
   
   private 
   
-  def update_workday(day, is_open)
+  def update_workday(_day, is_open)
     @workday.update_attributes(params[:day] => is_open) if Workday::DAYS.include?(params[:day])    
   end
 end

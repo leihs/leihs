@@ -15,7 +15,7 @@ def task_hash(name, exec)
   h
 end
 
-def task_for_feature_file file_path, timeout = 200, strict = false
+def task_for_feature_file file_path, _timeout = 200, strict = false
   name= file_path.match(/features\/(.*)\.feature/).captures.first
   exec = %{DISPLAY=\":$XVNC_PORT\" bundle exec cucumber -p default -f json -o log/cucumber_report.json #{strict ? "--strict " : nil}"#{file_path}"}
   task_hash(name, exec)

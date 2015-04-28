@@ -9,7 +9,7 @@ class Category < ModelGroup
     not(self.models.empty? and self.children.empty?)
   end
 
-  def self.filter(params, inventory_pool = nil)
+  def self.filter(params, _inventory_pool = nil)
     categories = all
     categories = categories.search(params[:search_term]) if params[:search_term]
     categories = categories.order('name ASC')

@@ -77,10 +77,10 @@ def create_user(options = {})
   user.extended_info['department'] = options[:department]
   user.extended_info['program'] = options[:program]
   if user.save
-    @log.puts("Saved user #{user.to_s}")
+    @log.puts("Saved user #{user}")
     create_basic_elements(user, options)
   else
-    @log.puts("ERROR: Could not save user #{user.to_s}, #{user.errors.full_messages}")
+    @log.puts("ERROR: Could not save user #{user}, #{user.errors.full_messages}")
   end
 end
 

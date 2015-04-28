@@ -41,7 +41,7 @@ private
   # ", \, \0, \n etc.
   # Additionally, it's up to ActionMailer to encode the resulting string
   # correctly, which according to my tests it does
- def to_full_email_address(name, email)
+ def to_full_email_address(_name, email)
     # TODO: possibly re-anable adding the user's name one day...
     #       see also https://www.pivotaltracker.com/story/show/7177325
     #       it would be very nice to have test cases for failing name/email combinations

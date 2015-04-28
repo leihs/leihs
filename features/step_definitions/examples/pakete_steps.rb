@@ -147,7 +147,7 @@ end
 
 #Wenn /^ich ein Paket editiere$/ do
 When /^I edit a package$/ do
-  @model = Model.find {|m| [m.name, m.product].include?'Kamera Set' }
+  @model = Model.find {|m| [m.name, m.product].include? 'Kamera Set' }
   visit manage_edit_model_path(@current_inventory_pool, @model)
   @package_to_edit = @model.items.detect &:in_stock?
   find(".line[data-id='#{@package_to_edit.id}']").find('button[data-edit-package]').click

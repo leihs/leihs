@@ -41,8 +41,8 @@ end
 
 
 (25000...26000).each do |i|
-	puts "Making barcode #{i.to_s}"
-	foo = BarcodeMaker.new("AVZ#{i.to_s}")
+	puts "Making barcode #{i}"
+	foo = BarcodeMaker.new("AVZ#{i}")
 	foo.make_eps rescue 'EPS failed' 
 	puts 'the world has ended'
 end

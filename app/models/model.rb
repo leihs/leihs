@@ -211,7 +211,7 @@ class Model < ActiveRecord::Base
     models
   end
 
-  def self.filter_for_inventory_pool(models, params, inventory_pool, category)
+  def self.filter_for_inventory_pool(models, params, inventory_pool, _category)
     case params[:used]
       when 'false'
         models = models.unused_for_inventory_pool inventory_pool

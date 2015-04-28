@@ -125,7 +125,7 @@ class ReservationsBundle < ActiveRecord::Base
                    )
                  }
                  sql
-               }
+  }
 
   ############################################
 

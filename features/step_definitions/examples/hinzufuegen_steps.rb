@@ -2,10 +2,10 @@
 
 #Angenommen /^ich suche ein Modell um es hinzuzufügen$/ do
   Given(/^I search for a model to add$/) do
-  @truncated_model_name = @current_user.inventory_pools.managed.first.items.first.model.name[0]
-  find('[data-add-contract-line]').set @truncated_model_name
-  find('.ui-autocomplete .ui-menu-item', match: :first)
-end
+    @truncated_model_name = @current_user.inventory_pools.managed.first.items.first.model.name[0]
+    find('[data-add-contract-line]').set @truncated_model_name
+    find('.ui-autocomplete .ui-menu-item', match: :first)
+  end
 
 #Dann /^sehe ich die Verfügbarkeit innerhalb der gefundenen Modelle im Format: "(.*?)"$/ do |arg1|
 Then(/^the availability of the model is displayed as: "(?:.*?)"$/) do

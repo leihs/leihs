@@ -81,7 +81,7 @@ end
 
 When "the model '$model' is selected" do | model|
   @model = Model.find_by_name(model)
-  end
+end
  
 Then 'there are $size models belonging to that category' do |size|
   expect(@category.models.size).to eq size.to_i

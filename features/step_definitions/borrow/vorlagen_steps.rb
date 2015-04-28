@@ -185,7 +185,7 @@ end
 
 def select_available_not_closed_date(as = :start, from = Date.today)
   current_date = from
-  while all(".available:not(.closed)[data-date='#{current_date.to_s}']").empty? do
+  while all(".available:not(.closed)[data-date='#{current_date}']").empty? do
     before_date = current_date
     current_date += 1.day
     find('.fc-button-next').click if before_date.month < current_date.month

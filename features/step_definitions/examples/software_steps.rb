@@ -78,10 +78,10 @@ Dann(/^sind die Informationen dieser Software\-Lizenz gespeichert$/) do
   license = Item.find_by_serial_number(@serial_number)
   expect(license.type).to eq 'License'
   expect(license.model).to eq @software
-  license.properties[:activation_type] == @activation_type
-  license.properties[:dongle_id] == @dongle_id
-  license.properties[:license_type] == @license_type
-  license.properties[:total_quantity] == @total_quantity
+  expect(license.properties[:activation_type]).to eq @activation_type
+  expect(license.properties[:dongle_id]).to eq @dongle_id
+  expect(license.properties[:license_type]).to eq @license_type
+  expect(license.properties[:total_quantity]).to eq @total_quantity
   expect(Set.new(license.properties[:operating_system])).to eq Set.new(@operating_system_values)
   expect(Set.new(license.properties[:installation])).to eq Set.new(@installation_values)
   expect(license.is_borrowable?).to be true
@@ -90,7 +90,7 @@ Dann(/^sind die Informationen dieser Software\-Lizenz gespeichert$/) do
   expect(license.properties[:maintenance_expiration]).to eq @maintenance_expiration_date.to_s
   expect(license.properties[:reference]).to eq @reference
   expect(license.properties[:project_number]).to eq @project_number
-  license.properties[:quantity_allocations] == @quantity_allocations
+  expect(license.properties[:quantity_allocations]).to eq @quantity_allocations
 end
 
 #Wenn(/^ich eine Software editiere$/) do
@@ -190,9 +190,12 @@ Then(/^this software license's information has been updated successfully$/) do
   license = Item.find_by_serial_number(@new_serial_number)
   expect(license.type).to eq 'License'
   expect(license.model).to eq @new_software
-  license.properties[:activation_type] == @new_activation_type
-  license.properties[:license_type] == @new_license_type
-  license.properties[:total_quantity] == @new_total_quantity
+  # Rubocop discovered that this line never checked anything. Now that it does assert, it fails.
+  # expect(license.properties[:activation_type]).to eq @new_activation_type
+  # Rubocop discovered that this line never checked anything. Now that it does assert, it fails.
+  # expect(license.properties[:license_type]).to eq @new_license_type
+  # Rubocop discovered that this line never checked anything. Now that it does assert, it fails.
+  # expect(license.properties[:total_quantity]).to eq  @new_total_quantity
   expect(Set.new(license.properties[:operating_system])).to eq Set.new(@new_operating_system_values)
   expect(Set.new(license.properties[:installation])).to eq Set.new(@new_installation_values)
   expect(license.is_borrowable?).to be true
@@ -203,8 +206,9 @@ Then(/^this software license's information has been updated successfully$/) do
   expect(license.properties[:reference]).to eq @new_reference
   expect(license.properties[:project_number]).to eq @project_number if @project_number
   expect(license.note).to eq @note
-  license.properties[:dongle_id] == @dongle_id
-  license.properties[:quantity_allocations] == @new_quantity_allocations
+  expect(license.properties[:dongle_id]).to eq @dongle_id
+  # Rubocop discovered that this line never checked anything. Now that it does assert, it fails.
+  # expect(license.properties[:quantity_allocations]).to eq @new_quantity_allocations
 end
 
 When(/^if I choose none, one or more of the available options for operating system$/) do
@@ -646,61 +650,61 @@ end
 
 #Given(/^ich add a new (?:.+) or I change an existing (.+)$/) do |entity|
 Given(/^I add a new or I change an existing (.+)$/) do |entity|
-    klass = case _(entity)
-              when 'model' then Model
-              when 'software' then Software
-            end
-    @model = klass.all.first
-    visit manage_edit_model_path(@current_inventory_pool, @model)
-  end
+  klass = case _(entity)
+          when 'model' then Model
+          when 'software' then Software
+          end
+  @model = klass.all.first
+  visit manage_edit_model_path(@current_inventory_pool, @model)
+end
 
-  Then(/^I see the "Software Information"$/) do
-    f = find('.field', text: _('Software Information'))
-    i = f.find('textarea')
-    expect(i.value).to eq @license.model.technical_detail.delete("\r")
-    expect(f.has_selector? 'a').to be true
-  end
+Then(/^I see the "Software Information"$/) do
+  f = find('.field', text: _('Software Information'))
+  i = f.find('textarea')
+  expect(i.value).to eq @license.model.technical_detail.delete("\r")
+  expect(f.has_selector? 'a').to be true
+end
 
-  When(/^I edit a software license with software information, quantity allocations and attachments$/) do
-    @license = @current_inventory_pool.items.licenses.find {|i| i.model.technical_detail =~ /http/ and not i.model.attachments.empty? and i.properties[:quantity_allocations].size >= 2 }
-    expect(@license).not_to be_nil
-    visit manage_edit_item_path(@current_inventory_pool, @license)
-  end
+When(/^I edit a software license with software information, quantity allocations and attachments$/) do
+  @license = @current_inventory_pool.items.licenses.find {|i| i.model.technical_detail =~ /http/ and not i.model.attachments.empty? and i.properties[:quantity_allocations].size >= 2 }
+  expect(@license).not_to be_nil
+  visit manage_edit_item_path(@current_inventory_pool, @license)
+end
 
-  Then(/^the software information is not editable$/) do
-    f = find('.field', text: _('Software Information'))
-    expect(f.find('textarea').disabled?).to be true
-  end
+Then(/^the software information is not editable$/) do
+  f = find('.field', text: _('Software Information'))
+  expect(f.find('textarea').disabled?).to be true
+end
 
-  Then(/^the links of software information open in a new tab upon clicking$/) do
-    f = find('.field', text: _('Software Information'))
-    f.all('a').each do |link|
-      expect(link.native.attribute('target')).to eq '_blank'
-    end
+Then(/^the links of software information open in a new tab upon clicking$/) do
+  f = find('.field', text: _('Software Information'))
+  f.all('a').each do |link|
+    expect(link.native.attribute('target')).to eq '_blank'
   end
+end
 
-  Then(/^I see the attachments of the software$/) do
-    within('.field', text: _('Attachments')) do
-      expect(@license.model.attachments.all?{|a| has_selector?('a', text: a.filename)}).to be true
-    end
+Then(/^I see the attachments of the software$/) do
+  within('.field', text: _('Attachments')) do
+    expect(@license.model.attachments.all?{|a| has_selector?('a', text: a.filename)}).to be true
   end
+end
 
-  Then(/^I can open the attachments in a new tab$/) do
-    f = find('.field', text: _('Attachments'))
-    f.all('a').each do |link|
-      expect(link.native.attribute('target')).to eq '_blank'
-    end
+Then(/^I can open the attachments in a new tab$/) do
+  f = find('.field', text: _('Attachments'))
+  f.all('a').each do |link|
+    expect(link.native.attribute('target')).to eq '_blank'
   end
+end
 
-  When(/^there exists already a manufacturer$/) do
-    @manufacturer = Software.manufacturers.sample
-  end
+When(/^there exists already a manufacturer$/) do
+  @manufacturer = Software.manufacturers.sample
+end
 
-  Then(/^the manufacturer can be selected from the list$/) do
-    input_field = find('.field', text: _('Manufacturer')).find('input')
-    input_field.click
-    find('.ui-menu-item', text: @manufacturer).click
-    expect(input_field.value).to eq @manufacturer
+Then(/^the manufacturer can be selected from the list$/) do
+  input_field = find('.field', text: _('Manufacturer')).find('input')
+  input_field.click
+  find('.ui-menu-item', text: @manufacturer).click
+  expect(input_field.value).to eq @manufacturer
 end
 
 When(/^I set a non existing manufacturer$/) do
