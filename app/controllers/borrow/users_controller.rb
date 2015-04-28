@@ -1,7 +1,7 @@
 class Borrow::UsersController < Borrow::ApplicationController
 
   def current
-    if current_user.authentication_system.class_name == "DatabaseAuthentication"
+    if current_user.authentication_system.class_name == 'DatabaseAuthentication'
       @db_auth = DatabaseAuthentication.find_by_user_id(current_user.id)
     end
   end
@@ -39,11 +39,11 @@ class Borrow::UsersController < Borrow::ApplicationController
   end
 
   def contract
-    render "documents/contract", layout: "print"
+    render 'documents/contract', layout: 'print'
   end
 
   def value_list
-    render "documents/value_list", layout: "print"
+    render 'documents/value_list', layout: 'print'
   end
 
 end

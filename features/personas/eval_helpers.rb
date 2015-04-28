@@ -4,19 +4,19 @@ module EvalHelpers
 
   def exact_match? v
     [
-        "Faker::Commerce.product_name",
-        "Faker::Lorem.sentence",
-        "Faker::Lorem.paragraph",
-        "Faker::Lorem.word",
-        "Faker::Name.last_name",
-        "Faker::Name.first_name",
-        "Faker::Internet.email",
+        'Faker::Commerce.product_name',
+        'Faker::Lorem.sentence',
+        'Faker::Lorem.paragraph',
+        'Faker::Lorem.word',
+        'Faker::Name.last_name',
+        'Faker::Name.first_name',
+        'Faker::Internet.email',
         "Faker::Address.street_address + \", \"",
-        "[true, false].sample",
-        "Date.today",
-        "Date.yesterday",
+        '[true, false].sample',
+        'Date.today',
+        'Date.yesterday',
         "%w(windows linux mac_os_x).sample(rand(1..2)).join(',')",
-        "%w(concurrent site_license multiple_workplace).sample"
+        '%w(concurrent site_license multiple_workplace).sample'
     ]
     .include?(v)
   end

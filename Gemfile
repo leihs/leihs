@@ -43,13 +43,13 @@ gem 'mini_magick', '~> 3.4'
 gem 'mysql2', '~> 0.3.11', platform: :mri
 gem 'net-ldap', require: 'net/ldap'
 gem 'nilify_blanks', '~> 1.1'
-gem 'open4', :group => :test
+gem 'open4', group: :test
 gem 'paperclip', '~> 3.5' # NOTE in order to upgrate to '~> 4.0', first adapt the code to avoid the Paperclip::Errors::MissingRequiredValidatorError
 gem 'phantomjs', '~> 1.9.8', group: [:test, :development] # headless webdriver (UI & JS tests)
 gem 'protected_attributes', '~> 1.0'
 gem 'pry-byebug', group: [:test, :development]
 gem 'pry-rails', group: [:test, :development]
-gem 'rack_session_access', "~> 0.1.1", group: :test
+gem 'rack_session_access', '~> 0.1.1', group: :test
 gem 'rails_autolink', '~> 1.0'
 gem 'rake' # So that cronjobs work -- otherwise they can't find rake
 gem 'redcarpet', group: [:test, :development] # This isn't being pulled in by yard, but it's required
@@ -59,7 +59,7 @@ gem 'ruby_parser', '~> 3.1' # gettext dependency that Bundler seems unable to re
 gem 'rubocop', require: false
 gem 'sass-rails', '~> 4.0'
 gem 'selenium-webdriver', group: [:test, :development]
-gem 'simplecov', :require => false, :group => :test
+gem 'simplecov', require: false, group: :test
 gem 'therubyracer', platform: :mri
 gem 'therubyrhino', platform: :jruby
 gem 'thin', group: :development, platform: :mri # web server (Webrick do not support keep-alive connections)

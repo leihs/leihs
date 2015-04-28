@@ -1,8 +1,8 @@
 class Manage::AvailabilityController < Manage::ApplicationController
 
   before_filter do 
-    @models = Model.where :id => params[:model_ids]
-    render :status => :bad_request, :nothing => true and return if @models.blank?
+    @models = Model.where id: params[:model_ids]
+    render status: :bad_request, nothing: true and return if @models.blank?
     @availabilities = []
   end
 

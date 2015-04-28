@@ -28,8 +28,8 @@ def gettext_file_valid?(file)
 end
 
 def gettext_files_valid?
-  files = ["locale/leihs.pot"]
-  files += Dir.glob("locale/**/leihs.po")
+  files = ['locale/leihs.pot']
+  files += Dir.glob('locale/**/leihs.po')
   files.each do |file|
     return false unless gettext_file_valid?(file)
   end
@@ -41,7 +41,7 @@ if not gettext_installed?
 end
 
 if not gettext_files_valid?
-  die(16, "The gettext files did not validate.")
+  die(16, 'The gettext files did not validate.')
 end
 
 exit 0

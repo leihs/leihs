@@ -1,5 +1,5 @@
 When(/^leihs' time zone is set to "(.*?)"$/) do |tz|
-  expect(@setting.update_attributes({:time_zone => tz})).to be true
+  expect(@setting.update_attributes({time_zone: tz})).to be true
 end
 
 Then(/^ActiveSupport thinks the time zone is "(.*?)"$/) do |tz|

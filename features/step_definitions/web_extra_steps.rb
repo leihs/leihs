@@ -1,17 +1,17 @@
-When "I reload the page" do
+When 'I reload the page' do
   visit URI.parse(current_url).path
 end
 
-When "I scroll to the bottom of the page" do
-  page.execute_script "window.scrollBy(0,10000)"
+When 'I scroll to the bottom of the page' do
+  page.execute_script 'window.scrollBy(0,10000)'
 end
 
-When "I fetch all pages of the list" do
-  find("#inventory > .line", match: :first)
-  within "#inventory" do
-    all(".page[data-page]").each do |data_page|
+When 'I fetch all pages of the list' do
+  find('#inventory > .line', match: :first)
+  within '#inventory' do
+    all('.page[data-page]').each do |data_page|
       data_page.click
-      data_page.find(".line div", match: :first)
+      data_page.find('.line div', match: :first)
     end
   end
 end
@@ -23,16 +23,16 @@ When /^I follow the sloppy link "([^"]*)"(?: within "([^"]*)")?$/ do |text, sele
     # have quite sloppy links containing images, numbers, elks
     # and bananas between the <a> tags. This can match them all.
     # Well, maybe not the elks.
-    find('a', :text => /.*#{text}.*/i).click 
+    find('a', text: /.*#{text}.*/i).click 
 true
   end
 end
 
 When /^I follow the sloppy link "([^"]*)" in the greybox$/ do |text|
   # Wait for the frame to finish appearing
-  expect(has_selector?("#GB_frame", :visible => true)).to be true
+  expect(has_selector?('#GB_frame', visible: true)).to be true
 
-  within_frame "GB_frame" do
+  within_frame 'GB_frame' do
     step "I follow the sloppy link \"#{text}\""
   end
 end
@@ -50,13 +50,13 @@ end
 # using this step with 'within' has not been tested yet!
 Then /^"([^"]*)" should appear before "([^"]*)"(?: within "([^"]*)")?$/ do
 |first, second, selector|
-  step "I wait for the spinner to disappear"
+  step 'I wait for the spinner to disappear'
   with_scope(selector) do
     page.body.index(first).should < page.body.index(second)
   end
 end
 
-When "I wait for the spinner to disappear" do
+When 'I wait for the spinner to disappear' do
   # capybara black magic - wait for div to become invisible
-  expect(has_xpath?( "//div[@id='loading_panel']", :visible => false)).to be true
+  expect(has_xpath?( "//div[@id='loading_panel']", visible: false)).to be true
 end

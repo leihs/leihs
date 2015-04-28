@@ -19,7 +19,7 @@ class Authenticator::ShibbolethAuthenticationController < Authenticator::Authent
       if (defined?(Setting::SHIBBOLETH_CONFIG) and not Setting::SHIBBOLETH_CONFIG.blank?)
         shibboleth_config = YAML::load_file(Setting::SHIBBOLETH_CONFIG)
       else
-        shibboleth_config = YAML::load_file(File.join(Rails.root, "config", "shibboleth.yml"))
+        shibboleth_config = YAML::load_file(File.join(Rails.root, 'config', 'shibboleth.yml'))
       end
 
       if shibboleth_config[Rails.env].nil?
@@ -38,7 +38,7 @@ class Authenticator::ShibbolethAuthenticationController < Authenticator::Authent
   layout 'layouts/manage/general'
 
   def login_form_path
-    "/authenticator/shibboleth/login"
+    '/authenticator/shibboleth/login'
   end
 
   def login
@@ -79,17 +79,17 @@ class Authenticator::ShibbolethAuthenticationController < Authenticator::Authent
 
     uid = request.env[@config['unique_id_field']]
     email = request.env['mail']
-    user = User.where(:unique_id => uid).first || User.where(:email => email).first || User.new
+    user = User.where(unique_id: uid).first || User.where(email: email).first || User.new
     user.unique_id = uid
     user.login = uid
     user.email = email
     user.firstname = "#{request.env['givenName']}"
     user.lastname = "#{request.env['surname']}"
-    user.authentication_system = AuthenticationSystem.where(:class_name => "ShibbolethAuthentication").first
+    user.authentication_system = AuthenticationSystem.where(class_name: 'ShibbolethAuthentication').first
     user.save
 
     if @super_users.include?(user.unique_id)
-      user.access_rights.create(:role => :admin, :inventory_pool => nil)
+      user.access_rights.create(role: :admin, inventory_pool: nil)
     end
     user
   end

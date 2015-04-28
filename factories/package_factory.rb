@@ -9,7 +9,7 @@ FactoryGirl.define do
       end
       after(:create) do |package, evaluator|
         3.times do
-          package.items << FactoryGirl.create(:package_item_with_parts, :owner => evaluator.inventory_pool)
+          package.items << FactoryGirl.create(:package_item_with_parts, owner: evaluator.inventory_pool)
         end
       end
     end

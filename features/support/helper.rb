@@ -31,11 +31,11 @@ end
 
 def to_number( number )
   case number
-    when "no"  then 0
-    when "a"   then 1
-    when "an"  then 1
-    when "one" then 1
-    when "two" then 2
+    when 'no'  then 0
+    when 'a'   then 1
+    when 'an'  then 1
+    when 'one' then 1
+    when 'two' then 2
   else
     number.to_i
   end
@@ -47,13 +47,13 @@ end
 def to_date( date )
   # 20_days_from_now
   if date =~ /(\d+)_(\w+)_from_now/
-    return eval("" + $1 + "." + $2 + ".from_now").to_date
+    return eval('' + $1 + '.' + $2 + '.from_now').to_date
   # 20_years_ago
   elsif date =~ /(\d+)_(\w+)_ago/
-    return eval("" + $1 + "." + $2 + ".ago").to_date
-  elsif date == "now"
+    return eval('' + $1 + '.' + $2 + '.ago').to_date
+  elsif date == 'now'
     return Date.today
-  elsif date == "the_end_of_time"
+  elsif date == 'the_end_of_time'
     return Availability::ETERNITY
   else
     return LeihsFactory.parsedate( date )
@@ -67,16 +67,16 @@ def get_fullcalendar_day_element(date)
 end
 
 def type_into_autocomplete(selector, value)
-  raise "please provide a value" if value.size.zero?
-  step "I release the focus from this field"
+  raise 'please provide a value' if value.size.zero?
+  step 'I release the focus from this field'
   find(selector).set value
-  find(".ui-autocomplete")
+  find('.ui-autocomplete')
 end
 
 def change_line_start_date(line, days = 2)
   new_start_date = line.start_date + days.days
   get_fullcalendar_day_element(new_start_date).click
-  find(".button#set-start-date", :text => _("Start date")).click
+  find('.button#set-start-date', text: _('Start date')).click
   step 'I save the booking calendar'
   step 'the booking calendar is closed'
   new_start_date
@@ -85,5 +85,5 @@ end
 def hover_for_tooltip(target)
   step 'I scroll to the end of the list' # move mouse somewhere else to ensure its currently not over the target
   target.click
-  find(".tooltipster-content") # there should be just one
+  find('.tooltipster-content') # there should be just one
 end

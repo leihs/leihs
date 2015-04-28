@@ -3,18 +3,18 @@ When(/^I visit "(.*)"$/) do |path|
 end
 
 Then(/^all is correct$/) do
-  expect(has_content? _("All correct")).to be true
-  expect(has_selector?(".icon-check-sign")).to be true
+  expect(has_content? _('All correct')).to be true
+  expect(has_selector?('.icon-check-sign')).to be true
 end
 
 When(/^a database admin deletes some (referenced|visit related access right) records directly on the database$/) do |arg1|
   @connection = ActiveRecord::Base.connection
 
   @query = case arg1
-             when "visit related access right"
+             when 'visit related access right'
                %Q(DELETE access_rights.* FROM reservations AS cl LEFT JOIN access_rights ON cl.user_id = access_rights.user_id AND cl.inventory_pool_id = access_rights.inventory_pool_id)
 
-             when "referenced"
+             when 'referenced'
                only_tables_no_views = @connection.execute("SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'").to_h.keys
                begin
                  reference = ActiveRecord::Base.descendants.flat_map do |klass|
@@ -54,11 +54,11 @@ Then(/^the delete is( not)? prevented$/) do |arg1|
 end
 
 Then(/^there are missing customer access rights for upcoming actions$/) do
-  expect(has_content? _("Missing customer access rights for upcoming actions")).to be true
+  expect(has_content? _('Missing customer access rights for upcoming actions')).to be true
 end
 
 When(/^I restore the customer access rights$/) do
   accept_alert do
-    find(".button", text: _("Restore customer access rights")).click
+    find('.button', text: _('Restore customer access rights')).click
   end
 end

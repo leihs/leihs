@@ -3,21 +3,21 @@
 
 #Wenn(/^ich den Admin\-Bereich betrete$/) do
 When(/^I navigate to the inventory pool section in the admin area$/) do
-  click_link _("Admin")
-  click_link _("Inventory Pool")
+  click_link _('Admin')
+  click_link _('Inventory Pool')
 end
 
 #Dann(/^kann ich die Gerätepark\-Grundinformationen eingeben$/) do |table|
 Then(/^I enter the inventory pool's basic settings as follows:$/) do |table|
   @table_raw = table.raw
   @table_raw.flatten.each do |field_name|
-    within(".row.padding-inset-s", match: :prefer_exact, text: field_name) do
-      if field_name == "Print Contracts"
-        find("input", match: :first).set false
-      elsif field_name == "Automatic access"
-        find("input", match: :first).set true
+    within('.row.padding-inset-s', match: :prefer_exact, text: field_name) do
+      if field_name == 'Print Contracts'
+        find('input', match: :first).set false
+      elsif field_name == 'Automatic access'
+        find('input', match: :first).set true
       else
-        find("input,textarea", match: :first).set (field_name == "E-Mail" ? "test@test.ch" : "test")
+        find('input,textarea', match: :first).set (field_name == 'E-Mail' ? 'test@test.ch' : 'test')
       end
     end
   end
@@ -36,13 +36,13 @@ end
 #Dann(/^sind die Informationen aktualisiert$/) do
 Then(/^the settings are updated$/) do
   @table_raw.flatten.each do |field_name|
-    within(".row.padding-inset-s", match: :prefer_exact, text: field_name) do
-      if field_name == "Print Contracts"
-        expect(find("input", match: :first).selected?).to be false
-      elsif field_name == "Automatic access"
-        expect(find("input", match: :first).selected?).to be true
+    within('.row.padding-inset-s', match: :prefer_exact, text: field_name) do
+      if field_name == 'Print Contracts'
+        expect(find('input', match: :first).selected?).to be false
+      elsif field_name == 'Automatic access'
+        expect(find('input', match: :first).selected?).to be true
       else
-        expect(find("input,textarea", match: :first).value).to eq (field_name == "E-Mail" ? "test@test.ch" : "test")
+        expect(find('input,textarea', match: :first).value).to eq (field_name == 'E-Mail' ? 'test@test.ch' : 'test')
       end
     end
   end
@@ -55,7 +55,7 @@ end
 
 #Dann(/^sehe eine Bestätigung$/) do
 Then(/^I see a confirmation that the information was saved$/) do
-  find("#flash .notice", text: _("Inventory pool successfully updated"))
+  find('#flash .notice', text: _('Inventory pool successfully updated'))
 end
 
 #Wenn(/^ich die Grundinformationen des Geräteparks abfüllen möchte$/) do
@@ -66,7 +66,7 @@ end
 #Angenommen(/^ich die folgenden Felder nicht befüllt habe$/) do |table|
 When(/^I leave the following fields empty:$/) do |table|
   table.raw.flatten.each do |must_field_name|
-    find(".row.emboss", match: :prefer_exact, text: must_field_name).find("input,textarea", match: :first).set ""
+    find('.row.emboss', match: :prefer_exact, text: must_field_name).find('input,textarea', match: :first).set ''
   end
 end
 
@@ -78,8 +78,8 @@ end
 When(/^I randomly set the workdays monday, tuesday, wednesday, thursday, friday, saturday and sunday to open or closed$/) do
   @workdays = {}
   [0,1,2,3,4,5,6].each do |day|
-    select = find(".row.emboss", match: :prefer_exact, text: I18n.t('date.day_names')[day]).find("select", match: :first)
-    @workdays[day] = rand > 0.5 ? _("Open") : _("Closed")
+    select = find('.row.emboss', match: :prefer_exact, text: I18n.t('date.day_names')[day]).find('select', match: :first)
+    @workdays[day] = rand > 0.5 ? _('Open') : _('Closed')
     select.find("option[label='#{@workdays[day]}']", match: :first).click
   end
 end
@@ -87,9 +87,9 @@ end
 #Dann(/^sind die Arbeitstage gespeichert$/) do
 Then(/^those randomly chosen workdays are saved$/) do
   @workdays.each_pair do |day, status|
-    if status == "closed"
+    if status == 'closed'
       expect(@current_inventory_pool.workday.closed_days.include?(day)).to be true
-    elsif status == "open"
+    elsif status == 'open'
       expect(@current_inventory_pool.workday.closed_days.include?(day)).to be false
     end
   end
@@ -101,39 +101,39 @@ When(/^I set one or more time spans as holidays and give them names$/) do
   [1,5,8].each do |i|
     holiday = {start_date: (Date.today + i), end_date: (Date.today + i*i), name: "Test #{i}"}
     @holidays.push holiday
-    fill_in "start_date", :with => I18n.l(holiday[:start_date])
-    fill_in "end_date", :with => I18n.l(holiday[:end_date])
-    fill_in "name", :with => holiday[:name]
-    find(".button[data-add-holiday]").click
+    fill_in 'start_date', with: I18n.l(holiday[:start_date])
+    fill_in 'end_date', with: I18n.l(holiday[:end_date])
+    fill_in 'name', with: holiday[:name]
+    find('.button[data-add-holiday]').click
   end
 end
 
 #Dann(/^werden die Ausleihschliessungszeiten gespeichert$/) do
 Then(/^the holidays are saved$/) do
   @holidays.each do |holiday|
-    expect(@current_inventory_pool.holidays.where(:start_date => holiday[:start_date], :end_date => holiday[:end_date], :name => holiday[:name]).empty?).to be false
+    expect(@current_inventory_pool.holidays.where(start_date: holiday[:start_date], end_date: holiday[:end_date], name: holiday[:name]).empty?).to be false
   end
 end
 
 #Dann(/^ich kann die Ausleihschliessungszeiten wieder löschen$/) do
 Then(/^I can delete the holidays$/) do
   holiday = @holidays.last
-  find(".row[data-holidays-list] .line", :text => holiday[:name]).find(".button[data-remove-holiday]").click
+  find('.row[data-holidays-list] .line', text: holiday[:name]).find('.button[data-remove-holiday]').click
   step 'I save'
-  expect(@current_inventory_pool.holidays.where(:start_date => holiday[:start_date], :end_date => holiday[:end_date], :name => holiday[:name]).empty?).to be true
+  expect(@current_inventory_pool.holidays.where(start_date: holiday[:start_date], end_date: holiday[:end_date], name: holiday[:name]).empty?).to be true
 end
 
 # there is nothing in the test that relates to required fields
 #Wenn(/^jedes Pflichtfeld des Geräteparks ist gesetzt$/) do |table|
 When(/^I fill in the following fields in the inventory pool settings:$/) do |table|
   table.raw.flatten.each do |field_name|
-    expect(find(".row.emboss", match: :prefer_exact, :text => field_name).find("input", match: :first).value.length).to be > 0
+    expect(find('.row.emboss', match: :prefer_exact, text: field_name).find('input', match: :first).value.length).to be > 0
   end
 end
 
 #Wenn(/^ich das gekennzeichnete "(.*?)" des Geräteparks leer lasse$/) do |field_name|
 When(/^I leave the field "(.*?)" in the inventory pool settings empty$/) do |field_name|
-  find(".row.emboss", match: :prefer_exact, :text => field_name).find("input", match: :first).set ""
+  find('.row.emboss', match: :prefer_exact, text: field_name).find('input', match: :first).set ''
 end
 
 #Wenn(/^ich für den Gerätepark die automatische Sperrung von Benutzern mit verspäteten Rückgaben einschalte$/) do
@@ -143,17 +143,17 @@ end
 
 #Dann(/^muss ich einen Sperrgrund angeben$/) do
 Then(/^I have to supply a reason for suspension$/) do
-  fill_in "inventory_pool[automatic_suspension_reason]", with: ""
+  fill_in 'inventory_pool[automatic_suspension_reason]', with: ''
   step 'I save'
   step 'I see an error message'
   @reason = Faker::Lorem.sentence
-  fill_in "inventory_pool[automatic_suspension_reason]", with: @reason
+  fill_in 'inventory_pool[automatic_suspension_reason]', with: @reason
   step 'I save'
 end
 
 #Dann(/^ist diese Konfiguration gespeichert$/) do
 Then(/^this configuration is saved$/) do
-  expect(has_selector?("#flash .notice")).to be true
+  expect(has_selector?('#flash .notice')).to be true
   @current_inventory_pool.reload
   step %Q("Automatic suspension" is enabled)
   expect(@current_inventory_pool.automatic_suspension_reason).to eq @reason
@@ -161,7 +161,7 @@ end
 
 #Wenn(/^ein Benutzer wegen verspäteter Rückgaben automatisch gesperrt wird$/) do
 When(/^a user is suspended automatically due to late contracts$/) do
-  @user = Reservation.where(inventory_pool_id: @current_inventory_pool).signed.where("end_date < ?", Date.today).order("RAND()").first.user
+  @user = Reservation.where(inventory_pool_id: @current_inventory_pool).signed.where('end_date < ?', Date.today).order('RAND()').first.user
   @user.automatic_suspend(@current_inventory_pool)
 end
 
@@ -178,8 +178,8 @@ end
 
 #Wenn(/^ich die aut\. Zuweisung deaktiviere$/) do
 When(/^I disable automatic access$/) do
-  within(".row.padding-inset-s", match: :prefer_exact, text: _("Automatic access")) do
-    find("input", match: :first).set false
+  within('.row.padding-inset-s', match: :prefer_exact, text: _('Automatic access')) do
+    find('input', match: :first).set false
   end
 end
 
@@ -196,7 +196,7 @@ end
 
 Given(/^I edit an inventory pool( that is granting automatic access)?$/) do |arg1|
   if arg1
-    @current_inventory_pool = @current_user.inventory_pools.managed.where(automatic_access: true).order("RAND()").first
+    @current_inventory_pool = @current_user.inventory_pools.managed.where(automatic_access: true).order('RAND()').first
   end
   visit manage_edit_inventory_pool_path(@current_inventory_pool)
   @last_edited_inventory_pool = @current_inventory_pool
@@ -204,10 +204,10 @@ end
 
 #Angenommen(/^es ist bei mehreren Geräteparks aut. Zuweisung aktiviert$/) do
 Given(/^multiple inventory pools are granting automatic access$/) do
-  InventoryPool.order("RAND()").limit(rand(2..4)).each do |inventory_pool|
+  InventoryPool.order('RAND()').limit(rand(2..4)).each do |inventory_pool|
     inventory_pool.update_attributes automatic_access: true
   end
-  if inventory_pool = @current_user.inventory_pools.managed.where.not(automatic_access: true).order("RAND()").first
+  if inventory_pool = @current_user.inventory_pools.managed.where.not(automatic_access: true).order('RAND()').first
     inventory_pool.update_attributes automatic_access: true
   end
   @inventory_pools_with_automatic_access = InventoryPool.where(automatic_access: true)
@@ -237,7 +237,7 @@ When(/^I create a new user with the 'inventory manager' role in my inventory poo
       | Inventory manager | inventory_manager   |
     And I save
   }
-  @user = User.find_by_lastname "test"
+  @user = User.find_by_lastname 'test'
 end
 
 #Dann(/^kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut. Zuweisung die Rolle 'Kunde'$/) do
@@ -246,7 +246,7 @@ Then(/^the newly created user has 'customer'-level access to all inventory pools
   expect(@user.access_rights.count).to eq @inventory_pools_with_automatic_access.count
   expect(@user.access_rights.pluck(:inventory_pool_id)).to eq @inventory_pools_with_automatic_access.pluck(:id)
   if arg1
-    expect(@user.access_rights.where("inventory_pool_id != ?", @current_inventory_pool ).all? {|ar| ar.role == :customer}).to be true
+    expect(@user.access_rights.where('inventory_pool_id != ?', @current_inventory_pool ).all? {|ar| ar.role == :customer}).to be true
   else
     expect(@user.access_rights.all? {|ar| ar.role == :customer}).to be true
   end
@@ -267,7 +267,7 @@ When(/^on the inventory pool I enable the automatic suspension for users with ov
 end
 
 When(/^a user is already suspended for this inventory pool$/) do
-  @user = @current_inventory_pool.visits.take_back_overdue.order("RAND()").first.user
+  @user = @current_inventory_pool.visits.take_back_overdue.order('RAND()').first.user
   @suspended_until = rand(1.years.from_now..3.years.from_now).to_date
   @suspended_reason = Faker::Lorem.paragraph
 
@@ -283,25 +283,25 @@ Then(/^the existing suspension motivation and the suspended time for this user a
   end
 
   checks_suspension
-  step "the cronjob executes the rake task for reminding and suspending all late users"
+  step 'the cronjob executes the rake task for reminding and suspending all late users'
   checks_suspension
 end
 
 When(/^I (enable|disable) "(.*)"$/) do |arg1, arg2|
   b = case arg1
-        when "enable"
+        when 'enable'
           true
-        when "disable"
+        when 'disable'
           false
         else
           raise
       end
   case arg2
-    when "Print contracts"
+    when 'Print contracts'
       find("input[type='checkbox'][name='inventory_pool[print_contracts]']").set b
-    when "Automatic suspension"
+    when 'Automatic suspension'
       find("input[type='checkbox'][name='inventory_pool[automatic_suspension]']").set b
-    when "Automatic access"
+    when 'Automatic access'
       find("input[type='checkbox'][name='inventory_pool[automatic_access]']").set b
     else
       raise
@@ -310,19 +310,19 @@ end
 
 Then(/^"(.*)" is (enabled|disabled)$/) do |arg1, arg2|
   b = case arg2
-        when "enabled"
+        when 'enabled'
           true
-        when "disabled"
+        when 'disabled'
           false
         else
           raise
       end
   case arg1
-    when "Print contracts"
+    when 'Print contracts'
       expect(@current_inventory_pool.reload.print_contracts).to eq b
-    when "Automatic suspension"
+    when 'Automatic suspension'
       expect(@current_inventory_pool.reload.automatic_suspension).to eq b
-    when "Automatic access"
+    when 'Automatic access'
       expect(@current_inventory_pool.reload.automatic_access).to eq b
     else
       raise
@@ -331,10 +331,10 @@ end
 
 Then(/^I can change the field "(.*?)"$/) do |arg1|
   case arg1
-    when "Min. number of days between order and hand over"
+    when 'Min. number of days between order and hand over'
       n = rand(0..14)
       find("input[type='number'][name='inventory_pool[workday_attributes][reservation_advance_days]']").set n
-      step "ich speichere"
+      step 'ich speichere'
       find("input[type='number'][name='inventory_pool[workday_attributes][reservation_advance_days]'][value='#{n}']")
     else
       raise
@@ -347,7 +347,7 @@ Then(/^I can enter the maximum visits per week day$/) do
     h[i] = rand(0..14)
     find("input[type='number'][name='inventory_pool[workday_attributes][workdays][#{i}][max_visits]']").set h[i]
   end
-  step "ich speichere"
+  step 'ich speichere'
   (0..6).each do |i|
     find("input[type='number'][name='inventory_pool[workday_attributes][workdays][#{i}][max_visits]'][value='#{h[i]}']")
   end
@@ -355,9 +355,9 @@ end
 
 When(/^I do not enter a maximum amount of visits on a week day$/) do
   (0..6).each do |i|
-    find("input[type='number'][name='inventory_pool[workday_attributes][workdays][#{i}][max_visits]']").set ""
+    find("input[type='number'][name='inventory_pool[workday_attributes][workdays][#{i}][max_visits]']").set ''
   end
-  step "ich speichere"
+  step 'ich speichere'
 end
 
 Then(/^there is no limit of visits for this week day$/) do

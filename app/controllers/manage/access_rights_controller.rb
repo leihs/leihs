@@ -8,7 +8,7 @@ class Manage::AccessRightsController <  Manage::ApplicationController
                          AccessRight
                        end.where(user_id: params[:user_ids])
                      else
-                       raise "User ids required"
+                       raise 'User ids required'
                      end
   end
 

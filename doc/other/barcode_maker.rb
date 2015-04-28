@@ -28,11 +28,11 @@ class BarcodeMaker
 	def make_svg
 		unless File.exists?("svg/barcode_#{@string}.svg")
 			puts "Making SVG for #{@string}"
-			f = File.open("svg/barcode_#{@string}.svg", "w") 
-		  f.write @bc.to_svg(:height => @height, :margin => 5)
+			f = File.open("svg/barcode_#{@string}.svg", 'w') 
+		  f.write @bc.to_svg(height: @height, margin: 5)
 			f.close
 		else
-			puts "SVG already there"
+			puts 'SVG already there'
 		end
 	end
 
@@ -43,7 +43,7 @@ end
 (25000...26000).each do |i|
 	puts "Making barcode #{i.to_s}"
 	foo = BarcodeMaker.new("AVZ#{i.to_s}")
-	foo.make_eps rescue "EPS failed" 
-	puts "the world has ended"
+	foo.make_eps rescue 'EPS failed' 
+	puts 'the world has ended'
 end
 

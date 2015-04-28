@@ -6,7 +6,7 @@ FactoryGirl.define do
       u1 = inventory_pool.users.customers.sample
       u1 ||= begin
         u2 = FactoryGirl.create :user
-        u2.access_rights.create(:inventory_pool => inventory_pool, :role => :customer)
+        u2.access_rights.create(inventory_pool: inventory_pool, role: :customer)
         u2
       end
       u1
@@ -20,13 +20,13 @@ FactoryGirl.define do
     # TODO ?? contract
   end
 
-  factory :item_line, :aliases => [:reservation] do
+  factory :item_line, aliases: [:reservation] do
     shared_reservations_attributes
 
     quantity 1
     model {
       inventory_pool.models.shuffle.detect { |model| av = model.availability_in(inventory_pool); av.partitions[nil] > 0 and av.running_reservations.empty? } ||
-          FactoryGirl.create(:model_with_items, :inventory_pool => inventory_pool)
+          FactoryGirl.create(:model_with_items, inventory_pool: inventory_pool)
     }
   end
 
@@ -36,7 +36,7 @@ FactoryGirl.define do
     quantity { 1 }
     option {
       inventory_pool.options.sample ||
-          FactoryGirl.create(:option, :inventory_pool => inventory_pool)
+          FactoryGirl.create(:option, inventory_pool: inventory_pool)
     }
   end
 

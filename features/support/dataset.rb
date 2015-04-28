@@ -18,8 +18,8 @@ module Dataset
     ActiveRecord::Base.connection.execute "SET TIMESTAMP=unix_timestamp('#{Time.now.iso8601}')" #old# Time.now.utc.iso8601
     #mysql_now = ActiveRecord::Base.connection.exec_query("NOW()").rows.flatten.first
     #raise "MySQL current datetime has not been changed" if mysql_now != Time.now
-    mysql_now = ActiveRecord::Base.connection.exec_query("SELECT CURDATE()").rows.flatten.first
-    raise "MySQL current datetime has not been changed" if mysql_now != Date.today
+    mysql_now = ActiveRecord::Base.connection.exec_query('SELECT CURDATE()').rows.flatten.first
+    raise 'MySQL current datetime has not been changed' if mysql_now != Date.today
   end
 
   def restore_random_dump(minimal = false)
@@ -31,7 +31,7 @@ module Dataset
 
     # we need this variable assignment in order to wait for the end of the system call. DO NOT DELETE !
     dump_restored = system(cmd)
-    raise "persona dump not loaded" unless dump_restored
+    raise 'persona dump not loaded' unless dump_restored
 
     # ensure the settings are initialized
     Setting.initialize_constants
@@ -41,7 +41,7 @@ module Dataset
 
   def use_test_datetime(reset: false, freeze: false)
     if freeze
-      ENV['TIMECOP_MODE'] = "freeze"
+      ENV['TIMECOP_MODE'] = 'freeze'
       Timecop.return
     end
 
@@ -70,8 +70,8 @@ module Dataset
       # in order to guarantuee the same sample results on CI and locally, we seed the mysql random function
       Arel::SelectManager.class_eval do
         def order_with_seed(*args)
-          if args[0].is_a? String and args[0] == "RAND ()"
-            args[0] = "RAND (%d)" % ($random.rand * 10**5).to_i
+          if args[0].is_a? String and args[0] == 'RAND ()'
+            args[0] = 'RAND (%d)' % ($random.rand * 10**5).to_i
           end
           order_without_seed(*args)
         end
@@ -85,12 +85,12 @@ module Dataset
 
   def dump_file_name(minimal = false)
     s = if minimal
-          "minimal_seed.sql"
+          'minimal_seed.sql'
         else
           get_test_datetime
           "seed_#{ENV['TEST_DATETIME']}.sql"
         end
-    File.join(Rails.root, "features/personas/dumps", s)
+    File.join(Rails.root, 'features/personas/dumps', s)
   end
 
   private
@@ -98,7 +98,7 @@ module Dataset
   def get_test_datetime(reset = false)
     ENV['TEST_DATETIME'] = if not ENV['TEST_DATETIME'].blank? and not reset
                              ENV['TEST_DATETIME']
-                           elsif reset or (existing_dump_file_name = Dir.glob(File.join(Rails.root, "features/personas/dumps", "seed_*.sql")).sample).nil?
+                           elsif reset or (existing_dump_file_name = Dir.glob(File.join(Rails.root, 'features/personas/dumps', 'seed_*.sql')).sample).nil?
                              # NOTE we do not test on saturday or sunday
                              begin
                                new_date = rand(3.years.ago..3.years.from_now)

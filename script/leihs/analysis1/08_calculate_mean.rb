@@ -31,9 +31,9 @@ while( line = gets ) do
   date,rails_total,view,db = line.split(/,/)
 
   if l % 100 == 0
-    puts date                                + "," +
-         (rails_total_total/datapoints).to_s + "," +
-	 (view_total/datapoints).to_s        + "," + 
+    puts date                                + ',' +
+         (rails_total_total/datapoints).to_s + ',' +
+	 (view_total/datapoints).to_s        + ',' + 
 	 (db_total/datapoints).to_s
 
     rails_total_total = 0

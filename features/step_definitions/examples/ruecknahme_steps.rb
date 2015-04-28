@@ -18,7 +18,7 @@ end
 
 #Dann(/^sind die Rücknahmen aufsteigend nach Datum sortiert$/) do
 Then(/^the take backs are ordered by date in ascending order$/) do
-  expect(has_selector?(".line[data-line-type]")).to be true
+  expect(has_selector?('.line[data-line-type]')).to be true
 
   take_backs = @user.visits.take_back.select{|v| v.inventory_pool == @current_inventory_pool}.sort {|d1, d2| d1.date <=> d2.date }
   reservations = take_backs.flat_map &:reservations
@@ -47,17 +47,17 @@ end
 
 #Angenommen(/^ich befinde mich in einer Rücknahme$/) do
 Given(/^I am taking something back$/) do
-  @take_back = @current_inventory_pool.visits.take_back.order("RAND()").detect {|v| v.reservations.any? {|l| l.is_a? ItemLine}}
+  @take_back = @current_inventory_pool.visits.take_back.order('RAND()').detect {|v| v.reservations.any? {|l| l.is_a? ItemLine}}
   @user = @take_back.user
-  step "man die Rücknahmenansicht für den Benutzer öffnet"
+  step 'man die Rücknahmenansicht für den Benutzer öffnet'
 end
 
 Then(/^I receive a notification( of success)?$/) do |arg1|
-  within "#flash" do
+  within '#flash' do
     if arg1
-      find(".success")
+      find('.success')
     else
-      find(".notice")
+      find('.notice')
     end
   end
 end
@@ -66,23 +66,23 @@ end
 Given(/^I am taking back at least one overdue item$/) do
   @take_back = @current_inventory_pool.visits.take_back.find {|v| v.reservations.any? {|l| l.end_date.past? }}
   @user = @take_back.user
-  step "man die Rücknahmenansicht für den Benutzer öffnet"
+  step 'man die Rücknahmenansicht für den Benutzer öffnet'
 end
 
 When(/^I take back an( overdue)? (item|option) using the assignment field$/) do |arg1, arg2|
   @reservation = case arg2
-                     when "item"
+                     when 'item'
                        if arg1
                          @take_back.reservations.find{|l| l.end_date.past?}
                        else
-                         @take_back.reservations.order("RAND()").detect {|l| l.is_a? ItemLine}
+                         @take_back.reservations.order('RAND()').detect {|l| l.is_a? ItemLine}
                        end
-                     when "option"
+                     when 'option'
                        @take_back.reservations.find {|l| l.quantity >= 2 }
                    end
-  within "form#assign" do
-    find("input#assign-input").set @reservation.item.inventory_code
-    find("button .icon-ok-sign").click
+  within 'form#assign' do
+    find('input#assign-input').set @reservation.item.inventory_code
+    find('button .icon-ok-sign').click
   end
   @line_css = ".line[data-id='#{@reservation.id}']"
 end
@@ -97,20 +97,20 @@ end
 Given(/^I am on a take back with at least two of the same options$/) do
   @take_back = @current_inventory_pool.visits.take_back.find {|v| v.reservations.any? {|l| l.quantity >= 2 }}
   @user = @take_back.user
-  step "man die Rücknahmenansicht für den Benutzer öffnet"
+  step 'man die Rücknahmenansicht für den Benutzer öffnet'
 end
 
 #Dann(/^die Zeile ist nicht grün markiert$/) do
 Then(/^the line is not highlighted in green$/) do
-  expect(find(@line_css).native.attribute("class")).not_to include "green"
+  expect(find(@line_css).native.attribute('class')).not_to include 'green'
 end
 
 #Wenn(/^ich alle Optionen der gleichen Zeile zurücknehme$/) do
 When(/^I take back all options of the same line$/) do
-  (@reservation.quantity - find(@line_css).find("input[data-quantity-returned]").value.to_i).times do
-    within "form#assign" do
-      find("input#assign-input").set @reservation.item.inventory_code
-      find("button .icon-ok-sign").click
+  (@reservation.quantity - find(@line_css).find('input[data-quantity-returned]').value.to_i).times do
+    within 'form#assign' do
+      find('input#assign-input').set @reservation.item.inventory_code
+      find('button .icon-ok-sign').click
     end
   end
 end
@@ -134,20 +134,20 @@ end
 Then(/^the option is added to the first time window$/) do
   @option_lines = @option.option_lines.select{|l| l.status == :signed and l.user == @user}
   @option_line = @option_lines.sort{|a, b| a.end_date <=> b.end_date}.first
-  expect(find("[data-selected-lines-container]", match: :first, text: @option.inventory_code).find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i).to be > 0
+  expect(find('[data-selected-lines-container]', match: :first, text: @option.inventory_code).find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i).to be > 0
 end
 
 #Wenn(/^ich dieselbe Option nochmals hinzufüge$/) do
 When(/^I add the same option again$/) do
-  within "form#assign" do
-    find("input#assign-input").set @option.inventory_code
-    find("button .icon-ok-sign").click
+  within 'form#assign' do
+    find('input#assign-input').set @option.inventory_code
+    find('button .icon-ok-sign').click
   end
 end
 
 #Wenn(/^im ersten Zeitfenster bereits die maximale Anzahl dieser Option erreicht ist$/) do
 When(/^the first time window has already reached the maximum quantity of this option$/) do
-  until find("[data-selected-lines-container]", match: :first, text: @option.inventory_code).find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i == @option_line.quantity
+  until find('[data-selected-lines-container]', match: :first, text: @option.inventory_code).find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i == @option_line.quantity
     step 'I add the same option again'
   end
 end
@@ -155,7 +155,7 @@ end
 #Dann(/^wird die Option dem zweiten Zeitfenster hinzugefügt$/) do
 Then(/^the option is added to the second time window$/) do
   @option_line = @option_lines.sort{|a, b| a.end_date <=> b.end_date}.second
-  expect(all("[data-selected-lines-container]", text: @option.inventory_code).to_a.second.find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i).to be > 0
+  expect(all('[data-selected-lines-container]', text: @option.inventory_code).to_a.second.find(".line[data-id='#{@option_line.id}'] [data-quantity-returned]").value.to_i).to be > 0
 end
 
 Given(/^I open a take back with at least one item and one option$/) do
@@ -166,8 +166,8 @@ end
 
 When(/^I set a quantity of (\d+) for the option line$/) do |quantity|
   option_line = find("[data-line-type='option_line']", match: :first)
-  @line_id = option_line["data-id"]
-  option_line.find("input[data-quantity-returned]").set (@quantity = quantity)
+  @line_id = option_line['data-id']
+  option_line.find('input[data-quantity-returned]').set (@quantity = quantity)
 end
 
 #When(/^I inspect an item$/) do

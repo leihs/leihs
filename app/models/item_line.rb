@@ -15,7 +15,7 @@ class ItemLine < Reservation
   belongs_to :item, inverse_of: :item_lines
   belongs_to :model, inverse_of: :reservations
 
-  validates_numericality_of :quantity, :equal_to => 1
+  validates_numericality_of :quantity, equal_to: 1
   validate :validate_item
   validates_presence_of :model_id
   validates_presence_of :item, if: Proc.new {|r| [:signed, :closed].include?(r.status) }
@@ -24,7 +24,7 @@ class ItemLine < Reservation
 
   # OPTMIZE 0209** overriding the item getter in order to get a retired item as well if is the case
   def item
-    Item.unscoped { Item.where(:id => item_id).first } if item_id   
+    Item.unscoped { Item.where(id: item_id).first } if item_id   
   end  
 
   def to_s
@@ -41,7 +41,7 @@ class ItemLine < Reservation
   # TODO 04** merge in complete? 
   def complete_tooltip
     r = super
-    r += _("item not assigned. ") unless !self.item.nil?
+    r += _('item not assigned. ') unless !self.item.nil?
     return r
   end
 
@@ -64,20 +64,20 @@ class ItemLine < Reservation
       # model matching
       errors.add(:base, _("The item doesn't match with the reserved model")) unless item.model_id == model_id
 
-      if item.reservations.handed_over_or_assigned_but_not_returned.where(["id != ? AND user_id = ? AND status = ?", id, user_id, status]).exists?
+      if item.reservations.handed_over_or_assigned_but_not_returned.where(['id != ? AND user_id = ? AND status = ?', id, user_id, status]).exists?
         # check if already assigned to the same contract
-        errors.add(:base, _("%s is already assigned to this contract") % item.inventory_code)
+        errors.add(:base, _('%s is already assigned to this contract') % item.inventory_code)
 
-      elsif item.reservations.handed_over_or_assigned_but_not_returned.where(["id != ? AND user_id != ?", id, user_id]).exists?
+      elsif item.reservations.handed_over_or_assigned_but_not_returned.where(['id != ? AND user_id != ?', id, user_id]).exists?
         # check if available
-        errors.add(:base, _("%s is already assigned to a different contract") % item.inventory_code) 
+        errors.add(:base, _('%s is already assigned to a different contract') % item.inventory_code) 
       end
 
       # inventory_pool matching
       errors.add(:base, _("The item doesn't belong to the inventory pool related to this contract")) unless item.inventory_pool_id == inventory_pool_id
 
       # package check 
-      errors.add(:base, _("The item belongs to a package")) if item.parent_id
+      errors.add(:base, _('The item belongs to a package')) if item.parent_id
     end
   end
 

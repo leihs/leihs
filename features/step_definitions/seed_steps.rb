@@ -1,4 +1,4 @@
-Given "a minimal leihs setup" do
+Given 'a minimal leihs setup' do
 
   # this is hardcore to see why one test fails when run with the other tests
   # but not when run on its own. For some reason resetting the world before this

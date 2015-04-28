@@ -3,26 +3,26 @@ class InventoryPool < ActiveRecord::Base
 
   belongs_to :address
 
-  has_one :workday, :dependent => :delete
+  has_one :workday, dependent: :delete
   accepts_nested_attributes_for :workday
 
-  has_many :holidays, :dependent => :delete_all
-  accepts_nested_attributes_for :holidays, :allow_destroy => true, :reject_if =>  proc {|holiday| holiday[:id]}
+  has_many :holidays, dependent: :delete_all
+  accepts_nested_attributes_for :holidays, allow_destroy: true, reject_if: proc {|holiday| holiday[:id]}
 
-  has_many :access_rights, :dependent => :delete_all
-  has_many :users, -> { where(access_rights: {deleted_at: nil}).uniq }, :through => :access_rights
-  has_many :suspended_users, -> { where(access_rights: {deleted_at: nil}).where.not(access_rights: {suspended_until: nil}).where("access_rights.suspended_until >= ?", Date.today).uniq } , :through => :access_rights, :source => :user
+  has_many :access_rights, dependent: :delete_all
+  has_many :users, -> { where(access_rights: {deleted_at: nil}).uniq }, through: :access_rights
+  has_many :suspended_users, -> { where(access_rights: {deleted_at: nil}).where.not(access_rights: {suspended_until: nil}).where('access_rights.suspended_until >= ?', Date.today).uniq } , through: :access_rights, source: :user
 
-  has_many :locations, -> { uniq }, :through => :items
+  has_many :locations, -> { uniq }, through: :items
   has_many :items, dependent: :restrict_with_exception
-  has_many :own_items, :class_name => "Item", :foreign_key => "owner_id", dependent: :restrict_with_exception
-  has_many :models, -> { uniq }, :through => :items
+  has_many :own_items, class_name: 'Item', foreign_key: 'owner_id', dependent: :restrict_with_exception
+  has_many :models, -> { uniq }, through: :items
   has_many :options
 
   has_and_belongs_to_many :model_groups
-  has_and_belongs_to_many :templates, -> { where(:type => 'Template') },
-                          :join_table => 'inventory_pools_model_groups',
-                          :association_foreign_key => 'model_group_id'
+  has_and_belongs_to_many :templates, -> { where(type: 'Template') },
+                          join_table: 'inventory_pools_model_groups',
+                          association_foreign_key: 'model_group_id'
 
 
   has_and_belongs_to_many :accessories
@@ -39,10 +39,10 @@ class InventoryPool < ActiveRecord::Base
     end
   end
 
-  has_many :mail_templates, :dependent => :delete_all
+  has_many :mail_templates, dependent: :delete_all
 
   def suppliers
-    Supplier.joins(:items).where(":id IN (items.owner_id, items.inventory_pool_id)", id: id).uniq
+    Supplier.joins(:items).where(':id IN (items.owner_id, items.inventory_pool_id)', id: id).uniq
   end
 
 #######################################################################
@@ -73,13 +73,13 @@ class InventoryPool < ActiveRecord::Base
   has_many :running_reservations, -> {
     select("id, inventory_pool_id, model_id, item_id, quantity, start_date, end_date, returned_date, status,
             GROUP_CONCAT(groups_users.group_id) AS concat_group_ids").
-    joins("LEFT JOIN groups_users ON groups_users.user_id = reservations.user_id").
+    joins('LEFT JOIN groups_users ON groups_users.user_id = reservations.user_id').
     where.not(status: [:rejected, :closed]).
     where.not("status = '#{:unsubmitted}' AND updated_at < '#{Time.now.utc - Contract::TIMEOUT_MINUTES.minutes}'").
     where.not("end_date < '#{Date.today}' AND item_id IS NULL").
     group(:id).
     order(:start_date, :end_date) # the order is needed by the availability computation
-  }, class_name: "ItemLine"
+  }, class_name: 'ItemLine'
 
 #######################################################################
 
@@ -152,14 +152,14 @@ class InventoryPool < ActiveRecord::Base
   end
 
   def running_holiday_on(date)
-    holidays.where(["start_date <= :d AND end_date >= :d", {:d => date}]).first
+    holidays.where(['start_date <= :d AND end_date >= :d', {d: date}]).first
   end
 
 ###################################################################################
 
   def update_address(attr)
     if (a = Address.where(attr).first)
-      update_attributes(:address_id => a.id)
+      update_attributes(address_id: a.id)
     else
       create_address(attr)
     end
@@ -172,29 +172,29 @@ class InventoryPool < ActiveRecord::Base
   def inventory(params)
 
     model_type = case params[:type]
-                 when "item" then "model"
-                 when "license" then "software"
-                 when "option" then "option"
+                 when 'item' then 'model'
+                 when 'license' then 'software'
+                 when 'option' then 'option'
                  end
 
-    model_filter_params = params.clone.merge({paginate: "false", search_targets: [:manufacturer, :product, :version, :items], type: model_type})
+    model_filter_params = params.clone.merge({paginate: 'false', search_targets: [:manufacturer, :product, :version, :items], type: model_type})
 
     # if there are NOT any params related to items
     if [:is_borrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_inventory_pool_id].all? {|param| params[param].blank?}
       # and one does not explicitly ask for software, models or used/unused models
-      unless ["model", "software"].include?(model_type) or params[:used]
+      unless ['model', 'software'].include?(model_type) or params[:used]
         # then include options
-        options = Option.filter params.clone.merge({paginate: "false", sort: "product", order: "ASC"}), self
+        options = Option.filter params.clone.merge({paginate: 'false', sort: 'product', order: 'ASC'}), self
       end
     # otherwise if there is some param related to items
     else
       # don't include options and consider only used models
-      model_filter_params = model_filter_params.merge({ used: "true" })
+      model_filter_params = model_filter_params.merge({ used: 'true' })
     end
 
     # exlude models if asked only for options
-    unless model_type == "option"
-      items = Item.filter params.clone.merge({paginate: "false", search_term: nil}), self
+    unless model_type == 'option'
+      items = Item.filter params.clone.merge({paginate: 'false', search_term: nil}), self
       models = Model.filter model_filter_params.merge({items: items}), self
     else
       models = []
@@ -202,7 +202,7 @@ class InventoryPool < ActiveRecord::Base
 
     inventory = (models + (options || [])).sort{|a,b| a.name.strip <=> b.name.strip}
 
-    inventory = inventory.default_paginate params unless params[:paginate] == "false"
+    inventory = inventory.default_paginate params unless params[:paginate] == 'false'
     inventory
   end
 
@@ -210,14 +210,14 @@ class InventoryPool < ActiveRecord::Base
     require 'csv'
 
     items = if inventory_pool
-              Item.filter(params.clone.merge({paginate: "false", all: "true"}), inventory_pool)
+              Item.filter(params.clone.merge({paginate: 'false', all: 'true'}), inventory_pool)
             else
               Item.unscoped
             end
 
     options = if inventory_pool
-                if params[:type] != "license" and [:unborrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_inventory_pool_id, :unused_models].all? {|param| params[param].blank?}
-                  Option.filter params.clone.merge({paginate: "false", sort: "product", order: "ASC"}), inventory_pool
+                if params[:type] != 'license' and [:unborrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_inventory_pool_id, :unused_models].all? {|param| params[param].blank?}
+                  Option.filter params.clone.merge({paginate: 'false', sort: 'product', order: 'ASC'}), inventory_pool
                 else
                   []
                 end
@@ -246,7 +246,7 @@ class InventoryPool < ActiveRecord::Base
 
     csv_header = objects.flat_map(&:keys).uniq
 
-    CSV.generate({col_sep: ";", quote_char: "\"", force_quotes: true, headers: :first_row}) do |csv|
+    CSV.generate({col_sep: ';', quote_char: "\"", force_quotes: true, headers: :first_row}) do |csv|
       csv << csv_header
       objects.each do |object|
         csv << csv_header.map {|h| object[h] }

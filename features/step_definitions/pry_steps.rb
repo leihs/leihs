@@ -1,3 +1,4 @@
+# rubocop:disable Lint/Debugger
 When /^I pry/ do
   binding.pry
 end 
@@ -5,3 +6,4 @@ end
 When /^I use pry$/ do
   binding.pry
 end
+# rubocop:enable Lint/Debugger

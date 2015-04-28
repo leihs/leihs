@@ -6,8 +6,8 @@ class OptionLine < Reservation
   belongs_to :option, inverse_of: :option_lines
 
   # aliases, fetching option anyway
-  belongs_to :item, :class_name => "Option", :foreign_key => :option_id
-  belongs_to :model, :class_name => "Option", :foreign_key => :option_id
+  belongs_to :item, class_name: 'Option', foreign_key: :option_id
+  belongs_to :model, class_name: 'Option', foreign_key: :option_id
 
   validates_presence_of :option
   validate do

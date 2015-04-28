@@ -1,6 +1,6 @@
 module Availability
 
-  ETERNITY = Date.parse("3000-01-01")
+  ETERNITY = Date.parse('3000-01-01')
 
   class Changes < Hash
 
@@ -60,7 +60,7 @@ module Availability
 
       initial_change = {}
       @partitions.each_pair do |group_id, quantity|
-        initial_change[group_id] = {:in_quantity => quantity, :running_reservations => {}}
+        initial_change[group_id] = {in_quantity: quantity, running_reservations: {}}
       end
       @changes = Changes[Date.today => initial_change]
 
@@ -90,8 +90,8 @@ module Availability
         inner_changes.each_pair do |key, ic|
           qty = ic[reservation.allocated_group_id]
           qty[:in_quantity] -= reservation.quantity
-          qty[:running_reservations]["ItemLine"] ||= []
-          qty[:running_reservations]["ItemLine"] << reservation.id
+          qty[:running_reservations]['ItemLine'] ||= []
+          qty[:running_reservations]['ItemLine'] << reservation.id
         end
       end
     end
@@ -110,7 +110,7 @@ module Availability
       Hash[@changes.sort].map do |date, change|
         total = change.values.sum{|x| x[:in_quantity]}
         groups = change.map do |g, q|
-          q.merge({:group_id => g})
+          q.merge({group_id: g})
         end
         [date, total, groups]
       end

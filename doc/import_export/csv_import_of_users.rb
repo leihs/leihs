@@ -17,9 +17,9 @@ require 'pry'
 
 def create_auth_for_user(user)
   password = SecureRandom.base64(6).tr('+/=lIO0', 'pqrsxyz')
-  dba = DatabaseAuthentication.create(:login => user[:login],
-                                      :password => password,
-                                      :password_confirmation => password)
+  dba = DatabaseAuthentication.create(login: user[:login],
+                                      password: password,
+                                      password_confirmation: password)
   dba.user = user
   if dba.save
     @log.puts("DatabaseAuthentication for #{user} created. Password: #{password}")
@@ -33,13 +33,13 @@ end
 # created.
 def pools(pools_string)
   inventory_pools = []
-  pool_names = pools_string.split(";").map{|string| string.strip}
+  pool_names = pools_string.split(';').map{|string| string.strip}
   pool_names.each do |name|
-    inventory_pool = InventoryPool.where(:name => name).first
+    inventory_pool = InventoryPool.where(name: name).first
     if inventory_pool.nil?
-      inventory_pool = InventoryPool.create(:name => name,
-                                            :shortname => name[0..2].upcase,
-                                            :email => 'pool@example.com')
+      inventory_pool = InventoryPool.create(name: name,
+                                            shortname: name[0..2].upcase,
+                                            email: 'pool@example.com')
     end
     inventory_pools << inventory_pool
   end
@@ -47,7 +47,7 @@ def pools(pools_string)
 end
 
 def give_role(user, role, inventory_pool)
-  if user.access_rights.create(:role => role.to_sym, :inventory_pool => inventory_pool)
+  if user.access_rights.create(role: role.to_sym, inventory_pool: inventory_pool)
     @log.puts "Access rights for #{user} to pool #{inventory_pool} as #{role} created."
   else
     @log.puts "ERROR: Access rights for #{user} to pool #{inventory_pool} could not be created."
@@ -67,12 +67,12 @@ def create_basic_elements(user, options = {})
 end
 
 def create_user(options = {})
-  user = User.new(:email => options[:email],
-                  :login => options[:login],
-                  :firstname => options[:firstname],
-                  :lastname => options[:lastname],
-                  :phone => options[:phone],
-                  :authentication_system => AuthenticationSystem.where(:class_name => 'DatabaseAuthentication').first)
+  user = User.new(email: options[:email],
+                  login: options[:login],
+                  firstname: options[:firstname],
+                  lastname: options[:lastname],
+                  phone: options[:phone],
+                  authentication_system: AuthenticationSystem.where(class_name: 'DatabaseAuthentication').first)
   user.extended_info = {}
   user.extended_info['department'] = options[:department]
   user.extended_info['program'] = options[:program]
@@ -85,30 +85,30 @@ def create_user(options = {})
 end
 
 def csv_to_user_options(csv)
-  {:email => csv['mail'],
-   :login => csv['login'],
-   :firstname => csv['GivenName'],
-   :lastname => csv['sn'],
-   :phone => csv['telephoneNumber'],
-   :department => csv['department'],
-   :program => csv['Program and year'],
-   :inventory_pools => csv['Inventory pools']}
+  {email: csv['mail'],
+   login: csv['login'],
+   firstname: csv['GivenName'],
+   lastname: csv['sn'],
+   phone: csv['telephoneNumber'],
+   department: csv['department'],
+   program: csv['Program and year'],
+   inventory_pools: csv['Inventory pools']}
 end
 
-@log = File.open("/tmp/user_import.log", "a+")
-@passwords = File.open("/tmp/passwords.txt", "a+")
+@log = File.open('/tmp/user_import.log', 'a+')
+@passwords = File.open('/tmp/passwords.txt', 'a+')
 
 # Import managers
 if File.exists?('/tmp/managers.csv')
   @log.puts('---', 'Importing managers from /tmp/managers.csv')
-  CSV.open("/tmp/managers.csv", "r", { :col_sep => "\t", :quote_char => "\"", :headers => true}).each do |csv|
-    create_user(csv_to_user_options(csv).merge(:role => 'inventory_manager'))
+  CSV.open('/tmp/managers.csv', 'r', { col_sep: "\t", quote_char: "\"", headers: true}).each do |csv|
+    create_user(csv_to_user_options(csv).merge(role: 'inventory_manager'))
   end
 end
 
 if File.exists?('/tmp/customers.csv')
   @log.puts('---', 'Importing customers from /tmp/customers.csv')
-  CSV.open("/tmp/customers.csv", "r", { :col_sep => "\t", :quote_char => "\"", :headers => true}).each do |csv|
+  CSV.open('/tmp/customers.csv', 'r', { col_sep: "\t", quote_char: "\"", headers: true}).each do |csv|
     create_user(csv_to_user_options(csv))
   end
 end

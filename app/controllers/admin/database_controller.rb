@@ -19,73 +19,73 @@ class Admin::DatabaseController < Admin::ApplicationController
   def indexes
     @indexes_found, @indexes_not_found = begin
       [
-          ["access_rights", ["deleted_at"]],
-          ["access_rights", ["inventory_pool_id"]],
-          ["access_rights", ["suspended_until"]],
-          ["access_rights", ["user_id", "inventory_pool_id", "deleted_at"]],
-          ["accessories", ["model_id"]],
-          ["accessories_inventory_pools", ["accessory_id", "inventory_pool_id"], :unique => true],
-          ["accessories_inventory_pools", ["inventory_pool_id"]],
-          ["addresses", ["street", "zip_code", "city", "country_code"], :unique => true],
-          ["attachments", ["model_id"]],
+          ['access_rights', ['deleted_at']],
+          ['access_rights', ['inventory_pool_id']],
+          ['access_rights', ['suspended_until']],
+          ['access_rights', ['user_id', 'inventory_pool_id', 'deleted_at']],
+          ['accessories', ['model_id']],
+          ['accessories_inventory_pools', ['accessory_id', 'inventory_pool_id'], unique: true],
+          ['accessories_inventory_pools', ['inventory_pool_id']],
+          ['addresses', ['street', 'zip_code', 'city', 'country_code'], unique: true],
+          ['attachments', ['model_id']],
           # ["audits", ["associated_id", "associated_type"]],
           # ["audits", ["auditable_id", "auditable_type"]],
           # ["audits", ["created_at"]],
           # ["audits", ["thread_id"]],
           # ["audits", ["user_id", "user_type"]],
-          ["reservations", ["status"]],
-          ["reservations", ["inventory_pool_id"]],
-          ["reservations", ["user_id"]],
-          ["reservations", ["delegated_user_id"]],
-          ["reservations", ["handed_over_by_user_id"]],
-          ["reservations", ["contract_id"]],
-          ["reservations", ["end_date"]],
-          ["reservations", ["item_id"]],
-          ["reservations", ["model_id"]],
-          ["reservations", ["option_id"]],
-          ["reservations", ["returned_date", "contract_id"]],
-          ["reservations", ["start_date"]],
-          ["reservations", ["type", "contract_id"]],
-          ["groups", ["inventory_pool_id"]],
-          ["groups_users", ["group_id"]],
-          ["groups_users", ["user_id", "group_id"], :unique => true],
-          ["histories", ["target_type", "target_id"]],
-          ["histories", ["type_const"]],
-          ["histories", ["user_id"]],
-          ["holidays", ["inventory_pool_id"]],
-          ["holidays", ["start_date", "end_date"]],
-          ["images", ["target_id", "target_type"]],
-          ["inventory_pools", ["name"], :unique => true],
-          ["inventory_pools_model_groups", ["inventory_pool_id"]],
-          ["inventory_pools_model_groups", ["model_group_id"]],
-          ["items", ["inventory_code"], :unique => true],
-          ["items", ["inventory_pool_id"]],
-          ["items", ["is_borrowable"]],
-          ["items", ["is_broken"]],
-          ["items", ["is_incomplete"]],
-          ["items", ["location_id"]],
-          ["items", ["model_id", "retired", "inventory_pool_id"]],
-          ["items", ["owner_id"]],
-          ["items", ["parent_id", "retired"]],
-          ["items", ["retired"]],
-          ["languages", ["active", "default"]],
-          ["languages", ["name"], :unique => true],
-          ["locations", ["building_id"]],
-          ["model_group_links", ["ancestor_id"]],
-          ["model_group_links", ["descendant_id", "ancestor_id", "direct"]],
-          ["model_group_links", ["direct"]],
-          ["model_groups", ["type"]],
-          ["model_links", ["model_group_id", "model_id"]],
-          ["model_links", ["model_id", "model_group_id"]],
-          ["models", ["is_package"]],
-          ["models_compatibles", ["compatible_id"]],
-          ["models_compatibles", ["model_id"]],
-          ["notifications", ["user_id"]],
-          ["options", ["inventory_pool_id"]],
-          ["partitions", ["model_id", "inventory_pool_id", "group_id"], :unique => true],
-          ["properties", ["model_id"]],
-          ["users", ["authentication_system_id"]],
-          ["workdays", ["inventory_pool_id"]]
+          ['reservations', ['status']],
+          ['reservations', ['inventory_pool_id']],
+          ['reservations', ['user_id']],
+          ['reservations', ['delegated_user_id']],
+          ['reservations', ['handed_over_by_user_id']],
+          ['reservations', ['contract_id']],
+          ['reservations', ['end_date']],
+          ['reservations', ['item_id']],
+          ['reservations', ['model_id']],
+          ['reservations', ['option_id']],
+          ['reservations', ['returned_date', 'contract_id']],
+          ['reservations', ['start_date']],
+          ['reservations', ['type', 'contract_id']],
+          ['groups', ['inventory_pool_id']],
+          ['groups_users', ['group_id']],
+          ['groups_users', ['user_id', 'group_id'], unique: true],
+          ['histories', ['target_type', 'target_id']],
+          ['histories', ['type_const']],
+          ['histories', ['user_id']],
+          ['holidays', ['inventory_pool_id']],
+          ['holidays', ['start_date', 'end_date']],
+          ['images', ['target_id', 'target_type']],
+          ['inventory_pools', ['name'], unique: true],
+          ['inventory_pools_model_groups', ['inventory_pool_id']],
+          ['inventory_pools_model_groups', ['model_group_id']],
+          ['items', ['inventory_code'], unique: true],
+          ['items', ['inventory_pool_id']],
+          ['items', ['is_borrowable']],
+          ['items', ['is_broken']],
+          ['items', ['is_incomplete']],
+          ['items', ['location_id']],
+          ['items', ['model_id', 'retired', 'inventory_pool_id']],
+          ['items', ['owner_id']],
+          ['items', ['parent_id', 'retired']],
+          ['items', ['retired']],
+          ['languages', ['active', 'default']],
+          ['languages', ['name'], unique: true],
+          ['locations', ['building_id']],
+          ['model_group_links', ['ancestor_id']],
+          ['model_group_links', ['descendant_id', 'ancestor_id', 'direct']],
+          ['model_group_links', ['direct']],
+          ['model_groups', ['type']],
+          ['model_links', ['model_group_id', 'model_id']],
+          ['model_links', ['model_id', 'model_group_id']],
+          ['models', ['is_package']],
+          ['models_compatibles', ['compatible_id']],
+          ['models_compatibles', ['model_id']],
+          ['notifications', ['user_id']],
+          ['options', ['inventory_pool_id']],
+          ['partitions', ['model_id', 'inventory_pool_id', 'group_id'], unique: true],
+          ['properties', ['model_id']],
+          ['users', ['authentication_system_id']],
+          ['workdays', ['inventory_pool_id']]
       ].partition do |table, columns, options|
         indexes = @connection.indexes(table)
         index = indexes.detect { |x| x.columns == columns }
@@ -121,10 +121,10 @@ class Admin::DatabaseController < Admin::ApplicationController
   end
 
   def access_rights
-    @visits = Visit.joins("LEFT JOIN access_rights ON visits.user_id = access_rights.user_id AND visits.inventory_pool_id = access_rights.inventory_pool_id").
+    @visits = Visit.joins('LEFT JOIN access_rights ON visits.user_id = access_rights.user_id AND visits.inventory_pool_id = access_rights.inventory_pool_id').
         where(access_rights: {id: nil}).
         order(:inventory_pool_id, :user_id, :date).
-        group("visits.inventory_pool_id, visits.user_id").
+        group('visits.inventory_pool_id, visits.user_id').
         includes(:user, :inventory_pool)
     if request.post?
       @visits.each do |visit|
@@ -260,7 +260,7 @@ class Admin::DatabaseController < Admin::ApplicationController
 
   def left_join_query(klass, other_table, this_table, this_column, other_column, additional_where)
     r = klass.unscoped.
-        joins("LEFT JOIN %s AS t2 ON %s.%s = t2.%s" % [other_table, this_table, this_column, other_column]).
+        joins('LEFT JOIN %s AS t2 ON %s.%s = t2.%s' % [other_table, this_table, this_column, other_column]).
         where.not(this_column => nil).
         where(t2: {other_column => nil})
     r = r.where(additional_where) if additional_where

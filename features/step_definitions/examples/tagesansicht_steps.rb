@@ -2,7 +2,7 @@
 
 #Angenommen(/^eine Bestellungen mit zwei unterschiedlichen Zeitspannen existiert$/) do
 Given(/^there is an order with two different time windows$/) do
-  @customer = @current_inventory_pool.users.customers.order("RAND()").first
+  @customer = @current_inventory_pool.users.customers.order('RAND()').first
   FactoryGirl.create :reservation, user: @customer, status: :submitted, inventory_pool: @current_inventory_pool, start_date: Date.today, end_date: Date.tomorrow
   FactoryGirl.create :reservation, user: @customer, status: :submitted, inventory_pool: @current_inventory_pool, start_date: Date.today, end_date: Date.today+10.days
   @contract = @customer.reservations_bundles.submitted.find_by(inventory_pool_id: @current_inventory_pool)
@@ -26,6 +26,6 @@ end
 Then(/^each line of this user contains the text 'Suspended'$/) do
   find("[data-type='user-cell'] span.darkred-text", match: :first)
   all("[data-type='user-cell']").each do |line|
-    line.find("span.darkred-text", text: "%s!" % _("Suspended"))
+    line.find('span.darkred-text', text: '%s!' % _('Suspended'))
   end
 end

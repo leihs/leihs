@@ -12,7 +12,7 @@ class BreadCrumbs
     @crumbs.each_with_index do |category_id, i|
       category = Category.find category_id
       category_ids = @crumbs[0..i]
-      crumbs.push [path_for(Rails.application.routes.url_helpers.borrow_models_path(:category_id => category_id), category_ids, false), category.name]
+      crumbs.push [path_for(Rails.application.routes.url_helpers.borrow_models_path(category_id: category_id), category_ids, false), category.name]
     end
     crumbs
   end
@@ -35,7 +35,7 @@ class BreadCrumbs
     category_ids.each do |category_id|
       crumbs.push(category_id) unless crumbs.include? category_id
     end
-    {"_bc" => crumbs}
+    {'_bc' => crumbs}
   end
 
 end

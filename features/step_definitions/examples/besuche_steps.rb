@@ -10,6 +10,6 @@ Then(/^each visit shows a human-readable difference between now and its respecti
   extend ActionView::Helpers::DateHelper
 
   @current_inventory_pool.visits.where.not(status: :submitted).each do |v|
-    find(".line[data-id='#{v.id}']").text.include?(_("%s") % time_ago_in_words(v.date))
+    find(".line[data-id='#{v.id}']").text.include?(_('%s') % time_ago_in_words(v.date))
   end
 end

@@ -5,14 +5,14 @@
 #end
 
 When /^I reject a contract$/ do
-  @contract = @current_inventory_pool.reservations_bundles.submitted.order("RAND()").first
+  @contract = @current_inventory_pool.reservations_bundles.submitted.order('RAND()').first
 
   step %Q(I uncheck the "No verification required" button)
 
   @daily_view_line = find(".line[data-id='#{@contract.id}']")
   within @daily_view_line do
-    find(".dropdown-toggle").click
-    find(".red[data-order-reject]", text: _("Reject")).click
+    find('.dropdown-toggle').click
+    find('.red[data-order-reject]', text: _('Reject')).click
   end
 end
 
@@ -21,28 +21,28 @@ When /^I reject this contract$/ do
 end
 
 Then /^I see a summary of that contract$/ do
-  within(".modal") do
+  within('.modal') do
     unless @contract.purpose.blank?
-      find("p", text: @contract.purpose[0..25])
+      find('p', text: @contract.purpose[0..25])
     end
   end
 end
 
 Then /^I can write a reason why I reject that contract$/ do
-  find("#rejection-comment").set "you are not allowed to get these things"
+  find('#rejection-comment').set 'you are not allowed to get these things'
 end
 
 When /^I confirm the contract rejection$/ do
-  within(".modal") do
-    find(".button.red[type=submit]").click
+  within('.modal') do
+    find('.button.red[type=submit]').click
   end
-  step "the modal is closed"
+  step 'the modal is closed'
 end
 
 Then /^the contract is rejected$/ do
   if @daily_view_line
     within @daily_view_line do
-      find(".button", match: :first, text: _("Rejected"))
+      find('.button', match: :first, text: _('Rejected'))
     end
   end
 
@@ -51,7 +51,7 @@ Then /^the contract is rejected$/ do
     expect(rejected_contract.reservations.include? line).to be true
     expect(line.reload.status).to eq :rejected
   end
-  step "that contract has been deleted"
+  step 'that contract has been deleted'
 end
 
 Then(/^I am redirected to the daily view$/) do

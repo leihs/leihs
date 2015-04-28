@@ -14,14 +14,14 @@
 class Item < ActiveRecord::Base
   include DefaultPagination
 
-  belongs_to :parent, class_name: "Item", foreign_key: 'parent_id', inverse_of: :children
-  has_many :children, class_name: "Item", foreign_key: 'parent_id', dependent: :nullify,
+  belongs_to :parent, class_name: 'Item', foreign_key: 'parent_id', inverse_of: :children
+  has_many :children, class_name: 'Item', foreign_key: 'parent_id', dependent: :nullify,
                       before_add: :check_child,
                       after_add: :update_child_attributes
 
   belongs_to :model, inverse_of: :items
   belongs_to :location, inverse_of: :items
-  belongs_to :owner, :class_name => "InventoryPool", :foreign_key => "owner_id", inverse_of: :own_items
+  belongs_to :owner, class_name: 'InventoryPool', foreign_key: 'owner_id', inverse_of: :own_items
   belongs_to :supplier
   belongs_to :inventory_pool, inverse_of: :items
 
@@ -105,17 +105,17 @@ class Item < ActiveRecord::Base
     items = items.send(params[:type].pluralize) unless params[:type].blank?
 
     items = items.by_owner_or_responsible inventory_pool if inventory_pool
-    items = items.where(:owner_id => inventory_pool) if params[:owned]
-    items = items.where(:inventory_pool_id => params[:responsible_inventory_pool_id]) if params[:responsible_inventory_pool_id]
+    items = items.where(owner_id: inventory_pool) if params[:owned]
+    items = items.where(inventory_pool_id: params[:responsible_inventory_pool_id]) if params[:responsible_inventory_pool_id]
 
-    items = items.where(:id => params[:ids]) if params[:ids]
-    items = items.where(:id => params[:id]) if params[:id]
-    items = items.retired if params[:retired] == "true"
-    items = items.unretired if params[:retired] == "false"
+    items = items.where(id: params[:ids]) if params[:ids]
+    items = items.where(id: params[:id]) if params[:id]
+    items = items.retired if params[:retired] == 'true'
+    items = items.unretired if params[:retired] == 'false'
 
     # there are 2 kinds of borrowable:
     # the first is item attribute
-    items = items.where(is_borrowable: (params[:is_borrowable] == "true")) if params[:is_borrowable]
+    items = items.where(is_borrowable: (params[:is_borrowable] == 'true')) if params[:is_borrowable]
     # the second is item scope
     items = items.borrowable if params[:borrowable]
 
@@ -126,18 +126,18 @@ class Item < ActiveRecord::Base
                   else
                     Model.joins(:categories).where(:"model_groups.id" => [Category.find(params[:category_id])] + Category.find(params[:category_id]).descendants)
                   end
-      items = items.where(:model_id => model_ids)
+      items = items.where(model_id: model_ids)
     end
-    items = items.where(:parent_id => params[:package_ids]) if params[:package_ids]
-    items = items.where(:parent_id => nil) if params[:not_packaged]
-    items = items.joins(:model).where(models: {is_package: (params[:packages] == "true")}) if params[:packages]
+    items = items.where(parent_id: params[:package_ids]) if params[:package_ids]
+    items = items.where(parent_id: nil) if params[:not_packaged]
+    items = items.joins(:model).where(models: {is_package: (params[:packages] == 'true')}) if params[:packages]
     items = items.in_stock if params[:in_stock]
     items = items.incomplete if params[:incomplete]
     items = items.broken if params[:broken]
-    items = items.where(:inventory_code => params[:inventory_code]) if params[:inventory_code]
-    items = items.where(:model_id => params[:model_ids]) if params[:model_ids]
+    items = items.where(inventory_code: params[:inventory_code]) if params[:inventory_code]
+    items = items.where(model_id: params[:model_ids]) if params[:model_ids]
     items = items.search(params[:search_term]) unless params[:search_term].blank?
-    items = items.default_paginate params unless params[:paginate] == "false"
+    items = items.default_paginate params unless params[:paginate] == 'false'
     items
   end
 
@@ -152,48 +152,48 @@ class Item < ActiveRecord::Base
     if model.is_package? and reservations.empty?
       # NOTE only never handed over packages can be deleted
     else
-      errors.add(:base, "Item cannot be deleted")
+      errors.add(:base, 'Item cannot be deleted')
       return false
     end
   end
 
-  scope :borrowable, -> { where(:is_borrowable => true, :parent_id => nil) }
-  scope :unborrowable, -> { where(:is_borrowable => false) }
+  scope :borrowable, -> { where(is_borrowable: true, parent_id: nil) }
+  scope :unborrowable, -> { where(is_borrowable: false) }
 
   scope :retired, -> {where.not(retired: nil)}
   scope :unretired, -> {where(retired: nil)}
 
-  scope :broken, -> { where(:is_broken => true) }
-  scope :incomplete, -> { where(:is_incomplete => true) }
+  scope :broken, -> { where(is_broken: true) }
+  scope :incomplete, -> { where(is_incomplete: true) }
 
   scope :unfinished, -> { where(['inventory_code IS NULL OR model_id IS NULL']) }
 
-  scope :inventory_relevant, -> { where(:is_inventory_relevant => true) }
-  scope :not_inventory_relevant, -> { where(:is_inventory_relevant => false) }
+  scope :inventory_relevant, -> { where(is_inventory_relevant: true) }
+  scope :not_inventory_relevant, -> { where(is_inventory_relevant: false) }
 
   scope :packages, -> { joins(:model).where(models: {is_package: true}) }
   #temp# scope :packaged, -> {where("parent_id IS NOT NULL")}
 
   # Added parent_id to "in_stock" so items that are in packages are considered to not be available
-  scope :in_stock, -> { joins("LEFT JOIN reservations AS cl001 ON items.id=cl001.item_id AND cl001.returned_date IS NULL").where("cl001.id IS NULL AND items.parent_id IS NULL") }
-  scope :not_in_stock, -> { joins("INNER JOIN reservations AS cl001 ON items.id=cl001.item_id AND cl001.returned_date IS NULL") }
+  scope :in_stock, -> { joins('LEFT JOIN reservations AS cl001 ON items.id=cl001.item_id AND cl001.returned_date IS NULL').where('cl001.id IS NULL AND items.parent_id IS NULL') }
+  scope :not_in_stock, -> { joins('INNER JOIN reservations AS cl001 ON items.id=cl001.item_id AND cl001.returned_date IS NULL') }
 
-  scope :by_owner_or_responsible, lambda { |ip| where(":id IN (items.owner_id, items.inventory_pool_id)", :id => ip.id) }
+  scope :by_owner_or_responsible, lambda { |ip| where(':id IN (items.owner_id, items.inventory_pool_id)', id: ip.id) }
 
-  scope :items, -> { joins(:model).where(models: {type: "Model"}) }
-  scope :licenses, -> { joins(:model).where(models: {type: "Software"}) }
+  scope :items, -> { joins(:model).where(models: {type: 'Model'}) }
+  scope :licenses, -> { joins(:model).where(models: {type: 'Software'}) }
 
 ####################################################################
 
   def type
     #case model.type
     case model.try :type # FIXME database consistency: there are items with model_id as nil
-      when "Model", nil
-        "Item"
-      when "Software"
-        "License"
+      when 'Model', nil
+        'Item'
+      when 'Software'
+        'License'
       else
-        raise "Unknown type"
+        raise 'Unknown type'
     end
   end
 
@@ -204,7 +204,7 @@ class Item < ActiveRecord::Base
   # Generates an array suitable for outputting a line of CSV using CSV
   def to_csv_array(options = {global: false})
     if self.model.nil? or self.model.name.blank?
-      model_manufacturer = "UNKNOWN" if self.model.try(:manufacturer).blank? # FIXME using model.try because database inconsistency
+      model_manufacturer = 'UNKNOWN' if self.model.try(:manufacturer).blank? # FIXME using model.try because database inconsistency
     else
       model_manufacturer = self.model.manufacturer.gsub(/\"/, '""') unless self.model.manufacturer.blank?
     end
@@ -241,33 +241,33 @@ class Item < ActiveRecord::Base
 
     # Using #{} notation to catch nils gracefully and silently
     h1 = {
-        _("Created at") => "#{self.created_at}",
-        _("Updated at") => "#{self.updated_at}",
-        _("Product") => model.try(:product), # FIXME using model.try because database inconsistency
-        _("Version") => model.try(:version), # FIXME using model.try because database inconsistency
-        _("Manufacturer") => model_manufacturer
+        _('Created at') => "#{self.created_at}",
+        _('Updated at') => "#{self.updated_at}",
+        _('Product') => model.try(:product), # FIXME using model.try because database inconsistency
+        _('Version') => model.try(:version), # FIXME using model.try because database inconsistency
+        _('Manufacturer') => model_manufacturer
     }
-    if type == "Item"
+    if type == 'Item'
       h1.merge!({
-                    _("Description") => model.try(:description) # FIXME using model.try because database inconsistency
+                    _('Description') => model.try(:description) # FIXME using model.try because database inconsistency
                 })
     end
     h1.merge!({
                   case model.try(:type) # FIXME using model.try because database inconsistency
-                    when "Software"
-                      _("Software Information")
+                    when 'Software'
+                      _('Software Information')
                     else
-                      _("Technical Details")
+                      _('Technical Details')
                   end => model.try(:technical_detail) # FIXME using model.try because database inconsistency
               })
-    if type == "Item"
+    if type == 'Item'
       h1.merge!({
-                    _("Internal Description") => model.try(:internal_description), # FIXME using model.try because database inconsistency
-                    _("Important notes for hand over") => model.try(:hand_over_note), # FIXME using model.try because database inconsistency
-                    _("Categories") => categories.join("; "),
-                    _("Accessories") => (model ? model.accessories.map(&:to_s) : []).join("; "), # FIXME using model.try because database inconsistency
-                    _("Compatibles") => (model ? model.compatibles.map(&:to_s) : []).join("; "), # FIXME using model.try because database inconsistency
-                    _("Properties") => (model ? model.properties.map(&:to_s) : []).join("; ") # FIXME using model.try because database inconsistency
+                    _('Internal Description') => model.try(:internal_description), # FIXME using model.try because database inconsistency
+                    _('Important notes for hand over') => model.try(:hand_over_note), # FIXME using model.try because database inconsistency
+                    _('Categories') => categories.join('; '),
+                    _('Accessories') => (model ? model.accessories.map(&:to_s) : []).join('; '), # FIXME using model.try because database inconsistency
+                    _('Compatibles') => (model ? model.compatibles.map(&:to_s) : []).join('; '), # FIXME using model.try because database inconsistency
+                    _('Properties') => (model ? model.properties.map(&:to_s) : []).join('; ') # FIXME using model.try because database inconsistency
                     # current_borrowing_information: "#{self.current_borrowing_info unless options[:global]}",
                     # part_of_package: part_of_package,
                     # needs_permission: "#{self.needs_permission}",
@@ -308,16 +308,16 @@ class Item < ActiveRecord::Base
 
 # extract *last* number sequence in string
   def self.last_number(inventory_code)
-    inventory_code ||= ""
+    inventory_code ||= ''
     inventory_code.reverse.sub(/[^\d]*/, '').sub(/[^\d]+.*/, '').reverse.to_i
   end
 
   # proposes the next available number based on the owner inventory_pool
   # tries to take the next free inventory code after the previously created Item
   def self.proposed_inventory_code(inventory_pool)
-    last_inventory_code = Item.where(:owner_id => inventory_pool).order("created_at DESC").first.try(:inventory_code)
+    last_inventory_code = Item.where(owner_id: inventory_pool).order('created_at DESC').first.try(:inventory_code)
     num = last_number(last_inventory_code)
-    next_num = free_inventory_code_ranges({:from => num}).first.first
+    next_num = free_inventory_code_ranges({from: num}).first.first
     return "#{inventory_pool.shortname}#{next_num}"
   end
 
@@ -333,7 +333,7 @@ class Item < ActiveRecord::Base
   #
   def self.allocated_inventory_code_numbers(with_allocated_codes = false)
     h = {}
-    inventory_codes = ActiveRecord::Base.connection.select_values("SELECT inventory_code FROM items")
+    inventory_codes = ActiveRecord::Base.connection.select_values('SELECT inventory_code FROM items')
     inventory_codes.each do |code|
       num = last_number(code)
       h[num] = if with_allocated_codes
@@ -356,7 +356,7 @@ class Item < ActiveRecord::Base
   #
   def self.free_inventory_code_ranges(params)
     infinity = 1/0.0
-    default_params = {:from => 1, :to => infinity, :min_gap => 1}
+    default_params = {from: 1, to: infinity, min_gap: 1}
     params.reverse_merge!(default_params)
 
     from = [params[:from].to_i, 1].max
@@ -399,7 +399,7 @@ class Item < ActiveRecord::Base
 
     # FIXME this is a quick fix
     if reservation
-      _("%s until %s") % [reservation.user, I18n.l(reservation.end_date)] # TODO 1102** patch Date.to_s => to_s(:rfc822)
+      _('%s until %s') % [reservation.user, I18n.l(reservation.end_date)] # TODO 1102** patch Date.to_s => to_s(:rfc822)
     end
   end
 
@@ -411,7 +411,7 @@ class Item < ActiveRecord::Base
     elsif location
       current_location.push location.to_s
     end
-    current_location.join(", ")
+    current_location.join(', ')
   end
 
   def current_borrower
@@ -438,12 +438,12 @@ class Item < ActiveRecord::Base
   # TODO has_one
   def current_reservation
     # TODO 1102** make sure is only max 1 reservation
-    reservations.where(:returned_date => nil).first
+    reservations.where(returned_date: nil).first
   end
 
   # TODO has_one/has_many
   def latest_reservation
-    reservations.where.not(returned_date: nil).order("returned_date").last
+    reservations.where.not(returned_date: nil).order('returned_date').last
   end
 
   public
@@ -451,7 +451,7 @@ class Item < ActiveRecord::Base
 ####################################################################
 
   def log_history(text, user_id)
-    h = histories.create(:text => text, :user_id => user_id, :type_const => History::BROKEN)
+    h = histories.create(text: text, user_id: user_id, type_const: History::BROKEN)
     histories.reset if h.changed?
   end
 
@@ -470,7 +470,7 @@ class Item < ActiveRecord::Base
   def retired=(v)
     if v.is_a? Date
       self[:retired] = v
-    elsif [true, "true"].include? v
+    elsif [true, 'true'].include? v
       if retired?
         # we keep the existing stored date
       else
@@ -543,10 +543,10 @@ class Item < ActiveRecord::Base
       if parent.nil?
         errors.add(:base, _("The parent item doesn't exist (parent_id: %d)") % parent_id)
       elsif model.is_package?
-        errors.add(:base, _("A package cannot be nested to another package"))
+        errors.add(:base, _('A package cannot be nested to another package'))
       end
     else
-      errors.add(:base, _("A package item must belong to a package model")) unless children.empty? or model.is_package
+      errors.add(:base, _('A package item must belong to a package model')) unless children.empty? or model.is_package
 
       if model.is_package? and !!retired
         children.each do |item|
@@ -558,7 +558,7 @@ class Item < ActiveRecord::Base
 
   def validates_changes
     unless reservations.empty?
-      errors.add(:base, _("The model cannot be changed because the item is used in contracts already.")) if model_id_changed?
+      errors.add(:base, _('The model cannot be changed because the item is used in contracts already.')) if model_id_changed?
     end
     unless in_stock?
       errors.add(:base, _("The responsible inventory pool cannot be changed because it's not returned yet or has already been assigned to a contract line.")) if inventory_pool_id_changed?
@@ -576,7 +576,7 @@ class Item < ActiveRecord::Base
   end
 
   def check_child(child)
-    raise _("A package cannot be nested to another package") if child.model.is_package?
+    raise _('A package cannot be nested to another package') if child.model.is_package?
   end
 
 end

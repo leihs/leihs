@@ -24,7 +24,7 @@ class Manage::ReservationsController < Manage::ApplicationController
 
     @reservation = current_inventory_pool.reservations.find(params[:line_id])
     unless @reservation.update_attributes(params[:reservation])
-      render :status => :bad_request, :text => @reservation.errors.full_messages.uniq.join(', ')
+      render status: :bad_request, text: @reservation.errors.full_messages.uniq.join(', ')
     end
   end
 
@@ -42,7 +42,7 @@ class Manage::ReservationsController < Manage::ApplicationController
                end
       @reservation = create_reservation(@user, current_inventory_pool, @status, record, 1, params[:start_date], params[:end_date], params[:purpose_id])
     rescue => e
-      render :status => :bad_request, :text => e
+      render status: :bad_request, text: e
     end
   end
 
@@ -51,7 +51,7 @@ class Manage::ReservationsController < Manage::ApplicationController
     ActiveRecord::Base.transaction do
       template = Template.find(params[:template_id])
       template.model_links.each do |link|
-        if current_inventory_pool.models.exists?(:id => link.model_id)
+        if current_inventory_pool.models.exists?(id: link.model_id)
           link.quantity.times do
             @reservations.push create_reservation(@user, current_inventory_pool, @status, current_inventory_pool.models.find(link.model_id), 1, params[:start_date], params[:end_date], params[:purpose_id])
           end
@@ -62,11 +62,11 @@ class Manage::ReservationsController < Manage::ApplicationController
 
   def destroy
     begin
-      current_inventory_pool.reservations.where(:id => (params[:line_id] || params[:line_ids])).destroy_all
+      current_inventory_pool.reservations.where(id: (params[:line_id] || params[:line_ids])).destroy_all
     rescue => e
       Rails.logger.error e
     ensure
-      render :status => :ok, :json => {id: params[:line_id].to_i}
+      render status: :ok, json: {id: params[:line_id].to_i}
     end
   end
 
@@ -75,9 +75,9 @@ class Manage::ReservationsController < Manage::ApplicationController
                         end_date = params[:end_date].try{|x| Date.parse(x)} || Date.tomorrow)
     begin
       reservations.each{|line| line.update_time_line((start_date||line.start_date), end_date, current_user)}
-      render :status => :ok, :json => reservations
+      render status: :ok, json: reservations
     rescue => e
-      render :status => :bad_request, :text => e
+      render status: :bad_request, text: e
     end
   end
 
@@ -86,26 +86,26 @@ class Manage::ReservationsController < Manage::ApplicationController
     line = current_inventory_pool.reservations.approved.find params[:id]
 
     if item and line and line.model_id == item.model_id
-      @error = {:message => line.errors.full_messages.uniq.join(', ')} unless line.update_attributes(item: item)
+      @error = {message: line.errors.full_messages.uniq.join(', ')} unless line.update_attributes(item: item)
     else
       unless params[:inventory_code].blank?
         @error = if item and line and line.model_id != item.model_id
-          {:message => _("The inventory code %s is not valid for this model" % params[:inventory_code])}
+          {message: _('The inventory code %s is not valid for this model' % params[:inventory_code])}
         elsif line
-          {:message => _("The item with the inventory code '%s' was not found" % params[:inventory_code])}
+          {message: _("The item with the inventory code '%s' was not found" % params[:inventory_code])}
         elsif item
-          {:message => _("The line was not found")}
+          {message: _('The line was not found')}
         else 
-          {:message => _("Assigning the inventory code fails")}
+          {message: _('Assigning the inventory code fails')}
         end
       end
       line.update_attributes(item: nil)
     end
     
     if @error.blank? 
-      render :status => :ok, :json => line
+      render status: :ok, json: line
     else
-      render :status => :bad_request, :json => @error
+      render status: :bad_request, json: @error
     end
   end
 
@@ -123,7 +123,7 @@ class Manage::ReservationsController < Manage::ApplicationController
 
     # find model or option 
     model = if not code.blank?
-      item = current_inventory_pool.items.where(:inventory_code => code).first 
+      item = current_inventory_pool.items.where(inventory_code: code).first 
       item.model if item
     elsif model_group_id
       Template.find(model_group_id) # TODO scope current_inventory_pool ?
@@ -132,26 +132,26 @@ class Manage::ReservationsController < Manage::ApplicationController
     end
     unless model
       option = current_inventory_pool.options.find option_id if option_id
-      option ||= current_inventory_pool.options.where(:inventory_code => code).first
+      option ||= current_inventory_pool.options.where(inventory_code: code).first
     end
     
     # create new line or assign
     if model
       # try to assign for (selected)line_ids first
-      line = contract.reservations.where(:id => line_ids, :model_id => item.model, :item_id => nil).first if line_ids and code
+      line = contract.reservations.where(id: line_ids, model_id: item.model, item_id: nil).first if line_ids and code
       # try to assign to contract reservations of the customer
-      line ||= contract.reservations.where(:model_id => model.id, :item_id => nil).order(:start_date).first if code
+      line ||= contract.reservations.where(model_id: model.id, item_id: nil).order(:start_date).first if code
       # add new line
       line ||= model.add_to_contract(contract, contract.user, quantity, start_date, end_date).first
       @error = line.errors.values.join if model_group_id.nil? and item and line and not line.update_attributes(item: item)
     elsif option
-      if line = contract.reservations.where(:option_id => option.id, :start_date => start_date, :end_date => end_date).first
+      if line = contract.reservations.where(option_id: option.id, start_date: start_date, end_date: end_date).first
         line.quantity += quantity
         line.save
       # FIXME go through contract.add_lines ??
       elsif not line = contract.user.option_lines.create(status: contract.status, inventory_pool: contract.inventory_pool,
                                                          option: option, quantity: quantity, start_date: start_date, end_date: end_date)
-        @error = _("The option could not be added" % code)
+        @error = _('The option could not be added' % code)
       end
     else
       @error = if code
@@ -164,16 +164,16 @@ class Manage::ReservationsController < Manage::ApplicationController
     end
     
     if @error.blank?
-      render :status => :ok, :json => line
+      render status: :ok, json: line
     else
-      render :status => :bad_request, :text => @error
+      render status: :bad_request, text: @error
     end
   end
 
   def remove_assignment
     line = current_inventory_pool.reservations.approved.find params[:id]
-    line.update_attributes({:item_id => nil})
-    render :nothing=> true, :status => :no_content
+    line.update_attributes({item_id: nil})
+    render nothing: true, status: :no_content
   end
 
   def take_back
@@ -181,8 +181,8 @@ class Manage::ReservationsController < Manage::ApplicationController
     reservations = current_inventory_pool.reservations.find(params[:ids])
 
     reservations.each do |l|
-      l.update_attributes(:returned_date => Date.today, :returned_to_user_id => current_user.id)
-      l.item.histories.create(:user => current_user, :text => _("Item taken back"), :type_const => History::ACTION) unless l.item.is_a? Option
+      l.update_attributes(returned_date: Date.today, returned_to_user_id: current_user.id)
+      l.item.histories.create(user: current_user, text: _('Item taken back'), type_const: History::ACTION) unless l.item.is_a? Option
     end
 
     if returned_quantity
@@ -194,17 +194,17 @@ class Manage::ReservationsController < Manage::ApplicationController
           new_line.quantity -= v.to_i
           new_line.returned_date = nil
           new_line.save
-          line.update_attributes(:quantity => v.to_i)
+          line.update_attributes(quantity: v.to_i)
         end
       end
     end
 
-    render :status => :no_content, :nothing => true
+    render status: :no_content, nothing: true
   end
 
   def swap_user
     user = current_inventory_pool.users.find params[:user_id]
-    reservations = current_inventory_pool.reservations.where(:id => params[:line_ids])
+    reservations = current_inventory_pool.reservations.where(id: params[:line_ids])
     ActiveRecord::Base.transaction do
       reservations.each do |line|
         delegated_user = if user.is_delegation
@@ -229,12 +229,12 @@ class Manage::ReservationsController < Manage::ApplicationController
   def print
     @reservations = current_inventory_pool.reservations.where(id: params[:ids])
     case params[:type]
-      when "value_list"
+      when 'value_list'
         @user = @reservations.first.user
-        render "documents/reservations", layout: "print"
-      when "picking_list"
+        render 'documents/reservations', layout: 'print'
+      when 'picking_list'
         @contract = @reservations.first.contract
-        render "documents/picking_list", layout: "print"
+        render 'documents/picking_list', layout: 'print'
     end
   end
 
@@ -259,7 +259,7 @@ class Manage::ReservationsController < Manage::ApplicationController
     Reservation.transaction do
       reservation.save!
       if (is_group_manager? and not is_lending_manager?) and not reservation.available?
-        raise _("Not available")
+        raise _('Not available')
       else
         reservation
       end

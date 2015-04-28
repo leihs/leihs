@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_gettext_locale, :load_settings
 
-  layout "splash"
+  layout 'splash'
 
   protect_from_forgery
 
@@ -39,32 +39,32 @@ class ApplicationController < ActionController::Base
 
   def set_gettext_locale
     language = if params[:locale]
-      Language.where(:locale_name => params[:locale]).first
+      Language.where(locale_name: params[:locale]).first
     elsif current_user
       current_user.language
     elsif session[:locale]
-      Language.where(:locale_name => session[:locale]).first
+      Language.where(locale_name: session[:locale]).first
     end
     language ||= Language.default_language
     unless language.nil?
-      current_user.update_attributes(:language_id => language.id) if current_user and (params[:locale] or current_user.language_id.nil?)
+      current_user.update_attributes(language_id: language.id) if current_user and (params[:locale] or current_user.language_id.nil?)
       session[:locale] = language.locale_name
       I18n.locale = language.locale_name.to_sym
     end
   end
 
   def load_settings
-    if not Setting.const_defined?("SMTP_ADDRESS") and logged_in? and not [manage_edit_settings_path, manage_update_settings_path, logout_path].include? request.path
+    if not Setting.const_defined?('SMTP_ADDRESS') and logged_in? and not [manage_edit_settings_path, manage_update_settings_path, logout_path].include? request.path
       if current_user.has_role?(:admin)
         redirect_to manage_edit_settings_path
       else
-        raise "Application settings are missing!"
+        raise 'Application settings are missing!'
       end
     end
   end
 
   def set_pagination_header(paginated_active_record)
-    headers["X-Pagination"] = {
+    headers['X-Pagination'] = {
       total_count: paginated_active_record.total_entries,
       per_page: paginated_active_record.per_page,
       offset: paginated_active_record.offset
@@ -83,7 +83,7 @@ class ApplicationController < ActionController::Base
         flash[:error] = msg
         redirect_to options[:redirect_path]
       end
-      format.json { render :text => msg }
+      format.json { render text: msg }
     end
   end
 

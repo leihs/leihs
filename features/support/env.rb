@@ -49,8 +49,8 @@ Capybara.register_driver :selenium_firefox do |app|
   profile = Selenium::WebDriver::Firefox::Profile.new
   # we need a firefox extension to start intercepting javascript errors before the page scripts load
   # see https://github.com/mguillem/JSErrorCollector
-  profile.add_extension File.join(Rails.root, "features/support/extensions/JSErrorCollector.xpi")
-  Capybara::Selenium::Driver.new app, :profile => profile
+  profile.add_extension File.join(Rails.root, 'features/support/extensions/JSErrorCollector.xpi')
+  Capybara::Selenium::Driver.new app, profile: profile
 end
 
 Capybara.register_driver :selenium_chrome do |app|
@@ -63,7 +63,7 @@ begin
   # we cannot use transactional tests because we are restoring personas data from sql dumps
   DatabaseCleaner.strategy = :truncation
 rescue NameError
-  raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
+  raise 'You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it.'
 end
 
 Before('@personas') do
@@ -71,16 +71,16 @@ Before('@personas') do
 end
 
 Before('@ldap') do
-  ENV['TMPDIR'] = File.join(Rails.root, "tmp")
+  ENV['TMPDIR'] = File.join(Rails.root, 'tmp')
   # TODO: Move this out to something that runs *before* the test suite itself?
   unless File.exist?(ENV['TMPDIR'])
     Dir.mkdir(ENV['TMPDIR'])
   end
-  Setting::LDAP_CONFIG = File.join(Rails.root, "features", "data", "LDAP_generic.yml")
+  Setting::LDAP_CONFIG = File.join(Rails.root, 'features', 'data', 'LDAP_generic.yml')
   @ldap_server = Ladle::Server.new(
-    :port => 12345,
-    :ldif => File.join(Rails.root, "features", "data", "ldif", "generic.ldif"),
-    :domain => "dc=example,dc=org"
+    port: 12345,
+    ldif: File.join(Rails.root, 'features', 'data', 'ldif', 'generic.ldif'),
+    domain: 'dc=example,dc=org'
   )
   @ldap_server.start
 end
@@ -98,12 +98,12 @@ Before('@browser', '@chrome') do
 end
 
 Before('@browser') do
-  @use_browser = case ENV["BROWSER"]
-                   when "0"
+  @use_browser = case ENV['BROWSER']
+                   when '0'
                      false
-                   when "chrome"
+                   when 'chrome'
                      :chrome
-                   when "firefox"
+                   when 'firefox'
                      :firefox
                    else
                      @use_browser || ENV['DEFAULT_BROWSER'].try(:to_sym) || :firefox
@@ -111,10 +111,10 @@ Before('@browser') do
 end
 
 Before('~@browser') do
-  @use_browser = case ENV["BROWSER"]
-                   when "chrome"
+  @use_browser = case ENV['BROWSER']
+                   when 'chrome'
                      :chrome
-                   when "firefox"
+                   when 'firefox'
                      :firefox
                    else
                      false
@@ -143,7 +143,7 @@ end
 
 After do
   if @use_browser and @use_browser == :firefox
-    errors = page.execute_script("return window.JSErrorCollector_errors.pump()")
+    errors = page.execute_script('return window.JSErrorCollector_errors.pump()')
     if errors.any?
       puts '-------------------------------------------------------------'
       puts "Found #{errors.length} javascript errors"
@@ -161,7 +161,7 @@ After('@ldap') do
   @ldap_server.stop
 end
 
-if ENV["PRY"]
+if ENV['PRY']
   AfterStep do
     binding.pry
   end

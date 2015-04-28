@@ -2,15 +2,15 @@
 
 #Angenommen(/^ich habe Gegenstände der Bestellung hinzugefügt$/) do
 Given(/^I have added items to an order$/) do
-  step "I have an unsubmitted order with models"
+  step 'I have an unsubmitted order with models'
   @contracts = @current_user.reservations_bundles.unsubmitted
 end
 
 #Wenn(/^ich die Bestellübersicht öffne$/) do
 When(/^I open my list of orders$/) do
   visit borrow_current_order_path
-  expect(has_content?(_("Order overview"))).to be true
-  expect(all(".line").count).to eq @current_user.reservations.unsubmitted.count
+  expect(has_content?(_('Order overview'))).to be true
+  expect(all('.line').count).to eq @current_user.reservations.unsubmitted.count
 end
 
 #############################################################################
@@ -18,40 +18,40 @@ end
 #Dann(/^sehe ich die Einträge gruppiert nach Startdatum und Gerätepark$/) do
 Then(/^I see entries grouped by start date and inventory pool$/) do
   @current_user.reservations.unsubmitted.group_by{|l| [l.start_date, l.inventory_pool]}.each do |k,v|
-    find("#current-order-lines .row", text: /#{I18n.l(k[0])}.*#{k[1].name}/)
+    find('#current-order-lines .row', text: /#{I18n.l(k[0])}.*#{k[1].name}/)
   end
 end
 
 #Dann(/^die Modelle sind alphabetisch sortiert$/) do
 Then(/^the models are ordered alphabetically$/) do
-  all(".emboss.deep").each do |x|
-    names = x.all(".line .name").map{|name| name.text}
+  all('.emboss.deep').each do |x|
+    names = x.all('.line .name').map{|name| name.text}
     expect(names.sort == names).to be true
   end
 end
 
 #Dann(/^für jeden Eintrag sehe ich die folgenden Informationen$/) do |table|
 Then(/^each entry has the following information$/) do |table|
-  all(".line").each do |line|
-    reservations = Reservation.find JSON.parse line["data-ids"]
+  all('.line').each do |line|
+    reservations = Reservation.find JSON.parse line['data-ids']
     table.raw.map{|e| e.first}.each do |row|
       case row
-        when "Image"
-          expect(line.find("img", match: :first)[:src][reservations.first.model.id.to_s]).to be
-        when "Quantity"
+        when 'Image'
+          expect(line.find('img', match: :first)[:src][reservations.first.model.id.to_s]).to be
+        when 'Quantity'
           expect(line.has_content?(reservations.sum(&:quantity))).to be true
-        when "Model name"
+        when 'Model name'
           expect(line.has_content?(reservations.first.model.name)).to be true
-        when "Manufacturer"
+        when 'Manufacturer'
           expect(line.has_content?(reservations.first.model.manufacturer)).to be true
-        when "Number of days"
+        when 'Number of days'
           expect(line.has_content?(((reservations.first.end_date - reservations.first.start_date).to_i+1).to_s)).to be true
-        when "End date"
+        when 'End date'
           expect(line.has_content?(I18n.l reservations.first.end_date)).to be true
-        when "the various actions"
-          line.find(".line-actions", match: :first)
+        when 'the various actions'
+          line.find('.line-actions', match: :first)
         else
-          raise "Unknown"
+          raise 'Unknown'
       end
     end
   end
@@ -70,19 +70,19 @@ end
 
 #Wenn(/^ich einen Eintrag lösche$/) do
 When(/^I delete an entry$/) do
-  line = find(".line", match: :first)
-  line_ids = line["data-ids"]
-  line.find(".dropdown-holder").click
+  line = find('.line', match: :first)
+  line_ids = line['data-ids']
+  line.find('.dropdown-holder').click
   @before_max_available = before_max_available(@current_user)
   line.find("a[data-method='delete']").click
   #step "werde ich gefragt ob ich die Bestellung wirklich löschen möchte"
-  step "I am asked whether I really want to delete the order"
+  step 'I am asked whether I really want to delete the order'
   expect(has_no_selector?(".line[data-ids='#{line_ids}']")).to be true
 end
 
 #Dann(/^wird der Eintrag aus der Bestellung entfernt$/) do
 Then(/^the entry is removed from the order$/) do
-  expect(all(".line").count).to eq @current_user.reservations.unsubmitted.count
+  expect(all('.line').count).to eq @current_user.reservations.unsubmitted.count
 end
 
 #############################################################################
@@ -131,7 +131,7 @@ end
 
 #Wenn(/^ich die Bestellung abschliesse$/) do
 When(/^I submit the order$/) do
-  find("form button.green", match: :first).click
+  find('form button.green', match: :first).click
 end
 
 #Dann(/^ändert sich der Status der Bestellung auf Abgeschickt$/) do
@@ -143,19 +143,19 @@ end
 
 #Dann(/^ich erhalte eine Bestellbestätigung$/) do
 Then(/^I see an order confirmation$/) do
-  find(".notice", match: :first)
+  find('.notice', match: :first)
 end
 
 #Dann(/^in der Bestellbestätigung wird mitgeteilt, dass die Bestellung in Kürze bearbeitet wird$/) do
 Then(/^the order confirmation lets me know that my order will be handled soon$/) do
-  find(".notice", match: :first, text: _("Your order has been successfully submitted, but is NOT YET APPROVED."))
+  find('.notice', match: :first, text: _('Your order has been successfully submitted, but is NOT YET APPROVED.'))
 end
 
 #############################################################################
 
 #Wenn(/^der Zweck nicht abgefüllt wird$/) do
 When(/^I don't fill in the purpose$/) do
-  find("form textarea[name='purpose']", match: :first).set ""
+  find("form textarea[name='purpose']", match: :first).set ''
 end
 
 #Dann(/^hat der Benutzer keine Möglichkeit die Bestellung abzuschicken$/) do
@@ -176,8 +176,8 @@ When(/^I change the entry$/) do
     @just_changed_line.click
   else
     # try to get reservations where quantity is still increasable
-    line_to_edit = all("[data-change-order-lines]").detect do |line|
-      reservations = Reservation.find JSON.parse line["data-ids"]
+    line_to_edit = all('[data-change-order-lines]').detect do |line|
+      reservations = Reservation.find JSON.parse line['data-ids']
       if reservations.first.maximum_available_quantity > 0
         @changed_lines = reservations
       end
@@ -186,8 +186,8 @@ When(/^I change the entry$/) do
     if line_to_edit
       line_to_edit.click
     else
-      @changed_lines = Reservation.find JSON.parse find("[data-change-order-lines]", match: :first)["data-ids"]
-      find("[data-change-order-lines]", match: :first).click
+      @changed_lines = Reservation.find JSON.parse find('[data-change-order-lines]', match: :first)['data-ids']
+      find('[data-change-order-lines]', match: :first).click
     end
   end
 end
@@ -205,12 +205,12 @@ end
 
 #Dann(/^wird der Eintrag gemäss aktuellen Einstellungen geändert$/) do
 Then(/^the entry's date is changed accordingly$/) do
-  within(".line", match: :first) do
-    find("[data-change-order-lines]").click
+  within('.line', match: :first) do
+    find('[data-change-order-lines]').click
   end
-  within ".modal" do
-    find("#booking-calendar .fc-widget-content", :match => :first)
-    find(".modal-close").click
+  within '.modal' do
+    find('#booking-calendar .fc-widget-content', match: :first)
+    find('.modal-close').click
   end
   if @new_date
     expect(@changed_lines.first.reload.start_date).to eq @new_date
@@ -236,5 +236,5 @@ end
 
 # Dann(/^sehe ich die Zeitinformationen in folgendem Format "(.*?)"$/) do |format|
 Then(/^I see the timer formatted as "(.*?)"$/) do |format|
-  find("#timeout-countdown-time", match: :first, text: Regexp.new(format.gsub("mm", "\\d+").gsub("ss", "\\d+")))
+  find('#timeout-countdown-time', match: :first, text: Regexp.new(format.gsub('mm', '\\d+').gsub('ss', '\\d+')))
 end

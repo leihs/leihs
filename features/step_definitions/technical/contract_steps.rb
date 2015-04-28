@@ -1,5 +1,5 @@
 When /^I create an approved contract for "(.*?)" with a contract line without an assigned item$/ do |name|
-  user = User.where(:login => name.downcase).first
+  user = User.where(login: name.downcase).first
   FactoryGirl.create :access_right, user: user, inventory_pool: @current_inventory_pool
 
   contract = user.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool)

@@ -17,14 +17,14 @@ class Manage::InventoryController < Manage::ApplicationController
   def index
     respond_to do |format|
       format.html {
-        session[:params] = nil if params[:filters] == "reset"
-        items = Item.filter params.clone.merge({paginate: "false", all: "true"}), current_inventory_pool
+        session[:params] = nil if params[:filters] == 'reset'
+        items = Item.filter params.clone.merge({paginate: 'false', all: 'true'}), current_inventory_pool
         @responsibles = InventoryPool.uniq.joins(:items).where("items.id IN (#{items.select("items.id").to_sql})").where(InventoryPool.arel_table[:id].eq(Item.arel_table[:inventory_pool_id]))
       }
       format.json {
         session[:params] = params.symbolize_keys
         @inventory = current_inventory_pool.inventory params
-        set_pagination_header(@inventory) unless params[:paginate] == "false"
+        set_pagination_header(@inventory) unless params[:paginate] == 'false'
       }
     end
   end

@@ -12,24 +12,24 @@ end
 
 # Dann(/^sehe ich kein Bestellfensterchen$/) do
 Then(/^I do not see the order window$/) do
-  expect(has_no_selector?(".col1of5 .navigation-tab-item", text: _("Order"))).to be true
+  expect(has_no_selector?('.col1of5 .navigation-tab-item', text: _('Order'))).to be true
 end
 
 #Then(/^sehe ich das Bestellfensterchen$/) do
 Then(/^I see the order window$/) do
-  expect(has_selector?(".col1of5 .navigation-tab-item", text: _("Order"))).to be true
+  expect(has_selector?('.col1of5 .navigation-tab-item', text: _('Order'))).to be true
 end
 
 #Dann(/^erscheint es im Bestellfensterchen$/) do
 Then(/^it appears in the order window$/) do
   visit borrow_root_path
-  find("#current-order-basket", match: :first)
+  find('#current-order-basket', match: :first)
 end
 
 #Dann(/^die Modelle im Bestellfensterchen sind alphabetisch sortiert$/) do
 Then(/^the models in the order window are sorted alphabetically$/) do
-  within "#current-order-basket #current-order-lines" do
-    @names = all(".line").map{|l| l[:title] }
+  within '#current-order-basket #current-order-lines' do
+    @names = all('.line').map{|l| l[:title] }
     expect(@names.sort == @names).to be true
   end
 end
@@ -47,20 +47,20 @@ When(/^I add the same model one more time$/) do
                      inventory_pool: @inventory_pool,
                      model: @new_reservation.model)
   #step "erscheint es im Bestellfensterchen"
-  step "it appears in the order window"
+  step 'it appears in the order window'
 end
 
 #Dann(/^wird die Anzahl dieses Modells erhöht$/) do
 Then(/^its quantity is increased$/) do
-  within "#current-order-basket #current-order-lines" do
+  within '#current-order-basket #current-order-lines' do
     line = find(".line[title='#{@new_reservation.model.name}']", match: :first)
-    line.find("span", match: :first, text: "2x #{@new_reservation.model.name}")
+    line.find('span', match: :first, text: "2x #{@new_reservation.model.name}")
   end
 end
 
 #Dann(/^ich kann zur detaillierten Bestellübersicht gelangen$/) do
 Then(/^I can go to the detailed order overview$/) do
-  find("#current-order-basket .button.green", text: _("Complete order"))
+  find('#current-order-basket .button.green', text: _('Complete order'))
 end
 
 #Wenn(/^ich mit dem Kalender ein Modell der Bestellung hinzufüge$/) do
@@ -96,34 +96,34 @@ end
 
 #Dann(/^sehe ich keine Zeitanzeige$/) do
 Then(/^I don't see a timer$/) do
-  expect(has_no_selector?("#current-order-basket #timeout-countdown")).to be true
+  expect(has_no_selector?('#current-order-basket #timeout-countdown')).to be true
 end
 
 #Dann(/^sehe ich die Zeitanzeige$/) do
 Then(/^I see a timer$/) do
-  step "I visit the homepage"
-  expect(has_selector?("#current-order-basket #timeout-countdown", :visible => true)).to be true
+  step 'I visit the homepage'
+  expect(has_selector?('#current-order-basket #timeout-countdown', visible: true)).to be true
   @timeoutStart = if @current_user.reservations.unsubmitted.empty?
                     Time.now
                   else
-                    @current_user.reservations.unsubmitted.order("RAND()").first.updated_at
+                    @current_user.reservations.unsubmitted.order('RAND()').first.updated_at
                   end
-  @countdown = find("#timeout-countdown-time", match: :first).text
+  @countdown = find('#timeout-countdown-time', match: :first).text
 end
 
 #Dann(/^die Zeitanzeige ist in einer Schaltfläche im Reiter "Bestellung" auf der rechten Seite$/) do
 Then(/^the timer is near the basket$/) do
-  find("#current-order-basket .navigation-tab-item #timeout-countdown #timeout-countdown-time", match: :first)
+  find('#current-order-basket .navigation-tab-item #timeout-countdown #timeout-countdown-time', match: :first)
 end
 
 #Dann(/^die Zeitanzeige zählt von (\d+) Minuten herunter$/) do |timeout_minutes|
 Then(/^the timer counts down from (\d+) minutes$/) do |timeout_minutes|
-  @countdown = find("#timeout-countdown-time", match: :first).text
-  minutes = @countdown.split(":")[0].to_i
-  seconds = @countdown.split(":")[1].to_i
+  @countdown = find('#timeout-countdown-time', match: :first).text
+  minutes = @countdown.split(':')[0].to_i
+  seconds = @countdown.split(':')[1].to_i
   sleep(1) # NOTE this sleep is required in order to test the countdown
   expect(Contract::TIMEOUT_MINUTES - 1).to be <= minutes
-  expect(find("#timeout-countdown-time", match: :first).reload.text.split(":")[1].to_i).to be < seconds
+  expect(find('#timeout-countdown-time', match: :first).reload.text.split(':')[1].to_i).to be < seconds
 end
 
 #Angenommen(/^die Bestellung ist nicht leer$/) do
@@ -134,19 +134,19 @@ end
 
 #Wenn(/^ich den Time-Out zurücksetze$/) do
 When(/^I reset the timer$/) do
-  @countdown = find("#timeout-countdown-time", match: :first).text
-  find("#timeout-countdown-refresh", match: :first).click
+  @countdown = find('#timeout-countdown-time', match: :first).text
+  find('#timeout-countdown-refresh', match: :first).click
 end
 
 #Dann(/^wird die Zeit zurückgesetzt$/) do
 Then(/^the timer is reset$/) do
-  seconds = @countdown.split(":")[1].to_i
-  secondsNow = find("#timeout-countdown-time", match: :first).reload.text.split(":")[1].to_i
+  seconds = @countdown.split(':')[1].to_i
+  secondsNow = find('#timeout-countdown-time', match: :first).reload.text.split(':')[1].to_i
   expect(secondsNow).to be >= seconds
 end
 
 Given(/^the timeout is set to (\d+) minutes?$/) do |arg1|
-  Contract.const_set "TIMEOUT_MINUTES", arg1.to_i
+  Contract.const_set 'TIMEOUT_MINUTES', arg1.to_i
   expect(Contract::TIMEOUT_MINUTES).to eq arg1.to_i
 end
 

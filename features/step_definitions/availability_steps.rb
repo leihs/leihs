@@ -17,14 +17,14 @@ Given "a reservation exists for $quantity '$model' from $from to $to" do |quanti
   end
   expect(@reservations.size).to be >= quantity.to_i
   contract = user.reservations_bundles.unsubmitted.find_by(inventory_pool_id: inventory_pool)
-  expect(contract.submit("this is the required purpose")).to be true
+  expect(contract.submit('this is the required purpose')).to be true
   expect(model.availability_in(inventory_pool.reload).running_reservations.size).to be >= 1
 end
 
 Given "a contract exists for $quantity '$model' from $from to $to" do |quantity, model, from, to|
   model = Model.find_by_name(model)
-  inventory_pool = model.inventory_pools.order("RAND()").detect {|ip| ip.is_open_on?(to_date(from)) and ip.is_open_on?(to_date(to))}
-  user = inventory_pool.users.order("RAND()").first
+  inventory_pool = model.inventory_pools.order('RAND()').detect {|ip| ip.is_open_on?(to_date(from)) and ip.is_open_on?(to_date(to))}
+  user = inventory_pool.users.order('RAND()').first
   purpose = FactoryGirl.create(:purpose)
   @reservations = []
   quantity.to_i.times do
@@ -32,7 +32,7 @@ Given "a contract exists for $quantity '$model' from $from to $to" do |quantity,
                                               status: :approved,
                                               quantity: 1,
                                               model: model,
-                                              item: model.items.in_stock.where(inventory_pool_id: inventory_pool).order("RAND()").first,
+                                              item: model.items.in_stock.where(inventory_pool_id: inventory_pool).order('RAND()').first,
                                               start_date: to_date(from),
                                               end_date: to_date(to),
                                               purpose: purpose)
@@ -42,7 +42,7 @@ Given "a contract exists for $quantity '$model' from $from to $to" do |quantity,
 end
 
 
-Given "the maintenance period for this model is $days days" do |days|
+Given 'the maintenance period for this model is $days days' do |days|
   @model.maintenance_period = days.to_i
   @model.save
 end
@@ -56,7 +56,7 @@ Given "$who marks $quantity '$model' as 'in-repair' on 18.3.2030" do |who, quant
   end
 end
 
-Given "the $who signs the contract" do |who|
+Given 'the $who signs the contract' do |who|
   contract_container = @reservations.first.user.reservations_bundles.approved.find_by(inventory_pool_id: @reservations.first.inventory_pool)
   contract = contract_container.sign(User.find_by_login(who), @reservations)
   expect(contract.valid?).to be true
@@ -79,22 +79,22 @@ When "$who checks availability for '$what' on $date" do |who, model, date|
   @current_user = User.find_by_login(who)
 end
 
-Then "it should always be available" do
+Then 'it should always be available' do
   expect(@model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(Date.today, Availability::ETERNITY, @user.group_ids)).to be > 0
 end
 
-Then "$quantity should be available from $from to $to" do |quantity, from, to|
+Then '$quantity should be available from $from to $to' do |quantity, from, to|
   from = to_date( from )
   to   = to_date( to )
   expect(@model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(from, to, @user.group_ids)).to eq quantity.to_i
 end
 
-Then "the maximum available quantity on $date is $quantity" do |date, quantity|
+Then 'the maximum available quantity on $date is $quantity' do |date, quantity|
   date = to_date(date)
   expect(@model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(date, date, @user.group_ids)).to eq quantity.to_i
 end
 
-Then "if I check the maximum available quantity for $date it is $quantity on $current_date" do |date, quantity, current_date|
+Then 'if I check the maximum available quantity for $date it is $quantity on $current_date' do |date, quantity, current_date|
   date = to_date(date)
   Dataset.back_to_date( to_date(current_date) )
   @inventory_pool.reload
@@ -103,7 +103,7 @@ Then "if I check the maximum available quantity for $date it is $quantity on $cu
   @inventory_pool.reload
 end
 
-Then "the maximum available quantity from $start_date to $end_date is $quantity" do |start_date, end_date, quantity|
+Then 'the maximum available quantity from $start_date to $end_date is $quantity' do |start_date, end_date, quantity|
   start_date = to_date(start_date)
   end_date   = to_date(end_date)
   expect(@model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(start_date, end_date, @user.group_ids)).to eq quantity.to_i
@@ -128,7 +128,7 @@ Then /^([^ ]*) reservation(.*)? should show an influence on the borrowability on
   number = to_number(number)
 
   # find header line, that contains the date
-  th = page.first('th', :text => "Borrowable #{date}")
+  th = page.first('th', text: "Borrowable #{date}")
   # parent 'tr' element
   tr_head = th.first(:xpath,'..')
   # next 'tr' element

@@ -15,7 +15,7 @@ end
 
 #When(/^ich sehe nur die Geräteparks, die ausleihbare Gegenstände enthalten$/) do
 When(/^I see only inventory pools containing borrowable items$/) do
-  expect(all(".row .padding-inset-l > .row > h2.padding-bottom-s").map(&:text)).to eq @current_user.inventory_pools.with_borrowable_items.sort_by {|ip| ip.name}.map(&:to_s)
+  expect(all('.row .padding-inset-l > .row > h2.padding-bottom-s').map(&:text)).to eq @current_user.inventory_pools.with_borrowable_items.sort_by {|ip| ip.name}.map(&:to_s)
 end
 
 #Dann(/^sehe die Beschreibung für jeden Gerätepark$/) do
@@ -29,5 +29,5 @@ end
 
 #Dann(/^die Geräteparks sind auf dieser Seite alphabetisch sortiert$/) do
 Then(/^the inventory pools are sorted alphabetically on this page$/) do
-  expect(all("h2").map(&:text)).to eq all("h2").map(&:text).sort
+  expect(all('h2').map(&:text)).to eq all('h2').map(&:text).sort
 end

@@ -5,10 +5,10 @@ class Workday < ActiveRecord::Base
   serialize :max_visits, Hash
 
   # deprecated
-  DAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+  DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
   # better
-  WORKDAYS = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
+  WORKDAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
   
   def is_open_on?(date)
     
@@ -48,8 +48,8 @@ class Workday < ActiveRecord::Base
 
   def workdays=(wdays)
     wdays.each_pair do |k,v|
-      write_attribute(WORKDAYS[k.to_i], v["open"].to_i)
-      max_visits[k.to_i] = v["max_visits"].blank? ? nil : v["max_visits"].to_i
+      write_attribute(WORKDAYS[k.to_i], v['open'].to_i)
+      max_visits[k.to_i] = v['max_visits'].blank? ? nil : v['max_visits'].to_i
     end
   end
 

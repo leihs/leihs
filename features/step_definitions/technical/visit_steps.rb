@@ -3,9 +3,9 @@ def object_with_sign_state?(object, sign_state)
 end
 
 Given /^there are "(.*?)" visits$/ do |visit_type|
-  if visit_type == "overdue" then
+  if visit_type == 'overdue' then
     step 'there are "hand over" visits'
-    @visits = @visits.where("date < ?", Date.today)
+    @visits = @visits.where('date < ?', Date.today)
   else
     @visits = Visit.method(visit_type.sub(' ', '_').to_sym).call
   end
@@ -19,9 +19,9 @@ end
 Then /^(each of the reservations|at least one line) of such contract must also be "(.*?)"$/ do |arg1, line_state|
   @visits.each do |visit|
     m = case arg1
-          when "each of the reservations"
+          when 'each of the reservations'
             :all?
-          when "at least one line"
+          when 'at least one line'
             :any?
         end
     t = visit.reservations.send(m) do |line|
@@ -37,7 +37,7 @@ end
 
 Then(/^the other reservations of such contract must be "(.*?)"$/) do |line_state|
   @visits.each do |visit|
-    signed_lines, other_lines = visit.reservations.partition {|line| object_with_sign_state? line, "signed" }
+    signed_lines, other_lines = visit.reservations.partition {|line| object_with_sign_state? line, 'signed' }
     unless other_lines.empty?
       other_lines.all? {|line| object_with_sign_state? line, line_state }
     end

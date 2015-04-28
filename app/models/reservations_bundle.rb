@@ -10,7 +10,7 @@ class ReservationsBundle < ActiveRecord::Base
     true
   end
 
-  self.table_name = "reservations"
+  self.table_name = 'reservations'
 
   default_scope -> {
     select("IFNULL(reservations.contract_id, CONCAT_WS('_', reservations.status, reservations.user_id, reservations.inventory_pool_id)) AS id,
@@ -28,7 +28,7 @@ class ReservationsBundle < ActiveRecord::Base
             AND reservations.inventory_pool_id = groups.inventory_pool_id
             AND partitions.group_id = groups.id
             AND partitions.model_id = reservations.model_id").
-    group("IFNULL(reservations.contract_id, reservations.status), reservations.user_id, reservations.inventory_pool_id").
+    group('IFNULL(reservations.contract_id, reservations.status), reservations.user_id, reservations.inventory_pool_id').
     order(nil)
   }
 
@@ -56,9 +56,9 @@ class ReservationsBundle < ActiveRecord::Base
   has_many :reservations, LINE_CONDITIONS, foreign_key: :inventory_pool_id, primary_key: :inventory_pool_id
   has_many :item_lines, LINE_CONDITIONS, foreign_key: :inventory_pool_id, primary_key: :inventory_pool_id
   has_many :option_lines, LINE_CONDITIONS, foreign_key: :inventory_pool_id, primary_key: :inventory_pool_id
-  has_many :models, -> { order('models.product ASC').uniq }, :through => :item_lines
-  has_many :items, :through => :item_lines
-  has_many :options, -> { uniq }, :through => :option_lines
+  has_many :models, -> { order('models.product ASC').uniq }, through: :item_lines
+  has_many :items, through: :item_lines
+  has_many :options, -> { uniq }, through: :option_lines
 
   # NOTE we need this method because the association has a inventory_pool_id as primary_key
   def reservation_ids
@@ -81,9 +81,9 @@ class ReservationsBundle < ActiveRecord::Base
 
   #######################################################
 
-  scope :with_verifiable_user, -> { having("verifiable_user = 1") }
-  scope :with_verifiable_user_and_model, -> { having("verifiable_user_and_model = 1") }
-  scope :no_verification_required, -> { having("verifiable_user_and_model != 1") }
+  scope :with_verifiable_user, -> { having('verifiable_user = 1') }
+  scope :with_verifiable_user_and_model, -> { having('verifiable_user_and_model = 1') }
+  scope :no_verification_required, -> { having('verifiable_user_and_model != 1') }
 
   def is_to_be_verified
     verifiable_user_and_model == 1
@@ -95,11 +95,11 @@ class ReservationsBundle < ActiveRecord::Base
                  return all if query.blank?
 
                  sql = uniq.
-                     joins("INNER JOIN users ON users.id = reservations.user_id").
+                     joins('INNER JOIN users ON users.id = reservations.user_id').
                      joins("LEFT JOIN contracts ON reservations.id = contracts.id AND reservations.status IN ('#{:signed}', '#{:closed}')").
-                     joins("LEFT JOIN options ON options.id = reservations.option_id").
-                     joins("LEFT JOIN models ON models.id = reservations.model_id").
-                     joins("LEFT JOIN items ON items.id = reservations.item_id")
+                     joins('LEFT JOIN options ON options.id = reservations.option_id').
+                     joins('LEFT JOIN models ON models.id = reservations.model_id').
+                     joins('LEFT JOIN items ON items.id = reservations.item_id')
 
                  query.split.each { |q|
                    qq = "%#{q}%"
@@ -155,14 +155,14 @@ class ReservationsBundle < ActiveRecord::Base
     contracts = contracts.where(id: params[:id]) if params[:id]
 
     if r = params[:range]
-      created_at_date = Arel::Nodes::NamedFunction.new "CAST", [arel_table[:created_at].as("DATE")]
+      created_at_date = Arel::Nodes::NamedFunction.new 'CAST', [arel_table[:created_at].as('DATE')]
       contracts = contracts.where(created_at_date.gteq(r[:start_date])) if r[:start_date]
       contracts = contracts.where(created_at_date.lteq(r[:end_date])) if r[:end_date]
     end
 
     contracts = contracts.order(arel_table[:created_at].desc)
 
-    contracts = contracts.default_paginate params unless params[:paginate] == "false"
+    contracts = contracts.default_paginate params unless params[:paginate] == 'false'
     contracts
   end
 
@@ -230,7 +230,7 @@ class ReservationsBundle < ActiveRecord::Base
       end
 
       unless line.new_record?
-        line.log_change(_("Added") + " #{attrs[:quantity]} #{attrs[:model].name} #{attrs[:start_date]} #{attrs[:end_date]}", current_user.try(:id))
+        line.log_change(_('Added') + " #{attrs[:quantity]} #{attrs[:model].name} #{attrs[:start_date]} #{attrs[:end_date]}", current_user.try(:id))
       end
 
       line
@@ -243,7 +243,7 @@ class ReservationsBundle < ActiveRecord::Base
 
   def remove_line(line, user_id)
     if [:unsubmitted, :submitted, :approved].include?(status)
-      line.log_change _("Removed %{q} %{m}") % {:q => line.quantity, :m => line.model.name}, user_id # OPTIMIZE we log before actually remove because association
+      line.log_change _('Removed %{q} %{m}') % {q: line.quantity, m: line.model.name}, user_id # OPTIMIZE we log before actually remove because association
       if reservations.include? line and line.destroy
         true
       else
@@ -258,7 +258,7 @@ class ReservationsBundle < ActiveRecord::Base
 
   def purpose_descriptions
     # join purposes
-    reservations.sort.map { |x| x.purpose.to_s }.uniq.delete_if { |x| x.blank? }.join("; ")
+    reservations.sort.map { |x| x.purpose.to_s }.uniq.delete_if { |x| x.blank? }.join('; ')
   end
   alias :purpose :purpose_descriptions
 
@@ -276,7 +276,7 @@ class ReservationsBundle < ActiveRecord::Base
   def submit(purpose_description = nil)
     # TODO relate to Application Settings (required_purpose)
     if purpose_description
-      purpose = Purpose.create :description => purpose_description
+      purpose = Purpose.create description: purpose_description
       reservations.each { |cl| cl.purpose = purpose }
     end
 
@@ -307,9 +307,9 @@ class ReservationsBundle < ActiveRecord::Base
         # can look up what happened
         logger.error "#{exception}\n    #{exception.backtrace.join("\n    ")}"
         self.errors.add(:base,
-                        _("The following error happened while sending a notification email to %{email}:\n") % {:email => target_user.email} +
+                        _("The following error happened while sending a notification email to %{email}:\n") % {email: target_user.email} +
                             "#{exception}.\n" +
-                            _("That means that the user probably did not get the approval mail and you need to contact him/her in a different way."))
+                            _('That means that the user probably did not get the approval mail and you need to contact him/her in a different way.'))
       end
       true
     else
@@ -344,7 +344,7 @@ class ReservationsBundle < ActiveRecord::Base
         end
       end
       if contract.valid?
-        log_history(_("Contract %d has been signed by %s") % [contract.id, contract.reservations.first.user.name], current_user.id)
+        log_history(_('Contract %d has been signed by %s') % [contract.id, contract.reservations.first.user.name], current_user.id)
       end
       contract
     end

@@ -12,21 +12,21 @@ class MailTemplate < ActiveRecord::Base
 
   def self.available_liquid_variables_for_order
     [
-        "user.name",
-        "inventory_pool.name",
-        "inventory_pool.description",
-        "email_signature",
-        {"order_lines" => [
-            "l.quantity",
-            "l.model_name",
-            "l.start_date",
-            "l.end_date"
+        'user.name',
+        'inventory_pool.name',
+        'inventory_pool.description',
+        'email_signature',
+        {'order_lines' => [
+            'l.quantity',
+            'l.model_name',
+            'l.start_date',
+            'l.end_date'
         ]},
-        {"histories" => [
-            "h.text"
+        {'histories' => [
+            'h.text'
         ]},
-        "comment",
-        "purpose"
+        'comment',
+        'purpose'
     ]
   end
 
@@ -53,19 +53,19 @@ class MailTemplate < ActiveRecord::Base
 
   def self.available_liquid_variables_for_user
     [
-        "user.name",
-        "inventory_pool.name",
-        "inventory_pool.description",
-        "email_signature",
-        {"order_lines" => [
-            "l.quantity",
-            "l.model_name",
-            "l.item_inventory_code",
-            "l.start_date",
-            "l.end_date"
+        'user.name',
+        'inventory_pool.name',
+        'inventory_pool.description',
+        'email_signature',
+        {'order_lines' => [
+            'l.quantity',
+            'l.model_name',
+            'l.item_inventory_code',
+            'l.start_date',
+            'l.end_date'
         ]},
-        "quantity",
-        "due_date"
+        'quantity',
+        'due_date'
     ]
   end
 
@@ -87,12 +87,12 @@ class MailTemplate < ActiveRecord::Base
   end
 
   def self.get_template(scope, inventory_pool, name, language)
-    mt = MailTemplate.find_by(inventory_pool_id: inventory_pool, name: name, language: language, format: "text")
-    mt ||= MailTemplate.where(inventory_pool_id: inventory_pool, name: name, format: "text")
+    mt = MailTemplate.find_by(inventory_pool_id: inventory_pool, name: name, language: language, format: 'text')
+    mt ||= MailTemplate.where(inventory_pool_id: inventory_pool, name: name, format: 'text')
 
     if mt.blank?
-      mt = MailTemplate.find_by(inventory_pool_id: nil, name: name, language: language, format: "text")
-      mt ||= MailTemplate.where(inventory_pool_id: nil, name: name, format: "text")
+      mt = MailTemplate.find_by(inventory_pool_id: nil, name: name, language: language, format: 'text')
+      mt ||= MailTemplate.where(inventory_pool_id: nil, name: name, format: 'text')
     end
 
     if mt.blank?
@@ -106,7 +106,7 @@ class MailTemplate < ActiveRecord::Base
 
   def syntax_validation
     begin
-      Liquid::Template.parse(body, :error_mode => :strict)
+      Liquid::Template.parse(body, error_mode: :strict)
     rescue => e
       errors.add :base, e.to_s
     end

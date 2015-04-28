@@ -1,6 +1,6 @@
 class Borrow::ApplicationController < ApplicationController
 
-  layout "borrow"
+  layout 'borrow'
 
   before_filter :check_maintenance_mode, except: :maintenance
   before_filter :require_customer, :redirect_if_order_timed_out, :init_breadcrumbs
@@ -15,14 +15,14 @@ class Borrow::ApplicationController < ApplicationController
   def refresh_timeout
     # ok, refreshed
     respond_to do |format|
-      format.html {render :nothing => true}
+      format.html {render nothing: true}
       date = if current_user.reservations.unsubmitted.empty?
                Time.now
              else
                current_user.reservations.unsubmitted.first.updated_at
              end
       format.json do
-        render :json => { date: date }
+        render json: { date: date }
       end
     end
   end
@@ -52,7 +52,7 @@ class Borrow::ApplicationController < ApplicationController
   end
 
   def init_breadcrumbs 
-    @bread_crumbs = BreadCrumbs.new params.delete("_bc")
+    @bread_crumbs = BreadCrumbs.new params.delete('_bc')
   end
 
 end

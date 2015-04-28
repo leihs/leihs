@@ -6,7 +6,7 @@
 
 
 #import_file = "/tmp/items.csv"
-import_file = "/tmp/items2.csv"
+import_file = '/tmp/items2.csv'
 
 
 @failures = 0
@@ -19,7 +19,7 @@ def create_item(model_name, inventory_code, serial_number, manufacturer, categor
     m = create_model(model_name, category, manufacturer, accessory_string)    
   end
   
-  ip = InventoryPool.find_or_create_by_name("HSLU")
+  ip = InventoryPool.find_or_create_by_name('HSLU')
   
   i = Item.new
   i.model = m
@@ -34,7 +34,7 @@ def create_item(model_name, inventory_code, serial_number, manufacturer, categor
   i.invoice_date = invoice_date
   
   if i.save
-    puts "Item imported correctly:"
+    puts 'Item imported correctly:'
     @successes += 1
     puts i.inspect
   else
@@ -44,10 +44,10 @@ def create_item(model_name, inventory_code, serial_number, manufacturer, categor
     puts i.inspect
   end
   
-  puts "-----------------------------------------"
-  puts "DONE"
+  puts '-----------------------------------------'
+  puts 'DONE'
   puts "#{@successes} successes, #{@failures} failures"
-  puts "-----------------------------------------"
+  puts '-----------------------------------------'
   
 end
 
@@ -56,18 +56,18 @@ def create_model(name, category, manufacturer, accessory_string)
   puts "creating model: #{name}, #{category}, #{manufacturer}, #{accessory_string}"
   
   if category.blank?
-    c = Category.find_or_create_by_name("Keine Kategorie")
+    c = Category.find_or_create_by_name('Keine Kategorie')
   else  
     c = Category.find_or_create_by_name(category)
   end
   
-  m = Model.create(:name => name, :manufacturer => manufacturer)
+  m = Model.create(name: name, manufacturer: manufacturer)
   m.categories << c
 
   unless accessory_string.blank?  
-    accessory_string.split("-").each do |string|
+    accessory_string.split('-').each do |string|
       unless string.blank?
-        acc = Accessory.create(:name => string.strip)
+        acc = Accessory.create(name: string.strip)
         m.accessories << acc
       end
     end
@@ -78,7 +78,7 @@ def create_model(name, category, manufacturer, accessory_string)
 end
 
 require 'csv'
-items_to_import = CSV.open(import_file, :headers => true)
+items_to_import = CSV.open(import_file, headers: true)
 
 # CSV fields:
 # 0: Bezeichnung
@@ -93,25 +93,25 @@ items_to_import.each do |item|
   model_name = "#{item["Gerätebezeichnung"]} #{item["Typenbezeichnung"]}"
   
   if model_name.blank?
-    puts "Skipping item with blank model name."
+    puts 'Skipping item with blank model name.'
     next
   end
   
   note = "#{item["Referenzdatei Inventar"]} #{item["Fehler Reparatur"]}"
   
-  price = item["Preis_Neu"].to_f
+  price = item['Preis_Neu'].to_f
   puts "price parsed to #{price}"
   # The purchase dates in the source file are only years, but Date.parse can't handle that,
   # so we add -01-01 to force to January 1.
-  invoice_date = Date.parse("#{item['Kaufdatum'].strip}-01-01") unless item["Kaufdatum"].blank?
+  invoice_date = Date.parse("#{item['Kaufdatum'].strip}-01-01") unless item['Kaufdatum'].blank?
   puts "purchase date parsed to #{invoice_date}"
   
   create_item(model_name, 
-              item["Inventarnummer_ID"],
-              item["Seriennummer"],
-              item["Marke"],
-              item["Gerätekategorie"],
-              item["Zubehör"],
+              item['Inventarnummer_ID'],
+              item['Seriennummer'],
+              item['Marke'],
+              item['Gerätekategorie'],
+              item['Zubehör'],
               note,
               price,
               invoice_date)

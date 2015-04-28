@@ -5,7 +5,7 @@ class Address < ActiveRecord::Base
   
   before_save :geocode
 
-  validates_uniqueness_of :street, :scope => [:zip_code, :city, :country_code]
+  validates_uniqueness_of :street, scope: [:zip_code, :city, :country_code]
   
   def to_s
     zip = [country, zip_code].compact.join('-')

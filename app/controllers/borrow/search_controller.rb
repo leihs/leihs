@@ -5,7 +5,7 @@ class Borrow::SearchController < Borrow::ApplicationController
     respond_to do |format|
       format.json 
       format.html do 
-        redirect_to borrow_search_results_path({:search_term => search_term})
+        redirect_to borrow_search_results_path({search_term: search_term})
       end
     end
   end

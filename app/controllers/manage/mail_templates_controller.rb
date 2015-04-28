@@ -10,8 +10,8 @@ class Manage::MailTemplatesController < Manage::ApplicationController
   public
 
   def index
-    files = Dir.glob(File.join(Rails.root, "app/views/mailer/", "**", "*.text.liquid"))
-    @existing_mail_templates = files.map { |file| [file.split('/')[-2], File.basename(file, ".liquid").split('.').first] }
+    files = Dir.glob(File.join(Rails.root, 'app/views/mailer/', '**', '*.text.liquid'))
+    @existing_mail_templates = files.map { |file| [file.split('/')[-2], File.basename(file, '.liquid').split('.').first] }
     # @existing_mail_templates = [
     #   {name: "remind"}
     # ]
@@ -21,7 +21,7 @@ class Manage::MailTemplatesController < Manage::ApplicationController
     @mail_templates = []
 
     Language.active_languages.each do |language|
-      ["text"].each do |format|
+      ['text'].each do |format|
         mt = nil
 
         if current_inventory_pool
@@ -36,7 +36,7 @@ class Manage::MailTemplatesController < Manage::ApplicationController
                                                   language: language,
                                                   format: format)
         if mt.body.blank?
-          file = File.read(File.join(Rails.root, "app/views/mailer/", params[:dir], "#{params[:name]}.#{format}.liquid"))
+          file = File.read(File.join(Rails.root, 'app/views/mailer/', params[:dir], "#{params[:name]}.#{format}.liquid"))
           mt.body = file
         end
         @mail_templates << mt
@@ -60,7 +60,7 @@ class Manage::MailTemplatesController < Manage::ApplicationController
     end
 
     if errors.empty?
-      redirect_to (current_inventory_pool ? "/manage/#{current_inventory_pool.id}/mail_templates" : "/manage/mail_templates")
+      redirect_to (current_inventory_pool ? "/manage/#{current_inventory_pool.id}/mail_templates" : '/manage/mail_templates')
     else
       flash.now[:error] = errors.uniq.join(', ')
       render :edit

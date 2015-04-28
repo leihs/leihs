@@ -39,12 +39,12 @@ class AccessRight < ActiveRecord::Base
 
   validates_presence_of :user, :role
   validates_presence_of :suspended_reason, if: :suspended_until?
-  validates_uniqueness_of :inventory_pool_id, :scope => :user_id
+  validates_uniqueness_of :inventory_pool_id, scope: :user_id
   validate do
     if role.to_sym == :admin
-      errors.add(:base, _("The admin role cannot be scoped to an inventory pool")) unless inventory_pool.nil?
+      errors.add(:base, _('The admin role cannot be scoped to an inventory pool')) unless inventory_pool.nil?
     else
-      errors.add(:base, _("Inventory Pool is missing")) if inventory_pool.nil?
+      errors.add(:base, _('Inventory Pool is missing')) if inventory_pool.nil?
 
       if deleted_at
         check_for_existing_reservations
@@ -56,7 +56,7 @@ class AccessRight < ActiveRecord::Base
     self.inventory_pool = nil if role.to_sym == :admin
     if user
       unless user.access_rights.active.empty?
-        old_ar = user.access_rights.active.where( :inventory_pool_id => inventory_pool.id ).first if inventory_pool
+        old_ar = user.access_rights.active.where( inventory_pool_id: inventory_pool.id ).first if inventory_pool
         user.access_rights.delete(old_ar) if old_ar
       end
     end
@@ -70,7 +70,7 @@ class AccessRight < ActiveRecord::Base
 ####################################################################
 
   scope :active, -> { where(deleted_at: nil) }
-  scope :suspended, -> { where.not(suspended_until: nil).where("suspended_until >= ?", Date.today) }
+  scope :suspended, -> { where.not(suspended_until: nil).where('suspended_until >= ?', Date.today) }
 
 ####################################################################
 
@@ -95,8 +95,8 @@ class AccessRight < ActiveRecord::Base
   def check_for_existing_reservations
     if inventory_pool
       reservations = inventory_pool.reservations.where(user_id: user)
-      errors.add(:base, _("Currently has open orders")) if reservations.submitted.exists? or reservations.approved.exists?
-      errors.add(:base, _("Currently has items to return")) if reservations.signed.exists?
+      errors.add(:base, _('Currently has open orders')) if reservations.submitted.exists? or reservations.approved.exists?
+      errors.add(:base, _('Currently has items to return')) if reservations.signed.exists?
     end
   end
 

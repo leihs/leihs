@@ -5,30 +5,30 @@ namespace :zhdk do
   
     # These paths are hardcoded for now. Make them configurable if you
     # feel like it.
-    production_config = YAML.load_file("/home/rails/leihs/leihs2/database.yml")['production']
-    staging_config = YAML.load_file("/home/rails/leihs/leihs2test/database.yml")['production']
+    production_config = YAML.load_file('/home/rails/leihs/leihs2/database.yml')['production']
+    staging_config = YAML.load_file('/home/rails/leihs/leihs2test/database.yml')['production']
     
     if staging_config['database'] =~ /.*prod.*/
       exit_with_production_warning
     end
     
-    dump_database(production_config, "/tmp/dump.sql")
-    load_database(staging_config, "/tmp/dump.sql")
+    dump_database(production_config, '/tmp/dump.sql')
+    load_database(staging_config, '/tmp/dump.sql')
     
   end
 
 
   def exit_with_production_warning
-      warning = ""
+      warning = ''
       warning += "You seem to have a production database configured in the staging\n"
       warning += "configuration file. I won't continue like that. Make sure the\n"
       warning += "target database does not have 'prod' in its name, I will refuse\n"
       warning += "to copy anything to that.\n"
-      print_warning(warning, title = "=== ABORT! ===")
+      print_warning(warning, title = '=== ABORT! ===')
       exit 1
   end
 
-  def print_warning(warning, title = "=== WARNING! ===")
+  def print_warning(warning, title = '=== WARNING! ===')
      puts "\n\n"
      puts title
      puts warning
@@ -43,7 +43,7 @@ namespace :zhdk do
       #{config['database']} > #{filename}`
     
     if $?.to_i > 0
-      print_warning("The dump process did not complete. Exiting without doing anything.")
+      print_warning('The dump process did not complete. Exiting without doing anything.')
       exit 1
     end
   end
@@ -58,7 +58,7 @@ namespace :zhdk do
       exit 1
     end
     
-    Rake::Task["ts:reindex"].execute
+    Rake::Task['ts:reindex'].execute
     
   end
   

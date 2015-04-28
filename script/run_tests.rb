@@ -52,8 +52,8 @@ def gettext_file_valid?(file)
 end
 
 def gettext_files_valid?
-  files = ["locale/leihs.pot"]
-  files += Dir.glob("locale/**/leihs.po")
+  files = ['locale/leihs.pot']
+  files += Dir.glob('locale/**/leihs.po')
   files.each do |file|
     return false unless gettext_file_valid?(file)
   end
@@ -62,17 +62,17 @@ end
 
 def rerun(maximum = 3, run_count = 0)
   while run_count <= maximum
-    if File.exists?("tmp/rererun.txt")
-      FileUtils.mv("tmp/rererun.txt", "tmp/rerun.txt")
+    if File.exists?('tmp/rererun.txt')
+      FileUtils.mv('tmp/rererun.txt', 'tmp/rerun.txt')
     end
-    if (File.exists?("tmp/rerun.txt") && File.size("tmp/rerun.txt") > 0)
-      puts "Rerun necessary."
-      exitstatus = run_command("bundle exec cucumber -p rerun")
+    if (File.exists?('tmp/rerun.txt') && File.size('tmp/rerun.txt') > 0)
+      puts 'Rerun necessary.'
+      exitstatus = run_command('bundle exec cucumber -p rerun')
       run_count += 1
       if exitstatus != 0
         rerun(maximum, run_count)
       else
-        die(0, "All went well after rerunning.")
+        die(0, 'All went well after rerunning.')
       end
     end
   end
@@ -93,18 +93,18 @@ if not gettext_installed?
 end
 
 if not gettext_files_valid?
-  die(16, "The gettext files did not validate.")
+  die(16, 'The gettext files did not validate.')
 end
 
 # Testing proper
 
-puts "Prerequisites for running the tests are met, starting Cucumber..."
-FileUtils.rm_f(["tmp/rerun.txt", "tmp/rererun.txt"])
+puts 'Prerequisites for running the tests are met, starting Cucumber...'
+FileUtils.rm_f(['tmp/rerun.txt', 'tmp/rererun.txt'])
 exitstatus = run_command("bundle exec cucumber -p #{profile}")
 
 # Rerun for failures, up to n times
 if exitstatus != 0
   rerun(4)
 else
-  die(0, "All went well on the very first run.")
+  die(0, 'All went well on the very first run.')
 end

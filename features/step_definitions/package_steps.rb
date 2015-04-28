@@ -13,7 +13,7 @@ Given "item '$item' is part of package item $package_item" do |item, package_ite
 end
 
 When /^lending_manager clicks to add an additional model$/ do
-  get_via_redirect add_line_backend_inventory_pool_acknowledge_path(@inventory_pool, :start_date => Date.today, :end_date => Date.today)
+  get_via_redirect add_line_backend_inventory_pool_acknowledge_path(@inventory_pool, start_date: Date.today, end_date: Date.today)
   #follow_redirect!
 end
 

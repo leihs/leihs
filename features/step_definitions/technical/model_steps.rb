@@ -12,7 +12,7 @@ When /^the quantity of items of a user for a specific model is retrieved$/ do
   @quantities_1 = []
   @users.each do |user|
     @models.each do |model|
-      @quantities_1 << user.items.where(:model_id => model).count
+      @quantities_1 << user.items.where(model_id: model).count
     end
   end
 end
@@ -21,7 +21,7 @@ When /^the quantity of items of a model for a specific user is retrieved$/ do
   @quantities_2 = []
   @users.each do |user|
     @models.each do |model|
-      @quantities_2 << model.items.where(:inventory_pool_id => user.inventory_pools).count
+      @quantities_2 << model.items.where(inventory_pool_id: user.inventory_pools).count
     end
   end
 end

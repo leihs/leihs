@@ -19,9 +19,9 @@ class CategoriesController < ApplicationController
   def image
     category = Category.find params[:id]
     if category.image.nil?
-      render :status => :not_found, :nothing => true
+      render status: :not_found, nothing: true
     else
-      redirect_to category.image.public_filename, :status => :moved_permanently
+      redirect_to category.image.public_filename, status: :moved_permanently
     end
   end
 

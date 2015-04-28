@@ -25,7 +25,7 @@ def csv_counts_for_year(year)
     items = 0
     
     if us.reservations_bundles.exists?
-      interesting_contracts = us.reservations_bundles.find(:all, :conditions => ['YEAR(created_at) = ? AND inventory_pool_id = ?', year, 1])
+      interesting_contracts = us.reservations_bundles.find(:all, conditions: ['YEAR(created_at) = ? AND inventory_pool_id = ?', year, 1])
       contract_count = interesting_contracts.size.to_i
       
       interesting_contracts.each do |co|
@@ -45,8 +45,8 @@ end
 def save_to_file(path, data)
   
   require 'csv'
-  CSV.open(path, "w", {:headers => true, :col_sep => ';', }) do |csv|
-    csv << ["Nachname", "Vorname", "Vertraege", "Geliehene Geraete"]
+  CSV.open(path, 'w', {headers: true, col_sep: ';', }) do |csv|
+    csv << ['Nachname', 'Vorname', 'Vertraege', 'Geliehene Geraete']
     data.each do |item|
       csv << item
     end

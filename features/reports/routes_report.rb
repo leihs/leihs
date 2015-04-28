@@ -9,7 +9,7 @@ end
 class ActionController::Base
   def route_spec
     Rails.application.routes.router.recognize(request) do |route, _|
-      return route.path.spec.to_s.gsub("(.:format)", '')
+      return route.path.spec.to_s.gsub('(.:format)', '')
     end
     #Rails.application.routes.recognize_path(request.fullpath, method: request.method)
   end
@@ -29,8 +29,8 @@ end
 
 at_exit do
   digest = Digest::MD5.hexdigest RoutesReport.scenarios.to_json
-  filepath = File.join(Rails.root, "features", "reports", "%s.json" % digest)
-  File.open(filepath,"w") do |f|
+  filepath = File.join(Rails.root, 'features', 'reports', '%s.json' % digest)
+  File.open(filepath,'w') do |f|
     f.write({routes: RoutesReport.routes_scenarios, scenarios: RoutesReport.scenarios}.to_json)
   end
 end

@@ -15,13 +15,13 @@
 
 Dann /^werden mir diejenigen Gegenstände vorgeschlagen, die in den dargestellten Rücknahmen vorkommen$/ do
   @customer.visits.take_back.where(inventory_pool_id: @current_inventory_pool).first.reservations.all do |line|
-    expect(find(".ui-autocomplete", match: :first).has_content? line.item.inventory_code).to be true
+    expect(find('.ui-autocomplete', match: :first).has_content? line.item.inventory_code).to be true
   end
 end
 
 Wenn /^ich etwas zuweise, das nicht in den Rücknahmen vorkommt$/ do
-  find("[data-add-contract-line]").set "_for_sure_this_is_not_part_of_the_take_back"
-  find("[data-add-contract-line] + .addon").click
+  find('[data-add-contract-line]').set '_for_sure_this_is_not_part_of_the_take_back'
+  find('[data-add-contract-line] + .addon').click
 end
 
 # Wenn /^die Gruppenauswahl aufklappe$/ do
@@ -57,9 +57,9 @@ def check_printed_contract(window_handles, ip = nil, reservation = nil)
     window if window.handle == (page.driver.browser.window_handles - window_handles).first
   }
   within_window new_window do
-    find(".contract")
+    find('.contract')
     expect(current_path).to eq manage_contract_path(ip, reservation.reload.contract) if ip and reservation
-    expect(page.evaluate_script("window.printed")).to eq 1
+    expect(page.evaluate_script('window.printed')).to eq 1
   end
 end
 

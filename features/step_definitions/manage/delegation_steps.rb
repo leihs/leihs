@@ -2,16 +2,16 @@
 
 #Wenn(/^Julie in einer Delegation ist$/) do
 When(/^Julie is in a delegation$/) do
-  @user = User.where(:login => "julie").first
+  @user = User.where(login: 'julie').first
   expect(@user.delegations.empty?).to be false
 end
 
 #Dann(/^werden mir im alle Suchresultate von Julie oder Delegation mit Namen Julie angezeigt$/) do
 Then(/^I see all results for Julie or the delegation named Julie$/) do
-  q = "%Julie%"
+  q = '%Julie%'
   delegations = @current_inventory_pool.users.as_delegations.where(User.arel_table[:firstname].matches(q))
   ([@user] + delegations).each do |u|
-    find("#users .list-of-lines .line", match: :prefer_exact, text: u.to_s)
+    find('#users .list-of-lines .line', match: :prefer_exact, text: u.to_s)
   end
   # TODO also check contracts matches, etc...
 end
@@ -19,45 +19,45 @@ end
 #Dann(/^mir werden alle Delegationen angezeigt, den Julie zugeteilt ist$/) do
 Then(/^I see all delegations Julie is a member of$/) do
   (@user.delegations & @current_inventory_pool.users).each do |u|
-    find("#users .list-of-lines .line", match: :prefer_exact, text: u.to_s)
+    find('#users .list-of-lines .line', match: :prefer_exact, text: u.to_s)
   end
   # TODO also check contracts matches, etc...
 end
 
 Then(/^I can restrict the user list to show only (users|delegations)$/) do |arg1|
   t, b = case arg1
-           when "users"
-             [_("Users"), false]
-           when "delegations"
-             [_("Delegations"), true]
+           when 'users'
+             [_('Users'), false]
+           when 'delegations'
+             [_('Delegations'), true]
          end
 
-  find("#user-index-view form#list-filters select#type").select t
-  within "#user-list.list-of-lines" do
-    find(".line", match: :first)
-    ids = all(".line [data-type='user-cell']").map { |user_data| user_data["data-id"] }
+  find('#user-index-view form#list-filters select#type').select t
+  within '#user-list.list-of-lines' do
+    find('.line', match: :first)
+    ids = all(".line [data-type='user-cell']").map { |user_data| user_data['data-id'] }
     expect(User.find(ids).any?(&:is_delegation)).to be b
   end
 end
 
 #Angenommen(/^ich befinde mich im Reiter '(.*)'$/) do |arg1|
 Given(/^I am on the tab '(.*)'$/) do |arg1|
-  find("nav ul li a.navigation-tab-item", text: arg1).click
-  find("nav ul li a.navigation-tab-item.active", text: arg1)
-  find("#user-index-view ")
+  find('nav ul li a.navigation-tab-item', text: arg1).click
+  find('nav ul li a.navigation-tab-item.active', text: arg1)
+  find('#user-index-view ')
 end
 
 #Wenn(/^ich eine neue Delegation erstelle$/) do
 When(/^I create a new delegation$/) do
-  within(".multibutton", text: _("New User")) do
-    find(".dropdown-toggle").click
-    find(".dropdown-item", text: _("New Delegation")).click
+  within('.multibutton', text: _('New User')) do
+    find('.dropdown-toggle').click
+    find('.dropdown-item', text: _('New Delegation')).click
   end
 end
 
 #Wenn(/^ich der Delegation Zugriff für diesen Pool gebe$/) do
 When(/^I give the delegation access to the current inventory pool$/) do
-  find("select[name='access_right[role]']").select(_("Customer"))
+  find("select[name='access_right[role]']").select(_('Customer'))
 end
 
 #Wenn(/^ich dieser Delegation einen Namen gebe$/) do
@@ -70,9 +70,9 @@ end
 When(/^I assign none, one or more people to the delegation$/) do
   @delegated_users = []
   rand(0..2).times do
-    find("[data-search-users]").set " "
-    find("ul.ui-autocomplete")
-    el = all("ul.ui-autocomplete > li").to_a.sample
+    find('[data-search-users]').set ' '
+    find('ul.ui-autocomplete')
+    el = all('ul.ui-autocomplete > li').to_a.sample
     @delegated_users << el.text
     el.click
   end
@@ -80,15 +80,15 @@ end
 
 #Wenn(/^ich kann dieser Delegation keine Delegation zuteile$/) do
 When(/^I cannot assign a delegation to the delegation$/) do
-  find("[data-search-users]").set @current_inventory_pool.users.as_delegations.order("RAND()").first.name
-  expect(has_no_selector?("ul.ui-autocomplete > li")).to be true
+  find('[data-search-users]').set @current_inventory_pool.users.as_delegations.order('RAND()').first.name
+  expect(has_no_selector?('ul.ui-autocomplete > li')).to be true
 end
 
 #Wenn(/^ich genau einen Verantwortlichen eintrage$/) do
 When(/^I enter exactly one responsible person$/) do
-  @responsible ||= @current_inventory_pool.users.not_as_delegations.order("RAND()").first
-  find(".row.emboss", text: _("Responsible")).find("input[data-type='autocomplete']").set @responsible.name
-  find("ul.ui-autocomplete > li").click
+  @responsible ||= @current_inventory_pool.users.not_as_delegations.order('RAND()').first
+  find('.row.emboss', text: _('Responsible')).find("input[data-type='autocomplete']").set @responsible.name
+  find('ul.ui-autocomplete > li').click
 end
 
 #Dann(/^ist die neue Delegation mit den aktuellen Informationen gespeichert$/) do
@@ -101,35 +101,35 @@ end
 
 #Wenn(/^ich nach einer Delegation suche$/) do
 When(/^I search for a delegation$/) do
-  @delegation = @current_inventory_pool.users.as_delegations.order("RAND()").first
+  @delegation = @current_inventory_pool.users.as_delegations.order('RAND()').first
   #step "ich suche '%s'" % @delegation.firstname
   step "I search for '%s'" % @delegation.firstname
 end
 
 #Wenn(/^ich über den Delegationname fahre$/) do
 When(/^I hover over the delegation name$/) do
-  find("#users .list-of-lines .line", match: :prefer_exact, text: @delegation.to_s).find("[data-type='user-cell']").hover
+  find('#users .list-of-lines .line', match: :prefer_exact, text: @delegation.to_s).find("[data-type='user-cell']").hover
 end
 
 #Dann(/^werden mir im Tooltipp der Name und der Verantwortliche der Delegation angezeigt$/) do
 Then(/^the tooltip shows name and responsible person for the delegation$/) do
-  find("body > .tooltipster-base", text: @delegation.delegator_user.to_s)
+  find('body > .tooltipster-base', text: @delegation.delegator_user.to_s)
 end
 
 #Dann(/^werden mir die Delegationen angezeigt, denen ich zugeteilt bin$/) do
 Then(/^I see the delegations I am assigned to$/) do
   @current_user.delegations.customers.each do |delegation|
-    find(".line strong", match: :prefer_exact, text: delegation.to_s)
+    find('.line strong', match: :prefer_exact, text: delegation.to_s)
   end
 end
 
 #Wenn(/^ich eine Delegation wähle$/) do
 When(/^I pick a delegation to represent$/) do
-  within(all(".line").to_a.sample) do
-    id = find(".line-actions a.button")[:href].gsub(/.*\//, '')
+  within(all('.line').to_a.sample) do
+    id = find('.line-actions a.button')[:href].gsub(/.*\//, '')
     @delegation = @current_user.delegations.customers.find(id)
-    find("strong", match: :prefer_exact, text: @delegation.to_s)
-    find(".line-actions a.button").click
+    find('strong', match: :prefer_exact, text: @delegation.to_s)
+    find('.line-actions a.button').click
   end
 end
 
@@ -194,7 +194,7 @@ end
 
 #Dann(/^ich sehe keine Kontatkperson$/) do
 Then(/^I don't see any contact person$/) do
-  find("h2", text: @contract.user.name)
+  find('h2', text: @contract.user.name)
 end
 
 #Angenommen(/^es existiert eine Aushändigung( für eine Delegation)?( mit zugewiesenen Gegenständen)?$/) do |arg1, arg2|
@@ -204,7 +204,7 @@ Given(/^there is a hand over( for a delegation)?( with assigned items)?$/) do |a
                elsif arg1
                  @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation and v.reservations.any? &:item and not v.date > Date.today } # NOTE v.date.future? doesn't work properly because timezone
                else
-                 @current_inventory_pool.visits.hand_over.order("RAND()").first
+                 @current_inventory_pool.visits.hand_over.order('RAND()').first
                end
   expect(@hand_over).not_to be_nil
 end
@@ -215,39 +215,39 @@ Given(/^I open this hand over$/) do
 end
 
 When /^I select all reservations selecting all linegroups$/ do
-  all("input[data-select-lines]").each {|el| el.click unless el.checked?}
+  all('input[data-select-lines]').each {|el| el.click unless el.checked?}
 end
 
 #Wenn(/^ich die Delegation wechsle$/) do
 When(/^I change the delegation$/) do
-  expect(has_selector?("input[data-select-lines]", match: :first)).to be true
-  step "I select all reservations selecting all linegroups"
-  multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
-  multibutton.find(".dropdown-toggle").click
-  find("#swap-user", match: :first).click
-  find(".modal", match: :first)
+  expect(has_selector?('input[data-select-lines]', match: :first)).to be true
+  step 'I select all reservations selecting all linegroups'
+  multibutton = first('.multibutton', text: _('Hand Over Selection')) || first('.multibutton', text: _('Edit Selection'))
+  multibutton.find('.dropdown-toggle').click
+  find('#swap-user', match: :first).click
+  find('.modal', match: :first)
   @contract ||= @hand_over.reservations.map(&:contract).uniq.first
   @old_delegation = @contract.user
   @new_delegation = @current_inventory_pool.users.find {|u| u.is_delegation and u.firstname != @old_delegation.firstname}
-  find("input#user-id", match: :first).set @new_delegation.name
-  find(".ui-menu-item a", match: :first).click
+  find('input#user-id', match: :first).set @new_delegation.name
+  find('.ui-menu-item a', match: :first).click
   @contract.reservations.reload.all? {|c| c.user == @new_delegation }
 end
 
 #Wenn(/^ich versuche die Delegation zu wechseln$/) do
 When(/^I try to change the delegation$/) do
-  expect(has_selector?("input[data-select-lines]", match: :first)).to be true
-  all("input[data-select-lines]").each_with_index do |line, i|
-    el = all("input[data-select-lines]")[i]
+  expect(has_selector?('input[data-select-lines]', match: :first)).to be true
+  all('input[data-select-lines]').each_with_index do |line, i|
+    el = all('input[data-select-lines]')[i]
     el.click unless el.checked?
   end
-  multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
-  multibutton.find(".dropdown-toggle").click
-  find("#swap-user", match: :first).click
-  find(".modal", match: :first)
-  find("input#user-id", match: :first)
+  multibutton = first('.multibutton', text: _('Hand Over Selection')) || first('.multibutton', text: _('Edit Selection'))
+  multibutton.find('.dropdown-toggle').click
+  find('#swap-user', match: :first).click
+  find('.modal', match: :first)
+  find('input#user-id', match: :first)
   @wrong_delegation = User.as_delegations.find {|d| not d.access_right_for @current_inventory_pool}
-  @valid_delegation = @current_inventory_pool.users.as_delegations.order("RAND()").first
+  @valid_delegation = @current_inventory_pool.users.as_delegations.order('RAND()').first
 end
 
 #Dann(/^lautet die Aushändigung auf diese neu gewählte Delegation$/) do
@@ -258,58 +258,58 @@ end
 
 #Wenn(/^ich versuche die Kontaktperson zu wechseln$/) do
 When(/^I try to change the contact person$/) do
-  expect(has_selector?("input[data-select-lines]", match: :first)).to be true
-  step "I select all reservations selecting all linegroups"
-  find("button", text: _("Hand Over Selection")).click
+  expect(has_selector?('input[data-select-lines]', match: :first)).to be true
+  step 'I select all reservations selecting all linegroups'
+  find('button', text: _('Hand Over Selection')).click
   @delegation = @hand_over.user
-  @contact = @delegation.delegated_users.order("RAND()").first
+  @contact = @delegation.delegated_users.order('RAND()').first
   @not_contact = @current_inventory_pool.users.find {|u| not @delegation.delegated_users.include? u}
 end
 
 #Wenn(/^ich versuche bei der Bestellung die Kontaktperson zu wechseln$/) do
 When(/^I try to change the order's contact person$/) do
-  click_button "swap-user"
-  @contact = @delegation.delegated_users.order("RAND()").first
+  click_button 'swap-user'
+  @contact = @delegation.delegated_users.order('RAND()').first
   @not_contact = @current_inventory_pool.users.find {|u| not @delegation.delegated_users.include? u}
 end
 
 #Dann(/^kann ich nur diejenigen Personen wählen, die zur Delegationsgruppe gehören$/) do
 Then(/^I can choose only those people that belong to the delegation group$/) do
-  find("input#user-id", match: :first).set @not_contact.name
-  expect(has_no_selector?(".ui-menu-item a")).to be true
-  find("input#user-id", match: :first).set @contact.name
-  find(".ui-menu-item a", match: :first, text: @contact.name).click
-  find("#selected-user", text: @contact.name)
+  find('input#user-id', match: :first).set @not_contact.name
+  expect(has_no_selector?('.ui-menu-item a')).to be true
+  find('input#user-id', match: :first).set @contact.name
+  find('.ui-menu-item a', match: :first, text: @contact.name).click
+  find('#selected-user', text: @contact.name)
 end
 
 #Dann(/^kann ich bei der Bestellung als Kontaktperson nur diejenigen Personen wählen, die zur Delegationsgruppe gehören$/) do
 Then(/^I can choose only those people as contact person for the order that belong to the delegation group$/) do
-  within "#contact-person" do
-    find("input#user-id", match: :first).set @not_contact.name
-    expect(has_no_selector?(".ui-menu-item a")).to be true
-    find("input#user-id", match: :first).set @contact.name
-    find(".ui-menu-item a", match: :first, text: @contact.name).click
-    find("#selected-user", text: @contact.name)
+  within '#contact-person' do
+    find('input#user-id', match: :first).set @not_contact.name
+    expect(has_no_selector?('.ui-menu-item a')).to be true
+    find('input#user-id', match: :first).set @contact.name
+    find('.ui-menu-item a', match: :first, text: @contact.name).click
+    find('#selected-user', text: @contact.name)
   end
 end
 
 #Wenn(/^ich die Kontaktperson wechsle$/) do
 When(/^I change the contact person$/) do
-  @contact ||= (@delegation or @new_delegation).delegated_users.order("RAND()").first
-  within "#contact-person" do
-    find("input#user-id", match: :first).set @contact.name
-    find(".ui-menu-item a", match: :first, text: @contact.name).click
-    find("#selected-user", text: @contact.name)
+  @contact ||= (@delegation or @new_delegation).delegated_users.order('RAND()').first
+  within '#contact-person' do
+    find('input#user-id', match: :first).set @contact.name
+    find('.ui-menu-item a', match: :first, text: @contact.name).click
+    find('#selected-user', text: @contact.name)
   end
 end
 
 #Dann(/^kann ich nur diejenigen Delegationen wählen, die Zugriff auf meinen Gerätepark haben$/) do
 Then(/^I can choose only those delegations that have access to this inventory pool$/) do
-  find("input#user-id", match: :first).set @wrong_delegation.name
-  expect(has_no_selector?(".ui-menu-item a")).to be true
-  find("input#user-id", match: :first).set @valid_delegation.name
-  find(".ui-menu-item a", match: :first, text: @valid_delegation.name).click
-  find("#selected-user", text: @valid_delegation.name)
+  find('input#user-id', match: :first).set @wrong_delegation.name
+  expect(has_no_selector?('.ui-menu-item a')).to be true
+  find('input#user-id', match: :first).set @valid_delegation.name
+  find('.ui-menu-item a', match: :first, text: @valid_delegation.name).click
+  find('#selected-user', text: @valid_delegation.name)
 end
 
 #Wenn(/^ich statt einer Delegation einen Benutzer wähle$/) do
@@ -317,30 +317,30 @@ When(/^I pick a user instead of a delegation$/) do
   @contract ||= @hand_over.reservations.map(&:contract).uniq.first
   @delegation = @contract.user
   @delegated_user = @contract.delegated_user
-  @new_user = @current_inventory_pool.users.not_as_delegations.order("RAND()").first
-  has_selector?("input[data-select-lines]", match: :first)
-  all("input[data-select-lines]").each_with_index do |line, i|
-    el = all("input[data-select-lines]")[i]
+  @new_user = @current_inventory_pool.users.not_as_delegations.order('RAND()').first
+  has_selector?('input[data-select-lines]', match: :first)
+  all('input[data-select-lines]').each_with_index do |line, i|
+    el = all('input[data-select-lines]')[i]
     el.click unless el.checked?
   end
-  multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
-  multibutton.find(".dropdown-toggle").click if multibutton
-  find("#swap-user", match: :first).click
-  within ".modal" do
-    find("#user input#user-id", match: :first).set @new_user.name
-    find(".ui-menu-item a", match: :first, text: @new_user.name).click
+  multibutton = first('.multibutton', text: _('Hand Over Selection')) || first('.multibutton', text: _('Edit Selection'))
+  multibutton.find('.dropdown-toggle').click if multibutton
+  find('#swap-user', match: :first).click
+  within '.modal' do
+    find('#user input#user-id', match: :first).set @new_user.name
+    find('.ui-menu-item a', match: :first, text: @new_user.name).click
     find(".button[type='submit']", match: :first).click
   end
-  step "the modal is closed"
+  step 'the modal is closed'
 end
 
 Then /^the modal is closed$/ do
-  expect(has_no_selector?(".modal")).to be true
+  expect(has_no_selector?('.modal')).to be true
 end
 
 #Dann(/^ist in der Bestellung der Benutzer aufgeführt$/) do
 Then(/^the order shows the user$/) do
-  find(".content-wrapper", :text => @new_user.name, match: :first)
+  find('.content-wrapper', text: @new_user.name, match: :first)
   @contract.reservations.each do |line|
     expect(line.reload.user).to eq @new_user
   end
@@ -368,10 +368,10 @@ end
 #Dann(/^kann ich diese Delegation löschen$/) do
 Then(/^I can delete that delegation$/) do
   step %Q(I search for "%s") % @delegation.name
-  line = find(".line", text: @delegation.name)
-  line.find(".dropdown-toggle").click
+  line = find('.line', text: @delegation.name)
+  line.find('.dropdown-toggle').click
   find("[data-method='delete']").click
-  expect(has_selector?(".success")).to be true
+  expect(has_selector?('.success')).to be true
   expect { @delegation.reload }.to raise_error ActiveRecord::RecordNotFound
 end
 
@@ -384,18 +384,18 @@ Then(/^I can at most give the delegation access on the customer level$/) do
   roles = all("[name='access_right[role]'] option")
   expect(roles.size).to eq 2
   values = roles.map(&:value)
-  expect(values.include? "no_access").to be true
-  expect(values.include? "customer").to be true
+  expect(values.include? 'no_access').to be true
+  expect(values.include? 'customer').to be true
 end
 
 #Wenn(/^ich keinen Verantwortlichen zuteile$/) do
 When(/^I do not enter any responsible person for the delegation$/) do
-  expect(find("input[name='user[delegator_user_id]']", visible: false)["value"].empty?).to be true
+  expect(find("input[name='user[delegator_user_id]']", visible: false)['value'].empty?).to be true
 end
 
 #Dann(/^ich keinen Namen angebe$/) do
 When(/^I do not enter any name$/) do
-  find("input[name='user[firstname]']").set ""
+  find("input[name='user[firstname]']").set ''
 end
 
 #Wenn(/^ich eine Delegation editiere$/) do
@@ -406,33 +406,33 @@ end
 
 #Wenn(/^ich den Verantwortlichen ändere$/) do
 When(/^I change the responsible person$/) do
-  expect(has_no_selector?("ul.ui-autocomplete")).to be true
+  expect(has_no_selector?('ul.ui-autocomplete')).to be true
   @responsible = @current_inventory_pool.users.not_as_delegations.find {|u| u != @delegation.delegator_user }
-  find(".row.emboss", text: _("Responsible")).find("input[data-type='autocomplete']").set @responsible.name
-  find("ul.ui-autocomplete > li > a").click
-  expect(has_no_selector?("ul.ui-autocomplete")).to be true
+  find('.row.emboss', text: _('Responsible')).find("input[data-type='autocomplete']").set @responsible.name
+  find('ul.ui-autocomplete > li > a').click
+  expect(has_no_selector?('ul.ui-autocomplete')).to be true
 end
 
 #Wenn(/^ich einen bestehenden Benutzer lösche$/) do
 When(/^I delete an existing user from the delegation$/) do
   @delegated_users = @delegation.delegated_users
-  inline_user_entry = find(".row.emboss", text: _("Users")).find("[data-users-list] .row.line", match: :first)
-  @removed_delegated_user = User.find {|u| u.name == inline_user_entry.find("[data-user-name]").text}
-  inline_user_entry.find("button[data-remove-user]").click
+  inline_user_entry = find('.row.emboss', text: _('Users')).find('[data-users-list] .row.line', match: :first)
+  @removed_delegated_user = User.find {|u| u.name == inline_user_entry.find('[data-user-name]').text}
+  inline_user_entry.find('button[data-remove-user]').click
   @delegated_users.delete @removed_delegated_user
 end
 
 #Wenn(/^ich der Delegation einen neuen Benutzer hinzufüge$/) do
 When(/^I add a user to the delegation$/) do
-  expect(has_no_selector?("ul.ui-autocomplete")).to be true
-  find("[data-search-users]").set " "
-  find("ul.ui-autocomplete > li > a", match: :first)
-  el = all("ul.ui-autocomplete > li > a").to_a.sample
+  expect(has_no_selector?('ul.ui-autocomplete')).to be true
+  find('[data-search-users]').set ' '
+  find('ul.ui-autocomplete > li > a', match: :first)
+  el = all('ul.ui-autocomplete > li > a').to_a.sample
   user = User.find {|u| u.name == el.text}
   @delegated_users << user
   el.click
-  expect(has_no_selector?("ul.ui-autocomplete")).to be true
-  find("#users .line", text: user.name)
+  expect(has_no_selector?('ul.ui-autocomplete')).to be true
+  find('#users .line', text: user.name)
 end
 
 #Dann(/^ist die bearbeitete Delegation mit den aktuellen Informationen gespeichert$/) do
@@ -453,18 +453,18 @@ end
 #Wenn(/^ich dieser Delegation den Zugriff für den aktuellen Gerätepark entziehe$/) do
 When(/^I remove access to the current inventory pool from this delegation$/) do
   @ip_name = @current_inventory_pool.name
-  select _("No access"), from: "access_right[role]"
+  select _('No access'), from: 'access_right[role]'
 end
 
 #Dann(/^können keine Bestellungen für diese Delegation für dieses Gerätepark erstellt werden$/) do
 Then(/^no orders can be created for this delegation in the current inventory pool$/) do
-  step "I log out"
+  step 'I log out'
   step %Q(I am logged in as '#{@delegation.delegator_user.login}' with password 'password')
-  find(".dropdown-holder", text: @current_user.lastname).click
+  find('.dropdown-holder', text: @current_user.lastname).click
   find(".dropdown-item[href*='delegations']").click
-  find(".row.line", text: @delegation.name).click_link _("Switch to")
+  find('.row.line', text: @delegation.name).click_link _('Switch to')
   FastGettext.set_locale @delegation.language.locale_name # switch the locale in order to translate properly in the next step
-  find(".topbar-item", text: _("Inventory Pools")).click
+  find('.topbar-item', text: _('Inventory Pools')).click
   expect(has_no_content?(@ip_name)).to be true
 end
 
@@ -500,18 +500,18 @@ When(/^I hand over the items ordered for this delegation to "(.*?)"$/) do |conta
   @contract = @delegation.reservations_bundles.submitted.first
   @contract.approve Faker::Lorem.sentence
   visit manage_hand_over_path(@current_inventory_pool, @delegation)
-  expect(has_selector?("input[data-assign-item]")).to be true
-  all("input[data-assign-item]").detect{|el| not el.disabled?}.click
-  find(".ui-autocomplete .ui-menu-item", match: :first).click
-  expect(has_selector? "[data-remove-assignment]").to be true
-  find(".multibutton button[data-hand-over-selection]").click
+  expect(has_selector?('input[data-assign-item]')).to be true
+  all('input[data-assign-item]').detect{|el| not el.disabled?}.click
+  find('.ui-autocomplete .ui-menu-item', match: :first).click
+  expect(has_selector? '[data-remove-assignment]').to be true
+  find('.multibutton button[data-hand-over-selection]').click
   @contact = User.find_by_login(contact_person.downcase)
   #step "ich die Kontaktperson wechsle"
-  step "I change the contact person"
-  within ".modal" do
-    find(".button.green[data-hand-over]", text: _("Hand Over")).click
-    expect(has_content?(_("Hand over completed"))).to be true
-    expect(has_no_selector?("button[data-hand-over]")).to be true
+  step 'I change the contact person'
+  within '.modal' do
+    find('.button.green[data-hand-over]', text: _('Hand Over')).click
+    expect(has_content?(_('Hand over completed'))).to be true
+    expect(has_no_selector?('button[data-hand-over]')).to be true
   end
 end
 
@@ -522,7 +522,7 @@ end
 
 #Dann(/^ist in der Aushändigung der Benutzer aufgeführt$/) do
 Then(/^the hand over shows the user$/) do
-  find(".content-wrapper", :text => @new_user.name, match: :first)
+  find('.content-wrapper', text: @new_user.name, match: :first)
   expect(current_path).to eq manage_hand_over_path(@current_inventory_pool, @new_user)
   expect(@delegation.visits.hand_over.where(inventory_pool_id: @current_inventory_pool).empty?).to be true
 end
@@ -538,23 +538,23 @@ end
 When(/^I pick a delegation instead of a user$/) do
   @contract ||= @hand_over.reservations.map(&:contract).uniq.first
   @user = @contract.user
-  @delegation = @current_inventory_pool.users.as_delegations.order("RAND()").first
-  expect(has_selector?("input[data-select-lines]", match: :first)).to be true
-  step "I select all reservations selecting all linegroups"
-  multibutton = first(".multibutton", text: _("Hand Over Selection")) || first(".multibutton", text: _("Edit Selection"))
-  multibutton.find(".dropdown-toggle").click if multibutton
-  find("#swap-user", match: :first).click
-  find(".modal", match: :first)
-  find("#user input#user-id", match: :first).set @delegation.name
-  find(".ui-menu-item a", match: :first, text: @delegation.name).click
+  @delegation = @current_inventory_pool.users.as_delegations.order('RAND()').first
+  expect(has_selector?('input[data-select-lines]', match: :first)).to be true
+  step 'I select all reservations selecting all linegroups'
+  multibutton = first('.multibutton', text: _('Hand Over Selection')) || first('.multibutton', text: _('Edit Selection'))
+  multibutton.find('.dropdown-toggle').click if multibutton
+  find('#swap-user', match: :first).click
+  find('.modal', match: :first)
+  find('#user input#user-id', match: :first).set @delegation.name
+  find('.ui-menu-item a', match: :first, text: @delegation.name).click
 end
 
 #Und(/^ich eine Kontaktperson aus der Delegation wähle$/) do
 When(/^I pick a contact person from the delegation$/) do
-  @contact = @delegation.delegated_users.order("RAND()").first
-  find("#contact-person input#user-id", match: :first).click
-  find("#contact-person input#user-id", match: :first).set @contact.name
-  find(".ui-menu-item a", match: :first, text: @contact.name).click
+  @contact = @delegation.delegated_users.order('RAND()').first
+  find('#contact-person input#user-id', match: :first).click
+  find('#contact-person input#user-id', match: :first).set @contact.name
+  find('.ui-menu-item a', match: :first, text: @contact.name).click
 end
 
 #Dann(/^ist in der Bestellung der Name der Delegation aufgeführt$/) do
@@ -574,17 +574,17 @@ end
 
 #Wenn(/^ich die Gegenstände aushändige$/) do
 When(/^I hand over the items$/) do
-  line = find(".line[data-line-type='item_line'] input[id*='assigned-item'][value][disabled]", match: :first).find(:xpath, "ancestor::div[@data-line-type]")
-  line.find("input[data-select-line]").click
-  find(".multibutton", text: _("Hand Over Selection")).find("button").click
+  line = find(".line[data-line-type='item_line'] input[id*='assigned-item'][value][disabled]", match: :first).find(:xpath, 'ancestor::div[@data-line-type]')
+  line.find('input[data-select-line]').click
+  find('.multibutton', text: _('Hand Over Selection')).find('button').click
 end
 
 #Dann(/^muss ich eine Kontaktperson hinzufügen$/) do
 Then(/^I have to specify a contact person$/) do
-  within ".modal" do
-    find(".button.green[data-hand-over]", text: _("Hand Over")).click
-    expect(has_selector?("#contact-person")).to be true
-    expect(find("#error").text.empty?).to be false
+  within '.modal' do
+    find('.button.green[data-hand-over]', text: _('Hand Over')).click
+    expect(has_selector?('#contact-person')).to be true
+    expect(find('#error').text.empty?).to be false
   end
 end
 
@@ -597,12 +597,12 @@ end
 
 #Dann(/^sehe ich genau ein Kontaktpersonfeld$/) do
 Then(/^I see exactly one contact person field$/) do
-  find("#contact-person")
+  find('#contact-person')
 end
 
 #Wenn(/^ich keine Kontaktperson angebe$/) do
 When(/^I do not enter any contact person$/) do
-  expect(find("#contact-person input#user-id", match: :first).value.empty?).to be true
+  expect(find('#contact-person input#user-id', match: :first).value.empty?).to be true
 end
 
 # Wenn(/^ich den Benutzerwechsel bestätige$/) do
@@ -611,25 +611,25 @@ end
 
 #Dann(/^sehe ich im Dialog die Fehlermeldung "(.*?)"$/) do |text|
 Then(/^an error message pops up saying "(.*?)"$/) do |text|
-  expect(has_selector?(".modal .red", text: text)).to be true
+  expect(has_selector?('.modal .red', text: text)).to be true
 end
 
 #Wenn(/^ich die Aushändigung abschliesse$/) do
 When(/^I finish this hand over$/) do
   find(:xpath, "//*[@data-line-type and descendant::*[contains(@id, 'assigned-item')]]//*[@data-select-line]", match: :first).click
-  find("button[data-hand-over-selection]").click
+  find('button[data-hand-over-selection]').click
 end
 
 #Wenn(/^ich eine gesperrte Kontaktperson wähle$/) do
 When(/^I choose a suspended contact person$/) do
-  delegated_user = @hand_over.user.delegated_users.order("RAND()").detect {|u| u.suspended? @current_inventory_pool}
+  delegated_user = @hand_over.user.delegated_users.order('RAND()').detect {|u| u.suspended? @current_inventory_pool}
   delegated_user ||= begin
-    user = @hand_over.user.delegated_users.order("RAND()").first
+    user = @hand_over.user.delegated_users.order('RAND()').first
     ensure_suspended_user(user, @current_inventory_pool)
     user
   end
-  find("input#user-id", match: :first).set delegated_user.name
-  find(".ui-menu-item a", match: :first, text: delegated_user.name).click
+  find('input#user-id', match: :first).set delegated_user.name
+  find('.ui-menu-item a', match: :first, text: delegated_user.name).click
 end
 
 # Dann(/^muss ich eine Kontaktperson auswählen$/) do
@@ -641,13 +641,13 @@ end
 
 #Angenommen(/^ich befinde mich in der Editieransicht einer Delegation$/) do
 Given(/^I am editing a delegation$/) do
-  @delegation = @current_inventory_pool.users.as_delegations.order("RAND()").first
+  @delegation = @current_inventory_pool.users.as_delegations.order('RAND()').first
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @delegation)
 end
 
 #Wenn(/^ich einen Verantwortlichen zuteile, der für diesen Gerätepark gesperrt ist$/) do
 When(/^I assign a responsible person that is suspended for the current inventory pool$/) do
-  @responsible = @current_inventory_pool.users.order("RAND()").detect {|u| u.suspended? @current_inventory_pool}
+  @responsible = @current_inventory_pool.users.order('RAND()').detect {|u| u.suspended? @current_inventory_pool}
   #step 'ich genau einen Verantwortlichen eintrage'
   step 'I enter exactly one responsible person'
 end
@@ -664,27 +664,27 @@ end
 
 #Angenommen(/^ich wechsle den Benutzer$/) do
 Given(/^I swap the user$/) do
-  click_button "swap-user"
-  find(".modal", match: :first)
+  click_button 'swap-user'
+  find('.modal', match: :first)
 end
 
 #Angenommen(/^ich wähle eine Delegation$/) do
 Given(/^I pick a delegation$/) do
-  @delegation = @current_inventory_pool.users.as_delegations.order("RAND()").first
-  find("#user input#user-id", match: :first).set @delegation.name
-  find(".ui-menu-item a", match: :first, text: @delegation.name).click
+  @delegation = @current_inventory_pool.users.as_delegations.order('RAND()').first
+  find('#user input#user-id', match: :first).set @delegation.name
+  find('.ui-menu-item a', match: :first, text: @delegation.name).click
 end
 
 #Wenn(/^ich eine Kontaktperson wähle, der für diesen Gerätepark gesperrt ist$/) do
 When(/^I pick a contact person that is suspended for the current inventory pool$/) do
-  delegated_user = @delegation.delegated_users.order("RAND()").detect {|u| u.suspended? @current_inventory_pool}
+  delegated_user = @delegation.delegated_users.order('RAND()').detect {|u| u.suspended? @current_inventory_pool}
   delegated_user ||= begin
-    user = @delegation.delegated_users.order("RAND()").first
+    user = @delegation.delegated_users.order('RAND()').first
     ensure_suspended_user(user, @current_inventory_pool)
     user
   end
-  find("input#user-id", match: :first).set delegated_user.name
-  find(".ui-menu-item a", match: :first, text: delegated_user.name).click
+  find('input#user-id', match: :first).set delegated_user.name
+  find('.ui-menu-item a', match: :first, text: delegated_user.name).click
 end
 
 #Und(/^man merkt sich die Bestellung$/) do

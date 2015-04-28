@@ -3,7 +3,7 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require File.expand_path('../config/application', __FILE__)
-require "rake"
+require 'rake'
 include Rake::DSL #tmp: remove the deprication warnings
 
 Leihs::Application.load_tasks

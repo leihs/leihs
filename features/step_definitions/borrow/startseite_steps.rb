@@ -10,7 +10,7 @@ Then(/^I see exactly those root categories that are useful for my user$/) do
   @main_categories = @current_user.all_categories.select {|c| c.parents.empty?}
   categories_counter = 0
   @main_categories.each do |mc|
-    find("a", match: :first, text: mc.name)
+    find('a', match: :first, text: mc.name)
     categories_counter += 1
   end
   expect(categories_counter).to eq @main_categories.count
@@ -23,7 +23,7 @@ When(/^I choose a root category$/) do
 end
 
 Und(/^man sieht die Überschrift "(.*?)"$/) do |arg1|
-  find ".row a", text: _("Start")
+  find '.row a', text: _('Start')
 end
 
 #Wenn(/^ich über eine Hauptkategorie mit Kindern fahre$/) do
@@ -32,8 +32,8 @@ When(/^I hover over a main category with children$/) do
     borrowable_children = (@current_user.categories.with_borrowable_items & c.children)
     c.children.size != borrowable_children.size and borrowable_children.size > 0
   end
-  within("[data-category_id]", text: @main_category.name) do
-    find(".dropdown-holder").hover
+  within('[data-category_id]', text: @main_category.name) do
+    find('.dropdown-holder').hover
   end
 end
 
@@ -42,12 +42,12 @@ Then(/^I see only this root category's children that are useful and available to
   second_level_categories = @main_category.children
   visible_2nd_level_categories = (@current_user.categories.with_borrowable_items & @main_category.children)
   @second_level_category = visible_2nd_level_categories.first
-  find("a", match: :first, text: @second_level_category.name)
+  find('a', match: :first, text: @second_level_category.name)
 
   visible_2nd_level_categories_count = 0
-  within find("[data-category_id] .padding-inset-s", match: :first, text: @main_category.name).first(:xpath, "../..").find(".dropdown-holder", match: :first) do
+  within find('[data-category_id] .padding-inset-s', match: :first, text: @main_category.name).first(:xpath, '../..').find('.dropdown-holder', match: :first) do
     visible_2nd_level_categories.each do |c|
-      find(".dropdown a", match: :first, text: c.name)
+      find('.dropdown a', match: :first, text: c.name)
       visible_2nd_level_categories_count += 1
     end
   end
@@ -61,12 +61,12 @@ end
 
 #Dann(/^lande ich in der Modellliste für diese Hauptkategorie$/) do
 Then(/^I see the model list for this root category$/) do
-  expect((Rack::Utils.parse_nested_query URI.parse(current_url).query)["category_id"].to_i).to eq @main_category.id
+  expect((Rack::Utils.parse_nested_query URI.parse(current_url).query)['category_id'].to_i).to eq @main_category.id
 end
 
 #Dann(/^lande ich in der Modellliste für diese Kategorie$/) do
 Then(/^I see the model list for this category$/) do
-  expect((Rack::Utils.parse_nested_query URI.parse(current_url).query)["category_id"].to_i).to eq @second_level_category.id
+  expect((Rack::Utils.parse_nested_query URI.parse(current_url).query)['category_id'].to_i).to eq @second_level_category.id
 end
 
 #Angenommen(/^es gibt eine Hauptkategorie, derer Kinderkategorien keine dem User zur Verfügung stehende Gegenstände enthalten$/) do
@@ -78,12 +78,12 @@ end
 
 #Dann(/^hat diese Hauptkategorie keine Kinderkategorie\-Dropdown$/) do
 Then(/^that root category has no child category dropdown$/) do
-  expect(find(".row.emboss.focus-hover", match: :first, text: @main_category.name).has_no_selector? ".dropdown-holder").to be true
+  expect(find('.row.emboss.focus-hover', match: :first, text: @main_category.name).has_no_selector? '.dropdown-holder').to be true
 end
 
 Then(/^I see for each category its image, or if not set, the first image of a model from this category$/) do
   @main_categories.each do |mc|
-    img_el = find("a", match: :first, text: mc.name).find("img")
+    img_el = find('a', match: :first, text: mc.name).find('img')
     response = get img_el[:src]
     if image = mc.image
       expect(response.location).to match /#{image.public_filename}/

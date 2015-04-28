@@ -37,15 +37,15 @@ end
 
 #Dann(/^der Name des Benutzers ist in jeder Vertragslinie angezeigt$/) do
 Then(/^the name of that user is shown on each contract line$/) do
-  within "#contracts" do
-    all(".line").each {|el| el.text.include? @user.name }
+  within '#contracts' do
+    all('.line').each {|el| el.text.include? @user.name }
   end
 end
 
 #Dann(/^die Personalien des Benutzers werden im Tooltip angezeigt$/) do
 Then(/^that user's personal details are shown in the tooltip$/) do
   hover_for_tooltip find("#contracts [data-type='user-cell']", match: :first)
-  within ".tooltipster-base" do
+  within '.tooltipster-base' do
     [@user.name, @user.email, @user.address, @user.phone, @user.badge_id].each {|info| has_content? info}
   end
 end
@@ -57,8 +57,8 @@ end
 
 #Wenn(/^man nach diesem Benutzer sucht$/) do
 When(/^I search for that user$/) do
-  within "#search" do
-    find("input#search_term").set @user.name
+  within '#search' do
+    find('input#search_term').set @user.name
     find("button[type='submit']").click
   end
 end
@@ -67,7 +67,7 @@ end
 Then(/^I cannot hand over the unapproved order unless I approve it first$/) do
   contract = @user.reservations_bundles.submitted.first
   line = find(".line[data-id='#{contract.id}']")
-  expect(line.find(".multibutton").has_no_selector?("li", text: _("Hand Over"), visible: false)).to be true
+  expect(line.find('.multibutton').has_no_selector?('li', text: _('Hand Over'), visible: false)).to be true
 end
 
 #Angenommen(/^es existiert ein Benutzer mit mindestens (\d+) und weniger als (\d+) Verträgen$/) do |min, max|
@@ -86,27 +86,27 @@ end
 Given(/^there is a "(.*?)" item in my inventory pool$/) do |arg1|
   items = @current_inventory_pool.items
   @item = case arg1
-          when "Broken"
+          when 'Broken'
             items.find &:is_broken
-          when "Retired"
+          when 'Retired'
             items.find &:retired
-          when "Incomplete"
+          when 'Incomplete'
             items.find &:is_incomplete
-          when "Unborrowable"
+          when 'Unborrowable'
             items.find {|i| not i.is_borrowable}
           end
   expect(@item).not_to be_nil
 end
 
 When(/^I search globally after this item with its inventory code$/) do
-  within "#topbar #search" do
-    find("input#search_term").set @item.inventory_code
+  within '#topbar #search' do
+    find('input#search_term').set @item.inventory_code
     find("button[type='submit']").click
   end
 end
 
 Then(/^I see the item in the items container$/) do
-  expect(find("#items")).to have_selector(".line[data-type='item']", text: @item.inventory_code)
+  expect(find('#items')).to have_selector(".line[data-type='item']", text: @item.inventory_code)
 end
 
 Given(/^there exists a closed contract with a retired item$/) do
@@ -118,7 +118,7 @@ end
 
 #Then(/^sehe den Gegenstand ihn im Gegenstände\-Container$/) do
 Then(/^I see the item in the items area$/) do
-  find("#items .line", text: @item.inventory_code)
+  find('#items .line', text: @item.inventory_code)
 end
 
 Then(/^I hover over the list of items on the contract line$/) do
@@ -126,7 +126,7 @@ Then(/^I hover over the list of items on the contract line$/) do
 end
 
 Then(/^I see in the tooltip the model of this item$/) do
-  find(".tooltipster-base", text: @item.model.name)
+  find('.tooltipster-base', text: @item.model.name)
 end
 
 Given(/^there exists a closed contract with an item, for which an other inventory pool is responsible and owner$/) do
@@ -137,5 +137,5 @@ Given(/^there exists a closed contract with an item, for which an other inventor
 end
 
 Then(/^I do not see the items container$/) do
-  expect(page).to have_no_selector "#items"
+  expect(page).to have_no_selector '#items'
 end

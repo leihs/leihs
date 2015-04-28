@@ -15,7 +15,7 @@ class Option < ActiveRecord::Base
   has_many :option_lines, dependent: :restrict_with_exception
 
   validates_presence_of :inventory_pool, :product
-  validates_uniqueness_of :inventory_code, :scope => :inventory_pool_id, :unless => Proc.new { |record| record.inventory_code.blank? }
+  validates_uniqueness_of :inventory_code, scope: :inventory_pool_id, unless: Proc.new { |record| record.inventory_code.blank? }
 
   before_validation do |record|
     record.inventory_code = nil if !record.inventory_code.nil? and record.inventory_code.blank?
@@ -42,9 +42,9 @@ class Option < ActiveRecord::Base
   def self.filter(params, inventory_pool = nil)
     options = inventory_pool ? inventory_pool.options : all
     options = options.search(params[:search_term], [:manufacturer, :product, :version]) unless params[:search_term].blank?
-    options = options.where(:id => params[:ids]) if params[:ids]
+    options = options.where(id: params[:ids]) if params[:ids]
     options = options.order("#{params[:sort]} #{params[:order]}") if params[:sort] and params[:order]
-    options = options.default_paginate params unless params[:paginate] == "false"
+    options = options.default_paginate params unless params[:paginate] == 'false'
     options
   end
 
@@ -74,10 +74,10 @@ class Option < ActiveRecord::Base
     # Using #{} notation to catch nils gracefully and silently
     {
         model_name: "#{self.name}",
-        _("Inventory Code") => "#{self.inventory_code}",
-        _("Responsible department") => "#{self.inventory_pool.try(:name)}",
-        _("Categories") => "#{_("Option")}",
-        _("Initial Price") => "#{self.price}"
+        _('Inventory Code') => "#{self.inventory_code}",
+        _('Responsible department') => "#{self.inventory_pool.try(:name)}",
+        _('Categories') => "#{_("Option")}",
+        _('Initial Price') => "#{self.price}"
     }
   end
 

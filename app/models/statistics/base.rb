@@ -30,8 +30,8 @@ module Statistics
         options[:limit] ||= 10
 
         if klasses.is_a? Array
-          raise "limit is required" if options[:limit].nil?
-          raise "max accepted limit is 20" if options[:limit] > 20
+          raise 'limit is required' if options[:limit].nil?
+          raise 'max accepted limit is 20' if options[:limit] > 20
         end
 
         klasses = Array(klasses)
@@ -42,27 +42,27 @@ module Statistics
 
         query = klass.unscoped.
                    select("#{klass.name.tableize}.id, SUM(reservations.quantity) AS quantity").
-                   where(reservations[:type].eq("ItemLine").
+                   where(reservations[:type].eq('ItemLine').
                          and(reservations[:item_id].not_eq(nil)).
                          and(reservations[:returned_date].not_eq(nil))).
-                   order("quantity DESC").
+                   order('quantity DESC').
                    limit(options[:limit])
 
         query = case klass.name
-          when "User"
+          when 'User'
             query.joins(:reservations).
               group("reservations.#{klass.name.foreign_key}").
               select("CAST(CONCAT_WS(' ', users.firstname, users.lastname) AS CHAR) AS label")
-          when "InventoryPool"
+          when 'InventoryPool'
             query.joins(:reservations).
               group("reservations.#{klass.name.foreign_key}").
-              select("inventory_pools.name AS label")
-          when "Model"
+              select('inventory_pools.name AS label')
+          when 'Model'
             query.joins(:reservations).
               group("reservations.#{klass.name.foreign_key}").
               select("CONCAT_WS(' ', models.manufacturer, models.product, models.version) AS label")
-          when "Item"
-            query.joins(:item_lines => :model).
+          when 'Item'
+            query.joins(item_lines: :model).
                 group("reservations.#{klass.name.foreign_key}").
                 select("CONCAT_WS(' ', items.inventory_code, models.manufacturer, models.product, models.version) AS label")
           else
@@ -77,12 +77,12 @@ module Statistics
         query = query.where(reservations[:returned_date].lteq(Date.parse(options[:end_date]).to_s(:db))) unless options[:end_date].blank?
 
         query.map do |x|
-          h = { type: "statistic",
+          h = { type: 'statistic',
                 object: klass.name,
                 id: x.id,
                 label: x.label,
                 quantity: x.quantity.to_i,
-                unit: _("lends") }
+                unit: _('lends') }
           h[:children] = hand_overs(klasses, options.merge({klass.name.foreign_key.to_sym => x.id})) unless klasses.empty?
           h
         end 
@@ -93,8 +93,8 @@ module Statistics
         options[:limit] ||= 10
 
         if klasses.is_a? Array
-          raise "limit is required" if options[:limit].nil?
-          raise "max accepted limit is 20" if options[:limit] > 20
+          raise 'limit is required' if options[:limit].nil?
+          raise 'max accepted limit is 20' if options[:limit] > 20
         end
 
         klasses = Array(klasses)
@@ -106,18 +106,18 @@ module Statistics
         query = klass.unscoped.
             select("#{klass.name.tableize}.id, COUNT(DISTINCT contracts.id) AS quantity").
             where(reservations: {status: [:signed, :closed]}).
-            order("quantity DESC").
+            order('quantity DESC').
             limit(options[:limit])
 
         query = case klass.name
-                  when "User"
-                    query.joins(:reservations => :contract).
+                  when 'User'
+                    query.joins(reservations: :contract).
                         group("reservations.#{klass.name.foreign_key}").
                         select("CAST(CONCAT_WS(' ', users.firstname, users.lastname) AS CHAR) AS label")
-                  when "InventoryPool"
-                    query.joins(:reservations => :contract).
+                  when 'InventoryPool'
+                    query.joins(reservations: :contract).
                         group("reservations.#{klass.name.foreign_key}").
-                        select("inventory_pools.name AS label")
+                        select('inventory_pools.name AS label')
                   else
                     raise "#{klass} not supported"
                 end
@@ -130,12 +130,12 @@ module Statistics
         query = query.where(reservations[:returned_date].lteq(Date.parse(options[:end_date]).to_s(:db))) unless options[:end_date].blank?
 
         query.map do |x|
-          h = { type: "statistic",
+          h = { type: 'statistic',
                 object: klass.name,
                 id: x.id,
                 label: x.label,
                 quantity: x.quantity.to_i,
-                unit: _("contracts") }
+                unit: _('contracts') }
           h[:children] = contracts(klasses, options.merge({klass.name.foreign_key.to_sym => x.id})) unless klasses.empty?
           h
         end
@@ -146,8 +146,8 @@ module Statistics
         options[:limit] ||= 10
 
         if klasses.is_a? Array
-          raise "limit is required" if options[:limit].nil?
-          raise "max accepted limit is 20" if options[:limit] > 20
+          raise 'limit is required' if options[:limit].nil?
+          raise 'max accepted limit is 20' if options[:limit] > 20
         end
 
         klasses = Array(klasses)
@@ -159,7 +159,7 @@ module Statistics
         query = klass.unscoped.
                    select("#{klass.name.tableize}.id, COUNT(items.id) AS quantity, SUM(items.price) AS price").
                    where(items[:price].gt(0)).
-                   order("price DESC").
+                   order('price DESC').
                    limit(options[:limit])
 
         query = case klass.name
@@ -167,14 +167,14 @@ module Statistics
           #  query.joins(:reservations).
           #    group("contracts.#{klass.name.foreign_key}").
           #    select("CAST(CONCAT_WS(' ', users.firstname, users.lastname) AS CHAR) AS label")
-          when "InventoryPool"
+          when 'InventoryPool'
             query.joins(:own_items).
-              group("items.owner_id").
-              select("inventory_pools.name AS label")
-          when "Model"
+              group('items.owner_id').
+              select('inventory_pools.name AS label')
+          when 'Model'
             query.joins(:items).
               group("items.#{klass.name.foreign_key}").
-              select("models.product AS label")
+              select('models.product AS label')
           else
            raise "#{klass} not supported"
         end
@@ -186,12 +186,12 @@ module Statistics
         query = query.where(items[:created_at].lteq(Date.parse(options[:end_date]).to_s(:db))) unless options[:end_date].blank?
         
         query.map do |x|
-          h = { type: "statistic",
+          h = { type: 'statistic',
                 object: klass.name,
                 id: x.id,
                 label: "#{x.quantity}x #{x.label}",
                 quantity: x.price.to_i,
-                unit: _("CHF") }
+                unit: _('CHF') }
           h[:children] = item_values(klasses, options.merge({klass.name.foreign_key.to_sym => x.id})) unless klasses.empty?
           h
         end 

@@ -44,7 +44,7 @@ class Visit < ActiveRecord::Base
   scope :potential_hand_over, lambda { where(status: :submitted) }
   scope :hand_over, lambda { where(status: :approved) }
   scope :take_back, lambda { where(status: :signed) }
-  scope :take_back_overdue, lambda { take_back.where("date < ?", Date.today) }
+  scope :take_back_overdue, lambda { take_back.where('date < ?', Date.today) }
 
   #######################################################
 
@@ -71,15 +71,15 @@ class Visit < ActiveRecord::Base
              end.where.not(status: :submitted)
     visits = visits.where(status: params[:status]) if params[:status]
     visits = visits.search(params[:search_term]) unless params[:search_term].blank?
-    visits = visits.where arel_table[:date].lteq(params[:date]) if params[:date] and params[:date_comparison] == "lteq"
-    visits = visits.where arel_table[:date].eq(params[:date]) if params[:date] and params[:date_comparison] == "eq"
+    visits = visits.where arel_table[:date].lteq(params[:date]) if params[:date] and params[:date_comparison] == 'lteq'
+    visits = visits.where arel_table[:date].eq(params[:date]) if params[:date] and params[:date_comparison] == 'eq'
 
     if r = params[:range]
       visits = visits.where(arel_table[:date].gteq(r[:start_date])) if r[:start_date]
       visits = visits.where(arel_table[:date].lteq(r[:end_date])) if r[:end_date]
     end
 
-    visits = visits.default_paginate params unless params[:paginate] == "false"
+    visits = visits.default_paginate params unless params[:paginate] == 'false'
     visits
   end
 

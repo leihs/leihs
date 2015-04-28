@@ -8,7 +8,7 @@ class Manage::PurposesController <  Manage::ApplicationController
     line = current_inventory_pool.reservations.where(purpose_id: params[:purpose_id]).first
     if line
       line.purpose.update_attributes description: params[:description]
-      render :status => :ok, :nothing => true
+      render status: :ok, nothing: true
     end
   end
 

@@ -231,13 +231,13 @@ Then /^the size of the contract should increase exactly by the amount of reserva
 end
 
 Given /^an? (submitted|unsubmitted) contract with reservations existing$/ do |arg1|
-  User.order("RAND()").detect do |user|
+  User.order('RAND()').detect do |user|
     @contract = user.reservations_bundles.where(status: arg1).sample
   end
 end
 
 When /^I approve the contract of the borrowing user$/ do
-  @contract.approve("That will be fine.", @current_user)
+  @contract.approve('That will be fine.', @current_user)
   @contract.reservations.each do |reservation|
     expect(reservation.reload.status).to eq :approved
   end
@@ -249,7 +249,7 @@ Then /^the borrowing user gets one confirmation email$/ do
 end
 
 Then /^the subject of the email is "(.*?)"$/ do |arg1|
-  expect(@emails[0].subject).to eq "[leihs] Reservation Confirmation"
+  expect(@emails[0].subject).to eq '[leihs] Reservation Confirmation'
 end
 
 When /^the contract is submitted with the purpose description "(.*?)"$/ do |purpose|

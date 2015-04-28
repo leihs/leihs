@@ -12,7 +12,7 @@ module Availability
         if user.timeout?
           same_contract_summed_quantity = user.reservations.where(inventory_pool_id: inventory_pool_id,
                                                                     status: status,
-                                                                    model_id: model_id).where("start_date <= ? AND end_date >= ?", end_date, start_date).sum(:quantity)
+                                                                    model_id: model_id).where('start_date <= ? AND end_date >= ?', end_date, start_date).sum(:quantity)
           (maximum_available_quantity >= same_contract_summed_quantity)
         else
           # the unsubmitted reservations are also considered as running_reservations for the availability, then we sum up again the current reservation quantity (preventing self-blocking problem)

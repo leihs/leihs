@@ -1,67 +1,67 @@
 # -*- encoding : utf-8 -*-
 
 Given(/^I hit the timeout page with a model that has conflicts$/) do
-  step "I have an unsubmitted order with models"
-  step "a model is not available"
-  step "I have performed no activity for more than 30 minutes"
-  step "I perform some activity"
-  step "I am redirected to the timeout page"
+  step 'I have an unsubmitted order with models'
+  step 'a model is not available'
+  step 'I have performed no activity for more than 30 minutes'
+  step 'I perform some activity'
+  step 'I am redirected to the timeout page'
   step 'I am informed that my items are no longer reserved for me'
 end
 
 #Angenommen(/^ich zur Timeout Page mit (\d+) Konfliktmodellen weitergeleitet werde$/) do |n|
 Given(/^I hit the timeout page with (\d+) models that have conflicts$/) do |n|
-  step "I have an unsubmitted order with models"
+  step 'I have an unsubmitted order with models'
   step "#{n} models are not available"
-  step "I have performed no activity for more than 30 minutes"
-  step "I perform some activity"
-  step "I am redirected to the timeout page"
+  step 'I have performed no activity for more than 30 minutes'
+  step 'I perform some activity'
+  step 'I am redirected to the timeout page'
   step 'I am informed that my items are no longer reserved for me'
 end
 
 #Dann(/^ich sehe eine Information, dass die Geräte nicht mehr reserviert sind$/) do
 Then(/^I am informed that my items are no longer reserved for me$/) do
-  expect(has_content?(_("%d minutes passed. The items are not reserved for you any more!") % Contract::TIMEOUT_MINUTES)).to be true
+  expect(has_content?(_('%d minutes passed. The items are not reserved for you any more!') % Contract::TIMEOUT_MINUTES)).to be true
 end
 
 #Dann(/^ich sehe eine Information, dass alle Geräte wieder verfügbar sind$/) do
 Then(/^I am informed that the remaining models are all available$/) do
-  expect(has_content?(_("Your order has been modified. All reservations are now available."))).to be true
+  expect(has_content?(_('Your order has been modified. All reservations are now available.'))).to be true
 end
 
 #########################################################################
 
 #Dann(/^sehe ich meine Bestellung$/) do
 Then(/^I see my order$/) do
-  find("#current-order-lines")
+  find('#current-order-lines')
 end
 
 #Dann(/^die nicht mehr verfügbaren Modelle sind hervorgehoben$/) do
 Then(/^the no longer available items are highlighted$/) do
   @current_user.reservations.unsubmitted.each do |line|
     unless line.available?
-      find("[data-ids*='#{line.id}']", match: :first).find(:xpath, "./../../..").find(".line-info.red[title='#{_("Not available")}']")
+      find("[data-ids*='#{line.id}']", match: :first).find(:xpath, './../../..').find(".line-info.red[title='#{_("Not available")}']")
     end
   end
 end
 
 #Dann(/^ich kann Einträge löschen$/) do
 Then(/^I can delete entries$/) do
-  all(".row.line").each do |x|
-    x.find("a", match: :first, text: _("Delete"))
+  all('.row.line').each do |x|
+    x.find('a', match: :first, text: _('Delete'))
   end
 end
 
 #Dann(/^ich kann Einträge editieren$/) do
 Then(/^I can edit entries$/) do
-  all(".row.line").each do |x|
-    x.find("button", text: _("Change entry"))
+  all('.row.line').each do |x|
+    x.find('button', text: _('Change entry'))
   end
 end
 
 #Dann(/^ich kann zur Hauptübersicht$/) do
 Then(/^I can return to the main order overview$/) do
-  find("a", text: _("Continue this order"))
+  find('a', text: _('Continue this order'))
 end
 
 #########################################################################
@@ -82,11 +82,11 @@ end
 
 #Angenommen(/^ich lösche einen Eintrag$/) do
 Given(/^I delete one entry$/) do
-  line = all(".row.line").to_a.sample
-  @line_ids = line.find("button[data-ids]")["data-ids"].gsub(/\[|\]/, "").split(',').map(&:to_i)
+  line = all('.row.line').to_a.sample
+  @line_ids = line.find('button[data-ids]')['data-ids'].gsub(/\[|\]/, '').split(',').map(&:to_i)
   expect(@line_ids.all? { |id| @current_user.reservations.unsubmitted.map(&:id).include?(id) }).to be true
-  line.find(".dropdown-toggle").click
-  line.find("a", text: _("Delete")).click
+  line.find('.dropdown-toggle').click
+  line.find('a', text: _('Delete')).click
   alert = page.driver.browser.switch_to.alert
   alert.accept
 end
@@ -117,16 +117,16 @@ When(/^I (increase|decrease) the quantity of one entry$/) do |arg1|
   #step "öffnet der Kalender"
   step 'the calendar opens'
   @new_quantity = case arg1
-                    when "increase"
-                      find("#booking-calendar-quantity")[:max].to_i
-                    when "decrease"
+                    when 'increase'
+                      find('#booking-calendar-quantity')[:max].to_i
+                    when 'decrease'
                       1
                     else
                       raise
                   end
-  find("#booking-calendar-quantity").set(@new_quantity)
-  step "I save the booking calendar"
-  step "the booking calendar is closed"
+  find('#booking-calendar-quantity').set(@new_quantity)
+  step 'I save the booking calendar'
+  step 'the booking calendar is closed'
 end
 
 #Dann(/^werden die Änderungen gespeichert$/) do
@@ -191,22 +191,22 @@ end
 
 #Dann(/^verschwindet die Fehlermeldung$/) do
 Then(/^the error message appears$/) do
-  expect(has_no_content? _("Please solve the conflicts for all highlighted reservations in order to continue.")).to be true
+  expect(has_no_content? _('Please solve the conflicts for all highlighted reservations in order to continue.')).to be true
 end
 
 def resolve_conflict_for_reservation(line_id)
   within ".line[data-ids='[#{line_id}]']" do
-    find(".button", :text => _("Change entry")).click
+    find('.button', text: _('Change entry')).click
   end
-  expect(has_selector?("#booking-calendar .fc-day-content")).to be true
-  find("#booking-calendar-quantity").set 1
+  expect(has_selector?('#booking-calendar .fc-day-content')).to be true
+  find('#booking-calendar-quantity').set 1
 
   start_date = select_available_not_closed_date
   select_available_not_closed_date(:end, start_date)
-  find(".modal .button.green").click
+  find('.modal .button.green').click
 
-  step "the booking calendar is closed"
+  step 'the booking calendar is closed'
   within ".line[data-ids='[#{line_id}]']" do
-    expect(has_no_selector?(".line-info.red")).to be true
+    expect(has_no_selector?('.line-info.red')).to be true
   end
 end

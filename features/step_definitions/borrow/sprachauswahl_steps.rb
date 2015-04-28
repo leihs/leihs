@@ -7,7 +7,7 @@ end
 
 #Wenn(/^ich die Sprache auf "(.*?)" umschalte$/) do |language|
 When(/^I change the language to "(.*?)"$/) do |language|
-  find("footer a", text: language).click
+  find('footer a', text: language).click
 end
 
 Then(/^the language is "(.*?)"$/) do |language|

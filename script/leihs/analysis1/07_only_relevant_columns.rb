@@ -14,5 +14,5 @@ datapoints=100
 
 while( line = gets ) do
   date,foo1,total,view,db,foo2 = line.split(/,/)
-  puts( date + "," + total + "," + view + "," + db )
+  puts( date + ',' + total + ',' + view + ',' + db )
 end

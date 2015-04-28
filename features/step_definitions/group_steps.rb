@@ -1,7 +1,7 @@
 #
 # Models in Groups
 #
-Then "that model should not be available in any other group"  do
+Then 'that model should not be available in any other group'  do
   # FIXME how can be executed the next line ?? where is implemented the maximum method ??
   # quantities = @model.in(@inventory_pool).maximum_available_in_period_for_groups(@inventory_pool.groups.where(['id != ?',@group]).pluck(:id))
   # quantities.values.reduce(:+).to_i.should == 0
@@ -15,11 +15,11 @@ Then /^(\w+) item(s?) of that model should be available in group '([^"]*)'( only
   expect(quantities[@group.id].to_i).to eq to_number(n)
 
   all_groups.each do |group|
-    expect(quantities[group].to_i).to eq 0 if (group ? group.name : "General") != group_name
+    expect(quantities[group].to_i).to eq 0 if (group ? group.name : 'General') != group_name
   end if exclusivity
 end
 
-Then "that model should not be available in any group"  do
+Then 'that model should not be available in any group'  do
   expect(@inventory_pool.partitions_with_generals.hash_for_model_and_groups(@model).reject { |group_id, num| group_id == Group::GENERAL_GROUP_ID }.size).to eq 0
 end
 
@@ -49,11 +49,11 @@ When /^I assign (\w+) item(s?) to group "([^"]*)"$/ do |n, plural, to_group_name
   @model.partitions.set_in(@inventory_pool, partition)
 end
 
-Then "that model should not be available to anybody" do
-  step "0 items of that model should be available to everybody"
+Then 'that model should not be available to anybody' do
+  step '0 items of that model should be available to everybody'
 end
 
-Then "$n items of that model should be available to everybody" do |n|
+Then '$n items of that model should be available to everybody' do |n|
   User.all.each do |user|
     step "#{n} items of that model should be available to \"#{user.login}\""
   end
@@ -72,7 +72,7 @@ Given /^a group '([^']*)'( exists)?$/ do |name,foo|
 end
 
 When /^I add a group called "([^"]*)"$/ do |name|
-  @inventory_pool.groups.create(:name => name)
+  @inventory_pool.groups.create(name: name)
 end
 
 # TODO: currently unused
@@ -109,7 +109,7 @@ end
 
 When /^I lend (\w+) item(s?) of that model to "([^"]*)"$/ do |n, plural, user_login|
   user = User.find_by_login user_login
-  purpose = FactoryGirl.create :purpose, description: "this is the required purpose"
+  purpose = FactoryGirl.create :purpose, description: 'this is the required purpose'
   reservations = to_number(n).times.map { FactoryGirl.create :reservation,
                                                                inventory_pool: @inventory_pool,
                                                                user: user,
@@ -119,7 +119,7 @@ When /^I lend (\w+) item(s?) of that model to "([^"]*)"$/ do |n, plural, user_lo
                                                                end_date: Date.tomorrow }
 
   contract = user.reservations_bundles.unsubmitted.find_by(inventory_pool_id: @inventory_pool)
-  expect(contract.submit("this is the required purpose")).to be true
+  expect(contract.submit('this is the required purpose')).to be true
   contract = user.reservations_bundles.submitted.find_by(inventory_pool_id: @inventory_pool)
   expect(contract.approve("foo'lish comment")).to be true
   contract = user.reservations_bundles.approved.find_by(inventory_pool_id: @inventory_pool)

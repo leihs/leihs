@@ -1,10 +1,10 @@
 class Manage::ContractsController < Manage::ApplicationController
   
-  before_filter :except => [:approve, :reject] do
+  before_filter except: [:approve, :reject] do
     @contract = current_inventory_pool.reservations_bundles.find(params[:id]) if params[:id]
     @user = current_inventory_pool.users.find(params[:user_id]) if params[:user_id]
   end
-  before_filter :only => [:approve, :reject] do
+  before_filter only: [:approve, :reject] do
     @contract = current_inventory_pool.reservations_bundles.submitted.find(params[:id])
   end
 
@@ -51,26 +51,26 @@ class Manage::ContractsController < Manage::ApplicationController
   end
 
   def show
-    render "documents/contract", layout: "print"
+    render 'documents/contract', layout: 'print'
   end
 
   def value_list
-    render "documents/value_list", layout: "print"
+    render 'documents/value_list', layout: 'print'
   end
 
   def picking_list
-    render "documents/picking_list", layout: "print"
+    render 'documents/picking_list', layout: 'print'
   end
 
   def approve(force = (params.has_key? :force) ? true : false)
     if @contract.approve(params[:comment], true, current_user, force)
       respond_to do |format|
-        format.json { render :json => true, :status => 200  }
+        format.json { render json: true, status: 200  }
       end
     else
       errors = @contract.errors.full_messages.uniq.join("\n")
       respond_to do |format|
-        format.json { render :text => errors, :status => 500 }
+        format.json { render text: errors, status: 500 }
       end
     end
   end
@@ -78,25 +78,25 @@ class Manage::ContractsController < Manage::ApplicationController
   def reject
     if request.post? and params[:comment] and @contract.reject(params[:comment], current_user)
       respond_to do |format|
-        format.json { render :json => true, :status => 200 }
-        format.html { redirect_to manage_daily_view_path, :flash => {:success => _("Order rejected")}}
+        format.json { render json: true, status: 200 }
+        format.html { redirect_to manage_daily_view_path, flash: {success: _('Order rejected')}}
       end
     else
       errors = @contract.errors.full_messages.uniq.join("\n")
       respond_to do |format|
-        format.json { render :text => errors, :status => 500 }
+        format.json { render text: errors, status: 500 }
         format.html { render :edit }
       end
     end
   end
 
-  def sign(line_ids = params[:line_ids] || raise("line_ids is required"),
+  def sign(line_ids = params[:line_ids] || raise('line_ids is required'),
            purpose_description = params[:purpose],
            note = params[:note])
     
     reservations = @contract.reservations.find(line_ids)
     if purpose_description
-      purpose = Purpose.create :description => purpose_description
+      purpose = Purpose.create description: purpose_description
       reservations.each do |line|
         if line.purpose.nil?
           line.purpose = purpose
@@ -108,7 +108,7 @@ class Manage::ContractsController < Manage::ApplicationController
     if (contract = @contract.sign(current_user, reservations, note, params[:delegated_user_id])).valid?
       render json: @contract.user.reservations_bundles.signed.find(contract.id).to_json
     else 
-      render :status => :bad_request, :text => @contract.errors.full_messages.uniq.join(", ")
+      render status: :bad_request, text: @contract.errors.full_messages.uniq.join(', ')
     end
   end
 
@@ -126,7 +126,7 @@ class Manage::ContractsController < Manage::ApplicationController
       render json: user.reservations_bundles.find_by(status: contract.status, inventory_pool_id: current_inventory_pool).to_json
     else
       errors = reservations.flat_map {|line| line.errors.full_messages }
-      render :status => :bad_request, :text => errors.uniq.join(", ")
+      render status: :bad_request, text: errors.uniq.join(', ')
     end
   end
 

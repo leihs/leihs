@@ -20,10 +20,10 @@ class Manage::BuildingsController < Manage::ApplicationController
   def create
     @building = Building.create params[:building]
     if @building.persisted?
-      flash[:notice] = _("Building successfully created")
+      flash[:notice] = _('Building successfully created')
       redirect_to action: :index
     else
-      flash.now[:error] = @building.errors.full_messages.uniq.join(", ")
+      flash.now[:error] = @building.errors.full_messages.uniq.join(', ')
       render :new
     end
   end
@@ -33,10 +33,10 @@ class Manage::BuildingsController < Manage::ApplicationController
 
   def update
     if @building.update_attributes params[:building]
-      flash[:notice] = _("Building successfully updated")
+      flash[:notice] = _('Building successfully updated')
       redirect_to action: :index
     else
-      flash.now[:error] = @building.errors.full_messages.uniq.join(", ")
+      flash.now[:error] = @building.errors.full_messages.uniq.join(', ')
       render :edit
     end
   end
@@ -44,7 +44,7 @@ class Manage::BuildingsController < Manage::ApplicationController
   def destroy
     begin
       @building.destroy
-      flash[:success] = _("%s successfully deleted") % _("Building")
+      flash[:success] = _('%s successfully deleted') % _('Building')
     rescue => e
       flash[:error] = e.to_s
     end

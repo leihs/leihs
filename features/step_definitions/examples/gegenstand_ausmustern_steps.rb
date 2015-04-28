@@ -21,15 +21,15 @@ end
 
 # Dann /^kann man diese(?:.?) (?:.*) mit Angabe des Grundes erfolgreich ausmustern$/ do
 Then(/^I can retire this (?:.*) if I give a reason for retiring$/) do
-  field = find("[data-type='field']", text: _("Retirement"))
+  field = find("[data-type='field']", text: _('Retirement'))
   field.find("option[value='true']").select_option
-  field = find("[data-type='field']", text: _("Reason for Retirement"))
-  field.find("textarea").set "test"
-  find("#item-save").click
-  find("#flash .success")
+  field = find("[data-type='field']", text: _('Reason for Retirement'))
+  field.find('textarea').set 'test'
+  find('#item-save').click
+  find('#flash .success')
   @item.reload
   expect(@item.retired).to eq Date.today
-  expect(@item.retired_reason).to eq "test"
+  expect(@item.retired_reason).to eq 'test'
 end
 
 # Dann(/^hat man keine Möglichkeit solche(?:.?) (?:.*) auszumustern$/) do
@@ -96,13 +96,13 @@ end
 
 # Wenn(/^man die Ausmusterung bei diese(?:.) (?:.*) zurück setzt$/) do
 When(/^I unretire this (?:.*)$/) do
-  expect(has_content?(_("Retirement"))).to be true
-  find("[name='item[retired]']").select _("No")
+  expect(has_content?(_('Retirement'))).to be true
+  find("[name='item[retired]']").select _('No')
 end
 
 # Dann(/^wurde man auf die Inventarliste geleitet$/) do
 Then(/^I am redirected to the inventory list$/) do
-  expect(has_content?(_("List of Inventory"))).to be true
+  expect(has_content?(_('List of Inventory'))).to be true
   expect(current_path).to eq manage_inventory_path(@current_inventory_pool)
 end
 

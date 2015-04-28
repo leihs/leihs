@@ -8,9 +8,9 @@ class ModelLink < ActiveRecord::Base
   end
 
   # prevent duplicated model in Category, but allow for Template
-  validates_uniqueness_of :model_id, :scope => :model_group_id,
-                                     :message => _("already in Category"),
-                                     :if => Proc.new {|ml| ml.model_group.is_a?(Category) }
+  validates_uniqueness_of :model_id, scope: :model_group_id,
+                                     message: _('already in Category'),
+                                     if: Proc.new {|ml| ml.model_group.is_a?(Category) }
   validates_presence_of :model_group, :model
   validates_numericality_of :quantity
   

@@ -13,15 +13,15 @@ Given "a $role for inventory pool '$ip_name' is logged in as '$who'" do | role, 
 end
 
 Given "I am logged in as '$username' with password '$password'" do |username, password|
-  @current_user = User.where(:login => username.downcase).first
+  @current_user = User.where(login: username.downcase).first
   I18n.locale = if @current_user.language then @current_user.language.locale_name.to_sym else Language.default_language end
   @current_inventory_pool = @current_user.inventory_pools.managed.first
   case Capybara.current_driver
     when /selenium/
-      visit "/"
+      visit '/'
       find("[href='#{login_path}']", match: :first).click
-      fill_in 'username', :with => username
-      fill_in 'password', :with => password
+      fill_in 'username', with: username
+      fill_in 'password', with: password
       find("[type='submit']", match: :first).click
     when :rack_test
       step "I log in as '%s' with password '%s'" % [username, password]
@@ -38,13 +38,13 @@ end
 
 # This one 'really' goes through the auth process
 When /^I log in as '([^']*)' with password '([^']*)'$/ do |username, password|
-  @current_user = User.where(:login => username.downcase).first
+  @current_user = User.where(login: username.downcase).first
   @current_inventory_pool = @current_user.inventory_pools.managed.first
-  post "/authenticator/db/login", {:login => {:username => username, :password => password}}
+  post '/authenticator/db/login', {login: {username: username, password: password}}
 end
 
 Given /(his|her) password is '([^']*)'$/ do |foo,password|
-  LeihsFactory.create_db_auth( :login => @user.login, :password => password)
+  LeihsFactory.create_db_auth( login: @user.login, password: password)
 end
 
 When 'I log in as the admin' do
@@ -58,18 +58,18 @@ end
 # It's possible that previous steps leave the running browser instance in a logged-in
 # state, which confuses tests that rely on "When I log in as the admin".
 When 'I make sure I am logged out' do
-  step "I log out"
+  step 'I log out'
 end
 
 When /^I am redirected to the "([^"]*)" section$/ do |section_name|
-  find("nav#topbar .topbar-navigation .active", match: :prefer_exact, text: _(section_name))
+  find('nav#topbar .topbar-navigation .active', match: :prefer_exact, text: _(section_name))
 end
 
 #Angenommen(/^man ist eingeloggt als "(.*?)"$/) do |persona|
 Given(/^I am logged in as "(.*?)"$/) do |persona|
-  step "I make sure I am logged out"
-  @current_user = User.where(:login => persona.downcase).first
+  step 'I make sure I am logged out'
+  @current_user = User.where(login: persona.downcase).first
   I18n.locale = if @current_user.language then @current_user.language.locale_name.to_sym else Language.default_language end
   page.set_rack_session user_id: @current_user.id
-  step "I visit the homepage"
+  step 'I visit the homepage'
 end

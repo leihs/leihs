@@ -23,7 +23,7 @@ class Manage::UsersController < Manage::ApplicationController
 
   before_filter only: [:hand_over, :take_back] do
     unless @user.access_right_for(current_inventory_pool)
-      redirect_to manage_inventory_pool_users_path, flash: {error: _("No access")}
+      redirect_to manage_inventory_pool_users_path, flash: {error: _('No access')}
     end
   end
 
@@ -46,17 +46,17 @@ class Manage::UsersController < Manage::ApplicationController
   def index
     @role = params[:role]
     @users = User.filter params, current_inventory_pool
-    set_pagination_header @users unless params[:paginate] == "false"
+    set_pagination_header @users unless params[:paginate] == 'false'
   end
 
   def new
-    @delegation_type = true if params[:type] == "delegation"
+    @delegation_type = true if params[:type] == 'delegation'
     @user = User.new
     @is_admin = false unless @delegation_type
   end
 
   def new_in_inventory_pool
-    @delegation_type = true if params[:type] == "delegation"
+    @delegation_type = true if params[:type] == 'delegation'
     @user = User.new
     @accessible_roles = get_accessible_roles_for_current_user
     @access_right = @user.access_rights.new inventory_pool_id: current_inventory_pool.id, role: :customer
@@ -65,7 +65,7 @@ class Manage::UsersController < Manage::ApplicationController
   def create
     should_be_admin = params[:user].delete(:admin)
     if users = params[:user].delete(:users)
-      delegated_user_ids = users.map {|h| h["id"]}
+      delegated_user_ids = users.map {|h| h['id']}
     end
     @user = User.new(params[:user])
     @user.login = params[:db_auth][:login] unless @user.is_delegation
@@ -80,11 +80,11 @@ class Manage::UsersController < Manage::ApplicationController
           @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
         end
 
-        @user.access_rights.create!(role: :admin) if should_be_admin == "true"
+        @user.access_rights.create!(role: :admin) if should_be_admin == 'true'
 
         respond_to do |format|
           format.html do
-            flash[:notice] = _("User created successfully")
+            flash[:notice] = _('User created successfully')
             redirect_to manage_users_path
           end
         end
@@ -105,12 +105,12 @@ class Manage::UsersController < Manage::ApplicationController
   def create_in_inventory_pool
     groups = params[:user].delete(:groups) if params[:user].has_key?(:groups)
     if users = params[:user].delete(:users)
-      delegated_user_ids = users.map {|h| h["id"]}
+      delegated_user_ids = users.map {|h| h['id']}
     end
 
     @user = User.new(params[:user])
     @user.login = params[:db_auth][:login] if params.has_key?(:db_auth)
-    @user.groups = groups.map {|g| Group.find g["id"]} if groups
+    @user.groups = groups.map {|g| Group.find g['id']} if groups
 
     begin
       User.transaction do
@@ -129,7 +129,7 @@ class Manage::UsersController < Manage::ApplicationController
 
         respond_to do |format|
           format.html do
-            flash[:notice] = _("User created successfully")
+            flash[:notice] = _('User created successfully')
             redirect_to manage_inventory_pool_users_path(@current_inventory_pool)
           end
         end
@@ -173,11 +173,11 @@ class Manage::UsersController < Manage::ApplicationController
           @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
         end
         @user.access_rights.where(role: :admin).each(&:destroy)
-        @user.access_rights.create!(role: :admin) if should_be_admin == "true"
+        @user.access_rights.create!(role: :admin) if should_be_admin == 'true'
 
         respond_to do |format|
           format.html do
-            flash[:notice] = _("User details were updated successfully.")
+            flash[:notice] = _('User details were updated successfully.')
             redirect_to manage_users_path
           end
         end
@@ -199,7 +199,7 @@ class Manage::UsersController < Manage::ApplicationController
     if params[:user]
 
       if params[:user].has_key?(:groups) and (groups = params[:user].delete(:groups))
-        @user.groups = groups.map {|g| Group.find g["id"]}
+        @user.groups = groups.map {|g| Group.find g['id']}
       end
 
       delegated_user_ids = get_delegated_users_ids params
@@ -219,11 +219,11 @@ class Manage::UsersController < Manage::ApplicationController
 
         respond_to do |format|
           format.html do
-            flash[:notice] = _("User details were updated successfully.")
+            flash[:notice] = _('User details were updated successfully.')
             redirect_to manage_inventory_pool_users_path
           end
           format.json do
-            render :text => _("User details were updated successfully.")
+            render text: _('User details were updated successfully.')
           end
         end
       end
@@ -233,7 +233,7 @@ class Manage::UsersController < Manage::ApplicationController
           flash[:error] = e.to_s
           redirect_to :back
         end
-        format.json { render :text => e.to_s, :status => 500 }
+        format.json { render text: e.to_s, status: 500 }
       end
     end
   end
@@ -245,9 +245,9 @@ class Manage::UsersController < Manage::ApplicationController
       format.json{ @user.persisted? ? render(status: :bad_request) : render(status: :no_content)}
       format.html do 
         if @user.persisted? 
-          redirect_to(:back, flash: {error: _("You cannot delete this user")})
+          redirect_to(:back, flash: {error: _('You cannot delete this user')})
         else 
-          redirect_to(:back, flash: {success: _("%s successfully deleted") % _("User")})
+          redirect_to(:back, flash: {success: _('%s successfully deleted') % _('User')})
         end 
       end
     end
@@ -257,22 +257,22 @@ class Manage::UsersController < Manage::ApplicationController
 
   def set_start_screen(path = params[:path])
     if current_user.start_screen(path)
-      render :nothing => true, :status => :ok
+      render nothing: true, status: :ok
     else
-      render :nothing => true, :status => :bad_request
+      render nothing: true, status: :bad_request
     end
   end
 
 #################################################################
 
   def get_accessible_roles_for_current_user
-    accessible_roles = [[_("No access"), :no_access], [_("Customer"), :customer]]
+    accessible_roles = [[_('No access'), :no_access], [_('Customer'), :customer]]
     unless @delegation_type
       accessible_roles +=
         if @current_user.has_role? :admin or @current_user.has_role? :inventory_manager, @current_inventory_pool
-          [[_("Group manager"), :group_manager], [_("Lending manager"), :lending_manager], [_("Inventory manager"), :inventory_manager]]
+          [[_('Group manager'), :group_manager], [_('Lending manager'), :lending_manager], [_('Inventory manager'), :inventory_manager]]
       elsif @current_user.has_role? :lending_manager, @current_inventory_pool
-        [[_("Group manager"), :group_manager], [_("Lending manager"), :lending_manager]]
+        [[_('Group manager'), :group_manager], [_('Lending manager'), :lending_manager]]
       else [] end
     end
     accessible_roles
@@ -324,7 +324,7 @@ class Manage::UsersController < Manage::ApplicationController
     @count_overdue = @grouped_lines.keys.select{|range| range[date_index] < Date.today}.length
     @grouped_lines_by_date = []
     @grouped_lines.each_pair do |range, reservations|
-      @grouped_lines_by_date.push({:date => range[date_index], :grouped_lines => {range => reservations}})
+      @grouped_lines_by_date.push({date: range[date_index], grouped_lines: {range => reservations}})
     end
     @grouped_lines_by_date = @grouped_lines_by_date.sort_by{|g| g[:date]}
   end
@@ -332,7 +332,7 @@ class Manage::UsersController < Manage::ApplicationController
   def get_delegated_users_ids params
     # for complete users replacement, get only user ids without the _destroy flag
     if users = params[:user].delete(:users)
-      users.select{|h| h["_destroy"] != "1"}.map {|h| h["id"]}
+      users.select{|h| h['_destroy'] != '1'}.map {|h| h['id']}
     end
   end
 

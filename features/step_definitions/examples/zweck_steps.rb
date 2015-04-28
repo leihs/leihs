@@ -37,19 +37,19 @@ Then /^I see the assigned purpose on each line$/ do
   @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool).reservations.each do |line|
     target = find(".line[data-id='#{line.id}'] [data-tooltip-template*='purpose']")
     hover_for_tooltip target
-    find(".tooltipster-default .tooltipster-content", text: line.purpose.description)
+    find('.tooltipster-default .tooltipster-content', text: line.purpose.description)
   end
 end
 
 #Dann /^kann ich den Zweck editieren$/ do
 Then /^I can edit the purpose$/ do
-  find(".button", :text => _("Edit Purpose")).click
-  @new_purpose_description = "Benötigt für die Sommer-Austellung"
-  within ".modal" do
+  find('.button', text: _('Edit Purpose')).click
+  @new_purpose_description = 'Benötigt für die Sommer-Austellung'
+  within '.modal' do
     find("textarea[name='purpose']").set @new_purpose_description
-    find("button[type=submit]").click
+    find('button[type=submit]').click
   end
-  find("#purpose", text: @new_purpose_description)
+  find('#purpose', text: @new_purpose_description)
   expect(@contract.reload.reservations.first.purpose.description).to eq @new_purpose_description
 end
 
@@ -73,19 +73,19 @@ end
 
 #Dann /^werde ich beim Aushändigen darauf hingewiesen einen Zweck anzugeben$/ do
 Then /^I am told during hand over to assign a purpose$/ do
-  find(".multibutton .button[data-hand-over-selection]").click
-  within ".modal" do
-    find(".button", match: :first)
-    find("#purpose")
+  find('.multibutton .button[data-hand-over-selection]').click
+  within '.modal' do
+    find('.button', match: :first)
+    find('#purpose')
   end
 end
 
 #Dann /^erst wenn ich einen Zweck angebebe$/ do
 Then /^only when I assign a purpose$/ do
-  within ".modal" do
-    find(".button.green[data-hand-over]", text: _("Hand Over")).click
-    find("#error")
-    find("#purpose").set "The purpose for this hand over"
+  within '.modal' do
+    find('.button.green[data-hand-over]', text: _('Hand Over')).click
+    find('#error')
+    find('#purpose').set 'The purpose for this hand over'
   end
 end
 
@@ -102,8 +102,8 @@ Then /^I don't have to assign a purpose in order to finish the hand over$/ do
   step "I set the start date in the calendar to '#{I18n.l(Date.today)}'"
   step 'I save the booking calendar'
   step 'the booking calendar is closed'
-  find(".multibutton .button[data-hand-over-selection]").click
-  find(".modal.ui-shown")
+  find('.multibutton .button[data-hand-over-selection]').click
+  find('.modal.ui-shown')
   step 'I can finish the hand over'
 end
 
@@ -113,10 +113,10 @@ When /^I define a purpose$/ do
   step "I set the start date in the calendar to '#{I18n.l(Date.today)}'"
   step 'I save the booking calendar'
   step 'the booking calendar is closed'
-  find(".multibutton .button[data-hand-over-selection]").click
-  find("#add-purpose").click
-  @added_purpose = "Another Purpose"
-  find("#purpose").set @added_purpose
+  find('.multibutton .button[data-hand-over-selection]').click
+  find('#add-purpose').click
+  @added_purpose = 'Another Purpose'
+  find('#purpose').set @added_purpose
   @approved_lines = @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool).reservations
   step 'kann ich die Aushändigung durchführen'
 end
@@ -145,7 +145,7 @@ When /^all selected items have an assigned purpose$/ do
 
   # select all reservations if no one is selected yet
   if all("input[type='checkbox']:checked").empty?
-    step "I select all reservations selecting all linegroups"
+    step 'I select all reservations selecting all linegroups'
   end
   # ensure that only reservations with assigned items are selected before continuing with the test
   reservations.reload.select{|l| !l.item}.each do |l|
@@ -158,19 +158,19 @@ When /^all selected items have an assigned purpose$/ do
   step 'I save the booking calendar'
   step 'the booking calendar is closed'
 
-  within "#lines" do
+  within '#lines' do
     reservations = reservations.select {|line| line.item and find(".line[data-id='#{line.id}'] input[type='checkbox'][data-select-line]").checked? }
   end
 
-  find(".multibutton .button[data-hand-over-selection]").click
-  within(".modal") do
+  find('.multibutton .button[data-hand-over-selection]').click
+  within('.modal') do
     reservations.each do |line|
-      find(".row", match: :first, text: line.purpose.to_s)
+      find('.row', match: :first, text: line.purpose.to_s)
     end
   end
 end
 
 #Dann /^kann ich keinen weiteren Zweck angeben$/ do
 Then /^I cannot assign any more purposes$/ do
-  expect(has_no_selector?(".modal .purpose button", :visible => true)).to be true
+  expect(has_no_selector?('.modal .purpose button', visible: true)).to be true
 end

@@ -5,7 +5,7 @@ class Manage::VisitsController < Manage::ApplicationController
       format.html
       format.json {
         @visits = Visit.filter params, current_inventory_pool
-        set_pagination_header(@visits) unless params[:paginate] == "false"
+        set_pagination_header(@visits) unless params[:paginate] == 'false'
       }
     end
   end
@@ -18,7 +18,7 @@ class Manage::VisitsController < Manage::ApplicationController
         visit.reservations.each { |l| contract.remove_line(l, current_user.id) }
       end
     end
-    render :status => :no_content, :nothing => true
+    render status: :no_content, nothing: true
   end
 
   def remind
@@ -31,7 +31,7 @@ class Manage::VisitsController < Manage::ApplicationController
       user.remind(reservations, current_user)
     end
 
-    render :status => :no_content, :nothing => true
+    render status: :no_content, nothing: true
   end
 
 end

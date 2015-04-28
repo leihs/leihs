@@ -56,10 +56,10 @@ Given /^inventory pool model test data setup$/ do
   User.delete_all
 
   %W(le_mac eichen_berge birke venger siegfried).each do |login_name|
-    LeihsFactory.create_user :login => login_name
+    LeihsFactory.create_user login: login_name
   end
 
-  @manager = LeihsFactory.create_user({:login => "hammer"}, {:role => :lending_manager})
+  @manager = LeihsFactory.create_user({login: 'hammer'}, {role: :lending_manager})
 end
 
 Given /^all contracts and contract reservations are deleted$/ do
@@ -110,8 +110,8 @@ Then /^the first two contract reservations should now be grouped inside the firs
 end
 
 Given /^there are 2 different contracts for 2 different users$/ do
-  @open_reservation0 = FactoryGirl.create :reservation, :user => User.first, :inventory_pool => @current_inventory_pool, :status => :approved
-  @open_reservation1 = FactoryGirl.create :reservation, :user => User.last, :inventory_pool => @current_inventory_pool, :status => :approved
+  @open_reservation0 = FactoryGirl.create :reservation, user: User.first, inventory_pool: @current_inventory_pool, status: :approved
+  @open_reservation1 = FactoryGirl.create :reservation, user: User.last, inventory_pool: @current_inventory_pool, status: :approved
 end
 
 Given /^there are 2 different contracts with reservations for 2 different users$/ do
@@ -220,7 +220,7 @@ Then /^the first 2 contract reservations should now be grouped inside the 1st vi
 end
 
 Given(/^a maximum amount of visits is defined for a week day$/) do
-  @inventory_pool = @current_user.inventory_pools.order("RAND ()").detect { |ip| not ip.workday.max_visits.empty? }
+  @inventory_pool = @current_user.inventory_pools.order('RAND ()').detect { |ip| not ip.workday.max_visits.empty? }
   expect(@inventory_pool).not_to be_nil
 end
 
@@ -228,11 +228,11 @@ Then(/^the amount of visits includes$/) do |table|
   date = @inventory_pool.visits.potential_hand_over.sample.date
   total_visits = table.raw.flatten.sum do |k|
     case k
-      when "potential hand overs (not yet acknowledged orders)"
+      when 'potential hand overs (not yet acknowledged orders)'
         @inventory_pool.visits.potential_hand_over.select{|v| v.date == date}.size
-      when "hand overs"
+      when 'hand overs'
         @inventory_pool.visits.hand_over.where(date: date).to_a.count # NOTE count returns a Hash because the group() in default scope
-      when "take backs"
+      when 'take backs'
         @inventory_pool.visits.take_back.where(date: date).to_a.count # NOTE count returns a Hash because the group() in default scope
     end
   end

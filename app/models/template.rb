@@ -7,7 +7,7 @@ class Template < ModelGroup
   # TODO 12** has_many :models through
 
   after_save do
-    raise _("Template must have at least one model") if model_links.blank?
+    raise _('Template must have at least one model') if model_links.blank?
   end
 
   def self.filter(params, inventory_pool)

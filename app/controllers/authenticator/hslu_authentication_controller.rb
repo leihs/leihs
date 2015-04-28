@@ -11,30 +11,30 @@ class LdapHelper
 
   def initialize
     @ldap_config = YAML::load_file(Setting::LDAP_CONFIG)
-    @base_dn = @ldap_config[Rails.env]["base_dn"]
-    @search_field = @ldap_config[Rails.env]["search_field"]
-    @host = @ldap_config[Rails.env]["host"]
-    @port = @ldap_config[Rails.env]["port"].to_i || 636
-    @encryption = @ldap_config[Rails.env]["encryption"].to_sym || :simple_tls
+    @base_dn = @ldap_config[Rails.env]['base_dn']
+    @search_field = @ldap_config[Rails.env]['search_field']
+    @host = @ldap_config[Rails.env]['host']
+    @port = @ldap_config[Rails.env]['port'].to_i || 636
+    @encryption = @ldap_config[Rails.env]['encryption'].to_sym || :simple_tls
     @method = :simple
-    @master_bind_dn = @ldap_config[Rails.env]["master_bind_dn"]
-    @master_bind_pw = @ldap_config[Rails.env]["master_bind_pw"]
-    @unique_id_field = @ldap_config[Rails.env]["unique_id_field"]
-    @video_displayname = @ldap_config[Rails.env]["video_displayname"]
+    @master_bind_dn = @ldap_config[Rails.env]['master_bind_dn']
+    @master_bind_pw = @ldap_config[Rails.env]['master_bind_pw']
+    @unique_id_field = @ldap_config[Rails.env]['unique_id_field']
+    @video_displayname = @ldap_config[Rails.env]['video_displayname']
     raise "'master_bind_dn' and 'master_bind_pw' must be set in LDAP configuration file" if (@master_bind_dn.blank? or @master_bind_pw.blank?)
     raise "'unique_id_field' in LDAP configuration file must point to an LDAP field that allows unique identification of a user" if @unique_id_field.blank?
     raise "'video_displayname' in LDAP configuration file must be present and must be a string" if @video_displayname.blank?
   end
 
   def bind(username = @master_bind_dn, password = @master_bind_pw)
-    ldap = Net::LDAP.new :host => @host,
-    :port => @port, 
-    :encryption => @encryption,
-    :base => @base_dn,
-    :auth => {
-      :method=> @method,
-      :username => username,
-      :password => password 
+    ldap = Net::LDAP.new host: @host,
+    port: @port, 
+    encryption: @encryption,
+    base: @base_dn,
+    auth: {
+      method: @method,
+      username: username,
+      password: password 
     }
     if ldap.bind
       return ldap
@@ -50,15 +50,15 @@ end
 class Authenticator::HsluAuthenticationController < Authenticator::AuthenticatorController
 
   def login_form_path
-    "/authenticator/hslu/login"
+    '/authenticator/hslu/login'
   end
 
 
   # @param login [String] The login of the user you want to create
   # @param email [String] The email address of the user you want to create
   def create_user(login, email, firstname, lastname)
-    user = User.new(:login => login, :email => "#{email}", :firstname => "#{firstname}", :lastname => "#{lastname}")
-    user.authentication_system = AuthenticationSystem.where(:class_name => 'HsluAuthentication').first
+    user = User.new(login: login, email: "#{email}", firstname: "#{firstname}", lastname: "#{lastname}")
+    user.authentication_system = AuthenticationSystem.where(class_name: 'HsluAuthentication').first
     if user.save
       return user
     else
@@ -78,36 +78,36 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
     # http://www.hslu.ch/portrait/{:id}.jpg
     # {:id} will be interpolated with user.unique_id there.
     user.unique_id = user_data[ldaphelper.unique_id_field.to_s].first.to_s
-    user.firstname = user_data["givenname"].first.to_s 
-    user.lastname = user_data["sn"].first.to_s
-    user.phone = user_data["telephonenumber"].first.to_s unless user_data["telephonenumber"].blank?
+    user.firstname = user_data['givenname'].first.to_s 
+    user.lastname = user_data['sn'].first.to_s
+    user.phone = user_data['telephonenumber'].first.to_s unless user_data['telephonenumber'].blank?
     # If the user's unique_id is numeric, add an "L" to the front and copy it to the badge_id
     # If it's not numeric, just copy it straight to the badge_id
     if (user.unique_id =~ /^(\d+)$/).nil?
       user.badge_id = user.unique_id
     else
-      user.badge_id = "L" + user.unique_id
+      user.badge_id = 'L' + user.unique_id
     end
     user.language = Language.default_language if user.language.blank?
 
-    user.address = user_data["streetaddress"].first.to_s
-    user.city = user_data["l"].first.to_s
-    user.country = user_data["c"].first.to_s
-    user.zip = user_data["postalcode"].first.to_s
+    user.address = user_data['streetaddress'].first.to_s
+    user.city = user_data['l'].first.to_s
+    user.country = user_data['c'].first.to_s
+    user.zip = user_data['postalcode'].first.to_s
 
-    admin_dn = ldaphelper.ldap_config[Rails.env]["admin_dn"]
+    admin_dn = ldaphelper.ldap_config[Rails.env]['admin_dn']
     unless admin_dn.blank?
-      if user_data["memberof"].include?(admin_dn)
+      if user_data['memberof'].include?(admin_dn)
         if user.access_rights.active.empty? or !user.access_rights.active.collect(&:role).include?(:admin)
-          user.access_rights.create(:role => :admin)
+          user.access_rights.create(role: :admin)
         end
       end
     end
 
     # If the displayName contains whatever string is configured in video_displayname in LDAP.yml,
     # the user is assigned to the group "Video"
-    unless user_data["displayName"].first.scan(ldaphelper.video_displayname.to_s).empty?
-      video_group = Group.where(:name => 'Video').first
+    unless user_data['displayName'].first.scan(ldaphelper.video_displayname.to_s).empty?
+      video_group = Group.where(name: 'Video').first
       unless video_group.nil?
         user.groups << video_group unless user.groups.include?(video_group)
       end
@@ -116,20 +116,20 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
   
   def login
     super
-    @preferred_language = Language.preferred(request.env["HTTP_ACCEPT_LANGUAGE"])
+    @preferred_language = Language.preferred(request.env['HTTP_ACCEPT_LANGUAGE'])
 
     if request.post?
       user = params[:login][:username]
       password = params[:login][:password]
-      if user == "" || password == ""
-        flash[:notice] = _("Empty Username and/or Password")
+      if user == '' || password == ''
+        flash[:notice] = _('Empty Username and/or Password')
       else
         ldaphelper = LdapHelper.new
         begin
           ldap = ldaphelper.bind
 
           if ldap
-            users = ldap.search(:base => ldaphelper.base_dn, :filter => Net::LDAP::Filter.eq(ldaphelper.ldap_config[Rails.env]["search_field"], "#{user}"))
+            users = ldap.search(base: ldaphelper.base_dn, filter: Net::LDAP::Filter.eq(ldaphelper.ldap_config[Rails.env]['search_field'], "#{user}"))
 
             if users.size == 1
               ldap_user = users.first
@@ -149,7 +149,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
                   update_user(u, users.first)
                   if u.save
                     self.current_user = u
-                    redirect_back_or_default("/")
+                    redirect_back_or_default('/')
                   else
                     logger.error(u.errors.full_messages.to_s)
                     flash[:notice] = _("Could not update user '#{user}' with new LDAP information. Contact your leihs system administrator.")
@@ -157,14 +157,14 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
                 else
                   flash[:notice] = _("Could not create new user for '#{user}' from LDAP source. Contact your leihs system administrator.")
                 end
-              else flash[:notice] = _("Invalid username/password")
+              else flash[:notice] = _('Invalid username/password')
               end
             else
-              flash[:notice] = _("User unknown") if users.size == 0
-              flash[:notice] = _("Too many users found") if users.size > 0
+              flash[:notice] = _('User unknown') if users.size == 0
+              flash[:notice] = _('Too many users found') if users.size > 0
             end
           else
-            flash[:notice] = _("Invalid technical user - contact your leihs admin")
+            flash[:notice] = _('Invalid technical user - contact your leihs admin')
           end
         rescue Net::LDAP::LdapError
           flash[:notice] = _("Couldn't connect to LDAP: #{ldaphelper.ldap_config[:host]}:#{ldaphelper.ldap_config[:port]}")

@@ -8,12 +8,15 @@ Then /^dump the response to '([^']*)'$/ do |filename|
   end
 end
 
-Then "start the debugger" do
+
+# rubocop:disable Lint/Debugger
+Then 'start the debugger' do
   debugger
   true
 end
+# rubocop:enable Lint/Debugger
 
-Then "reindex" do
+Then 'reindex' do
   puts `rake ts:reindex`
 end
 
@@ -40,11 +43,11 @@ end
 # tag your scenarion with '@slowly' and then every step
 # will be executed with a default delay of 2 seconds
 Before('@slowly') do
-  step "wait" unless @skip_wait
+  step 'wait' unless @skip_wait
 end
 
 AfterStep('@slowly') do
-  step "wait" unless @skip_wait
+  step 'wait' unless @skip_wait
 end
 
 # since only Scenarios and not single steps can be tagged with
@@ -53,11 +56,11 @@ end
 # When I switch on waiting
 # When I switch off waiting
 #
-Then "switch $waitstate waiting" do |waitstate|
-  @skip_wait = (waitstate == "off")
+Then 'switch $waitstate waiting' do |waitstate|
+  @skip_wait = (waitstate == 'off')
 end
 
-Then "set the default delay to $delay" do |delay|
+Then 'set the default delay to $delay' do |delay|
   @delay = delay.to_i
 end
 

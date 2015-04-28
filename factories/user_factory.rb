@@ -4,7 +4,7 @@ FactoryGirl.define do
     login { [Faker::Internet.user_name, (100..9999).to_a.sample].join('_') } # make sure the login has at least 3 chars
     firstname { Faker::Name.first_name }
     lastname { Faker::Name.last_name }
-    phone { Faker::PhoneNumber.phone_number.gsub(/\D/, "") }
+    phone { Faker::PhoneNumber.phone_number.gsub(/\D/, '') }
     authentication_system { AuthenticationSystem.first.blank? ? FactoryGirl.create(:authentication_system) : AuthenticationSystem.first }
     unique_id { Faker::Lorem.characters(18) }
     email {
@@ -24,7 +24,7 @@ FactoryGirl.define do
 
     after(:create) do |user|
       unless user.is_delegation
-        FactoryGirl.create(:database_authentication, :user => user, :password => "password")
+        FactoryGirl.create(:database_authentication, user: user, password: 'password')
       end
     end
   end

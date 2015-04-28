@@ -12,7 +12,7 @@ while( line = gets) do
   first  = line.chomp
   second = gets.chomp
   if first =~ /^Processing/ and second =~ /^Completed/
-    puts( first + "," + second)
+    puts( first + ',' + second)
   else
     STDERR.puts "S03: Error: #{first}"
     STDERR.puts "S03: Error: #{second}"

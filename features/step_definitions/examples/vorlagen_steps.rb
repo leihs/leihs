@@ -3,13 +3,13 @@
 #Wenn(/^ich im Inventarbereich auf den Link "Vorlagen" klicke$/) do
 When(/^I click on "Templates" in the inventory area$/) do
   @current_inventory_pool = @current_user.inventory_pools.managed.select {|ip| ip.templates.exists? }.sample
-  step "I open the inventory"
-  click_link _("Templates")
+  step 'I open the inventory'
+  click_link _('Templates')
 end
 
 #Dann(/^öffnet sich die Seite mit der Liste der im aktuellen Inventarpool erfassten Vorlagen$/) do
 Then(/^I see a list of currently available templates for the current inventory pool$/) do
-  expect(has_content?(_("List of templates"))).to be true
+  expect(has_content?(_('List of templates'))).to be true
   @current_inventory_pool.templates.each do |t|
     expect(has_content?(t.name)).to be true
   end
@@ -17,8 +17,8 @@ end
 
 #Dann(/^die Vorlagen für dieses Inventarpool sind alphabetisch nach Namen sortiert$/) do
 Then(/^the templates are ordered alphabetically by their names$/) do
-  find(".line .col3of4 strong", match: :first)
-  all_names = all(".line .col3of4 strong").map(&:text)
+  find('.line .col3of4 strong', match: :first)
+  all_names = all('.line .col3of4 strong').map(&:text)
   expect(all_names.sort).to eq @current_inventory_pool.templates.sort.map(&:name)
   expect(all_names.count).to eq @current_inventory_pool.templates.count
 end
@@ -30,7 +30,7 @@ end
 
 #Wenn(/^ich auf den Button "Neue Vorlage" klicke$/) do
 When(/^I click the button "New Template"$/) do
-  click_link _("New Template")
+  click_link _('New Template')
 end
 
 #Dann(/^öffnet sich die Seite zur Erstellung einer neuen Vorlage$/) do
@@ -41,7 +41,7 @@ end
 #Wenn(/^ich den Namen der Vorlage eingebe$/) do
 When(/^I enter the template's name$/) do
   @new_name = Faker::Lorem.word
-  find(".row.emboss.padding-inset-s", match: :prefer_exact, text: _("Name")).find("input").set @new_name
+  find('.row.emboss.padding-inset-s', match: :prefer_exact, text: _('Name')).find('input').set @new_name
 end
 
 #Wenn(/^ich Modelle hinzufüge$/) do
@@ -52,8 +52,8 @@ end
 
 #Dann(/^steht bei jedem Modell die höchst mögliche ausleihbare Anzahl der Gegenstände für dieses Modell$/) do
 Then(/^each model shows the maximum number of available items$/) do
-  within "#models" do
-    line = find(".line div[data-model-name]", text: @changed_model.name).find(:xpath, "./..")
+  within '#models' do
+    line = find('.line div[data-model-name]', text: @changed_model.name).find(:xpath, './..')
     count = @changed_model.items.borrowable.where(inventory_pool_id: @current_inventory_pool).count
     line.find("input[name='template[model_links_attributes][][quantity]'][max='#{count}']")
   end
@@ -61,8 +61,8 @@ end
 
 #Dann(/^für jedes hinzugefügte Modell ist die Mindestanzahl (\d+)$/) do |n|
 Then(/^each model I've added has the minimum quantity (\d+)$/) do |n|
-  within "#models" do
-    all(".line").each do |line|
+  within '#models' do
+    all('.line').each do |line|
       expect(line.find("input[name='template[model_links_attributes][][quantity]']").value).to eq n
     end
   end
@@ -70,16 +70,16 @@ end
 
 #Dann(/^für das hinzugefügte Modell ist die Mindestanzahl (\d+)$/) do |n|
 Then(/^the minimum quantity for the newly added model is (\d+)$/) do |n|
-  within "#models" do
-    expect(find(".line", match: :first, text: @additional_model.name).find("input[name='template[model_links_attributes][][quantity]']").value).to eq n
+  within '#models' do
+    expect(find('.line', match: :first, text: @additional_model.name).find("input[name='template[model_links_attributes][][quantity]']").value).to eq n
   end
 end
 
 #Wenn(/^ich zu jedem Modell die Anzahl angebe$/) do
 When(/^I enter a quantity for each model$/) do
   @new_value ||= 1
-  within "#models" do
-    all(".line").each do |line|
+  within '#models' do
+    all('.line').each do |line|
       line.find("input[name='template[model_links_attributes][][quantity]']").set @new_value
     end
   end
@@ -106,7 +106,7 @@ end
 
 #Wenn(/^ich auf den Button "Vorlage bearbeiten" klicke$/) do
 When(/^I click the button "Edit"$/) do
-  find(".line", text: @template.name).click_link _("Edit")
+  find('.line', text: @template.name).click_link _('Edit')
 end
 
 #Dann(/^öffnet sich die Seite zur Bearbeitung einer existierenden Vorlage$/) do
@@ -117,7 +117,7 @@ end
 #Wenn(/^ich den Namen ändere$/) do
 When(/^I change the name$/) do
   @new_name = Faker::Lorem.word
-  find(".row.emboss.padding-inset-s", match: :prefer_exact, text: _("Name")).find("input").set @new_name
+  find('.row.emboss.padding-inset-s', match: :prefer_exact, text: _('Name')).find('input').set @new_name
 end
 
 #Wenn(/^ich ein zusätzliches Modell hinzufüge$/) do
@@ -130,21 +130,21 @@ end
 
 #Wenn(/^ein Modell aus der Liste lösche$/) do
 When(/^I delete a model from the list$/) do
-  within "#models" do
-    within all(".line").to_a.sample do
-      @changed_model = Model.find_by_name(find("[data-model-name]").text)
-      find(".button[data-remove]").click
+  within '#models' do
+    within all('.line').to_a.sample do
+      @changed_model = Model.find_by_name(find('[data-model-name]').text)
+      find('.button[data-remove]').click
     end
   end
 end
 
 #Wenn(/^die Anzahl bei einem der Modell ändere$/) do
 When(/^I change the quantity for one of the models$/) do
-  within "#models" do
-    within all(".line:not(.striked)").to_a.sample do
-      @changed_model = Model.find_by_name(find("[data-model-name]").text)
-      @new_value = find("input").value.to_i + 1
-      find("input").set @new_value
+  within '#models' do
+    within all('.line:not(.striked)').to_a.sample do
+      @changed_model = Model.find_by_name(find('[data-model-name]').text)
+      @new_value = find('input').value.to_i + 1
+      find('input').set @new_value
     end
   end
 end
@@ -160,11 +160,11 @@ end
 
 #Dann(/^kann ich beliebige Vorlage direkt aus der Liste löschen$/) do
 Then(/^I can delete any template directly from this list$/) do
-  @template = @current_inventory_pool.templates.order("RAND()").first
-  within(".line", text: @template.name) do
-    within(".multibutton") do
-      find(".dropdown-toggle").click
-      find(".red[data-method='delete']", :text => _("Delete")).click
+  @template = @current_inventory_pool.templates.order('RAND()').first
+  within('.line', text: @template.name) do
+    within('.multibutton') do
+      find('.dropdown-toggle').click
+      find(".red[data-method='delete']", text: _('Delete')).click
     end
   end
 end
@@ -186,15 +186,15 @@ end
 
 #Wenn(/^der Name nicht ausgefüllt ist$/) do
 When(/^the name is not filled in$/) do
-  within(".row.emboss.padding-inset-s", match: :prefer_exact, text: _("Name")) do
-    find("input").set ""
-    expect(find("input").value.empty?).to be true
+  within('.row.emboss.padding-inset-s', match: :prefer_exact, text: _('Name')) do
+    find('input').set ''
+    expect(find('input').value.empty?).to be true
   end
 end
 
 When(/^I fill in the name$/) do
-  within(".row.emboss.padding-inset-s", match: :prefer_exact, text: _("Name")) do
-    find("input").set Faker.name
+  within('.row.emboss.padding-inset-s', match: :prefer_exact, text: _('Name')) do
+    find('input').set Faker.name
   end
 end
 
@@ -205,8 +205,8 @@ end
 
 #Wenn(/^kein Modell hinzugefügt habe$/) do
 When(/^I have not added any models$/) do
-  within "#models" do
-    all(".line").each {|e| e.find(".button[data-remove]").click}
+  within '#models' do
+    all('.line').each {|e| e.find('.button[data-remove]').click}
   end
 end
 
@@ -227,32 +227,32 @@ end
 
 #Wenn(/^ich bei einem Modell eine Anzahl eingebe, welche höher ist als die höchst mögliche ausleihbare Anzahl der Gegenstände für dieses Modell$/) do
 When(/^I enter a quantity for a model which exceeds its maximum number of borrowable items for this model$/) do
-  l = find("#models .line", match: :prefer_exact, text: @changed_model.name)
-  max = l.find("[data-quantities]:nth-child(2)").text.gsub(/\D/, "").to_i
+  l = find('#models .line', match: :prefer_exact, text: @changed_model.name)
+  max = l.find('[data-quantities]:nth-child(2)').text.gsub(/\D/, '').to_i
   @new_value = max + 1
   l.find("input[name='template[model_links_attributes][][quantity]']").set @new_value
 end
 
 #Dann(/^die Vorlage ist in der Liste (nicht )?als unerfüllbar markiert$/) do |n|
 Then(/^the template is (not )?marked as unaccomplishable in the list$/) do |n|
-  within(".line", text: @template.name) do
+  within('.line', text: @template.name) do
     if n
-      expect(has_no_selector?(".line-info.red")).to be true
+      expect(has_no_selector?('.line-info.red')).to be true
     else
-      expect(has_selector?(".line-info.red")).to be true
+      expect(has_selector?('.line-info.red')).to be true
     end
   end
 end
 
 #Wenn(/^ich die gleiche Vorlage bearbeite$/) do
 When(/^I edit the same template$/) do
-  find(".line", text: @template.name).click_link _("Edit")
+  find('.line', text: @template.name).click_link _('Edit')
 end
 
 #Wenn(/^ich die korrekte Anzahl angebe$/) do
 When(/^I use correct quantities$/) do
-  within("#models .line", match: :prefer_exact, text: @changed_model.name) do
-    max = find("[data-quantities]:nth-child(2)").text.gsub(/\D/, "").to_i
+  within('#models .line', match: :prefer_exact, text: @changed_model.name) do
+    max = find('[data-quantities]:nth-child(2)').text.gsub(/\D/, '').to_i
     @new_value = max
     find("input[name='template[model_links_attributes][][quantity]']").set @new_value
   end
@@ -260,5 +260,5 @@ end
 
 #Dann(/^ich sehe eine Warnmeldung wegen nicht erfüllbaren Vorlagen$/) do
 Then(/^I am warned that this template cannot never be ordered due to available quantities being too low$/) do
-  find(".red", text: _("The highlighted entries are not accomplishable for the intended quantity."))
+  find('.red', text: _('The highlighted entries are not accomplishable for the intended quantity.'))
 end

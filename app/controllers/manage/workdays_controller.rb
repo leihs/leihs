@@ -12,20 +12,20 @@ class Manage::WorkdaysController < Manage::ApplicationController
   
   def close
     update_workday(params[:day], false) 
-    redirect_to :action => 'index'
+    redirect_to action: 'index'
   end
   
   def open
     update_workday(params[:day], true)
-    redirect_to :action => 'index'
+    redirect_to action: 'index'
   end
   
   def add_holiday
-    current_inventory_pool.holidays.create(params[:holiday]) and redirect_to :action => 'index'
+    current_inventory_pool.holidays.create(params[:holiday]) and redirect_to action: 'index'
   end
   
   def delete_holiday
-    current_inventory_pool.holidays.delete(Holiday.find(params[:id])) and redirect_to :action => 'index'
+    current_inventory_pool.holidays.delete(Holiday.find(params[:id])) and redirect_to action: 'index'
   end
   
   private 

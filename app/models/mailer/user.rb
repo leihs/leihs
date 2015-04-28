@@ -12,7 +12,7 @@ class Mailer::User < ActionMailer::Base
          subject: _('[leihs] Reminder'),
          date: sent_at) do |format|
       format.text {
-        name = "reminder"
+        name = 'reminder'
         template = MailTemplate.get_template(:user, inventory_pool, name, user.language)
         Liquid::Template.parse(template).render(MailTemplate.liquid_variables_for_user(user, inventory_pool, reservations))
       }
@@ -21,12 +21,12 @@ class Mailer::User < ActionMailer::Base
 
   def deadline_soon_reminder(user, inventory_pool, reservations, sent_at = Time.now)
     choose_language_for(user)
-    mail(:to => user.emails,
-         :from => (inventory_pool.email || Setting::DEFAULT_EMAIL),
-         :subject => _('[leihs] Some items should be returned tomorrow'),
-         :date => sent_at) do |format|
+    mail(to: user.emails,
+         from: (inventory_pool.email || Setting::DEFAULT_EMAIL),
+         subject: _('[leihs] Some items should be returned tomorrow'),
+         date: sent_at) do |format|
       format.text {
-        name = "deadline_soon_reminder"
+        name = 'deadline_soon_reminder'
         template = MailTemplate.get_template(:user, inventory_pool, name, user.language)
         Liquid::Template.parse(template).render(MailTemplate.liquid_variables_for_user(user, inventory_pool, reservations))
       }
@@ -36,10 +36,10 @@ class Mailer::User < ActionMailer::Base
 
   def email(from, to, subject, body)
     @email = body
-    mail(:to => to,
-         :from => from,
-         :subject => "[leihs] #{subject}",
-         :date => Time.now)
+    mail(to: to,
+         from: from,
+         subject: "[leihs] #{subject}",
+         date: Time.now)
   end
 
 end

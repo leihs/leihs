@@ -30,7 +30,7 @@ module Delegation::User
 
       validate do
         if is_delegation
-          errors.add(:base, _("The responsible user has to be member of the delegation")) unless delegated_users.include? delegator_user
+          errors.add(:base, _('The responsible user has to be member of the delegation')) unless delegated_users.include? delegator_user
         end
       end
 
