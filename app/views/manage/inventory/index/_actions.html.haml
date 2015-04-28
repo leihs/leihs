@@ -1,4 +1,7 @@
 .text-align-right
+  %a.button.white{href: "/manage/#{current_inventory_pool.id}/inventory/csv_import"}
+    %i.icon-table.vertical-align-middle
+    = _("CSV import")
   %a.button.white#csv-export{:href => manage_inventory_csv_export_path(current_inventory_pool), :target => "_blank"}
     %i.icon-table.vertical-align-middle
     = _("CSV export")

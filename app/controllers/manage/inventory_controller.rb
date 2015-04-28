@@ -43,4 +43,13 @@ class Manage::InventoryController < Manage::ApplicationController
               type: 'text/csv; charset=utf-8; header=present',
               disposition: "attachment; filename=#{_("Items-leihs")}.csv"
   end
+
+  def csv_import
+    if request.post?
+      items = current_inventory_pool.csv_import(current_inventory_pool, params[:csv_file].tempfile)
+
+      @valid_items, @invalid_items = items.partition {|item| item.errors.empty? } # &:valid?
+    end
+  end
+
 end

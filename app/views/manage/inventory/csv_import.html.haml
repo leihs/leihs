@@ -1,0 +1,90 @@
+-content_for :title, _("CSV import")
+-content_for :inventory_section, "active"
+
+.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/inventory', :locals => {:active_tab => :inventory}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    .margin-top-l.padding-horizontal-m
+      .row
+        %h1.headline-xl= yield(:title)
+
+    .row.margin-top-l.padding-horizontal-l
+
+      .row
+        %h2= _("Upload a comma separated CSV file (with UTF-8 encoding), each row describing an item.")
+
+      .row.margin-vertical-l
+        .col2of3
+          %h3
+            = succeed ':' do
+              = _("Accepted columns")
+          %ul{style: "list-style-type: disc; margin: 1.5em;"}
+            %li
+              %b
+                inventory_code
+                = "(%s)" % _("required")
+            %li
+              %b
+                model_id
+                = "(%s)" % _("required")
+            %li serial_number
+            %li building
+            %li room
+            %li note
+            %li is_borrowable (0 or 1, default: 0)
+            %li is_inventory_relevant (0 or 1, default: 1)
+            %li invoice_number
+            %li invoice_date
+            %li price
+            %li supplier_name
+            %li properties_anschaffungskategorie
+          %h3
+            = _("All other columns are ignored.")
+        .col1of3
+          = form_tag "/manage/#{current_inventory_pool.id}/inventory/csv_import", multipart: true do
+            .row
+              = file_field_tag :csv_file
+            .row.padding-top-l
+              %button.button.green
+                = _("Import")
+                %i.icon-share-alt
+
+      - if request.post?
+        .row.margin-vertical-xs.padding-horizontal-s
+          - unless @invalid_items.blank?
+            - flash.now[:error] = _("CSV import failed with %d errors") % @invalid_items.count
+            - @invalid_items.each do |item|
+              .row.emboss.margin-bottom-s.red
+                .col1of3
+                  %h3
+                    %ul{style: "list-style-type: disc; margin: 1.5em;"}
+                      - item.errors.full_messages.each do |em|
+                        %li= em
+                  %ul
+                    %li
+                      inventory_code:
+                      = item.inventory_code
+                    %li
+                      model:
+                      = item.model
+                    %li
+                      serial_number:
+                      = item.serial_number
+                    %li
+                      location:
+                      = item.location
+                .col2of3
+                  = item.inspect
+          - else
+            - flash.now[:success] = _("CSV successfully imported, %d items created") % @valid_items.count
+            - @valid_items.each do |item|
+              .emboss.margin-bottom-s
+                = item.inspect
+
+:coffeescript
+  $("form[enctype='multipart/form-data']").on 'submit', ->
+    $(this).find("button").parent().text("Uploading...")
+

@@ -254,4 +254,41 @@ class InventoryPool < ActiveRecord::Base
     end
   end
 
+  def csv_import(inventory_pool, csv_file)
+    require 'csv'
+
+    items = []
+
+    transaction do
+      CSV.foreach(csv_file, col_sep: ",", quote_char: "\"", headers: :first_row) do |row|
+        unless row["inventory_code"].blank?
+          item = inventory_pool.items.create(inventory_code: row["inventory_code"].strip,
+                                             model: Model.find(row["model_id"]),
+                                             is_borrowable: (row["is_borrowable"] == "1" ? 1 : 0),
+                                             is_inventory_relevant: (row["is_inventory_relevant"] == "0" ? 0 : 1)) do |i|
+            i.serial_number = row["serial_number"] unless row["serial_number"].blank?
+            i.note = row["note"] unless row["note"].blank?
+            i.invoice_number = row["invoice_number"] unless row["invoice_number"].blank?
+            i.invoice_date = row["invoice_date"] unless row["invoice_date"].blank?
+            i.price = row["price"] unless row["price"].blank?
+            i.supplier = Supplier.find_or_create_by(name: row["supplier_name"]) unless row["supplier_name"].blank?
+            unless row["building"].blank? and row["room"].blank?
+              building_id = row["building"].blank? ? nil : Building.find_or_create_by(name: row["building"]).id
+              room = row["room"].blank? ? nil : row["room"]
+              i.location = Location.find_or_create(building_id: building_id, room: room)
+            end
+            i.properties[:anschaffungskategorie] = row["properties_anschaffungskategorie"] unless row["properties_anschaffungskategorie"].blank?
+          end
+
+          item.valid?
+          items << item
+        end
+      end
+
+      raise ActiveRecord::Rollback unless items.all? &:valid?
+    end
+
+    items
+  end
+
 end
