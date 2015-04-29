@@ -67,7 +67,13 @@ class Reservation < ActiveRecord::Base
 
 #####################################################
 
-  before_validation :set_defaults, on: :create
+  before_validation on: :create do
+    self.start_date ||= Date.today
+    self.end_date ||= Date.today
+    # simply choose the delegator user in order to pass contract validation. the delegated user has to be chosen again in the hand over process anyway
+    self.delegated_user = user.delegator_user if user.is_delegation
+  end
+
   validates_numericality_of :quantity, greater_than: 0, only_integer: true
   validates_presence_of :user, :inventory_pool, :status
   validates_presence_of :contract, if: Proc.new {|r| [:signed, :closed].include?(r.status) }
@@ -193,7 +199,7 @@ class Reservation < ActiveRecord::Base
         change = _("Changed dates for %{model} from %{from} to %{to}") % {model: model.name, from: "#{original_start_date} - #{original_end_date}", to: "#{start_date} - #{end_date}"}
         log_change(change, user_id)
       end
-      if User.find(user_id).access_right_for(inventory_pool).role == :group_manager and not line.available?
+      if User.find(user_id).access_right_for(inventory_pool).role == :group_manager and not available?
         raise _("Not available")
       end
     end
@@ -207,11 +213,6 @@ class Reservation < ActiveRecord::Base
   end
 
   private
-
-  def set_defaults
-    self.start_date ||= Date.today
-    self.end_date ||= Date.today
-  end
 
   def date_sequence
     # OPTIMIZE strange behavior: in some cases, this error raises when shouldn't
