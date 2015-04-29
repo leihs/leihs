@@ -284,8 +284,8 @@ class Manage::UsersController < Manage::ApplicationController
     set_shared_visit_variables 0 do
       @contract = @user.reservations_bundles.approved.find_by(inventory_pool_id: current_inventory_pool)
       @contract ||= @user.reservations_bundles.approved.new(inventory_pool: current_inventory_pool) do |x|
-        # simply choose the first delegated user in order to pass contract validation. the delegated user has to be chosen again in the hand over process anyway
-        x.delegated_user = @user.delegated_users.first if @user.is_delegation
+        # simply choose the delegator user in order to pass contract validation. the delegated user has to be chosen again in the hand over process anyway
+        x.delegated_user = @user.delegator_user if @user.is_delegation
       end
       @reservations = @contract.reservations.includes([:purpose, :model])
       @models = @contract.models.where(type: :Model)
