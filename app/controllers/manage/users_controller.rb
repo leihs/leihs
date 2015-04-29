@@ -271,9 +271,11 @@ class Manage::UsersController < Manage::ApplicationController
       accessible_roles +=
         if @current_user.has_role? :admin or @current_user.has_role? :inventory_manager, @current_inventory_pool
           [[_('Group manager'), :group_manager], [_('Lending manager'), :lending_manager], [_('Inventory manager'), :inventory_manager]]
-      elsif @current_user.has_role? :lending_manager, @current_inventory_pool
-        [[_('Group manager'), :group_manager], [_('Lending manager'), :lending_manager]]
-      else [] end
+        elsif @current_user.has_role? :lending_manager, @current_inventory_pool
+          [[_('Group manager'), :group_manager], [_('Lending manager'), :lending_manager]]
+        else
+          []
+        end
     end
     accessible_roles
   end

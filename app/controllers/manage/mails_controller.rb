@@ -34,19 +34,18 @@ class Manage::MailsController < Manage::ApplicationController
     flash[:notice] = _('The mail was sent')
     redirect_to params[:source_path]
   end
-  
-private
+
+  private
 
   # ATTENTION - we do NOT sanitize the name here, which could contain
   # ", \, \0, \n etc.
   # Additionally, it's up to ActionMailer to encode the resulting string
   # correctly, which according to my tests it does
- def to_full_email_address(_name, email)
+  def to_full_email_address(_name, email)
     # TODO: possibly re-anable adding the user's name one day...
     #       see also https://www.pivotaltracker.com/story/show/7177325
     #       it would be very nice to have test cases for failing name/email combinations
-    #'"%s" <%s>' % [name, email] # This breaks at HKB, Worcester, but not ZHdK
+    # '"%s" <%s>' % [name, email] # This breaks at HKB, Worcester, but not ZHdK
     email
   end
- 
 end

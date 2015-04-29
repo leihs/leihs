@@ -38,13 +38,14 @@ class ApplicationController < ActionController::Base
   end
 
   def set_gettext_locale
-    language = if params[:locale]
-      Language.where(locale_name: params[:locale]).first
-    elsif current_user
-      current_user.language
-    elsif session[:locale]
-      Language.where(locale_name: session[:locale]).first
-    end
+    language =
+      if params[:locale]
+        Language.where(locale_name: params[:locale]).first
+      elsif current_user
+        current_user.language
+      elsif session[:locale]
+        Language.where(locale_name: session[:locale]).first
+      end
     language ||= Language.default_language
     unless language.nil?
       current_user.update_attributes(language_id: language.id) if current_user and (params[:locale] or current_user.language_id.nil?)

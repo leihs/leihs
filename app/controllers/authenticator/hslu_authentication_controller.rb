@@ -71,7 +71,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
   # @param user [User] The (local, database) user whose data you want to update
   # @param user_data [Net::LDAP::Entry] The LDAP entry (it could also just be a hash of hashes and arrays that looks like a Net::LDAP::Entry) of that user
   def update_user(user, user_data)
-    logger = Rails.logger
+    # logger = Rails.logger
     ldaphelper = LdapHelper.new
     # Make sure to set "user_image_url" in "/manage/settings" in leihs 3.0 for user images to appear, based
     # on the unique ID. Example for the format:
@@ -113,7 +113,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
       end
     end
   end
-  
+
   def login
     super
     @preferred_language = Language.preferred(request.env['HTTP_ACCEPT_LANGUAGE'])
@@ -141,7 +141,7 @@ class Authenticator::HsluAuthenticationController < Authenticator::Authenticator
               ldaphelper = LdapHelper.new
               if ldaphelper.bind(bind_dn, password)
                 u = User.find_by_unique_id(ldap_user[ldaphelper.unique_id_field.to_s])
-                if not u
+                unless u
                   u = create_user(user, email, firstname, lastname)
                 end
 

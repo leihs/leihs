@@ -766,7 +766,7 @@ When(/^I look at this license in the software list$/) do
   step 'I search for "%s"' % @license.inventory_code
   within ".line[data-type='software'][data-id='#{@license.model.id}']" do
     el = find(".button[data-type='inventory-expander']")
-      if el.has_selector?('i.arrow.right')
+    if el.has_selector?('i.arrow.right')
       el.click
       el.find('i.arrow.down')
     end

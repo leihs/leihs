@@ -1,5 +1,4 @@
 FactoryGirl.define do
-
   factory :supplier do
     name {
       begin
@@ -8,5 +7,4 @@ FactoryGirl.define do
       r
     }
   end
-
 end

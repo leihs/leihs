@@ -163,6 +163,6 @@ end
 
 if ENV['PRY']
   AfterStep do
-    binding.pry
+    binding.pry # rubocop:disable Lint/Debugger
   end
 end

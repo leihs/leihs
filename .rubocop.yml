@@ -3,6 +3,7 @@ AllCops:
     - 'db/**/*'
     - 'config/**/*'
     - 'script/**/*'
+    - 'doc/**/*'
   RunRailsCops: true
 
 Lint/AmbiguousOperator:

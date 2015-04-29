@@ -563,12 +563,12 @@ Given(/^(\d+) to (\d+)( more)? (submitted|approved|rejected) (item|license|optio
                                  attrs2
                                end
                       FactoryGirl.create(:item_line, attrs1)
-                    elsif line_type == 'option'
-                      option ||= FactoryGirl.create :option, inventory_pool: attrs[:inventory_pool]
-                      attrs1 = attrs.merge(model: option.model)
-                      option = nil # reset to nil in order to regenerate a new one later in the loop
-                      FactoryGirl.create(:option_line, attrs1)
-                    end
+                  elsif line_type == 'option'
+                    option ||= FactoryGirl.create :option, inventory_pool: attrs[:inventory_pool]
+                    attrs1 = attrs.merge(model: option.model)
+                    option = nil # reset to nil in order to regenerate a new one later in the loop
+                    FactoryGirl.create(:option_line, attrs1)
+                  end
     expect(reservation.valid?).to be true
     expect(reservation.item).not_to be_nil if assigned
     @reservations << reservation

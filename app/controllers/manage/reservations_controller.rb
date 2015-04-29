@@ -89,15 +89,16 @@ class Manage::ReservationsController < Manage::ApplicationController
       @error = {message: line.errors.full_messages.uniq.join(', ')} unless line.update_attributes(item: item)
     else
       unless params[:inventory_code].blank?
-        @error = if item and line and line.model_id != item.model_id
-          {message: _('The inventory code %s is not valid for this model' % params[:inventory_code])}
-        elsif line
-          {message: _("The item with the inventory code '%s' was not found" % params[:inventory_code])}
-        elsif item
-          {message: _('The line was not found')}
-        else 
-          {message: _('Assigning the inventory code fails')}
-        end
+        @error =
+          if item and line and line.model_id != item.model_id
+            {message: _('The inventory code %s is not valid for this model' % params[:inventory_code])}
+          elsif line
+            {message: _("The item with the inventory code '%s' was not found" % params[:inventory_code])}
+          elsif item
+            {message: _('The line was not found')}
+          else 
+            {message: _('Assigning the inventory code fails')}
+          end
       end
       line.update_attributes(item: nil)
     end
@@ -122,14 +123,15 @@ class Manage::ReservationsController < Manage::ApplicationController
     contract ||= @user.reservations_bundles.new(inventory_pool: current_inventory_pool, status: @status)
 
     # find model or option 
-    model = if not code.blank?
-      item = current_inventory_pool.items.where(inventory_code: code).first 
-      item.model if item
-    elsif model_group_id
-      Template.find(model_group_id) # TODO scope current_inventory_pool ?
-    elsif model_id
-      current_inventory_pool.models.find(model_id)
-    end
+    model =
+      if not code.blank?
+        item = current_inventory_pool.items.where(inventory_code: code).first 
+        item.model if item
+      elsif model_group_id
+        Template.find(model_group_id) # TODO scope current_inventory_pool ?
+      elsif model_id
+        current_inventory_pool.models.find(model_id)
+      end
     unless model
       option = current_inventory_pool.options.find option_id if option_id
       option ||= current_inventory_pool.options.where(inventory_code: code).first
@@ -154,13 +156,14 @@ class Manage::ReservationsController < Manage::ApplicationController
         @error = _('The option could not be added' % code)
       end
     else
-      @error = if code
-        _("A model for the Inventory Code / Serial Number '%s' was not found" % code)
-      elsif model_id
-        _("A model with the ID '%s' was not found" % model_id)
-      elsif model_group_id
-        _("A template with the ID '%s' was not found" % model_group_id)
-      end
+      @error =
+        if code
+          _("A model for the Inventory Code / Serial Number '%s' was not found" % code)
+        elsif model_id
+          _("A model with the ID '%s' was not found" % model_id)
+        elsif model_group_id
+          _("A template with the ID '%s' was not found" % model_group_id)
+        end
     end
     
     if @error.blank?

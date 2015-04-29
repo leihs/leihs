@@ -25,7 +25,8 @@ class Manage::TemplatesController < Manage::ApplicationController
 
   def create
     begin
-      template = current_inventory_pool.templates.create! params[:template]
+      # Is the 'template' variable really never used?
+      template = current_inventory_pool.templates.create! params[:template] # rubocop:disable Lint/UselessAssignment
       flash[:notice] = _('%s created successfully') % _('Template')
       redirect_to action: :index
     rescue => e

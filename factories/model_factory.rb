@@ -5,9 +5,11 @@ FactoryGirl.define do
   trait :shared_model_software_attributes do
     manufacturer { Faker::Company.name }
     product do
-      begin
+      r = Faker::Commerce.product_name
+      loop do
         r = Faker::Commerce.product_name
-      end while(Model.find_by_product(r))
+        break unless (Model.find_by_product(r))
+      end
       r
     end
     version

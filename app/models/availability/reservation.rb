@@ -6,33 +6,34 @@ module Availability
 #################################
 
     def available?
-      b = if end_date < Date.today # check if it was never handed over
-        false
-      elsif status == :unsubmitted
-        if user.timeout?
-          same_contract_summed_quantity = user.reservations.where(inventory_pool_id: inventory_pool_id,
+      b =
+        if end_date < Date.today # check if it was never handed over
+          false
+        elsif status == :unsubmitted
+          if user.timeout?
+            same_contract_summed_quantity = user.reservations.where(inventory_pool_id: inventory_pool_id,
                                                                     status: status,
                                                                     model_id: model_id).where('start_date <= ? AND end_date >= ?', end_date, start_date).sum(:quantity)
-          (maximum_available_quantity >= same_contract_summed_quantity)
+            (maximum_available_quantity >= same_contract_summed_quantity)
+          else
+            # the unsubmitted reservations are also considered as running_reservations for the availability, then we sum up again the current reservation quantity (preventing self-blocking problem)
+            (maximum_available_quantity + quantity >= quantity)
+          end
+        elsif is_a?(OptionLine)
+          true
+        elsif not inventory_pool.running_reservations.detect {|x| x == self} # NOTE doesn't work with include?(self) because are running_reservations
+          # we use array select instead of sql where condition to fetch once all running_reservations during the same request, instead of hit the db multiple times
+          true
         else
-          # the unsubmitted reservations are also considered as running_reservations for the availability, then we sum up again the current reservation quantity (preventing self-blocking problem)
-          (maximum_available_quantity + quantity >= quantity)
+          # if an item is already assigned, but the start_date is in the future, we only consider the real start-end range dates
+          a = model.availability_in(inventory_pool)
+          group_id = a.running_reservations.detect { |x| x == self }.allocated_group_id # NOTE doesn't work self.allocated_group_id because is not a running_reservation
+
+          # first we check if the user is member of the allocated group (if false, then it's a soft-overbooking)
+          (group_id.nil? or self.user.group_ids.include?(group_id)) and
+            # then we check if all changes related to the time range and allocated group are non-negative (then it's a real-overbooking)
+            a.changes.between(start_date, end_date).all? { |k,v| v[group_id][:in_quantity] >= 0 }
         end
-      elsif is_a?(OptionLine)
-        true
-      elsif not inventory_pool.running_reservations.detect {|x| x == self} # NOTE doesn't work with include?(self) because are running_reservations
-        # we use array select instead of sql where condition to fetch once all running_reservations during the same request, instead of hit the db multiple times
-        true
-      else
-        # if an item is already assigned, but the start_date is in the future, we only consider the real start-end range dates
-        a = model.availability_in(inventory_pool)
-        group_id = a.running_reservations.detect {|x| x == self}.allocated_group_id # NOTE doesn't work self.allocated_group_id because is not a running_reservation
-        
-        # first we check if the user is member of the allocated group (if false, then it's a soft-overbooking)
-        (group_id.nil? or self.user.group_ids.include?(group_id)) and
-          # then we check if all changes related to the time range and allocated group are non-negative (then it's a real-overbooking)
-          a.changes.between(start_date, end_date).all? {|k,v| v[group_id][:in_quantity] >= 0}
-      end
 
       # OPTIMIZE
       if b and [:unsubmitted].include? status

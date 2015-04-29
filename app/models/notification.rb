@@ -21,7 +21,7 @@ class Notification < ActiveRecord::Base
   # was received. Can be enabled in config/environment.rb
   def self.order_received(order, send_mail = false)
     o = Mailer::Order.received(order).deliver if (send_mail and Setting::DELIVER_ORDER_NOTIFICATIONS)
-    title = (o.nil? ? _('Order received') : o.subject)
+    title = (o.nil? ? _('Order received') : o.subject) # rubocop:disable Lint/UselessAssignment
   end
   
   def self.order_approved(order, comment, send_mail = true, current_user = nil)

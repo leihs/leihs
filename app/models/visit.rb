@@ -30,11 +30,14 @@ class Visit < ActiveRecord::Base
   belongs_to :user
   belongs_to :inventory_pool
 
-  has_many :reservations, -> (r){ if r.status == :approved
-                                      where(start_date: r.date)
-                                    else
-                                      where(end_date: r.date)
-                                    end.where(inventory_pool_id: r.inventory_pool_id, user_id: r.user_id) }, foreign_key: :status, primary_key: :status
+  has_many :reservations, -> (r){
+    if r.status == :approved
+      where(start_date: r.date)
+    else
+      where(end_date: r.date)
+    end.where(inventory_pool_id: r.inventory_pool_id, user_id: r.user_id)
+  }, foreign_key: :status, primary_key: :status
+
   def reservation_ids
     reservations.pluck(:id)
   end

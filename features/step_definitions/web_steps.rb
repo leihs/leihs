@@ -36,39 +36,39 @@ World(WithinHelpers)
 #  visit path_to(page_name)
 #end
 
-When /^(?:|I )go to (.+)$/ do |page_name|
+When(/^(?:|I )go to (.+)$/) do |page_name|
   visit path_to(page_name)
 end
 
-When /^(?:|I )press "([^"]*)"$/ do |button|
+When(/^(?:|I )press "([^"]*)"$/) do |button|
   click_button(button)
 end
 
-When /^(?:|I )follow "([^"]*)"$/ do |link|
+When(/^(?:|I )follow "([^"]*)"$/) do |link|
   click_link(link)
 end
 
-When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
+When(/^(?:|I )fill in "([^"]*)" with "([^"]*)"$/) do |field, value|
   fill_in(field, with: value)
 end
 
-When /^(?:|I )fill in "([^"]*)" for "([^"]*)"$/ do |value, field|
+When(/^(?:|I )fill in "([^"]*)" for "([^"]*)"$/) do |value, field|
   fill_in(field, with: value)
 end
 
-When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
+When(/^(?:|I )select "([^"]*)" from "([^"]*)"$/) do |value, field|
   select(value, from: field)
 end
 
-When /^(?:|I )choose "([^"]*)"$/ do |field|
+When(/^(?:|I )choose "([^"]*)"$/) do |field|
   choose(field)
 end
 
-Then /^(?:|I )should see "([^"]*)"$/ do |text|
+Then(/^(?:|I )should see "([^"]*)"$/) do |text|
   page.has_content?(text)
 end
 
-Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
+Then(/^(?:|I )should see \/([^\/]*)\/$/) do |regexp|
   regexp = Regexp.new(regexp)
 
   if page.respond_to? :should
@@ -78,7 +78,7 @@ Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   end
 end
 
-Then /^(?:|I )should not see "([^"]*)"$/ do |text|
+Then(/^(?:|I )should not see "([^"]*)"$/) do |text|
   if page.respond_to? :should
     page.should have_no_content(text)
   else
@@ -86,7 +86,7 @@ Then /^(?:|I )should not see "([^"]*)"$/ do |text|
   end
 end
 
-Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
+Then(/^(?:|I )should not see \/([^\/]*)\/$/) do |regexp|
   regexp = Regexp.new(regexp)
 
   if page.respond_to? :should
@@ -96,7 +96,7 @@ Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   end
 end
 
-Then /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/ do |label, parent|
+Then(/^the "([^"]*)" checkbox(?: within (.*))? should be checked$/) do |label, parent|
   with_scope(parent) do
     field_checked = find_field(label)['checked']
     if field_checked.respond_to? :should
@@ -107,7 +107,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/ do |label, pa
   end
 end
 
-Then /^(?:|I )should be on (.+)$/ do |page_name|
+Then(/^(?:|I )should be on (.+)$/) do |page_name|
   current_path = URI.parse(current_url).path
   if current_path.respond_to? :should
     current_path.should == path_to(page_name)
@@ -116,6 +116,6 @@ Then /^(?:|I )should be on (.+)$/ do |page_name|
   end
 end
 
-Then /^show me the page$/ do
-  save_and_open_page
+Then(/^show me the page$/) do
+  save_and_open_page # rubocop:disable Lint/Debugger
 end

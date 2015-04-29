@@ -61,7 +61,7 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
     logger = Rails.logger
     begin
       # This thing will complain with an exception if something is wrong about our configuration
-      helper = LdapHelper.new
+      _helper = LdapHelper.new
     rescue Exception => e
       flash[:error] = _('You will not be able to log in because this leihs server is not configured correctly. Contact your leihs system administrator.')
       logger.error("ERROR: LDAP is not configured correctly: #{e}")
@@ -79,7 +79,7 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
     user.authentication_system = AuthenticationSystem.where(class_name: 'LdapAuthentication').first
     if user.save
       return user
-    elsif
+    else
       logger = Rails.logger
       logger.error "ERROR: Could not create user with login #{login}: #{user.errors.full_messages}"
       return false
@@ -96,7 +96,7 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
     # http://www.hslu.ch/portrait/{:id}.jpg
     # {:id} will be interpolated with user.unique_id there.
     user.unique_id = user_data[ldaphelper.unique_id_field.to_s].first.to_s
-    user.firstname = user_data['givenname'].first.to_s 
+    user.firstname = user_data['givenname'].first.to_s
     user.lastname = user_data['sn'].first.to_s
     user.phone = user_data['telephonenumber'].first.to_s unless user_data['telephonenumber'].blank?
     user.language = Language.default_language if user.language.blank?
@@ -112,10 +112,8 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
       begin
         admin_group_filter = Net::LDAP::Filter.eq('member', user_data.dn)
         ldap = ldaphelper.bind
-        if (
-              ldap.search(base: admin_dn, filter: admin_group_filter).count >= 1 or
-              (user_data['memberof'] and user_data['memberof'].include?(admin_dn))
-           )
+        if (ldap.search(base: admin_dn, filter: admin_group_filter).count >= 1 or
+              (user_data['memberof'] and user_data['memberof'].include?(admin_dn)))
           in_admin_group = true
         end
       rescue Exception => e
@@ -128,9 +126,7 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
         end
       end
     end
-
   end
-
 
   def create_and_login_from_ldap_user(ldap_user, username, password)
     email = ldap_user.mail.first.to_s if ldap_user.mail
@@ -141,7 +137,7 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
     ldaphelper = LdapHelper.new
     if ldaphelper.bind(bind_dn, password)
       u = User.find_by_unique_id(ldap_user[ldaphelper.unique_id_field.to_s])
-      if not u
+      unless u
         u = create_user(username, email, firstname, lastname)
       end
 

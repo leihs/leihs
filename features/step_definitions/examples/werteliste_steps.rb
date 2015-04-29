@@ -65,13 +65,14 @@ Then /^the value list contains the following columns:$/ do |table|
         when 'Consecutive number'
           @contract.reservations.each {|line| find('tr', text: line.item.inventory_code).find('.consecutive_number') }
         when 'Inventory code'
-          reservations = if @list_element[:class] == 'picking_list'
-                    @selected_lines_by_date ? @selected_lines_by_date : @contract.reservations
-                  elsif @list_element[:class] == 'value_list'
-                    @contract.reservations
-                  else
-                    raise
-                  end
+          reservations =
+            if @list_element[:class] == 'picking_list'
+              @selected_lines_by_date ? @selected_lines_by_date : @contract.reservations
+            elsif @list_element[:class] == 'value_list'
+              @contract.reservations
+            else
+              raise
+            end
           reservations.each do |line|
             next if line.item_id.nil?
             find('tr .inventory_code', text: line.item.inventory_code)
