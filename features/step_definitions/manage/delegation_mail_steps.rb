@@ -1,8 +1,20 @@
 # -*- encoding : utf-8 -*-
 
 #Angenommen(/^es existiert eine Bestellung von einer Delegation die nicht von einem Delegationsverantwortlichen erstellt wurde$/) do
-Given(/^there is an order for a delegation that was not placed by a person responsible for that delegation$/) do
-  @contract = @current_inventory_pool.reservations_bundles.submitted.where(user_id: User.as_delegations).order('RAND()').first
+#Angenommen(/^es existiert eine Rücknahme von einer Delegation$/) do
+Given(/^there is (an order|a take back) for a delegation that was not placed by a person responsible for that delegation$/) do |arg1|
+  status = case arg1
+             when "an order"
+               :submitted
+             when "a take back"
+               :signed
+           end
+  @current_inventory_pool = @current_user.inventory_pools.managed.detect do |ip|
+    User.as_delegations.detect do |delegation|
+      @contract = ip.reservations_bundles.send(status).where(user_id: delegation).where.not(delegated_user_id: delegation.delegator_user).order('RAND()').first
+    end
+  end
+  expect(@contract).not_to be_nil
   expect(@contract.user.delegator_user).not_to eq @contract.delegated_user
   expect(ActionMailer::Base.deliveries.count).to eq 0
 end
@@ -16,13 +28,6 @@ end
 #Dann(/^das Genehmigungsmail wird nicht an den Delegationsverantwortlichen versendet$/) do
 Then(/^the approval email is not sent to the delegated user$/) do
   expect((ActionMailer::Base.deliveries.first.to & @contract.user.delegator_user.emails).empty?).to be true
-end
-
-#Angenommen(/^es existiert eine Rücknahme von einer Delegation$/) do
-Given(/^there is a take back for a delegation$/) do
-  @contract = @current_inventory_pool.reservations_bundles.signed.where(user_id: User.as_delegations).order('RAND()').first
-  expect(@contract.user.delegator_user).not_to eq @contract.delegated_user
-  expect(ActionMailer::Base.deliveries.count).to eq 0
 end
 
 # Wenn(/^ich bei dieser Rücknahme eine Erinnerung sende$/) do
