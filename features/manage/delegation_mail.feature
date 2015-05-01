@@ -14,7 +14,7 @@ Feature: Sending email for orders placed by a delegation
   @javascript @personas @browser
   Scenario: Reminder email for a delegation's order
     Given I am Pius
-    And there is a take back for a delegation
+    And there is a take back for a delegation that was not placed by a person responsible for that delegation
     When I send a reminder for this take back
     Then the reminder is sent to the one who picked up the order
     And the approval email is not sent to the delegated user

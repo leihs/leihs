@@ -71,7 +71,7 @@ class Reservation < ActiveRecord::Base
     self.start_date ||= Date.today
     self.end_date ||= Date.today
     # simply choose the delegator user in order to pass contract validation. the delegated user has to be chosen again in the hand over process anyway
-    self.delegated_user = user.delegator_user if user.is_delegation
+    self.delegated_user ||= user.delegator_user if user.is_delegation
   end
 
   validates_numericality_of :quantity, greater_than: 0, only_integer: true
