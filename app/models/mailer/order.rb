@@ -7,7 +7,7 @@ class Mailer::Order < ActionMailer::Base
   def approved(order, comment, sent_at = Time.now)
     choose_language_for(order)
     mail( to: order.target_user.email,
-          from: (order.inventory_pool.email || Setting::DEFAULT_EMAIL),
+          from: (order.inventory_pool.email || Setting.default_email),
           subject: _('[leihs] Reservation Confirmation'),
           date: sent_at ) do |format|
       format.text {
@@ -21,7 +21,7 @@ class Mailer::Order < ActionMailer::Base
   def submitted(order, sent_at = Time.now)
     choose_language_for(order)
     mail( to: order.target_user.email,
-          from: (order.inventory_pool.email || Setting::DEFAULT_EMAIL),
+          from: (order.inventory_pool.email || Setting.default_email),
           subject: _('[leihs] Reservation Submitted'),
           date: sent_at ) do |format|
       format.text {
@@ -34,8 +34,8 @@ class Mailer::Order < ActionMailer::Base
 
   def received(order, sent_at = Time.now)
     choose_language_for(order)
-    mail( to: (order.inventory_pool.email || Setting::DEFAULT_EMAIL),
-          from: (order.inventory_pool.email || Setting::DEFAULT_EMAIL),
+    mail( to: (order.inventory_pool.email || Setting.default_email),
+          from: (order.inventory_pool.email || Setting.default_email),
           subject: _('[leihs] Order received'),
           date: sent_at ) do |format|
       format.text {
@@ -49,7 +49,7 @@ class Mailer::Order < ActionMailer::Base
   def rejected(order, comment, sent_at = Time.now)
     choose_language_for(order)
     mail( to: order.target_user.email,
-          from: (order.inventory_pool.email || Setting::DEFAULT_EMAIL),
+          from: (order.inventory_pool.email || Setting.default_email),
           subject: _('[leihs] Reservation Rejected'),
           date: sent_at ) do |format|
       format.text {
@@ -63,7 +63,7 @@ class Mailer::Order < ActionMailer::Base
   def changed(order, comment, sent_at = Time.now)
     choose_language_for(order)
     mail( to: order.target_user.email,
-          from: (order.inventory_pool.email || Setting::DEFAULT_EMAIL),
+          from: (order.inventory_pool.email || Setting.default_email),
           subject: _('[leihs] Reservation confirmed (with changes)'),
           date: sent_at ) do |format|
       format.text {

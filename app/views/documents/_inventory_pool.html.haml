@@ -1,4 +1,4 @@
 .inventory_pool
   %label= _("Lender")
   %span.name= @contract.inventory_pool.name
-  = simple_format Setting::CONTRACT_LENDING_PARTY_STRING, {}, wrapper_tag: :span
+  = simple_format Setting.contract_lending_party_string, {}, wrapper_tag: :span

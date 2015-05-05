@@ -201,11 +201,11 @@ class User < ActiveRecord::Base
   end
 
   def image_url
-    if Setting::USER_IMAGE_URL
-      if Setting::USER_IMAGE_URL.match(/\{:id\}/) and unique_id
-        Setting::USER_IMAGE_URL.gsub(/\{:id\}/, unique_id)
-      elsif Setting::USER_IMAGE_URL.match(/\{:extended_info:id\}/) and extended_info and extended_info['id']
-        Setting::USER_IMAGE_URL.gsub(/\{:extended_info:id\}/, extended_info['id'].to_s)
+    if Setting.user_image_url
+      if Setting.user_image_url.match(/\{:id\}/) and unique_id
+        Setting.user_image_url.gsub(/\{:id\}/, unique_id)
+      elsif Setting.user_image_url.match(/\{:extended_info:id\}/) and extended_info and extended_info['id']
+        Setting.user_image_url.gsub(/\{:extended_info:id\}/, extended_info['id'].to_s)
       end
     end
   end

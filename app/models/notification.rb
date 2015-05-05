@@ -20,7 +20,7 @@ class Notification < ActiveRecord::Base
   # Notify the person responsible for the inventory pool that an order
   # was received. Can be enabled in config/environment.rb
   def self.order_received(order, send_mail = false)
-    o = Mailer::Order.received(order).deliver if (send_mail and Setting::DELIVER_ORDER_NOTIFICATIONS)
+    o = Mailer::Order.received(order).deliver if (send_mail and Setting.deliver_order_notifications)
     title = (o.nil? ? _('Order received') : o.subject) # rubocop:disable Lint/UselessAssignment
   end
   

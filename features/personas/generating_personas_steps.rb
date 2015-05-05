@@ -62,9 +62,6 @@ Then(/^the minimal seed dump is loaded$/) do
   # we need this variable assignment in order to wait for the end of the system call. DO NOT DELETE !
   dump_restored = system(cmd)
   raise 'persona dump not loaded' unless dump_restored
-
-  # ensure the settings are initialized
-  Setting.initialize_constants
 end
 
 Given(/^(\d+) user(s)? exist(s)?$/) do |n, s1, s2|

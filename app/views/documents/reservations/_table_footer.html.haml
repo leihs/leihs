@@ -5,4 +5,4 @@
     %td.quantity
       %strong= @reservations.to_a.sum(&:quantity)
     %td.value
-      %strong= number_to_currency(@reservations.to_a.sum(&:price_or_max_price), format: '%n %u', :unit => Setting::LOCAL_CURRENCY_STRING)
+      %strong= number_to_currency(@reservations.to_a.sum(&:price_or_max_price), format: '%n %u', :unit => Setting.local_currency_string)

@@ -20,7 +20,7 @@ class Manage::ApplicationController < ApplicationController
   private
 
   def check_maintenance_mode
-    redirect_to manage_maintenance_path if current_inventory_pool and Setting::DISABLE_MANAGE_SECTION
+    redirect_to manage_maintenance_path if current_inventory_pool and Setting.disable_manage_section
   end
 
   def required_role

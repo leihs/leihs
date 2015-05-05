@@ -10,19 +10,13 @@ class Setting < ActiveRecord::Base
 
   validates_format_of :default_email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
-  def self.initialize_constants
+  def self.method_missing(name, *args, &block)
     singleton = first # fetch the singleton from the database
-    return unless singleton
-    silence_warnings do
-      (attribute_names - ['id']).sort.each do |k|
-        Setting.const_set k.upcase, singleton.send(k.to_sym) if singleton.methods.include?(k.to_sym)
-      end
+    if singleton
+      singleton.send(name)
+    else
+      nil
     end
-  end
-
-  if Rails.env.development?
-    # initialize the constants at each code reload, since we are running with config.cache_classes = false
-    initialize_constants
   end
 
   before_create do
@@ -30,9 +24,6 @@ class Setting < ActiveRecord::Base
   end
 
   after_save do
-    self.class.initialize_constants
-
-
     begin
       # Only reading from the initializers is not enough, they are only read during
       # server start, making changes of the time zone during runtime impossible.

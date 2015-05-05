@@ -34,7 +34,7 @@ class MailTemplate < ActiveRecord::Base
     {user: {name: order.target_user.name},
      inventory_pool: {name: order.inventory_pool.name,
                       description: order.inventory_pool.description},
-     email_signature: Setting::EMAIL_SIGNATURE,
+     email_signature: Setting.email_signature,
      order_lines: order.reservations.map do |l|
        {quantity: l.quantity,
         model_name: l.model.name,
@@ -73,7 +73,7 @@ class MailTemplate < ActiveRecord::Base
     {user: {name: user.name},
      inventory_pool: {name: inventory_pool.name,
                       description: inventory_pool.description},
-     email_signature: Setting::EMAIL_SIGNATURE,
+     email_signature: Setting.email_signature,
      reservations: reservations.map do |l|
        {quantity: l.quantity,
         model_name: l.model.name,

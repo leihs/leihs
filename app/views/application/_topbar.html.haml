@@ -3,10 +3,10 @@
   .wrapper
   
     %a.topbar-logo.padding-horizontal-s.margin-right-s{:href => root_path}
-      - if Setting::LOGO_URL
+      - if Setting.logo_url
         .table
           .table-row
             .table-cell.vertical-align-middle
-              %img{:src => asset_path(Setting::LOGO_URL)}   
+              %img{:src => asset_path(Setting.logo_url)}
       - else
         leihs

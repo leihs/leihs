@@ -67,11 +67,11 @@ end
 Then(/^the settings for the "(.*)" were saved$/) do |arg1|
   case arg1
     when 'manage section'
-      expect(Setting.const_get(:disable_manage_section.upcase)).to eq @disable
-      expect(Setting.const_get(:disable_manage_section_message.upcase).to_s).to eq @disable_message
+      expect(Setting.disable_manage_section).to eq @disable
+      expect(Setting.disable_manage_section_message.to_s).to eq @disable_message
     when 'borrow section'
-      expect(Setting.const_get(:disable_borrow_section.upcase)).to eq @disable
-      expect(Setting.const_get(:disable_borrow_section_message.upcase).to_s).to eq @disable_message
+      expect(Setting.disable_borrow_section).to eq @disable
+      expect(Setting.disable_borrow_section_message.to_s).to eq @disable_message
     else
       raise
   end

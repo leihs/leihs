@@ -1,15 +1,11 @@
 if ActiveRecord::Base.connection.tables.include?("settings") and not Rails.env.test?
 
-  if Setting.const_defined? :TIME_ZONE
-    Rails.configuration.time_zone = Setting::TIME_ZONE
+  if time_zone = Setting.time_zone
+    Rails.configuration.time_zone = time_zone
     Time.zone = Rails.configuration.time_zone
   end
 
-  if Setting.exists?
-    # initialize the constants at the application startup
-    Setting.initialize_constants
-
-  else
+  unless Setting.exists?
 
     h = {}
     h[:smtp_address]                  = ActionMailer::Base.smtp_settings[:address]  if ActionMailer::Base.smtp_settings[:address]

@@ -33,9 +33,6 @@ module Dataset
     dump_restored = system(cmd)
     raise 'persona dump not loaded' unless dump_restored
 
-    # ensure the settings are initialized
-    Setting.initialize_constants
-
     dump_restored
   end
 

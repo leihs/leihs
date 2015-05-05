@@ -267,7 +267,7 @@ end
 
 #Wenn(/^in den globalen Einstellungen die Adresse der Instanz konfiguriert ist$/) do
 When(/^the instance's address is configured in the global settings$/) do
-  @address = Setting::CONTRACT_LENDING_PARTY_STRING
+  @address = Setting.contract_lending_party_string
   expect(@address).not_to be_nil
 end
 

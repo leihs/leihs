@@ -238,7 +238,7 @@ Then(/^the price shown for the unassigned reservations is equal to the highest p
     line = all('tr', text: m.name).find {|line| line.find('.inventory_code').text == '' }
     if line
       price = @reservations.reload.find{|l| not l.item and l.model == m}.price_or_max_price * quantity
-      formatted_price = ActionController::Base.helpers.number_to_currency(price, format: '%n %u', unit: Setting::LOCAL_CURRENCY_STRING)
+      formatted_price = ActionController::Base.helpers.number_to_currency(price, format: '%n %u', unit: Setting.local_currency_string)
       line.find('.item_price', text: formatted_price)
     end
   end
@@ -248,7 +248,7 @@ end
 Then(/^the price shown for the assigned reservations is that of the assigned item$/) do
   reservations = @reservations.select {|l| l.item.try(:inventory_code)}
   reservations.each do |line|
-    formatted_price = ActionController::Base.helpers.number_to_currency(line.price_or_max_price, format: '%n %u', unit: Setting::LOCAL_CURRENCY_STRING)
+    formatted_price = ActionController::Base.helpers.number_to_currency(line.price_or_max_price, format: '%n %u', unit: Setting.local_currency_string)
     find('tr', text: line.item.inventory_code).find('.item_price', text: formatted_price)
   end
 end
@@ -265,7 +265,7 @@ Then(/^any options are priced according to their price set in the inventory pool
   reservations = @reservations.select {|l| l.is_a? OptionLine }
   reservations.each do |l|
     line = find('tr', text: l.model.name)
-    formatted_price = ActionController::Base.helpers.number_to_currency(@current_inventory_pool.options.find(l.item.id).price * l.quantity, format: '%n %u', unit: Setting::LOCAL_CURRENCY_STRING)
+    formatted_price = ActionController::Base.helpers.number_to_currency(@current_inventory_pool.options.find(l.item.id).price * l.quantity, format: '%n %u', unit: Setting.local_currency_string)
     line.find('.item_price', text: formatted_price)
   end
 end
