@@ -7,7 +7,7 @@
 
 # When "$who deletes the first line" do | who|
 #   # TODO: we should be passing through the controller/view here
-#   @order.remove_line( @order.order_lines.first, @order.user.id )
+#   @order.remove_line(@order.order_lines.first)
 # end
 
 # Then "the availability of all $document_type reservations should be cached" do |document_type|

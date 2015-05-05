@@ -15,7 +15,7 @@ class Manage::VisitsController < Manage::ApplicationController
     unless visit.blank?
       contract = visit.user.reservations_bundles.approved.find_by(inventory_pool_id: current_inventory_pool)
       Contract.transaction do
-        visit.reservations.each { |l| contract.remove_line(l, current_user.id) }
+        visit.reservations.each { |l| contract.remove_line(l) }
       end
     end
     render status: :no_content, nothing: true
@@ -28,7 +28,7 @@ class Manage::VisitsController < Manage::ApplicationController
     grouped_reservations = visit.reservations.group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: (vl.delegated_user_id || vl.user_id)} }
     grouped_reservations.each_pair do |k, reservations|
       user = User.find(k[:user_id])
-      user.remind(reservations, current_user)
+      user.remind(reservations)
     end
 
     render status: :no_content, nothing: true

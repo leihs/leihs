@@ -18,7 +18,6 @@ class Reservation < ActiveRecord::Base
   belongs_to :returned_to_user, class_name: 'User'
 
   has_many :groups, through: :user
-  has_many :histories, -> { order(:created_at) }, as: :target, dependent: :delete_all
 
   def contract_id
     read_attribute(:contract_id) || "#{status}_#{user_id}_#{inventory_pool_id}"
@@ -191,14 +190,7 @@ class Reservation < ActiveRecord::Base
     Reservation.transaction do
       start_date ||= self.start_date
       end_date ||= self.end_date
-      original_start_date = self.start_date
-      original_end_date = self.end_date
-      self.start_date = start_date
-      self.end_date = [start_date, end_date].max
-      if save
-        change = _('Changed dates for %{model} from %{from} to %{to}') % {model: model.name, from: "#{original_start_date} - #{original_end_date}", to: "#{start_date} - #{end_date}"}
-        log_change(change, user_id)
-      end
+      update_attributes(start_date: start_date, end_date: [start_date, end_date].max)
       if User.find(user_id).access_right_for(inventory_pool).role == :group_manager and not available?
         raise _('Not available')
       end
@@ -206,11 +198,6 @@ class Reservation < ActiveRecord::Base
   end
 
   ############################################
-
-  def log_change(text, user_id)
-    user_id = user_id.id if user_id.is_a? User
-    histories.create(text: text, user_id: user_id, type_const: History::CHANGE) unless (user and user_id == user.id)
-  end
 
   private
 

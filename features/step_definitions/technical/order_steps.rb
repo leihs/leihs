@@ -51,9 +51,7 @@
 #
 # Given /it asks for ([0-9]+) item(s?) of model '(.*)'/ do |number, plural, model|
 #   @contract.add_lines(number, Model.find_by_name(model), @user)
-#   @contract.log_history("user submits contract", 1)
 #   @contract.save
-#   expect(@contract.has_changes?).to be false
 #   expect(@contract.reservations[0].model.name).to eq model
 # end
 #
@@ -187,7 +185,7 @@ Given /^there is a "(.*?)" contract with (\d+) reservations?$/ do |contract_type
 end
 
 When /^one tries to delete a line$/ do
-  @result_of_line_removal = @contract.remove_line(@contract.reservations.last, FactoryGirl.create(:user).id)
+  @result_of_line_removal = @contract.remove_line(@contract.reservations.last)
 end
 
 Then /^the amount of reservations decreases by one$/ do

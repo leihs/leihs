@@ -40,7 +40,7 @@ class Borrow::ContractsController < Borrow::ApplicationController
 
   def remove_reservations(line_ids = params[:line_ids].map(&:to_i))
     reservations = current_user.reservations.unsubmitted.find(line_ids)
-    reservations.each {|l| current_user.reservations_bundles.unsubmitted.each {|c| c.remove_line(l, current_user.id)} }
+    reservations.each {|l| current_user.reservations_bundles.unsubmitted.each {|c| c.remove_line(l)} }
     redirect_to borrow_current_order_path
   end
 

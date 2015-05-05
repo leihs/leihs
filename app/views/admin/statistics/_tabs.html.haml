@@ -1,0 +1,9 @@
+.row
+  %nav
+    %ul
+      %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{href: admin_statistics_path, class: params[:controller] == "admin/statistics" ? "active" : ""}
+          = _("Statistics")
+      %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{href: admin_audits_path, class: params[:controller] == "admin/audits" ? "active" : ""}
+          = _("Audits")

@@ -599,10 +599,6 @@
 
   msgstr("Verfügbare hervorheben.");
 
-  msgid("History");
-
-  msgstr("Geschichte");
-
   msgid("Important notes for hand over");
 
   msgstr("Wichtige Notizen zur Aushändigung");
@@ -1015,10 +1011,6 @@
 
   msgstr("Bestellung");
 
-  msgid("Order History");
-
-  msgstr("Vergangene Bestellungen");
-
   msgid("Order approved");
 
   msgstr("Bestellung genehmigt");
@@ -1330,10 +1322,6 @@
   msgid("Show Availability");
 
   msgstr("Verfügbarkeit anzeigen");
-
-  msgid("Show Full History");
-
-  msgstr("Gesamte Geschichte anzeigen");
 
   msgid("Show all %s...");
 

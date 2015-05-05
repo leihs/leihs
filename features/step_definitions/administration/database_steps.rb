@@ -25,6 +25,7 @@ When(/^a database admin deletes some (referenced|visit related access right) rec
                        # NOTE we skip references on sql-views
                      else
                        next if klass == ModelGroupLink # we cannot define the inverse_of for acts_as_dag_links
+                       next if klass == ReservationsBundle # this is based on Reservation
                        dependent = if ref.inverse_of and ref.inverse_of.options[:dependent]
                                      ref.inverse_of.options[:dependent]
                                    else

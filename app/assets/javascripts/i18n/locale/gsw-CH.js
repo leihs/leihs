@@ -788,10 +788,6 @@ window.i18n.locale_data = {
          null,
          "Verfüegbari Sache hervorhebe."
       ],
-      "History": [
-         null,
-         "Verlauf"
-      ],
       "IMEI-Number": [
          null,
          "IMEI-Nummere"
@@ -1263,10 +1259,6 @@ window.i18n.locale_data = {
          "%s Bschtellig",
          "%s Bschtellige"
       ],
-      "Order History": [
-         null,
-         "Vergangeni Bschtelige"
-      ],
       "Order approved": [
          null,
          "Bschtelig genehmigt"
@@ -1650,10 +1642,6 @@ window.i18n.locale_data = {
       "Show Availability": [
          null,
          "Verfüegbarkeit zeige"
-      ],
-      "Show Full History": [
-         null,
-         "Gesamti Verlauf zeige"
       ],
       "Show all %s...": [
          null,

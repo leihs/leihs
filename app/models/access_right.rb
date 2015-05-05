@@ -2,7 +2,6 @@ class AccessRight < ActiveRecord::Base
 
   belongs_to :user, inverse_of: :access_rights
   belongs_to :inventory_pool, inverse_of: :access_rights
-  has_many :histories, -> { order(:created_at) }, as: :target, dependent: :delete_all
 
 ####################################################################
 

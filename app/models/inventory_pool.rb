@@ -31,7 +31,7 @@ class InventoryPool < ActiveRecord::Base
   has_many :reservations_bundles, -> { extending BundleFinder }
   # TODO ?? # has_many :contracts, through: :reservations_bundles
   has_many :item_lines, dependent: :restrict_with_exception
-  has_many :visits #, :include => {:user => [:reminders, :groups]} # MySQL View based on reservations
+  has_many :visits #, :include => {:user => [:groups]} # MySQL View based on reservations
 
   has_many :groups do #tmp#2#, :finder_sql => 'SELECT * FROM `groups` WHERE (`groups`.inventory_pool_id = #{id} OR `groups`.inventory_pool_id IS NULL)'
     def with_general

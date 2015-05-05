@@ -142,12 +142,7 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
   def latest_reminder
     user = current_inventory_pool.users.find(params[:user_id])
     visit = current_inventory_pool.visits.find(params[:visit_id])
-    latest_remind = user.reminders.last
-    if latest_remind and latest_remind.created_at > visit.date
-      @reminder = latest_remind 
-    else
-      render nothing: true, status: :not_found
-    end
+    @notifications = user.notifications.where('created_at >= ?', visit.date).limit(10)
   end
 
 end

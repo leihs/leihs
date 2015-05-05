@@ -1,1 +1,0 @@
-window.App.LatestReminder.url = => "/manage/#{App.InventoryPool.current.id}/latest_reminder"

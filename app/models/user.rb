@@ -85,9 +85,6 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email, unless: :is_delegation
   validates :email, format: /.+@.+\..+/, allow_blank: true
 
-  has_many :histories, -> { order(:created_at) }, as: :target, dependent: :delete_all
-  has_many :reminders, -> { where(type_const: History::REMIND).order(:created_at) }, class_name: 'History', as: :target, dependent: :delete_all
-
   has_and_belongs_to_many :groups do #tmp#2#, :finder_sql => 'SELECT * FROM `groups` INNER JOIN `groups_users` ON `groups`.id = `groups_users`.group_id OR groups.inventory_pool_id IS NULL WHERE (`groups_users`.user_id = #{id})'
     def with_general
       to_a + [Group::GENERAL_GROUP_ID]
@@ -247,20 +244,18 @@ class User < ActiveRecord::Base
     end
   end
 
-  def remind(reservations, reminder_user = self)
+  def remind(reservations)
     unless reservations.empty?
       begin
         Notification.remind_user(self, reservations)
-        create_history _('Reminded %{q} items for contracts %{c}'), reservations, reminder_user
         puts "Reminded: #{self.name}"
-        return true
+        true
       rescue Exception => exception
-        create_history _('Unsuccessful reminder of %{q} items for contracts %{c}'), reservations, reminder_user
         puts "Failed to remind: #{self.name}"
         # archive problem in the log, so the admin/developper
         # can look up what happened
         logger.error "#{exception}\n    #{exception.backtrace.join("\n    ")}"
-        return false
+        false
       end
     end
   end
@@ -269,29 +264,12 @@ class User < ActiveRecord::Base
     unless reservations.empty?
       begin
         Notification.deadline_soon_reminder(self, reservations)
-        create_history _('Deadline soon reminder sent for %{q} items on contracts %{c}'), reservations, reminder_user
         puts "Deadline soon: #{self.name}"
       rescue
         puts "Couldn't send reminder: #{self.name}"
       end
     end
   end
-
-  private
-
-  def create_history text, reservations, user
-    histories.create \
-      text: text % hash_for_quantity_and_contracts(reservations),
-      user_id: user,
-      type_const: History::REMIND
-  end
-
-  def hash_for_quantity_and_contracts reservations
-    { q: reservations.to_a.sum(&:quantity),
-      c: reservations.map(&:contract_id).uniq.join(',') }
-  end
-
-  public
 
 #################### Start role_requirement
 

@@ -40,6 +40,10 @@ Leihs::Application.routes.draw do
     get "statistics",     to: "statistics#index", as: "statistics"
     get "statistics/:id", to: "statistics#show",  as: "statistic"
 
+    # Audits
+    get 'audits',           to: 'audits#index'
+    get ':type/:id/audits', to: 'audits#index'
+
     # Database Check
     get "database/indexes", to: "database#indexes"
     match "database/empty_columns", to: "database#empty_columns", as: "empty_columns", via: [:get, :delete]

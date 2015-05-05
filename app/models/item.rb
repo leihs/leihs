@@ -27,7 +27,6 @@ class Item < ActiveRecord::Base
 
   has_many :item_lines, dependent: :restrict_with_exception
   alias :reservations :item_lines
-  has_many :histories, -> { order(:created_at) }, as: :target, dependent: :delete_all
   store :properties
 
 ####################################################################
@@ -447,14 +446,6 @@ class Item < ActiveRecord::Base
   end
 
   public
-
-####################################################################
-
-  def log_history(text, user_id)
-    h = histories.create(text: text, user_id: user_id, type_const: History::BROKEN)
-    histories.reset if h.changed?
-  end
-
 
 ####################################################################
 

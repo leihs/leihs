@@ -575,9 +575,6 @@ msgstr ""
 msgid "Highlight available items."
 msgstr ""
 
-msgid "History"
-msgstr ""
-
 msgid "IMEI-Number"
 msgstr ""
 
@@ -947,9 +944,6 @@ msgid_plural "%s Orders"
 msgstr[0] ""
 msgstr[1] ""
 
-msgid "Order History"
-msgstr ""
-
 msgid "Order approved"
 msgstr ""
 
@@ -1240,9 +1234,6 @@ msgid "Show"
 msgstr ""
 
 msgid "Show Availability"
-msgstr ""
-
-msgid "Show Full History"
 msgstr ""
 
 msgid "Show all %s..."

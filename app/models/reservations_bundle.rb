@@ -228,11 +228,6 @@ class ReservationsBundle < ActiveRecord::Base
       line = user.item_lines.create(attrs) do |l|
         l.purpose = reservations.first.purpose if status == :submitted and reservations.first.try :purpose
       end
-
-      unless line.new_record?
-        line.log_change(_('Added') + " #{attrs[:quantity]} #{attrs[:model].name} #{attrs[:start_date]} #{attrs[:end_date]}", current_user.try(:id))
-      end
-
       line
     end
 
@@ -241,14 +236,9 @@ class ReservationsBundle < ActiveRecord::Base
 
   ################################################################
 
-  def remove_line(line, user_id)
-    if [:unsubmitted, :submitted, :approved].include?(status)
-      line.log_change _('Removed %{q} %{m}') % {q: line.quantity, m: line.model.name}, user_id # OPTIMIZE we log before actually remove because association
-      if reservations.include? line and line.destroy
-        true
-      else
-        false
-      end
+  def remove_line(line)
+    if [:unsubmitted, :submitted, :approved].include?(status) and reservations.include?(line) and line.destroy
+      true
     else
       false
     end
@@ -343,9 +333,6 @@ class ReservationsBundle < ActiveRecord::Base
           contract.reservations << cl
         end
       end
-      if contract.valid?
-        log_history(_('Contract %d has been signed by %s') % [contract.id, contract.reservations.first.user.name], current_user.id)
-      end
       contract
     end
   end
@@ -367,25 +354,5 @@ class ReservationsBundle < ActiveRecord::Base
   def total_price
     reservations.to_a.sum(&:price)
   end
-
-  #######################
-  #
-
-  def log_history(text, user_id)
-    user_id = user_id.id if user_id.is_a? User
-    reservations.each do |line|
-      line.histories.create(text: text, user_id: user_id, type_const: History::ACTION)
-    end
-  end
-
-  def has_changes?
-    reservations.any? do |line|
-      history = line.histories.order('created_at DESC, id DESC').first
-      history.nil? ? false : history.type_const == History::CHANGE
-    end
-  end
-
-  #
-  #######################
 
 end

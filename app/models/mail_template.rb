@@ -22,9 +22,6 @@ class MailTemplate < ActiveRecord::Base
             'l.start_date',
             'l.end_date'
         ]},
-        {'histories' => [
-            'h.text'
-        ]},
         'comment',
         'purpose'
     ]
@@ -40,11 +37,6 @@ class MailTemplate < ActiveRecord::Base
         model_name: l.model.name,
         start_date: l.start_date,
         end_date: l.end_date}
-     end,
-     histories: order.reservations.flat_map  do |line|
-       line.histories.where(type_const: History::CHANGE).map do |h|
-         {text: h.text}
-       end
      end,
      comment: comment,
      purpose: order.purpose

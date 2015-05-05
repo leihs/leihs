@@ -164,6 +164,48 @@ LOCK TABLES `attachments` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `audits`
+--
+
+DROP TABLE IF EXISTS `audits`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `audits` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `auditable_id` int(11) DEFAULT NULL,
+  `auditable_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `associated_id` int(11) DEFAULT NULL,
+  `associated_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `user_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `action` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `audited_changes` text COLLATE utf8_unicode_ci,
+  `version` int(11) DEFAULT '0',
+  `comment` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remote_address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `request_uuid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `auditable_index` (`auditable_id`,`auditable_type`),
+  KEY `associated_index` (`associated_id`,`associated_type`),
+  KEY `user_index` (`user_id`,`user_type`),
+  KEY `index_audits_on_request_uuid` (`request_uuid`),
+  KEY `index_audits_on_created_at` (`created_at`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `audits`
+--
+
+LOCK TABLES `audits` WRITE;
+/*!40000 ALTER TABLE `audits` DISABLE KEYS */;
+INSERT INTO `audits` VALUES (1,1,'Setting',NULL,NULL,NULL,NULL,NULL,'create','---\nsmtp_address: smtp.zhdk.ch\nsmtp_port: 25\nsmtp_domain: beta.ausleihe.zhdk.ch\nlocal_currency_string: CHF\ncontract_terms: Die Benutzerin/der Benutzer ist bei unsachgemässer Handhabung oder\n  Verlust schadenersatzpflichtig. Sie/Er verpflichtet sich, das Material sorgfältig\n  zu behandeln und gereinigt zu retournieren. Bei mangelbehafteter oder verspäteter\n  Rückgabe kann eine Ausleihsperre (bis zu 6 Monaten) verhängt werden. Das geliehene\n  Material bleibt jederzeit uneingeschränktes Eigentum der Zürcher Hochschule der\n  Künste und darf ausschliesslich für schulische Zwecke eingesetzt werden. Mit ihrer/seiner\n  Unterschrift akzeptiert die Benutzerin/der Benutzer diese Bedingungen sowie die\n  \'Richtlinie zur Ausleihe von Sachen\' der ZHdK und etwaige abteilungsspezifische\n  Ausleih-Richtlinien.\ncontract_lending_party_string: |-\n  Your\n  Address\n  Here\nemail_signature: Das PZ-leihs Team\ndefault_email: sender@example.com\ndeliver_order_notifications: false\nuser_image_url: http://www.zhdk.ch/?person/foto&width=100&compressionlevel=0&id={:id}\nldap_config: \nlogo_url: \"/assets/image-logo-zhdk.png\"\nmail_delivery_method: test\nsmtp_username: \nsmtp_password: \nsmtp_enable_starttls_auto: false\nsmtp_openssl_verify_mode: none\ntime_zone: Bern\ndisable_manage_section: false\ndisable_manage_section_message: \ndisable_borrow_section: false\ndisable_borrow_section_message: \ntext: \n',1,NULL,NULL,'5ffcfbb5-9e38-4d00-8d83-c73306f833b7','2015-05-04 12:02:03'),(2,1,'Language',NULL,NULL,NULL,NULL,NULL,'create','---\nname: English (UK)\nlocale_name: en-GB\ndefault: true\nactive: true\n',1,NULL,NULL,'1afd622a-53ea-4712-b8af-0cf88d15fc62','2015-05-04 12:02:03'),(3,2,'Language',NULL,NULL,NULL,NULL,NULL,'create','---\nname: English (US)\nlocale_name: en-US\ndefault: false\nactive: true\n',1,NULL,NULL,'f48da770-7e34-4675-9fb7-baacc69b8245','2015-05-04 12:02:03'),(4,3,'Language',NULL,NULL,NULL,NULL,NULL,'create','---\nname: Deutsch\nlocale_name: de-CH\ndefault: false\nactive: true\n',1,NULL,NULL,'b5611141-290a-4f24-883d-36a1d46236a0','2015-05-04 12:02:03'),(5,4,'Language',NULL,NULL,NULL,NULL,NULL,'create','---\nname: Züritüütsch\nlocale_name: gsw-CH\ndefault: false\nactive: true\n',1,NULL,NULL,'939d827d-3ec4-4ae7-b281-23327c39324a','2015-05-04 12:02:03'),(6,1,'AuthenticationSystem',NULL,NULL,NULL,NULL,NULL,'create','---\nname: Database Authentication\nclass_name: DatabaseAuthentication\nis_default: true\nis_active: true\n',1,NULL,NULL,'42bfbf05-cdb8-41fe-89be-6bc173028dc9','2015-05-04 12:02:03'),(7,2,'AuthenticationSystem',NULL,NULL,NULL,NULL,NULL,'create','---\nname: LDAP Authentication\nclass_name: LdapAuthentication\nis_default: false\nis_active: false\n',1,NULL,NULL,'496a495a-b83b-492e-8e7c-6751e9f16b0a','2015-05-04 12:02:03'),(8,3,'AuthenticationSystem',NULL,NULL,NULL,NULL,NULL,'create','---\nname: ZHDK Authentication\nclass_name: Zhdk\nis_default: false\nis_active: false\n',1,NULL,NULL,'57771ebc-16a4-4001-b564-7c968797124b','2015-05-04 12:02:03');
+/*!40000 ALTER TABLE `audits` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `authentication_systems`
 --
 
@@ -349,38 +391,6 @@ CREATE TABLE `groups_users` (
 LOCK TABLES `groups_users` WRITE;
 /*!40000 ALTER TABLE `groups_users` DISABLE KEYS */;
 /*!40000 ALTER TABLE `groups_users` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `histories`
---
-
-DROP TABLE IF EXISTS `histories`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `histories` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `text` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
-  `type_const` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `target_id` int(11) NOT NULL,
-  `target_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `index_histories_on_target_type_and_target_id` (`target_type`,`target_id`),
-  KEY `index_histories_on_type_const` (`type_const`),
-  KEY `index_histories_on_user_id` (`user_id`),
-  CONSTRAINT `histories_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `histories`
---
-
-LOCK TABLES `histories` WRITE;
-/*!40000 ALTER TABLE `histories` DISABLE KEYS */;
-/*!40000 ALTER TABLE `histories` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -828,6 +838,7 @@ CREATE TABLE `notifications` (
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_notifications_on_user_id` (`user_id`),
+  KEY `index_notifications_on_created_at_and_user_id` (`created_at`,`user_id`),
   CONSTRAINT `notifications_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1076,7 +1087,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20140410180000'),('20140903105715'),('20150129121330');
+INSERT INTO `schema_migrations` VALUES ('20140410180000'),('20140903105715'),('20150129121330'),('20150427062734'),('20150428160035');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1295,4 +1306,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-05-01 17:44:35
+-- Dump completed on 2015-05-04 14:02:03

@@ -1,22 +1,12 @@
-- content_for :title, _("Statistics")
+- content_for :title, _("Audits")
 
 .wrapper.margin-top-m
 
   = render partial: "admin/statistics/tabs"
 
   .row.content-wrapper.min-height-xl.min-width-full.straight-top
-    .row.margin-top-l.padding-horizontal-m
-
-      %h1.headline-l.float-left= yield :title
-
-    = render partial: "admin/statistics/index"
 
     .row.margin-top-l.padding-horizontal-m
-
-      .row
-        .headline-l.float-left
-          %i.icon-bar-chart
-          = _(@statistics.detect {|s| s.parameterize == params[:id] })
 
       .row.text-align-right.padding-top-l.padding-bottom-l
         = form_tag url_for(), method: :get do
@@ -30,20 +20,24 @@
               %i.icon-calendar
           %button.button.white{type: "submit", style: "vertical-align: top"}= _("Filter")
 
-      .row.emboss.margin-vertical-s
-        .list.users
-          = render partial: "admin/statistics/show/line", collection: @list
-
-:scss
-  .collapsed + .children {
-    display: none;
-  }
+      - @requests.each_pair do |request, audits|
+        .emboss.deep.margin-vertical-s
+          .row.line.headline-m
+            .col3of8.line-col
+              = l audits.first.try(:created_at), format: :long
+            .col5of5.line-col.text-align-left
+              - if (user = audits.first.try(:user))
+                = link_to url_for(user_id: audits.first.user_id) do
+                  = user
+          .row.line.headline-s
+            .col1of8.line-col
+              Action
+            .col2of8.line-col.text-align-left
+              Auditable
+            .col5of8.line-col.text-align-left
+              Changes
+          = render partial: "admin/audits/audit", collection: audits
 
 :coffeescript
   jQuery ->
     $(".datepicker").datepicker()
-
-    $(".toggle").on "click", ->
-      $(this).closest(".row").toggleClass("collapsed")
-      $(this).find(".arrow").toggleClass("right")
-      $(this).find(".arrow").toggleClass("down")

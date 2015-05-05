@@ -185,7 +185,6 @@ class Manage::ReservationsController < Manage::ApplicationController
 
     reservations.each do |l|
       l.update_attributes(returned_date: Date.today, returned_to_user_id: current_user.id)
-      l.item.histories.create(user: current_user, text: _('Item taken back'), type_const: History::ACTION) unless l.item.is_a? Option
     end
 
     if returned_quantity

@@ -11,7 +11,6 @@ Feature: Mail templates
   Examples:
     | template name          | directory | file name                          |
     | approved               | order     | approved.text.liquid               |
-    | changed                | order     | changed.text.liquid                |
     | received               | order     | received.text.liquid               |
     | rejected               | order     | rejected.text.liquid               |
     | submitted              | order     | submitted.text.liquid              |
@@ -28,7 +27,6 @@ Feature: Mail templates
   Examples:
     | template name          |
     | approved               |
-    | changed                |
     | received               |
     | rejected               |
     | submitted              |
@@ -44,7 +42,6 @@ Feature: Mail templates
   Examples:
     | template name          |
     | approved               |
-    | changed                |
     | received               |
     | rejected               |
     | submitted              |

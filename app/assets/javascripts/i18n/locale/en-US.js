@@ -807,10 +807,6 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "History": [
-         null,
-         ""
-      ],
       "IMEI-Number": [
          null,
          ""
@@ -1286,10 +1282,6 @@ window.i18n.locale_data = {
          "",
          ""
       ],
-      "Order History": [
-         null,
-         ""
-      ],
       "Order approved": [
          null,
          ""
@@ -1671,10 +1663,6 @@ window.i18n.locale_data = {
          ""
       ],
       "Show Availability": [
-         null,
-         ""
-      ],
-      "Show Full History": [
          null,
          ""
       ],

@@ -555,9 +555,6 @@ msgstr "Hilf"
 msgid "Highlight available items."
 msgstr "Verfüegbari Sache hervorhebe."
 
-msgid "History"
-msgstr "Verlauf"
-
 msgid "IMEI-Number"
 msgstr "IMEI-Nummere"
 
@@ -922,9 +919,6 @@ msgid_plural "%s Orders"
 msgstr[0] "%s Bschtellig"
 msgstr[1] "%s Bschtellige"
 
-msgid "Order History"
-msgstr "Vergangeni Bschtelige"
-
 msgid "Order approved"
 msgstr "Bschtelig genehmigt"
 
@@ -1220,9 +1214,6 @@ msgstr "Aazeige"
 
 msgid "Show Availability"
 msgstr "Verfüegbarkeit zeige"
-
-msgid "Show Full History"
-msgstr "Gesamti Verlauf zeige"
 
 msgid "Show all %s..."
 msgstr "All %s aazeige..."

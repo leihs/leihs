@@ -1,0 +1,27 @@
+.row.line
+
+  .col1of8.line-col
+    = audit.action
+  .col2of8.line-col.text-align-left
+    - if audit.auditable
+      = link_to url_for(type: audit.auditable_type.underscore, id: audit.auditable_id) do
+        = audit.auditable_type
+        = audit.auditable_id
+    - if audit.associated
+      %br
+      (
+      = link_to url_for(type: audit.associated_type.underscore, id: audit.associated_id) do
+        = audit.associated_type
+        = audit.associated_id
+      )
+  .col6of8.line-col.text-align-left
+    - audit.audited_changes.each_pair do |k,v|
+      .row.line{style: "border: 0; font-size: 0.9em;"}
+        %b.col1of4.line-col.text-align-right
+          = "#{k}:"
+        .col3of4.line-col.text-align-left
+          - if v.is_a? Array
+            %s= v.first
+            = v.last
+          - else
+            = v

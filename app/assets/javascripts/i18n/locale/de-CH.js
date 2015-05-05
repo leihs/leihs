@@ -793,10 +793,6 @@ window.i18n.locale_data = {
          null,
          "Verfügbare hervorheben."
       ],
-      "History": [
-         null,
-         "Geschichte"
-      ],
       "IMEI-Number": [
          null,
          "IMEI-Nummer"
@@ -1268,10 +1264,6 @@ window.i18n.locale_data = {
          "%s Bestellung",
          "%s Bestellungen"
       ],
-      "Order History": [
-         null,
-         "Vergangene Bestellungen"
-      ],
       "Order approved": [
          null,
          "Bestellung genehmigt"
@@ -1655,10 +1647,6 @@ window.i18n.locale_data = {
       "Show Availability": [
          null,
          "Verfügbarkeit anzeigen"
-      ],
-      "Show Full History": [
-         null,
-         "Gesamte Geschichte anzeigen"
       ],
       "Show all %s...": [
          null,

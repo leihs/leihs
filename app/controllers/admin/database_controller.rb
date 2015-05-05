@@ -28,11 +28,11 @@ class Admin::DatabaseController < Admin::ApplicationController
           ['accessories_inventory_pools', ['inventory_pool_id']],
           ['addresses', ['street', 'zip_code', 'city', 'country_code'], unique: true],
           ['attachments', ['model_id']],
-          # ["audits", ["associated_id", "associated_type"]],
-          # ["audits", ["auditable_id", "auditable_type"]],
-          # ["audits", ["created_at"]],
-          # ["audits", ["thread_id"]],
-          # ["audits", ["user_id", "user_type"]],
+          ['audits', ['auditable_id', 'auditable_type']],
+          ['audits', ['associated_id', 'associated_type']],
+          ['audits', ['user_id', 'user_type']],
+          ['audits', ['request_uuid']],
+          ['audits', ['created_at']],
           ['reservations', ['status']],
           ['reservations', ['inventory_pool_id']],
           ['reservations', ['user_id']],
@@ -49,9 +49,6 @@ class Admin::DatabaseController < Admin::ApplicationController
           ['groups', ['inventory_pool_id']],
           ['groups_users', ['group_id']],
           ['groups_users', ['user_id', 'group_id'], unique: true],
-          ['histories', ['target_type', 'target_id']],
-          ['histories', ['type_const']],
-          ['histories', ['user_id']],
           ['holidays', ['inventory_pool_id']],
           ['holidays', ['start_date', 'end_date']],
           ['images', ['target_id', 'target_type']],
@@ -81,6 +78,7 @@ class Admin::DatabaseController < Admin::ApplicationController
           ['models_compatibles', ['compatible_id']],
           ['models_compatibles', ['model_id']],
           ['notifications', ['user_id']],
+          ['notifications', ['created_at', 'user_id']],
           ['options', ['inventory_pool_id']],
           ['partitions', ['model_id', 'inventory_pool_id', 'group_id'], unique: true],
           ['properties', ['model_id']],
@@ -176,7 +174,7 @@ class Admin::DatabaseController < Admin::ApplicationController
         if ref.polymorphic?
           # NOTE we cannot define foreign keys on multiple parent tables
           type_column = "#{ref.name}_type".to_sym
-          klass.unscoped.select(type_column).uniq.pluck(type_column).flat_map do |target_type|
+          klass.unscoped.select(type_column).uniq.pluck(type_column).compact.flat_map do |target_type|
             target_klass = target_type.constantize
             inverse_of = target_klass.reflect_on_association(klass.name.underscore.pluralize.to_sym)
             dependent = if inverse_of and inverse_of.options[:dependent]

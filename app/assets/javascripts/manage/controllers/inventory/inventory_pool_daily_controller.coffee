@@ -13,7 +13,6 @@ class window.App.InventoryPoolDailyController extends Spine.Controller
     @visits = []
     @datepickerOpen = false
     do @fetchData
-    new App.LatestReminderTooltipController {el: @el}
 
   fetchData: =>
     do @fetchWorkload
