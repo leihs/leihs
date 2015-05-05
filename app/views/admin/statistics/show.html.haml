@@ -3,13 +3,16 @@
 .wrapper.margin-top-m
 
   .row.content-wrapper.min-height-xl.min-width-full
+    .row.margin-top-l.padding-horizontal-m
+
+      %h1.headline-l.float-left= yield :title
 
     = render partial: "admin/statistics/index"
 
     .row.margin-top-l.padding-horizontal-m
 
       .row
-        .headline-xxl.float-left
+        .headline-l.float-left
           %i.icon-bar-chart
           = _(@statistics.detect {|s| s.parameterize == params[:id] })
 

@@ -1445,16 +1445,20 @@ msgid "The user does not have an email address"
 msgstr "Der Benutzer hat keine E-Mail-Adresse"
 
 msgid ""
-"This contract is not signable because it doesn't have any contract reservations."
+"This contract is not signable because it doesn't have any contract "
+"reservations."
 msgstr ""
 "Dieser Vertrag kann nicht unterschrieben werden, weil er keine Zeilen hat."
 
-msgid "This contract is not signable because none of the reservations have a purpose."
+msgid ""
+"This contract is not signable because none of the reservations have a "
+"purpose."
 msgstr ""
 "Der Vertrag kann nicht unterschrieben werden, weil keine seiner Zeilen einen "
 "Zweck hat."
 
-msgid "This contract is not signable because some reservations are not assigned."
+msgid ""
+"This contract is not signable because some reservations are not assigned."
 msgstr ""
 "Der Vertrag kann nicht unterschrieben werden, weil einige Zeilen noch nicht "
 "zugewiesen wurden."
@@ -1707,8 +1711,8 @@ msgid "You can't add a package to a package."
 msgstr "Ein Paket kann nicht einem Paket hinzugefügt werden."
 
 msgid ""
-"You cannot delete all reservations of an order. Perhaps you want to reject it "
-"instead?"
+"You cannot delete all reservations of an order. Perhaps you want to reject "
+"it instead?"
 msgstr ""
 "Sie können nicht alle Zeilen einer Bestellung löschen. Möchten Sie sie "
 "vielleicht lieber ablehnen?"
@@ -2399,7 +2403,8 @@ msgid "Continue this order"
 msgstr "Diese Bestellung fortsetzen"
 
 msgid ""
-"Please solve the conflicts for all highlighted reservations in order to continue."
+"Please solve the conflicts for all highlighted reservations in order to "
+"continue."
 msgstr ""
 "Um fortzufahren, beheben Sie bitte die Konflikte der hervorgehobenen Einträge"
 
@@ -2928,9 +2933,6 @@ msgstr "Maintenance-Ablaufdatum"
 msgid "Maintenance contract"
 msgstr "Maintenance-Vertrag"
 
-msgid "Currency"
-msgstr "Währung"
-
 msgid "Procured by"
 msgstr "Beschafft durch"
 
@@ -2957,3 +2959,12 @@ msgstr "Min. Tage zwischen Bestellung und Aushändigung"
 
 msgid "Status note"
 msgstr "Statusnotiz"
+
+msgid "Which item is busiest?"
+msgstr "Was sind die meistbenutzten Geräte?"
+
+msgid "Which inventory pool has the most contracts?"
+msgstr "Welcher Gerätepark hat die meisten Verträge?"
+
+#~ msgid "Currency"
+#~ msgstr "Währung"

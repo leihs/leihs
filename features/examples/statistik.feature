@@ -9,46 +9,54 @@ Feature: Statistics on lending and inventory
     When I am in the manage section
     Then I can choose to switch to the statistics section
 
-  # AYAYAY! All the scenarios below are undefined
+  @personas
+  Scenario: Title of the statistics section
+    Given I am in the statistics section
+    Then the page title is 'Statistics'
+
   @personas
   Scenario: Filtering statistics by time window
-    Given ich befinde mich in der Statistik-Ansicht
-    Then sehe ich normalerweise die Statistik der letzten 30 Tage
-    When ich den Zeitraum eingrenze auf 1.1. - 31.12. des laufenden Jahres
-    Then sehe ich nur statistische Daten die relevant sind für den 1.1. - 31.12. des laufenden Jahres
-    When es sich beim Angezeigten um eine Ausleihe handelt
-    Then sehe ich sie nur, wenn ihr Startdatum und ihr Rückgabedatum innerhalb der ausgewählten Zeit liegen
+    Given I am in the statistics section
+    And I select the statistics subsection "Who borrowed the most things?"
+    Then I see by default the last 30 days' statistics
+    When I set the time frame to 1/1 - 31/12 of the current year
+    Then I see only statistical data concerning the time period of 1/1 - 31/12 of the current year
+    When what I am looking at is a hand over
+    Then I only see it if its start and end date are both inside the chosen time period
 
   @personas
-  Scenario: Statistik über die Anzahl der Ausleihvorgänge pro Modell
-    Given ich befinde mich in der Statistik-Ansicht über Ausleihvorgänge
-    Then sehe ich dort alle Geräteparks, die Gegenstände besitzen
-    When ich einen Gerätepark expandiere
-    Then sehe ich alle Modelle, für die deren Gegenstände dieser Gerätepark verantwortlich ist
-    And ich sehe für das Modell die Anzahl Ausleihen
-    And ich sehe für das Modell die Anzahl Rücknahmen
+  Scenario: Statistics on number of hand overs and take backs per model
+    Given I am in the statistics section
+    And I select the statistics subsection "Which inventory pool is busiest?"
+    #Then I see all inventory pools that own items
+    #When I expand an inventory pool
+    #Then I see all models which this inventory pool is responsible for
+    #And I see the number of hand overs for the model
+    #And I see the number of take backs for the model
 
   @personas
-  Scenario: Statistik über Benutzer und deren Ausleihvorgänge
-    Given ich befinde mich in der Statistik-Ansicht über Benutzer
-    Then sehe ich für jeden Benutzer die Anzahl Aushändigungen
-    Then sehe ich für jeden Benutzer die Anzahl Rücknahmen
+  Scenario: Statistics about users and their lendings
+    Given I am in the statistics section
+    And I select the statistics subsection "Who borrowed the most things?"
+    Then I see for each user the number of hand overs
+    Then I see for each user the number of take backs
 
   @personas
-  Scenario: Expandieren eines Modells
-    Given ich befinde mich in der Statistik-Ansicht
-    When ich dort ein Modell sehe
-    Then kann ich das Modell expandieren
-    And sehe dann die Gegenstände, die zu diesem Modell gehören
+  Scenario: Expanding a model
+    Given I am in the statistics section
+    When I see a model there
+    Then I can expand that model
+    And I see items belonging to that model
 
   @personas
-  Scenario: Statistik über den Wert der Modelle und Gegenstände
-    Given ich befinde mich in der Statistik-Ansicht über den Wert
-    Then sehe ich dort alle Geräteparks, die Gegenstände besitzen
-    When ich einen Gerätepark expandiere
-    Then sehe ich alle Modelle, für die dieser Gerätepark Gegenstände besitzt
-    And für jedes  Modell die Summe des Anschaffungswerts aller Gegenstände dieses Modells in diesem Gerätepark
-    And für jedes  Modell die Anzahl aller Gegenstände dieses Modells in diesem Gerätepark
-    When ich ein solches Modell expandiere
-    Then sehe ich eine Liste aller Gegenstände dieses Modells
-    Then sehe ich für jeden Gegenstand seinen Anschaffungswert
+  Scenario: Statistics about the items' value
+    Given I am in the statistics section
+    And I select the statistics subsection "Who bought the most items?"
+    Then I see all inventory pools that own items
+    When I expand an inventory pool
+    Then I see all models for which this inventory pool owns items
+    And for each model a sum of the purchase price of all matching items in this inventory pool
+    And for each model the number of items of this model in that inventory pool
+    When I expand that model
+    Then I see a list of all items of this model
+    And I see the purchase price of each item

@@ -2868,3 +2868,9 @@ msgstr ""
 
 msgid "Status note"
 msgstr ""
+
+msgid "Which item is busiest?"
+msgstr ""
+
+msgid "Which inventory pool has the most contracts?"
+msgstr ""

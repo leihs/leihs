@@ -3,5 +3,8 @@
 .wrapper.margin-top-m
 
   .row.content-wrapper.min-height-xl.min-width-full
+    .row.margin-top-l.padding-horizontal-m
+
+      %h1.headline-l.float-left= yield :title
 
     = render partial: "admin/statistics/index"
