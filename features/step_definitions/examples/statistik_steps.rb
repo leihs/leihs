@@ -61,8 +61,6 @@ Then(/^I see all inventory pools that own items$/) do
       pools << line.find(".col5of8").text
     end
   end
-  puts 'flap'
-  binding.pry
   expect(owners.collect(&:name)).to eq(pools.sort)
 end
 
