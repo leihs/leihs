@@ -4,7 +4,7 @@
     %strong= supplier.name
 
   .col1of4.line-col
-    %strong= _("%d items") % (current_inventory_pool ? supplier.items.where("#{current_inventory_pool.id} IN (inventory_pool_id, owner_id)").count : supplier.items.count)
+    %strong= _("%s items") % (current_inventory_pool ? supplier.items.where("#{current_inventory_pool.id} IN (inventory_pool_id, owner_id)").count : supplier.items.count)
 
   .col1of4.line-col.line-actions
 

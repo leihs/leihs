@@ -114,8 +114,9 @@ Leihs::Application.routes.draw do
     # maintenance
     get "maintenance", to: "application#maintenance"
 
-    # Location
-    get 'locations', to: "locations#index"
+    # Locations
+    get     'locations',          to: "locations#index"
+    delete  'locations/:id',      to: 'locations#destroy',  as: 'delete_location'
 
     # Buildings
     get     'buildings',          to: 'buildings#index'
@@ -140,12 +141,12 @@ Leihs::Application.routes.draw do
     # delete "manage/users/:id", to: "manage/users#destroy", as: "delete_manage_user"
 
     # Administrate inventory pools
-    get     'inventory_pools',          to: 'inventory_pools#index'
-    get     'inventory_pools/new',      to: 'inventory_pools#new',      as: 'new_inventory_pool'
-    post    'inventory_pools',          to: 'inventory_pools#create'
-    get     'inventory_pools/:id/edit', to: 'inventory_pools#edit',     as: 'edit_inventory_pool'
-    put     'inventory_pools/:id',      to: 'inventory_pools#update',   as: 'update_inventory_pool'
-    delete  'inventory_pools/:id',      to: 'inventory_pools#destroy',  as: 'delete_inventory_pool'
+    get     'inventory_pools',                         to: 'inventory_pools#index'
+    get     'inventory_pools/new',                     to: 'inventory_pools#new',      as: 'new_inventory_pool'
+    post    'inventory_pools',                         to: 'inventory_pools#create'
+    get     'inventory_pools/:inventory_pool_id/edit', to: 'inventory_pools#edit',     as: 'edit_inventory_pool'
+    put     'inventory_pools/:inventory_pool_id',      to: 'inventory_pools#update',   as: 'update_inventory_pool'
+    delete  'inventory_pools/:inventory_pool_id',      to: 'inventory_pools#destroy',  as: 'delete_inventory_pool'
 
     # Export inventory of all inventory pools
     get 'inventory/csv',              :to => "inventory#csv_export",  :as => "global_inventory_csv_export"
@@ -330,6 +331,14 @@ Leihs::Application.routes.draw do
       get 'mail_templates', to: 'mail_templates#index'
       get 'mail_templates/:dir/:name', to: 'mail_templates#edit'
       put 'mail_templates/:dir/:name', to: 'mail_templates#update'
+
+      # Buildings
+      get     'buildings',          to: 'buildings#index'
+      #get     'buildings/new',      to: 'buildings#new',      as: 'new_inventory_pool_building'
+      #post    'buildings',          to: 'buildings#create'
+      get     'buildings/:id/edit', to: 'buildings#edit',     as: 'edit_inventory_pool_building'
+      #put     'buildings/:id',      to: 'buildings#update',   as: 'update_inventory_pool_building'
+      delete  'buildings/:id',      to: 'buildings#destroy',  as: 'delete_inventory_pool_building'
 
       # Suppliers
       get     'suppliers',          to: 'suppliers#index'

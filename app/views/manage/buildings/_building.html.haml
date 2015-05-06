@@ -7,10 +7,10 @@
     %strong= building.code
 
   .col1of6.line-col
-    %strong= _("%d locations") % building.locations.count
+    %strong= _("%s locations") % building.locations.count
 
   .col1of6.line-col
-    %strong= _("%d items") % building.items.count
+    %strong= _("%s items") % (current_inventory_pool ? building.items.where("#{current_inventory_pool.id} IN (inventory_pool_id, owner_id)") : building.items).count
 
   .col1of6.line-col.line-actions
 
@@ -18,8 +18,8 @@
 
       .multibutton
 
-        %a.button.white{href: manage_edit_building_path(building)}
-          = _("Edit")
+        %a.button.white{href: polymorphic_path([:manage, :edit, current_inventory_pool, building].compact)}
+          = current_inventory_pool ? _("Show") : _("Edit")
 
         .dropdown-holder.inline-block
           .button.white.dropdown-toggle
@@ -34,5 +34,5 @@
 
     - else
 
-      %a.button.white{href: manage_edit_building_path(building)}
-        = _("Edit")
+      %a.button.white{href: polymorphic_path([:manage, :edit, current_inventory_pool, building].compact)}
+        = current_inventory_pool ? _("Show") : _("Edit")

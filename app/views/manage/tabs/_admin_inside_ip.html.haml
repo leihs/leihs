@@ -25,6 +25,11 @@
             = _("Suppliers")
 
         %li
+          %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => "/manage/#{current_inventory_pool.id}/buildings",
+                                                                                  :class => (defined? active_tab and active_tab == :buildings) ? "active" : ""}
+            = _("Buildings")
+
+        %li
           %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => "/manage/#{current_inventory_pool.id}/mail_templates",
                                                                                   :class => (defined? active_tab and active_tab == :mail_templates) ? "active" : ""}
             = _("Mail Templates")

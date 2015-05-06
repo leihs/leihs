@@ -5,7 +5,11 @@ class Manage::BuildingsController < Manage::ApplicationController
   end
 
   def index
-    @buildings = Building.filter(params)
+    @buildings = if current_inventory_pool
+                   current_inventory_pool.buildings
+                 else
+                   Building
+                 end.filter(params)
 
     respond_to do |format|
       format.html

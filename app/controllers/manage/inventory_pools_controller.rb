@@ -46,7 +46,7 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
   end
 
   def edit
-    @inventory_pool = InventoryPool.find params[:id]
+    @inventory_pool = current_inventory_pool
     @holidays = @inventory_pool.holidays.reject{|h| h.end_date < Date.today}.sort_by(&:start_date)
   end
 
@@ -68,7 +68,7 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
 
   # TODO: this mess needs to be untangled and split up into functions called by new/create/update
   def update
-    @inventory_pool ||= InventoryPool.find(params[:id])
+    @inventory_pool = current_inventory_pool
     process_params params[:inventory_pool]
     @holidays_initial = @inventory_pool.holidays.reject{|h| h.end_date < Date.today}.sort_by(&:start_date)
 
@@ -85,7 +85,7 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
   # delete is idempotent
   def destroy
     begin
-      InventoryPool.find_by_id(params[:id]).try :destroy
+      current_inventory_pool.try :destroy
       respond_to do |format|
         format.json { render status: :no_content, nothing: true }
         format.html { redirect_to action: :index, flash: { success: _('%s successfully deleted') % _('Inventory Pool') }}

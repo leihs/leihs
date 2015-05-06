@@ -19,19 +19,25 @@
           .col1of2
             %strong.font-size-m= "#{_("Name")} *"
           .col1of2.text-align-right
-            %input{type: "text", name: "building[name]", value: @building.name}
+            - if current_inventory_pool
+              .headline-m.text-align-left= @building.name
+            - else
+              %input{type: "text", name: "building[name]", value: @building.name}
 
         .row.padding-inset-s.emboss.margin-bottom-xxs
           .col1of2
             %strong.font-size-m= "#{_("Code")}"
           .col1of2.text-align-right
-            %input{type: "text", name: "building[code]", value: @building.code}
+            - if current_inventory_pool
+              .headline-m.text-align-left= @building.code
+            - else
+              %input{type: "text", name: "building[code]", value: @building.code}
 
     .col1of2.padding-left-xs
 
       %h2.headline-m.padding-left-s= _("Locations")
 
-      .row.margin-vertical-s
+      .row.margin-vertical-s.list-of-lines
 
         .row.padding-inset-s.emboss.margin-bottom-xxs
           .col1of3
@@ -41,11 +47,23 @@
           .col1of3
             %strong.font-size-m= _("Items")
 
-        - @building.locations.each do |l|
-          .row.padding-inset-s.emboss.margin-bottom-xxs
-            .col1of3
-              = l.room
-            .col1of3
-              = l.shelf
-            .col1of3
-              = l.items.count
+        :ruby
+          locations = @building.locations
+          locations = locations.select do |l|
+            l.items.where("#{current_inventory_pool.id} IN (inventory_pool_id, owner_id)").exists?
+          end if current_inventory_pool
+
+        - locations.group_by(&:room).each_pair do |room, locations|
+          .line
+            - locations.each_with_index do |l, i|
+              .row.padding-inset-s
+                .col1of3.headline-m
+                  = room if i.zero?
+                .col1of3{style: "display: list-item"}
+                  = l.shelf
+                .col1of3
+                  = c = (current_inventory_pool ? l.items.where("#{current_inventory_pool.id} IN (inventory_pool_id, owner_id)") : l.items).count
+                  - if not current_inventory_pool and c.zero?
+                    %a.button.small.red{href: manage_delete_location_path(l), data: {method: :delete}, style: 'font-size: 0.7em;'}
+                      %i.icon-trash
+                      = _("Delete")

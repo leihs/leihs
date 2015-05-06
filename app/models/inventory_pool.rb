@@ -45,6 +45,10 @@ class InventoryPool < ActiveRecord::Base
     Supplier.joins(:items).where(':id IN (items.owner_id, items.inventory_pool_id)', id: id).uniq
   end
 
+  def buildings
+    Building.joins(:items).where(':id IN (items.owner_id, items.inventory_pool_id)', id: id).uniq
+  end
+
 #######################################################################
 
   # MySQL View based on partitions and items

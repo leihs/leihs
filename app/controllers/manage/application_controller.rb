@@ -86,12 +86,6 @@ class Manage::ApplicationController < ApplicationController
     def current_inventory_pool
       return @current_inventory_pool if @current_inventory_pool # OPTIMIZE
 
-      # TODO 28** patch to Rails: actionpack/lib/action_controller/...
-      # i.e. /inventory_pools/123 generates automatically params[:inventory_pools_id] additionaly to params[:id]
-      unless ['users', 'buildings', 'suppliers'].include? controller_name
-        params[:inventory_pool_id] ||= params[:id] if params[:id]
-      end
-
       return nil if current_user.nil? #fixes http://leihs.hoptoadapp.com/errors/756097 (when a user is not logged in but tries to go to a certain action in an inventory pool (for example when clicking a link in hoptoad)
       @current_inventory_pool ||= InventoryPool.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
       session[:current_inventory_pool_id] = @current_inventory_pool.id if @current_inventory_pool
