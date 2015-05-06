@@ -5,6 +5,7 @@ class Admin::StatisticsController < Admin::ApplicationController
                    'Which inventory pool is busiest?',
                    'Who bought the most items?',
                    'Which item is busiest?',
+                   'Which model is busiest?',
                    'Which inventory pool has the most contracts?']
 
     params[:start_date] ||= I18n.l 30.days.ago.to_date
@@ -24,6 +25,8 @@ class Admin::StatisticsController < Admin::ApplicationController
                 Statistics::Base.item_values([InventoryPool, Model], params.to_hash)
               when 'Which item is busiest?'.parameterize
                 Statistics::Base.hand_overs([Item, User], params.to_hash)
+              when 'Which model is busiest?'.parameterize
+                Statistics::Base.hand_overs([Model, Item], params.to_hash)
               when 'Which inventory pool has the most contracts?'.parameterize
                 Statistics::Base.contracts([InventoryPool, User], params.to_hash)
               else
