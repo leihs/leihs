@@ -2055,21 +2055,21 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         features/examples/statistik.feature:8 DEFAULT_BROWSER=firefox
-- name: features/examples/statistik.feature:14
+- name: features/examples/statistik.feature:13
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/statistik.feature:14 DEFAULT_BROWSER=firefox
-- name: features/examples/statistik.feature:23
+        features/examples/statistik.feature:13 DEFAULT_BROWSER=firefox
+- name: features/examples/statistik.feature:18
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/statistik.feature:23 DEFAULT_BROWSER=firefox
-- name: features/examples/statistik.feature:32
+        features/examples/statistik.feature:18 DEFAULT_BROWSER=firefox
+- name: features/examples/statistik.feature:28
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/statistik.feature:32 DEFAULT_BROWSER=firefox
+        features/examples/statistik.feature:28 DEFAULT_BROWSER=firefox
 - name: features/examples/statistik.feature:38
   scripts:
     cucumber:
@@ -2080,6 +2080,11 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         features/examples/statistik.feature:45 DEFAULT_BROWSER=firefox
+- name: features/examples/statistik.feature:52
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        features/examples/statistik.feature:52 DEFAULT_BROWSER=firefox
 - name: features/examples/suche.feature:5
   scripts:
     cucumber:
