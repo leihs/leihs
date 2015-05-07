@@ -6,7 +6,7 @@ Your order for the following items listed below was successfully submitted.
 
 Inventory pool: {{ inventory_pool.name }}
 
-{% for l in order_lines %}
+{% for l in reservations %}
 * {{ l.quantity }} {{ l.model_name }}, {{ l.start_date | date: '%d/%m/%Y' }} - {{ l.end_date | date: '%d/%m/%Y' }}
 {% endfor %}
 

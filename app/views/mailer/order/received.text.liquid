@@ -7,7 +7,7 @@ An order for the following items listed below was received in an inventory pool 
 Inventory pool: {{ inventory_pool.name }}
 User: {{ user.name }}
 
-{% for l in order_lines %}
+{% for l in reservations %}
 * {{ l.quantity }} {{ l.model_name }}, {{ l.start_date | date: '%d/%m/%Y' }} - {{ l.end_date | date: '%d/%m/%Y' }}
 {% endfor %}
 

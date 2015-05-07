@@ -16,7 +16,7 @@ class MailTemplate < ActiveRecord::Base
         'inventory_pool.name',
         'inventory_pool.description',
         'email_signature',
-        {'order_lines' => [
+        {'reservations' => [
             'l.quantity',
             'l.model_name',
             'l.start_date',
@@ -32,7 +32,7 @@ class MailTemplate < ActiveRecord::Base
      inventory_pool: {name: order.inventory_pool.name,
                       description: order.inventory_pool.description},
      email_signature: Setting.email_signature,
-     order_lines: order.reservations.map do |l|
+     reservations: order.reservations.map do |l|
        {quantity: l.quantity,
         model_name: l.model.name,
         start_date: l.start_date,
@@ -49,7 +49,7 @@ class MailTemplate < ActiveRecord::Base
         'inventory_pool.name',
         'inventory_pool.description',
         'email_signature',
-        {'order_lines' => [
+        {'reservations' => [
             'l.quantity',
             'l.model_name',
             'l.item_inventory_code',
