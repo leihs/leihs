@@ -1950,11 +1950,16 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         features/examples/ruecknahme.feature:61 DEFAULT_BROWSER=firefox
-- name: features/examples/ruecknahme.feature:67
+- name: features/examples/ruecknahme.feature:73
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/ruecknahme.feature:67 DEFAULT_BROWSER=firefox
+        features/examples/ruecknahme.feature:73 DEFAULT_BROWSER=firefox
+- name: features/examples/ruecknahme.feature:79
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        features/examples/ruecknahme.feature:79 DEFAULT_BROWSER=firefox
 - name: features/examples/ruestliste.feature:12
   scripts:
     cucumber:

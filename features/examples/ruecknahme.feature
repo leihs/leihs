@@ -57,6 +57,18 @@ Feature: Take back
     Then the line is highlighted in green
     And I receive a notification of success
 
+  @javascript @personas @browser
+  Scenario: Returning partial quantity of options
+    Given I am on a take back with at least two of the same options
+    When I take back an option using the assignment field
+    Then the line is selected
+    And the line is not highlighted in green
+    When I click take back
+    And I see a summary of the things I selected for take back
+    And I click take back inside the dialog
+    Then the contract is not closed yet
+    And not all reservations of that option are closed and returned
+
   @personas
   Scenario: Correct order for contracts
     Given there is a user with at least 2 take back s on 2 different days

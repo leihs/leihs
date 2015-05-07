@@ -37,20 +37,36 @@ Then /^I see a summary of the things I selected for take back$/ do
 end
 
 When /^I click take back$/ do
-  find('.button.green[data-take-back-selection]').click
+  find('.button.green[data-take-back-selection]', text: _('Take Back Selection')).click
 end
 
 When /^I click take back inside the dialog$/ do
-  find('.modal .button.green[data-take-back]').click
-  expect(has_no_selector?('.modal .button.green[data-take-back]')).to be true
+  within '.modal' do
+    find('.button.green[data-take-back]', text: _('Take Back')).click
+    expect(has_no_selector?('.button.green[data-take-back]', text: _('Take Back'))).to be true
+  end
 end
 
 Then /^the contract is closed and all items are returned$/ do
-  find('.modal .multibutton', text: _('Finish this take back'))
+  within '.modal' do
+    find('.multibutton', text: _('Finish this take back'))
+  end
   @reservations_to_take_back.each do |line|
     line.reload
     expect(line.item.in_stock?).to be true unless line.is_a? OptionLine
     expect(line.status).to eq :closed
   end
   expect(@customer.reservations.signed.where(inventory_pool_id: @current_inventory_pool)).to be_empty
+end
+
+Then /^the contract is not closed yet$/ do
+  within '.modal' do
+    find('.multibutton', text: _('Finish this take back'))
+  end
+  expect(@reservation.reload.status).to be :closed
+  expect(@reservation.contract.reservations.signed.exists?).to be true
+end
+
+Then(/^not all reservations of that option are closed and returned$/) do
+  expect(@reservation.contract.reservations.signed.where(option_id: @reservation.option_id, start_date: @reservation.start_date, end_date: @reservation.end_date).exists?).to be true
 end

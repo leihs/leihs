@@ -183,22 +183,19 @@ class Manage::ReservationsController < Manage::ApplicationController
     returned_quantity = params[:returned_quantity]      
     reservations = current_inventory_pool.reservations.find(params[:ids])
 
+    returned_quantity.each_pair do |k,v|
+      line = reservations.detect {|l| l.id == k.to_i }
+      if line and v.to_i < line.quantity
+        # NOTE: line is an OptionLine, since the ItemLine's quantity is always 1
+        new_line = line.dup # NOTE use .dup instead of .clone (from Rails 3.1)
+        new_line.quantity -= v.to_i
+        new_line.save
+        line.update_attributes(quantity: v.to_i)
+      end
+    end if returned_quantity
+
     reservations.each do |l|
       l.update_attributes(returned_date: Date.today, returned_to_user_id: current_user.id)
-    end
-
-    if returned_quantity
-      returned_quantity.each_pair do |k,v|
-        line = reservations.detect {|l| l.id == k.to_i }
-        if line and v.to_i < line.quantity
-          # NOTE: line is an OptionLine, since the ItemLine's quantity is always 1
-          new_line = line.dup # NOTE use .dup instead of .clone (from Rails 3.1)
-          new_line.quantity -= v.to_i
-          new_line.returned_date = nil
-          new_line.save
-          line.update_attributes(quantity: v.to_i)
-        end
-      end
     end
 
     render status: :no_content, nothing: true

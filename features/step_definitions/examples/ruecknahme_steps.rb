@@ -79,7 +79,9 @@ When(/^I take back an( overdue)? (item|option) using the assignment field$/) do 
                        end
                      when 'option'
                        @take_back.reservations.find {|l| l.quantity >= 2 }
-                   end
+                 end
+  @reservations_to_take_back ||= []
+  @reservations_to_take_back << @reservation
   within 'form#assign' do
     find('input#assign-input').set @reservation.item.inventory_code
     find('button .icon-ok-sign').click
@@ -97,7 +99,7 @@ end
 Given(/^I am on a take back with at least two of the same options$/) do
   @take_back = @current_inventory_pool.visits.take_back.find {|v| v.reservations.any? {|l| l.quantity >= 2 }}
   @user = @take_back.user
-  step 'man die Rücknahmenansicht für den Benutzer öffnet'
+  step 'I open a take back for this user'
 end
 
 #Dann(/^die Zeile ist nicht grün markiert$/) do
