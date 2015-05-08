@@ -41,6 +41,7 @@ gem 'liquid', '~> 3.0'
 gem 'meta_request', group: :development
 gem 'metric_fu', group: :development
 gem 'mini_magick', '~> 3.4'
+gem 'money', '~> 6.5'
 gem 'mysql2', '~> 0.3.11', platform: :mri
 gem 'net-ldap', require: 'net/ldap'
 gem 'nilify_blanks', '~> 1.1'

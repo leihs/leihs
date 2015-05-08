@@ -465,7 +465,7 @@ class Field < ActiveHash::Base
       label: 'Currency',
       attribute: ['properties', 'maintenance_currency'],
       type: 'select',
-      values: [{label: 'CHF', value: 'CHF'}, {label: 'EUR', value: 'EUR'}, {label: 'USD', value: 'USD'}],
+      values: Money::Currency.all.map(&:iso_code).sort.map {|iso_code| {label: iso_code, value: iso_code} },
       default: 'CHF',
       target_type: 'license',
       permissions: {role: :inventory_manager, owner: true},
