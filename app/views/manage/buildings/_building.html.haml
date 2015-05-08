@@ -28,7 +28,7 @@
           %ul.dropdown.right
 
             %li
-              %a.dropdown-item.red{href: manage_delete_building_path(building), data: {method: :delete, confirm: _("Delete")}}
+              %a.dropdown-item.red{href: manage_delete_building_path(building), data: {method: :delete, confirm: _("Are you sure you want to delete '%s'?") % building}}
                 %i.icon-trash
                 = _("Delete")
 

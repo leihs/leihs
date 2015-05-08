@@ -22,7 +22,7 @@
           %ul.dropdown.right
 
             %li
-              %a.dropdown-item.red{href: manage_delete_supplier_path(supplier), data: {method: :delete, confirm: _("Delete")}}
+              %a.dropdown-item.red{href: manage_delete_supplier_path(supplier), data: {method: :delete, confirm: _("Are you sure you want to delete '%s'?") % supplier}}
                 %i.icon-trash
                 = _("Delete")
 

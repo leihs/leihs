@@ -64,6 +64,6 @@
                 .col1of3
                   = c = (current_inventory_pool ? l.items.where("#{current_inventory_pool.id} IN (inventory_pool_id, owner_id)") : l.items).count
                   - if not current_inventory_pool and c.zero?
-                    %a.button.small.red{href: manage_delete_location_path(l), data: {method: :delete}, style: 'font-size: 0.7em;'}
+                    %a.button.small.red{href: manage_delete_location_path(l), data: {method: :delete, confirm: _("Are you sure you want to delete '%s'?") % "#{l.room} #{l.shelf}"}, style: 'font-size: 0.7em;'}
                       %i.icon-trash
                       = _("Delete")
