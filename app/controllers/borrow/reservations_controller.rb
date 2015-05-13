@@ -37,8 +37,13 @@ class Borrow::ReservationsController < Borrow::ApplicationController
 
   def change_time_range
     reservations = @target_contract.reservations.find(params[:line_ids])
-    if @errors.empty? and reservations.each{|line| line.update_time_line(@start_date, @end_date, current_user); line.reload }
-      render status: :ok, json: reservations
+    if @errors.empty?
+      begin
+        reservations.each{|line| line.update_time_line(@start_date, @end_date, current_user); line.reload }
+        render status: :ok, json: reservations
+      rescue => e
+        render status: :bad_request, text: e
+      end
     else
       render status: :bad_request, json: @errors.uniq.join(', ')
     end

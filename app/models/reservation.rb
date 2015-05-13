@@ -80,10 +80,14 @@ class Reservation < ActiveRecord::Base
   validate :date_sequence
   validate do
     errors.add(:base, _('No access')) unless user.access_right_for(inventory_pool)
-    if user.is_delegation
-      errors.add(:base, _("Delegated user is not member of the contract's delegation or is empty")) unless user.delegated_users.include?(delegated_user)
+    if changed_attributes.keys.count == 1 and changed_attributes.keys.first.to_sym == :end_date
+      # we skip validation on end_date extension
     else
-      errors.add(:base, _("Delegated user must be empty for contract's normal user")) if delegated_user
+      if user.is_delegation
+        errors.add(:base, _("Delegated user is not member of the contract's delegation or is empty")) unless user.delegated_users.include?(delegated_user)
+      else
+        errors.add(:base, _("Delegated user must be empty for contract's normal user")) if delegated_user
+      end
     end
   end
 
@@ -190,7 +194,9 @@ class Reservation < ActiveRecord::Base
     Reservation.transaction do
       start_date ||= self.start_date
       end_date ||= self.end_date
-      update_attributes(start_date: start_date, end_date: [start_date, end_date].max)
+      unless update_attributes(start_date: start_date, end_date: [start_date, end_date].max)
+        raise errors.full_messages.uniq.join(', ')
+      end
       if User.find(user_id).access_right_for(inventory_pool).role == :group_manager and not available?
         raise _('Not available')
       end
