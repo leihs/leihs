@@ -26,7 +26,7 @@ if query1.to_h[character_set_key] != character_set_value or query2.to_h[collatio
     connection.execute %Q(ALTER TABLE #{table_name} DEFAULT CHARACTER SET #{character_set_value} COLLATE #{collation_value};)
 
     connection.columns(table_name).select{|column| not column.collation.nil? and column.collation != 'utf8_general_ci' }.each do |column|
-      connection.execute %Q(ALTER TABLE #{table_name} MODIFY #{column.name} #{column.sql_type} CHARACTER SET #{character_set_value} COLLATE #{collation_value};)
+      connection.execute %Q(ALTER TABLE #{table_name} MODIFY `#{column.name}` #{column.sql_type} CHARACTER SET #{character_set_value} COLLATE #{collation_value};)
     end
   end
 end
