@@ -342,7 +342,7 @@ window.i18n.locale_data = {
       ],
       "available quantity": [
          null,
-         "verfüegbar"
+         "verfüegbari Aazahl"
       ],
       "Back": [
          null,
@@ -401,7 +401,8 @@ window.i18n.locale_data = {
          "Kabutt"
       ],
       "Building": [
-         null,
+         "Buildings",
+         "Geboide",
          "Geboide"
       ],
       "CSV": [
@@ -526,7 +527,7 @@ window.i18n.locale_data = {
       ],
       "Currently has open orders": [
          null,
-         "Hät aktuell Sache zum zrugg bringe"
+         "Hät aktuell offeni Bschtellige"
       ],
       "Currently you have no items in your order.": [
          null,
@@ -626,7 +627,7 @@ window.i18n.locale_data = {
       ],
       "Edit Software": [
          null,
-         "Sache ändere"
+         "Software bearbeite"
       ],
       "Edit Item": [
          null,
@@ -634,7 +635,7 @@ window.i18n.locale_data = {
       ],
       "Edit License": [
          null,
-         "Benutzer bearbeite"
+         "Lizenz bearbeite"
       ],
       "Edit Option": [
          null,
@@ -1030,7 +1031,15 @@ window.i18n.locale_data = {
          null,
          "Leiverträg Nr. %s"
       ],
+      "List of %s": [
+         null,
+         "Liste der %s"
+      ],
       "List of available variables": [
+         null,
+         ""
+      ],
+      "List of Buildings": [
          null,
          ""
       ],
@@ -1445,7 +1454,7 @@ window.i18n.locale_data = {
       ],
       "Total quantity": [
          null,
-         "Aazahl"
+         "Total Aazahl"
       ],
       "Quantity: %d": [
          null,
@@ -1509,7 +1518,7 @@ window.i18n.locale_data = {
       ],
       "Contact person": [
          null,
-         "Vertragsablaufdatum"
+         "Kontaktperson"
       ],
       "Responsible": [
          null,
@@ -1537,11 +1546,11 @@ window.i18n.locale_data = {
       ],
       "retired": [
          null,
-         "Uusgmuschtered"
+         "uusgmuschtered"
       ],
       "not retired": [
          null,
-         "Uusgmuschtered"
+         "nöd uusgmuschtered"
       ],
       "Retirement": [
          null,
@@ -1718,6 +1727,10 @@ window.i18n.locale_data = {
       "Supplier": [
          null,
          "Liferant"
+      ],
+      "Suppliers": [
+         null,
+         "Liferanten"
       ],
       "Swapped %{from} for %{to}": [
          null,
@@ -2005,11 +2018,11 @@ window.i18n.locale_data = {
       ],
       "borrowable": [
          null,
-         "Nöd uuslehnbar"
+         "uuslehnbar"
       ],
       "unborrowable": [
          null,
-         "Nöd uuslehnbar"
+         "nöd uuslehnbar"
       ],
       "Unborrowable": [
          null,
@@ -2017,11 +2030,11 @@ window.i18n.locale_data = {
       ],
       "Borrowable Items": [
          null,
-         "Uusleibaari Sache"
+         "Uuslehnbari Sache"
       ],
       "Unborrowable Items": [
          null,
-         "Uusleibaari Sache"
+         "Nöd uuslehnbari Sache"
       ],
       "Unsigned": [
          null,
@@ -2045,7 +2058,7 @@ window.i18n.locale_data = {
       ],
       "Updated at": [
          null,
-         "Erstellt am"
+         "Aktualisiert am"
       ],
       "Upload error.": [
          null,
@@ -2058,11 +2071,11 @@ window.i18n.locale_data = {
       ],
       "Delegation": [
          null,
-         "Uuswahl"
+         "Delegation"
       ],
       "Delegations": [
          null,
-         "Uuswahl"
+         "Delegationä"
       ],
       "User details were updated successfully.": [
          null,
@@ -2214,7 +2227,7 @@ window.i18n.locale_data = {
       ],
       "You don't have permission to perform this action": [
          null,
-         "Si händ kei Zuegriffsrächt für die Applikation."
+         "Si händ kei Rächt, zum diä Aktion durefüere."
       ],
       "You have %{no_access} to any inventory pools!": [
          null,
@@ -2435,11 +2448,11 @@ window.i18n.locale_data = {
       ],
       "not available": [
          null,
-         "nöd verfüegbar."
+         "nöd verfüegbar"
       ],
       "%s not available": [
          null,
-         "nöd verfüegbar."
+         "%s nöd verfüegbar"
       ],
       "not borrowable": [
          null,
@@ -2623,7 +2636,7 @@ window.i18n.locale_data = {
       ],
       "New Delegation": [
          null,
-         "Noii Vorlag"
+         "Noii Delegation"
       ],
       "New User": [
          null,
@@ -2703,7 +2716,7 @@ window.i18n.locale_data = {
       ],
       "Image": [
          null,
-         "Bilder"
+         "Bild"
       ],
       "Images": [
          null,
@@ -2747,7 +2760,7 @@ window.i18n.locale_data = {
       ],
       "used": [
          null,
-         "nöd gnutzt"
+         "gnutzt"
       ],
       "Model|Images|File file size": [
          null,
@@ -2827,11 +2840,11 @@ window.i18n.locale_data = {
       ],
       "Borrow section": [
          null,
-         "Uuslehner"
+         "Uusleih-Bereich"
       ],
       "Manage section": [
          null,
-         "Uuswahl"
+         "Verwalte-Bereich"
       ],
       "Overview": [
          null,
@@ -3073,7 +3086,7 @@ window.i18n.locale_data = {
       ],
       "Specification of the contact person is required": [
          null,
-         "D Aagab vomene Zwäck isch zwingend"
+         "D Aagab vonere Kontaktperson isch zwingend"
       ],
       "Change": [
          null,
@@ -3456,7 +3469,7 @@ window.i18n.locale_data = {
       ],
       "Used Models": [
          null,
-         "Ungnutzti Modäll"
+         "Gnutzti Modäll"
       ],
       "Responsible inventory pool": [
          null,
@@ -3500,7 +3513,7 @@ window.i18n.locale_data = {
       ],
       "%s was saved, but there were problems uploading files": [
          null,
-         "S Modäll isch gspeicheret worde, bim ufelade vo Dateie isch es allerdings zu Problem cho"
+         "%s isch gspeicheret worde, bim ufelade vo Dateie isch es allerdings zu Problem cho"
       ],
       "Uploading files - please wait": [
          null,
@@ -3592,7 +3605,7 @@ window.i18n.locale_data = {
       ],
       "Borrowable items": [
          null,
-         "Uusleibaari Sache"
+         "Uuslehnbari Sache"
       ],
       "Available for borrower": [
          null,
@@ -3664,7 +3677,7 @@ window.i18n.locale_data = {
       ],
       "Automatic access": [
          null,
-         "Kei Zuegfriff"
+         "Automatische Zuegriff"
       ],
       "New users will get customer access automatically.": [
          null,
@@ -3676,7 +3689,7 @@ window.i18n.locale_data = {
       ],
       "Software Information": [
          null,
-         "Rächnigsinformatione"
+         "Software-Informatione"
       ],
       "Software License": [
          null,
@@ -3697,11 +3710,11 @@ window.i18n.locale_data = {
       ],
       "Create new software license": [
          null,
-         "Noii Option erschtelä"
+         "Noii Software-Lizenz erschtelä"
       ],
       "Create new software": [
          null,
-         "Noii Sach erschtelä"
+         "Noii Software erschtelä"
       ],
       "Free": [
          null,
@@ -3721,7 +3734,7 @@ window.i18n.locale_data = {
       ],
       "License Number": [
          null,
-         "Rächnigsnummere"
+         "Lizenznummere"
       ],
       "Site License": [
          null,
@@ -3729,7 +3742,7 @@ window.i18n.locale_data = {
       ],
       "Concurrent": [
          null,
-         "Aktuelli Bschtellig"
+         "Gliichzitig"
       ],
       "Operating System": [
          null,
@@ -3737,7 +3750,7 @@ window.i18n.locale_data = {
       ],
       "Installation": [
          null,
-         "Zueteilige"
+         "Installation"
       ],
       "Hints": [
          null,
@@ -3745,11 +3758,11 @@ window.i18n.locale_data = {
       ],
       "Local": [
          null,
-         "Ort"
+         "Lokal"
       ],
       "License expiration": [
          null,
-         "Vertragsablaufdatum"
+         "Lizenzablaufdatum"
       ],
       "Maintenance expiration": [
          null,
@@ -3757,19 +3770,19 @@ window.i18n.locale_data = {
       ],
       "Maintenance contract": [
          null,
-         "Underschribni Verträg"
+         "Maintenance-Vertrag"
       ],
       "Procured by": [
          null,
-         ""
+         "Bschtellt vo"
       ],
       "Picking List": [
          null,
-         ""
+         "Rüschtliischtä"
       ],
       "remaining": [
          null,
-         "Warnig"
+         "übrig"
       ],
       "Category can have only one image.": [
          null,
@@ -3790,6 +3803,10 @@ window.i18n.locale_data = {
       "Min. number of days between order and hand over": [
          null,
          ""
+      ],
+      "Currency": [
+         null,
+         "Währig"
       ]
    }
 }

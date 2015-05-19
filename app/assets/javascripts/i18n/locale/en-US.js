@@ -416,7 +416,8 @@ window.i18n.locale_data = {
          ""
       ],
       "Building": [
-         null,
+         "Buildings",
+         "",
          ""
       ],
       "By not returning these items, you are blocking other people's reservations. This is very unfair to the other clients and to the inventory manager, since you are causing a significant amount of trouble and annoyance.": [
@@ -1057,6 +1058,10 @@ window.i18n.locale_data = {
          null,
          ""
       ],
+      "List of Buildings": [
+         null,
+         ""
+      ],
       "List of Contracts": [
          null,
          ""
@@ -1087,6 +1092,11 @@ window.i18n.locale_data = {
       ],
       "Locations": [
          null,
+         ""
+      ],
+      "%s location": [
+         "%s locations",
+         "",
          ""
       ],
       "Location not defined": [
@@ -1743,6 +1753,10 @@ window.i18n.locale_data = {
          ""
       ],
       "Supplier": [
+         null,
+         ""
+      ],
+      "Suppliers": [
          null,
          ""
       ],

@@ -406,7 +406,8 @@ window.i18n.locale_data = {
          "Defekt"
       ],
       "Building": [
-         null,
+         "Buildings",
+         "Gebäude",
          "Gebäude"
       ],
       "CSV": [
@@ -1035,9 +1036,17 @@ window.i18n.locale_data = {
          null,
          "Leihverträge Nr. %s"
       ],
+      "List of %s": [
+         null,
+         "Liste der %s"
+      ],
       "List of available variables": [
          null,
          "Liste der verfügbaren Variablen"
+      ],
+      "List of Buildings": [
+         null,
+         "Liste der Gebäude"
       ],
       "List of Contracts": [
          null,
@@ -1070,6 +1079,11 @@ window.i18n.locale_data = {
       "Locations": [
          null,
          "Orte"
+      ],
+      "%s location": [
+         "%s locations",
+         "%s Ort",
+         "%s Orte"
       ],
       "Location not defined": [
          null,
@@ -1222,6 +1236,10 @@ window.i18n.locale_data = {
       "Not available": [
          null,
          "Nicht verfügbar"
+      ],
+      "Not categorized": [
+         null,
+         "Nicht kategorisiert"
       ],
       "Note": [
          null,
@@ -1723,6 +1741,10 @@ window.i18n.locale_data = {
       "Supplier": [
          null,
          "Lieferant"
+      ],
+      "Suppliers": [
+         null,
+         "Lieferanten"
       ],
       "Swapped %{from} for %{to}": [
          null,
@@ -3798,6 +3820,18 @@ window.i18n.locale_data = {
       "Status note": [
          null,
          "Statusnotiz"
+      ],
+      "Which item is busiest?": [
+         null,
+         "Was sind die meistbenutzten Geräte?"
+      ],
+      "Which inventory pool has the most contracts?": [
+         null,
+         "Welcher Gerätepark hat die meisten Verträge?"
+      ],
+      "Currency": [
+         null,
+         "Währung"
       ]
    }
 }
