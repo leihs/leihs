@@ -7,7 +7,7 @@ query1 = connection.execute %Q(SHOW VARIABLES LIKE '#{character_set_key}';)
 
 # is the database collation correct?
 collation_key = 'collation_database'
-collation_value = 'utf8_general_ci'
+collation_value = 'utf8_unicode_ci'
 query2 = connection.execute %Q(SHOW VARIABLES LIKE '#{collation_key}';)
 
 if query1.to_h[character_set_key] != character_set_value or query2.to_h[collation_key] != collation_value
@@ -25,7 +25,7 @@ if query1.to_h[character_set_key] != character_set_value or query2.to_h[collatio
   only_tables_no_views.each do |table_name|
     connection.execute %Q(ALTER TABLE #{table_name} DEFAULT CHARACTER SET #{character_set_value} COLLATE #{collation_value};)
 
-    connection.columns(table_name).select{|column| not column.collation.nil? and column.collation != 'utf8_general_ci' }.each do |column|
+    connection.columns(table_name).select{|column| not column.collation.nil? and column.collation != collation_value }.each do |column|
       connection.execute %Q(ALTER TABLE #{table_name} MODIFY `#{column.name}` #{column.sql_type} CHARACTER SET #{character_set_value} COLLATE #{collation_value};)
     end
   end
