@@ -2865,3 +2865,6 @@ msgstr ""
 
 msgid "Which inventory pool has the most contracts?"
 msgstr ""
+
+msgid "Currency"
+msgstr ""

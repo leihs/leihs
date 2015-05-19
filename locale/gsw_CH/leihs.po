@@ -2899,3 +2899,6 @@ msgstr "Produkt"
 
 msgid "Min. number of days between order and hand over"
 msgstr ""
+
+msgid "Currency"
+msgstr "Währig"

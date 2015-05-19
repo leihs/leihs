@@ -2957,5 +2957,5 @@ msgstr "Was sind die meistbenutzten Geräte?"
 msgid "Which inventory pool has the most contracts?"
 msgstr "Welcher Gerätepark hat die meisten Verträge?"
 
-#~ msgid "Currency"
-#~ msgstr "Währung"
+msgid "Currency"
+msgstr "Währung"
