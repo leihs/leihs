@@ -6,10 +6,10 @@
 
   .row.content-wrapper.min-height-xl.min-width-full.straight-top
 
-    .row.margin-top-l.padding-horizontal-m
+    .events.row.margin-top-l.padding-horizontal-m
 
       .row.text-align-right.padding-top-l.padding-bottom-l
-        = form_tag url_for(), method: :get do
+        = form_tag nil, method: :get do
           %label
             %input.has-addon.datepicker{type: "text", name: "start_date", placeholder: _("Start date"), value: params[:start_date]}
             .addon
@@ -20,24 +20,43 @@
               %i.icon-calendar
           %button.button.white{type: "submit", style: "vertical-align: top"}= _("Filter")
 
-      - @requests.each_pair do |request, audits|
-        .emboss.deep.margin-vertical-s
-          .row.line.headline-m
-            .col3of8.line-col
-              = l audits.first.try(:created_at), format: :long
-            .col5of5.line-col.text-align-left
-              - if (user = audits.first.try(:user))
-                = link_to url_for(user_id: audits.first.user_id) do
-                  = user
-          .row.line.headline-s
-            .col1of8.line-col
-              Action
-            .col2of8.line-col.text-align-left
-              Auditable
-            .col5of8.line-col.text-align-left
-              Changes
-          = render partial: "admin/audits/audit", collection: audits
+      = render partial: 'admin/audits/audits', collection: @audits
+
+    .progress.row.margin-top-m.margin-bottom-m.text-align-center
+      .icon-spinner
 
 :coffeescript
-  jQuery ->
+  @Pages =
+    reset: ->
+      @current = 1
+      @loading = false
+      @all_pages_loaded = false
+      @load_next() # in case the first page is not filling the window
+    load_next: ->
+      if @loading == false and not @all_pages_loaded and ($(window).scrollTop() + $(window).height() > $(".events").height())
+        @loading = true
+        $.ajax
+          url: document.location.href
+          data: {format: 'js', page: @current + 1}
+          dataType: "html"
+          beforeSend: =>
+            @loading = true
+            $(".events + .progress").show()
+          success: (html) =>
+            if html.trim().length
+              @current += 1
+              $(html).hide().appendTo(".events").fadeIn(1000) #$(".events").append html
+            else
+              $("#all_pages_loaded").show()
+              @all_pages_loaded = true
+          complete: =>
+            @loading = false
+            $(".events + .progress").hide()
+            if ($(window).scrollTop() + $(window).height() > $(".events").height())
+              @load_next()
+
+  $(document).on 'scroll', -> Pages.load_next()
+
+  $(document).ready ->
+    Pages.reset()
     $(".datepicker").datepicker()

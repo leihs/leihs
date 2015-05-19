@@ -21,7 +21,8 @@ namespace :app do
       Rake::Task['db:migrate'].invoke
       Rake::Task['leihs:maintenance'].invoke
 
-      puts `RAILS_ENV=test rake db:drop db:create db:migrate`
+      # also sync the test database schema
+      `RAILS_ENV=test rake db:drop db:create db:migrate`
     end
     
   end

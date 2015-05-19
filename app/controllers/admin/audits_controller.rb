@@ -14,11 +14,23 @@ class Admin::AuditsController < Admin::ApplicationController
                end.
         where(table[:created_at].gteq(Date.parse(params[:start_date]).to_s(:db))).
         where(table[:created_at].lteq(Date.parse(params[:end_date]).tomorrow.to_s(:db))).
-        order(created_at: :desc, id: :desc)
+        order(created_at: :desc, id: :desc).
+        joins("LEFT JOIN users ON users.id = audits.user_id").
+        select("audits.*, CONCAT_WS(' ', users.firstname, users.lastname)AS user_name")
 
     requests = requests.where(user_id: params[:user_id]) if params[:user_id]
 
-    @requests = requests.group_by { |x| x.request_uuid }
+    per_page = 10
+    page = (params[:page] || 1).to_i
+    @audits = requests.group_by { |x| x.request_uuid }.values[per_page * (page - 1), per_page]
+
+    respond_to do |format|
+      format.html
+      format.js {
+        render partial: 'admin/audits/audits', collection: @audits
+      }
+    end
+
   end
 
 end
