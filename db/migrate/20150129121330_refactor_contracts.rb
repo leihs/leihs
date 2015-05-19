@@ -33,12 +33,6 @@ class RefactorContracts < ActiveRecord::Migration
       t.foreign_key :users, column: 'handed_over_by_user_id'
     end
 
-    Contract.where.not(status: [:signed, :closed]).joins(:reservations).flat_map do |c|
-      History.where(target_type: "Contract", target_id: c.id).each do |h|
-        c.reservations.first.histories << h
-      end
-    end
-
     execute %Q(UPDATE reservations
                SET contract_id = NULL
                WHERE status NOT IN ('#{:signed}', '#{:closed}');)
