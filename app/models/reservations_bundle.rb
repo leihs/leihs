@@ -21,12 +21,13 @@ class ReservationsBundle < ActiveRecord::Base
             IF(SUM(groups.is_verification_required) > 0, 1, 0) AS verifiable_user,
             COUNT(partitions.id) > 0 AS verifiable_user_and_model,
             MAX(reservations.created_at) AS created_at").
-    joins("LEFT JOIN (groups_users, groups, partitions)
+    joins("LEFT JOIN (groups_users, groups)
             ON reservations.user_id = groups_users.user_id
             AND groups_users.group_id = groups.id
             AND groups.is_verification_required = 1
-            AND reservations.inventory_pool_id = groups.inventory_pool_id
-            AND partitions.group_id = groups.id
+            AND reservations.inventory_pool_id = groups.inventory_pool_id").
+    joins("LEFT JOIN partitions
+            ON partitions.group_id = groups.id
             AND partitions.model_id = reservations.model_id").
     group('IFNULL(reservations.contract_id, reservations.status), reservations.user_id, reservations.inventory_pool_id').
     order(nil)
