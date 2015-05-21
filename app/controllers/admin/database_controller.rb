@@ -134,7 +134,7 @@ class Admin::DatabaseController < Admin::ApplicationController
 
   def consistency
     @only_tables_no_views = @connection.execute("SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'").to_h.keys
-    @excluded_models = [ReservationsBundle]
+    @excluded_models = [ReservationsBundle, Audited::Adapters::ActiveRecord::Audit]
 
     @references = []
 
