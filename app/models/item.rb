@@ -202,11 +202,11 @@ class Item < ActiveRecord::Base
 
   # Generates an array suitable for outputting a line of CSV using CSV
   def to_csv_array(options = {global: false})
-    if self.model.nil? or self.model.name.blank?
-      model_manufacturer = 'UNKNOWN' if self.model.try(:manufacturer).blank? # FIXME using model.try because database inconsistency
-    else
-      model_manufacturer = self.model.manufacturer.gsub(/\"/, '""') unless self.model.manufacturer.blank?
-    end
+    model_manufacturer = if self.model.nil? or self.model.name.blank?
+                           'UNKNOWN' if self.model.try(:manufacturer).blank? # FIXME using model.try because database inconsistency
+                         else
+                           self.model.manufacturer.gsub(/\"/, '""') unless self.model.manufacturer.blank?
+                         end
 
     categories = []
     unless options[:global]
@@ -266,8 +266,7 @@ class Item < ActiveRecord::Base
                     _('Categories') => categories.join('; '),
                     _('Accessories') => (model ? model.accessories.map(&:to_s) : []).join('; '), # FIXME using model.try because database inconsistency
                     _('Compatibles') => (model ? model.compatibles.map(&:to_s) : []).join('; '), # FIXME using model.try because database inconsistency
-                    _('Properties') => (model ? model.properties.map(&:to_s) : []).join('; ') # FIXME using model.try because database inconsistency
-                    # current_borrowing_information: "#{self.current_borrowing_info unless options[:global]}",
+                    _('Properties') => (model ? model.properties.map(&:to_s) : []).join('; '), # FIXME using model.try because database inconsistency
                     # part_of_package: part_of_package,
                     # needs_permission: "#{self.needs_permission}",
                     # responsible: "#{self.responsible}",
@@ -288,6 +287,10 @@ class Item < ActiveRecord::Base
       h2[_(field.label)] = field.value(self)
     end
     h1.merge! h2
+
+    h1.merge!({
+                  _('Borrower') => current_borrowing_info
+              })
 
     h1
   end

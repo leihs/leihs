@@ -18,8 +18,8 @@ Feature: Inventory (CSV export)
       | Fields                        |
       | Created at                    |
       | Updated at                    |
-      | Product |
-      | Version               |
+      | Product                       |
+      | Version                       |
       | Manufacturer                  |
       | Description                   |
       | Technical Details             |
@@ -64,6 +64,7 @@ Feature: Inventory (CSV export)
       | Check-In Date                 |
       | Check-In State                |
       | Check-In Note                 |
+      | Borrower                      |
     When I view the tab "Software"
     Then I can export this data as a CSV file
     And the file contains the same reservations as are shown right now, including any filtering
@@ -101,3 +102,4 @@ Feature: Inventory (CSV export)
       | Maintenance expiration |
       | Currency               |
       | Price                  |
+      | Borrower               |
