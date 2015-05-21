@@ -100,7 +100,8 @@ class ReservationsBundle < ActiveRecord::Base
                      joins("LEFT JOIN contracts ON reservations.id = contracts.id AND reservations.status IN ('#{:signed}', '#{:closed}')").
                      joins('LEFT JOIN options ON options.id = reservations.option_id').
                      joins('LEFT JOIN models ON models.id = reservations.model_id').
-                     joins('LEFT JOIN items ON items.id = reservations.item_id')
+                     joins('LEFT JOIN items ON items.id = reservations.item_id').
+                     joins('LEFT JOIN purposes ON purposes.id = reservations.purpose_id')
 
                  query.split.each { |q|
                    qq = "%#{q}%"
@@ -123,6 +124,7 @@ class ReservationsBundle < ActiveRecord::Base
                            .or(Option.arel_table[:version].matches(qq))
                            .or(Item.arel_table[:inventory_code].matches(qq))
                            .or(Item.arel_table[:properties].matches(qq))
+                           .or(Purpose.arel_table[:description].matches(qq))
                    )
                  }
                  sql

@@ -472,6 +472,10 @@ Then(/^all matching (.*) appear$/) do |arg1|
               ['#licenses', @item]
             when 'contracts, in which this software product is contained'
               ['#orders', @contract_with_software_license]
+            when 'orders'
+              ['#orders', @contract]
+            when 'contracts'
+              ['#contracts', @contract]
           end
     within '#search-overview' do
       within x do

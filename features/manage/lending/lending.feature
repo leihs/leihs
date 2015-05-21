@@ -158,10 +158,33 @@ Feature: Lending
     Then all listed orders match the search term
 
   @javascript @personas
+  Scenario: Searching purpose within orders
+    Given orders exist
+    When I am listing the orders
+    And I search for an order with its purpose
+    Then all listed orders match the search term
+
+  @javascript @personas
+  Scenario: Searching purpose globally
+    Given orders exist
+    When I search globally for an order with its purpose
+    Then all matching orders appear
+    Given contracts exist
+    When I search globally for a contract with its purpose
+    Then all matching contracts appear
+
+  @javascript @personas
   Scenario: Searching within contracts
     Given contracts exist
     When I am listing the contracts
     And I search for a contract
+    Then all listed contracts match the search term
+
+  @javascript @personas
+  Scenario: Searching purpose within contracts
+    Given contracts exist
+    When I am listing the contracts
+    And I search for a contract with its purpose
     Then all listed contracts match the search term
 
   @javascript @personas

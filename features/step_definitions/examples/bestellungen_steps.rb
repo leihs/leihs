@@ -311,15 +311,26 @@ Given(/^(orders|contracts|visits) exist$/) do |arg1|
   expect(@contracts.exists?).to be true
 end
 
-When(/^I search for (an order|a contract|a visit)$/) do |arg1|
+When(/^I search( globally)? for (an order|a contract|a visit)( with its purpose)?$/) do |arg0, arg1, arg2|
   @contract = @contracts.order('RAND()').first
-  @search_term = @contract.user.to_s
-  el = arg1 == 'a visit' ? '#visits-index-view' : '#contracts-index-view'
-  within el do
-    if arg1 != 'a visit'
-      step %Q(I uncheck the "No verification required" button)
+  @search_term = if arg2
+                   @contract.purpose.split.sample
+                 else
+                   @contract.user.to_s
+                 end
+  if arg0
+    within '#topbar #search' do
+      find('input#search_term').set @search_term
+      find("button[type='submit']").click
     end
-    step %Q(I search for "%s") % @search_term
+  else
+    el = arg1 == 'a visit' ? '#visits-index-view' : '#contracts-index-view'
+    within el do
+      if arg1 != 'a visit'
+        step %Q(I uncheck the "No verification required" button)
+      end
+      step %Q(I search for "%s") % @search_term
+    end
   end
 end
 

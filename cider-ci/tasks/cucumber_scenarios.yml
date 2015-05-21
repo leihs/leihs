@@ -2965,6 +2965,21 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         features/manage/lending/lending.feature:168 DEFAULT_BROWSER=firefox
+- name: features/manage/lending/lending.feature:177
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        features/manage/lending/lending.feature:177 DEFAULT_BROWSER=firefox
+- name: features/manage/lending/lending.feature:184
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        features/manage/lending/lending.feature:184 DEFAULT_BROWSER=firefox
+- name: features/manage/lending/lending.feature:191
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        features/manage/lending/lending.feature:191 DEFAULT_BROWSER=firefox
 - name: features/manage/lending/tabs_navigation.feature:11
   scripts:
     cucumber:
