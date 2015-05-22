@@ -1,8 +1,8 @@
 class window.App.OptionLineChangeController extends Spine.Controller
 
   events:
+    # NOTE not use preChange event listener because spine updateAttributes loses the input focus, then backspace drives to the previous page
     "change [data-line-type='option_line'] [data-line-quantity]": "change"
-    "preChange [data-line-type='option_line'] [data-line-quantity]": "change"
     "focus [data-line-type='option_line'] [data-line-quantity]": "focus"
 
   constructor: ->
