@@ -241,7 +241,7 @@ end
 
 Then(/^the quantity will be restored to the original value$/) do
   within @line_css do
-    find("input[data-line-quantity][value='#{@option_line.reload.quantity}']")
+    expect(find("input[data-line-quantity]").value).to eq @option_line.reload.quantity.to_s
   end
 end
 
