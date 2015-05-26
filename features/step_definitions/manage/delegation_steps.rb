@@ -41,7 +41,7 @@ Then(/^I can restrict the user list to show only (users|delegations)$/) do |arg1
 end
 
 #Angenommen(/^ich befinde mich im Reiter '(.*)'$/) do |arg1|
-Given(/^I am on the tab '(.*)'$/) do |arg1|
+Given(/^I open the tab '(.*)'$/) do |arg1|
   find('nav ul li a.navigation-tab-item', text: arg1).click
   find('nav ul li a.navigation-tab-item.active', text: arg1)
   find('#user-index-view ')

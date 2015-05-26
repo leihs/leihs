@@ -96,7 +96,7 @@ Then(/^the problem indicator for the line is displayed$/) do
 end
 
 #Angenommen(/^ich befinde mich in einer Rücknahme mit mindestens zwei gleichen Optionen$/) do
-Given(/^I am on a take back with at least two of the same options$/) do
+Given(/^I open a take back with at least two of the same options$/) do
   @take_back = @current_inventory_pool.visits.take_back.find {|v| v.reservations.any? {|l| l.quantity >= 2 }}
   @user = @take_back.user
   step 'I open a take back for this user'

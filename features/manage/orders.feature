@@ -10,7 +10,7 @@ Feature: Orders
     And the order was submitted
     When I go to the backend
     And I go to the lending section
-    And I open the tab "orders"
+    And I open the tab "Orders"
     Then I see the order of Joe
     And I should be able to choose "Approve"
     And I should be able to choose "Edit"
@@ -33,7 +33,7 @@ Feature: Orders
     And the order was submitted
     When I go to the backend
     And I go to the lending section
-    And I open the tab "orders"
+    And I open the tab "Orders"
     Then I see the order of Joe
     When I click "Reject"
     Then I can enter a reason why the order is rejected

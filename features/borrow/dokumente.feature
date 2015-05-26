@@ -11,7 +11,7 @@ Feature: User documents
 
   @javascript @personas
   Scenario: Document overview
-    Given I am on my documents page
+    Given I go to the page showing my documents
     Then my contracts are ordered by the earliest time window
     And I see the following information for each contract:
       | Contract number                    |
@@ -29,7 +29,7 @@ Feature: User documents
 
   @javascript @personas
   Scenario: Opening value list
-    Given I am on my documents page
+    Given I go to the page showing my documents
     And I click the value list link
     Then the value list opens
 
@@ -40,7 +40,7 @@ Feature: User documents
 
   @javascript @personas
   Scenario: Opening a contract
-    Given I am on my documents page
+    Given I go to the page showing my documents
     And I click the contract link
     Then the contract opens
 

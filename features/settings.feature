@@ -4,7 +4,7 @@ Feature: Defining application settings through web interface
   Scenario: The settings are existing
     Given I am Normin
     When I go to the home page
-    Then I am on the home page
+    Then I am on the borrow
 
   @personas
   Scenario: The settings are missing

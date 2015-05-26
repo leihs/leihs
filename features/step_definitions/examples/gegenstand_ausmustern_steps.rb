@@ -10,13 +10,13 @@ end
 # Angenommen /^man sucht nach eine(?:m|r) nicht ausgeliehenen (Lizenz|Gegenstand)$/ do |item_type|
 Given(/^I pick a (license|item) that is in stock$/) do |item_type|
   @item = Item.send(get_scope item_type).where(inventory_pool_id: @current_inventory_pool.id).detect {|i| not i.retired? and i.is_borrowable? and i.in_stock?}
-  step "I am on this %s's edit page" % item_type
+  step "I go to this %s's edit page" % item_type
 end
 
 # Angenommen /^man sucht nach eine(?:m|r) nicht ausgeliehenen (Lizenz|Gegenstand), wo man der Besitzer ist$/ do |item_type|
 Given(/^I pick a (license|item) that is in stock and that the current inventory pool is the owner of$/) do |item_type|
   @item = Item.send(get_scope item_type).where(inventory_pool_id: @current_inventory_pool.id).detect {|i| not i.retired? and i.is_borrowable? and i.in_stock? and i.owner_id == @current_inventory_pool.id}
-  step format("I am on this %s's edit page", item_type)
+  step format("I go to this %s's edit page", item_type)
 end
 
 # Dann /^kann man diese(?:.?) (?:.*) mit Angabe des Grundes erfolgreich ausmustern$/ do
@@ -56,7 +56,7 @@ Given(/^I pick a (item|license) that is not in stock$/) do |item_type|
   @item = Item.send(get_scope item_type)
           .where(inventory_pool_id: @current_inventory_pool.id)
           .detect { |i| !(i.retired? || i.in_stock?) }
-  step format("I am on this %s's edit page", item_type)
+  step format("I go to this %s's edit page", item_type)
 end
 
 # Angenommen /^man sucht nach eine(?:.?) (.*) bei dem ich nicht als Besitzer eingetragen bin$/ do |item_type|
@@ -64,7 +64,7 @@ Given(/^I pick a (.*) the current inventory pool is not the owner of$/) do |item
   @item = Item.send(get_scope item_type)
           .where(inventory_pool_id: @current_inventory_pool.id)
           .detect { |i| i.in_stock? && i.owner_id != @current_inventory_pool.id }
-  step format("I am on this %s's edit page", item_type)
+  step format("I go to this %s's edit page", item_type)
 end
 
 # Angenommen /^man gibt bei der Ausmusterung keinen Grund an$/ do
@@ -87,11 +87,6 @@ end
 Given(/^I pick a retired (.*) that the current inventory pool is the owner of$/) do |item_type|
   @item = Item.unscoped.send(get_scope item_type)
           .find { |i| i.retired? && i.owner_id == @current_inventory_pool.id }
-end
-
-# Angenommen(/^man befindet sich auf der Editierseite von diesem (Gegenstand|Lizenz)$/) do |arg1|
-Given(/^I am on this (item|license)?'s edit page$/) do |arg1|
-  visit manage_edit_item_path(@current_inventory_pool, @item)
 end
 
 # Wenn(/^man die Ausmusterung bei diese(?:.) (?:.*) zurück setzt$/) do

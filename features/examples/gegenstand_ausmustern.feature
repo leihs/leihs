@@ -46,7 +46,7 @@ Feature: Retire
   Scenario Outline: Unretiring an item
     Given I am Mike
     And I pick a retired <object> that the current inventory pool is the owner of
-    And I am on this <object>'s edit page
+    And I go to this <object>'s edit page
     When I unretire this <object>
     And I fill in the supply category
     And I save
@@ -65,7 +65,7 @@ Feature: Retire
   Scenario Outline: How retired items are displayed in a responsible department/inventory pool
     Given I am Mike
     And I pick a retired <object> that the current inventory pool is responsible for but not the owner of
-    Then I am on this <object>'s edit page
+    Then I go to this <object>'s edit page
     Examples:
       | object     |
       | item |

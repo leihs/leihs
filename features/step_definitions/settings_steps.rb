@@ -4,6 +4,7 @@ end
 
 When(/^the settings are not existing$/) do
   Setting.delete_all
+  Setting.class_variable_set :@@singleton, nil
   expect(Setting.count.zero?).to be true
   expect(Setting.smtp_address).to be_nil
 end
@@ -17,7 +18,7 @@ Then(/^I edit the following settings$/) do |table|
   within("form#edit_setting[action='/manage/settings']") do
     table.raw.flatten.each do |k|
       case k
-        when 'email_signature', 'local_currency_string', 'mail_delivery_method', 'smtp_address', 'smtp_domain', 'smtp_password', 'smtp_username', 'user_image_url', 'smtp_openssl_verify_mode'
+        when 'email_signature', 'mail_delivery_method', 'smtp_address', 'smtp_domain', 'smtp_password', 'smtp_username', 'user_image_url', 'smtp_openssl_verify_mode'
           field = find("input[name='setting[#{k}]']")
           expect(Setting.send(k).to_s).to eq field.value
           @new_settings[k] = new_value = Faker::Lorem.word
@@ -46,7 +47,7 @@ Then(/^I edit the following settings$/) do |table|
           expect(Setting.send(k).to_s).to eq field.value
           @new_settings[k] = new_value = rand(0..10000)
           field.set new_value
-        when 'time_zone'
+        when 'time_zone', 'local_currency_string'
           field = find("select[name='setting[#{k}]']")
           expect(Setting.send(k).to_s).to eq field.value
           @new_settings[k] = new_value = field.all('option').sample[:value]

@@ -71,7 +71,7 @@ Then(/^I see at least (an order|a contract)$/) do |arg1|
 end
 
 
-When(/^I open the tab "(.*?)"$/) do |arg1|
+When(/^I open the tab "(Orders|Contracts)"$/) do |arg1|
   within('#contracts-index-view > .row:nth-child(1) > nav:nth-child(1) ul') do
     find('li a', text: _(arg1)).click
   end

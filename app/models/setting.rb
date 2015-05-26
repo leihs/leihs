@@ -11,12 +11,8 @@ class Setting < ActiveRecord::Base
   validates_format_of :default_email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
   def self.method_missing(name, *args, &block)
-    singleton = first # fetch the singleton from the database
-    if singleton
-      singleton.send(name)
-    else
-      nil
-    end
+    @@singleton ||= first # fetch the singleton from the database
+    @@singleton.try :send, name
   end
 
   before_create do
@@ -24,6 +20,7 @@ class Setting < ActiveRecord::Base
   end
 
   after_save do
+    @@singleton = nil
     begin
       # Only reading from the initializers is not enough, they are only read during
       # server start, making changes of the time zone during runtime impossible.

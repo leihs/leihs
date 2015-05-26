@@ -7,16 +7,6 @@ When(/^I click on "([^"]*)" underneath my username$/) do |arg|
   find("a[href='#{borrow_user_documents_path}']").click
 end
 
-#Dann(/^gelange ich zu der Dokumentenübersichtsseite/) do
-Then(/^I am on the page showing my documents/) do
-  expect(current_path).to eq borrow_user_documents_path
-end
-
-#Angenommen(/^ich befinde mich auf der Dokumentenübersichtsseite$/) do
-Given(/^I am on my documents page$/) do
-  visit borrow_user_documents_path
-end
-
 #Dann(/^sind die Verträge nach neuestem Zeitfenster sortiert$/) do
 Then(/^my contracts are ordered by the earliest time window$/) do
   dates = all('div.line-col', text: /\d{2}.\d{2}.\d{4}\s\-\s\d{2}.\d{2}.\d{4}/).map {|x| Date.parse(x.text.split.first) }

@@ -154,7 +154,7 @@ end
 
 Then /^I can find the user administration features in the "Admin" area under "Users"$/ do
   step 'I navigate to the admin area'
-  step "I am on the tab '%s'" % _('Users')
+  step "I open the tab '%s'" % _('Users')
 end
 
 #Angenommen /^ein (.*?)Benutzer (mit zugeteilter|ohne zugeteilte) Rolle erscheint in einer Benutzerliste$/ do |arg1, arg2|

@@ -141,7 +141,7 @@ end
 #Angenommen /^man editiert ein Gegenstand eines anderen Besitzers$/ do
 When(/^I edit an item belonging to a different inventory pool$/) do
   @item = Item.find {|i| i.inventory_pool_id == @current_inventory_pool.id and @current_inventory_pool.id != i.owner_id}
-  step "I am on this item's edit page"
+  step "I go to this item's edit page"
   expect(has_selector?('.field')).to be true
   @fields = all('.field:not(.editable)')
   expect(@fields.size).to be > 0

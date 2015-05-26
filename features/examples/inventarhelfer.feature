@@ -11,7 +11,7 @@ Feature: Inventory helper
 
   @javascript @personas
   Scenario: Changing the shelf when the location already exists
-    Given I am on the inventory helper screen
+    Given I go to the inventory helper screen
     And there is an item that shares its location with another
     Then I select the field "Shelf"
     And I set some value for the field "Shelf"
@@ -23,19 +23,19 @@ Feature: Inventory helper
 
   @javascript @personas
   Scenario: You can't change the responsible department while something is not in stock
-    Given I am on the inventory helper screen
+    Given I go to the inventory helper screen
     And I edit the field "Responsible department" of an item that isn't in stock and belongs to the current inventory pool
     Then I see an error message that I can't change the responsible inventory pool for items that are not in stock
 
   @javascript @personas
   Scenario: You can't retire something that is not in stock
-    Given I am on the inventory helper screen
+    Given I go to the inventory helper screen
     And I retire an item that is not in stock
     Then I see an error message that I can't retire the item because it's already handed over or assigned to a contract
 
   @javascript @personas @browser
   Scenario: Editing items on the helper screen using a complete inventory code (barcode scanner)
-    Given I am on the inventory helper screen
+    Given I go to the inventory helper screen
     When I choose all fields through a list or by name
     And I set all their initial values
     Then I scan or enter the inventory code of an item that is in stock and not in any contract
@@ -44,7 +44,7 @@ Feature: Inventory helper
 
   @javascript @personas
   Scenario: Required fields
-    Given I am on the inventory helper screen
+    Given I go to the inventory helper screen
     When "Reference" is selected and set to "Investment", then "Project Number" must also be filled in
     When "Relevant for inventory" is selected and set to "Yes", then "Supply Category" must also be filled in
     When "Retirement" is selected and set to "Yes", then "Reason for Retirement" must also be filled in
@@ -55,7 +55,7 @@ Feature: Inventory helper
 
   @javascript @personas
   Scenario: Trying to edit an inexistant item through the inventory helper
-    Given I am on the inventory helper screen
+    Given I go to the inventory helper screen
     And I choose the fields from a list or by name
     And I set their initial values
     Then I scan or enter the inventory code of an item that can't be found
@@ -63,7 +63,7 @@ Feature: Inventory helper
 
   @javascript @personas
   Scenario: Using autocomplete to edit items on the inventory helper
-    Given I am on the inventory helper screen
+    Given I go to the inventory helper screen
     And I choose the fields from a list or by name
     And I set their initial values
     Then I start entering an item's inventory code
@@ -90,6 +90,6 @@ Feature: Inventory helper
 
   @javascript @personas
   Scenario: You can't edit certain fields for items that are in contracts
-    Given I am on the inventory helper screen
+    Given I go to the inventory helper screen
     And I edit the field "Model" of an item that is part of a contract
     Then I see an error message that I can't change the model because the item is already handed over or assigned to a contract

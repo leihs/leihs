@@ -73,11 +73,6 @@ Then(/^the user's order has been deleted$/) do
   end
 end
 
-#Dann(/^ich lande auf der Seite der Hauptkategorien$/) do
-Then(/^I am on the root category list$/) do
-  expect(current_path).to eq borrow_root_path
-end
-
 #########################################################################
 
 #Angenommen(/^ich lösche einen Eintrag$/) do

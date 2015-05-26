@@ -6,11 +6,6 @@ Then(/^I see a tab where I can change to the inventory helper$/) do
   find('h1', text: _('Inventory Helper'))
 end
 
-#Angenommen /^man ist auf dem Helferschirm$/ do
-Given /^I am on the inventory helper screen$/ do
-  visit manage_inventory_helper_path @current_inventory_pool
-end
-
 #Dann /^wähle ich all die Felder über eine List oder per Namen aus$/ do
 Then /^I choose all fields through a list or by name$/ do
   i = find('#inventory-helper-view #field-input')
@@ -231,7 +226,7 @@ end
 
 #Angenommen /^man editiert ein Gerät über den Helferschirm mittels Inventarcode$/ do
 Given /^I edit an item through the inventory helper using an inventory code$/ do
-  step 'I am on the inventory helper screen'
+  step 'I go to the inventory helper screen'
   step 'I choose the fields from a list or by name'
   step 'I set their initial values'
   step 'scanne oder gebe ich den Inventarcode ein, wo man Besitzer ist'

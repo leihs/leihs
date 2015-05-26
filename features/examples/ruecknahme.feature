@@ -49,7 +49,7 @@ Feature: Take back
 
   @javascript @personas
   Scenario: Returning an option
-    Given I am on a take back with at least two of the same options
+    Given I open a take back with at least two of the same options
     When I take back an option using the assignment field
     Then the line is selected
     And the line is not highlighted in green
@@ -59,7 +59,7 @@ Feature: Take back
 
   @javascript @personas @browser
   Scenario: Returning partial quantity of options
-    Given I am on a take back with at least two of the same options
+    Given I open a take back with at least two of the same options
     When I take back an option using the assignment field
     Then the line is selected
     And the line is not highlighted in green

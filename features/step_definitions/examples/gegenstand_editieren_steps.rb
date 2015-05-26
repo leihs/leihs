@@ -88,7 +88,7 @@ end
 #   find(:select, "retired").first("option").select_option if @table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" } and (@table_hashes.detect { |r| r["Feldname"] == "Ausmusterung" }["Wert"]) == "Ja"
 #   step %Q(I search for "%s") %  (@table_hashes.detect { |r| r["Feldname"] == "Inventarcode" }["Wert"])
 #   find(".line", :text => @table_hashes.detect { |r| r["Feldname"] == "Modell" }["Wert"], :visible => true)
-#   step "I am on this item's edit page"
+#   step "I go to this item's edit page"
 #   step 'hat der Gegenstand alle zuvor eingetragenen Werte'
 # end
 
@@ -112,7 +112,7 @@ end
 #Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes mit gesetztem Lieferanten$/) do
 And(/^I navigate to the edit page of an item that has a supplier$/) do
   @item = @current_inventory_pool.items.find { |i| not i.supplier.nil? }
-  step "I am on this item's edit page"
+  step "I go to this item's edit page"
 end
 
 #Wenn(/^ich den Lieferanten ändere$/) do
@@ -127,13 +127,13 @@ end
 Given(/^I edit an item that belongs to the current inventory pool and is not in stock$/) do
   @item = @current_inventory_pool.own_items.not_in_stock.order('RAND()').first
   @item_before = @item.to_json
-  step "I am on this item's edit page"
+  step "I go to this item's edit page"
 end
 
 # Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der ausgeliehen ist$/) do
 #   @item = @current_inventory_pool.items.not_in_stock.order("RAND()").first
 #   @item_before = @item.to_json
-#   step "I am on this item's edit page"
+#   step "I go to this item's edit page"
 # end
 
 #Wenn(/^ich die verantwortliche Abteilung ändere$/) do
@@ -144,7 +144,7 @@ end
 # Angenommen(/^man navigiert zur Bearbeitungsseite eines Gegenstandes, der in einem Vertrag vorhanden ist$/) do
 #   @item = @current_inventory_pool.items.items.not_in_stock.order("RAND()").first
 #   @item_before = @item.to_json
-#   step "I am on this item's edit page"
+#   step "I go to this item's edit page"
 # end
 
 #Wenn(/^ich das Modell ändere$/) do

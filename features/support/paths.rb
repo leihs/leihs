@@ -11,6 +11,9 @@ module NavigationHelpers
     when /^the home\s?page$/
       '/'
 
+    when /^the borrow$/
+      '/borrow'
+
     when /^the backend$/
       '/backend'
 
@@ -19,6 +22,18 @@ module NavigationHelpers
 
     when /^the settings page$/
       '/manage/settings'
+
+    when /^the inventory helper screen$/
+      manage_inventory_helper_path @current_inventory_pool
+
+    when /^the root category list$/
+      borrow_root_path
+
+    when /^the page showing my documents$/
+      borrow_user_documents_path
+
+    when /^this (item|license)'s edit page$/
+      manage_edit_item_path @current_inventory_pool, @item
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
