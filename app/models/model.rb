@@ -12,6 +12,10 @@ class Model < ActiveRecord::Base
   include Availability::Model
   include DefaultPagination
 
+  before_validation do
+    self.type = 'Model' unless type # TODO this should be done by the ActiveRecord STI
+  end
+
   before_destroy do
     if is_package? and reservations.empty?
       items.destroy_all
