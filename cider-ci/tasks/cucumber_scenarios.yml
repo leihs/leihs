@@ -1275,66 +1275,66 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         features/examples/gruppen.feature:8 DEFAULT_BROWSER=firefox
-- name: features/examples/gruppen.feature:15
+- name: features/examples/gruppen.feature:14
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/gruppen.feature:15 DEFAULT_BROWSER=firefox
-- name: features/examples/gruppen.feature:30
+        features/examples/gruppen.feature:14 DEFAULT_BROWSER=firefox
+- name: features/examples/gruppen.feature:26
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/gruppen.feature:30 DEFAULT_BROWSER=firefox
-- name: features/examples/gruppen.feature:47
+        features/examples/gruppen.feature:26 DEFAULT_BROWSER=firefox
+- name: features/examples/gruppen.feature:40
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/gruppen.feature:47 DEFAULT_BROWSER=firefox
-- name: features/examples/gruppen.feature:63
+        features/examples/gruppen.feature:40 DEFAULT_BROWSER=firefox
+- name: features/examples/gruppen.feature:53
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/gruppen.feature:63 DEFAULT_BROWSER=firefox
-- name: features/examples/gruppen.feature:70
+        features/examples/gruppen.feature:53 DEFAULT_BROWSER=firefox
+- name: features/examples/gruppen.feature:60
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/gruppen.feature:70 DEFAULT_BROWSER=firefox
-- name: features/examples/gruppen.feature:77
+        features/examples/gruppen.feature:60 DEFAULT_BROWSER=firefox
+- name: features/examples/gruppen.feature:67
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/gruppen.feature:77 DEFAULT_BROWSER=firefox
-- name: features/examples/gruppen.feature:83
+        features/examples/gruppen.feature:67 DEFAULT_BROWSER=firefox
+- name: features/examples/gruppen.feature:73
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/gruppen.feature:83 DEFAULT_BROWSER=firefox
-- name: features/examples/gruppen.feature:89
+        features/examples/gruppen.feature:73 DEFAULT_BROWSER=firefox
+- name: features/examples/gruppen.feature:79
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/gruppen.feature:89 DEFAULT_BROWSER=firefox
-- name: features/examples/gruppen.feature:94
+        features/examples/gruppen.feature:79 DEFAULT_BROWSER=firefox
+- name: features/examples/gruppen.feature:84
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/gruppen.feature:94 DEFAULT_BROWSER=firefox
-- name: features/examples/gruppen.feature:102
+        features/examples/gruppen.feature:84 DEFAULT_BROWSER=firefox
+- name: features/examples/gruppen.feature:92
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/gruppen.feature:102 DEFAULT_BROWSER=firefox
-- name: features/examples/gruppen.feature:109
+        features/examples/gruppen.feature:92 DEFAULT_BROWSER=firefox
+- name: features/examples/gruppen.feature:99
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/gruppen.feature:109 DEFAULT_BROWSER=firefox
-- name: features/examples/gruppen.feature:114
+        features/examples/gruppen.feature:99 DEFAULT_BROWSER=firefox
+- name: features/examples/gruppen.feature:104
   scripts:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/examples/gruppen.feature:114 DEFAULT_BROWSER=firefox
+        features/examples/gruppen.feature:104 DEFAULT_BROWSER=firefox
 - name: features/examples/hinweis_wenn_nicht_angemeldet.feature:9
   scripts:
     cucumber:

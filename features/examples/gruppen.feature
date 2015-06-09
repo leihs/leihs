@@ -10,51 +10,41 @@ Feature: Groups
     Then each group shows the number of users assigned to it
     And each group shows how many of each model are assigned to it
 
-  # Not implemented
-  @personas
+  @personas @javascript
   Scenario: Visierungspflichtige Gruppe erstellen
     When I create a group
-    # Next step missing
-    And ich die Eigenschaft 'Visierung erforderlich' anwähle
+    And I select 'Yes' for 'Verification required'
     And I fill in the group's name
     And I add users to the group
     And I add models and capacities to the group
     And I save
     Then the group is saved
-    # Next step missing
-    And die Gruppe ist visierungspflichtig
-
+    And the group requires verification
     And the group has users as well as models and their capacities
 
-  @personas
+  @personas @javascript
   Scenario: Mark a group as requiring verification
-    # Next step missing
-    When ich eine bestehende, nicht visierungspflichtige Gruppe editiere
-    # Next step missing
-    And ich die Eigenschaft 'Visierung erforderlich' anwähle
+    When I edit a group that already exists, which doesn't requires verification
+    And I select 'Yes' for 'Verification required'
     And I change the group's name
     And I add and remove users from the group
     And I add and remove models and their capacities from the group
     And I save
     Then the group is saved
-    # Next step missing
-    And die Gruppe ist visierungspflichtig
+    And the group requires verification
     And the group has users as well as models and their capacities
     Then I am listing groups
     And I receive a notification of success
 
-  @personas
+  @personas @javascript
   Scenario: Group does not require verification
-    # Next step missing
-    When ich eine bestehende visierungspflichtige Gruppe editiere
-    # Next step missing
+    When I edit a group that already exists, which doesn't requires verification
     And I change the group's name
     And I add and remove users from the group
     And I add and remove models and their capacities from the group
     And I save
     Then the group is saved
-    # Next step missing
-    And die Gruppe ist nicht mehr visierungspflichtig
+    And the group doesn't requires verification
     And the group has users as well as models and their capacities
     Then I am listing groups
     And I receive a notification of success
