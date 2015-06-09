@@ -89,11 +89,13 @@ Then(/^the group list is sorted alphabetically$/) do
   step 'die Liste ist alphabetisch sortiert'
 end
 
+# Dann(/^ich sehe eine Bestätigung$/) do
+#   find("#flash .success")
+# end
+
 #Wenn(/^ich eine bestehende Gruppe editiere$/) do
-When(/^I edit a group that already exists(, which doesn't requires verification)?$/) do |arg1|
-  @group = @current_inventory_pool.groups.detect do |group|
-    group.models.length >= 2 and group.users.length >= 2 and (arg1 ? (not group.is_verification_required) : true)
-  end
+When(/^I edit a group that already exists$/) do
+  @group = @current_inventory_pool.groups.find {|g| g.models.length >= 2 and g.users.length >= 2}
   visit manage_edit_inventory_pool_group_path @group.inventory_pool_id, @group
 end
 
@@ -108,7 +110,7 @@ When(/^I add and remove users from the group$/) do
   all("[name*='users'][name*='id']", visible: false).each do |existing_user_line|
     existing_user_line.first(:xpath, './..').find('.button[data-remove-user]', text: _('Remove')).click
   end
-  user = @current_inventory_pool.users.where.not('users.id' => @group.users.select('users.id')).order('RAND()').first
+  user = @current_inventory_pool.users.where('users.id' => @group.users.select('users.id')).order('RAND()').first
   @users = [user]
   find('input[data-search-users]').set user.name
   find('.ui-menu-item a', match: :prefer_exact, text: user.name).click
@@ -122,7 +124,7 @@ When(/^I add and remove models and their capacities from the group$/) do
   model = (@current_inventory_pool.models-@group.models).first
   find('input[data-search-models]').set model.name
   find('.ui-menu-item a', match: :prefer_exact, text: model.name).click
-  partition = {model_id: model.id, quantity: rand(0..model.items.where(inventory_pool_id: @current_inventory_pool.id).borrowable.size-1)+1}
+  partition = {model_id: model.id, quantity: rand(model.items.where(inventory_pool_id: @current_inventory_pool.id).borrowable.size-1)+1}
   @partitions = [partition]
   find('.list-of-lines .line', text: model.name).fill_in 'group[partitions_attributes][][quantity]', with: partition[:quantity]
 end
@@ -224,14 +226,4 @@ end
 #Dann(/^das vorhandene Modell behält die eingestellte Anzahl$/) do
 Then(/^the already existing model keeps whatever capacity was set for it$/) do
   expect(find('#models-allocations .list-of-lines .line', match: :prefer_exact, text: @model.name).find("input[name='group[partitions_attributes][][quantity]']").value.to_i).to eq @quantity
-end
-
-When(/^I select '(.*)' for '(.*)'$/) do |value, key|
-  within ".content-wrapper form" do
-    all(".row", text: _(key)).last.find("select option", text: value).select_option
-  end
-end
-
-Then /^the group( doesn't)? requires verification$/ do |arg1|
-  expect(@group.is_verification_required).to be (not arg1)
 end
