@@ -1,0 +1,25 @@
+jobs:
+
+  tests-mri:
+
+    name: Tests MRI
+
+    description: |
+      Run all features under MRI
+
+    start-on:
+    - type: branch.updated
+      include-match: ^.*cider$
+
+    context:
+      _cider-ci_include:
+        - .cider-ci/shared/tests-context.yml
+
+      task-defaults:
+        environment-variables:
+          RBENV_VERSION: 2.1
+
+        scripts:
+          test:
+            environment-variables:
+              RBENV_VERSION: 2.1

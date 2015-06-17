@@ -1,0 +1,30 @@
+jobs: 
+
+  tests-jruby: 
+
+    name: Tests JRuby-9000
+
+    description: >
+      Run all specs under JRuby 9000.
+
+#    depends-on: 
+#    - type: job
+#      job: tests-mri
+#      states: [passed]
+
+    start-on: 
+    - type: branch.updated
+      include-match: ^.*$
+
+    context: 
+      _cider-ci_include: 
+        - .cider-ci/shared/tests-context.yml
+
+      task-defaults:
+        environment-variables:
+          RBENV_VERSION: 2.1
+
+        scripts:
+          test:
+            environment-variables:
+              RBENV_VERSION: jruby-9000

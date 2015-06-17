@@ -1,0 +1,67 @@
+jobs: 
+
+  code-check: 
+
+    name: Code Check
+
+    description: |
+      Run static checks and metrics: complexity, duplicaiont, code format. 
+
+    start-on: 
+    - type: branch.updated
+      include-match: ^.*$
+
+    context:
+
+      task-defaults:
+        
+        eager-trials: 1
+        max-auto-trials: 2
+        traits:
+          linux: true
+          rbenv: true
+          ruby: true
+
+        environment_variables:
+          RAILS_ENV: test
+          LANG: "en_US.UTF-8"
+          RBENV_VERSION: 2.2
+
+        scripts:
+          bundle-mri:
+            exclusive-executor-resource: bundler_2.2
+            body: bundle
+          test: 
+            start-when:
+            - script: bundle-mri
+
+      tasks:
+
+        code_complexity: 
+          name: Code complexity with flog
+          scripts: 
+            test: 
+              body: bundle exec cider-ci_flog app/
+
+        code_similarity:
+          name: Code similarity with flay
+          scripts: 
+            test: 
+              body: bundle exec cider-ci_flay app/
+
+        lint_haml:
+          name: Lint/Stylecheck with HAML-Lint
+          scripts:
+            test:
+              body: | 
+                #!/bin/sh
+                set -e
+                # lint all view dirs expect styleguide (for now, most components are still auto-converted)
+                find app/views/* -type d -not -path 'app/views/styleguide' -not -path 'app/views/styleguide/**' -exec sh -c 'bundle exec haml-lint {}' \;
+
+        lint_ruby:
+          name: Lint/Stylecheck with Rubocop
+          scripts:
+            test:
+              body: bundle exec rubocop
+

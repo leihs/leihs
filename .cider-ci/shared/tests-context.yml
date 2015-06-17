@@ -1,0 +1,113 @@
+name: Tests
+
+script-defaults:
+  timeout: 600
+
+task-defaults:
+  eager-trials: 1
+  max-auto-trials: 3
+
+  environment-variables:
+    RAILS_ENV: test
+    LANG: "en_US.UTF-8"
+
+  git-options:
+    submodules:
+      clone: True
+      timeout: 60
+
+  trial-attachments:
+    logs:
+      glob: 'log/*.log'
+      content-type: text/plain
+    coverage_resultset:
+      glob: 'coverage/.resultset.json'
+      content-type: application/json
+    coverage_last_run:
+      glob: 'coverage/.last_run.json'
+      content-type: application/json
+    styleguide_artefacts:
+      glob: 'tmp/styleguide-ref.tar.gz'
+      content-type: application/x-compressed
+    styleguide_hashes_new:
+      glob: 'tmp/styleguide-shasums.txt'
+      content-type: text/plain
+
+  traits:
+    firefox-esr: true
+    linux: true
+    nodejs: true
+    mysql: true
+    rbenv: true
+    ruby-2.2: true
+    ruby: true
+    tightvnc: true
+
+  ports:
+    XVNC_PORT:
+      inet_address: "localhost"
+      min: 5900
+      max: 5999
+
+  scripts:
+
+    configure-database:
+      body: |
+        #!/usr/bin/env ruby
+        require 'yaml'
+        config = \
+          { 'test' =>
+            { 'adapter' => 'mysql2',
+              'encoding' => 'utf8',
+              'host' => 'localhost',
+              'pool' => 3,
+              'username' => ENV['MYSQL_USER'],
+              'password' =>  ENV['MYSQL_PASSWORD'],
+              'database' => "leihs_test_#{ENV['CIDER_CI_TRIAL_ID']}"}}
+        File.open('config/database.yml','w') { |file| file.write config.to_yaml }
+
+    bundle-mri:
+      exclusive-executor-resource: bundler_2.2
+      body: bundle
+
+    create-database:
+      body: bundle exec rake db:create
+      start-when:
+      - script: bundle-mri
+      - script: configure-database
+
+    start-vnc:
+      body: tightvncserver ":$XVNC_PORT"  -geometry 1024x768 -rfbport "$XVNC_PORT"  -interface '127.0.0.1'
+
+    test:
+      body: |
+        export DISPLAY=":$XVNC_PORT" \
+        && rm -rf coverage \
+        && ruby -v \
+        && bundle exec cucumber -p default -f json -o log/cucumber_report.json $CIDER_CI_TASK_FILE
+      start-when:
+      - script: start-vnc
+      - script: create-database
+
+    delete-database:
+      body:  bundle exec rake  db:drop
+      ignore-state: true
+      start-when:
+      - script: test
+        states: [aborted, passed, failed, skipped]
+
+    stop-vnc:
+      body: tightvncserver -kill ":$XVNC_PORT" -clean
+      ignore-state: true
+      start-when:
+      - script: test
+        states: [aborted, passed, failed, skipped]
+
+_cider-ci_generate-tasks:
+ include-match: features/.*feature
+
+
+# tasks:
+#   availability:
+#     environment-variables:
+#       CIDER_CI_TASK_FILE: features/availability_caching.feature
