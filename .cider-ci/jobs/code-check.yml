@@ -63,4 +63,4 @@ jobs:
           name: Lint/Stylecheck with Rubocop
           scripts:
             test:
-              body: bundle exec rubocop
+              body: bundle exec rubocop --lint
