@@ -22,6 +22,8 @@ gem 'database_cleaner', group: [:test, :development]
 gem 'execjs', '2.2.2' # NOTE '2.4.0' ExecJS::ProgramError: TypeError: Cannot set property 'root' of null (in /home/leihs/leihs-test/releases/20150410090031/vendor/assets/javascripts/spine/ajax.coffee)
 gem 'factory_girl_rails', '~> 4.1', group: [:test, :development]
 gem 'faker', '1.3.0', group: [:test, :development] # NOTE '~> 1.4' doesn't work beacause "I18n::InvalidLocale" error, see note for config.i18n in config/application.rb
+gem 'flog', group: [:test, :development]
+gem 'flay', group: [:test, :development]
 gem 'font-awesome-rails', '~> 3.2.1' # NOTE in order to upgrade to '~> 4.0', use .fa css class instead of .icon
 gem 'foreigner', '~> 1.6'
 gem 'geocoder', '~> 1.1'
