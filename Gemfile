@@ -13,7 +13,7 @@ gem 'capistrano', '2.15.5', group: :development
 gem 'capistrano-ext', group: :development
 gem 'capistrano-rbenv', '~> 1.0', group: :development
 gem 'chunky_png', '~> 1.2'
-gem 'cider_ci-support'
+gem 'cider_ci-support', group: [:test, :development]
 gem 'coffee-rails', '~> 4.0'
 gem 'coffee-script', '~> 2.2'
 gem 'compass-rails', '~> 1.1'
@@ -30,6 +30,7 @@ gem 'geocoder', '~> 1.1'
 gem 'gettext_i18n_rails', '~> 1.0'
 gem 'haml', '~> 4.0'
 gem 'haml_assets', '~> 0.2'
+gem 'haml-lint', group: [:test, :development]
 gem 'i18n', '0.6.11'
 gem 'jquery-rails', '~> 3.1'
 gem 'jquery-tmpl-rails', '~> 1.1'

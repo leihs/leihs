@@ -191,6 +191,10 @@ GEM
       multi_json (~> 1.3)
     haml (4.0.6)
       tilt
+    haml-lint (0.13.0)
+      haml (~> 4.0)
+      rubocop (>= 0.25.0)
+      sysexits (~> 1.1)
     haml_assets (0.2.2)
       haml
       tilt
@@ -409,6 +413,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
     stream (0.5)
     subexec (0.2.3)
+    sysexits (1.2.0)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -477,6 +482,7 @@ DEPENDENCIES
   geocoder (~> 1.1)
   gettext_i18n_rails (~> 1.0)
   haml (~> 4.0)
+  haml-lint
   haml_assets (~> 0.2)
   i18n (= 0.6.11)
   jquery-rails (~> 3.1)
