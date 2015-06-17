@@ -528,3 +528,6 @@ DEPENDENCIES
   underscore-rails (~> 1.7)
   will_paginate (~> 3.0)
   yard
+
+BUNDLED WITH
+   1.10.3

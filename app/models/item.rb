@@ -475,6 +475,21 @@ class Item < ActiveRecord::Base
     end
   end
 
+  # overriding attribute setter
+  def price=(v)
+    if v.is_a? String
+      if v.gsub(/\d/, '').last == '.'
+        v.gsub!(/[^\d\.]/, '')
+      else
+        v.gsub!(/[^\d,]/, '')
+        v.gsub!(',', '.')
+      end
+    end
+    self[:price] = v
+  end
+
+####################################################################
+
   # overriding association setter
   def location_with_params=(location_attrs)
     self.location_without_params = if location_attrs.is_a? Hash
