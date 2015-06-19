@@ -103,7 +103,7 @@ task-defaults:
       - script: test
         states: [aborted, passed, failed, skipped]
 
-_cider-ci_include: './cider-ci/tasks/cucumber_scenarios.yml'
+_cider-ci_include: '.cider-ci/tasks/cucumber_scenarios.yml'
 
 # _cider-ci_generate-tasks:
 #  include-match: features/.*feature
