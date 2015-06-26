@@ -235,7 +235,8 @@ Given /^an? (submitted|unsubmitted) contract with reservations existing$/ do |ar
 end
 
 When /^I approve the contract of the borrowing user$/ do
-  @contract.approve('That will be fine.', @current_user)
+  b = @contract.approve('That will be fine.', @current_user)
+  expect(b).to be true
   @contract.reservations.each do |reservation|
     expect(reservation.reload.status).to eq :approved
   end
