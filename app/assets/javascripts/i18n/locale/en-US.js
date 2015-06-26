@@ -3867,6 +3867,10 @@ window.i18n.locale_data = {
       "Status note": [
          null,
          ""
+      ],
+      "Fields": [
+         null,
+         ""
       ]
    }
 }

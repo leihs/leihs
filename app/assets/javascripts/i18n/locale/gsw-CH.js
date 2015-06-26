@@ -3807,6 +3807,10 @@ window.i18n.locale_data = {
       "Currency": [
          null,
          "Währig"
+      ],
+      "Fields": [
+         null,
+         "Fälder"
       ]
    }
 }

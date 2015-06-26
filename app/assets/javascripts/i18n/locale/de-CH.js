@@ -3832,6 +3832,10 @@ window.i18n.locale_data = {
       "Currency": [
          null,
          "Währung"
+      ],
+      "Fields": [
+         null,
+         "Felder"
       ]
    }
 }
