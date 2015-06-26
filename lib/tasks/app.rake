@@ -6,32 +6,22 @@ namespace :app do
     `railroad -iv -o doc/diagrams/railroad/models.dot -M`
   end
 
-  namespace :db do
-
-    desc 'Sync local application instance with test servers most recent database dump'
-    task :sync do
-      puts `mkdir ./db/backups/`
-      puts `rsync -avuz leihs@rails.zhdk.ch:/tmp/leihs-current.sql ./db/backups/`
-
-      Rake::Task['db:drop'].invoke
-      Rake::Task['db:create'].invoke
-
-      puts `mysql -h localhost -u root leihs2_dev < ./db/backups/leihs-current.sql`
-
-      Rake::Task['db:migrate'].invoke
-      Rake::Task['leihs:maintenance'].invoke
-
-      # also sync the test database schema
-      `RAILS_ENV=test rake db:drop db:create db:migrate`
+  desc "Revert item prices using audits (i.e. wrong 1.0, correct 1'234.50)"
+  task revert_item_prices: :environment do
+    fixed_items = []
+    Audited::Adapters::ActiveRecord::Audit.
+        where(action: :update, auditable_type: 'Item').
+        where("audited_changes REGEXP '.*price.*'").
+        order(:created_at).
+        group_by(&:auditable_id).each_pair do |item_id, audits|
+      audit = audits.last
+      change = audit.audited_changes['price']
+      if change.compact.size == 2 and change.last <= change.first / 1000
+        if audit.auditable.update_attributes(price: change.first)
+          fixed_items << {item_id: item_id, price: change.first}
+        end
+      end
     end
-    
+    puts fixed_items
   end
-
-# TODO
-#  namespace :db do
-#    desc "Dump entire database (Structure and Data)"
-#    task :dump do
-#    end
-#  end
-  
 end
