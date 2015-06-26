@@ -1,16 +1,11 @@
-jobs: 
+jobs:
 
-  coverage: 
+  coverage:
 
     name: Coverage
 
-    depends-on: 
+    depends-on:
     - type: job
-      job: tests-mri
-      states: [passed]
-
-    start-on: 
-    - type: job.updated
       job: tests-mri
       states: [passed]
 
@@ -25,7 +20,7 @@ jobs:
           rbenv: true
           ruby: true
 
-      tasks: 
+      tasks:
         coverage:
 
           scripts:
@@ -36,7 +31,7 @@ jobs:
 
             coverage:
               body: bundle exec cider-ci_coverage --upload
-              start-when: 
+              start-when:
               - script: bundle
 
 

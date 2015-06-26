@@ -7,10 +7,6 @@ jobs:
     description: |
       Run all features under MRI
 
-    start-on:
-    - type: branch.updated
-      include-match: ^.*cider$
-
     context:
       _cider-ci_include:
         - .cider-ci/shared/tests-context.yml

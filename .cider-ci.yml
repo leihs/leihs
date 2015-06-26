@@ -1,3 +1,3 @@
 _cider-ci_include:
   - .cider-ci/jobs/tests-mri.yml
-  - .cider-ci/jobs/code-check.yml
+  - .cider-ci/jobs/code-checks.yml

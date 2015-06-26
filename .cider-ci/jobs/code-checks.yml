@@ -2,14 +2,10 @@ jobs:
 
   code-check:
 
-    name: Code Check
+    name: Code Checks
 
     description: |
       Run static checks and metrics: complexity, duplication, code format.
-
-    start-on:
-    - type: branch.updated
-      include-match: ^.*$
 
     context:
 
