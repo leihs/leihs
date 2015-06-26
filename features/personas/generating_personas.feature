@@ -12,6 +12,8 @@ Feature: Generating Personas
   @generating_personas
   Scenario: Genarating Minimal Dataset
     Given the minimal setup exists
+    And the item fields are initialized
+    Then there are 50 fields in total
     Then the minimal seed dump is generated
 
   @generating_personas
@@ -958,5 +960,7 @@ Feature: Generating Personas
     Then there are 18 contracts in total
 
     And all unsubmitted contract reservations are available
+
+    Then there are 50 fields in total
 
     Then the current time dump is generated

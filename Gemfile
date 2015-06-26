@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 
 gem 'rails', '4.0.9'
 
-gem 'active_hash', '~> 1.3'
 gem 'activerecord-jdbcmysql-adapter', platform: :jruby
 gem 'acts-as-dag', '~> 4.0' # alternative: 'dagnabit'
 gem 'audited-activerecord', git: 'https://github.com/sellittf/audited.git' #, '~> 4.2'

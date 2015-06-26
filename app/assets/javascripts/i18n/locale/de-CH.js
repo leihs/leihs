@@ -3836,6 +3836,22 @@ window.i18n.locale_data = {
       "Fields": [
          null,
          "Felder"
+      ],
+      "Field": [
+         null,
+         "Feld"
+      ],
+      "Show all fields": [
+         null,
+         "Alle Felder anzeigen"
+      ],
+      "Reset visibility of all fields on the item forms": [
+         null,
+         "Alle versteckten Felder wieder anzeigen"
+      ],
+      "Hide this field from all item forms": [
+         null,
+         "Dieses Feld beim Editieren von Gegenständen nicht mehr anzeigen"
       ]
    }
 }

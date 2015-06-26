@@ -29,6 +29,11 @@
           = _("Settings")
 
       %li
+        %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => admin_fields_path,
+                                                                                :class => (defined? active_tab and active_tab == :fields) ? "active" : ""}
+          = _("Fields")
+
+      %li
         %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => "/manage/mail_templates",
                                                                                 :class => (defined? active_tab and active_tab == :mail_templates) ? "active" : ""}
           = _("Mail Templates")

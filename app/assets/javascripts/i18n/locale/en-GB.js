@@ -3593,6 +3593,26 @@ window.i18n.locale_data = {
       "Status note": [
          null,
          ""
+      ],
+      "Field": [
+         null,
+         ""
+      ],
+      "Fields": [
+         null,
+         ""
+      ],
+      "Show all fields": [
+         null,
+         ""
+      ],
+      "Reset visibility of all fields on the item forms": [
+         null,
+         ""
+      ],
+      "Hide this field from all item forms": [
+         null,
+         ""
       ]
    }
 }

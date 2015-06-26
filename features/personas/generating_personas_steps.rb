@@ -49,7 +49,7 @@ Then(/^the (minimal seed|current time) dump is generated$/) do |arg1|
   expect(File.exists?(file_name)).to be true
 end
 
-Then(/^the minimal seed dump is loaded$/) do
+Given(/^the minimal seed dump is loaded$/) do
   `RAILS_ENV=test rake db:drop db:create`
 
   config = Rails.configuration.database_configuration[Rails.env]
@@ -62,6 +62,10 @@ Then(/^the minimal seed dump is loaded$/) do
   # we need this variable assignment in order to wait for the end of the system call. DO NOT DELETE !
   dump_restored = system(cmd)
   raise 'persona dump not loaded' unless dump_restored
+end
+
+Given /^the item fields are initialized$/ do
+  load "#{Rails.root}/config/initializers/fields.rb"
 end
 
 Given(/^(\d+) user(s)? exist(s)?$/) do |n, s1, s2|
@@ -691,6 +695,8 @@ Then(/^there are (\d+) (.*) in total$/) do |n, elements|
           Partition.count
         when 'contracts'
           Contract.count
+        when 'fields'
+          Field.count
       end
   ).to eq n.to_i
 end

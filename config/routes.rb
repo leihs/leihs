@@ -52,6 +52,10 @@ Leihs::Application.routes.draw do
 
     # Test report
     get "scenarios", to: "scenarios#index"
+
+    # Fields
+    get 'fields', to: 'fields#index'
+    put 'fields', to: 'fields#update'
   end
 
   # Borrow Section
@@ -313,7 +317,9 @@ Leihs::Application.routes.draw do
       get "access_rights", to: "access_rights#index"
 
       # Fields
-      get 'fields', to: "fields#index", as: "fields"
+      get 'fields', to: 'fields#index', as: 'fields'
+      post 'fields/:id', to: 'fields#hide'
+      delete 'fields', to: 'fields#reset'
 
       # Search
       post 'search',               to: 'search#search',        as: "search"

@@ -2962,3 +2962,15 @@ msgstr "Währung"
 
 msgid "Fields"
 msgstr "Felder"
+
+msgid "Field"
+msgstr "Feld"
+
+msgid "Show all fields"
+msgstr "Alle Felder anzeigen"
+
+msgid "Reset visibility of all fields on the item forms"
+msgstr "Alle versteckten Felder wieder anzeigen"
+
+msgid "Hide this field from all item forms"
+msgstr "Dieses Feld beim Editieren von Gegenständen nicht mehr anzeigen"

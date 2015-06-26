@@ -98,7 +98,7 @@ Feature: Editing an item
     And I save
     Then the edited item has the new supplier
 
-  @javascript @personas
+  @javascript @personas @browser
   Scenario: You can't change the responsible department for items that are not in stock
     Given I edit an item that belongs to the current inventory pool and is not in stock
     When I change the responsible department

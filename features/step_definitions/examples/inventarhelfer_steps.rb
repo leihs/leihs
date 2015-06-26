@@ -19,21 +19,21 @@ Then /^I set all their initial values$/ do
   @parent_el ||= find('#field-selection')
   @data = {}
   Field.all.each do |field|
-    next if @parent_el.all(".field[data-id='#{field[:id]}']").empty?
-    field_el = @parent_el.find(".field[data-id='#{field[:id]}']")
-    case field[:type]
+    next if @parent_el.all(".field[data-id='#{field.id}']").empty?
+    field_el = @parent_el.find(".field[data-id='#{field.id}']")
+    case field.data['type']
       when 'radio'
         r = field_el.find('input[type=radio]', match: :first)
         r.click
-        @data[field[:id]] = r.value
+        @data[field.id] = r.value
       when 'textarea'
         ta = field_el.find('textarea')
         ta.set 'This is a text for a textarea'
-        @data[field[:id]] = ta.value
+        @data[field.id] = ta.value
       when 'select'
         o = field_el.find('option', match: :first)
         o.select_option
-        @data[field[:id]] = o.value
+        @data[field.id] = o.value
       when 'text'
         within field_el do
           string = if all("input[name='item[inventory_code]']").empty?
@@ -43,18 +43,18 @@ Then /^I set all their initial values$/ do
                    end
           i = find("input[type='text']")
           i.set string
-          @data[field[:id]] = i.value
+          @data[field.id] = i.value
         end
       when 'date'
         dp = field_el.find("[data-type='datepicker']")
         dp.click
         find('.ui-datepicker-calendar').find('.ui-state-highlight, .ui-state-active', visible: true, match: :first).click
-        @data[field[:id]] = dp.value
+        @data[field.id] = dp.value
       when 'autocomplete'
-        target_name = find(".field[data-id='#{field[:id]}'] [data-type='autocomplete']")['data-autocomplete_value_target']
-        find(".field[data-id='#{field[:id]}'] [data-type='autocomplete'][data-autocomplete_value_target='#{target_name}']").click
+        target_name = find(".field[data-id='#{field.id}'] [data-type='autocomplete']")['data-autocomplete_value_target']
+        find(".field[data-id='#{field.id}'] [data-type='autocomplete'][data-autocomplete_value_target='#{target_name}']").click
               find('.ui-menu-item a', match: :first).click
-        @data[field[:id]] = find(".field[data-id='#{field[:id]}'] [data-type='autocomplete']")
+        @data[field.id] = find(".field[data-id='#{field.id}'] [data-type='autocomplete']")
       when 'autocomplete-search'
         model = if @item and @item.children.exists? # item is a package
                   Model.all.find &:is_package?
@@ -62,17 +62,17 @@ Then /^I set all their initial values$/ do
                   Model.all.find {|m| not m.is_package?}
                 end
         string = model.name
-        within ".field[data-id='#{field[:id]}']" do
+        within ".field[data-id='#{field.id}']" do
           find('input').click
           find('input').set string
         end
         find('.ui-menu-item a', match: :prefer_exact, text: string).click
-        @data[field[:id]] = Model.find_by_name(string).id
+        @data[field.id] = Model.find_by_name(string).id
       when 'checkbox'
         # currently we only have "ausgemustert"
         field_el.find("input[type='checkbox']").click
         find("[name='item[retired_reason]']").set 'This is a text for a input text'
-        @data[field[:id]] = 'This is a text for a input text'
+        @data[field.id] = 'This is a text for a input text'
       else
         raise 'field type not found'
     end
@@ -81,9 +81,9 @@ end
 
 #Dann /^ich setze das Feld "(.*?)" auf "(.*?)"$/ do |field_name, value|
 Then /^I set the field "(.*?)" to "(.*?)"$/ do |field_name, value|
-  field = Field.find find(".row.emboss[data-type='field']", match: :prefer_exact, text: field_name)['data-id']
-  within(".field[data-id='#{field[:id]}']") do
-    case field[:type]
+  field = Field.find(find(".row.emboss[data-type='field']", match: :prefer_exact, text: field_name)['data-id'].to_sym)
+  within(".field[data-id='#{field.id}']") do
+    case field.data['type']
       when 'radio'
         find('label', text: value).click
       when 'select'
@@ -123,11 +123,11 @@ end
 Then /^I see all the values of the item in an overview with model name and the modified values are already saved$/ do
   FastGettext.locale = @current_user.language.locale_name.gsub(/-/, '_')
   Field.all.each do |field|
-    next if all(".field[data-id='#{field[:id]}']").empty?
+    next if all(".field[data-id='#{field.id}']").empty?
     within('form#flexible-fields') do
       field_el = find(".field[data-id='#{field.id}']")
       value = field.get_value_from_params @item.reload
-      field_type = field.type
+      field_type = field.data['type']
       if field_type == 'date'
         unless value.blank?
           value = Date.parse(value) if value.is_a?(String)
@@ -135,18 +135,18 @@ Then /^I see all the values of the item in an overview with model name and the m
           field_el.has_content? value.month
           field_el.has_content? value.day
         end
-      elsif field[:attribute] == 'retired'
+      elsif field.data['attribute'] == 'retired'
         unless value.blank?
-          field_el.has_content? _(field[:values].first[:label])
+          field_el.has_content? _(field.values.first['label'])
         end
       elsif field_type == 'radio'
         if value
-          value = field[:values].detect{|v| v[:value] == value}[:label]
+          value = field.values.detect{|v| v['value'] == value}['label']
           field_el.has_content? _(value)
         end
       elsif field_type == 'select'
         if value
-          value = field[:values].detect{|v| v[:value] == value}[:label]
+          value = field.values.detect{|v| v['value'] == value}['label']
           field_el.has_content? _(value)
         end
       elsif field_type == 'autocomplete'
@@ -156,7 +156,7 @@ Then /^I see all the values of the item in an overview with model name and the m
         end
       elsif field_type == 'autocomplete-search'
         if value
-          if field[:label] == 'Model'
+          if field.data['label'] == 'Model'
             value = Model.find(value).name
             field_el.has_content? value
           end
@@ -167,7 +167,7 @@ Then /^I see all the values of the item in an overview with model name and the m
     end
   end
 
-  find("form#flexible-fields .field[data-id='#{Field.find_by_label("Model").id}']", text: @item.reload.model.name)
+  find("form#flexible-fields .field[data-id='#{Field.all.detect{|f| f.data['label'] == "Model" }.id}']", text: @item.reload.model.name)
 end
 
 #Dann /^die geänderten Werte sind hervorgehoben$/ do
@@ -181,10 +181,10 @@ end
 
 #Dann /^wähle ich die Felder über eine List oder per Namen aus$/ do
 Then /^I choose the fields from a list or by name$/ do
-  field = Field.all.select{|f| f[:readonly] == nil and f[:type] != 'autocomplete-search' and f[:target_type] != 'license' and not f[:visibility_dependency_field_id]}.last
+  field = Field.all.select{|f| f.data['readonly'] == nil and f.data['type'] != 'autocomplete-search' and f.data['target_type'] != 'license' and not f.data['visibility_dependency_field_id']}.last
   find('#field-input').click
-  find('#field-input').set _(field.label)
-  find('.ui-menu-item a', match: :first, text: _(field.label)).click
+  find('#field-input').set _(field.data['label'])
+  find('.ui-menu-item a', match: :first, text: _(field.data['label'])).click
   within '#field-selection' do
     @all_editable_fields = all('.field', visible: true)
   end

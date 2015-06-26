@@ -3811,6 +3811,22 @@ window.i18n.locale_data = {
       "Fields": [
          null,
          "Fälder"
+      ],
+      "Field": [
+         null,
+         "Fäld"
+      ],
+      "Show all fields": [
+         null,
+         "Alli Fälder azeige"
+      ],
+      "Reset visibility of all fields on the item forms": [
+         null,
+         "Alli versteckte Fälder wieder azeige"
+      ],
+      "Hide this field from all item forms": [
+         null,
+         "Das Fäld bim Editiere vo Gägeständ nümme azeige"
       ]
    }
 }

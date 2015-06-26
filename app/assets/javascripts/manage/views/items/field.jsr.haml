@@ -1,14 +1,15 @@
-%div{:class => "{{if ~fieldColor}}{{>~fieldColor}} {{/if}}field row emboss padding-inset-xs margin-vertical-xxs margin-right-xs", :"data-type" => "field", :"data-id" => "{{>~field.id}}", :"data-required" => "{{>~field.required}}", :"data-editable" => "{{>~field.isEditable(~itemData)}}"}
+%div{:class => "{{if ~fieldColor}}{{>~fieldColor}} {{/if}}{{if ~field.hidden}}hidden {{/if}}field row emboss padding-inset-xs margin-vertical-xxs margin-right-xs",
+     data: {type: "field", id:  "{{>~field.id}}", required: "{{>~field.required}}", editable: "{{>~field.isEditable(~itemData)}}"}}
   .row
-    .col1of2.padding-vertical-xs{:"data-type" => "key"}
-      {{if !~field.visibility_dependency_field_id && ~removeable}}
-      %a.font-size-m.link.grey.padding-inset-xs{:"data-type" => 'remove-field'}
+    .col1of2.padding-vertical-xs{data: {type: 'key'}}
+      {{if !~field.visibility_dependency_field_id && (~removeable || (~hideable && !~field.required) )}}
+      %a.font-size-m.link.grey.padding-inset-xs{data: {type: 'remove-field', toggle: 'tooltip', placement: 'top'}, title: "{{jed 'Hide this field from all item forms'/}}"}
         %i.icon-remove-sign
       {{/if}}
       %strong.font-size-m.inline-block
         {{>~field.getLabel()}}
         {{if ~field.required}}*{{/if}}
-    .col1of2{:"data-type" => "value"}
+    .col1of2{data: {type: 'value'}}
       
       {{if (~writeable && !~itemData) || (~writeable && ~field.isEditable(~itemData))}}
 
@@ -16,7 +17,10 @@
 
       {{else}}
 
-      .padding-vertical-xs.font-size-m{:"data-value" => "{{>~field.getValue(~itemData, ~field.attribute)}}"}
+      .padding-vertical-xs.font-size-m{data: {value: "{{>~field.getValue(~itemData, ~field.attribute)}}"}}
         {{include tmpl="manage/views/items/fields/readonly/"+~field.type/}}
 
       {{/if}}
+
+:javascript
+  $('[data-toggle="tooltip"]').tooltip()

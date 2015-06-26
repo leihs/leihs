@@ -2905,3 +2905,15 @@ msgstr "Währig"
 
 msgid "Fields"
 msgstr "Fälder"
+
+msgid "Field"
+msgstr "Fäld"
+
+msgid "Show all fields"
+msgstr "Alli Fälder azeige"
+
+msgid "Reset visibility of all fields on the item forms"
+msgstr "Alli versteckte Fälder wieder azeige"
+
+msgid "Hide this field from all item forms"
+msgstr "Das Fäld bim Editiere vo Gägeständ nümme azeige"

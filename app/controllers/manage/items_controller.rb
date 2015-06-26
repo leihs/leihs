@@ -136,7 +136,7 @@ class Manage::ItemsController < Manage::ApplicationController
 
   def check_fields_for_write_permissions
     Field.all.each do |field|
-      next unless field.permissions
+      next unless field.data['permissions']
       if field.get_value_from_params params[:item]
         unless field.editable current_user, current_inventory_pool, @item
           @item.errors.add(:base, _('You are not the owner of this item')+', '+_('therefore you may not be able to change some of these fields'))

@@ -49,7 +49,7 @@ class Item < ActiveRecord::Base
     # we want remove empty values (and we keep it as HashWithIndifferentAccess)
     self.properties = properties.delete_if { |k, v| v.blank? }
 
-    fields = Field.all.select { |field| [nil, type.downcase].include?(field.target_type) and field.attributes.has_key?(:default) }
+    fields = Field.all.select { |field| [nil, type.downcase].include?(field.data['target_type']) and field.data.has_key?('default') }
     fields.each do |field|
       field.set_default_value(self)
     end
@@ -279,12 +279,12 @@ class Item < ActiveRecord::Base
     # we use select instead of multiple where because we need to keep the sorting
     # we exclude what is already hardcoded before (model_id as product and version)
     fields = Field.all.select do |f|
-      [nil, type.downcase].include?(f.target_type) and not ['model_id'].include?(f.form_name)
-    end.group_by(&:group).values.flatten
+      [nil, type.downcase].include?(f.data['target_type']) and not ['model_id'].include?(f.data['form_name'])
+    end.group_by{|f| f.data['group'] }.values.flatten
 
     h2 = {}
     fields.each do |field|
-      h2[_(field.label)] = field.value(self)
+      h2[_(field.data['label'])] = field.value(self)
     end
     h1.merge! h2
 

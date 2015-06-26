@@ -1,6 +1,6 @@
 Given /^test data setup for =Provision of accessible fields= feature$/ do
   @inventory_pool = FactoryGirl.create :inventory_pool
-  @minimum_field_size = Field.where(permissions: nil).size
+  @minimum_field_size = Field.all.select {|f| f.data['permissions'].nil? }.size
 end
 
 Given /^a user with role (\w+) exists$/ do |manager_role|
@@ -23,7 +23,7 @@ Then /^the amount of the accessible fields (.*) (\w+) can be different$/ do |com
   user_role_level = AccessRight::ROLES_HIERARCHY.index user_role
   unless @accessible_fields.empty?
     @accessible_fields.each {|field|
-      expect(AccessRight::ROLES_HIERARCHY.index(field[:permissions][:role])).to be <= user_role_level if field[:permissions] and field[:permissions][:role]
+      expect(AccessRight::ROLES_HIERARCHY.index(field.data['permissions']['role'])).to be <= user_role_level if field['permissions'] and field['permissions']['role']
     }
   end
 
@@ -48,7 +48,7 @@ end
 
 Then /^each field provides the value of the item's attribute$/ do
   Field.all.each do |field|
-    expected_value = Array(field.attribute).inject(@item) do |r, m|
+    expected_value = Array(field.data['attribute']).inject(@item) do |r, m|
       if r.is_a?(Hash)
         r[m]
       else

@@ -1,1 +1,1 @@
-!= @fields.to_json :current_inventory_pool => current_inventory_pool
+!= @fields.to_json current_inventory_pool: current_inventory_pool, hidden_field_ids: current_user.hidden_fields.pluck(:field_id)

@@ -197,6 +197,11 @@ end
 Given(/^I edit an inventory pool( that is granting automatic access)?$/) do |arg1|
   if arg1
     @current_inventory_pool = @current_user.inventory_pools.managed.where(automatic_access: true).order('RAND()').first
+    @current_inventory_pool ||= begin
+      ip = @current_user.inventory_pools.managed.order('RAND()').first
+      ip.update_attributes(automatic_access: true)
+      ip
+    end
   end
   visit manage_edit_inventory_pool_path(@current_inventory_pool)
   @last_edited_inventory_pool = @current_inventory_pool

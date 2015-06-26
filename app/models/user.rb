@@ -91,6 +91,8 @@ class User < ActiveRecord::Base
     end
   end
 
+  has_many :hidden_fields, dependent: :destroy
+
 ################################################
 
   before_save do
@@ -274,6 +276,7 @@ class User < ActiveRecord::Base
 #################### Start role_requirement
 
   def has_role?(role, inventory_pool = nil)
+    role = role.to_sym
     if role == :admin
       access_rights.active.where(role: role).exists?
     else

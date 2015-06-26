@@ -2871,3 +2871,15 @@ msgstr ""
 
 msgid "Fields"
 msgstr ""
+
+msgid "Field"
+msgstr ""
+
+msgid "Show all fields"
+msgstr ""
+
+msgid "Reset visibility of all fields on the item forms"
+msgstr ""
+
+msgid "Hide this field from all item forms"
+msgstr ""

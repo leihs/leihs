@@ -103,7 +103,7 @@ Then(/^the item has all previously entered values$/) do
     field_name = hash_row['field']
     field_value = hash_row['value']
     field_type = hash_row['type']
-    field = Field.all.detect { |f| _(f.label) == field_name }
+    field = Field.all.detect { |f| _(f.data['label']) == field_name }
     find("[data-type='field'][data-id='#{field.id}']", match: :first)
     matched_field = all("[data-type='field'][data-id='#{field.id}']").last
     expect(matched_field).not_to be_blank
