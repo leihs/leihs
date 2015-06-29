@@ -28,7 +28,11 @@ class Admin::FieldsController < Admin::ApplicationController
     params[:fields].each_pair do |field_id, param|
       i += 1
       field = Field.unscoped.find(field_id)
-      data = JSON.parse(param[:data]) # TODO validate parsed json
+      begin
+        data = JSON.parse(param[:data])
+      rescue
+        redirect_to :back, flash: {error: _("Invalid JSON structure")} and return
+      end
       return unless check_attribute(data['attribute'], item)
       field.update_attributes(data: data, active: param[:active] == "1", position: i)
     end
@@ -36,7 +40,11 @@ class Admin::FieldsController < Admin::ApplicationController
     new_fields.each do |param|
       Field.create do |r|
         r.id = param[:id]
-        r.data = JSON.parse(param[:data]) # TODO validate parsed json
+        begin
+          r.data = JSON.parse(param[:data])
+        rescue
+          redirect_to :back, flash: {error: _("Invalid JSON structure")} and return
+        end
         return unless check_attribute(r.data['attribute'], item)
         r.active = param[:active] == "1"
         r.position = i
