@@ -4,7 +4,13 @@
 
 leihs is a web-based system to manage the circulation of items within an 
 organization or institution. In our case, we use it to keep track of who uses 
-our cameras, lighting equipment, speakers, microphones etc. 
+our cameras, lighting equipment, speakers, microphones etc.
+
+## Potential corruption of data in older leihs versions
+
+There is a potential corruption of pricing data in leihs between versions 
+3.13.0 and 3.29.0. If you have been running one of those versions for any 
+length of time, please [read our advisory](http://blog.zhdk.ch/leihs/2015/06/30/potential-corruption-of-some-pricing-data-in-leihs-versions-between-3-13-0-and-3-29-0/).
 
 
 ## Live demo
