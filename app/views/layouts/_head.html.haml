@@ -16,7 +16,7 @@
 = yield :head
 
 - if Rails.env.test? or (Rails.env.development? and ENV['TEST_DATETIME'])
-  = javascript_include_tag "timecop/timecop"
+  = javascript_include_tag "timecop/timecop-0.1.1"
   :javascript
     Timecop.install();
     Timecop.travel(new Date("#{Time.now.iso8601}"));

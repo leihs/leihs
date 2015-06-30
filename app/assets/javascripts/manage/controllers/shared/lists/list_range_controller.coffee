@@ -25,9 +25,11 @@ class window.App.ListRangeController extends Spine.Controller
     data.end_date = @getEndDate().format("YYYY-MM-DD") if @getEndDate()?
     return data
 
-  getStartDate: => moment(@startDate.val(), i18n.date.XS)
+  getStartDate: =>
+    moment(@startDate.val(), i18n.date.XS) unless @startDate.val() == ""
 
-  getEndDate: => moment(@endDate.val(), i18n.date.XS)
+  getEndDate: =>
+    moment(@endDate.val(), i18n.date.XS) unless @endDate.val() == ""
 
   changedStartDate: => do @reset
 

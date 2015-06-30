@@ -8,6 +8,7 @@ gem 'audited-activerecord', git: 'https://github.com/sellittf/audited.git' #, '~
 gem 'barby', '~> 0.5.0'
 gem 'better_errors', group: :development
 gem 'binding_of_caller', group: :development
+gem "bower-rails", "~> 0.9" # $ rails g bower_rails:initialize
 gem 'capistrano', '2.15.5', group: :development
 gem 'capistrano-ext', group: :development
 gem 'capistrano-rbenv', '~> 1.0', group: :development
@@ -31,7 +32,6 @@ gem 'haml', '~> 4.0'
 gem 'haml_assets', '~> 0.2'
 gem 'haml-lint', group: [:test, :development]
 gem 'i18n', '0.6.11'
-gem 'jquery-rails', '~> 3.1'
 gem 'jquery-tmpl-rails', '~> 1.1'
 gem 'jquery-ui-rails', '~> 5.0'
 gem 'jruby-openssl', platform: :jruby

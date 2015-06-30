@@ -6,6 +6,9 @@
 ##### VENDOR
 #
 #= require jqBarGraph/jqBarGraph.1.2
+#
+##### BOWER COMPONENTS
+#
 #= require jquery-autosize/jquery.autosize
 #
 ##### APP

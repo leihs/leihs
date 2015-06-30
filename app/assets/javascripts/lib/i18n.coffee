@@ -54,7 +54,7 @@ jQuery ()->
       decimal: i18n.number.decimal
       thousand: i18n.number.thousand
     
-  moment.lang "default",
+  moment.locale "default",
     months : i18n.months.full
     monthsShort : i18n.months.trunc
     weekdays : i18n.days.full

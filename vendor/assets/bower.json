@@ -1,0 +1,14 @@
+{
+  "name": "dsl-generated dependencies",
+  "dependencies": {
+    "accounting.js": "~0.4",
+    "fullcalendar": "~1.5",
+    "jquery": "~1.11",
+    "jquery-ujs": "~1.0",
+    "jquery-autosize": "~1.18",
+    "jquery.inview": "~1.0",
+    "moment": "~2.10",
+    "timecop": "~0.1",
+    "uri.js": "~1.8"
+  }
+}

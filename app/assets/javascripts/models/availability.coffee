@@ -62,7 +62,7 @@ class window.App.Availability extends Spine.Model
       if availableQuantity < quantity
         nextChange = changes[i+1]
         rangeStartDate = if moment(change[0]).diff(moment(startDate), "days") > 0 then change[0] else startDate
-        rangeEndDate = if nextChange? then moment(nextChange[0]).subtract("days", 1) else endDate
+        rangeEndDate = if nextChange? then moment(nextChange[0]).subtract(1, "days") else endDate
         unavailableRanges.push
           startDate: moment(rangeStartDate).toDate()
           endDate: moment(rangeEndDate).toDate()

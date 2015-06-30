@@ -1,0 +1,11 @@
+group :vendor do
+  asset 'accounting.js', '~0.4'
+  asset 'fullcalendar', '~1.5'
+  asset 'jquery', '~1.11'
+  asset "jquery-ujs", "~1.0"
+  asset 'jquery-autosize', '~1.18'
+  asset 'jquery.inview', '~1.0'
+  asset 'moment', '~2.10'
+  asset 'timecop', '~0.1'
+  asset 'uri.js', '~1.8'
+end

@@ -25,11 +25,11 @@ class window.App.ModelsIndexPeriodController extends Spine.Controller
       minDate: moment().toDate()
     @startDate.preChange()
 
-  selectStartDate: (date)=>
-    date = moment(@startDate.val(), i18n.date.L) unless moment(date).isValid()
+  selectStartDate: ()=>
+    date = moment(@startDate.val(), i18n.date.L)
     return false unless moment(date).isValid()
-    if not @endDate.val()? or not @endDate.val().length or moment(date, i18n.date.L).diff(moment(@endDate.val(), i18n.date.L), "days") >= 0
-      @endDate.val(moment(date, i18n.date.L).add("days", 1).format(i18n.date.L))
+    if not @endDate.val()? or not @endDate.val().length or date.diff(moment(@endDate.val(), i18n.date.L), "days") >= 0
+      @endDate.val(date.add(1, "days").format(i18n.date.L))
     @endDate.datepicker "option", "minDate", moment(date, i18n.date.L).toDate()
     @startDate.trigger "change"
     do @onChange
@@ -40,11 +40,11 @@ class window.App.ModelsIndexPeriodController extends Spine.Controller
       minDate: moment().toDate()
     @endDate.preChange()
 
-  selectEndDate: (date)=>
-    date = moment(@endDate.val(), i18n.date.L) unless moment(date).isValid()
+  selectEndDate: ()=>
+    date = moment(@endDate.val(), i18n.date.L)
     return false unless moment(date).isValid()
     if not @startDate.val()? or not @startDate.val().length
-      @startDate.val(moment(date, i18n.date.L).subtract("days", 1).format(i18n.date.L))
+      @startDate.val(date.subtract(1, "days").format(i18n.date.L))
     @endDate.trigger "change"
     do @onChange
 

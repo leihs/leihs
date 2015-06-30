@@ -65,10 +65,10 @@ class BookingCalendar
           @resetDate el
 
   increaseDate: (el)=>
-    el.val(moment(el.val(), df).add("days", 1).format(df)).change()
+    el.val(moment(el.val(), df).add(1, "days").format(df)).change()
 
   decreaseDate: (el)=>
-    el.val(moment(el.val(), df).subtract("days", 1).format(df)).change()
+    el.val(moment(el.val(), df).subtract(1, "days").format(df)).change()
 
   validateDate: (date_el)=>
     if date_el.val().length and moment(date_el.val(), df).format(df) is date_el.val() and moment(date_el.val(), df).year() < 9999

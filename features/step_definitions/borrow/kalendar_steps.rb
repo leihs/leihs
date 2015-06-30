@@ -400,27 +400,31 @@ end
 
 #Angenommen(/^man die Geräteparks begrenzt$/) do
 Given(/^I reduce the selected inventory pools$/) do
-  inventory_pool_ids = find('#ip-selector').all('.dropdown-item[data-id]', visible: false).map{|i| i[:"data-id"]}
-  find('#ip-selector').click
-  find(:xpath, "(//*[@id='ip-selector']//input)[1]", visible: true).click
+  el = find('#ip-selector')
+  inventory_pool_ids = el.all('.dropdown-item[data-id]', visible: false).map{|i| i[:"data-id"]}
+  el.click
+  el.find("input[type='checkbox']", match: :first).click
   inventory_pool_ids.shift
   @inventory_pools = inventory_pool_ids.map{|id| InventoryPool.find id}
 end
 
 #Angenommen(/^man ein Modell welches über alle Geräteparks der begrenzten Liste beziehbar ist zur Bestellung hinzufügt$/) do
 Given(/^I add a model to the order that is available across all the still remaining inventory pools$/) do
-  expect(has_selector?('.line[data-id]', visible: true)).to be true
-  all('.line[data-id]').each do |line|
-    model = Model.find line['data-id']
-    if @inventory_pools.all?{|ip| ip.models.include?(model)}
-      @model = model
+  within "#model-list" do
+    expect(has_selector?('.line[data-id]', visible: true)).to be true
+    all('.line[data-id]').each do |line|
+      next if line['data-id'].blank?
+      model = Model.find line['data-id']
+      if @inventory_pools.all?{|ip| ip.models.include?(model)}
+        @model = model
+      end
     end
+    expect(@model).not_to be_nil
+    find(:xpath, "(//*[@id='ip-selector']//input)[2]", visible: true).click
+    expect(has_selector?('.line[data-id]', visible: true)).to be true
+    @inventory_pools.shift
+    find(".line[data-id='#{@model.id}'] *[data-create-order-line]").click
   end
-  expect(@model).not_to be_nil
-  find(:xpath, "(//*[@id='ip-selector']//input)[2]", visible: true).click
-  expect(has_selector?('.line[data-id]', visible: true)).to be true
-  @inventory_pools.shift
-  find(".line[data-id='#{@model.id}'] *[data-create-order-line]").click
 end
 
 #Dann(/^es wird der alphabetisch erste Gerätepark ausgewählt der teil der begrenzten Geräteparks ist$/) do
