@@ -45,3 +45,16 @@ Feature: Sign Contract
     And I select an item without assigning an inventory code
     And I click hand over
     Then I got an error that i have to assign all selected item reservations
+
+  @javascript @personas @browser
+  Scenario: Model with accessories
+    Given I open a hand over which has model with accessories
+    Then I see the listed accessories for that model
+    When I assign an inventory code to the item line
+    And I click hand over
+    Then I see a summary of the things I selected for hand over
+    When I click hand over inside the dialog
+    Then the contract is signed for the selected items
+    Then I see the listed accessories for that model within the contract
+    When I open a take back for this user
+    Then I see the listed accessories for that model

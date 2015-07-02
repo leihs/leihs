@@ -69,6 +69,9 @@
     for license in #{@licenses.to_json}
       App.License.addRecord new App.License license
 
+    for accessory in #{@models.flat_map(&:accessories).uniq.to_json}
+      App.Accessory.addRecord new App.Accessory accessory
+
     new App.HandOverController
       el: "#hand-over-view"
       user: App.User.find(#{@user.id})

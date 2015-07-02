@@ -13,6 +13,10 @@
 
   .col4of10.line-col.text-align-left
     %strong {{>model().name()}}
+    {{if model().accessories().all().length}}
+    %br
+    %span {{>model().accessory_names()}}
+    {{/if}}
 
   .col1of10.line-col.text-align-center
     {{if purpose_id}}

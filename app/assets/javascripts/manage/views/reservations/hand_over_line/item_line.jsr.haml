@@ -18,6 +18,10 @@
 
   .col4of10.line-col.text-align-left
     %strong {{>model().name()}}
+    {{if model().accessories().all().length}}
+    %br
+    %span {{>model().accessory_names()}}
+    {{/if}}
     {{if model().hand_over_note}}
     %br
     %span.grey-text {{>model().hand_over_note}}

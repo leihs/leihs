@@ -63,6 +63,9 @@
     for reservation in #{@reservations.to_json}
       App.Reservation.addRecord new App.Reservation reservation
 
+    for accessory in #{@models.flat_map(&:accessories).uniq.to_json}
+      App.Accessory.addRecord new App.Accessory accessory
+
     new App.TakeBackController
       el: "#take-back-view"
       user: App.User.find(#{@user.id})

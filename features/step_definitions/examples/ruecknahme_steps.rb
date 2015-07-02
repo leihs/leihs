@@ -13,6 +13,7 @@ end
 
 #Wenn(/^man die Rücknahmenansicht für den Benutzer öffnet|ich öffne die Rücknahmeansicht für diesen Benutzer$/) do
 When(/^I open a take back for this user$/) do
+  @user ||= @customer
   visit manage_take_back_path(@current_inventory_pool, @user)
 end
 

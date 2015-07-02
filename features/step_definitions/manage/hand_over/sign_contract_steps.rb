@@ -79,7 +79,34 @@ When(/^I open a hand over with overdue reservations$/) do
   step 'I open a hand over for this customer'
 end
 
+When(/^I open a hand over which has model with accessories$/) do
+  @item_line = @current_inventory_pool.item_lines.approved.detect {|il| il.model.accessories.exists? and il.available? }
+  expect(@item_line).not_to be_nil
+  @customer = @item_line.user
+  expect(@customer).not_to be_nil
+  step 'I open a hand over for this customer'
+end
 
+Then(/^I see the listed accessories for that model( within the contract)?$/) do |arg1|
+  @item_line.reload
+  if arg1
+    new_window = page.driver.browser.window_handles.last
+    page.driver.browser.switch_to.window new_window
+    within '.contract' do
+      within('section.list tr', text: @item_line.item.inventory_code) do
+        @item_line.model.accessories.each do |accessory|
+          find('.model_name', text: accessory.name)
+        end
+      end
+    end
+  else
+    within(".line[data-line-type='item_line'][data-id='#{@item_line.id}']") do
+      @item_line.model.accessories.each do |accessory|
+        find('.col4of10', text: accessory.name)
+      end
+    end
+  end
+end
 
 When(/^I select (an item|a license) line and assign an inventory code$/) do |arg1|
   @models_in_stock = @current_inventory_pool.items.in_stock.map(&:model).uniq
