@@ -229,7 +229,7 @@ Given /^I edit an item through the inventory helper using an inventory code$/ do
   step 'I go to the inventory helper screen'
   step 'I choose the fields from a list or by name'
   step 'I set their initial values'
-  step 'scanne oder gebe ich den Inventarcode ein, wo man Besitzer ist'
+  step 'I scan or enter the inventory code of an item belonging to the current inventory pool'
   step 'I see all the values of the item in an overview with model name and the modified values are already saved'
   step 'the changed values are highlighted'
 end

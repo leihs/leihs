@@ -91,6 +91,10 @@ Then(/^I see for each category its image, or if not set, the first image of a mo
   end
 end
 
+Given(/^there exists a main category$/) do
+  @main_category = Category.roots.order('RAND()').first
+end
+
 Given(/^there exists a main category with own image$/) do
   (@current_user.all_categories & Category.roots).find do |c|
     expect(c.images.exists?).not_to be_nil
@@ -101,4 +105,14 @@ Given(/^there exists a main category without own image but with a model with ima
   expect((@current_user.all_categories & Category.roots).find do |c|
     not c.images.exists? and c.all_models.detect{|m| not m.image.blank? }
   end).not_to be_nil
+end
+
+Then(/^this category can have children categories$/) do
+  child_category = Category.where.not(id: @main_category).order('RAND()').detect {|c| not @main_category.children.include? c }
+  @main_category.children << child_category
+  expect(@main_category.reload.children.include? child_category).to be true
+end
+
+Then(/^this category is not child of another category$/) do
+  expect(@main_category.parents).to be_empty
 end
