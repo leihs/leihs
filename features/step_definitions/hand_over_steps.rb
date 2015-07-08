@@ -15,23 +15,23 @@ When '$who approves the order' do | who |
 end
 
 # OPTIMIZE 0402
-When "$who clicks on 'hand_over'" do | who |
-  get send('backend_inventory_pool_hand_over_index_path', @inventory_pool)
-  @visits = assigns(:visits)
-  response.should render_template('backend/hand_over/index')
-end
+# When "$who clicks on 'hand_over'" do | who |
+#   get send('backend_inventory_pool_hand_over_index_path', @inventory_pool)
+#   @visits = assigns(:visits)
+#   response.should render_template('backend/hand_over/index')
+# end
 
-When 'he tries to hand over an item to a customer' do
-  get manage_hand_over_path(@inventory_pool, @user)
-  
-  @contract = assigns(:contract)
-  expect(@contract.reservations.size).to eq 0
-  
-  post add_line_backend_inventory_pool_user_hand_over_path(@inventory_pool, @user, model_id: Model.first.id, quantity: 1)
-                             
-  @contract = assigns(:contract)
-  expect(@contract.reservations.size).to eq 1
-end
+# When 'he tries to hand over an item to a customer' do
+#   get manage_hand_over_path(@inventory_pool, @user)
+#
+#   @contract = assigns(:contract)
+#   expect(@contract.reservations.size).to eq 0
+#
+#   post add_line_backend_inventory_pool_user_hand_over_path(@inventory_pool, @user, model_id: Model.first.id, quantity: 1)
+#
+#   @contract = assigns(:contract)
+#   expect(@contract.reservations.size).to eq 1
+# end
 
 
 Then /he sees ([0-9]+) line(s?) with a total quantity of ([0-9]+)$/ do |total, s, quantity |
@@ -79,17 +79,17 @@ When "$who assigns '$item' to line $number" do | who, item, number |
   step "#{who} should not see a flash error"
 end
 
-When "$who tries to assign '$item' to line $number" do | who, item, number |
-  post change_line_backend_inventory_pool_user_hand_over_path(
-	 @inventory_pool, @visit.user,
-         reservation_id: @contract.reservations[number.to_i].id, code: item )
-  @flash = flash
-end
+# When "$who tries to assign '$item' to line $number" do | who, item, number |
+#   post change_line_backend_inventory_pool_user_hand_over_path(
+# 	 @inventory_pool, @visit.user,
+#          reservation_id: @contract.reservations[number.to_i].id, code: item )
+#   @flash = flash
+# end
 
-When 'he signs the contract' do
-  post sign_contract_backend_inventory_pool_user_hand_over_path(
-	 @inventory_pool, @visit.user, reservations: [@contract.reservations.first.id] )
-end
+# When 'he signs the contract' do
+#   post sign_contract_backend_inventory_pool_user_hand_over_path(
+# 	 @inventory_pool, @visit.user, reservations: [@contract.reservations.first.id] )
+# end
 
 Then 'a new contract is generated' do
   expect(@contract.nil?).to be false

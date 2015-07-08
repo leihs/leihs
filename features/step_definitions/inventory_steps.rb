@@ -138,9 +138,9 @@ Given 'we have items with the following inventory_codes:' do |inventory_codes_ta
   end
 end
 
-When 'the lending_manager creates a new package' do
-  post_via_redirect update_package_backend_inventory_pool_models_path(@inventory_pool, model: { name: 'Crappodile' })
-end
+# When 'the lending_manager creates a new package' do
+#   post_via_redirect update_package_backend_inventory_pool_models_path(@inventory_pool, model: { name: 'Crappodile' })
+# end
 
 Then "we need to fix the algorithm again so subsequent tests won't fail" do
   Item.class_eval do

@@ -64,6 +64,7 @@ gem 'rubocop', require: false
 gem 'sass-rails', '~> 4.0'
 gem 'selenium-webdriver', group: [:test, :development]
 gem 'simplecov', require: false, group: :test
+gem 'traceroute', group: :development
 gem 'therubyracer', platform: :mri
 gem 'therubyrhino', platform: :jruby
 gem 'thin', group: :development, platform: :mri # web server (Webrick do not support keep-alive connections)

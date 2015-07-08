@@ -109,14 +109,14 @@ Then 'the maximum available quantity from $start_date to $end_date is $quantity'
   expect(@model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(start_date, end_date, @user.group_ids)).to eq quantity.to_i
 end
 
-When "I check the availability changes for '$model'" do |model|
-  @model = Model.find_by_name(model)
-  # we have a look at the model on purpose, since in the pass this
-  # could fail - see 5bd28c92d157220a07dff1ba9a7f43b1fac3f5fd and its fix
-  #                  2f160defb39c94d489b0115653be5da4c10519c1
-  visit "/manage/#{@inventory_pool.id}/models/#{@model.id}"
-  visit groups_backend_inventory_pool_model_path(@inventory_pool,@model)
-end
+# When "I check the availability changes for '$model'" do |model|
+#   @model = Model.find_by_name(model)
+#   # we have a look at the model on purpose, since in the pass this
+#   # could fail - see 5bd28c92d157220a07dff1ba9a7f43b1fac3f5fd and its fix
+#   #                  2f160defb39c94d489b0115653be5da4c10519c1
+#   visit "/manage/#{@inventory_pool.id}/models/#{@model.id}"
+#   visit groups_backend_inventory_pool_model_path(@inventory_pool,@model)
+# end
 
 Then "$number reservation should show an influence on today's borrowability" do |number|
   today = I18n.l Date.today

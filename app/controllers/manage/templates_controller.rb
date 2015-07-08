@@ -57,17 +57,5 @@ class Manage::TemplatesController < Manage::ApplicationController
       end
     end
   end
-  
-#################################################################
 
-  def models
-    
-  end
-  
-  def add_model(model_link = params[:model_link])
-    @model = current_inventory_pool.models.find(model_link[:model_id])
-    @template.model_links.create(model: @model, quantity: model_link[:quantity])
-    redirect_to action: 'models'
-  end
-  
 end

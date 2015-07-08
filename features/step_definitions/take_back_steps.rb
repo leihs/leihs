@@ -16,12 +16,12 @@
 # end
 
 # copied from hand_over_steps
-When "$who clicks on 'take_back'" do | who |
-  get send('backend_inventory_pool_take_back_path', @inventory_pool)
-  @visits = assigns(:visits)
-  response.should render_template('backend/take_back/index')
-  @contract = assigns(:contract)
-end
+# When "$who clicks on 'take_back'" do | who |
+#   get send('backend_inventory_pool_take_back_path', @inventory_pool)
+#   @visits = assigns(:visits)
+#   response.should render_template('backend/take_back/index')
+#   @contract = assigns(:contract)
+# end
 
 When "$manager chooses to take back $customer's entry" do | manager, customer |
   @user = User.find_by_login( customer )
@@ -29,13 +29,13 @@ When "$manager chooses to take back $customer's entry" do | manager, customer |
   @reservations = assigns(:reservations)
 end
 
-When '$who selects all reservations and takes the items back' do | who |
-  post close_contract_backend_inventory_pool_user_take_back_path(
-	 @inventory_pool, @user,
-         reservations: @reservations.map { |cl| cl.id } )
-  @response = response
-  @flash = flash
-end
+# When '$who selects all reservations and takes the items back' do | who |
+#   post close_contract_backend_inventory_pool_user_take_back_path(
+# 	 @inventory_pool, @user,
+#          reservations: @reservations.map { |cl| cl.id } )
+#   @response = response
+#   @flash = flash
+# end
 
 Then "$who's contract should be closed" do |who|
   user = User.find_by_login( who )

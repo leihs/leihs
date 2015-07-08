@@ -59,16 +59,16 @@ When '$who try to order an item for $date' do |who, date|
 end
 
 # OPTIMIZE 0402
-When "$who clicks '$action'" do |who, action|
-  @inventory_pool, inv_manager, @user, model = LeihsFactory.create_dataset_simple
-  
-  #Login as User
-  post login_path(login: inv_manager.login)
-  get backend_inventory_pool_hand_over_index_path(@inventory_pool) if action == 'hand over'
-  get backend_inventory_pool_workdays_path(@inventory_pool) if action == 'Opening Times'
-
-  #old??# @workday = assigns(:workday)
-end
+# When "$who clicks '$action'" do |who, action|
+#   @inventory_pool, inv_manager, @user, model = LeihsFactory.create_dataset_simple
+#
+#   #Login as User
+#   post login_path(login: inv_manager.login)
+#   get backend_inventory_pool_hand_over_index_path(@inventory_pool) if action == 'hand over'
+#   get backend_inventory_pool_workdays_path(@inventory_pool) if action == 'Opening Times'
+#
+#   #old??# @workday = assigns(:workday)
+# end
 
 Then 'that should be possible$reason' do |reason|
   expect(@contract.reservations.size).to eq 1
@@ -104,14 +104,14 @@ Then 'he sees that his inventory pool is currently open on $days' do |days|
   end
 end
 
-When 'he deselects the following day$s: $days' do |s,days|
-  days.split(',').each do |day|
-    get close_backend_inventory_pool_workdays_path(@inventory_pool, day: day.strip)
-  end
-end
+# When 'he deselects the following day$s: $days' do |s,days|
+#   days.split(',').each do |day|
+#     get close_backend_inventory_pool_workdays_path(@inventory_pool, day: day.strip)
+#   end
+# end
 
-When 'he selects the following day$s: $days' do |s,days|
-  days.split(',').each do |day|
-    get open_backend_inventory_pool_workdays_path(@inventory_pool, day: day.strip)
-  end
-end
+# When 'he selects the following day$s: $days' do |s,days|
+#   days.split(',').each do |day|
+#     get open_backend_inventory_pool_workdays_path(@inventory_pool, day: day.strip)
+#   end
+# end

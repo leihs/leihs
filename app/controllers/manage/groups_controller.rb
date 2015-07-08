@@ -58,18 +58,6 @@ class Manage::GroupsController < Manage::ApplicationController
 
 #################################################################
 
-  def users 
-  end
-  
-  def add_user(user = params[:user])
-    @user = current_inventory_pool.users.find(user[:user_id])
-    unless @group.users.include? @user
-      @group.users << @user
-      @group.save!
-    end
-    redirect_to action: 'users'
-  end
-
   private ####
 
   def update_users(group, users)

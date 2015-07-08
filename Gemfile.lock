@@ -422,6 +422,8 @@ GEM
     thread_safe (0.3.5)
     tilt (1.4.1)
     timecop (0.7.3)
+    traceroute (0.5.0)
+      rails (>= 3.0.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -518,6 +520,7 @@ DEPENDENCIES
   therubyrhino
   thin
   timecop (~> 0.7)
+  traceroute
   trinidad
   uglifier (~> 2.4)
   underscore-rails (~> 1.7)
@@ -525,4 +528,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   1.10.4
+   1.10.5
