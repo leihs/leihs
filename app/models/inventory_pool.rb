@@ -282,6 +282,10 @@ class InventoryPool < ActiveRecord::Base
               i.location = Location.find_or_create(building_id: building_id, room: room)
             end
             i.properties[:anschaffungskategorie] = row["properties_anschaffungskategorie"] unless row["properties_anschaffungskategorie"].blank?
+            unless row["properties_project_number"].blank?
+              i.properties[:reference] = 'investment'
+              i.properties[:project_number] = row["properties_project_number"]
+            end
           end
 
           item.valid?
