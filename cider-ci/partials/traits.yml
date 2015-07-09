@@ -1,8 +1,0 @@
----
-firefox: true
-linux: true
-mysql: true
-phantomjs: true
-rbenv: true
-ruby: true
-tightvnc: true
