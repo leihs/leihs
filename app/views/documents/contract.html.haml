@@ -40,9 +40,9 @@
                 - if line.model.is_a? Software
                   %br
                   = line.item.serial_number
-                - if line.model.is_a?(Model) and line.model.accessories.exists?
+                - if line.model.is_a?(Model) and not (accessories = line.model.accessories.active_in(current_inventory_pool)).blank?
                   %ul
-                    - line.model.accessories.each do |accessory|
+                    - accessories.each do |accessory|
                       %li= accessory
               %td.end_date= l line.end_date
               %td.returning_date
@@ -70,9 +70,9 @@
                 - if line.model.is_a? Software
                   %br
                   = line.item.serial_number
-                - if line.model.is_a?(Model) and line.model.accessories.exists?
+                - if line.model.is_a?(Model) and not (accessories = line.model.accessories.active_in(current_inventory_pool)).blank?
                   %ul
-                    - line.model.accessories.each do |accessory|
+                    - accessories.each do |accessory|
                       %li= accessory
               %td.end_date= l line.end_date
               %td.returning_date

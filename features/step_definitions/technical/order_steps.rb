@@ -201,7 +201,7 @@ Then /^the amount of reservations remains unchanged$/ do
 end
 
 Given /^required test data for contract tests existing$/ do
-  @inventory_pool = InventoryPool.all.shuffle.detect {|ip| ip.users.customers.exists? and ip.reservations.unsubmitted.exists? and ip.reservations.submitted.exists? }
+  @inventory_pool = InventoryPool.order('RAND()').detect {|ip| ip.users.customers.exists? and ip.reservations.unsubmitted.exists? and ip.reservations.submitted.exists? }
   @model_with_items = @inventory_pool.items.sample.model
 end
 

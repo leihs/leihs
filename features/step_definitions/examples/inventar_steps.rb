@@ -572,10 +572,10 @@ end
 When /^I edit a model that exists, is in use and already has( activated)? accessories$/ do |arg1|
   @model = @current_inventory_pool.models.to_a.detect do |m|
     if arg1
-      m.accessories.exists? and m.accessories.any? { |a| a.inventory_pools.include? @current_inventory_pool }
+      m.accessories.active_in(@current_inventory_pool)
     else
-      m.accessories.exists?
-    end
+      m.accessories
+    end.exists?
   end
   visit manage_edit_model_path(@current_inventory_pool, @model)
 end
@@ -656,7 +656,7 @@ end
 
 #Dann /^kann ich ein einzelnes Zubehör für meinen Pool deaktivieren$/ do
 Then /^I can deactivate an accessory for my pool$/ do
-  accessory_to_deactivate = @model.accessories.detect { |x| x.inventory_pools.where(id: @current_inventory_pool.id).first }
+  accessory_to_deactivate = @model.accessories.active_in(@current_inventory_pool).sample
   within('.row.emboss', match: :prefer_exact, text: _('Accessories')) do
     find('.list-of-lines .line', text: accessory_to_deactivate.name).find('input').click
   end

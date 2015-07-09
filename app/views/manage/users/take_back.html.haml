@@ -51,7 +51,7 @@
     for contract in #{@contracts.to_json}
       App.Contract.addRecord new App.Contract contract
 
-    for model in #{@models.to_json}
+    for model in #{@models.as_json(accessories_for_ip: current_inventory_pool).to_json}
       App.Model.addRecord new App.Model model
 
     for option in #{@options.to_json}
@@ -62,9 +62,6 @@
 
     for reservation in #{@reservations.to_json}
       App.Reservation.addRecord new App.Reservation reservation
-
-    for accessory in #{@models.flat_map(&:accessories).uniq.to_json}
-      App.Accessory.addRecord new App.Accessory accessory
 
     new App.TakeBackController
       el: "#take-back-view"

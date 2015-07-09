@@ -13,9 +13,9 @@
 
   .col4of10.line-col.text-align-left
     %strong {{>model().name()}}
-    {{if model().accessories().all().length}}
+    {{if model().accessory_names && model().accessory_names.length}}
     %br
-    %span {{>model().accessory_names()}}
+    %span {{>model().accessory_names}}
     {{/if}}
 
   .col1of10.line-col.text-align-center

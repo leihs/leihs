@@ -30,4 +30,7 @@ class Accessory < ActiveRecord::Base
     name
   end
 
+  def active_in?(inventory_pool)
+    inventory_pools.include? inventory_pool
+  end
 end

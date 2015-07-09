@@ -59,7 +59,11 @@ class Model < ActiveRecord::Base
   has_many :properties, dependent: :destroy
   accepts_nested_attributes_for :properties, allow_destroy: true
 
-  has_many :accessories, dependent: :destroy
+  has_many :accessories, dependent: :destroy do
+    def active_in(inventory_pool)
+      joins(:inventory_pools).where(inventory_pools: {id: inventory_pool})
+    end
+  end
   accepts_nested_attributes_for :accessories, allow_destroy: true
 
   has_many :images, as: :target, dependent: :destroy
@@ -287,6 +291,13 @@ class Model < ActiveRecord::Base
       inventory_pools.to_a.sum { |ip| ip.partitions_with_generals.hash_for_model_and_groups(self, groups).values.sum }
     end
   end
+
+  def as_json_with_arguments(accessories_for_ip: nil, **options)
+    h = as_json_without_arguments(options)
+    h['accessory_names'] = accessories.active_in(accessories_for_ip).map(&:name).join(', ') if accessories_for_ip
+    h
+  end
+  alias_method_chain :as_json, :arguments
 
 end
 

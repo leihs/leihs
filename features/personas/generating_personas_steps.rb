@@ -467,9 +467,9 @@ end
 Given(/^each of the models has from (\d+) to (\d+) accessories possibly activated for the inventory pool "(.*?)"$/) do |lower_border, upper_border, ip_name|
   ip = InventoryPool.find_by_name ip_name
   Model.all.each do |model|
-    rand(lower_border.to_i..upper_border.to_i).times do
+    rand(lower_border.to_i..upper_border.to_i).times do |i|
       accessory = FactoryGirl.create :accessory, model: model
-      ip.accessories << accessory if rand() > 0.5
+      ip.accessories << accessory if i < 2 or rand() > 0.5
     end
   end
 end

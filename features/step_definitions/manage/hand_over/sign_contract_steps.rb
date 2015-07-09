@@ -79,15 +79,32 @@ When(/^I open a hand over with overdue reservations$/) do
   step 'I open a hand over for this customer'
 end
 
-When(/^I open a hand over which has model with accessories$/) do
-  @item_line = @current_inventory_pool.item_lines.approved.detect {|il| il.model.accessories.exists? and il.available? }
+Given(/^I open a hand over which has model which not all accessories are activated for this inventory pool$/) do
+  @item_line = @current_inventory_pool.item_lines.approved.detect {|il| il.model.accessories.active_in(@current_inventory_pool).count > 1 and il.available? }
   expect(@item_line).not_to be_nil
   @customer = @item_line.user
   expect(@customer).not_to be_nil
+
+  accessory = nil
+  if @item_line.model.accessories.all? {|a| a.inventory_pools.include? @current_inventory_pool }
+    accessory = @item_line.model.accessories.sample
+    accessory.inventory_pools.delete @current_inventory_pool
+  end
+  expect(@item_line.model.accessories.all?{|a| a.active_in? @current_inventory_pool }).to be false
+  expect(@item_line.model.accessories.any?{|a| a.active_in? @current_inventory_pool }).to be true
+  expect(accessory.active_in? @current_inventory_pool).to be false if accessory
+
   step 'I open a hand over for this customer'
 end
 
-Then(/^I see the listed accessories for that model( within the contract)?$/) do |arg1|
+When(/^I add the same model$/) do
+  hand_over_assign_or_add @item_line.model.to_s
+
+  @item_line = @current_inventory_pool.item_lines.approved.where(item_id: nil, user_id: @customer).order("created_at DESC").first
+  expect(@item_line).not_to be_nil
+end
+
+Then(/^I see only the active accessories for that model( within the contract)?$/) do |arg1|
   @item_line.reload
   if arg1
     new_window = page.driver.browser.window_handles.last
@@ -95,14 +112,22 @@ Then(/^I see the listed accessories for that model( within the contract)?$/) do 
     within '.contract' do
       within('section.list tr', text: @item_line.item.inventory_code) do
         @item_line.model.accessories.each do |accessory|
-          find('.model_name', text: accessory.name)
+          if accessory.active_in?(@current_inventory_pool)
+            find('.model_name', text: accessory.name)
+          else
+            expect(has_no_selector?('.model_name', text: accessory.name)).to be true
+          end
         end
       end
     end
   else
     within(".line[data-line-type='item_line'][data-id='#{@item_line.id}']") do
       @item_line.model.accessories.each do |accessory|
-        find('.col4of10', text: accessory.name)
+        if accessory.active_in?(@current_inventory_pool)
+          find('.col4of10', text: accessory.name)
+        else
+          expect(has_no_selector?('.col4of10', text: accessory.name)).to be true
+        end
       end
     end
   end

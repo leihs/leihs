@@ -48,13 +48,20 @@ Feature: Sign Contract
 
   @javascript @personas @browser
   Scenario: Model with accessories
-    Given I open a hand over which has model with accessories
-    Then I see the listed accessories for that model
+    Given I open a hand over which has model which not all accessories are activated for this inventory pool
+    Then I see only the active accessories for that model
     When I assign an inventory code to the item line
     And I click hand over
-    Then I see a summary of the things I selected for hand over
     When I click hand over inside the dialog
     Then the contract is signed for the selected items
-    Then I see the listed accessories for that model within the contract
+    Then I see only the active accessories for that model within the contract
     When I open a take back for this user
-    Then I see the listed accessories for that model
+    Then I see only the active accessories for that model
+
+  @javascript @personas @browser
+  Scenario: Add model with accessories
+    Given I open a hand over which has model which not all accessories are activated for this inventory pool
+    Then I see only the active accessories for that model
+    When I assign an inventory code to the item line
+    When I add the same model
+    Then I see only the active accessories for that model

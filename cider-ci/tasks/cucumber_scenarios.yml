@@ -806,6 +806,11 @@ tasks:
     cucumber:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         features/manage/hand_over/sign_contract.feature:11:22:31:40:50 DEFAULT_BROWSER=firefox
+- name: features/manage/hand_over/sign_contract.feature:62
+  scripts:
+    cucumber:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        features/manage/hand_over/sign_contract.feature:62 DEFAULT_BROWSER=firefox
 - name: features/manage/lending/day_navigation.feature:20
   scripts:
     cucumber:

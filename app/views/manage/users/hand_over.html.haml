@@ -51,7 +51,7 @@
 
     App.Contract.addRecord new App.Contract #{@contract.to_json}
 
-    for model in #{@models.to_json}
+    for model in #{@models.as_json(accessories_for_ip: current_inventory_pool).to_json}
       App.Model.addRecord new App.Model model
 
     for software in #{@software.to_json}
@@ -68,9 +68,6 @@
 
     for license in #{@licenses.to_json}
       App.License.addRecord new App.License license
-
-    for accessory in #{@models.flat_map(&:accessories).uniq.to_json}
-      App.Accessory.addRecord new App.Accessory accessory
 
     new App.HandOverController
       el: "#hand-over-view"
