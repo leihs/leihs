@@ -119,7 +119,7 @@ Feature: Model
     Then the information is saved
     And the data has been updated
 
-  @javascript @personas
+  @javascript @personas @browser
   Scenario Outline: Create attachments
     Given I add or edit a <object>
     Then I add one or more attachments

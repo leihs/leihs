@@ -3,7 +3,10 @@
 
 #When(/^ich in den Admin-Bereich wechsel$/) do
 When(/^I navigate to the admin area$/) do
-  find('.topbar-navigation a', text: _('Admin')).click
+  within '.topbar' do
+    find('.topbar-navigation.float-right .topbar-item', match: :first).hover
+    find('.topbar-navigation.float-right a', text: _('Admin')).click
+  end
 end
 
 # Angenommen(/^es existiert noch kein Gerätepark$/) do
@@ -12,7 +15,7 @@ end
 
 #Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen neuen Gerätepark erstelle$/) do
 When(/^I create a new inventory pool in the admin area's inventory pool tab$/) do
-  expect(current_path).to eq manage_inventory_pools_path
+  expect(current_path).to eq admin_inventory_pools_path
   click_link _('Create %s') % _('Inventory pool')
 end
 
@@ -29,8 +32,13 @@ Then(/^the inventory pool is saved$/) do
 end
 
 #Dann(/^ich sehe die Geräteparkliste$/) do
-Then(/^I see the list of inventory pools$/) do
+Then(/^I see the list of all inventory pools$/) do
   expect(has_content?(_('List of Inventory Pools'))).to be true
+  within '.list-of-lines' do
+    InventoryPool.all.each do |ip|
+      find '.line', match: :prefer_exact, text: ip.name
+    end
+  end
 end
 
 #Wenn(/^ich (.+) nicht eingebe$/) do |must_field|
@@ -66,7 +74,7 @@ end
 #Wenn(/^ich im Admin\-Bereich unter dem Reiter Geräteparks einen bestehenden Gerätepark lösche$/) do
 When(/^I delete an existing inventory pool in the admin area's inventory pool tab$/) do
   @current_inventory_pool = InventoryPool.find(&:can_destroy?) || FactoryGirl.create(:inventory_pool)
-  visit manage_inventory_pools_path
+  visit admin_inventory_pools_path
   within('.line', text: @current_inventory_pool.name) do
     find(:xpath, '.').click # NOTE it scrolls to the target line
     within '.multibutton' do
@@ -93,8 +101,10 @@ Then(/^the list of inventory pools is sorted alphabetically$/) do
   expect(names.map(&:downcase).sort).to eq names.map(&:downcase)
 end
 
-Then(/^I see all the inventory pools$/) do
-  within '#ip-dropdown-menu' do
-    InventoryPool.all.each {|ip| has_content? ip.name}
+Then(/^I see all managed inventory pools$/) do
+  if @current_user.inventory_pools.managed.exists?
+    within '#ip-dropdown-menu' do
+      @current_user.inventory_pools.managed.each {|ip| has_content? ip.name}
+    end
   end
 end

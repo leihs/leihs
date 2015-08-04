@@ -12,7 +12,7 @@
 
       .multibutton
 
-        %a.button.white{href: polymorphic_path([:manage, :edit, current_inventory_pool, supplier].compact)}
+        %a.button.white{href: manage_inventory_pool_supplier_path(current_inventory_pool, supplier)}
           = current_inventory_pool ? _("Show") : _("Edit")
 
         .dropdown-holder.inline-block
@@ -22,11 +22,11 @@
           %ul.dropdown.right
 
             %li
-              %a.dropdown-item.red{href: manage_delete_supplier_path(supplier), data: {method: :delete, confirm: _("Are you sure you want to delete '%s'?") % supplier}}
+              %a.dropdown-item.red{href: manage_delete_inventory_pool_supplier_path(current_inventory_pool, supplier), data: {method: :delete, confirm: _("Are you sure you want to delete '%s'?") % supplier}}
                 %i.icon-trash
                 = _("Delete")
 
     - else
 
-      %a.button.white{href: polymorphic_path([:manage, :edit, current_inventory_pool, supplier].compact)}
+      %a.button.white{href: manage_inventory_pool_supplier_path(current_inventory_pool, supplier)}
         = current_inventory_pool ? _("Show") : _("Edit")

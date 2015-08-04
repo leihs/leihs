@@ -36,14 +36,6 @@ Feature: Basic information for inventory pools
     Then I see an error message
 
   @personas
-  Scenario: Automatically grant access to new users
-    Given I am Gino
-    And multiple inventory pools are granting automatic access
-    And I am listing users
-    When I have created a user with login "username" and password "password"
-    Then the newly created user has 'customer'-level access to all inventory pools that grant automatic access
-
-  @personas
   Scenario: Automatically grant access to new users from within my own inventory pool's settings
     Given I am Mike
     And multiple inventory pools are granting automatic access

@@ -81,7 +81,7 @@
                           %i= _("Not available")
                       - else
                         - locations = items_in_stock.select("COUNT(items.location_id) AS count, locations.room AS room, locations.shelf AS shelf").joins(:location).group(:location_id).order("count DESC, room ASC, shelf ASC")
-                        - locations.delete_if {|location| location.room.blank? and location.shelf.blank? }
+                        - locations.to_a.delete_if {|location| location.room.blank? and location.shelf.blank? }
                         - locations.each do |location|
                           %tr
                             %td{style: "width: 4em; text-align: right; border: none"}

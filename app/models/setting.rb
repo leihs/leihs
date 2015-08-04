@@ -1,4 +1,5 @@
 class Setting < ActiveRecord::Base
+  audited
 
   validates_presence_of :local_currency_string,
                         :email_signature,

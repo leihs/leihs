@@ -3,7 +3,6 @@ require 'rubygems'
 require 'cider_client'
 require 'simplecov'
 require 'optparse'
-require 'pry'
 
 options = {}
 optparse = OptionParser.new do |opts|

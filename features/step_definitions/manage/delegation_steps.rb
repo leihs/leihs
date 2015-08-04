@@ -409,7 +409,8 @@ When(/^I change the responsible person$/) do
   expect(has_no_selector?('ul.ui-autocomplete')).to be true
   @responsible = @current_inventory_pool.users.not_as_delegations.find {|u| u != @delegation.delegator_user }
   find('.row.emboss', text: _('Responsible')).find("input[data-type='autocomplete']").set @responsible.name
-  find('ul.ui-autocomplete > li > a').click
+  sleep(0.55) # NOTE this sleep is required waiting the search result
+  find('ul.ui-autocomplete > li > a', text: @responsible.name).click
   expect(has_no_selector?('ul.ui-autocomplete')).to be true
 end
 

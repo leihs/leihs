@@ -1,4 +1,5 @@
 class Workday < ActiveRecord::Base
+  audited
 
   belongs_to :inventory_pool, inverse_of: :workday
 

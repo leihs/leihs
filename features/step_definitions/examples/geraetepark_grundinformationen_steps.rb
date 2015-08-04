@@ -3,8 +3,9 @@
 
 #Wenn(/^ich den Admin\-Bereich betrete$/) do
 When(/^I navigate to the inventory pool section in the admin area$/) do
-  click_link _('Admin')
-  click_link _('Inventory Pool')
+  within '.topbar' do
+    find('.topbar-navigation.float-right .topbar-item', match: :first).find('a').click
+  end
 end
 
 #Dann(/^kann ich die Gerätepark\-Grundinformationen eingeben$/) do |table|

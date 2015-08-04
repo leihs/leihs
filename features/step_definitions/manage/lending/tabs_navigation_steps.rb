@@ -14,8 +14,8 @@ Then /^I can navigate all navigation items and nested tabs$/ do
   end
 end
 
-When(/^I click on the inventory pool selection toggler(?: again)?$/) do
-  find("[data-target='#ip-dropdown-menu']").click
+When(/^I hover over the navigation toggler$/) do
+  find("nav.topbar .topbar-navigation.float-right > .topbar-item", match: :first).hover
 end
 
 Then(/^I see all inventory pools for which I am a manager$/) do
@@ -33,13 +33,6 @@ When(/^I click on one of the inventory pools$/) do
 end
 
 Then(/^I switch to that inventory pool$/) do
-  find("[data-target='#ip-dropdown-menu']", text: @changed_to_ip.name)
+  find("nav.topbar .topbar-navigation.float-right > .topbar-item", match: :first, text: @changed_to_ip.name)
 end
 
-When(/^I click somewhere outside of the inventory pool menu list$/) do
-  find('body').click
-end
-
-Then(/^the inventory pool menu list closes$/) do
-  expect(page).to have_no_selector '#ip-dropdown-menu'
-end

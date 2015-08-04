@@ -71,6 +71,8 @@ class Manage::ItemsController < Manage::ApplicationController
       check_fields_for_write_permissions
 
       unless @item.errors.any?
+        # NOTE avoid to lose already stored properties
+        params[:item][:properties] = @item.properties.merge params[:item][:properties] if params[:item][:properties]
         saved = @item.update_attributes(params[:item])
       end
 

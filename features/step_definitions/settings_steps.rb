@@ -15,7 +15,7 @@ end
 
 Then(/^I edit the following settings$/) do |table|
   @new_settings = {}
-  within("form#edit_setting[action='/manage/settings']") do
+  within("form#edit_setting[action='/admin/settings']") do
     table.raw.flatten.each do |k|
       case k
         when 'email_signature', 'mail_delivery_method', 'smtp_address', 'smtp_domain', 'smtp_password', 'smtp_username', 'user_image_url', 'smtp_openssl_verify_mode'

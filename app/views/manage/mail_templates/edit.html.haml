@@ -16,7 +16,7 @@
     end
   end
 
-- content_for :title, (@current_inventory_pool ? _("Editing mail templates for the inventory pool %s") % @current_inventory_pool  : _("Editing system-wide mail templates"))
+- content_for :title, _("Editing mail templates for the inventory pool %s") % @current_inventory_pool
 - content_for :admin_section, "active"
 
 .wrapper.margin-top-m

@@ -1,4 +1,5 @@
 class Holiday < ActiveRecord::Base
+  audited
   attr_accessor :_destroy
 
   belongs_to :inventory_pool, inverse_of: :holidays
@@ -8,5 +9,6 @@ class Holiday < ActiveRecord::Base
   before_save do
     self.end_date = self.start_date if self.end_date < self.start_date
   end
+
 end
 

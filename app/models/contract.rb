@@ -1,6 +1,7 @@
 class Contract < ActiveRecord::Base
   include LineModules::GroupedAndMergedLines
   include DefaultPagination
+  audited
 
   has_many :reservations, -> { order('reservations.start_date ASC, reservations.end_date ASC, reservations.created_at ASC') }, dependent: :destroy #Rails3.1# TODO Reservation#default_scope
   has_many :item_lines, -> { order('reservations.start_date ASC, reservations.end_date ASC, reservations.created_at ASC') }, dependent: :destroy

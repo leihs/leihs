@@ -461,6 +461,7 @@ end
 
 Then(/^all matching (.*) appear$/) do |arg1|
   if page.has_selector? '#search-overview'
+    expect(has_no_selector? '#loading').to be true
     x,y = case arg1
             when 'models'
               ['#models', @model]

@@ -6,7 +6,7 @@ end
 When(/^I specify a mail template for the (.*) action (for the whole system|in the current inventory pool) for each active language$/) do |template_name, scope|
   case scope
     when 'for the whole system'
-      visit '/manage/mail_templates'
+      visit '/admin/mail_templates'
     when 'in the current inventory pool'
       visit "/manage/#{@current_inventory_pool.id}/mail_templates"
   end

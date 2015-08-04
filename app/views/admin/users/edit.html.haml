@@ -1,0 +1,44 @@
+- content_for :title, @user
+- content_for :admin_section, "active"
+
+.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/admin', :locals => {:active_tab => :users}
+
+  #form-context.row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    = form_tag admin_update_user_path(@user), method: :put do
+
+      .margin-top-l.padding-horizontal-m
+
+        .row
+
+          %h1.headline-l.float-left= yield :title
+
+          .float-right
+            %a.button.grey{:href => "/admin/users"}= _("Cancel")
+            %button.button.green{:type => :submit}= _("Save")
+
+        .row.margin-top-m
+
+          - if @user.is_delegation
+
+            = render partial: "delegation"
+
+            :coffeescript
+
+              jQuery -> new App.DelegationEditController {el: "#form-context"}
+
+          - else
+
+            .col1of2.padding-right-xs
+
+              = render partial: "manage/users/personal_details"
+
+              = render partial: "extended_info" if !@user.extended_info.blank?
+
+            .col1of2.padding-left-xs
+
+              = render partial: "manage/users/login_details" if @db_auth
+
+              = render partial: "admin/users/admin_details"

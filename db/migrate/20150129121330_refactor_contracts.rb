@@ -27,11 +27,11 @@ class RefactorContracts < ActiveRecord::Migration
 
     change_table :reservations do |t|
       t.index :status
-      t.foreign_key :inventory_pools
-      t.foreign_key :users
-      t.foreign_key :users, column: 'delegated_user_id'
-      t.foreign_key :users, column: 'handed_over_by_user_id'
     end
+    add_foreign_key(:reservations, :inventory_pools)
+    add_foreign_key(:reservations, :users)
+    add_foreign_key(:reservations, :users, column: 'delegated_user_id')
+    add_foreign_key(:reservations, :users, column: 'handed_over_by_user_id')
 
     execute %Q(UPDATE reservations
                SET contract_id = NULL
@@ -39,11 +39,11 @@ class RefactorContracts < ActiveRecord::Migration
 
     execute %Q(DELETE FROM contracts WHERE status NOT IN ('#{:signed}', '#{:closed}');)
 
+    remove_foreign_key :contracts, :inventory_pools
+    remove_foreign_key :contracts, :users
+    remove_foreign_key :contracts, column: 'delegated_user_id'
+    remove_foreign_key :contracts, column: 'handed_over_by_user_id'
     change_table :contracts do |t|
-      t.remove_foreign_key :inventory_pools
-      t.remove_foreign_key :users
-      t.remove_foreign_key column: 'delegated_user_id'
-      t.remove_foreign_key column: 'handed_over_by_user_id'
       t.remove :inventory_pool_id
       t.remove :user_id
       t.remove :delegated_user_id

@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Address < ActiveRecord::Base
+  audited
 
   geocoded_by :to_s
   

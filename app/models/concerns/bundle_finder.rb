@@ -31,6 +31,6 @@ module BundleFinder
   end
 
   def empty?
-    not exists?
+    to_a.count.zero?
   end
 end

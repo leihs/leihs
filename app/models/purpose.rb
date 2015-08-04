@@ -1,4 +1,5 @@
 class Purpose < ActiveRecord::Base
+  audited
   has_many :reservations
 
   # TODO delete not associated purposes

@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 class Field < ActiveRecord::Base
+  audited
 
   serialize :data, JSON
 

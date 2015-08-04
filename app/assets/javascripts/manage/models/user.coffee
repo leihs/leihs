@@ -1,6 +1,6 @@
 ## Global
 
-window.App.User.url = => if App.InventoryPool.current? then "/manage/#{App.InventoryPool.current.id}/users" else "/manage/users"
+window.App.User.url = => if App.InventoryPool.current? then "/manage/#{App.InventoryPool.current.id}/users" else "/admin/users"
 
 ## Prototype
 

@@ -1,4 +1,5 @@
 class AuthenticationSystem < ActiveRecord::Base
+  audited
 
   scope :default_system, -> { where(is_default: true) }
   scope :active_systems, -> { where(is_active: true) }

@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 #Wenn(/^ich im Verwalten\-Bereich bin$/) do
-When(/^I am in the manage section$/) do
-  visit manage_root_path
+When(/^I am in the admin section$/) do
+  visit admin_root_path
 end
 
 #Dann(/^habe ich die Möglichkeit zur Statistik\-Ansicht zu wechseln$/) do

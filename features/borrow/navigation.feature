@@ -5,7 +5,7 @@ Feature: Navigation
   möchte ich als Ausleiher
   Navigationsmöglichkeiten haben
 
-  @personas
+  @personas @javascript
   Scenario: Navigation for borrowers
     Given I am Normin
     And I am listing the root categories
@@ -17,7 +17,7 @@ Feature: Navigation
     And the navigation contains "User"
     And the navigation contains "Log out"
 
-  @personas
+  @personas @javascript
   Scenario: Navigation for managers
     Given I am Pius
     And I am listing the root categories
@@ -30,7 +30,7 @@ Feature: Navigation
     And the navigation contains "User"
     And the navigation contains "Log out"
 
-  @personas
+  @personas @javascript
   Scenario: Navigation for validators
     Given I am Andi
     And I am listing the root categories

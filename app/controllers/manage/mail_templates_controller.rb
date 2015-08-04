@@ -22,14 +22,10 @@ class Manage::MailTemplatesController < Manage::ApplicationController
 
     Language.active_languages.each do |language|
       ['text'].each do |format|
-        mt = nil
-
-        if current_inventory_pool
-          mt = MailTemplate.find_by(inventory_pool_id: current_inventory_pool.id,
-                                    name: params[:name],
-                                    language: language,
-                                    format: format)
-        end
+        mt = MailTemplate.find_by(inventory_pool_id: current_inventory_pool.id,
+                                  name: params[:name],
+                                  language: language,
+                                  format: format)
 
         mt ||= MailTemplate.find_or_initialize_by(inventory_pool_id: nil,
                                                   name: params[:name],
@@ -49,7 +45,7 @@ class Manage::MailTemplatesController < Manage::ApplicationController
     errors = []
 
     params[:mail_templates].each do |p|
-      mt = MailTemplate.find_or_initialize_by(inventory_pool_id: (current_inventory_pool ? current_inventory_pool.id : nil),
+      mt = MailTemplate.find_or_initialize_by(inventory_pool_id: current_inventory_pool.id,
                                               name: p[:name],
                                               language: Language.find_by(locale_name: p[:language]),
                                               format: p[:format])
@@ -60,7 +56,7 @@ class Manage::MailTemplatesController < Manage::ApplicationController
     end
 
     if errors.empty?
-      redirect_to (current_inventory_pool ? "/manage/#{current_inventory_pool.id}/mail_templates" : '/manage/mail_templates')
+      redirect_to "/manage/#{current_inventory_pool.id}/mail_templates"
     else
       flash.now[:error] = errors.uniq.join(', ')
       render :edit

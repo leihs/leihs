@@ -17,11 +17,6 @@
             = existing_mail_template.last.gsub('_', ' ')
           .line-col.col1of5
             :ruby
-              path = case current_inventory_pool
-                      when nil
-                        "/manage/mail_templates/#{existing_mail_template.first}/#{existing_mail_template.last}"
-                      else
-                        "/manage/#{current_inventory_pool.id}/mail_templates/#{existing_mail_template.first}/#{existing_mail_template.last}"
-                     end
+              path = "/manage/#{current_inventory_pool.id}/mail_templates/#{existing_mail_template.first}/#{existing_mail_template.last}"
             %a.button.white{href: path}
               = _("Edit")

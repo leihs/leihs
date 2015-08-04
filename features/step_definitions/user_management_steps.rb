@@ -15,11 +15,11 @@ end
 Given /a (\w+) '([^']*)' for inventory pool '([^']*)'$/ do |role,who,ip_name|
   step "inventory pool '#{ip_name}'"
   role = role.to_sym
+  expect(role).not_to be_nil
   @user = LeihsFactory.create_user({login: who},
                                    {role: role,
                                     inventory_pool: InventoryPool.find_by_name(ip_name),
                                     password: 'pass' })
-  assert_not_nil role
   @user.save!
 end
 

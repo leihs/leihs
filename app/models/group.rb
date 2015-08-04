@@ -1,6 +1,7 @@
 class Group < ActiveRecord::Base
   include Availability::Group
   include Search::Name
+  audited
 
   belongs_to :inventory_pool
 

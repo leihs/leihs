@@ -13,7 +13,6 @@
 require 'rubygems'
 require 'fileutils'
 require 'open4'
-require 'pry'
 
 
 PROFILES = ['default', 'headless', 'nojs']

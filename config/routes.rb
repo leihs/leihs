@@ -12,8 +12,6 @@ Leihs::Application.routes.draw do
   match 'authenticator/login',                      to: "authenticator/database_authentication#login", via: [:get, :post]
 
   # For RESTful_Authentication
-  match 'activate/:activation_code',  to: 'users#activate', :activation_code => nil, via: [:get, :post]
-  match 'signup',                     to: 'users#new',                               via: [:get, :post]
   match 'login',                      to: 'sessions#new', as: :login,                via: [:get, :post]
   match 'logout',                     to: 'sessions#destroy',                        via: [:get, :post]
 
@@ -36,6 +34,8 @@ Leihs::Application.routes.draw do
   get "properties", to: "properties#index", as: "properties"
 
   namespace :admin do
+    root to: redirect('/admin/inventory_pools')
+
     # Statistics
     get "statistics",     to: "statistics#index", as: "statistics"
     get "statistics/:id", to: "statistics#show",  as: "statistic"
@@ -56,6 +56,59 @@ Leihs::Application.routes.draw do
     # Fields
     get 'fields', to: 'fields#index'
     put 'fields', to: 'fields#update'
+
+    ## from manage ############################
+
+    # Locations
+    delete  'locations/:id',      to: 'locations#destroy',  as: 'delete_location'
+
+    # Buildings
+    get     'buildings',          to: 'buildings#index'
+    get     'buildings/new',      to: 'buildings#new',      as: 'new_building'
+    post    'buildings',          to: 'buildings#create'
+    get     'buildings/:id/edit', to: 'buildings#edit',     as: 'edit_building'
+    put     'buildings/:id',      to: 'buildings#update',   as: 'update_building'
+    delete  'buildings/:id',      to: 'buildings#destroy',  as: 'delete_building'
+
+    # Suppliers
+    get     'suppliers',          to: 'suppliers#index'
+    get     'suppliers/new',      to: 'suppliers#new',      as: 'new_supplier'
+    post    'suppliers',          to: 'suppliers#create'
+    get     'suppliers/:id/edit', to: 'suppliers#edit',     as: 'edit_supplier'
+    put     'suppliers/:id',      to: 'suppliers#update',   as: 'update_supplier'
+    delete  'suppliers/:id',      to: 'suppliers#destroy',  as: 'delete_supplier'
+
+    # Administrate inventory pools
+    get     'inventory_pools',                         to: 'inventory_pools#index'
+    get     'inventory_pools/new',                     to: 'inventory_pools#new',      as: 'new_inventory_pool'
+    post    'inventory_pools',                         to: 'inventory_pools#create'
+    get     'inventory_pools/:id/edit',                to: 'inventory_pools#edit',     as: 'edit_inventory_pool'
+    put     'inventory_pools/:id',                     to: 'inventory_pools#update',   as: 'update_inventory_pool'
+    delete  'inventory_pools/:id',                     to: 'inventory_pools#destroy',  as: 'delete_inventory_pool'
+
+    # Export inventory of all inventory pools
+    get 'inventory/csv',              :to => 'inventory#csv_export',  :as => 'global_inventory_csv_export'
+
+    # Administrate users
+    get     'users',          to: 'users#index'
+    get     'users/new',      to: 'users#new'
+    get     'users/:id/edit', to: 'users#edit',   as: 'edit_user'
+    post    'users',          to: 'users#create', as: 'create_user'
+    put     'users/:id',      to: 'users#update', as: 'update_user'
+    delete  'users/:id',      to: 'users#destroy'
+
+    # Access rights
+    get 'access_rights', to: 'access_rights#index'
+
+    # Administrate settings
+    get 'settings', to: 'settings#edit',    as: 'edit_settings'
+    put 'settings', to: 'settings#update',  as: 'update_settings'
+
+    # Mail templates
+    get 'mail_templates', to: 'mail_templates#index'
+    get 'mail_templates/:dir/:name', to: 'mail_templates#edit'
+    put 'mail_templates/:dir/:name', to: 'mail_templates#update'
+
   end
 
   # Borrow Section
@@ -114,68 +167,25 @@ Leihs::Application.routes.draw do
   # Manage Section
   namespace :manage do
     root to: "application#root"
-    
-    # maintenance
-    get "maintenance", to: "application#maintenance"
-
-    # Locations
-    get     'locations',          to: "locations#index"
-    delete  'locations/:id',      to: 'locations#destroy',  as: 'delete_location'
-
-    # Buildings
-    get     'buildings',          to: 'buildings#index'
-    get     'buildings/new',      to: 'buildings#new',      as: 'new_building'
-    post    'buildings',          to: 'buildings#create'
-    get     'buildings/:id/edit', to: 'buildings#edit',     as: 'edit_building'
-    put     'buildings/:id',      to: 'buildings#update',   as: 'update_building'
-    delete  'buildings/:id',      to: 'buildings#destroy',  as: 'delete_building'
-
-    # Suppliers
-    get     'suppliers',          to: 'suppliers#index'
-    get     'suppliers/new',      to: 'suppliers#new',      as: 'new_supplier'
-    post    'suppliers',          to: 'suppliers#create'
-    get     'suppliers/:id/edit', to: 'suppliers#edit',     as: 'edit_supplier'
-    put     'suppliers/:id',      to: 'suppliers#update',   as: 'update_supplier'
-    delete  'suppliers/:id',      to: 'suppliers#destroy',  as: 'delete_supplier'
-
-    # Users
-    post "users/:id/set_start_screen", to: "users#set_start_screen"
-
-    # # Users
-    # delete "manage/users/:id", to: "manage/users#destroy", as: "delete_manage_user"
 
     # Administrate inventory pools
-    get     'inventory_pools',                         to: 'inventory_pools#index'
-    get     'inventory_pools/new',                     to: 'inventory_pools#new',      as: 'new_inventory_pool'
-    post    'inventory_pools',                         to: 'inventory_pools#create'
+    # get     'inventory_pools',                         to: 'inventory_pools#index'
+    # get     'inventory_pools/new',                     to: 'inventory_pools#new',      as: 'new_inventory_pool'
+    # post    'inventory_pools',                         to: 'inventory_pools#create'
     get     'inventory_pools/:inventory_pool_id/edit', to: 'inventory_pools#edit',     as: 'edit_inventory_pool'
     put     'inventory_pools/:inventory_pool_id',      to: 'inventory_pools#update',   as: 'update_inventory_pool'
-    delete  'inventory_pools/:inventory_pool_id',      to: 'inventory_pools#destroy',  as: 'delete_inventory_pool'
+    # delete  'inventory_pools/:inventory_pool_id',      to: 'inventory_pools#destroy',  as: 'delete_inventory_pool'
 
-    # Export inventory of all inventory pools
-    get 'inventory/csv',              :to => "inventory#csv_export",  :as => "global_inventory_csv_export"
+    # Users
+    post 'users/:id/set_start_screen', to: 'users#set_start_screen'
 
-    # Administrate users
-    get     'users',          to: 'users#index'
-    get     'users/new',      to: 'users#new'
-    get     'users/:id/edit', to: 'users#edit',   as: 'edit_user'
-    post    'users',          to: 'users#create', as: 'create_user'
-    put     'users/:id',      to: 'users#update', as: 'update_user'
-    delete  'users/:id',      to: 'users#destroy'
-
-    # Access rights
-    get "access_rights", to: "access_rights#index"
-
-    # Administrate settings
-    get 'settings', to: 'settings#edit',    as: 'edit_settings'
-    put 'settings', to: 'settings#update',  as: 'update_settings'
-
-    # Mail templates
-    get 'mail_templates', to: 'mail_templates#index'
-    get 'mail_templates/:dir/:name', to: 'mail_templates#edit'
-    put 'mail_templates/:dir/:name', to: 'mail_templates#update'
+    # Locations
+    get     'locations',          to: 'locations#index'
 
     scope ":inventory_pool_id/" do
+
+      # maintenance
+      get 'maintenance', to: 'application#maintenance'
 
       ## Availability
       get 'availabilities',           to: 'availability#index', as: 'inventory_pool_availabilities'
@@ -304,11 +314,10 @@ Leihs::Application.routes.draw do
 
       # Users
       get      "users",          to: "users#index",                     as: "inventory_pool_users"
-      get      "users/new",      to: "users#new_in_inventory_pool",     as: "new_inventory_pool_user"
-      post     "users",          to: "users#create_in_inventory_pool",  as: "create_inventory_pool_user"
-      get      "users/:id/edit", to: "users#edit_in_inventory_pool",    as: "edit_inventory_pool_user"
-      put      "users/:id",      to: "users#update_in_inventory_pool",  as: "update_inventory_pool_user"
-      delete   "users/:id",      to: "users#destroy"
+      get      "users/new",      to: "users#new",     as: "new_inventory_pool_user"
+      post     "users",          to: "users#create",  as: "create_inventory_pool_user"
+      get      "users/:id/edit", to: "users#edit",    as: "edit_inventory_pool_user"
+      put      "users/:id",      to: "users#update",  as: "update_inventory_pool_user"
 
       get      'users/:id/hand_over', to: "users#hand_over", as: "hand_over"
       get      'users/:id/take_back', to: "users#take_back", as: "take_back"
@@ -340,18 +349,12 @@ Leihs::Application.routes.draw do
 
       # Buildings
       get     'buildings',          to: 'buildings#index'
-      #get     'buildings/new',      to: 'buildings#new',      as: 'new_inventory_pool_building'
-      #post    'buildings',          to: 'buildings#create'
       get     'buildings/:id/edit', to: 'buildings#edit',     as: 'edit_inventory_pool_building'
-      #put     'buildings/:id',      to: 'buildings#update',   as: 'update_inventory_pool_building'
       delete  'buildings/:id',      to: 'buildings#destroy',  as: 'delete_inventory_pool_building'
 
       # Suppliers
       get     'suppliers',          to: 'suppliers#index'
-      #get     'suppliers/new',      to: 'suppliers#new',      as: 'new_inventory_pool_supplier'
-      #post    'suppliers',          to: 'suppliers#create'
-      get     'suppliers/:id/edit', to: 'suppliers#edit',     as: 'edit_inventory_pool_supplier'
-      #put     'suppliers/:id',      to: 'suppliers#update',   as: 'update_inventory_pool_supplier'
+      get     'suppliers/:id',      to: 'suppliers#show',     as: 'inventory_pool_supplier'
       delete  'suppliers/:id',      to: 'suppliers#destroy',  as: 'delete_inventory_pool_supplier'
 
     end

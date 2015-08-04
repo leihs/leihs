@@ -7,27 +7,33 @@ end
 
 #Dann(/^die Navigation beinhaltet "(.*?)"$/) do |section|
 Then(/^the navigation contains "(.*?)"$/) do |section|
-  case section
-    when 'To pick up'
-      find("nav a[href='#{borrow_to_pick_up_path}']") if @current_user.reservations.approved.to_a.sum(&:quantity) > 0
-    when 'To return'
-      find("nav a[href='#{borrow_returns_path}']") if @current_user.reservations.signed.to_a.sum(&:quantity) > 0
-    when 'Orders'
-      find("nav a[href='#{borrow_orders_path}']") if @current_user.reservations.submitted.exists?
-    when 'Inventory pools'
-      find("nav a[href='#{borrow_inventory_pools_path}']", text: _('Inventory Pools'))
-    when 'User'
-      find("nav a[href='#{borrow_current_user_path}']", text: @current_user.short_name)
-    when 'Log out'
-      find("nav a[href='#{logout_path}']")
-    when 'Manage'
-      find("nav a[href='#{manage_root_path}']", text: _('Manage'))
-    when 'Lending'
-      find("nav a[href='#{manage_daily_view_path(@current_inventory_pool)}']", text: _('Lending'))
-    when 'Borrow'
-      find("nav a[href='#{borrow_root_path}']", text: _('Borrow'))
-    else
-      raise
+  within 'nav.topbar' do
+    case section
+      when 'To pick up'
+        find("a[href='#{borrow_to_pick_up_path}']") if @current_user.reservations.approved.to_a.sum(&:quantity) > 0
+      when 'To return'
+        find("a[href='#{borrow_returns_path}']") if @current_user.reservations.signed.to_a.sum(&:quantity) > 0
+      when 'Orders'
+        find("a[href='#{borrow_orders_path}']") if @current_user.reservations.submitted.exists?
+      when 'Inventory pools'
+        find("a[href='#{borrow_inventory_pools_path}']", text: _('Inventory Pools'))
+      when 'User'
+        find("a[href='#{borrow_current_user_path}']", text: @current_user.short_name)
+      when 'Log out'
+        find('.topbar-navigation.float-right .topbar-item', text: @current_user.short_name).hover
+        find("a[href='#{logout_path}']")
+      when 'Manage'
+        find('.topbar-navigation.float-right .topbar-item', match: :first).hover
+        @current_user.inventory_pools.managed.each do |ip|
+          find(".topbar-navigation.float-right a[href='#{manage_edit_inventory_pool_path(ip)}']", text: ip)
+        end
+      when 'Lending'
+        find("a[href='#{manage_daily_view_path(@current_inventory_pool)}']", text: _('Lending'))
+      when 'Borrow'
+        find("a[href='#{borrow_root_path}']", text: _('Borrow'))
+      else
+        raise
+    end
   end
 end
 

@@ -16,9 +16,6 @@ class Manage::TemplatesController < Manage::ApplicationController
     end
   end
 
-  def show
-  end
-
   def new
     @template = current_inventory_pool.templates.build
   end
@@ -34,7 +31,10 @@ class Manage::TemplatesController < Manage::ApplicationController
       render action: :new
     end
   end
-  
+
+  def edit
+  end
+
   def update
     begin
       @template.update_attributes!(params[:template])

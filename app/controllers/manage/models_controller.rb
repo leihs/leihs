@@ -161,6 +161,7 @@ class Manage::ModelsController < Manage::ApplicationController
     # PROPERTIES
     model.properties.destroy_all
     # REMAINING DATA
+    params[:model].delete(:type)
     model.update_attributes(params[:model]) and model.save
   end
 

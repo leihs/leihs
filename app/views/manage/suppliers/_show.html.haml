@@ -1,0 +1,40 @@
+.row.margin-top-l.padding-horizontal-m
+
+  .row
+    %h1.headline-l.float-left= @supplier.name
+
+    %div.float-right
+      = link_to _("Back"), :back
+
+  .row.margin-top-m
+
+    .col1of2.padding-right-xs
+
+      %h2.headline-m.padding-left-s= _("Basic Information")
+
+      .row.margin-vertical-s
+
+        .row.padding-inset-s.emboss.margin-bottom-xxs
+          .col1of3
+            %strong.font-size-m= "#{_("Name")} *"
+          .col2of3.text-align-right
+            - if current_inventory_pool
+              .headline-m.text-align-left= @supplier.name
+            - else
+              %input.min-width-full{type: "text", name: "supplier[name]", value: @supplier.name}
+
+    .col1of2.padding-left-xs
+
+      - if @items
+        %h2.headline-m.padding-left-s= _("Items")
+
+        .row.margin-vertical-s
+
+          - @items.each do |i|
+            .row.padding-inset-s.emboss.margin-bottom-xxs
+              .col2of3
+                = i.inventory_code
+                %br
+                = i.model
+              .col1of3
+                = i.inventory_pool

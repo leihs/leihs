@@ -2,7 +2,6 @@
 
 require 'rubygems'
 require 'fileutils'
-require 'pry'
 
 def die(exit_code, error)
   puts "Error: #{error}"

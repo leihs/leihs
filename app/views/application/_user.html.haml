@@ -1,0 +1,44 @@
+%li.topbar-item.dropdown-holder{:class => current_page?(borrow_current_user_path) ? "active" : nil}
+  %a.topbar-item-inner{href: borrow_current_user_path}
+    - if current_user.is_delegation
+      .icon-group
+    - else
+      %img.max-height-xxxs.max-width-xxs.emboss.deep{:src => current_user.image_url}
+    %span
+      = current_user.short_name
+    %i.arrow.down
+
+  %ul.dropdown.right.straight-top
+    -#%li{:class => current_page?("start_screen") ? "active" : nil}
+      %label.dropdown-item{:title => _("Set current screen as your personal start screen")}
+        %input#start_screen_checkbox{:type => :checkbox, :name => "start_screen", :checked => current_user.start_screen == request.fullpath, :autocomplete => :off}
+        = _("Start Screen")
+
+    %li
+      %a.dropdown-item{href: borrow_current_user_path}
+        .width-xxxs.inline-block.text-align-center
+          .icon-user
+        = _("User data")
+    %li
+      %a.dropdown-item{href: borrow_user_documents_path}
+        .width-xxxs.inline-block.text-align-center
+          .icon-copy
+        = _("My documents")
+    - if current_user.delegations.exists?
+      %li.separated-top
+        %a.dropdown-item{href: borrow_user_delegations_path}
+          .width-xxxs.inline-block.text-align-center
+            .icon-group
+          = _("Delegations")
+    - elsif current_user.is_delegation and @current_delegated_user
+      %li.separated-top
+        %a.dropdown-item{href: borrow_user_switch_back_path}
+          .width-xxxs.inline-block.text-align-center
+            %img.max-height-xxxs.max-width-xxs.emboss.deep{:src => @current_delegated_user.image_url}
+          = _("Back to %s") % @current_delegated_user.to_s
+
+    %li.separated-top
+      %a.dropdown-item{href: logout_path}
+        .width-xxxs.inline-block.text-align-center
+          .icon-signout
+        = _("Logout")

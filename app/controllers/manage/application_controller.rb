@@ -20,13 +20,11 @@ class Manage::ApplicationController < ApplicationController
   private
 
   def check_maintenance_mode
-    redirect_to manage_maintenance_path if current_inventory_pool and Setting.disable_manage_section
+    redirect_to manage_maintenance_path(current_inventory_pool) if current_inventory_pool and Setting.disable_manage_section
   end
 
   def required_role
-    unless is_admin?
-      required_manager_role
-    end
+    required_manager_role
   end
 
   # NOTE this method may be overridden in the sub controllers
@@ -42,44 +40,38 @@ class Manage::ApplicationController < ApplicationController
   public
 
   def root
+    flash.keep
+
     # start_screen = current_user.start_screen
     # if start_screen
-    #   redirect_to current_user.start_screen, flash: flash
+    #   redirect_to current_user.start_screen
 
-    if current_user.has_role? :admin
-      if current_inventory_pool
-        redirect_to manage_edit_inventory_pool_path(current_inventory_pool), flash: flash
-      else
-        redirect_to manage_inventory_pools_path, flash: flash
-      end
+    last_ip_id = session[:current_inventory_pool_id] || current_user.latest_inventory_pool_id_before_logout
+    ip = current_user.inventory_pools.managed.detect{|x| x.id==last_ip_id} if last_ip_id
+    role_for_last_ip = current_user.access_right_for(ip).try :role if ip
+
+    if [:inventory_manager, nil].include?(role_for_last_ip) and current_user.access_rights.active.where(role: :inventory_manager).exists?
+      ip ||= current_user.inventory_pools.managed(:inventory_manager).first
+      redirect_to manage_inventory_path(ip)
+    elsif [:lending_manager, nil].include?(role_for_last_ip) and current_user.access_rights.active.where(role: :lending_manager).exists?
+      ip ||= current_user.inventory_pools.managed(:lending_manager).first
+      redirect_to manage_daily_view_path(ip)
+    elsif [:group_manager, nil].include?(role_for_last_ip) and current_user.access_rights.active.where(role: :group_manager).exists?
+      ip ||= current_user.inventory_pools.managed(:group_manager).first
+      redirect_to manage_contracts_path(ip, status: [:approved, :submitted, :rejected])
     else
-      last_ip_id = session[:current_inventory_pool_id] || current_user.latest_inventory_pool_id_before_logout
-      ip = current_user.inventory_pools.managed.detect{|x| x.id==last_ip_id} if last_ip_id
-      role_for_last_ip = current_user.access_right_for(ip).try :role if ip
-
-      if [:inventory_manager, nil].include?(role_for_last_ip) and current_user.access_rights.active.where(role: :inventory_manager).exists?
-        ip ||= current_user.inventory_pools.managed(:inventory_manager).first
-        redirect_to manage_inventory_path(ip), flash: flash
-      elsif [:lending_manager, nil].include?(role_for_last_ip) and current_user.access_rights.active.where(role: :lending_manager).exists?
-        ip ||= current_user.inventory_pools.managed(:lending_manager).first
-        redirect_to manage_daily_view_path(ip), flash: flash
-      elsif [:group_manager, nil].include?(role_for_last_ip) and current_user.access_rights.active.where(role: :group_manager).exists?
-        ip ||= current_user.inventory_pools.managed(:group_manager).first
-        redirect_to manage_contracts_path(ip, status: [:approved, :submitted, :rejected]), flash: flash
-      else
-        render nothing: true, status: :bad_request
-      end
+      render nothing: true, status: :bad_request
     end
   end
 
   def maintenance
   end
 
-###############################################################  
+###############################################################
 
   protected
 
-    helper_method :is_owner?, :is_privileged_user?, :is_super_user?, :is_inventory_manager?, :is_lending_manager?, :is_group_manager?, :current_managed_inventory_pools
+    helper_method :is_owner?, :is_privileged_user?, :is_super_user?, :is_inventory_manager?, :is_lending_manager?, :is_group_manager?
 
     # TODO: what's happening here? Explain the goal of this method
     # looks like getter function, but is also a setter. Should only return the current inventory pool. Current inventory pool should be set elsewhere.
@@ -90,10 +82,6 @@ class Manage::ApplicationController < ApplicationController
       @current_inventory_pool ||= InventoryPool.find(params[:inventory_pool_id]) if params[:inventory_pool_id]
       session[:current_inventory_pool_id] = @current_inventory_pool.id if @current_inventory_pool
       return @current_inventory_pool
-    end
-
-    def current_managed_inventory_pools
-      @current_managed_inventory_pools ||= (current_user.inventory_pools.managed - [current_inventory_pool]).sort
     end
 
     ####### Helper Methods #######

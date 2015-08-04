@@ -1,0 +1,22 @@
+!!! 5
+%html{:lang => I18n.locale}
+
+  %head
+    %title= "#{yield(:title)}#{(yield :title).blank? ? "":" | "}leihs"
+    = render :partial => "layouts/head"
+    = javascript_include_tag "manage"
+    = render :partial => "manage/global_javascript_injection"
+
+  %body
+
+    .main-wrapper
+
+      .padding-bottom-l
+
+        = render :partial => "flash", :locals => {:flash => flash}
+
+        %header= render :partial => "manage/topbar"
+
+        .row= yield
+
+    = render :partial => "footer"

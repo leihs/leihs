@@ -1,11 +1,7 @@
 class Manage::UsersController < Manage::ApplicationController
 
   before_filter do
-    unless current_inventory_pool
-      not_authorized! unless is_admin?
-    else
-      not_authorized! unless is_group_manager? or is_admin?
-    end
+    not_authorized! unless is_group_manager?
 
     if params[:access_right]
       @ip_id = if params[:access_right][:inventory_pool_id] and is_admin?
@@ -16,7 +12,7 @@ class Manage::UsersController < Manage::ApplicationController
     end
   end
 
-  before_filter only: [:edit, :update, :edit_in_inventory_pool, :update_in_inventory_pool, :destroy, :set_start_screen, :hand_over, :take_back] do
+  before_filter only: [:edit, :update, :destroy, :set_start_screen, :hand_over, :take_back] do
     #@user = current_inventory_pool.users.find(params[:id])
     @user = User.find(params[:id])
   end
@@ -52,57 +48,11 @@ class Manage::UsersController < Manage::ApplicationController
   def new
     @delegation_type = true if params[:type] == 'delegation'
     @user = User.new
-    @is_admin = false unless @delegation_type
-  end
-
-  def new_in_inventory_pool
-    @delegation_type = true if params[:type] == 'delegation'
-    @user = User.new
     @accessible_roles = get_accessible_roles_for_current_user
     @access_right = @user.access_rights.new inventory_pool_id: current_inventory_pool.id, role: :customer
   end
 
   def create
-    should_be_admin = params[:user].delete(:admin)
-    if users = params[:user].delete(:users)
-      delegated_user_ids = users.map {|h| h['id']}
-    end
-    @user = User.new(params[:user])
-    @user.login = params[:db_auth][:login] unless @user.is_delegation
-
-    begin
-      User.transaction do
-        @user.delegated_user_ids = delegated_user_ids if delegated_user_ids
-        @user.save!
-
-        unless @user.is_delegation
-          @db_auth = DatabaseAuthentication.create!(params[:db_auth].merge(user: @user))
-          @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
-        end
-
-        @user.access_rights.create!(role: :admin) if should_be_admin == 'true'
-
-        respond_to do |format|
-          format.html do
-            flash[:notice] = _('User created successfully')
-            redirect_to manage_users_path
-          end
-        end
-      end
-    rescue ActiveRecord::RecordInvalid => e
-      respond_to do |format|
-        format.html do
-          flash.now[:error] = e.to_s
-          @accessible_roles = get_accessible_roles_for_current_user
-          @is_admin = should_be_admin
-          @delegation_type = true if params[:user].has_key? :delegator_user_id
-          render action: :new
-        end
-      end
-    end
-  end
-
-  def create_in_inventory_pool
     groups = params[:user].delete(:groups) if params[:user].has_key?(:groups)
     if users = params[:user].delete(:users)
       delegated_user_ids = users.map {|h| h['id']}
@@ -140,18 +90,13 @@ class Manage::UsersController < Manage::ApplicationController
           flash.now[:error] = e.to_s
           @accessible_roles = get_accessible_roles_for_current_user
           @delegation_type = true if params[:user].has_key? :delegator_user_id
-          render action: :new_in_inventory_pool
+          render action: :new
         end
       end
     end
   end
 
   def edit
-    @is_admin = @user.has_role? :admin
-    @db_auth = DatabaseAuthentication.find_by_user_id(@user.id)
-  end
-
-  def edit_in_inventory_pool
     @delegation_type = @user.is_delegation
     @accessible_roles = get_accessible_roles_for_current_user
     @db_auth = DatabaseAuthentication.find_by_user_id(@user.id)
@@ -159,45 +104,7 @@ class Manage::UsersController < Manage::ApplicationController
   end
 
   def update
-    should_be_admin = params[:user].delete(:admin)
-
-    delegated_user_ids = get_delegated_users_ids params
-
-    begin
-      User.transaction do
-        params[:user].merge!(login: params[:db_auth][:login]) if params[:db_auth]
-        @user.delegated_user_ids = delegated_user_ids if delegated_user_ids
-        @user.update_attributes! params[:user]
-        if params[:db_auth]
-          DatabaseAuthentication.find_by_user_id(@user.id).update_attributes! params[:db_auth].merge(user: @user)
-          @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
-        end
-        @user.access_rights.where(role: :admin).each(&:destroy)
-        @user.access_rights.create!(role: :admin) if should_be_admin == 'true'
-
-        respond_to do |format|
-          format.html do
-            flash[:notice] = _('User details were updated successfully.')
-            redirect_to manage_users_path
-          end
-        end
-      end
-    rescue ActiveRecord::RecordInvalid => e
-      respond_to do |format|
-        format.html do
-          flash.now[:error] = e.to_s
-          @is_admin = should_be_admin
-          @db_auth = DatabaseAuthentication.find_by_user_id(@user.id)
-          render action: :edit
-        end
-      end
-    end
-  end
-
-  def update_in_inventory_pool
-
     if params[:user]
-
       if params[:user].has_key?(:groups) and (groups = params[:user].delete(:groups))
         @user.groups = groups.map {|g| Group.find g['id']}
       end
@@ -209,7 +116,7 @@ class Manage::UsersController < Manage::ApplicationController
       User.transaction do
         params[:user].merge!(login: params[:db_auth][:login]) if params[:db_auth]
         @user.delegated_user_ids = delegated_user_ids if delegated_user_ids
-        @user.update_attributes! params[:user]
+        @user.update_attributes! params[:user] if params[:user]
         if params[:db_auth]
           DatabaseAuthentication.find_or_create_by(user_id: @user.id).update_attributes! params[:db_auth].merge(user: @user)
           @user.update_attributes!(authentication_system_id: AuthenticationSystem.find_by_class_name(DatabaseAuthentication.name).id)
@@ -234,21 +141,6 @@ class Manage::UsersController < Manage::ApplicationController
           redirect_to :back
         end
         format.json { render text: e.to_s, status: 500 }
-      end
-    end
-  end
-
-  def destroy
-    not_authorized! unless is_admin?
-    @user.destroy if @user.deletable?
-    respond_to do |format|
-      format.json{ @user.persisted? ? render(status: :bad_request) : render(status: :no_content)}
-      format.html do 
-        if @user.persisted? 
-          redirect_to(:back, flash: {error: _('You cannot delete this user')})
-        else 
-          redirect_to(:back, flash: {success: _('%s successfully deleted') % _('User')})
-        end 
       end
     end
   end

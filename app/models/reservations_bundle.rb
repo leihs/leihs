@@ -1,6 +1,7 @@
 # Reading a MySQL View
 class ReservationsBundle < ActiveRecord::Base
   include Delegation::ReservationsBundle
+  audited
 
   class << self
     include BundleFinder

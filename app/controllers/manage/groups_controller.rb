@@ -14,9 +14,6 @@ class Manage::GroupsController < Manage::ApplicationController
     @groups = @groups.order(:name)
   end
 
-  def show
-  end
-
   def new
   end
 

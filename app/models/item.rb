@@ -13,6 +13,7 @@
 #
 class Item < ActiveRecord::Base
   include DefaultPagination
+  audited
 
   belongs_to :parent, class_name: 'Item', foreign_key: 'parent_id', inverse_of: :children
   has_many :children, class_name: 'Item', foreign_key: 'parent_id', dependent: :nullify,

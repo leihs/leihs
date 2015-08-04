@@ -1,4 +1,5 @@
 class AccessRight < ActiveRecord::Base
+  audited
 
   belongs_to :user, inverse_of: :access_rights
   belongs_to :inventory_pool, inverse_of: :access_rights
@@ -82,10 +83,6 @@ class AccessRight < ActiveRecord::Base
   def suspended?
     !suspended_until.nil? and suspended_until >= Date.today
   end
-
-  #def deactivate
-  #  update_attributes(:deleted_at => DateTime.now)
-  #end
 
 ####################################################################
 

@@ -284,13 +284,9 @@ end
 When /^the item is not in stock and another department is responsible for it$/ do
   all("select[name='responsible_inventory_pool_id'] option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ''}.select_option
   find("input[name='in_stock']").click if find("input[name='in_stock']").checked?
-  item = @current_inventory_pool.own_items.items.detect{|i| not i.inventory_pool_id.nil? and i.inventory_pool != @current_inventory_pool and not i.in_stock?}
-  step 'I search for "%s"' % item.inventory_code
-  within ".line[data-type='model'][data-id='#{item.model.id}']" do
-    if has_selector?(".button[data-type='inventory-expander'] i.arrow.right")
-      find(".button[data-type='inventory-expander']").click
-    end
-  end
+  @item = @current_inventory_pool.own_items.items.detect{|i| not i.inventory_pool_id.nil? and i.inventory_pool != @current_inventory_pool and not i.in_stock?}
+  step 'I search for "%s"' % @item.inventory_code
+  step 'expand the corresponding model'
   @item_line, @item = fetch_item_line_and_item
 end
 
@@ -749,7 +745,7 @@ end
 
 #Angenommen(/^man öffnet die Liste der Geräteparks$/) do
 Given(/^I open the list of inventory pools$/) do
-  visit manage_inventory_pools_path if current_path != manage_inventory_pools_path
+  visit admin_inventory_pools_path if current_path != admin_inventory_pools_path
 end
 
 Given(/^I'am on the software inventory overview$/) do
@@ -912,8 +908,10 @@ Then(/^the item appears$/) do
 end
 
 When(/^expand the corresponding model$/) do
-  within(".line[data-type='model']", match: :prefer_exact, text: @item.model.name) do
-    find("[data-type='inventory-expander']").click
+  within ".line[data-type='model'][data-id='#{@item.model.id}']" do
+    if has_selector?(".button[data-type='inventory-expander'] i.arrow.right")
+      find(".button[data-type='inventory-expander']").click
+    end
   end
 end
 

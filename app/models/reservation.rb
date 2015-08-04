@@ -9,6 +9,7 @@
 class Reservation < ActiveRecord::Base
   include Availability::Reservation
   include Delegation::Reservation
+  audited
 
   belongs_to :inventory_pool, inverse_of: :reservations
   belongs_to :user, inverse_of: :reservations
@@ -190,14 +191,14 @@ class Reservation < ActiveRecord::Base
     end
   end
 
-  def update_time_line(start_date, end_date, user_id)
+  def update_time_line(start_date, end_date, user)
     Reservation.transaction do
       start_date ||= self.start_date
       end_date ||= self.end_date
       unless update_attributes(start_date: start_date, end_date: [start_date, end_date].max)
         raise errors.full_messages.uniq.join(', ')
       end
-      if User.find(user_id).access_right_for(inventory_pool).role == :group_manager and not available?
+      if user.access_right_for(inventory_pool).role == :group_manager and not available?
         raise _('Not available')
       end
     end

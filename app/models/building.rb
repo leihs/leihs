@@ -1,4 +1,5 @@
 class Building < ActiveRecord::Base
+  audited
 
   has_many :locations, dependent: :restrict_with_exception
   has_many :items, through: :locations

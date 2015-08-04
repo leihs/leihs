@@ -1,7 +1,6 @@
 
 
 
-require 'pry'
 ip = InventoryPool.find(169)
 log = File.open('/tmp/optionen.log', 'a+')
 

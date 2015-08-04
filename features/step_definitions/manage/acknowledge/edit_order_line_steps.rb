@@ -94,7 +94,7 @@ When(/^I change a contract reservations quantity$/) do
       else
         @customer.visits.hand_over.where(inventory_pool_id: @current_inventory_pool).first.reservations.order('RAND()').first
       end
-    @total_quantity = @line.contract.reservations.where(model_id: @line.model_id).sum(&:quantity)
+    @total_quantity = @line.contract.reservations.where(model_id: @line.model_id).to_a.sum(&:quantity)
     @new_quantity = @line.quantity + 1
     @line_element = find(".line[data-id='#{@line.id}']")
   end
@@ -109,7 +109,7 @@ When(/^I change a contract reservations quantity$/) do
 end
 
 Then(/^the contract line was duplicated$/) do
-  expect(@line.contract.reservations.where(model_id: @line.model_id).sum(&:quantity)).to eq @total_quantity + 1
+  expect(@line.contract.reservations.where(model_id: @line.model_id).to_a.sum(&:quantity)).to eq @total_quantity + 1
 end
 
 Then(/^the quantity of that submitted contract line is changed$/) do

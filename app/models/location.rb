@@ -1,4 +1,5 @@
 class Location < ActiveRecord::Base
+  audited
 
   has_many :items, dependent: :nullify
   belongs_to :building

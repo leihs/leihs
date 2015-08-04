@@ -13,8 +13,6 @@
 # Users from the file /tmp/managers.csv will be created with the role "inventory manager"
 # Users from the file /tmp/users.csv will be created with the role "customer"
 
-require 'pry'
-
 def create_auth_for_user(user)
   password = SecureRandom.base64(6).tr('+/=lIO0', 'pqrsxyz')
   dba = DatabaseAuthentication.create(login: user[:login],
@@ -59,7 +57,6 @@ def create_basic_elements(user, options = {})
     role = 'customer'
     role = options[:role] if options[:role]
     create_auth_for_user(user)
-    binding.pry if options[:inventory_pools].blank?
     inventory_pools = pools(options[:inventory_pools])
     inventory_pools.each do |ip|
       give_role(user, role, ip)

@@ -11,13 +11,6 @@
 
       %h1.headline-l.float-left= yield :title
 
-      - unless current_inventory_pool
-        .float-right
-
-          %a.button.white{href: manage_new_supplier_path}
-            %i.icon-plus
-            = _("Create %s") % _("Supplier")
-
     .margin-top-m
 
       .inline-tab-navigation

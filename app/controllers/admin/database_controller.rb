@@ -135,6 +135,7 @@ class Admin::DatabaseController < Admin::ApplicationController
   def consistency
     @only_tables_no_views = @connection.execute("SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'").to_h.keys
     @excluded_models = [ReservationsBundle, Audited::Adapters::ActiveRecord::Audit]
+    @view_table_models = [PartitionsWithGeneral, Visit]
 
     @references = []
 
@@ -170,6 +171,7 @@ class Admin::DatabaseController < Admin::ApplicationController
     Rails.application.eager_load! if Rails.env.development?
 
     ActiveRecord::Base.descendants.each do |klass|
+      next if klass.name =~ /^HABTM_/ or @view_table_models.include? klass
       klass.reflect_on_all_associations(:belongs_to).each do |ref|
         if ref.polymorphic?
           # NOTE we cannot define foreign keys on multiple parent tables
@@ -190,7 +192,7 @@ class Admin::DatabaseController < Admin::ApplicationController
                       else
                         nil
                       end
-          collect_missing_references(klass, ref.table_name, klass.table_name, ref.foreign_key, ref.primary_key_column.name, nil, false, dependent)
+          collect_missing_references(klass, ref.table_name, klass.table_name, ref.foreign_key, ref.active_record_primary_key, nil, false, dependent)
         end
       end
     end
@@ -202,7 +204,7 @@ class Admin::DatabaseController < Admin::ApplicationController
             {from_table: ref.join_table,
              to_table: klass.table_name,
              from_column: ref.foreign_key,
-             to_column: ref.primary_key_column.name},
+             to_column: ref.active_record_primary_key},
             {from_table: ref.join_table,
              to_table: ref.klass.table_name,
              from_column: ref.association_foreign_key,

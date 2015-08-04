@@ -35,25 +35,6 @@ Feature: Manage users
     And my changes are saved if I save the user
 
   @personas
-  Scenario: Give admin rights to another user (as administrator)
-    Given I am Gino
-    And I am editing a user that has no access rights and is not an admin
-    When I assign the admin role to this user
-    And I save
-    Then I see a confirmation of success on the list of users
-    And this user has the admin role
-    And all their previous access rights remain intact
-
-  @personas
-  Scenario: Remove admin rights from a user, as administrator
-    Given I am Gino
-    And I am editing a user who has the admin role and access to inventory pools
-    When I remove the admin role from this user
-    And I save
-    Then this user no longer has the admin role
-    And all their previous access rights remain intact
-
-  @personas
   Scenario Outline: As lending or inventory manager I can't access the admin area
     Given I am <person>
     When I try to access the admin area's user editing page
@@ -91,64 +72,16 @@ Feature: Manage users
     Then the user and all their information is saved
 
   @personas
-  Scenario: Add a new user as an administrator, from outside the inventory pool
-    Given I am Gino
-    And I am looking at the user list outside an inventory pool
-    When I navigate from here to the user creation page
-    And I enter the following information
-      | First name       |
-      | Last name        |
-      | E-Mail         |
-    And I enter the login data
-    And I save
-    Then I am redirected to the user list outside an inventory pool
-    And I receive a notification
-    And the new user has been created
-    And he does not have access to any inventory pools and is not an administrator
-
-  @personas
   Scenario: Auflistung der Inventarpools eines Benutzers
     Given I am Ramon
     And I am looking at the user list outside an inventory pool
     And I edit a user that has access rights
     Then inventory pools they have access to are listed with the respective role
 
-  @javascript @personas @browser
-  Scenario: Requirements for deleting a user in an inventory pool
-    Given I am Ramon
-    And I pick one user with access rights, one with orders and one with contracts
-    And I am looking at the user list in any inventory pool
-    When I delete that user from the list
-    Then I see an error message
-    And the user is not deleted
-
-  @personas
-  Scenario: Alphabetic sort order of users outside an inventory pool
-    Given I am Gino
-    And I am looking at the user list outside an inventory pool
-    # What's here? We need to confirm that A comes before B in the list
-
   @personas
   Scenario: Remove access as an inventory manager
     Given I am Pius
     And I am editing a user who has access to and no items from the current inventory pool
-    When I remove their access
-    And I save
-    Then the user has no access to the inventory pool
-
-  @javascript @personas
-  Scenario: Delete user from an inventory pool as admin
-    Given I am Gino
-    And I pick a user without access rights, orders or contracts
-    And I am looking at the user list in any inventory pool
-    When I delete that user from the list
-    Then that user has been deleted from the list
-    And that user is deleted
-
-  @personas
-  Scenario: Remove access as an administrator
-    Given I am Gino
-    And I am editing a user who has access to and no items from an inventory pool
     When I remove their access
     And I save
     Then the user has no access to the inventory pool
@@ -349,20 +282,6 @@ Feature: Manage users
     Then I see a confirmation of success on the list of users
     And the user has the role "customer"
 
-  @personas
-  Scenario: Change access as an administrator
-    Given I am Gino
-    And I edit a user who is customer in any inventory pool
-    Then I can only choose the following roles
-      | No access          |
-      | Customer           |
-      | Group manager      |
-      | Lending manager    |
-      | Inventory manager  |
-    When I change the access level to "inventory manager"
-    And I save
-    Then the user has the role "inventory manager"
-
   @javascript @personas @browser
   Scenario: Requirements for deleting a user
     Given I am Ramon
@@ -371,12 +290,6 @@ Feature: Manage users
     When I delete that user from the list
     Then I see an error message
     And the user is not deleted
-
-  @javascript @personas
-  Scenario: Alphabetical sorting of users within an inventory pool
-    Given I am Gino
-    And I am looking at the user list in any inventory pool
-    Then users are sorted alphabetically by first name
 
   @personas
   Scenario: Editing a user who has no access rights without granting them any
@@ -387,33 +300,6 @@ Feature: Manage users
     Then I see a confirmation of success on the list of users
     And the user's new email address is saved
     And the user still has access to the current inventory pool
-
-  @javascript @personas
-  Scenario: Add new user to the inventory pool as administrator
-    Given I am Gino
-    When I am looking at the user list in any inventory pool
-    And I add a user
-    And I enter the following information
-      | Last name      |
-      | First name     |
-      | E-Mail         |
-    And I enter the login data
-    And I enter a badge ID
-    Then I can only choose the following roles
-      | No access          |
-      | Customer           |
-      | Group manager      |
-      | Lending manager    |
-      | Inventory manager  |
-    When I choose the following roles
-      | tab                | role                |
-      | Customer              | customer            |
-      | Group manager  | group_manager       |
-      | Lending manager| lending_manager     |
-      | Inventory manager| inventory_manager   |
-    And I assign multiple groups
-    And I save
-    Then the user and all their information is saved
 
   @personas
   Scenario Outline: Adding a new user without supplying require information
@@ -438,16 +324,6 @@ Feature: Manage users
     And I save
     Then I see a confirmation of success on the list of users
     And the user has the role "customer"
-
-
-  @javascript @personas
-  Scenario: Deleting a user as an administrator
-    Given I am Gino
-    And I am looking at the user list outside an inventory pool
-    And I pick a user without access rights, orders or contracts
-    When I delete that user from the list
-    Then that user has been deleted from the list
-    And that user is deleted 
 
   # Unimplemented, so not translated.
   @personas @upcoming

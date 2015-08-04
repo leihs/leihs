@@ -44,6 +44,8 @@ module PublicAsset
 
   module ClassMethods
     def define_attached_file_specification **options
+      attr_accessor :file_content_type
+
       # paperclip gem
       has_attached_file \
         :file,

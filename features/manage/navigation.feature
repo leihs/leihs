@@ -19,22 +19,10 @@ Feature: Navigation
     And I open the tab "Contracts"
     And man sieht die Gerätepark-Auswahl im Verwalten-Bereich
 
-  @personas
+  @personas @javascript
   Scenario: Aufklappen der Geraeteparkauswahl und Wechsel des Geraeteparks
     Given I am Mike
-    When I click on the inventory pool selection toggler again
+    When I hover over the navigation toggler
     Then I see all inventory pools for which I am a manager
     When I click on one of the inventory pools
     Then I switch to that inventory pool
-
-  @personas @javascript
-  Scenario: Zuklappen der Geraeteparkauswahl
-    Given I am Mike
-    When I click on the inventory pool selection toggler again
-    Then I see all inventory pools for which I am a manager
-    When I click somewhere outside of the inventory pool menu list
-    Then the inventory pool menu list closes
-    When I click on the inventory pool selection toggler again
-    Then I see all inventory pools for which I am a manager
-    When I click on the inventory pool selection toggler again
-    Then the inventory pool menu list closes

@@ -1,4 +1,5 @@
 class Property < ActiveRecord::Base
+  audited
 
   belongs_to :model, inverse_of: :properties
   # TODO belongs_to :key

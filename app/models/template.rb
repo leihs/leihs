@@ -36,7 +36,7 @@ class Template < ModelGroup
   end
 
   def unaccomplishable_models(user = nil, quantity = nil)
-    models.keep_if do |model|
+    models.to_a.keep_if do |model|
       q = quantity || model_links.detect{|l| l.model_id == model.id}.quantity
       not inventory_pools.any? do |ip|
         if user

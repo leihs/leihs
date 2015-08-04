@@ -1,5 +1,6 @@
 class InventoryPool < ActiveRecord::Base
   include Availability::InventoryPool
+  audited
 
   belongs_to :address
 

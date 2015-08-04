@@ -21,7 +21,7 @@ module NavigationHelpers
       '/logout'
 
     when /^the settings page$/
-      '/manage/settings'
+      '/admin/settings'
 
     when /^the inventory helper screen$/
       manage_inventory_helper_path @current_inventory_pool

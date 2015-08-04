@@ -3,7 +3,7 @@ class Manage::MailsController < Manage::ApplicationController
   before_filter do
     @user = User.find params[:user_id]
     
-    not_authorized! unless is_admin? or is_privileged_user?
+    not_authorized! unless is_privileged_user?
   end
 
 ######################################################################

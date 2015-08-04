@@ -51,11 +51,6 @@
               %i.icon-envelope
               {{jed "E-Mail"/}}
 
-          %li
-            %a.dropdown-item.red{:href => "{{>url()}}", "data-method" => "delete"}
-              %i.icon-trash
-              {{jed "Delete"/}}
-
       {{else}}
 
       %a.button.white{:href => "{{>url('edit')}}"}
@@ -72,10 +67,12 @@
               %i.icon-envelope
               {{jed "E-Mail"/}}
 
+          {{if !~currentInventoryPool}}
           %li
             %a.dropdown-item.red{:href => "{{>url()}}", "data-method" => "delete"}
               %i.icon-trash
               {{jed "Delete"/}}
+          {{/if}}
 
       {{/if}}
 

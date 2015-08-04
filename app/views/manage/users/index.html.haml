@@ -14,25 +14,19 @@
         %h1.headline-l.float-left= yield :title
 
         .multibutton.float-right
-          %a.button.white{:href => (current_inventory_pool ? manage_new_inventory_pool_user_path : manage_users_new_path)}= _("New User")
+          %a.button.white{:href => manage_new_inventory_pool_user_path}= _("New User")
           .dropdown-holder.inline-block
             .button.white.dropdown-toggle
               .arrow.down
             %ul.dropdown.right
               %li
-                %a.dropdown-item{href: (current_inventory_pool ? manage_new_inventory_pool_user_path(type: :delegation) : manage_users_new_path(type: :delegation))}= _("New Delegation")
+                %a.dropdown-item{href: manage_new_inventory_pool_user_path(type: :delegation)}= _("New Delegation")
 
     .margin-top-m
 
       #list-tabs.inline-tab-navigation
 
-        - if current_inventory_pool
-
-          = render 'manage/users/list/ip_roles'
-
-        - else
-
-          = render 'manage/users/list/admin_roles'
+        = render 'manage/users/list/ip_roles'
 
       .row.margin-vertical-xs.padding-horizontal-m
 

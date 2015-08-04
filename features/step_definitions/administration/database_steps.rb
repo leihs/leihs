@@ -18,6 +18,7 @@ When(/^a database admin deletes some (referenced|visit related access right) rec
                only_tables_no_views = @connection.execute("SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'").to_h.keys
                begin
                  reference = ActiveRecord::Base.descendants.flat_map do |klass|
+                   next if klass.name =~ /^HABTM_/
                    klass.reflect_on_all_associations(:belongs_to).map do |ref|
                      if ref.polymorphic?
                        # NOTE we cannot define foreign keys on multiple parent tables
@@ -33,11 +34,11 @@ When(/^a database admin deletes some (referenced|visit related access right) rec
                                    end
                        unless [:delete, :delete_all, :destroy, :nullify].include?(dependent)
                          # NOTE we get an association which delete should be prevented by the database
-                         {klass: klass, other_table: ref.table_name, this_column: ref.foreign_key, other_column: ref.primary_key_column.name}
+                         {klass: klass, other_table: ref.table_name, this_column: ref.foreign_key, other_column: ref.active_record_primary_key}
                        end
                      end
-                   end.compact
-                 end.sample
+                   end
+                 end.compact.sample
                  referenced_id = reference[:klass].pluck(reference[:this_column]).sample
                end while referenced_id.nil?
                %Q(DELETE FROM %s WHERE %s = %d) % [reference[:other_table], reference[:other_column], referenced_id]

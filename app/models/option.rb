@@ -9,6 +9,7 @@
 #
 class Option < ActiveRecord::Base
   include DefaultPagination
+  audited
 
   belongs_to :inventory_pool
 

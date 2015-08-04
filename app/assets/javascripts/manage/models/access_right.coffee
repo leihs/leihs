@@ -3,7 +3,7 @@ class window.App.AccessRight extends Spine.Model
   @configure "AccessRight", "id", "role", "user_id", "inventory_pool_id", "suspended_until"
   @belongsTo "users", "App.User", "user_id"
   @extend Spine.Model.Ajax
-  @url: => if App.InventoryPool.current? then "/manage/#{App.InventoryPool.current.id}/access_rights" else "/manage/access_rights"
+  @url: => if App.InventoryPool.current? then "/manage/#{App.InventoryPool.current.id}/access_rights" else "/admin/access_rights"
 
   @rolesHierarchy: ["customer", "group_manager", "lending_manager", "inventory_manager"]
 

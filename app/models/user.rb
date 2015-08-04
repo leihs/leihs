@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include Delegation::User
   include DefaultPagination
+  audited
 
   serialize :extended_info
 

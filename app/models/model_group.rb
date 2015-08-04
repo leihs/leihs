@@ -1,6 +1,7 @@
 class ModelGroup < ActiveRecord::Base
   include Search::Name
-  
+  audited
+
   attr_accessor :current_parent_id
 
   has_many :model_links, inverse_of: :model_group, dependent: :delete_all

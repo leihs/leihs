@@ -5,11 +5,7 @@ class Manage::BuildingsController < Manage::ApplicationController
   end
 
   def index
-    @buildings = if current_inventory_pool
-                   current_inventory_pool.buildings
-                 else
-                   Building
-                 end.filter(params)
+    @buildings = current_inventory_pool.buildings.filter(params)
 
     respond_to do |format|
       format.html
@@ -17,32 +13,7 @@ class Manage::BuildingsController < Manage::ApplicationController
     end
   end
 
-  def new
-    @building = Building.new
-  end
-
-  def create
-    @building = Building.create params[:building]
-    if @building.persisted?
-      flash[:notice] = _('Building successfully created')
-      redirect_to action: :index
-    else
-      flash.now[:error] = @building.errors.full_messages.uniq.join(', ')
-      render :new
-    end
-  end
-
   def edit
-  end
-
-  def update
-    if @building.update_attributes params[:building]
-      flash[:notice] = _('Building successfully updated')
-      redirect_to action: :index
-    else
-      flash.now[:error] = @building.errors.full_messages.uniq.join(', ')
-      render :edit
-    end
   end
 
   def destroy

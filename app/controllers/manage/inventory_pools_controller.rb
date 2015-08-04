@@ -1,8 +1,4 @@
 class Manage::InventoryPoolsController < Manage::ApplicationController
-  
-  before_filter only: [:index, :new, :create] do
-    not_authorized!(redirect_path: root_path) and return unless is_admin?
-  end
 
   private
 
@@ -17,10 +13,6 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
   end
 
   public
-
-  def index
-    @inventory_pools = InventoryPool.all.sort
-  end
 
   def daily(date = params[:date])
     if is_group_manager? and not is_lending_manager?
@@ -40,30 +32,9 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
     @last_visitors = session[:last_visitors].reverse.map if session[:last_visitors]
   end
 
-  def new
-    @inventory_pool = InventoryPool.new
-    @inventory_pool.workday = Workday.new
-  end
-
   def edit
     @inventory_pool = current_inventory_pool
     @holidays = @inventory_pool.holidays.reject{|h| h.end_date < Date.today}.sort_by(&:start_date)
-  end
-
-  def create
-    @inventory_pool = InventoryPool.new
-    process_params params[:inventory_pool]
-
-    if @inventory_pool.update_attributes(params[:inventory_pool]) and @inventory_pool.workday.save
-      flash[:notice] = _('Inventory pool successfully created')
-      redirect_to manage_inventory_pools_path
-    else
-      setup_holidays_for_render params[:inventory_pool][:holidays_attributes]
-      flash.now[:error] = @inventory_pool.errors.full_messages.uniq.join(', ')
-      render :new
-    end
-
-    current_user.access_rights.create(role: :inventory_manager, inventory_pool: @inventory_pool) unless @inventory_pool.new_record?
   end
 
   # TODO: this mess needs to be untangled and split up into functions called by new/create/update
@@ -79,22 +50,6 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
       setup_holidays_for_render params[:inventory_pool][:holidays_attributes]
       flash.now[:error] = @inventory_pool.errors.full_messages.uniq.join(', ')
       render :edit
-    end
-  end
-
-  # delete is idempotent
-  def destroy
-    begin
-      current_inventory_pool.try :destroy
-      respond_to do |format|
-        format.json { render status: :no_content, nothing: true }
-        format.html { redirect_to action: :index, flash: { success: _('%s successfully deleted') % _('Inventory Pool') }}
-      end
-    rescue => e
-      respond_to do |format|
-        format.json { render status: :bad_request, nothing: true }
-        format.html { redirect_to action: :index, flash: { error: e }}
-      end
     end
   end
 
@@ -120,6 +75,14 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
     end
   end
 
+  def latest_reminder
+    user = current_inventory_pool.users.find(params[:user_id])
+    visit = current_inventory_pool.visits.find(params[:visit_id])
+    @notifications = user.notifications.where('created_at >= ?', visit.date).limit(10)
+  end
+
+  private
+
   def process_params ip
     ip[:email] = nil if params[:inventory_pool][:email].blank?
     ip[:workday_attributes][:workdays].delete '' if ip[:workday_attributes]
@@ -137,12 +100,6 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
     else
       @holidays = []
     end
-  end
-
-  def latest_reminder
-    user = current_inventory_pool.users.find(params[:user_id])
-    visit = current_inventory_pool.visits.find(params[:visit_id])
-    @notifications = user.notifications.where('created_at >= ?', visit.date).limit(10)
   end
 
 end

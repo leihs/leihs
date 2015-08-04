@@ -1,0 +1,73 @@
+.row.margin-top-l.padding-horizontal-m
+
+  .row
+    %h1.headline-l.float-left= @inventory_pool.name || _("Create %s") % _("Inventory Pool")
+
+    %div.float-right
+      %a.button.grey{:href => "/admin/inventory_pools"}= _("Cancel")
+      %button.button.green{:type => :submit}= _("Save")
+
+  .row.margin-top-m
+
+    .col1of2.padding-right-xs
+
+      %h2.headline-m.padding-left-s= _("Basic Information")
+
+      .row.margin-vertical-s
+
+        .row.padding-inset-s.emboss.margin-bottom-xxs
+          .col1of2
+            %strong.font-size-m= "#{_("Name")} *"
+          .col1of2.text-align-right
+            %input{type: "text", name: "inventory_pool[name]", value: @inventory_pool.name}
+
+        .row.padding-inset-s.emboss.margin-bottom-xxs
+          .col1of2
+            %strong.font-size-m= "#{_("Short Name")} *"
+            %div.padding-top-xs
+              = _("Additional label in inventory codes")
+          .col1of2.text-align-right
+            %input{type: "text", name: "inventory_pool[shortname]", value: @inventory_pool.shortname}
+
+        .row.padding-inset-s.emboss.margin-bottom-xxs
+          .col1of2
+            %strong.font-size-m= "#{_("E-Mail")} *"
+            %div.padding-top-xs
+              = _("Used for sending e-mails from leihs")
+          .col1of2.text-align-right
+            %input{type: "text", name: "inventory_pool[email]", value: @inventory_pool.email}
+
+        .row.padding-inset-s.emboss.margin-bottom-xxs
+          .col1of2
+            %strong.font-size-m= _("Description")
+            %div.padding-top-xs
+              = _("Visible for borrowers in frontend")
+          .col1of2.text-align-right
+            %textarea{type: "text", name: "inventory_pool[description]", rows: 6}= @inventory_pool.description
+
+    .col1of2.padding-left-xs
+      #users.row.emboss.margin-bottom-xxs
+        .row.padding-inset-s
+          .col1of2
+            %strong.font-size-m= _("Inventory Managers")
+          .col1of2.text-align-right
+            .row
+              %input{type: "text", placeholder: _("Name of the user"), :"data-search-users" => true, autocomplete: :off}
+              %label.addon.small.transparent.padding-right-s
+                .arrow.down
+
+        .row.list-of-lines.even{:"data-users-list" => true}
+
+          = render :partial => "manage/templates/user_inline_entry", :collection => @inventory_pool.users.inventory_managers.sort{|u1, u2| u1.name <=> u2.name}, :as => :user, locals: { ref_name: "inventory_managers" }
+
+:coffeescript
+
+  jQuery ->
+    new App.ManageUsersViaAutocompleteController
+      el: $("#users")
+      removeHandler: (e) =>
+        e.preventDefault()
+        $(e.currentTarget).closest(".line").remove()
+      paramName: "inventory_managers[users][][id]"
+      fetchUsersParams: { type: "user"}
+

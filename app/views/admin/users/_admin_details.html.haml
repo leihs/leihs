@@ -1,0 +1,11 @@
+%h2.headline-m.padding-left-s= _("Access")
+
+.row.margin-vertical-s
+
+  .row.padding-inset-s.emboss.margin-bottom-xxs
+    .col1of2
+      %strong.font-size-m= "#{_("Administrator")} *"
+    .col1of2.text-align-right
+      = select_tag "user[admin]", options_for_select([[_("No"), "false"], [_("Yes"), "true"]], @is_admin)
+
+  = render partial: "admin/users/access_rights" unless @user.new_record?

@@ -42,7 +42,9 @@ end
 Then /^the contract is rejected$/ do
   if @daily_view_line
     within @daily_view_line do
-      find('.button', match: :first, text: _('Rejected'))
+      within '.line-actions' do
+        find('.button', text: _('Rejected'))
+      end
     end
   end
 

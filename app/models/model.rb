@@ -11,6 +11,7 @@
 class Model < ActiveRecord::Base
   include Availability::Model
   include DefaultPagination
+  audited
 
   before_validation do
     self.type = 'Model' unless type # TODO this should be done by the ActiveRecord STI
@@ -263,7 +264,7 @@ class Model < ActiveRecord::Base
   end
 
   def image(offset = 0)
-    images.offset(offset).first
+    images.offset(offset.to_i).first
   end
 
   def needs_permission

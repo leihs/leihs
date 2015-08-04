@@ -1,0 +1,42 @@
+- content_for :title, _("Create %s") % (@delegation ? _("Delegation") : _("User"))
+- content_for :admin_section, "active"
+
+.wrapper.margin-top-m
+
+  = render :partial => 'manage/tabs/admin', :locals => {:active_tab => :users}
+
+  .row.content-wrapper.min-height-xl.min-width-full.straight-top
+
+    = form_tag admin_create_user_path do
+
+      .margin-top-l.padding-horizontal-m
+
+        .row
+
+          %h1.headline-l.float-left= yield :title
+
+          .float-right
+            %a.button.grey{:href => "/admin/users"}= _("Cancel")
+            %button.button.green{:type => :submit}= _("Save")
+
+        .row.margin-top-m
+
+          - if @delegation_type
+
+            = render partial: "delegation"
+
+            :coffeescript
+
+              jQuery -> new App.DelegationController {el: "#delegation"}
+
+          - else
+
+            .col1of2.padding-right-xs
+
+              = render partial: "manage/users/personal_details"
+
+            .col1of2.padding-left-xs
+
+              = render partial: "manage/users/login_details"
+
+              = render partial: "admin/users/admin_details"

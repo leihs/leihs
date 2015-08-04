@@ -1,4 +1,5 @@
 class MailTemplate < ActiveRecord::Base
+  audited
 
   belongs_to :inventory_pool # NOTE when null, then is system-wide
   belongs_to :language

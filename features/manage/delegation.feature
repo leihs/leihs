@@ -84,7 +84,7 @@ Feature: Delegation
   @javascript @personas @browser
   Scenario: Filter der Delegationen
     Given I am Pius
-    When I navigate to the admin area
+    When I can find the user administration features in the "Admin" area under "Users"
     And I am listing users
     Then I can restrict the user list to show only delegations
     And I can restrict the user list to show only users

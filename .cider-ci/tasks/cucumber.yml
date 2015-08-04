@@ -5,11 +5,36 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         "features/acknowledge.feature"
+- name: administration/buildings
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        "features/administration/buildings.feature"
 - name: administration/database
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         "features/administration/database.feature"
+- name: administration/geraetepark_administrieren
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        "features/administration/geraetepark_administrieren.feature"
+- name: administration/statistik
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        "features/administration/statistik.feature"
+- name: administration/suppliers
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        "features/administration/suppliers.feature"
+- name: administration/users
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        "features/administration/users.feature"
 - name: administration/wartungsmodus
   scripts:
     test:
@@ -195,11 +220,6 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         "features/examples/gegenstand_kopieren.feature"
-- name: examples/geraetepark_administrieren
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/geraetepark_administrieren.feature"
 - name: examples/geraetepark_grundinformationen
   scripts:
     test:
@@ -320,11 +340,6 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         "features/examples/sprachauswahl.feature"
-- name: examples/statistik
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/statistik.feature"
 - name: examples/suche
   scripts:
     test:
@@ -465,11 +480,6 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         "features/manage/booking_calendar/summary_of_lines_in_calendar.feature"
-- name: manage/buildings
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/buildings.feature"
 - name: manage/daily_view/item_hover
   scripts:
     test:
@@ -555,11 +565,6 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         "features/manage/software/software_create.feature"
-- name: manage/suppliers
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/suppliers.feature"
 - name: manage/take_back/close_contract
   scripts:
     test:
@@ -575,6 +580,11 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         "features/manage/timeline.feature"
+- name: manage/users
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        "features/manage/users.feature"
 - name: manage/verification
   scripts:
     test:

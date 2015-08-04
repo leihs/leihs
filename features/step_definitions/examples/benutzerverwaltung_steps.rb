@@ -153,7 +153,7 @@ end
 ####################################################################
 
 Then /^I can find the user administration features in the "Admin" area under "Users"$/ do
-  step 'I navigate to the admin area'
+  step 'I navigate to the inventory pool section in the admin area'
   step "I open the tab '%s'" % _('Users')
 end
 
@@ -314,7 +314,7 @@ Dann /^man kann neue Benutzer erstellen (.*?) inventory_pool$/ do |arg1|
                when 'für'
                  page.driver.browser.process(:post, manage_inventory_pool_users_path(@inventory_pool), user: attributes, access_right: {role: :customer}, db_auth: {login: attributes[:login], password: 'password', password_confirmation: 'password'})
                when 'ohne'
-                 page.driver.browser.process(:post, manage_users_path, user: attributes)
+                 page.driver.browser.process(:post, admin_users_path, user: attributes)
              end
   expect(User.count).to eq c+1
   id = (User.pluck(:id) - ids).first
@@ -566,9 +566,9 @@ end
 When(/^I am looking at the user list( outside an inventory pool| in any inventory pool)?$/) do |arg1|
   visit case arg1
           when ' outside an inventory pool'
-            manage_users_path
+            admin_users_path
           when ' in any inventory pool'
-            @current_inventory_pool = InventoryPool.first
+            @current_inventory_pool = @current_user.inventory_pools.managed.sample || InventoryPool.first
             manage_inventory_pool_users_path(@current_inventory_pool)
           else
             manage_inventory_pool_users_path(@current_inventory_pool)
@@ -658,7 +658,7 @@ end
 
 #Dann(/^wird man auf die Benutzerliste ausserhalb der Inventarpools umgeleitet$/) do
 Then(/^I am redirected to the user list outside an inventory pool$/) do
-  expect(current_path).to eq manage_users_path
+  expect(current_path).to eq admin_users_path
 end
 
 #Dann(/^der neue Benutzer wurde erstellt$/) do
@@ -675,9 +675,12 @@ end
 Given(/^I am editing a user that has no access rights and is not an admin$/) do
   @user = User.find { |u| not u.has_role? :admin and u.has_role? :customer }
   @previous_access_rights = @user.access_rights.freeze
-  visit manage_edit_user_path(@user)
+  visit admin_edit_user_path(@user)
 end
 
+Given /^I do not have access as manager to any inventory pools$/ do
+  expect(@current_user.access_rights.where(role: [:group_manager, :lending_manager, :inventory_manager]).exists?).to be false
+end
 
 #Wenn(/^man diesen Benutzer die Rolle Administrator zuweist$/) do
 When(/^I assign the admin role to this user$/) do
@@ -700,7 +703,7 @@ Given(/^I am editing a user who has the admin role and access to inventory pools
   @user = User.find { |u| u.has_role? :admin and u.has_role? :customer }
   raise 'user not found' unless @user
   @previous_access_rights = @user.access_rights.select { |ar| ar.role != :admin }.freeze
-  visit manage_edit_user_path(@user)
+  visit admin_edit_user_path(@user)
 end
 
 #Wenn(/^man diesem Benutzer die Rolle Administrator wegnimmt$/) do
@@ -715,7 +718,7 @@ end
 
 #Wenn(/^man versucht auf die Administrator Benutzererstellenansicht zu gehen$/) do
 When(/^I try to access the admin area's user editing page$/) do
-  @path = manage_edit_user_path(User.first)
+  @path = admin_edit_user_path(User.first)
   visit @path
 end
 
@@ -726,7 +729,7 @@ end
 
 #Wenn(/^man versucht auf die Administrator Benutzereditieransicht zu gehen$/) do
 When(/^I try to access the admin area's user creation page$/) do
-  @path = '/manage/users/new'
+  @path = '/admin/users/new'
   visit @path
 end
 
@@ -806,8 +809,18 @@ When(/^I delete that user from the list$/) do
   within('#user-list .line', text: @user.name) do
     within('.multibutton') do
       find('.dropdown-toggle').click
-      find('.dropdown-toggle').click
       find('.dropdown-item.red', text: _('Delete')).click
+    end
+  end
+end
+
+Then /^the delete button for that user is not present$/ do
+  @user ||= @users.sample
+  step %Q(I search for "%s") % @user.to_s
+  within('#user-list .line', text: @user.name) do
+    within('.multibutton') do
+      find('.dropdown-toggle').click
+      expect(has_no_selector?('.dropdown-item.red', text: _('Delete'))).to be true
     end
   end
 end
@@ -816,7 +829,6 @@ end
 Then(/^that user has been deleted from the list$/) do
   expect(has_no_selector?('#user-list .line', text: @user.name)).to be true
 end
-
 
 #Dann(/^der Benutzer ist gelöscht$/) do
 Then(/^that user is deleted$/) do
@@ -868,7 +880,7 @@ Given(/^I am editing a user who has access to (and no items from )?(the current|
                 access_rights.order('RAND()').first
               end.user
     when 'an'
-      access_right = AccessRight.active.where(role: :customer).order('RAND ()').detect {|ar| ar.inventory_pool.reservations.where(user: ar.user).empty? }
+      access_right = AccessRight.active.where(role: :customer, inventory_pool_id: @current_user.inventory_pools.managed).order('RAND ()').detect {|ar| ar.inventory_pool.reservations.where(user_id: ar.user).empty? }
       @user = access_right.user
       @current_inventory_pool = access_right.inventory_pool
   end
@@ -890,7 +902,7 @@ end
 Then(/^users are sorted alphabetically by first name$/) do
   within('#user-list') do
     find('.line', match: :first)
-    t = if current_path == manage_users_path
+    t = if current_path == admin_users_path
           all('.line > div:nth-child(1)').map(&:text).map { |t| t.split(' ').take(2).join(' ') }
         else
           all('.line > div:nth-child(1)').map(&:text)
@@ -937,8 +949,7 @@ end
 #Angenommen(/^man editiert einen Benutzer der mal einen Zugriff auf das aktuelle Inventarpool hatte$/) do
 Given(/^I edit a user who used to have access to the current inventory pool$/) do
   @current_inventory_pool = @current_user.inventory_pools.managed.where(id: AccessRight.select(:inventory_pool_id).where.not(deleted_at: nil)).order('RAND()').first
-  # TODO use rewhere instead of unscope+where (from Rails 4.1.8)
-  @user = @current_inventory_pool.users.unscope(where: :deleted_at).where.not(access_rights: {deleted_at: nil}).order('RAND()').first
+  @user = @current_inventory_pool.access_rights.where.not(deleted_at: nil).order('RAND()').first.user
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @user)
 end
 
@@ -946,7 +957,7 @@ end
 When(/^I edit a user that has access rights$/) do
   @user = User.find { |u| u.access_rights.active.count >= 2 }
   expect(@user.access_rights.active.count).to be >= 2
-  visit manage_edit_user_path(@user)
+  visit admin_edit_user_path(@user)
 end
 
 #Dann(/^werden die ihm zugeteilt Geräteparks mit entsprechender Rolle aufgelistet$/) do

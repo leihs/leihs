@@ -134,9 +134,9 @@ end
 #Dann(/^ich sehe auf der Bestellungszeile die Anzahl Gegenstände mit Popup\-Ansicht der bestellten Gegenstände$/) do
 Then(/^I see the number of items on the order line and can view a popup containing the items ordered$/) do
   find("#{@line_css} [data-type='lines-cell']", text: "#{@contract.reservations.count} #{n_("Item", "Items", @contract.reservations.count)}")
-  find("#{@line_css} [data-type='lines-cell']").hover
   @contract.models.each {|m|
-    expect(has_selector?('.tooltipster-base', text: m.name)).to be true
+    find("#{@line_css} [data-type='lines-cell']").hover
+    find('.tooltipster-base', text: m.name)
   }
 end
 

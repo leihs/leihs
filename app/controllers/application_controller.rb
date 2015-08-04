@@ -3,31 +3,36 @@ class ApplicationController < ActionController::Base
   require File.join(Rails.root, 'lib', 'authenticated_system.rb')
   include AuthenticatedSystem
 
-  before_filter :set_gettext_locale, :load_settings
+  before_filter :set_gettext_locale, :load_settings, :permit_params
 
   layout 'splash'
 
   protect_from_forgery
 
-  helper_method :is_admin?
-
   def root
     if logged_in?
-      if current_user.has_role?(:group_manager) or current_user.has_role?(:admin)
-        redirect_to manage_root_path, flash: flash
+      flash.keep
+      if current_user.has_role?(:admin)
+        redirect_to admin_root_path
+      elsif current_user.has_role?(:group_manager)
+        redirect_to manage_root_path
       else
-        redirect_to borrow_root_path, flash: flash
+        redirect_to borrow_root_path
       end
     end
   end
  
   protected
 
-  helper_method :current_inventory_pool
+  helper_method :current_inventory_pool, :current_managed_inventory_pools, :is_admin?
   
   # TODO **20 optimize lib/role_requirement and refactor to backend  
   def current_inventory_pool
     nil
+  end
+
+  def current_managed_inventory_pools
+    @current_managed_inventory_pools ||= current_user.inventory_pools.managed.sort
   end
 
   def add_visitor(user)
@@ -55,9 +60,9 @@ class ApplicationController < ActionController::Base
   end
 
   def load_settings
-    if not Setting.smtp_address and logged_in? and not [manage_edit_settings_path, manage_update_settings_path, logout_path].include? request.path
+    if not Setting.smtp_address and logged_in? and not [admin_edit_settings_path, admin_update_settings_path, logout_path].include? request.path
       if current_user.has_role?(:admin)
-        redirect_to manage_edit_settings_path
+        redirect_to admin_edit_settings_path
       else
         raise 'Application settings are missing!'
       end
@@ -76,7 +81,7 @@ class ApplicationController < ActionController::Base
   # ACL
 
   def not_authorized!(options = {redirect_path: nil})
-    options[:redirect_path] ||= manage_inventory_pools_path
+    options[:redirect_path] ||= admin_inventory_pools_path
     msg = "You don't have appropriate permission to perform this operation."
 
     respond_to do |format|
@@ -92,6 +97,10 @@ class ApplicationController < ActionController::Base
 
   def is_admin?
     current_user.has_role?(:admin)
+  end
+
+  def permit_params
+    params.permit!
   end
 
 end

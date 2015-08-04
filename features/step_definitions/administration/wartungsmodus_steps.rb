@@ -2,7 +2,7 @@
 
 #Angenommen(/^ich befinde mich in den Pool\-übergreifenden Einstellungen$/) do
 Given(/^I am in the system-wide settings$/) do
-  visit manage_edit_settings_path unless current_path == manage_edit_settings_path
+  visit admin_edit_settings_path unless current_path == admin_edit_settings_path
 end
 
 #Wenn(/^ich die Funktion "(.*)" wähle$/) do |arg1|
@@ -33,7 +33,7 @@ Then(/^the "(.*)" is disabled for users$/) do |arg1|
   case arg1
     when 'manage section'
       step %Q(I am Mike)
-      expect(current_path).to eq manage_maintenance_path
+      expect(current_path).to eq manage_maintenance_path(@current_inventory_pool)
       @section = _('Manage section')
     when 'borrow section'
       step %Q(I am Normin)

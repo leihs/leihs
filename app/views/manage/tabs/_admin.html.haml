@@ -1,4 +1,4 @@
 - if current_inventory_pool
   = render :partial => 'manage/tabs/admin_inside_ip', :locals => {:active_tab => active_tab}
 - else
-  = render :partial => 'manage/tabs/admin_outside_ip', :locals => {:active_tab => active_tab}
+  = render :partial => 'admin/tabs', :locals => {:active_tab => active_tab}

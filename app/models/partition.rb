@@ -1,4 +1,5 @@
 class Partition < ActiveRecord::Base
+  audited
   
   belongs_to :model, inverse_of: :partitions
   belongs_to :inventory_pool
