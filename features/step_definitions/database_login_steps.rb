@@ -30,12 +30,7 @@ Given(/^my authentication system is "(.*?)"$/) do |arg1|
 end
 
 When(/^I hover over my name$/) do
-  find("nav.topbar ul.topbar-navigation a[href='/borrow/user']", text: @current_user.short_name).hover
-end
-
-When(/^I view my user data$/) do
-  find("ul.dropdown a.dropdown-item[href='/borrow/user']", text: _('User data')).click
-  step %Q(I get to the "User Data" page)
+  find("nav.topbar ul.topbar-navigation .topbar-item", text: @current_user.short_name).hover
 end
 
 Then(/^I get to the "(.*?)" page$/) do |arg1|

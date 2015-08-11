@@ -7,27 +7,24 @@
 
     %ul.topbar-navigation.padding-right-m
 
-      - if current_inventory_pool and is_lending_manager?
-        .placeholder.height-xxs-alt.width-s.float-left.inline-block.margin-right-m
-        %li#topbar-search.topbar-item.topbar-search.position-absolute-left
-          = render :partial => 'manage/application/topbar_search'
-
       - if current_inventory_pool
+
+        - if is_lending_manager?
+          .placeholder.height-xxs-alt.width-s.float-left.inline-block.margin-right-m
+          %li#topbar-search.topbar-item.topbar-search.position-absolute-left
+            = render :partial => 'manage/application/topbar_search'
+
         %li.topbar-item{:class => yield(:lending_section)}
           %a.topbar-item-inner{:href => manage_daily_view_path(current_inventory_pool)}=  _("Lending")
 
-      - if current_inventory_pool and is_group_manager?
-        %li.topbar-item{:class => yield(:inventory_section)}
-          %a.topbar-item-inner{:href => manage_inventory_path(current_inventory_pool, filters: "reset")}=  _("Inventory")
+        - if is_group_manager?
+          %li.topbar-item{:class => yield(:inventory_section)}
+            %a.topbar-item-inner{:href => manage_inventory_path(current_inventory_pool, filters: "reset")}=  _("Inventory")
 
-      -#- if is_admin? or (current_inventory_pool and is_lending_manager?)
-        %li.topbar-item{:class => yield(:admin_section)}
-          %a.topbar-item-inner{:href => is_admin? ? admin_inventory_pools_path : manage_inventory_pool_users_path(current_inventory_pool)}
-            = _("Admin")
-
-      -#- if is_admin?
-        %li.topbar-item{:class => yield(:statistics_section)}
-          %a.topbar-item-inner{:href => admin_statistics_path}= _("Statistics")
+        - if is_lending_manager?
+          %li.topbar-item{:class => yield(:manage_section)}
+            %a.topbar-item-inner{:href => manage_edit_inventory_pool_path(current_inventory_pool)}
+              = _('Manage')
 
     %ul.topbar-navigation.float-right
       = render partial: 'application/navigation'

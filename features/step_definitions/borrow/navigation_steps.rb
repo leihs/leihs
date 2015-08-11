@@ -18,7 +18,7 @@ Then(/^the navigation contains "(.*?)"$/) do |section|
       when 'Inventory pools'
         find("a[href='#{borrow_inventory_pools_path}']", text: _('Inventory Pools'))
       when 'User'
-        find("a[href='#{borrow_current_user_path}']", text: @current_user.short_name)
+        find(".topbar-item", text: @current_user.short_name)
       when 'Log out'
         find('.topbar-navigation.float-right .topbar-item', text: @current_user.short_name).hover
         find("a[href='#{logout_path}']")

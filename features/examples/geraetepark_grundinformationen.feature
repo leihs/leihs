@@ -9,7 +9,7 @@ Feature: Basic information for inventory pools
   @javascript @personas
   Scenario: Make basic settings
     Given I am Mike
-    When I navigate to the inventory pool section in the admin area
+    When I navigate to the inventory pool manage section
     Then I enter the inventory pool's basic settings as follows:
     | Name |
     | Short Name |

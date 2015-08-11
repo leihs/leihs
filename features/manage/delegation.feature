@@ -84,7 +84,7 @@ Feature: Delegation
   @javascript @personas @browser
   Scenario: Filter der Delegationen
     Given I am Pius
-    When I can find the user administration features in the "Admin" area under "Users"
+    When I can find the user administration features in the "Manage" area under "Users"
     And I am listing users
     Then I can restrict the user list to show only delegations
     And I can restrict the user list to show only users
@@ -92,7 +92,7 @@ Feature: Delegation
   @javascript @personas @browser
   Scenario: Creating a delegation
     Given I am Pius
-    And I can find the user administration features in the "Admin" area under "Users"
+    And I can find the user administration features in the "Manage" area under "Users"
     When I create a new delegation
     And I give the delegation access to the current inventory pool
     And I give the delegation a name
@@ -106,7 +106,7 @@ Feature: Delegation
   @javascript @personas @browser
   Scenario: Delegation gets access as a customer
     Given I am Pius
-    And I can find the user administration features in the "Admin" area under "Users"
+    And I can find the user administration features in the "Manage" area under "Users"
     When I create a new delegation
     Then I can at most give the delegation access on the customer level
 
@@ -122,7 +122,7 @@ Feature: Delegation
   @javascript @personas @browser
   Scenario: Trying to create a delegation without filling in required fields
     Given I am Pius
-    And I can find the user administration features in the "Admin" area under "Users"
+    And I can find the user administration features in the "Manage" area under "Users"
     And I create a new delegation
     When I give the delegation a name
     And I do not enter any responsible person for the delegation
@@ -136,7 +136,7 @@ Feature: Delegation
   @javascript @personas @browser
   Scenario: Editing a delegation
     Given I am Pius
-    And I can find the user administration features in the "Admin" area under "Users"
+    And I can find the user administration features in the "Manage" area under "Users"
     When I edit a delegation
     And I change the responsible person
     And I delete an existing user from the delegation

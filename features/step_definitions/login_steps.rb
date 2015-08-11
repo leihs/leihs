@@ -65,7 +65,7 @@ When /^I am redirected to the "([^"]*)" section$/ do |section_name|
   case section_name
     when 'Admin'
       within '.topbar' do
-        find('.topbar-navigation.float-right .topbar-item', match: :first).find('a.topbar-item-inner', text: _(section_name))
+        find('.topbar-navigation.float-right .topbar-item .topbar-item-inner', text: _(section_name))
       end
     else
       find('nav#topbar .topbar-navigation .active', match: :prefer_exact, text: _(section_name))

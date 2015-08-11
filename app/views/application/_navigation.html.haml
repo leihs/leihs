@@ -1,21 +1,17 @@
 - if current_user.has_role?(:group_manager) or current_user.has_role?(:admin)
   %li.topbar-item.max-width-full.with-icon.dropdown-holder
-    - case controller_path.split('/').first.to_sym
-      - when :borrow
-        %a.topbar-item-inner{href: borrow_root_path}
+    .topbar-item-inner
+      - case controller_path.split('/').first.to_sym
+        - when :borrow
           %i.icon-shopping-cart
           %span= _("Borrow")
-          %i.arrow.down
-      - when :admin
-        %a.topbar-item-inner{href: admin_root_path}
+        - when :admin
           %i.icon-wrench
           %span= _("Admin")
-          %i.arrow.down
-      - when :manage
-        %a.topbar-item-inner{href: manage_edit_inventory_pool_path(current_inventory_pool)}
+        - when :manage
           %i.icon-gears
-          %span= current_inventory_pool #_("Manage")
-          %i.arrow.down
+          %span= current_inventory_pool
+      %i.arrow.down
     %ul.dropdown.right.straight-top
       %li.separated-top
         %a.dropdown-item{href:  borrow_root_path}

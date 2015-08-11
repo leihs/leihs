@@ -1,14 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-#Wenn(/^ich auf meinen Namen klicke$/) do
-When(/^I click on my name$/) do
-  find("nav.topbar ul.topbar-navigation a[href='/borrow/user']", match: :first).click
-end
-
-#Dann(/^gelange ich auf die Seite der Benutzerdaten$/) do
-#  step %Q(I get to the "User Data" page)
-#end
-
 #Dann(/^werden mir meine Benutzerdaten angezeigt$/) do
 Then(/^I can see my user data$/) do
   find('nav ul li a', match: :first, text: _('User data'))

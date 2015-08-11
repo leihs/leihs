@@ -97,7 +97,7 @@ Feature: Manage users
   @javascript @personas @browser
   Scenario: Elements of user administration
     Given I am inventory manager or lending manager
-    Then I can find the user administration features in the "Admin" area under "Users"
+    Then I can find the user administration features in the "Manage" area under "Users"
     Then I see a list of all users
     And I can filter to see only suspended users
     And I can filter by the following roles:

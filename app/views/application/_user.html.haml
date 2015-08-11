@@ -1,5 +1,5 @@
 %li.topbar-item.dropdown-holder{:class => current_page?(borrow_current_user_path) ? "active" : nil}
-  %a.topbar-item-inner{href: borrow_current_user_path}
+  .topbar-item-inner
     - if current_user.is_delegation
       .icon-group
     - else

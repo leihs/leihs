@@ -135,7 +135,7 @@ end
 
 #Dann(/^wechsle ich die Anmeldung zur Delegation$/) do
 Then(/^I am logged in as that delegation$/) do
-  find("nav.topbar ul.topbar-navigation a[href='/borrow/user']", text: @delegation.short_name)
+  find("nav.topbar ul.topbar-navigation .topbar-item", text: @delegation.short_name)
   @delegated_user = @current_user
   @current_user = @delegation
 end

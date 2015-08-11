@@ -152,8 +152,10 @@ end
 
 ####################################################################
 
-Then /^I can find the user administration features in the "Admin" area under "Users"$/ do
-  step 'I navigate to the inventory pool section in the admin area'
+Then /^I can find the user administration features in the "(Manage|Admin)" area under "Users"$/ do |arg1|
+  if arg1 == 'Manage'
+    step 'I navigate to the inventory pool manage section'
+  end
   step "I open the tab '%s'" % _('Users')
 end
 
@@ -171,7 +173,7 @@ Given /^a (.*?)user (with|without) assigned role appears in the user list$/ do |
       user.access_rights.active.delete_all
       expect(user.access_rights.active.empty?).to be true
   end
-  step %Q(I can find the user administration features in the "Admin" area under "Users")
+  step %Q(I can find the user administration features in the "Manage" area under "Users")
   within '#user-list' do
     step 'I scroll loading all pages'
     @el = find('.line', match: :prefer_exact, text: user.name)
