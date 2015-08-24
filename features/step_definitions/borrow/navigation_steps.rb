@@ -25,7 +25,7 @@ Then(/^the navigation contains "(.*?)"$/) do |section|
       when 'Manage'
         find('.topbar-navigation.float-right .topbar-item', match: :first).hover
         @current_user.inventory_pools.managed.each do |ip|
-          find(".topbar-navigation.float-right a[href='#{manage_edit_inventory_pool_path(ip)}']", text: ip)
+          find(".topbar-navigation.float-right a[href='#{manage_daily_view_path(ip)}']", text: ip)
         end
       when 'Lending'
         find("a[href='#{manage_daily_view_path(@current_inventory_pool)}']", text: _('Lending'))

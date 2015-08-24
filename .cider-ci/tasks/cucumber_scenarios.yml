@@ -80,11 +80,11 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
         features/borrow/abholungen.feature:5:10:16 DEFAULT_BROWSER=firefox
-- name: features/borrow/benutzeransicht.feature:8:19
+- name: features/borrow/benutzeransicht.feature:8
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        features/borrow/benutzeransicht.feature:8:19 DEFAULT_BROWSER=firefox
+        features/borrow/benutzeransicht.feature:8 DEFAULT_BROWSER=firefox
 - name: features/borrow/bestellfensterchen.feature:9:14:19:31:36
   scripts:
     test:

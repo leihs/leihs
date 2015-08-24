@@ -4,9 +4,12 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
 
   # NOTE overriding super controller
   def required_manager_role
-    open_actions = [:daily]
-    if open_actions.include?(action_name.to_sym)
+    if [:daily].include?(action_name.to_sym)
       require_role :group_manager, current_inventory_pool
+    elsif [:edit].include?(action_name.to_sym)
+      unless current_user.has_role?(:inventory_manager, current_inventory_pool)
+        redirect_to manage_inventory_pool_users_path(current_inventory_pool)
+      end
     else
       super
     end

@@ -18,11 +18,7 @@ class User < ActiveRecord::Base
 
     # get the inventory pools managed by the current user
     def managed(role = [:inventory_manager, :lending_manager, :group_manager])
-      if proxy_association.owner.has_role? :admin
-        where(nil)
-      else
-        where(access_rights: {role: role})
-      end
+      where(access_rights: {role: role})
     end
   end
 

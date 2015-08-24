@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_managed_inventory_pools
-    @current_managed_inventory_pools ||= current_user.inventory_pools.managed.sort
+    current_user.inventory_pools.managed.sort
   end
 
   def add_visitor(user)
