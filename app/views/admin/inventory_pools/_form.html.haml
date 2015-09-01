@@ -4,7 +4,7 @@
     %h1.headline-l.float-left= @inventory_pool.name || _("Create %s") % _("Inventory Pool")
 
     %div.float-right
-      %a.button.grey{:href => "/admin/inventory_pools"}= _("Cancel")
+      = link_to _('Cancel'), :back, class: 'button grey'
       %button.button.green{:type => :submit}= _("Save")
 
   .row.margin-top-m

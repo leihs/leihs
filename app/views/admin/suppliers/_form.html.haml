@@ -4,7 +4,7 @@
     %h1.headline-l.float-left= @supplier.name || _("Create %s") % _("Supplier")
 
     %div.float-right
-      %a.button.grey{:href => "/manage/suppliers"}= _("Cancel")
+      = link_to _('Cancel'), :back, class: 'button grey'
       %button.button.green{:type => :submit}= _("Save")
 
   .row.margin-top-m
