@@ -54,7 +54,7 @@ class Manage::ModelsController < Manage::ApplicationController
     @model = fetch_model
     ActiveRecord::Base.transaction do
       if save_model @model
-        render status: :no_content, nothing: true
+        head status: :ok
       else
         render status: :bad_request, text: @model.errors.full_messages.uniq.join(', ')
       end
@@ -72,7 +72,7 @@ class Manage::ModelsController < Manage::ApplicationController
         attachment.save
       end
     end
-    render status: :no_content, nothing: true
+    head status: :ok
   end
 
   def destroy

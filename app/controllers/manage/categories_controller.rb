@@ -64,7 +64,7 @@ class Manage::CategoriesController < Manage::ApplicationController
         end
       end
     end
-    render status: :no_content, nothing: true
+    head status: :ok
   end
 
   private

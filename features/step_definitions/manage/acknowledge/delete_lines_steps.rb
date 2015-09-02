@@ -67,7 +67,7 @@ end
 
 Then(/^all reservations of that hand over are deleted$/) do
   within(".line[data-id='#{@visit.id}']") do
-    find('.line-actions .multibutton', text: _('Deleted'))
+    find('.line-actions', text: _('Deleted'))
   end
   expect { @visit.reload }.to raise_error(ActiveRecord::RecordNotFound)
   @visit_line_ids.each do |line_id|

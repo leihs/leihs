@@ -39,7 +39,7 @@ class Manage::ItemsController < Manage::ApplicationController
     respond_to do |format|
       format.json {
         if saved
-          render(status: :no_content, nothing: true)
+          head status: :ok
         else
           if @item
             render text: @item.errors.full_messages.uniq.join(', '), status: :bad_request
@@ -81,8 +81,7 @@ class Manage::ItemsController < Manage::ApplicationController
     respond_to do |format|
       format.json { 
         if saved
-          render status: :ok, json: @item.to_json(methods: [:current_borrower, :current_return_date, :in_stock?],
-                                                     include: [:inventory_pool, :location, :model, :owner, :supplier])
+          render status: :ok, json: @item.to_json(include: [:inventory_pool, :location, :model, :owner, :supplier])
         else
           if @item
             render text: @item.errors.full_messages.uniq.join(', '), status: :bad_request
@@ -127,7 +126,7 @@ class Manage::ItemsController < Manage::ApplicationController
       @item.update_attributes(attr => params[attr])
     end
     @item.save!
-    render status: :no_content, nothing: true
+    head status: :ok
   end
 
   private

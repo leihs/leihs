@@ -103,7 +103,7 @@ class Admin::UsersController < Admin::ApplicationController
   def destroy
     @user.destroy if @user.deletable?
     respond_to do |format|
-      format.json{ @user.persisted? ? render(status: :bad_request) : render(status: :no_content)}
+      format.json{ @user.persisted? ? render(status: :bad_request) : head(status: :ok)}
       format.html do 
         if @user.persisted? 
           redirect_to(:back, flash: {error: _('You cannot delete this user')})

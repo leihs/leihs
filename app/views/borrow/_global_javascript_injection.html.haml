@@ -1,6 +1,6 @@
 :coffeescript
   
   App.Contract.TIMEOUT_MINUTES = #{Contract::TIMEOUT_MINUTES}
-  App.User.addRecord new App.User(#{current_user.to_json})
+  App.User.addRecord new App.User(#{current_user.to_json(except: :extended_info)})
   App.User.current = App.User.find(#{current_user.id})
   App.User.current.groupIds = #{current_user.group_ids.to_json}

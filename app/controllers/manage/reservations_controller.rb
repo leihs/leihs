@@ -176,7 +176,7 @@ class Manage::ReservationsController < Manage::ApplicationController
   def remove_assignment
     line = current_inventory_pool.reservations.approved.find params[:id]
     line.update_attributes({item_id: nil})
-    render nothing: true, status: :no_content
+    head status: :ok
   end
 
   def take_back
@@ -198,7 +198,7 @@ class Manage::ReservationsController < Manage::ApplicationController
       l.update_attributes(returned_date: Date.today, returned_to_user_id: current_user.id)
     end
 
-    render status: :no_content, nothing: true
+    head status: :ok
   end
 
   def swap_user
@@ -219,7 +219,7 @@ class Manage::ReservationsController < Manage::ApplicationController
       end
     end
     if reservations.all? &:valid?
-      render status: :no_content, nothing: true
+      head status: :ok
     else
       render status: :bad_request, nothing: true
     end

@@ -7,7 +7,7 @@ class Manage::ApplicationController < ApplicationController
       store_location
       error_response = Proc.new { flash[:error] = _('You are not logged in.') ; render nothing: true, status: :unauthorized }
       respond_to do |format|
-        format.html { redirect_to login_path and return }
+        format.html { redirect_to login_path }
         format.json &error_response
         format.js &error_response
       end

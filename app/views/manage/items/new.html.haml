@@ -45,6 +45,6 @@
   jQuery ->
     new App.ItemEditController
       el: $("#new-item-view")
-      itemData: #{@item.to_json(:methods => [:current_borrower, :current_return_date, :in_stock?],:include => [:inventory_pool, :location, :model, :owner, :supplier])}
+      itemData: #{@item.to_json(:include => [:inventory_pool, :location, :model, :owner, :supplier])}
       itemType: "#{@type.downcase}"
       writeable: true
