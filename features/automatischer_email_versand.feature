@@ -1,17 +1,15 @@
-
 Feature: Automatischer E-Mail versand
   Background:
-    Given Das System ist für den Mailversand im Testmodus konfiguriert
+    Given the system is configured for the mail delivery as test mode
     And I am Normin
 
   @personas
   Scenario: Automatische Rückgabeerinnerung
-    Given ich habe eine nicht verspätete Rückgabe
-    Then wird mir einen Tag vor der Rückgabe eine Erinnerungs E-Mail zugeschickt
+    Given I have a non overdue take back
+    Then the day before the take back I receive a deadline soon email
 
   @personas
   Scenario: Automatische Erinerung bei verpasster Rückgabe
-    Given ich habe eine verspätete Rückgabe
-    Then erhalte ich einen Tag nach Rückgabedatum eine Erinnerungs E-Mail zugeschickt
-    And für jeden weiteren Tag erhalte ich erneut eine Erinnerungs E-Mail zugeschickt
-    
+    Given I have an overdue take back
+    Then the day after the take back I receive a remember email
+    And for each further day I receive an additional remember email

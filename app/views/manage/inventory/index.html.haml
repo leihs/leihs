@@ -48,7 +48,7 @@
             .row
               .col1of6.padding-right-xs
                 %button#categories-toggle.button.inset.width-full.height-full.no-padding.text-align-center
-                  %i.icon-reorder.vertical-align-middle
+                  %i.fa.fa-reorder.vertical-align-middle
               .col5of6
                 %input#list-search.width-full{type: "text", name: "input", placeholder: _("Search..."), autocomplete: :off, value: session[:params].try(:fetch, :search_term, nil)}
           %form.col4of6{data: {filter: "true"}, class: ( "hidden" if session[:params].try(:fetch, :type, nil) == "option" )}

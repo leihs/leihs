@@ -3,7 +3,7 @@
 Given(/^I open (a|the) picking list( for a signed contract)?$/) do |arg1, arg2|
   if @hand_over and arg1 == 'the'
     within '#lines' do
-      @selected_lines = @current_inventory_pool.reservations.find all(".line input[type='checkbox'][checked='checked']").map { |x| x.find(:xpath, './../../../../..')['data-id'] }
+      @selected_lines = @current_inventory_pool.reservations.find all(".line input[type='checkbox']:checked").map { |x| x.find(:xpath, './../../../../..')['data-id'] }
     end
     step 'I can open the picking list'
 
@@ -40,6 +40,8 @@ Then(/^I can open the (contract|picking list|value list) of any (order|contract)
 
   current_role = @current_user.access_right_for(@current_inventory_pool).role
 
+  switch_to_window(windows.first)
+
   find('body').click # closes the toggler if already open
 
   within '#contracts' do
@@ -71,16 +73,20 @@ Then(/^the lists are sorted by (hand over|take back) date$/) do |arg1|
   expect(dates).to eq dates.sort
 end
 
-Then(/^each list contains following columns$/) do |table|
-  (@selected_lines || @contract.reservations).group_by { |x| x.send @s1 }.each_pair do |date, reservations|
+Then(/^each list contains the following columns$/) do |table|
+  lines = @selected_lines || @contract.reservations
+  expect(lines).not_to be_blank
+  lines.group_by { |x| x.send @s1 }.each_pair do |date, reservations|
     @selected_lines_by_date = reservations
     @list = find('section.list', text: '%s: %s' % [@s2, I18n.l(date)])
-    step 'beinhaltet die Liste folgende Spalten:', table
+    step 'the list contains the following columns:', table
   end
 end
 
 Then(/^each list will sorted after (models, then sorted after )?room and shelf( of the most available locations)?$/) do |arg1, arg2|
-  (@selected_lines || @contract.reservations).group_by { |x| x.send @s1 }.each_key do |date|
+  lines = @selected_lines || @contract.reservations
+  expect(lines).not_to be_blank
+  lines.group_by { |x| x.send @s1 }.each_key do |date|
     within find('section.list', text: '%s: %s' % [@s2, I18n.l(date)]) do
       if arg1
         model_texts = all('tbody .model_name').map(&:text)
@@ -102,7 +108,7 @@ Then(/^in the list, the assigned items will displayed with inventory code, room 
 end
 
 Then(/^in the list, the not assigned items will displayed without inventory code$/) do
-  @selected_lines.select { |line| not line.item_id }.each do |line|
+  @selected_lines.select { |line| not line.item_id and line.is_a? ItemLine }.each do |line|
     expect(find('section.list .model_name', match: :prefer_exact, text: line.model.name).find(:xpath, './..').find('.inventory_code').text).to eq ''
   end
 end
@@ -114,13 +120,15 @@ Then(/^I can open the picking list$/) do
 end
 
 Then(/^the items without location, are displayed with (the available quantity for this customer and )?"(.*?)"$/) do |arg1, arg2|
-  (@selected_lines || @contract.reservations).select { |line| line.is_a? ItemLine }.each do |line|
+  lines = @selected_lines || @contract.reservations
+  expect(lines).not_to be_blank
+  lines.select { |line| line.is_a? ItemLine }.each do |line|
     if line.item_id
       next if line.item.location and not line.item.location.room.blank? and not line.item.location.shelf.blank?
       find('section.list .model_name', match: :prefer_exact, text: line.model.name).find(:xpath, './..').find('.location', text: arg2)
     else
       locations = line.model.items.in_stock.where(inventory_pool_id: @current_inventory_pool).select('COUNT(items.location_id) AS count, locations.room AS room, locations.shelf AS shelf').joins(:location).group(:location_id).order('count DESC, room ASC, shelf ASC')
-      locations.delete_if { |location| location.room.blank? and location.shelf.blank? }
+      locations.to_a.delete_if { |location| location.room.blank? and location.shelf.blank? }
       not_defined_count = line.model.items.in_stock.where(inventory_pool_id: @current_inventory_pool).count - locations.to_a.sum(&:count)
       if not_defined_count > 0
         find('section.list .model_name', match: :prefer_exact, text: line.model.name).find(:xpath, './..').find('.location', text: arg2)
@@ -129,14 +137,31 @@ Then(/^the items without location, are displayed with (the available quantity fo
   end
 end
 
+Then(/^items without assigned room or shelf are shown with (their available quantity for the customer and )?"(.*?)"$/) do |arg1, arg2|
+  s1 = arg1 ? 'the available quantity for this customer and ' : nil
+  s2 = case arg2
+         when 'x Location not defined'
+           'x %s' % _('Location not defined')
+         when 'Location not defined'
+           _('Location not defined')
+         else
+           fail
+       end
+  step %(the items without location, are displayed with #{s1}"#{s2}")
+end
+
 Then(/^the missing location information for options, are displayed with "(.*?)"$/) do |arg1|
-  (@selected_lines || @contract.reservations).select { |line| line.is_a? OptionLine }.each do |line|
+  lines = @selected_lines || @contract.reservations
+  expect(lines).not_to be_blank
+  lines.select { |line| line.is_a? OptionLine }.each do |line|
     find('section.list .model_name', match: :prefer_exact, text: line.model.name).find(:xpath, './..').find('.location', text: _(arg1))
   end
 end
 
-Then(/^the not available items, are displayed with "(.*?)"$/) do |arg1|
-  (@selected_lines || @contract.reservations).select { |line| not line.available? }.each do |line|
+Then(/^the unavailable items are displayed with "(.*?)"$/) do |arg1|
+  lines = @selected_lines || @contract.reservations
+  expect(lines).not_to be_blank
+  lines.select { |line| not line.available? }.each do |line|
     find('section.list .model_name', match: :prefer_exact, text: line.model.name).find(:xpath, './..').find('.location', text: arg1)
   end
 end

@@ -1,0 +1,35 @@
+- content_for :title, _("Database missing customer access rights")
+
+= render partial: "header"
+
+- if @visits.empty?
+  %h3
+    = _("All correct")
+    %i.fa.fa-check-square-o
+
+- else
+  .row
+    = link_to admin.access_rights_path, method: :post, class: "btn btn-success", data: { confirm: _("Restore customer access rights") } do
+      = _("Restore customer access rights")
+
+  .row
+    = "%d %s" % [@visits.to_a.size, _("Missing customer access rights for upcoming actions")] # NOTE to_a performs the executions, so it flats the groups and the next iteration doesn't execute an additional mysql query
+  .row.headline-s
+    .col-sm-4
+      = _("Inventory Pool")
+    .col-sm-4
+      = _("User")
+    .col-sm-4
+      = _("Action")
+  .row
+    - @visits.each do |r|
+      .row
+        .line-info.red
+        .col-sm-4
+          = r.inventory_pool
+        .col-sm-4
+          = r.user
+        .col-sm-4
+          = r.action
+          = _("on")
+          = l r.date

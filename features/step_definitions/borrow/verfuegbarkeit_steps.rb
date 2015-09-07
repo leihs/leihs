@@ -1,25 +1,25 @@
 # -*- encoding : utf-8 -*-
 
-#Angenommen(/^ich habe eine offene Bestellung mit Modellen$/) do
 Given(/^I have an unsubmitted order with models$/) do
   expect(@current_user.reservations_bundles.unsubmitted.to_a.count).to be >= 1
 end
 
-#Angenommen(/^die Bestellung Timeout ist (\d+) Minuten$/) do |arg1|
 Given(/^the contract timeout is set to (\d+) minutes$/) do |arg1|
   expect(Contract::TIMEOUT_MINUTES).to eq arg1.to_i
 end
 
 #######################################################################
 
-#Wenn(/^ich ein Modell der Bestellung hinzufüge$/) do
 When(/^I add a model to an order$/) do
-  @inventory_pool = @current_user.inventory_pools.first # OPTIMIZE
-  @new_reservation = FactoryGirl.create(:reservation, user: @current_user, status: :unsubmitted, inventory_pool: @inventory_pool)
+  @inventory_pool ||= @current_user.inventory_pools.first # OPTIMIZE
+  @new_reservation = FactoryGirl.create(:reservation,
+                                        user: @current_user,
+                                        delegated_user: @delegated_user,
+                                        status: :unsubmitted,
+                                        inventory_pool: @inventory_pool)
   expect(@new_reservation.reload.available?).to be true
 end
 
-#Wenn(/^ich dasselbe Modell einer Bestellung hinzufüge$/) do
 When(/^I add the same model to an order$/) do
   (@new_reservation.maximum_available_quantity + 1).times do
     FactoryGirl.create(:reservation,
@@ -31,25 +31,18 @@ When(/^I add the same model to an order$/) do
   end
 end
 
-#Wenn(/^die maximale Anzahl der Gegenstände überschritten ist$/) do
 When(/^the maximum quantity of items is exhausted$/) do
   expect(@new_reservation.reload.available?).to be false
 end
 
-#Dann(/^wird die Bestellung nicht abgeschlossen$/) do
 Then(/^the order is not submitted$/) do
   @current_user.reservations.unsubmitted.each do |reservation|
     expect(reservation.status).to eq :unsubmitted
   end
 end
 
-#Dann(/^ich erhalte eine Fehlermeldung$/) do
-#  step "I see an error message"
-#end
-
 #######################################################################
 
-#Angenommen(/^(ein|\d+) Modelle? (?:ist|sind) nicht verfügbar$/) do |n|
 Given(/^(a|\d+) model(?:s)? (?:is|are) not available$/) do |n|
   n = case n
         when 'a'
@@ -74,20 +67,16 @@ Given(/^(a|\d+) model(?:s)? (?:is|are) not available$/) do |n|
   expect(@current_user.reservations.unsubmitted.select{|line| not line.available?}.size).to eq n
 end
 
-#Wenn(/^ich eine Aktivität ausführe$/) do
 When(/^I perform some activity$/) do
   visit borrow_root_path
 end
 
-#Dann(/^werde ich auf die Timeout Page geleitet$/) do
 Then(/^I am redirected to the timeout page$/) do
   expect(current_path).to eq borrow_order_timed_out_path
 end
 
 #######################################################################
 
-#Dann(/^werden die Modelle meiner Bestellung freigegeben$/) do
-#Dann(/^bleiben die Modelle in der Bestellung blockiert$/) do
 Then(/^the models in my order (are released|remain blocked)$/) do |arg1|
   expect(@current_user.reservations.unsubmitted.all? { |line|
            case arg1
@@ -101,21 +90,14 @@ end
 
 #######################################################################
 
-#Angenommen(/^alle Modelle verfügbar sind$/) do
 Given(/^all models are available$/) do
   expect(@current_user.reservations.unsubmitted.all? {|line| line.available? }).to be true
 end
 
-#Dann(/^kann man sein Prozess fortsetzen$/) do
 Then(/^I can continue my order process$/) do
   expect(current_path).to eq borrow_root_path
 end
 
-#Dann(/^die Modelle werden blockiert$/) do
-#  step "bleiben die Modelle in der Bestellung blockiert"
-#end
-
-#Wenn(/^eine Rücknahme nur Optionen enthält$/) do
 When(/^a take back contains only options$/) do
   @customer = @current_inventory_pool.users.detect {|u| u.visits.take_back.empty? }
   expect(@customer).not_to be_nil
@@ -128,7 +110,69 @@ When(/^a take back contains only options$/) do
   visit manage_take_back_path @current_inventory_pool, @customer
 end
 
-#Dann(/^wird für diese Optionen keine Verfügbarkeit berechnet$/) do
 Then(/^no availability will be computed for these options$/) do
   expect(find('#status').has_content? _('Availability loaded')).to be true
+end
+
+Given(/^the model "(.*)" has following partitioning in inventory pool "(.*)":$/) do |arg1, arg2, table|
+  @model = Model.find_by_name arg1
+  @inventory_pool = InventoryPool.find_by_name arg2
+  table.hashes.each do |h|
+    group_id = if h['group'] == 'General'
+                 nil
+               else
+                 Group.find_by(name: h['group']).id
+               end
+    expect(@model.partitions_with_generals.find_by(group_id: group_id, inventory_pool_id: @inventory_pool.id).quantity).to eq h['quantity'].to_i
+  end
+end
+
+When(/^I am( not)? member of group "(.*?)"$/) do |arg1, arg2|
+  group = Group.find_by_name arg2
+  if arg1
+    group.users.delete(@current_user)
+  else
+    group.users << @current_user unless group.users.include? @current_user
+  end
+end
+
+When(/^I am not member of any group$/) do
+  @current_user.groups.clear
+  expect(@current_user.groups.reload).to be_empty
+end
+
+Then(/^the maximum available quantity of this model for me is (\d+)$/) do |n|
+  m = @model.availability_in(@inventory_pool).maximum_available_in_period_summed_for_groups(Date.today+99.years, Date.today+99.years, @current_user.groups.reload.map(&:id))
+  expect(m).to eq n.to_i
+end
+
+Then(/^the general group is used last in assignments$/) do
+  av = @model.availability_in(@inventory_pool.reload) # NOTE reload is to refresh the running_lines association
+  date = av.changes.to_a.last.first
+  quantity_in_general = av.partitions[Group::GENERAL_GROUP_ID]
+  quantity_not_in_general = av.partitions.values.sum - av.partitions[Group::GENERAL_GROUP_ID]
+
+  quantity_not_in_general.times.map { FactoryGirl.create :reservation, status: :approved, user: @current_user, inventory_pool: @inventory_pool, model: @model, start_date: date, end_date: date }
+  av = @model.availability_in(@inventory_pool.reload) # NOTE reload is to refresh the running_lines association
+  expect(av.changes[date][Group::GENERAL_GROUP_ID][:in_quantity]).to eq quantity_in_general
+
+  FactoryGirl.create :reservation, status: :approved, user: @current_user, inventory_pool: @inventory_pool, model: @model, start_date: date, end_date: date
+  av = @model.availability_in(@inventory_pool.reload) # NOTE reload is to refresh the running_lines association
+  expect(av.changes[date][Group::GENERAL_GROUP_ID][:in_quantity]).to eq quantity_in_general - 1
+end
+
+When(/^I have (\d+) approved reservations for this model in this inventory pool$/) do |arg1|
+  @date = Date.today + 1.year
+  @reservations = arg1.to_i.times.map { FactoryGirl.create :reservation, status: :approved, user: @current_user, inventory_pool: @inventory_pool, model: @model, start_date: @date, end_date: @date }
+  @av = @model.availability_in(@inventory_pool.reload) # NOTE reload is to refresh the running_lines association
+end
+
+Then(/^(\d+) of these reservations (is|are) allocated to group "(.*?)"$/) do |arg1, arg2, arg3|
+  group_id = arg3 == "General" ? Group::GENERAL_GROUP_ID : Group.find_by_name(arg3).id
+  expect(@av.changes[@date][group_id][:running_reservations]["ItemLine"].size).to eq arg1.to_i
+  expect(@av.changes[@date][group_id][:running_reservations]["ItemLine"].all? {|id| @reservations.map(&:id).include? id }).to be true
+end
+
+Then(/^all these reservations are available$/) do
+  expect(@reservations.all? &:available?).to be true
 end

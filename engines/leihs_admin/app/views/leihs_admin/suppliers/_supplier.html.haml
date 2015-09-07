@@ -1,0 +1,26 @@
+.row
+
+  .col-sm-6
+    %strong= supplier.name
+
+  .col-sm-4
+    = _("%s items") % supplier.items.count
+
+  .col-sm-2.text-right.line-actions
+
+    - if supplier.can_destroy?
+      .btn-group
+        %a.btn.btn-default{href: admin.edit_supplier_path(supplier)}
+          = _("Edit")
+        %button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+          %i.caret
+        %ul.dropdown-menu
+          %li.bg-danger
+            %a.red{href: admin.supplier_path(supplier), data: {method: :delete, confirm: _("Are you sure you want to delete '%s'?") % supplier}}
+              %i.fa.fa-trash
+              = _("Delete")
+
+    - else
+
+      %a.btn.btn-default{href: admin.edit_supplier_path(supplier)}
+        = _("Edit")

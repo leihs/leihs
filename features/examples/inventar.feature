@@ -105,7 +105,7 @@ Feature: Inventory
     Then I can click one of the following tabs to filter inventory by:
       | Choice |
       | Packages          |
-    
+
   @personas @javascript @browser
   Scenario: The tab 'Options'
     Then I can click one of the following tabs to filter inventory by:
@@ -177,11 +177,12 @@ Feature: Inventory
   Scenario: Default setting for the list view
     Then the tab "All" is active
 
-  @personas
-  Scenario: Default setting for the "Software" view
-    # Undefined
-    Then enthält die Auswahl "Software" Software und Software-Lizenzen
-    And der Filter "Nicht Ausgemustert" ist aktiviert
+  # # Not implemented
+  # @personas
+  # Scenario: Default setting for the "Software" view
+  #   # Undefined
+  #   Then enthält die Auswahl "Software" Software und Software-Lizenzen
+  #   And der Filter "Nicht Ausgemustert" ist aktiviert
 
   @javascript @personas @browser
   Scenario: What an option line contains
@@ -282,15 +283,16 @@ Feature: Inventory
     And I see the items belonging to the model
     And such a line looks like an item line
 
-  #73278620
-  # No steps for this seem to be defined?
-   @personas
-  Scenario: Verhalten nach Speichern
-    When ich einen Reiter auswähle
-    And ich eine oder mehrere Filtermöglichkeiten verwende
-    When ich eine aufgeführte Zeile editiere
-    And I save
-    Then werde ich zur Liste des eben gewählten Reiters mit den eben ausgewählten Filtern zurueckgefuehrt
+  # # Not implemented
+  # #73278620
+  # # No steps for this seem to be defined?
+  #  @personas
+  # Scenario: Verhalten nach Speichern
+  #   When ich einen Reiter auswähle
+  #   And ich eine oder mehrere Filtermöglichkeiten verwende
+  #   When ich eine aufgeführte Zeile editiere
+  #   And I save
+  #   Then werde ich zur Liste des eben gewählten Reiters mit den eben ausgewählten Filtern zurueckgefuehrt
 
   @personas @javascript @browser
   Scenario Outline: Labeling of broken, retired, incomplete and unborrowable items

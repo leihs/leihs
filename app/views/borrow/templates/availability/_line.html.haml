@@ -37,7 +37,7 @@
     - if line[:unborrowable]
 
       %button.button.red{:"data-destroy-template-line" => true}
-        %i.icon-trash
+        %i.fa.fa-trash
         = _("Delete")
 
     - else
@@ -49,7 +49,7 @@
                              :"data-quantity" => line[:quantity],
                              :"data-start-date" => line[:start_date],
                              :"data-end-date" => line[:end_date]}
-          %i.icon-calendar
+          %i.fa.fa-calendar
           = _("Change")
 
         .dropdown-holder.inline-block
@@ -60,5 +60,5 @@
           .dropdown.right
 
             %a.dropdown-item.red{:"data-destroy-template-line" => true}
-              %i.icon-trash
+              %i.fa.fa-trash
               = _("Delete")

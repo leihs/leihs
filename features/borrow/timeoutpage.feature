@@ -8,7 +8,7 @@ Feature: Timeout page
     Given I hit the timeout page with a model that has conflicts
     And I have added items to an order
     And I have performed no activity for more than 30 minutes
-    When I am listing the root categories
+    When I am listing the main categories
     Then I am redirected to the timeout page
     And I am informed that my items are no longer reserved for me
 
@@ -46,7 +46,7 @@ Feature: Timeout page
     When I delete the order
     Then the models in my order are released
     And the user's order has been deleted
-    And I am on the root category list
+    And I am on the main category list
 
   @personas
   Scenario: Only use those models that are available to continue with your order

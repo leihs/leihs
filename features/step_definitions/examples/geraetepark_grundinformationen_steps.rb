@@ -8,7 +8,6 @@ When(/^I navigate to the inventory pool manage section$/) do
   end
 end
 
-#Dann(/^kann ich die Gerätepark\-Grundinformationen eingeben$/) do |table|
 Then(/^I enter the inventory pool's basic settings as follows:$/) do |table|
   @table_raw = table.raw
   @table_raw.flatten.each do |field_name|
@@ -28,13 +27,6 @@ When(/^I make a note of which page I'm on$/) do
   @saved_path = current_path
 end
 
-# Dann(/^ich kann die angegebenen Grundinformationen speichern$/) do
-#Then(/^ich kann die angegebenen Grundinformationen speichern$/) do
-#  @saved_path = current_path
-#  click_button _("Save")
-#end
-
-#Dann(/^sind die Informationen aktualisiert$/) do
 Then(/^the settings are updated$/) do
   @table_raw.flatten.each do |field_name|
     within('.row.padding-inset-s', match: :prefer_exact, text: field_name) do
@@ -49,22 +41,18 @@ Then(/^the settings are updated$/) do
   end
 end
 
-#Dann(/^ich bleibe auf derselben Ansicht$/) do
 Then(/^I am still on the same page$/) do
   expect(current_path).to eq @saved_path
 end
 
-#Dann(/^sehe eine Bestätigung$/) do
 Then(/^I see a confirmation that the information was saved$/) do
   find('#flash .notice', text: _('Inventory pool successfully updated'))
 end
 
-#Wenn(/^ich die Grundinformationen des Geräteparks abfüllen möchte$/) do
 When(/^I edit the current inventory pool$/) do
   visit manage_edit_inventory_pool_path(@current_inventory_pool)
 end
 
-#Angenommen(/^ich die folgenden Felder nicht befüllt habe$/) do |table|
 When(/^I leave the following fields empty:$/) do |table|
   table.raw.flatten.each do |must_field_name|
     find('.row.emboss', match: :prefer_exact, text: must_field_name).find('input,textarea', match: :first).set ''
@@ -75,7 +63,6 @@ Given(/^I edit my inventory pool settings$/) do
   visit manage_edit_inventory_pool_path(@current_inventory_pool)
 end
 
-#Wenn(/^ich die Arbeitstage Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag ändere$/) do
 When(/^I randomly set the workdays monday, tuesday, wednesday, thursday, friday, saturday and sunday to open or closed$/) do
   @workdays = {}
   [0,1,2,3,4,5,6].each do |day|
@@ -85,7 +72,6 @@ When(/^I randomly set the workdays monday, tuesday, wednesday, thursday, friday,
   end
 end
 
-#Dann(/^sind die Arbeitstage gespeichert$/) do
 Then(/^those randomly chosen workdays are saved$/) do
   @workdays.each_pair do |day, status|
     if status == 'closed'
@@ -96,7 +82,6 @@ Then(/^those randomly chosen workdays are saved$/) do
   end
 end
 
-#Wenn(/^ich eine oder mehrere Zeitspannen und einen Namen für die Ausleihsschliessung angebe$/) do
 When(/^I set one or more time spans as holidays and give them names$/) do
   @holidays = []
   [1,5,8].each do |i|
@@ -109,14 +94,12 @@ When(/^I set one or more time spans as holidays and give them names$/) do
   end
 end
 
-#Dann(/^werden die Ausleihschliessungszeiten gespeichert$/) do
 Then(/^the holidays are saved$/) do
   @holidays.each do |holiday|
     expect(@current_inventory_pool.holidays.where(start_date: holiday[:start_date], end_date: holiday[:end_date], name: holiday[:name]).empty?).to be false
   end
 end
 
-#Dann(/^ich kann die Ausleihschliessungszeiten wieder löschen$/) do
 Then(/^I can delete the holidays$/) do
   holiday = @holidays.last
   find('.row[data-holidays-list] .line', text: holiday[:name]).find('.button[data-remove-holiday]').click
@@ -125,24 +108,16 @@ Then(/^I can delete the holidays$/) do
 end
 
 # there is nothing in the test that relates to required fields
-#Wenn(/^jedes Pflichtfeld des Geräteparks ist gesetzt$/) do |table|
 When(/^I fill in the following fields in the inventory pool settings:$/) do |table|
   table.raw.flatten.each do |field_name|
     expect(find('.row.emboss', match: :prefer_exact, text: field_name).find('input', match: :first).value.length).to be > 0
   end
 end
 
-#Wenn(/^ich das gekennzeichnete "(.*?)" des Geräteparks leer lasse$/) do |field_name|
 When(/^I leave the field "(.*?)" in the inventory pool settings empty$/) do |field_name|
   find('.row.emboss', match: :prefer_exact, text: field_name).find('input', match: :first).set ''
 end
 
-#Wenn(/^ich für den Gerätepark die automatische Sperrung von Benutzern mit verspäteten Rückgaben einschalte$/) do
-#When(/^I enable automatically suspending users$/) do
-#  step %Q(ich "Automatische Sperrung" aktiviere)
-#end
-
-#Dann(/^muss ich einen Sperrgrund angeben$/) do
 Then(/^I have to supply a reason for suspension$/) do
   fill_in 'inventory_pool[automatic_suspension_reason]', with: ''
   step 'I save'
@@ -152,7 +127,6 @@ Then(/^I have to supply a reason for suspension$/) do
   step 'I save'
 end
 
-#Dann(/^ist diese Konfiguration gespeichert$/) do
 Then(/^this configuration is saved$/) do
   expect(has_selector?('#flash .notice')).to be true
   @current_inventory_pool.reload
@@ -160,40 +134,29 @@ Then(/^this configuration is saved$/) do
   expect(@current_inventory_pool.automatic_suspension_reason).to eq @reason
 end
 
-#Wenn(/^ein Benutzer wegen verspäteter Rückgaben automatisch gesperrt wird$/) do
 When(/^a user is suspended automatically due to late contracts$/) do
   @user = Reservation.where(inventory_pool_id: @current_inventory_pool).signed.where('end_date < ?', Date.today).order('RAND()').first.user
   @user.automatic_suspend(@current_inventory_pool)
 end
 
-#Dann(/^wird er für diesen Gerätepark gesperrt bis zum '(\d+)\.(\d+)\.(\d+)'$/) do |day, month, year|
 Then(/^they are suspended for this inventory pool until '(\d+)\/(\d+)\/(\d+)'$/) do |day, month, year|
   @access_right = @user.access_right_for(@current_inventory_pool)
   expect(@access_right.suspended_until).to eq Date.new(year.to_i, month.to_i, day.to_i)
 end
 
-#Dann(/^der Sperrgrund ist derjenige, der für diesen Park gespeichert ist$/) do
 Then(/^the reason for suspension is the one specified for this inventory pool$/) do
   expect(@access_right.suspended_reason).to eq @reason
 end
 
-#Wenn(/^ich die aut\. Zuweisung deaktiviere$/) do
 When(/^I disable automatic access$/) do
   within('.row.padding-inset-s', match: :prefer_exact, text: _('Automatic access')) do
     find('input', match: :first).set false
   end
 end
 
-#Dann(/^ist die aut\. Zuweisung deaktiviert$/) do
 Then(/^automatic access is disabled$/) do
   expect(@current_inventory_pool.reload.automatic_access).to be false
 end
-
-# Angenommen(/^man ist ein Benutzer, der sich zum ersten Mal einloggt$/) do
-#   @username = Faker::Internet.user_name
-#   @password = Faker::Internet.password
-#   step %Q(ich einen Benutzer mit Login "#{@username}" und Passwort "#{@password}" erstellt habe)
-# end
 
 Given(/^I edit an inventory pool( that is granting automatic access)?$/) do |arg1|
   if arg1
@@ -208,7 +171,6 @@ Given(/^I edit an inventory pool( that is granting automatic access)?$/) do |arg
   @last_edited_inventory_pool = @current_inventory_pool
 end
 
-#Angenommen(/^es ist bei mehreren Geräteparks aut. Zuweisung aktiviert$/) do
 Given(/^multiple inventory pools are granting automatic access$/) do
   InventoryPool.order('RAND()').limit(rand(2..4)).each do |inventory_pool|
     inventory_pool.update_attributes automatic_access: true
@@ -220,14 +182,12 @@ Given(/^multiple inventory pools are granting automatic access$/) do
   expect(@inventory_pools_with_automatic_access.count).to be > 1
 end
 
-#Angenommen(/^es ist bei meinem Gerätepark aut. Zuweisung aktiviert$/) do
 Given(/^my inventory pool is granting automatic access$/) do
   @current_inventory_pool.update_attributes automatic_access: true
   @inventory_pools_with_automatic_access = InventoryPool.where(automatic_access: true)
   expect(@inventory_pools_with_automatic_access.count).to be > 1
 end
 
-#Wenn(/^ich in meinem Gerätepark einen neuen Benutzer mit Rolle 'Inventar\-Verwalter' erstelle$/) do
 When(/^I create a new user with the 'inventory manager' role in my inventory pool$/) do
   steps %Q{
     When I am looking at the user list
@@ -246,8 +206,6 @@ When(/^I create a new user with the 'inventory manager' role in my inventory poo
   @user = User.find_by_lastname 'test'
 end
 
-#Dann(/^kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut. Zuweisung die Rolle 'Kunde'$/) do
-#Dann(/^kriegt der neu erstellte Benutzer bei allen Geräteparks mit aut\. Zuweisung ausser meinem die Rolle 'Kunde'$/) do
 Then(/^the newly created user has 'customer'-level access to all inventory pools that grant automatic access(, but not to mine)?$/) do |arg1|
   expect(@user.access_rights.count).to eq @inventory_pools_with_automatic_access.count
   expect(@user.access_rights.pluck(:inventory_pool_id)).to eq @inventory_pools_with_automatic_access.pluck(:id)
@@ -258,12 +216,10 @@ Then(/^the newly created user has 'customer'-level access to all inventory pools
   end
 end
 
-#Dann(/^in meinem Gerätepark hat er die Rolle 'Inventar\-Verwalter'$/) do
 Then(/^in my inventory pool the user gets the role 'inventory manager'$/) do
   expect(@user.access_right_for(@current_inventory_pool).role).to eq :inventory_manager
 end
 
-#Dann(/^kriegt der neu erstellte Benutzer bei dem vorher editierten Gerätepark kein Zugriffsrecht$/) do
 Then(/^the newly created user does not have access to that inventory pool$/) do
   expect(@user.access_right_for(@last_edited_inventory_pool)).to eq nil
 end
@@ -340,7 +296,7 @@ Then(/^I can change the field "(.*?)"$/) do |arg1|
     when 'Min. number of days between order and hand over'
       n = rand(0..14)
       find("input[type='number'][name='inventory_pool[workday_attributes][reservation_advance_days]']").set n
-      step 'ich speichere'
+      step 'I save'
       find("input[type='number'][name='inventory_pool[workday_attributes][reservation_advance_days]'][value='#{n}']")
     else
       raise
@@ -353,7 +309,7 @@ Then(/^I can enter the maximum visits per week day$/) do
     h[i] = rand(0..14)
     find("input[type='number'][name='inventory_pool[workday_attributes][workdays][#{i}][max_visits]']").set h[i]
   end
-  step 'ich speichere'
+  step 'I save'
   (0..6).each do |i|
     find("input[type='number'][name='inventory_pool[workday_attributes][workdays][#{i}][max_visits]'][value='#{h[i]}']")
   end
@@ -363,7 +319,7 @@ When(/^I do not enter a maximum amount of visits on a week day$/) do
   (0..6).each do |i|
     find("input[type='number'][name='inventory_pool[workday_attributes][workdays][#{i}][max_visits]']").set ''
   end
-  step 'ich speichere'
+  step 'I save'
 end
 
 Then(/^there is no limit of visits for this week day$/) do

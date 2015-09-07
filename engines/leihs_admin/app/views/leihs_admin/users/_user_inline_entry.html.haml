@@ -1,0 +1,6 @@
+.row
+  %input.form-control{:type => :hidden, :name => "#{ref_name}[users][][id]", :value => user.id}
+  %input.form-control{:type => :hidden, :name => "#{ref_name}[users][][_destroy]", :value => nil}
+  .col-sm-10{:"data-user-name" => true}= user.name
+  .col-sm-2.text-right
+    %button.btn.btn-danger.btn-xs{:"data-remove-user" => true}= _("Remove")

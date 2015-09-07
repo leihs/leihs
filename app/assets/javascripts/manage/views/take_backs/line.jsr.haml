@@ -18,7 +18,7 @@
   {{if isOverdue()}}
   .col1of5.line-col.latest-reminder-cell.text-align-center{:"data-user-id" => "{{>user().id}}", :"data-visit-id" => "{{>id}}"}
     {{jed "Latest reminder"/}}
-    %i.icon-envelope-alt
+    %i.fa.fa-envelope-alt
   {{else}}
   .col1of5.line-col.text-align-center
     {{>getMaxRange()}}
@@ -30,7 +30,7 @@
     {{if isOverdue()}}
     .multibutton
       %a.button.white.text-ellipsis{:href => "/manage/{{>inventory_pool_id}}/users/{{>user().id}}/take_back"}
-        %i.icon-mail-reply
+        %i.fa.fa-mail-reply
         {{jed "Take Back"/}}
       .dropdown-holder.inline-block
         .button.white.dropdown-toggle
@@ -38,10 +38,10 @@
         %ul.dropdown.right
           %li
             %a.dropdown-item{:"data-send-takeback-reminder" => true, :"data-user-id" => "{{>user().id}}"}
-              %i.icon-envelope
+              %i.fa.fa-envelope
               {{jed "Send reminder"/}}
     {{else}}
     %a.button.white.text-ellipsis{:href => "/manage/{{>inventory_pool_id}}/users/{{>user().id}}/take_back"}
-      %i.icon-mail-reply
+      %i.fa.fa-mail-reply
       {{jed "Take Back"/}}
     {{/if}}

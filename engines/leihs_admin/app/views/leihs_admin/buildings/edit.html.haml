@@ -1,0 +1,6 @@
+- content_for :title, _("Edit")
+- content_for :admin_section, "active"
+
+= form_tag admin.building_path(@building), method: :put do
+
+  = render partial: "leihs_admin/buildings/form"

@@ -3,32 +3,29 @@
     .topbar-item-inner
       - case controller_path.split('/').first.to_sym
         - when :borrow
-          %i.icon-shopping-cart
+          %i.fa.fa-shopping-cart
           %span= _("Borrow")
-        - when :admin
-          %i.icon-wrench
-          %span= _("Admin")
         - when :manage
-          %i.icon-gears
+          %i.fa.fa-gears
           %span= current_inventory_pool
       %i.arrow.down
     %ul.dropdown.right.straight-top
       %li.separated-top
-        %a.dropdown-item{href:  borrow_root_path}
-          %i.icon-shopping-cart
+        %a.dropdown-item{href:  main_app.borrow_root_path}
+          %i.fa.fa-shopping-cart
           %span= _('Borrow')
       - if current_user.has_role?(:admin)
         %li.separated-top
-          %a.dropdown-item{href:  admin_root_path}
-            %i.icon-wrench
+          %a.dropdown-item{href:  admin.root_path}
+            %i.fa.fa-wrench
             %span= _('Admin')
       - if current_user.has_role?(:group_manager)
         %li.separated-top
           .dropdown-item
             = succeed ':' do
-              %i.icon-gears
+              %i.fa.fa-gears
               = _('Inventory Pools')
             %ul#ip-dropdown-menu{style: 'padding-left: 1em'}
               - current_managed_inventory_pools.each do |ip|
                 %li
-                  %a.dropdown-item.text-ellipsis{title: ip, href: manage_daily_view_path(ip)}= ip
+                  %a.dropdown-item.text-ellipsis{title: ip, href: main_app.manage_daily_view_path(ip)}= ip

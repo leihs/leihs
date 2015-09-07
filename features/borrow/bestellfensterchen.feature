@@ -7,7 +7,7 @@ Feature: Order window
 
   @personas
   Scenario: Order window
-    Given I am on the root category list
+    Given I am on the main category list
     Then I see the order window
 
   @personas
@@ -35,7 +35,7 @@ Feature: Order window
   @javascript @personas
   Scenario: Showing how much time is left for ordering
     Given my order is empty
-    When I am listing the root categories
+    When I am listing the main categories
     Then I don't see a timer
     When I add a model to an order
     Then I see a timer

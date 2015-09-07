@@ -25,7 +25,7 @@
   .col1of10.line-col.text-align-center
     - unless line.purpose.blank?
       .tooltip{:"title" => line.purpose.description, :"data-tooltip-template" => "manage/views/purposes/tooltip"}
-        %i.icon-comment.grey
+        %i.fa.fa-comment.grey
 
   .col1of10.line-col.text-align-center
 
@@ -38,6 +38,6 @@
         %ul.dropdown.right
           %li
             %a.dropdown-item{:href => manage_contract_path(current_inventory_pool, line.contract.id), :target => "_blank"}
-              %i.icon-file-alt
+              %i.fa.fa-file-alt
               = _("Contract")
               = line.contract.id

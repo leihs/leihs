@@ -39,7 +39,7 @@ Feature: Calendar
 
   @javascript  @browser @personas
   Scenario: Jumping back and forth between months in the calendar
-    Given I have opened the booking calender
+    Given I have opened the booking calendar
     When I jump back and forth between months
     Then the calendar shows the currently selected month
 
@@ -77,7 +77,7 @@ Feature: Calendar
 
   @javascript @browser @personas
   Scenario: Using the calendar after resetting all filters
-    When I add a model to an order 
+    When I add a model to an order
     And I am listing models
     And I choose the second inventory pool from the inventory pool list
     When I reset all filters

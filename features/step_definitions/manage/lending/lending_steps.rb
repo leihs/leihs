@@ -47,7 +47,6 @@ Given /^I (open|return to) the daily view$/ do |arg1|
   find('#daily-view')
 end
 
-#Wenn /^ich eine Bestellung editiere$/ do
 When(/^I edit an order$/) do
   @event = 'order'
   @contract = @current_inventory_pool.reservations_bundles.submitted.order('RAND()').first
@@ -431,8 +430,11 @@ Then(/^I see search results matching that user's name$/) do
 end
 
 When(/^I enter something in the "(.*?)" field$/) do |field_label|
-  if field_label == 'Inventarcode/Name'
-    find('[data-add-contract-line]').set ' '
+  case field_label
+    when 'Inventory Code/Name'
+      find('[data-add-contract-line]').set ' '
+    else
+      raise
   end
 end
 

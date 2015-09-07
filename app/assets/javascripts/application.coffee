@@ -5,28 +5,27 @@
 #
 #= require_self
 #
-##### BOWER COMPONENTS
+##### RAILS ASSETS
 #
-#= require jquery/dist/jquery
-#= require jquery-ujs/src/rails
-#= require accounting.js/accounting
-#= require moment/moment
-#= require fullcalendar/fullcalendar
-#= require jquery.inview/jquery.inview
-#= require uri.js/src/URI
+#= require jquery
+#= require jquery-ui
+#= require jquery-ujs
+#= require jquery.inview
+#= require moment
+#= require accounting.js
+#= require fullcalendar
+#= require underscore
+#= require uri.js
 #
 ##### VENDOR
 #
 #= require jed/jed
-#= require jquery-ui
 #= require jsrender
-#= require underscore
 #= require underscore/underscore.string
 #= require underscore/underscore.each_slice
 #= require bootstrap/bootstrap-modal
 #= require bootstrap/bootstrap-dropdown
 #= require tooltipster/tooltipster
-#
 #
 ##### SPINE
 #

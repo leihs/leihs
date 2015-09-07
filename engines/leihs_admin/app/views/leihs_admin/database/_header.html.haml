@@ -1,0 +1,5 @@
+%ul.nav.nav-tabs
+  - ["indexes", "consistency", "empty_columns", "access_rights"].each do |x|
+    %li{role: 'presentation', class: request.params[:action] == x ? "active" : nil}
+      %a{href: "/admin/database/#{x}"}
+        = _(x.humanize)

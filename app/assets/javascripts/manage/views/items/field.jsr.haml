@@ -4,7 +4,7 @@
     .col1of2.padding-vertical-xs{data: {type: 'key'}}
       {{if !~field.visibility_dependency_field_id && (~removeable || (~hideable && !~field.required) )}}
       %a.font-size-m.link.grey.padding-inset-xs{data: {type: 'remove-field', toggle: 'tooltip', placement: 'top'}, title: "{{jed 'Hide this field from all item forms'/}}"}
-        %i.icon-remove-sign
+        %i.fa.fa-times-circle
       {{/if}}
       %strong.font-size-m.inline-block
         {{>~field.getLabel()}}

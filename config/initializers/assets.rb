@@ -17,4 +17,5 @@ Rails.application.config.assets.precompile += %w( application.js
                                                   simile_timeline/*
                                                   timeline.css
                                                   upload.js
+                                                  timecop/timecop-0.1.1.js
                                                 )

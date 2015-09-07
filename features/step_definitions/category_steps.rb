@@ -33,6 +33,20 @@ Then /^the model "([^"]*)" should( not)? be in category "([^"]*)"$/ do |model_na
   end
 end
 
+Given(/^there is a main category$/) do
+  @main_category = Category.roots.order('RAND()').first
+end
+
+Then(/^this category can have children$/) do
+  child_category = Category.where.not(id: @main_category).order('RAND()').detect {|c| not @main_category.children.include? c }
+  @main_category.children << child_category
+  expect(@main_category.reload.children.include? child_category).to be true
+end
+
+Then(/^this category has no parents$/) do
+  expect(@main_category.parents).to be_empty
+end
+
 # We wrap some steps in this so that it's guaranteed that we get a logout. This is
 # necessary so any "I log in as...." steps in the Background section actually work, as
 # they don't work when a user is already logged in. This prevents failing steps from

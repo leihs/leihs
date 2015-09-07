@@ -1,3 +1,0 @@
-describe('Timecop.TimeStackItem', function() {
-
-});

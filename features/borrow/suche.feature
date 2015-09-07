@@ -6,12 +6,12 @@ Feature: Search
 
   @personas
   Scenario: Search field
-    Given I am listing the root categories
+    Given I am listing the main categories
     Then I can see the search box
 
   @javascript @personas
   Scenario: Show list according to search criteria
-    Given I am listing the root categories
+    Given I am listing the main categories
     When I enter a search term
     Then I see image, name and manufacturer of the first 6 matching models
     And I see a link labeled 'Show all search results'
@@ -23,13 +23,13 @@ Feature: Search
 
   @javascript @personas
   Scenario: Choosing a suggestion
-    Given I am listing the root categories
+    Given I am listing the main categories
     And I pick a model from the ones suggested
     Then I see the model's detail page
 
   @javascript @personas
   Scenario: Displaying search results
-    Given I am listing the root categories
+    Given I am listing the main categories
     When I enter a search term
     And I press the Enter key
     Then the search result page is shown
@@ -41,7 +41,7 @@ Feature: Search
 
   @javascript @personas
   Scenario: Showing search term with spaces
-    Given I am listing the root categories
+    Given I am listing the main categories
     When I search for models giving at least two space separated terms
     And I press the Enter key
     Then the search result page is shown

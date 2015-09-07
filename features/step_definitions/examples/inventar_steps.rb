@@ -1,34 +1,5 @@
 # encoding: utf-8
 
-# Angenommen /^man öffnet die Liste des Inventars$/ do
-#   #really needed?# @current_inventory_pool = @current_user.inventory_pools.managed.select { |ip| ip.models.exists? and ip.options.exists? }.sample
-#   step "I open the inventory"
-#   find("#inventory")
-# end
-
-# Dann /^sieht man Modelle$/ do
-#   find("#inventory .line[data-type='model']", match: :first)
-# end
-
-# Dann /^man sieht Software$/ do
-#   step %Q(I search for "%s") % ""
-#   step "I scroll to the bottom of the page"
-#   find("#inventory .line[data-type='software']", match: :first)
-# end
-
-# Dann /^man sieht Optionen$/ do
-#   step "I scroll to the bottom of the page"
-#   find("#inventory .line[data-type='option']", match: :first)
-# end
-
-# Dann /^man sieht Pakete$/ do
-#   package = @current_inventory_pool.items.packages.order("RAND()").first
-#   step 'I search for "%s"' % package.inventory_code
-#   find(".line[data-is_package='true']", match: :prefer_exact, text: package.name)
-# end
-
-########################################################################
-
 def check_existing_inventory_codes(items)
   inventory = find '#inventory'
   # clicking on all togglers via javascript is significantly faster than doing it with capybara in this case
@@ -45,7 +16,6 @@ def check_amount_of_lines(amount)
   end
 end
 
-#Dann /^kann man auf ein der folgenden Tabs klicken und dabei die entsprechende Inventargruppe sehen:$/ do |table|
 Then(/^I can click one of the following tabs to filter inventory by:$/) do |table|
   items = Item.by_owner_or_responsible(@current_inventory_pool)
   options = @current_inventory_pool.options
@@ -102,46 +72,6 @@ end
 
 ########################################################################
 
-# Dann /^hat man folgende Filtermöglichkeiten$/ do |table|
-#   items = Item.by_owner_or_responsible(@current_inventory_pool)
-#
-#   section_filter = find("#list-filters")
-#
-#   table.hashes.each do |row|
-#     section_filter.all("input[type='checkbox']").select { |x| x.checked? }.map(&:click)
-#     expect(section_filter.all("input[type='checkbox']").select { |x| x.checked? }.empty?).to be true
-#     case row["filtermöglichkeit"]
-#       when "An Lager"
-#         section_filter.find("input#in_stock[type='checkbox']").click
-#         check_existing_inventory_codes(items.in_stock)
-#       when "Besitzer bin ich"
-#         section_filter.find("input#owned[type='checkbox']").click
-#         check_existing_inventory_codes(items.where(:owner_id => @current_inventory_pool))
-#       when "Defekt"
-#         section_filter.find("input#broken[type='checkbox']").click
-#         check_existing_inventory_codes(items.broken)
-#       when "Unvollständig"
-#         section_filter.find("input#incomplete[type='checkbox']").click
-#         check_existing_inventory_codes(items.incomplete)
-#       when "Verantwortliche Abteilung"
-#         o = section_filter.find("select#responsibles").all("option[value]").to_a.sample
-#         o.select_option
-#         check_existing_inventory_codes(items.where(inventory_pool_id: o[:value]))
-#         o = section_filter.find("select#responsibles").all("option").first
-#         o.select_option
-#     end
-#   end
-# end
-
-# Dann /^die Filter können kombiniert werden$/ do
-#   section_filter = find("#list-filters")
-#   section_filter.all("input[type='checkbox']").select { |x| not x.checked? }.map(&:click)
-#   expect(section_filter.all("input[type='checkbox']").select { |x| x.checked? }.size).to be > 1
-# end
-
-########################################################################
-
-#Dann /^ist die Auswahl "(.*?)" aktiviert$/ do |arg1|
 Then(/^the tab "(.*?)" is active$/) do |arg1|
   case arg1
     when 'Active Inventory'
@@ -151,15 +81,8 @@ Then(/^the tab "(.*?)" is active$/) do |arg1|
   end
 end
 
-# Dann /^es sind keine Filtermöglichkeiten aktiviert$/ do
-#   find("#list-filters").all("input[type='checkbox']").each do |filter|
-#     expect(filter.checked?).to be false
-#   end
-# end
-
 ########################################################################
 
-#Wenn /^man eine Modell\-Zeile eines Modells, das weder ein Paket-Modell oder ein Bestandteil eines Paket-Modells ist, sieht$/ do
 When(/^I see a model line for a model that is neither a package model nor part of a package model$/) do
   expect(has_selector?("#inventory > .line[data-type='model']")).to be true
   within '#inventory' do
@@ -171,13 +94,11 @@ When(/^I see a model line for a model that is neither a package model nor part o
   end
 end
 
-#Wenn /^man eine Modell\-Zeile sieht$/ do
 When /^I see a model line$/ do
   @model_line = find("#inventory .line[data-type='model']", match: :first)
   @model = Model.find_by_name(@model_line.find('.col2of5 strong').text)
 end
 
-#Dann /^enthält die Modell\-Zeile folgende Informationen:$/ do |table|
 Then /^the model line contains:$/ do |table|
   table.hashes.each do |row|
     case row['information']
@@ -195,12 +116,6 @@ end
 
 ########################################################################
 
-# Wenn /^man eine Gegenstands\-Zeile sieht$/ do
-#   all(".tab").detect { |x| x["data-tab"] == '{"borrowable":true}' }.click
-#   find(".filter input#in_stock").click unless find(".filter input#in_stock").checked?
-# end
-
-#Dann /^enthält die (?:Gegenstands|Software\-Lizenz)\-Zeile folgende Informationen:$/ do |table|
 Then /^the (?:item|software license) line contains:$/ do |table|
   table.hashes.each do |row|
     case row['information']
@@ -258,11 +173,6 @@ Then /^the item line contains the (.*)$/ do |arg1|
   expect((@item_line.is_a?(String) ? find(@item_line, match: :first) : @item_line).has_content?(s)).to be true
 end
 
-# not needed -> is a problem for capybara: "element not found in cache" error
-#def get_item_by_inventory_code(item_line)
-#Item.find_by_inventory_code item_line.find(".col2of5.text-align-left:nth-child(2) .row:nth-child(1)").text
-#end
-
 def fetch_item_line_and_item
   r1 = ".group-of-lines .line[data-type='item']"
   r2 = within(r1, match: :first) do
@@ -272,7 +182,6 @@ def fetch_item_line_and_item
   [r1, r2]
 end
 
-#Wenn /^der Gegenstand an Lager ist und meine Abteilung für den Gegenstand verantwortlich ist$/ do
 When /^the item is in stock and my department is responsible for it$/ do
   find("select[name='responsible_inventory_pool_id'] option[value='#{@current_inventory_pool.id}']").select_option
   find("input[name='in_stock']").click unless find("input[name='in_stock']").checked?
@@ -280,7 +189,6 @@ When /^the item is in stock and my department is responsible for it$/ do
   @item_line, @item = fetch_item_line_and_item
 end
 
-#Wenn /^der Gegenstand nicht an Lager ist und eine andere Abteilung für den Gegenstand verantwortlich ist$/ do
 When /^the item is not in stock and another department is responsible for it$/ do
   all("select[name='responsible_inventory_pool_id'] option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ''}.select_option
   find("input[name='in_stock']").click if find("input[name='in_stock']").checked?
@@ -290,7 +198,6 @@ When /^the item is not in stock and another department is responsible for it$/ d
   @item_line, @item = fetch_item_line_and_item
 end
 
-#Wenn /^meine Abteilung Besitzer des Gegenstands ist die Verantwortung aber auf eine andere Abteilung abgetreten hat$/ do
 When /^my department is the owner but has given responsibility for the item to another department$/ do
   all("select[name='responsible_inventory_pool_id'] option:not([selected])").detect{|o| o.value != @current_inventory_pool.id.to_s and o.value != ''}.select_option
   find(".line[data-type='model'] .button[data-type='inventory-expander'] i.arrow.right", match: :first).click
@@ -298,7 +205,6 @@ When /^my department is the owner but has given responsibility for the item to a
   @item = Item.find_by_inventory_code(find(@item_line, match: :first).find('.col2of5.text-align-left:nth-child(2) .row:nth-child(1)').text)
 end
 
-#Dann /^enthält die Options\-Zeile folgende Informationen$/ do |table|
 Then(/^the option line contains:$/) do |table|
   @option_line = find(".line[data-type='option']", match: :first)
   @option = Option.find_by_inventory_code @option_line.find('.col1of5:nth-child(1)').text
@@ -316,7 +222,6 @@ Then(/^the option line contains:$/) do |table|
   end
 end
 
-#Dann /^kann man jedes Modell aufklappen$/ do
 Then(/^I can expand each model line$/) do
   #step "man eine Modell-Zeile eines Modells, das weder ein Paket-Modell oder ein Bestandteil eines Paket-Modells ist, sieht"
   step 'I see a model line for a model that is neither a package model nor part of a package model'
@@ -326,7 +231,6 @@ Then(/^I can expand each model line$/) do
   end
 end
 
-#Dann /^man sieht die Gegenstände, die zum Modell gehören$/ do
 Then /^I see the items belonging to the model$/ do
   @items_element = @model_line.find(:xpath, "following-sibling::div[@class='group-of-lines']")
   items = @model.items.by_owner_or_responsible(@current_inventory_pool)
@@ -336,7 +240,6 @@ Then /^I see the items belonging to the model$/ do
   end
 end
 
-#Dann /^so eine Zeile sieht aus wie eine Gegenstands\-Zeile$/ do
 Then(/^such a line looks like an item line$/) do
   @item_line ||= @items_element.find('.line', match: :first)
   @item ||= Item.find_by_inventory_code(@item_line.find('.col2of5.text-align-left:nth-child(2) .row:nth-child(1)').text)
@@ -364,7 +267,6 @@ Then(/^such a line looks like an item line$/) do
 
 end
 
-#Dann /^kann man jedes Paket\-Modell aufklappen$/ do
 Then(/^I can expand each package model line$/) do
   @package = @current_inventory_pool.items.packages.last.model
   step 'I search for "%s"' % @package.name
@@ -375,7 +277,6 @@ Then(/^I can expand each package model line$/) do
   end
 end
 
-#Dann /^man sieht die Pakete dieses Paket\-Modells$/ do
 Then(/^I see the packages contained in this package model$/) do
   @packages_element = @package_line.find(:xpath, "following-sibling::div[@class='group-of-lines']")
   @package.items.each do |package|
@@ -385,7 +286,6 @@ Then(/^I see the packages contained in this package model$/) do
   @item = Item.find_by_inventory_code(@item_line.find('.col2of5.text-align-left:nth-child(2) .row:nth-child(1)').text)
 end
 
-#Dann /^man kann diese Paket\-Zeile aufklappen$/ do
 Then(/^I can expand this package line$/) do
   within @item_line do
     find(".button[data-type='inventory-expander'] i.arrow.right").click
@@ -394,14 +294,12 @@ Then(/^I can expand this package line$/) do
   @package_parts_element = @item_line.find(:xpath, "following-sibling::div[@class='group-of-lines']")
 end
 
-#Dann /^man sieht die Bestandteile, die zum Paket gehören$/ do
 Then(/^I see the components of this package$/) do
   @item.children.each do |part|
     expect(@package_parts_element.has_content? part.inventory_code).to be true
   end
 end
 
-#Dann /^so eine Zeile zeigt nur noch Inventarcode und Modellname des Bestandteils$/ do
 Then(/^such a line shows only inventory code and model name of the component$/) do
   @item.children.each do |part|
     expect(@package_parts_element.has_content? part.inventory_code).to be true
@@ -409,7 +307,6 @@ Then(/^such a line shows only inventory code and model name of the component$/) 
   end
 end
 
-#Dann /^kann man diese Daten als CSV\-Datei exportieren$/ do
 Then /^I can export this data as a CSV file$/ do
   def parsed_query
     href = find('#csv-export')[:href]
@@ -426,7 +323,6 @@ Then /^I can export this data as a CSV file$/ do
   @params = ActionController::Parameters.new(parsed_query)
 end
 
-#Dann /^die Datei enthält die gleichen Zeilen, wie gerade angezeigt werden \(inkl\. Filter\)$/ do
 Then /^the file contains the same reservations as are shown right now, including any filtering$/ do
   # not really downloading the file, but invoking directly the model class method
   @csv = CSV.parse InventoryPool.csv_export(@current_inventory_pool, @params),
@@ -445,7 +341,6 @@ Then /^the file contains the same reservations as are shown right now, including
   end
 end
 
-#Dann(/^die Zeilen enthalten die folgenden Felder in aufgeführter Reihenfolge$/) do |table|
 Then(/^the reservations contain the following fields in order:$/) do |table|
   csv_headers = @csv.headers
   table.hashes.each do |row|
@@ -454,7 +349,6 @@ Then(/^the reservations contain the following fields in order:$/) do |table|
   expect(csv_headers).to eq table.raw.flatten[1..-1]
 end
 
-#Wenn /^ich ein[en]* neue[srn]? (.+) hinzufüge$/ do |entity|
 When(/^I add a new (.+)/) do |entity|
   find('.dropdown-holder', text: _('Add inventory')).click
   click_link entity
@@ -470,7 +364,7 @@ When(/^I add or edit a (.+)/) do |entity|
   visit manage_edit_model_path(@current_inventory_pool, @model)
 end
 
-#Und /^ich (?:erfasse|ändere)? ?die folgenden Details ?(?:erfasse|ändere)?$/ do |table|
+
 When /^I (?:enter|edit)? ?the following details$/ do |table|
   # table is a Cucumber::Ast::Table
   find('.button.green', text: _('Save %s') % _("#{get_rails_model_name_from_url.capitalize}"))
@@ -480,7 +374,6 @@ When /^I (?:enter|edit)? ?the following details$/ do |table|
   end
 end
 
-#Dann /^die Informationen sind gespeichert$/ do
 Then /^the information is saved$/ do
   search_string = @table_hashes.detect {|h| h['Field'] == 'Product'}['Value']
   if has_selector?(:select, 'retired')
@@ -493,7 +386,6 @@ Then /^the information is saved$/ do
   step 'I should see "%s"' % search_string
 end
 
-#Dann /^die Daten wurden entsprechend aktualisiert$/ do
 Then /^the data has been updated$/ do
   search_string = @table_hashes.detect { |h| h['Field'] == 'Product' }['Value']
   step 'I search for "%s"' % search_string
@@ -527,13 +419,17 @@ Then /^the data has been updated$/ do
   expect(current_path).to eq @page_to_return
 end
 
-#Wenn /^ich nach "(.+)" suche$/ do |search_term|
 When(/^I search for "(.+)"$/) do |search_term|
-  fill_in 'list-search', with: search_term
-  sleep(0.55) # NOTE this sleep is required waiting the search result
+  if @current_inventory_pool
+    fill_in 'list-search', with: search_term
+    sleep(0.55) # NOTE this sleep is required waiting the search result
+  else
+    field = find("#list-filters input[name='search_term']")
+    field.set search_term
+    field.native.send_key :enter
+  end
 end
 
-#Wenn /^ich eine?n? bestehende[s|n]? (.+) bearbeite$/ do |entity|
 When /^I edit an existing (Model|Option|Package|)$/ do |entity|
 
   if entity == 'Package'
@@ -564,7 +460,6 @@ When /^I edit an existing (Model|Option|Package|)$/ do |entity|
   end
 end
 
-#Wenn /^ich ein bestehendes, genutztes Modell bearbeite welches bereits( ein aktiviertes)? Zubehör hat$/ do |arg1|
 When /^I edit a model that exists, is in use and already has( activated)? accessories$/ do |arg1|
   @model = @current_inventory_pool.models.to_a.detect do |m|
     if arg1
@@ -576,10 +471,6 @@ When /^I edit a model that exists, is in use and already has( activated)? access
   visit manage_edit_model_path(@current_inventory_pool, @model)
 end
 
-#Dann /^(?:die|das|der) neue[sr]? (?:.+) ist erstellt$/ do
-# use ->  step "the information is saved"
-
-#Wenn /^ich einen Namen eines existierenden Modelles eingebe$/ do
 When /^I enter the name of an existing model$/ do
   model = Model.all.first
   step %{I edit the following details}, table(%{
@@ -588,20 +479,17 @@ When /^I enter the name of an existing model$/ do
     | Version | #{model.version}       |})
 end
 
-#Dann /^wird das Modell nicht gespeichert, da es keinen (?:eindeutigen\s)?Namen hat$/ do
 Then /^the model is not saved because it does not have a (?:unique )?name$/ do
   @model_name_from_url = get_rails_model_name_from_url
   step 'I should see "%s"' % (_('Save %s') % _("#{@model_name_from_url.capitalize}"))
 end
 
-#Dann /^habe ich die Möglichkeit, folgende Informationen zu erfassen:$/ do |table|
 Then /^I can enter the following information:$/ do |table|
   table.raw.flatten.all? do |field_name|
     find('.field', text: field_name)
   end
 end
 
-#Dann /^ich sehe das gesamte Zubehöre für dieses Modell$/ do
 Then /^I see all the accessories for this model$/ do
   within('.row.emboss', match: :prefer_exact, text: _('Accessories')) do
     @model.accessories.each do |accessory|
@@ -610,7 +498,6 @@ Then /^I see all the accessories for this model$/ do
   end
 end
 
-#Dann /^ich sehe, welches Zubehör für meinen Pool aktiviert ist$/ do
 Then /^I see which accessories are active for my pool$/ do
   within('.row.emboss', match: :prefer_exact, text: _('Accessories')) do
     @model.accessories.each do |accessory|
@@ -624,7 +511,6 @@ Then /^I see which accessories are active for my pool$/ do
   end
 end
 
-#Wenn /^ich Zubehör hinzufüge und falls notwendig die Anzahl des Zubehör ins Textfeld schreibe$/ do
 When /^I add accessories and, if necessary, fill in the quantity in the text field$/ do
   within('.row.emboss', match: :prefer_exact, text: _('Accessories')) do
     @new_accessory_name = "2x #{Faker::Name.name}"
@@ -633,13 +519,11 @@ When /^I add accessories and, if necessary, fill in the quantity in the text fie
   end
 end
 
-#Dann /^ist das Zubehör dem Modell hinzugefügt worden$/ do
 Then /^accessories are added to the model$/ do
   find('#inventory-index-view h1', match: :prefer_exact, text: _('List of Inventory'))
   expect(@model.accessories.reload.where(name: @new_accessory_name)).not_to be_nil
 end
 
-#Dann /^kann ich ein einzelnes Zubehör löschen, wenn es für keinen anderen Pool aktiviert ist$/ do
 Then /^I can delete a single accessory if it is not active in any other pool$/ do
   accessory_to_delete = @model.accessories.detect { |x| x.inventory_pools.count <= 1 }
   within('.row.emboss', match: :prefer_exact, text: _('Accessories')) do
@@ -650,7 +534,6 @@ Then /^I can delete a single accessory if it is not active in any other pool$/ d
   expect { accessory_to_delete.reload }.to raise_error(ActiveRecord::RecordNotFound)
 end
 
-#Dann /^kann ich ein einzelnes Zubehör für meinen Pool deaktivieren$/ do
 Then /^I can deactivate an accessory for my pool$/ do
   accessory_to_deactivate = @model.accessories.active_in(@current_inventory_pool).sample
   within('.row.emboss', match: :prefer_exact, text: _('Accessories')) do
@@ -661,12 +544,10 @@ Then /^I can deactivate an accessory for my pool$/ do
   expect { @current_inventory_pool.accessories.reload.find(accessory_to_deactivate) }.to raise_error(ActiveRecord::RecordNotFound)
 end
 
-#Dann /^kann ich mehrere Bilder hinzufügen$/ do
 When /^I add multiple images$/ do
   upload_images(['image1.jpg', 'image2.jpg', 'image3.png'])
 end
 
-#Dann /^ich kann Bilder auch wieder entfernen$/ do
 Then /^I can also remove those images$/ do
   find('.row.emboss', match: :prefer_exact, text: _('Images')).find("[data-type='inline-entry']", text: 'image1.jpg').find('button[data-remove]', match: :first).click
   @images_to_save = []
@@ -675,7 +556,6 @@ Then /^I can also remove those images$/ do
   end
 end
 
-#Dann /^zu grosse Bilder werden den erlaubten Grössen entsprechend verkleinert$/ do
 Then /^the images are resized to their thumbnail size when I see them in lists$/ do
   step 'I search for "%s"' % @model.name
   find(".line[data-id='#{@model.id}']").find('.button', text: 'Edit Model').click
@@ -684,19 +564,17 @@ Then /^the images are resized to their thumbnail size when I see them in lists$/
   end
 end
 
-#Dann /^wurden die ausgewählten Bilder für dieses Modell gespeichert$/ do
 Then /^the remaining images are saved for that model$/ do
   expect(@model.images.map(&:filename).sort).to eq @images_to_save.sort
 end
 
-#Und /^ich speichere das Modell mit Bilder$/ do
+
 When /^I save the model and its images$/ do
   @model_name_from_url = get_rails_model_name_from_url
   step 'I press "%s"' % (_('Save %s') % _("#{@model_name_from_url.capitalize}"))
   find('#inventory-index-view h1', match: :prefer_exact, text: _('List of Inventory'))
 end
 
-#Dann /^füge ich eine oder mehrere Datein den Attachments hinzu$/ do
 Then /^I add one or more attachments$/ do
   @attachment_filenames = ['image1.jpg', 'image2.jpg']
   within '#attachments' do
@@ -704,33 +582,16 @@ Then /^I add one or more attachments$/ do
   end
 end
 
-#Dann /^kann Attachments auch wieder entfernen$/ do
 Then /^I can also remove attachments again$/ do
   attachment_to_remove = @attachment_filenames.delete(@attachment_filenames.sample)
   find('.row.emboss', match: :prefer_exact, text: _('Attachments')).find("[data-type='inline-entry']", text: attachment_to_remove).find('button[data-remove]', match: :first).click
 end
 
-#Dann /^sind die Attachments gespeichert$/ do
 Then /^the attachments are saved$/ do
   find('#inventory-index-view h1', match: :prefer_exact, text: _('List of Inventory'))
   expect(@model.attachments.reload.where(filename: @attachment_filenames.sample).empty?).to be false
 end
 
-# Dann /^sieht man keine Modelle, denen keine Gegenstänge zugewiesen unter keinem der vorhandenen Reiter$/ do
-#   within "#list-tabs" do
-#     all(".inline-tab-item").each do |tab|
-#       tab.click
-#       find("#inventory .line[data-type]", match: :first)
-#       if tab.text == _("Unused Models")
-#         expect(has_no_selector?(".line[data-type='model'] button[data-type='inventory-expander'] .arrow.right")).to be true
-#       else
-#         expect(has_no_selector?(".line[data-type='model'] button[data-type='inventory-expander']", text: "0")).to be true
-#       end
-#     end
-#   end
-# end
-
-#Wenn(/^ich eine resultatlose Suche mache$/) do
 When(/^I make a search without any results$/) do
   begin
     search_term = Faker::Lorem.words.join
@@ -738,14 +599,12 @@ When(/^I make a search without any results$/) do
   step %Q(I search for "%s") % search_term
 end
 
-#Dann(/^sehe ich 'No entries found'$/) do |arg1|
 Then(/^I see 'No entries found'$/) do
   find('#inventory', text: _('No entries found'))
 end
 
-#Angenommen(/^man öffnet die Liste der Geräteparks$/) do
 Given(/^I open the list of inventory pools$/) do
-  visit admin_inventory_pools_path if current_path != admin_inventory_pools_path
+  visit admin.inventory_pools_path if current_path != admin.inventory_pools_path
 end
 
 Given(/^I'am on the software inventory overview$/) do

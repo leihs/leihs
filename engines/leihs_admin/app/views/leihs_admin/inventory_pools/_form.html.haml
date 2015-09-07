@@ -1,0 +1,77 @@
+.row
+  .col-sm-6
+    %h1= @inventory_pool.name || _("Create %s") % _("Inventory Pool")
+
+  .col-sm-6.text-right
+    = link_to _('Cancel'), :back, class: 'btn btn-default'
+    %button.btn.btn-success{:type => :submit}= _("Save")
+
+.row
+  .col-sm-6
+
+    %h2= _("Basic Information")
+
+    .row.form-group
+      .col-sm-6
+        %strong= "#{_("Name")} *"
+      .col-sm-6
+        %input.form-control{type: "text", name: "inventory_pool[name]", value: @inventory_pool.name}
+
+    .row.form-group
+      .col-sm-6
+        %strong= "#{_("Short Name")} *"
+        = _("Additional label in inventory codes")
+      .col-sm-6
+        %input.form-control{type: "text", name: "inventory_pool[shortname]", value: @inventory_pool.shortname}
+
+    .row.form-group
+      .col-sm-6
+        %strong= "#{_("E-Mail")} *"
+        = _("Used for sending e-mails from leihs")
+      .col-sm-6
+        %input.form-control{type: "text", name: "inventory_pool[email]", value: @inventory_pool.email}
+
+    .row.form-group
+      .col-sm-6
+        %strong= _("Description")
+        = _("Visible for borrowers in frontend")
+      .col-sm-6
+        %textarea.form-control{type: "text", name: "inventory_pool[description]", rows: 6}= @inventory_pool.description
+
+  .col-sm-6
+    #users
+      .row.form-group
+        .col-sm-12
+          %strong= _("Inventory Managers")
+        .col-sm-12
+          %select.form-control{name: 'inventory_managers[user_ids][]', multiple: true}
+
+:coffeescript
+  $(document).ready ->
+    element = $("select[name='inventory_managers[user_ids][]']").select2
+      minimumInputLength: 3
+      placeholder: '#{_("Name of the user")}'
+      ajax:
+        url: '/admin/users.json'
+        dataType: 'json'
+        delay: 250
+        data: (params) ->
+          search_term: params.term
+        processResults: (data) ->
+          results: data
+        cache: true
+      escapeMarkup: (markup) ->
+        markup
+      templateResult: (result) ->
+        if result.loading
+          return result.text
+        result.firstname + ' ' + result.lastname
+      templateSelection: (result) ->
+        if result.firstname and result.lastname
+          result.firstname + ' ' + result.lastname
+        else
+          result.text
+    #{@inventory_pool.users.inventory_managers.sort{|a,b| a.lastname <=> b.lastname}.to_json(only: [:id, :firstname, :lastname])}.forEach (user, i)->
+      option = new Option(user.firstname + ' ' + user.lastname, user.id, true, true)
+      element.append(option)
+    element.trigger('change')

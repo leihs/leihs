@@ -9,11 +9,11 @@ Given "a reservation exists for $quantity '$model' from $from to $to" do |quanti
   @reservations = []
   quantity.to_i.times do
     @reservations << user.item_lines.create(inventory_pool: inventory_pool,
-                                              status: :unsubmitted,
-                                              quantity: 1,
-                                              model: model,
-                                              start_date: to_date(from),
-                                              end_date: to_date(to))
+                                            status: :unsubmitted,
+                                            quantity: 1,
+                                            model: model,
+                                            start_date: to_date(from),
+                                            end_date: to_date(to))
   end
   expect(@reservations.size).to be >= quantity.to_i
   contract = user.reservations_bundles.unsubmitted.find_by(inventory_pool_id: inventory_pool)
@@ -23,23 +23,24 @@ end
 
 Given "a contract exists for $quantity '$model' from $from to $to" do |quantity, model, from, to|
   model = Model.find_by_name(model)
-  inventory_pool = model.inventory_pools.order('RAND()').detect {|ip| ip.is_open_on?(to_date(from)) and ip.is_open_on?(to_date(to))}
+  inventory_pool = model.inventory_pools.order('RAND()').detect { |ip| ip.is_open_on?(to_date(from)) && ip.is_open_on?(to_date(to)) }
   user = inventory_pool.users.order('RAND()').first
   purpose = FactoryGirl.create(:purpose)
   @reservations = []
   quantity.to_i.times do
     @reservations << user.item_lines.create(inventory_pool: inventory_pool,
-                                              status: :approved,
-                                              quantity: 1,
-                                              model: model,
-                                              item: model.items.in_stock.where(inventory_pool_id: inventory_pool).order('RAND()').first,
-                                              start_date: to_date(from),
-                                              end_date: to_date(to),
-                                              purpose: purpose)
+                                            status: :approved,
+                                            quantity: 1,
+                                            model: model,
+                                            item: model.items.in_stock.where(inventory_pool_id: inventory_pool).order('RAND()').first,
+                                            start_date: to_date(from),
+                                            end_date: to_date(to),
+                                            purpose: purpose)
   end
   expect(@reservations.size).to be >= quantity.to_i
   expect(model.availability_in(inventory_pool.reload).running_reservations.size).to be >= 1
 end
+
 
 
 Given 'the maintenance period for this model is $days days' do |days|

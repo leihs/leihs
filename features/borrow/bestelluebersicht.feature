@@ -47,7 +47,7 @@ Feature: Viewing my orders
   @javascript @browser @personas
   Scenario: Deleting an order from my order overview
     When I delete the order
-    Then I am asked whether I really want to delete the order
+    Then I am asked whether I really want to delete
     And I am again on the borrow section's start page
     And all entries are deleted from the order
     And the items are available for borrowing again

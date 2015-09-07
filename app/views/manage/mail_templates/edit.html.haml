@@ -21,7 +21,7 @@
 
 .wrapper.margin-top-m
 
-  = render :partial => 'manage/tabs/admin', :locals => {:active_tab => :mail_templates}
+  = render :partial => 'manage/tabs/manage', :locals => {:active_tab => :mail_templates}
 
   .row.content-wrapper.min-height-xl.min-width-full.straight-top
 
@@ -64,7 +64,7 @@
                 .col4of5
                   .toggle_container
                     .toggle_title
-                      %i.icon-info-sign
+                      %i.fa.fa-info-sign
                       %strong= _("List of available variables")
                     .toggle_body= capture_haml {list_variables MailTemplate.send("available_liquid_variables_for_#{params[:dir]}")}
 

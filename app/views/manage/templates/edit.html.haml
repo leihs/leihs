@@ -16,7 +16,7 @@
           %h1.headline-l.float-left= yield :title
 
           .float-right
-            %a.button.grey{:href => manage_templates_path(current_inventory_pool)}= _("Cancel")
+            = link_to _('Cancel'), :back, class: 'button grey'
             %button.button.green{:type => :submit}= _("Save")
 
         .row.margin-top-m.padding-bottom-s

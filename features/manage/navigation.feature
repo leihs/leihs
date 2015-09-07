@@ -5,19 +5,18 @@ Feature: Navigation
   Scenario: Navigation für Gruppen-Verwalter
     Given I am Andi
     And I visit the lending section
-    Then seh ich die Navigation
-    And die Navigation beinhaltet "Verleih"
-    And die Navigation beinhaltet "Ausleihen"
-    And die Navigation beinhaltet "Benutzer"
+    Then I can see the navigation bars
+    And the navigation contains "Lending"
+    And the navigation contains "Borrow"
+    And the navigation contains "User"
 
   @personas
   Scenario: Navigation für Gruppen-Verwalter in Verleih-Bereich
     Given I am Andi
     And I visit the lending section
-    Then seh ich die Navigation
+    Then I can see the navigation bars
     And I open the tab "Orders"
     And I open the tab "Contracts"
-    And man sieht die Gerätepark-Auswahl im Verwalten-Bereich
 
   @personas @javascript
   Scenario: Aufklappen der Geraeteparkauswahl und Wechsel des Geraeteparks

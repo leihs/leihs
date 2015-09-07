@@ -38,16 +38,16 @@
         %ul.dropdown.right
           %li
             %a.dropdown-item{:"data-open-time-line" => true, :"data-model-id" => "{{>id}}"}
-              %i.icon-align-left
+              %i.fa.fa-align-left
               {{jed "Timeline"/}}
           {{if licenses().count() == 0}}
           %li
             %a.dropdown-item.red{href: "{{>url()}}", :"data-method" => "delete"}
-              %i.icon-trash
+              %i.fa.fa-trash
               {{jed "Delete"/}}
           {{/if}}
     {{else}}
     %a.button.white.text-ellipsis{:"data-open-time-line" => true, :"data-model-id" => "{{>id}}"}
-      %i.icon-align-left
+      %i.fa.fa-align-left
       {{jed "Timeline"/}}
     {{/if}}

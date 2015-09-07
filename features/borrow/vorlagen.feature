@@ -6,7 +6,7 @@ Feature: Vorlagen
 
   @personas
   Scenario: Finding the list of templates in the borrow section
-    Given I am listing the root categories
+    Given I am listing the main categories
     Then I see a link to the templates underneath the categories
 
   @personas

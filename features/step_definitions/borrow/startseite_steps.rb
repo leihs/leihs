@@ -1,12 +1,10 @@
 # -*- encoding : utf-8 -*-
 
-#Angenommen(/^man befindet sich auf der Seite der Hauptkategorien$/) do
-Given(/^I am listing the root categories$/) do
+Given(/^I am listing the main categories$/) do
   visit borrow_root_path
 end
 
-#Dann(/^sieht man genau die für den User bestimmte Haupt\-Kategorien mit Namen$/) do
-Then(/^I see exactly those root categories that are useful for my user$/) do
+Then(/^I see exactly those main categories that are useful for my user$/) do
   @main_categories = @current_user.all_categories.select {|c| c.parents.empty?}
   categories_counter = 0
   @main_categories.each do |mc|
@@ -16,17 +14,11 @@ Then(/^I see exactly those root categories that are useful for my user$/) do
   expect(categories_counter).to eq @main_categories.count
 end
 
-#Wenn(/^man eine Hauptkategorie auswählt$/) do
-When(/^I choose a root category$/) do
+When(/^I enter to a main category$/) do
   @main_category = (@current_user.all_categories & Category.roots).sample
   find("[data-category_id='#{@main_category.id}'] a", match: :first).click
 end
 
-Und(/^man sieht die Überschrift "(.*?)"$/) do |arg1|
-  find '.row a', text: _('Start')
-end
-
-#Wenn(/^ich über eine Hauptkategorie mit Kindern fahre$/) do
 When(/^I hover over a main category with children$/) do
   @main_category = (@current_user.all_categories & Category.roots).find do |c|
     borrowable_children = (@current_user.categories.with_borrowable_items & c.children)
@@ -37,8 +29,7 @@ When(/^I hover over a main category with children$/) do
   end
 end
 
-#Dann(/^sehe ich nur die Kinder dieser Hauptkategorie, die dem User zur Verfügung stehende Gegenstände enthalten$/) do
-Then(/^I see only this root category's children that are useful and available to me$/) do
+Then(/^I see only this main category's children that are useful and available to me$/) do
   second_level_categories = @main_category.children
   visible_2nd_level_categories = (@current_user.categories.with_borrowable_items & @main_category.children)
   @second_level_category = visible_2nd_level_categories.first
@@ -54,30 +45,25 @@ Then(/^I see only this root category's children that are useful and available to
   expect(visible_2nd_level_categories_count).to eq visible_2nd_level_categories.size
 end
 
-#Wenn(/^ich eines dieser Kinder anwähle$/) do
 When(/^I choose one of these child categories$/) do
   click_link @second_level_category.name
 end
 
-#Dann(/^lande ich in der Modellliste für diese Hauptkategorie$/) do
-Then(/^I see the model list for this root category$/) do
+Then(/^I see the model list for this main category$/) do
   expect((Rack::Utils.parse_nested_query URI.parse(current_url).query)['category_id'].to_i).to eq @main_category.id
 end
 
-#Dann(/^lande ich in der Modellliste für diese Kategorie$/) do
 Then(/^I see the model list for this category$/) do
   expect((Rack::Utils.parse_nested_query URI.parse(current_url).query)['category_id'].to_i).to eq @second_level_category.id
 end
 
-#Angenommen(/^es gibt eine Hauptkategorie, derer Kinderkategorien keine dem User zur Verfügung stehende Gegenstände enthalten$/) do
-Given(/^there is a root category whose child categories cannot offer me any items$/) do
+Given(/^there is a main category whose child categories cannot offer me any items$/) do
   @main_category = (@current_user.all_categories & Category.roots).find do |c|
     (@current_user.categories.with_borrowable_items & c.children).size == 0
   end
 end
 
-#Dann(/^hat diese Hauptkategorie keine Kinderkategorie\-Dropdown$/) do
-Then(/^that root category has no child category dropdown$/) do
+Then(/^that main category has no child category dropdown$/) do
   expect(find('.row.emboss.focus-hover', match: :first, text: @main_category.name).has_no_selector? '.dropdown-holder').to be true
 end
 
@@ -91,10 +77,6 @@ Then(/^I see for each category its image, or if not set, the first image of a mo
   end
 end
 
-Given(/^there exists a main category$/) do
-  @main_category = Category.roots.order('RAND()').first
-end
-
 Given(/^there exists a main category with own image$/) do
   (@current_user.all_categories & Category.roots).find do |c|
     expect(c.images.exists?).not_to be_nil
@@ -105,14 +87,4 @@ Given(/^there exists a main category without own image but with a model with ima
   expect((@current_user.all_categories & Category.roots).find do |c|
     not c.images.exists? and c.all_models.detect{|m| not m.image.blank? }
   end).not_to be_nil
-end
-
-Then(/^this category can have children categories$/) do
-  child_category = Category.where.not(id: @main_category).order('RAND()').detect {|c| not @main_category.children.include? c }
-  @main_category.children << child_category
-  expect(@main_category.reload.children.include? child_category).to be true
-end
-
-Then(/^this category is not child of another category$/) do
-  expect(@main_category.parents).to be_empty
 end

@@ -1,0 +1,44 @@
+%ul.nav.nav-tabs{style: 'margin-bottom: 1em;'}
+  %li{role: 'presentation', class: params[:controller] == 'leihs_admin/inventory_pools' ? 'active' : nil}
+    %a{:href => admin.inventory_pools_path}
+      = _('Inventory Pools')
+
+  %li{role: 'presentation', class: params[:controller] == 'leihs_admin/users' ? 'active' : nil}
+    %a{:href => admin.users_path}
+      = _('Users')
+
+  %li{role: 'presentation', class: params[:controller] == 'leihs_admin/suppliers' ? 'active' : nil}
+    %a{:href => admin.suppliers_path}
+      = _('Suppliers')
+
+  %li{role: 'presentation', class: params[:controller] == 'leihs_admin/buildings' ? 'active' : nil}
+    %a{:href => admin.buildings_path}
+      = _('Buildings')
+
+  %li{role: 'presentation', class: params[:controller] == 'leihs_admin/settings' ? 'active' : nil}
+    %a{:href => admin.settings_path}
+      = _('Settings')
+
+  %li{role: 'presentation', class: params[:controller] == 'leihs_admin/fields' ? 'active' : nil}
+    %a{:href => admin.fields_path}
+      = _('Fields')
+
+  %li{role: 'presentation', class: params[:controller] == 'leihs_admin/mail_templates' ? 'active' : nil}
+    %a{:href => '/admin/mail_templates'}
+      = _('Mail Templates')
+
+  %li{role: 'presentation', class: params[:controller] == 'leihs_admin/database' ? 'active' : nil}
+    %a{:href => '/admin/database/indexes'}
+      = _('Database')
+
+  %li{role: 'presentation', class: params[:controller] == 'leihs_admin/statistics' ? 'active' : nil}
+    %a{href: admin.statistics_path}
+      = _('Statistics')
+
+  %li{role: 'presentation', class: params[:controller] == 'leihs_admin/audits' ? 'active' : nil}
+    %a{href: admin.audits_path}
+      = _('Audits')
+
+  -#%li{role: 'presentation'}
+    %a{:href => '/admin/scenarios'}
+      = _('Scenarios')

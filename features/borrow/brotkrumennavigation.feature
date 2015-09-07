@@ -6,33 +6,33 @@ Feature: Breadcrumb navigation
 
   @personas
   Scenario: Breadcrumb navigation
-    Given I am listing the root categories
+    Given I am listing the main categories
     Then I see the breadcrumb navigation bar
 
   @personas
   Scenario: Home button in the breadcrumb navigation
-    Given I am listing the root categories
+    Given I am listing the main categories
     And I see the breadcrumb navigation bar
     Then the first position in the breadcrumb navigation bar is always the home button
-    And that button directs me to the root categories
+    And that button directs me to the main categories
 
   @personas
   Scenario: Choosing main category
-    Given I am listing the root categories
+    Given I am listing the main categories
     When I choose a main category
     Then that category opens
     And that category is the second and last element of the breadcrumb navigation bar
 
   @javascript @personas
   Scenario: Choosing a subcategory
-    Given I am listing the root categories
+    Given I am listing the main categories
     When I choose a subcategory
     Then that category opens
     And that category is the second and last element of the breadcrumb navigation bar
 
   @personas
   Scenario: Show the path to a model
-    Given I am listing the root categories
+    Given I am listing the main categories
     When I choose a main category
     Then that category opens
     And that category is the second and last element of the breadcrumb navigation bar

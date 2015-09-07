@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-# Dann /^kann ich die bestellende Person wechseln$/ do
 Then(/^I can change who placed this order$/) do
   old_user = @contract.user
   new_user = @current_inventory_pool.users.detect {|u| u.id != old_user.id and u.visits.where.not(status: :submitted).exists? }

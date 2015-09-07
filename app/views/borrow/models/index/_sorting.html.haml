@@ -10,11 +10,11 @@
         = _("Model")
       - case params[:order]
       - when "asc"
-        %i.icon-circle-arrow-up.icon-size-xs
+        %i.fa.fa-circle-arrow-up.icon-xs
       - when "desc"
-        %i.icon-circle-arrow-down.icon-size-xs
+        %i.fa.fa-circle-arrow-down.icon-xs
       - else 
-        %i.icon-circle-arrow-up.icon-size-xs
+        %i.fa.fa-circle-arrow-up.icon-xs
     .dropdown
       %a.font-size-xs.dropdown-item{"data-sort" => "name", :"data-order" => "asc"}
         = "#{_("Model")} (#{_("ascending")})"

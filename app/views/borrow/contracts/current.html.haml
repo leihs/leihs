@@ -41,7 +41,7 @@
           .row
             .col1of2
               = link_to borrow_order_remove_path, method: :delete, data: { confirm: _("The order will be discarded.") }, class: "button red" do
-                %i.icon-trash
+                %i.fa.fa-trash
                 = _("Delete %s") % _("Order")
 
             .col1of2.text-align-right
@@ -66,7 +66,7 @@
             .row.padding-top-l
               .col1of2
                 = link_to borrow_order_remove_path, method: :delete, data: { confirm: _("The order will be discarded.") }, class: "button red" do
-                  %i.icon-trash
+                  %i.fa.fa-trash
                   = _("Delete %s") % _("Order")
               .col1of2.text-align-right
                 %button.button.green

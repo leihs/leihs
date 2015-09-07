@@ -1,4 +1,4 @@
-Feature: Implement new Group feature#
+Feature: Implement new Group feature
 
         Background: Provide a minimal lending environment
                 Given the settings are existing

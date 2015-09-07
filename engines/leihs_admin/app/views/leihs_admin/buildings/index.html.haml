@@ -1,0 +1,14 @@
+- content_for :title, _("List of Buildings")
+- content_for :manage_section, "active"
+
+.row
+  .col-sm-6
+    %h1= yield :title
+
+  .col-sm-6.text-right
+    %a.btn.btn-default{href: admin.new_building_path}
+      %i.fa.fa-plus
+      = _("Create %s") % _("Building")
+
+.list-of-lines
+  = render @buildings

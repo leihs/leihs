@@ -10,12 +10,6 @@ Given(/^I am ([a-zA-Z]*)$/) do |persona_name|
   end
 end
 
-# Angenommen(/^man ist ein Kunde$/) do
-#   user = AccessRight.where(role: :customer).map(&:user).uniq.sample
-#   step "I am %s" % user.firstname
-# end
-
-#Angenommen(/^man ist ein Kunde mit Verträge$/) do
 Given(/^I am a customer with contracts$/) do
   user = Reservation.closed.where.not(returned_to_user_id: nil).order('RAND()').map(&:user).select{|u| not u.access_rights.active.blank?}.uniq.first
   step 'I am logged in as "%s"' % user.login

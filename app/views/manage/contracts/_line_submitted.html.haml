@@ -14,7 +14,7 @@
 .col2of8.line-col.line-actions
   .multibutton
     %a.button.white.text-ellipsis{:"data-order-approve" => true, :autocomplete => :off}
-      %i.icon-thumbs-up
+      %i.fa.fa-thumbs-up
       = contract.is_to_be_verified ? "#{_("Verify")} + #{_("Approve")}" : _("Approve")
     .dropdown-holder.inline-block
       .button.white.dropdown-toggle
@@ -22,9 +22,9 @@
       %ul.dropdown.right
         %li
           %a.dropdown-item{:href => manage_edit_contract_path(current_inventory_pool, contract)}
-            %i.icon-edit
+            %i.fa.fa-edit
             = _("Edit")
         %li
           %a.dropdown-item.red{:"data-order-reject" => true}
-            %i.icon-thumbs-down
+            %i.fa.fa-thumbs-down
             = _("Reject")

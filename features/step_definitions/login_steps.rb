@@ -65,14 +65,13 @@ When /^I am redirected to the "([^"]*)" section$/ do |section_name|
   case section_name
     when 'Admin'
       within '.topbar' do
-        find('.topbar-navigation.float-right .topbar-item .topbar-item-inner', text: _(section_name))
+        find('.navbar-right .dropdown-toggle', text: _(section_name))
       end
     else
       find('nav#topbar .topbar-navigation .active', match: :prefer_exact, text: _(section_name))
   end
 end
 
-#Angenommen(/^man ist eingeloggt als "(.*?)"$/) do |persona|
 Given(/^I am logged in as "(.*?)"$/) do |persona|
   step 'I make sure I am logged out'
   @current_user = User.where(login: persona.downcase).first

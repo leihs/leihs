@@ -1,0 +1,29 @@
+- content_for :title, _("Audits")
+
+.pages
+
+  .row.text-right
+    %form.form-inline
+      .input-group
+        %input.form-control.datepicker{type: "text", name: "start_date", placeholder: _("Start date"), value: params[:start_date]}
+        .input-group-addon
+          %i.fa.fa-calendar
+      .input-group
+        %input.form-control.datepicker{type: "text", name: "end_date", placeholder: _("End date"), value: params[:end_date]}
+        .input-group-addon
+          %i.fa.fa-calendar
+      %button.btn.btn-default{type: "submit"}= _("Filter")
+
+  = render partial: 'leihs_admin/audits/audits', collection: @audits
+
+%h1.pages-progress.text-center
+  %i.fa.fa-spinner
+
+:coffeescript
+  $(document).on 'scroll', -> Pages.load_next()
+
+  $(document).ready ->
+    Pages.reset()
+    $(".datepicker").datepicker({
+      dateFormat: i18n.datepicker.L
+    })

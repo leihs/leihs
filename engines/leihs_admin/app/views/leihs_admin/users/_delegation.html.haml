@@ -1,0 +1,82 @@
+#delegation.row
+
+  .col-sm-6
+
+    .row
+      .col-sm-6
+        %strong= "#{_("Name")} *"
+      .col-sm-6
+        %input.form-control{type: "text", name: "user[firstname]", value: @user.try(:firstname)}
+
+    #users
+      .row
+        .col-sm-6
+          %strong= _("Users")
+        .col-sm-6
+          %select.form-control{name: 'user[users][][id]', multiple: true}
+
+  .col-sm-6
+    .row
+      .col-sm-6
+        %strong= "#{_("Responsible")} *"
+      .col-sm-6
+        %select.form-control{name: 'user[delegator_user_id]'}
+
+:coffeescript
+  $(document).ready ->
+    element1 = $("select[name='user[users][][id]']").select2
+      minimumInputLength: 3
+      placeholder: '#{_("Name of the user")}'
+      ajax:
+        url: '/admin/users.json'
+        dataType: 'json'
+        delay: 250
+        data: (params) ->
+          search_term: params.term
+        processResults: (data) ->
+          results: data
+        cache: true
+      escapeMarkup: (markup) ->
+        markup
+      templateResult: (result) ->
+        if result.loading
+          return result.text
+        result.firstname + ' ' + result.lastname
+      templateSelection: (result) ->
+        if result.firstname and result.lastname
+          result.firstname + ' ' + result.lastname
+        else
+          result.text
+    #{@user.delegated_users.to_json(only: [:id, :firstname, :lastname])}.forEach (user, i)->
+      option = new Option(user.firstname + ' ' + user.lastname, user.id, true, true)
+      element1.append(option)
+    element1.trigger('change')
+
+    element2 = $("select[name='user[delegator_user_id]']").select2
+      minimumInputLength: 3
+      placeholder: '#{_("Name of the responsible")}'
+      ajax:
+        url: '/admin/users.json'
+        dataType: 'json'
+        delay: 250
+        data: (params) ->
+          search_term: params.term
+        processResults: (data) ->
+          results: data
+        cache: true
+      escapeMarkup: (markup) ->
+        markup
+      templateResult: (result) ->
+        if result.loading
+          return result.text
+        result.firstname + ' ' + result.lastname
+      templateSelection: (result) ->
+        if result.firstname and result.lastname
+          result.firstname + ' ' + result.lastname
+        else
+          result.text
+    - unless #{@user.delegator_user.nil?}
+      user = #{@user.delegator_user.to_json(only: [:id, :firstname, :lastname])}
+      option = new Option(user.firstname + ' ' + user.lastname, user.id, true, true)
+      element2.append(option)
+      element2.trigger('change')

@@ -26,9 +26,9 @@ Feature: Availability depending on Pools
     And a model 'Coffee Machine' exists
     And this model has 1 item in inventory pool 1
     And customer 'jack' has access to inventory pool 1 and 2
-    When 'jack' orders 2 'Coffee Mug'
-    And 'jack' orders 1 'Coffee Machine'
-    And he submits the new order
+    When 'jack' orders 2 'Coffee Mug' from inventory pool 1
+    And 'jack' orders 1 'Coffee Machine' from inventory pool 1
+    And all reservations of 'jack' are submitted
     Then 1 order exists for inventory pool 1
     And it asks for 3 items
     And 0 orders exist for inventory pool 2
@@ -66,10 +66,10 @@ Feature: Availability depending on Pools
     And a model 'Pink Hairbrush' exists
     And this model has 3 items in inventory pool 1
     And customer 'samantha' has access to inventory pool 1
-    When 'samantha' orders 3 'Pink Hairbrush'
-    Then all order reservations should be available
-    When 'samantha' orders another 2 'Pink Hairbrush' for the same time
-    Then these additional order reservations were not created
+    When 'samantha' orders 3 'Pink Hairbrush' from inventory pool 1
+    Then this user has 3 unsubmitted reservations, which 3 are available
+    When 'samantha' orders 2 'Pink Hairbrush' from inventory pool 1 for the same time
+    Then this user has 5 unsubmitted reservations, which 0 are available
 
   Scenario: Customer can decide from which pool he orders
     Given 2 inventory pools
@@ -79,7 +79,6 @@ Feature: Availability depending on Pools
     And customer 'jack' has access to inventory pool 1
     And customer 'jack' has access to inventory pool 2
     When 'jack' orders 2 'Coffee Mug' from inventory pool 1
-    Then all order reservations should be available
+    Then this user has 2 unsubmitted reservations, which 2 are available
     When 'jack' orders 2 'Coffee Mug' from inventory pool 2
-    Then some order reservations were not created
-
+    Then this user has 4 unsubmitted reservations, which 2 are available

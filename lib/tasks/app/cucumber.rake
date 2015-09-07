@@ -15,7 +15,7 @@ namespace :app do
       step_files.each do |step_file|
         File.new(step_file).read.each_line.each_with_index do |line, number|
           next unless line =~ /^\s*(?:Given|When|Then)\s+|\//
-          res = /(?:Given|When|Then)[\s\(]*\/[\^](.*)[\$]\/([imxo]*)[\s\)]*do\s*(?:$|\|(.*)\|)/.match(line)
+          res = /^\s*(?:Given|When|Then)[\s\(]*\/[\^](.*)[\$]\/([imxo]*)[\s\)]*do\s*(?:$|\|(.*)\|)/.match(line)
           next unless res
           matches = res.captures
           results << OpenStruct.new(

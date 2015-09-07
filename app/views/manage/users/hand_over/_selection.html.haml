@@ -10,11 +10,11 @@
       %ul.dropdown.right
         %li
           %a.dropdown-item{:"data-edit-lines" => "selected-lines"}
-            %i.icon-calendar
+            %i.fa.fa-calendar
             = _("Edit Selection")
         %li
           %a#swap-user.dropdown-item
-            %i.icon-exchange
+            %i.fa.fa-exchange
             = _("Change Borrower")
         %li
           = render partial: 'manage/templates/print_selection', locals: {type: "value_list"}
@@ -22,5 +22,5 @@
           = render partial: 'manage/templates/print_selection', locals: {type: "picking_list"}
         %li
           %a.dropdown-item.red{:"data-destroy-selected-lines" => true}
-            %i.icon-trash
+            %i.fa.fa-trash
             = _("Delete Selection")

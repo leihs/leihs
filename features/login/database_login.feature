@@ -17,6 +17,8 @@ Feature: Login through database authentication
     Given I am Normin
     And my authentication system is "DatabaseAuthentication"
     When I hover over my name
-    And I view my user data
+    And I click "User data"
+    Then I get to the "User Data" page
+    And I can see my user data
     And I change my password
     Then my password is changed

@@ -120,8 +120,8 @@ class Model < ActiveRecord::Base
   scope :by_categories, lambda { |categories| joins('INNER JOIN model_links AS ml').# OPTIMIZE no ON ??
       where(['ml.model_group_id IN (?)', categories]) }
 
-  scope :from_category_and_all_its_descendants, lambda { |category_id|
-      joins(:categories).where(model_groups: {id: Category.find(category_id).self_and_descendants}) }
+  scope :from_category_and_all_its_descendants, lambda { |category|
+      joins(:categories).where(model_groups: {id: Category.find(category.id).self_and_descendants}) }
 
   scope :order_by_attribute_and_direction, (lambda do |attr, direction|
     if ['product', 'version', 'manufacturer'].include? attr and ['asc', 'desc'].include? direction
@@ -211,7 +211,7 @@ class Model < ActiveRecord::Base
   def self.filter_for_user(models, params, user, category, borrowable = false)
     models = user.models # FIXME intersect with the models argument
     models = if category
-               models.from_category_and_all_its_descendants(category.id)
+               models.from_category_and_all_its_descendants(category)
              else
                models
              end

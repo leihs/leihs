@@ -32,7 +32,7 @@
                            :"data-quantity" => line[:quantity],
                            :"data-start-date" => line[:start_date],
                            :"data-end-date" => line[:end_date]}
-        %i.icon-calendar
+        %i.fa.fa-calendar
         = _("Change entry")
 
       .dropdown-holder.inline-block
@@ -45,5 +45,5 @@
           %a.dropdown-item.red{:href => borrow_order_remove_reservations_path(:line_ids => line[:line_ids]),
              :"data-confirm" => _("This entry will be removed from the order."),
              :"data-method" => :delete}
-            %i.icon-trash
+            %i.fa.fa-trash
             = _("Delete")

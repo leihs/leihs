@@ -1,0 +1,43 @@
+.row
+  .col-sm-1
+    - if user.is_delegation
+      %i.fa.fa-group
+    - elsif not user.image_url.blank?
+      %img.img-rounded{src: user.image_url, style: 'max-width: 3em; max-height: 3em'}
+
+  .col-sm-5
+    %strong{data: {toggle: "popover",
+                    name: user.name,
+                    delegator_user_name: user.is_delegation ? user.delegator_user.name : nil,
+                    email: user.email,
+                    phone: user.phone,
+                    badge_id: user.badge_id,
+                    address: user.address,
+                    zip: user.zip,
+                    city: user.city,
+                    image_url: user.image_url}}
+      = user.name
+
+  .col-sm-2
+    = user.phone
+
+  .col-sm-2
+    = _('Administrator') if user.has_role?(:admin)
+
+  .col-sm-2.text-right.line-actions
+
+    .btn-group
+      %a.btn.btn-default{href: admin.edit_user_path(user)}
+        = _('Edit')
+      %button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+        %i.caret
+      %ul.dropdown-menu
+        %li
+          %a{href: "mailto:#{user.email}"}
+            %i.fa.fa-envelope
+            = _('E-Mail')
+        - if user.deletable?
+          %li.bg-danger
+            %a{href: admin.user_path(user), data: {method: :delete, confirm: _("Are you sure you want to delete '%s'?") % user}}
+              %i.fa.fa-trash
+              = _('Delete')

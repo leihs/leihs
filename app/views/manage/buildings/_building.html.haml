@@ -10,7 +10,7 @@
     %strong= _("%s locations") % building.locations.count
 
   .col1of6.line-col
-    %strong= _("%s items") % (current_inventory_pool ? building.items.where("#{current_inventory_pool.id} IN (inventory_pool_id, owner_id)") : building.items).count
+    %strong= _("%s items") % building.items.where("#{current_inventory_pool.id} IN (inventory_pool_id, owner_id)").count
 
   .col1of6.line-col.line-actions
 
@@ -19,7 +19,7 @@
       .multibutton
 
         %a.button.white{href: manage_edit_inventory_pool_building_path(current_inventory_pool, building)}
-          = current_inventory_pool ? _("Show") : _("Edit")
+          = _("Show")
 
         .dropdown-holder.inline-block
           .button.white.dropdown-toggle
@@ -29,10 +29,10 @@
 
             %li
               %a.dropdown-item.red{href: manage_delete_inventory_pool_building_path(current_inventory_pool, building), data: {method: :delete, confirm: _("Are you sure you want to delete '%s'?") % building}}
-                %i.icon-trash
+                %i.fa.fa-trash
                 = _("Delete")
 
     - else
 
       %a.button.white{href: manage_edit_inventory_pool_building_path(current_inventory_pool, building)}
-        = current_inventory_pool ? _("Show") : _("Edit")
+        = _("Show")

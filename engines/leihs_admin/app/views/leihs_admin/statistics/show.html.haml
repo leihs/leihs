@@ -1,0 +1,39 @@
+- content_for :title, _("Statistics")
+
+%h2= yield :title
+
+.row
+  .col-sm-4
+    = render partial: "leihs_admin/statistics/index"
+
+  .col-sm-8
+    .text-right
+      %form.form-inline
+        .input-group
+          %input.form-control.datepicker{type: "text", name: "start_date", placeholder: _("Start date"), value: params[:start_date]}
+          .input-group-addon
+            %i.fa.fa-calendar
+        .input-group
+          %input.form-control.datepicker{type: "text", name: "end_date", placeholder: _("End date"), value: params[:end_date]}
+          .input-group-addon
+            %i.fa.fa-calendar
+        %button.btn.btn-default{type: "submit"}= _("Filter")
+
+    .list-of-lines
+      = render partial: "leihs_admin/statistics/show/line", collection: @list
+
+:scss
+  .collapsed + .children {
+    display: none;
+  }
+
+:coffeescript
+  $(document).ready ->
+    $(".datepicker").datepicker({
+      dateFormat: i18n.datepicker.L
+    })
+
+    $(".toggle").on "click", ->
+      $(this).closest(".row").toggleClass("collapsed")
+      $(this).find(".arrow").toggleClass("right")
+      $(this).find(".arrow").toggleClass("down")

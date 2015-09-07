@@ -18,7 +18,7 @@ Feature: Value list
   @javascript @browser @personas
   Scenario: Content of a value list
     Given I open a value list
-    Then the value list contains the following columns:
+    Then the list contains the following columns:
     | Column             |
     | Consecutive number |
     | Inventory code     |

@@ -1,0 +1,9 @@
+%h3= _("Access")
+
+.row.form-group
+  .col-sm-6
+    %strong= "#{_("Administrator")} *"
+  .col-sm-6.text-right
+    = select_tag "user[admin]", options_for_select([[_("No"), "false"], [_("Yes"), "true"]], @is_admin)
+
+= render partial: "leihs_admin/users/access_rights" unless @user.new_record?

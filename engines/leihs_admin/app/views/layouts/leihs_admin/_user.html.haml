@@ -1,0 +1,39 @@
+%li.dropdown
+  %a.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
+    - if current_user.is_delegation
+      %i.fa.fa-group
+    - else
+      %img.img-rounded{src: current_user.image_url, style: 'max-width: 2em; max-height: 2em'}
+    %span
+      = current_user.short_name
+    %i.caret
+
+  %ul.dropdown-menu
+    -#%li{:class => current_page?("start_screen") ? "active" : nil}
+      %label{:title => _("Set current screen as your personal start screen")}
+        %input#start_screen_checkbox{:type => :checkbox, :name => "start_screen", :checked => current_user.start_screen == request.fullpath, :autocomplete => :false}
+        = _("Start Screen")
+
+    %li
+      %a{href: main_app.borrow_current_user_path}
+        .fa.fa-user
+        = _("User data")
+    %li
+      %a{href: main_app.borrow_user_documents_path}
+        .fa.fa-copy
+        = _("My documents")
+    - if current_user.delegations.exists?
+      %li
+        %a{href: main_app.borrow_user_delegations_path}
+          .fa.fa-group
+          = _("Delegations")
+    - elsif current_user.is_delegation and @current_delegated_user
+      %li
+        %a{href: main_app.borrow_user_switch_back_path}
+          %img.max-height-xxxs.max-width-xxs{:src => @current_delegated_user.image_url}
+          = _("Back to %s") % @current_delegated_user.to_s
+
+    %li
+      %a{href: main_app.logout_path}
+        .fa.fa-sign-out
+        = _("Logout")

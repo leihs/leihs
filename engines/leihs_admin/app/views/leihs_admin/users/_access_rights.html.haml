@@ -1,0 +1,5 @@
+%strong= _("Access rights")
+
+%ul
+  - @user.access_rights.active.each do |access_right|
+    %li= access_right

@@ -21,7 +21,7 @@
   .col1of10.line-col.text-align-center
     - unless line.purpose.blank?
       .tooltip{:"title" => line.purpose.description, :"data-tooltip-template" => "manage/views/purposes/tooltip"}
-        %i.icon-comment.grey
+        %i.fa.fa-comment.grey
 
   .col1of10.line-col.text-align-center
 
@@ -34,14 +34,14 @@
         %ul.dropdown.right
           %li
             %a.dropdown-item{:href => manage_contract_path(current_inventory_pool, line.contract.id), :target => "_blank"}
-              %i.icon-file-alt
+              %i.fa.fa-file-alt
               = _("Contract")
               = line.contract.id
           %li
             %a.dropdown-item{:"data-open-time-line" => true, :"data-model-id" => line.model.id}
-              %i.icon-align-left
+              %i.fa.fa-align-left
               = _("Timeline")
           %li
             %a.dropdown-item{:"data-inspect-item" => true, :"data-item-id" => line.item_id}
-              %i.icon-search
+              %i.fa.fa-search
               {{jed "Inspect"/}}

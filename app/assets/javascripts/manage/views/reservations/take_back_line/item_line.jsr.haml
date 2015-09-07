@@ -21,7 +21,7 @@
   .col1of10.line-col.text-align-center
     {{if purpose_id}}
     .tooltip{:"title" => "{{>purpose().description}}", :"data-tooltip-template" => "manage/views/purposes/tooltip"}
-      %i.icon-comment.grey
+      %i.fa.fa-comment.grey
     {{/if}}
 
   .col1of10.line-col.text-align-center
@@ -30,7 +30,7 @@
       %strong {{>getProblems().length}}
     {{else ~renderAvailability && !anyProblems() && item()}}
     .padding-inset-xxs-alt.text-align-center
-      %i.icon-ok
+      %i.fa.fa-check
     {{/if}}
 
   .col2of10.line-col.line-actions.padding-left-xxs.padding-right-s
@@ -42,14 +42,14 @@
         %ul.dropdown.right
           %li
             %a.dropdown-item{:href => "{{>contract().url()}}", :target => "_blank"}
-              %i.icon-file-alt
+              %i.fa.fa-file-alt
               {{jed "Contract"/}}
               {{>contract().id}}
           %li
             %a.dropdown-item{:"data-open-time-line" => true, :"data-model-id" => "{{>model().id}}"}
-              %i.icon-align-left
+              %i.fa.fa-align-left
               {{jed "Timeline"/}}
           %li
             %a.dropdown-item{:"data-inspect-item" => true, :"data-item-id" => "{{>item_id}}"}
-              %i.icon-search
+              %i.fa.fa-search
               {{jed "Inspect"/}}

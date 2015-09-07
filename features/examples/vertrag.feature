@@ -118,6 +118,6 @@ Feature: Contract
 
   @personas
   Scenario: Not showing a ", " after a user's address
-    Given there is a contract for a user whose address ends with  ", "
+    Given there is a contract for a user whose address ends with ", "
     When I open this user's contract
-    Then their address is shown without the  ", "
+    Then their address is shown without the ", "

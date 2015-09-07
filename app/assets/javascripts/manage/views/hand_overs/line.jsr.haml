@@ -22,7 +22,7 @@
   .col1of5.line-col.line-actions
     .multibutton
       %a.button.white.text-ellipsis{:href => "/manage/{{current_inventory_pool_id/}}/users/{{>user().id}}/hand_over"}
-        %i.icon-mail-forward
+        %i.fa.fa-mail-forward
         {{jed "Hand Over"/}}
       .dropdown-holder.inline-block
         .button.white.dropdown-toggle
@@ -30,5 +30,5 @@
         %ul.dropdown.right
           %li
             %a.dropdown-item.red{:"data-hand-over-delete" => true} 
-              %i.icon-trash
+              %i.fa.fa-trash
               {{jed "Delete"/}}

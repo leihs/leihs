@@ -1,0 +1,36 @@
+.row
+  .col-sm-6
+    %h1= @supplier.name || _("Create %s") % _("Supplier")
+
+  .col-sm-6.text-right
+    = link_to _('Cancel'), :back, class: 'btn btn-default'
+    %button.btn.btn-success{:type => :submit}= _("Save")
+
+.row
+
+  .col-sm-6
+
+    %h2= _("Basic Information")
+
+    .row
+      .col-sm-4
+        %strong= "#{_("Name")} *"
+      .col-sm-8.text-right
+        - if current_inventory_pool
+          %h2= @supplier.name
+        - else
+          %input.form-control{type: "text", name: "supplier[name]", value: @supplier.name}
+
+  .col-sm-6
+
+    - if @items
+      %h2= _("Items")
+
+      - @items.each do |i|
+        .row
+          .col-sm-8
+            = i.inventory_code
+            %br
+            = i.model
+          .col-sm-4
+            = i.inventory_pool

@@ -1,0 +1,6 @@
+- content_for :title, _("Create %s") % _("Inventory Pool")
+- content_for :admin_section, "active"
+
+= form_tag admin.inventory_pools_path, class: 'form-horizontal' do
+
+  = render partial: "leihs_admin/inventory_pools/form"

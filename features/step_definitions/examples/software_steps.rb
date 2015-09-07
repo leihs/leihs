@@ -1,99 +1,16 @@
 # encoding: utf-8
 
-#Dann(/^ist die neue Software erstellt und unter Software auffindbar$/) do
 Then(/^the new software product is created and can be found in the software section$/) do
   find("[data-type='license']").click
   step 'the information is saved'
 end
 
-# Angenommen(/^ich befinde mich auf der Software\-Erstellungsseite$/) do
-#   visit manage_new_model_path(inventory_pool_id: @current_inventory_pool.id, type: :software)
-# end
-
-# Dann(/^kann ich auf mehreren Zeilen Hinweise und Links anfügen$/) do
-#   @line_1 = "#{Faker::Lorem.word} #{Faker::Internet.url}"
-#   @line_2 = Faker::Lorem.sentence
-#   find(".field", text: _("Technical Details")).find("textarea").set "#{@line_1}\r\n#{@line_2}"
-# end
-
-Angenommen(/^ich befinde mich auf der Lizenz\-Erstellungsseite$/) do
-  visit manage_new_item_path(inventory_pool_id: @current_inventory_pool.id, type: :license)
-end
-
-Dann(/^die mögliche Werte für Aktivierungstyp sind in der folgenden Reihenfolge:$/) do |table|
-  expect(find('.field', text: _('Activation Type')).all('option').map(&:text)).to eq table.rows.flatten
-end
-
-Dann(/^die mögliche Werte für Lizenztyp sind in der folgenden Reihenfolge:$/) do |table|
-  expect(find('.field', text: _('License Type')).all('option').map(&:text)).to eq table.rows.flatten
-end
-
-Dann(/^die mögliche Werte für Ausleihbar sind in der folgenden Reihenfolge:$/) do |table|
-  expect(find('.field', text: _('Borrowable')).all('label').map(&:text)).to eq table.rows.flatten
-end
-
-Dann(/^die Option "Ausleihbar" ist standardmässig auf "Nicht ausleihbar" gesetzt$/) do
-  expect(find('label', text: _('Not Borrowable')).find("input[name='item[is_borrowable]']").selected?).to be true
-end
-
-#Angenommen(/^es existiert ein Software\-Produkt$/) do
-# Duplicate! See above
-#Given(/^a software product exists$/) do
-#  expect(Software.all.empty?).to be false
-#end
-
-#Wenn(/^ein neuer Inventarcode vergeben wird$/) do
 When(/^a new inventory code is assigned$/) do
   @target_inventory_code = find("input[name='item[inventory_code]']").value
   expect(@target_inventory_code.blank?).to be false
   expect(Item.find_by_inventory_code(@target_inventory_code)).to eq nil
 end
 
-Wenn(/^ich eine Seriennummer eingebe$/) do
-  @serial_number = Faker::Lorem.characters(8)
-  find(".field[data-type='field']", match: :first, text: _('Serial Number')).find('input').set @serial_number
-end
-
-# Wenn(/^ich eine Aktivierungsart eingebe$/) do
-#   within(".field", text: _("Activation Type")) do
-#     @activation_type = all("option").map(&:value).sample
-#     find("option[value='#{@activation_type}']").click
-#   end
-# end
-
-# Wenn(/^ich eine Lizenzart eingebe$/) do
-#   within(".field", text: _("License Type")) do
-#     @license_type = all("option").map(&:value).sample
-#     find("option[value='#{@license_type}']").click
-#   end
-# end
-
-Wenn(/^ich die den Wert "ausleihbar" setze$/) do
-  @is_borrowable = true
-  find('label', text: _('OK')).find("input[name='item[is_borrowable]']").click
-end
-
-Dann(/^sind die Informationen dieser Software\-Lizenz gespeichert$/) do
-  expect(has_selector?('#flash .success')).to be true
-  license = Item.find_by_serial_number(@serial_number)
-  expect(license.type).to eq 'License'
-  expect(license.model).to eq @software
-  expect(license.properties[:activation_type]).to eq @activation_type
-  expect(license.properties[:dongle_id]).to eq @dongle_id
-  expect(license.properties[:license_type]).to eq @license_type
-  expect(license.properties[:total_quantity]).to eq @total_quantity
-  expect(Set.new(license.properties[:operating_system])).to eq Set.new(@operating_system_values)
-  expect(Set.new(license.properties[:installation])).to eq Set.new(@installation_values)
-  expect(license.is_borrowable?).to be true
-  expect(license.properties[:license_expiration]).to eq @license_expiration_date.to_s
-  expect(license.properties[:maintenance_contract]).to eq @maintenance_contract
-  expect(license.properties[:maintenance_expiration]).to eq @maintenance_expiration_date.to_s
-  expect(license.properties[:reference]).to eq @reference
-  expect(license.properties[:project_number]).to eq @project_number
-  expect(license.properties[:quantity_allocations]).to eq @quantity_allocations
-end
-
-#Wenn(/^ich eine Software editiere$/) do
 When(/^I edit software$/) do
   @software ||= Software.order('RAND()').first
   step 'I open the inventory'
@@ -103,16 +20,6 @@ When(/^I edit software$/) do
   @model_id = @software.id
   find(".line[data-type='software'][data-id='#{@software.id}']").find('a', text: _('Edit Software')).click
 end
-
-# Wenn(/^ich eine bestehende Software\-Lizenz editiere$/) do
-#   step "I open the inventory"
-#   @page_to_return = current_path
-#   find("a", text: _("Software"), match: :first).click
-#   @software = Software.order("RAND()").detect {|s| not s.items.empty?}
-#   @license = @software.items.order("RAND()").first
-#   find(".line[data-type='software'][data-id='#{@software.id}']").find("button[data-type='inventory-expander']").click
-#   find(".line[data-type='license'][data-id='#{@license.id}']").find("a", text: _("Edit License")).click
-# end
 
 Then(/^I can copy an existing software license$/) do
   step "I'am on the software inventory overview"
@@ -132,30 +39,21 @@ Then(/^I can save and copy the existing software license$/) do
   find("a[id='item-save-and-copy']", text: _('Save and copy'))
 end
 
-#Wenn(/^ich eine andere Software auswähle$/) do
 When(/^I select some different software$/) do
   @new_software = Software.where.not(id: @license.model_id).order('RAND()').first
   fill_in_autocomplete_field _('Software'), @new_software.name
 end
 
-#Wenn(/^ich eine andere Seriennummer eingebe$/) do
 When(/^I enter a different serial number$/) do
   @new_serial_number = Faker::Lorem.characters(8)
   find(".field[data-type='field']", match: :first, text: _('Serial Number')).find('input').set @new_serial_number
 end
 
-#Wenn(/^ich einen anderen Aktivierungstyp wähle$/) do
 When(/^I select a different activation type$/) do
   @new_activation_type = find('.field', text: _('Activation Type')).all('option').map(&:value).select{|v| v != @license.properties[:activation_type]}.sample
   find('.field', text: _('Activation Type')).find("option[value='#{@new_activation_type}']").click
 end
 
-# Wenn(/^ich einen anderen Lizenztyp wähle$/) do
-#   @new_license_type = find(".field", text: _("License Type")).all("option").map(&:value).select{|v| v != @license.properties[:license_type]}.sample
-#   find(".field", text: _("License Type")).find("option[value='#{@new_license_type}']").click
-# end
-
-#Wenn(/^ich den Wert "Ausleihbar" ändere$/) do
 When(/^I change the value of "Borrowable"$/) do
   find('.field', text: _('Borrowable')).find('label', text: 'OK').find('input').click
 end
@@ -184,7 +82,6 @@ When(/^I change the options for installation$/) do
   end
 end
 
-#Dann(/^sind die Informationen dieser Software\-Lizenz erfolgreich aktualisiert worden$/) do
 Then(/^this software license's information has been updated successfully$/) do
   expect(has_selector?('#flash .success')).to be true
   license = Item.find_by_serial_number(@new_serial_number)
@@ -459,6 +356,11 @@ When(/^I search for the following properties( in the inventory section)?:$/) do 
   search_field.native.send_key :return
 end
 
+# alias step
+Then(/^all contracts containing this software product appear$/) do
+  step 'all matching contracts, in which this software product is contained appear'
+end
+
 Then(/^all matching (.*) appear$/) do |arg1|
   if page.has_selector? '#search-overview'
     expect(has_no_selector? '#loading').to be true
@@ -472,7 +374,7 @@ Then(/^all matching (.*) appear$/) do |arg1|
             when 'software licenses'
               ['#licenses', @item]
             when 'contracts, in which this software product is contained'
-              ['#orders', @contract_with_software_license]
+              ['#contracts', @contract_with_software_license]
             when 'orders'
               ['#orders', @contract]
             when 'contracts'
@@ -532,11 +434,11 @@ When(/^I search after the name of that person$/) do
   search_field.native.send_key :return
 end
 
-Then(/^it appears the contract of this person in the search results$/) do
-  step 'they appear all matched contracts, in which this software product is contained'
+Then(/^the contract of this person appears in the search results$/) do
+  step 'all contracts containing this software product appear'
 end
 
-Then(/^it appears this person in the search results$/) do
+Then(/^this person appears in the search results$/) do
   within '#users' do
     find(".line [data-id='#{@contract_with_software_license.user_id}']")
   end
@@ -950,4 +852,21 @@ Then(/^the following fields were copied from the original software license$/) do
     end
 
   end
+end
+
+When(/^I search for one of these (.*)?properties( in the inventory section)?$/) do |arg1, arg2|
+  if arg2
+    s1 = 'in the inventory section '
+  else
+    s1 = ''
+  end
+  s2 = case arg1
+         when 'software product '
+           'software product '
+         when 'software license '
+           'software license '
+         else
+           ''
+       end
+  step "I search #{s1}for one of those #{s2}properties"
 end

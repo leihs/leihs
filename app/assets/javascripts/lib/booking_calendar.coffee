@@ -111,8 +111,8 @@ class BookingCalendar
       dayNamesShort: BookingCalendar.local.dayNamesShort
 
   setupCalendarNavigation: =>
-    @fullcalendar.find(".fc-button-next .fc-button-content").html "<span class='icon-chevron-right'></span>"
-    @fullcalendar.find(".fc-button-prev .fc-button-content").html "<span class='icon-chevron-left'></span>"
+    @fullcalendar.find(".fc-button-next .fc-button-content").html "<span class='fa fa-chevron-right'></span>"
+    @fullcalendar.find(".fc-button-prev .fc-button-content").html "<span class='fa fa-chevron-left'></span>"
 
   setMaxQuantity: (quantity)=> 
     @quantity_el.attr "max", quantity if @limitMaxQuantity
@@ -276,14 +276,14 @@ class BookingCalendar
     if available then dayElement.removeClass("unavailable").addClass("available") else dayElement.removeClass("available").addClass("unavailable")
 
   getDateByElement: (el)=>
-    return @fullcalendar.fullCalendar("getView").cellDate
+    return @fullcalendar.fullCalendar("getView").cellToDate
       col: $(el).index()
       row: $(el).parent().index()
 
   getElementByDate: (date)=>
     view = @fullcalendar.fullCalendar("getView")
     if view.visStart <= date <= view.visEnd
-      cell = view.dateCell(date)
+      cell = view.dateToCell(date)
       row = @fullcalendar.find(".fc-view > table > tbody > tr")[cell.row]
       return $(row).find("td")[cell.col]
     else
@@ -296,10 +296,10 @@ class BookingCalendar
         target.removeClass "selected_for_target_selection"
         if target.data("tooltipster") and not target.data("tooltipster").hasClass("tooltipster-dying")
           target.tooltipster("enable").tooltipster("destroy")
-    $(window).bind "click", (e)=> 
+    $(window).on "click", (e)=>
       unless $(e.target).closest(".target-selection").length
         do resetSelection
-    @fullcalendar.find(".fc-widget-content").bind "click", (e)=>
+    @fullcalendar.on "click", ".fc-widget-content", (e)=>
       date = @getDateByElement e.currentTarget
       target = $(e.currentTarget)
       if moment(date).startOf("day").diff(moment().startOf("day"), "days") < 0

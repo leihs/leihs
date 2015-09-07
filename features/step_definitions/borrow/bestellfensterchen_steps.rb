@@ -1,32 +1,28 @@
 # -*- encoding : utf-8 -*-
 
-#Angenommen(/^man befindet sich auf der Bestellübersicht$/) do
 When(/^I am viewing my current order$/) do
   visit borrow_current_order_path
 end
 
-#Dann(/^ich lande auf der Seite der Bestellübersicht$/) do
 Then(/^I am redirected to my current order$/) do
   expect(current_path).to eq borrow_current_order_path
 end
 
-# Dann(/^sehe ich kein Bestellfensterchen$/) do
+
 Then(/^I do not see the order window$/) do
   expect(has_no_selector?('.col1of5 .navigation-tab-item', text: _('Order'))).to be true
 end
 
-#Then(/^sehe ich das Bestellfensterchen$/) do
+
 Then(/^I see the order window$/) do
   expect(has_selector?('.col1of5 .navigation-tab-item', text: _('Order'))).to be true
 end
 
-#Dann(/^erscheint es im Bestellfensterchen$/) do
 Then(/^it appears in the order window$/) do
   visit borrow_root_path
   find('#current-order-basket', match: :first)
 end
 
-#Dann(/^die Modelle im Bestellfensterchen sind alphabetisch sortiert$/) do
 Then(/^the models in the order window are sorted alphabetically$/) do
   within '#current-order-basket #current-order-lines' do
     @names = all('.line').map{|l| l[:title] }
@@ -34,12 +30,10 @@ Then(/^the models in the order window are sorted alphabetically$/) do
   end
 end
 
-#Dann(/^gleiche Modelle werden zusammengefasst$/) do
 Then(/^identical models are collapsed$/) do
   expect(@names.uniq == @names).to be true
 end
 
-#Wenn(/^das gleiche Modell nochmals hinzugefügt wird$/) do
 When(/^I add the same model one more time$/) do
   FactoryGirl.create(:reservation,
                      user: @current_user,
@@ -50,7 +44,6 @@ When(/^I add the same model one more time$/) do
   step 'it appears in the order window'
 end
 
-#Dann(/^wird die Anzahl dieses Modells erhöht$/) do
 Then(/^its quantity is increased$/) do
   within '#current-order-basket #current-order-lines' do
     line = find(".line[title='#{@new_reservation.model.name}']", match: :first)
@@ -58,12 +51,10 @@ Then(/^its quantity is increased$/) do
   end
 end
 
-#Dann(/^ich kann zur detaillierten Bestellübersicht gelangen$/) do
 Then(/^I can go to the detailed order overview$/) do
   find('#current-order-basket .button.green', text: _('Complete order'))
 end
 
-#Wenn(/^ich mit dem Kalender ein Modell der Bestellung hinzufüge$/) do
 When(/^I add a model to the order using the calendar$/) do
   #step 'man sich auf der Modellliste befindet'
   step 'I am listing models'
@@ -77,7 +68,6 @@ When(/^I add a model to the order using the calendar$/) do
   step 'everything I input into the calendar is valid'
 end
 
-#Dann(/^wird das Bestellfensterchen aktualisiert$/) do
 Then(/^the order window is updated$/) do
   #step 'ist das Modell mit Start- und Enddatum, Anzahl und Gerätepark der Bestellung hinzugefügt worden'
   step 'the model has been added to the order with the respective start and end date, quantity and inventory pool'
@@ -86,7 +76,6 @@ Then(/^the order window is updated$/) do
   find("#current-order-basket #current-order-lines .line[title='#{@model.name}']", match: :first, text: "#{@quantity}x #{@model.name}")
 end
 
-#Angenommen(/^meine Bestellung ist leer$/) do
 Given(/^my order is empty$/) do
   # NOTE removing contracts already generated on the dataset
   @current_user.reservations.unsubmitted.map(&:destroy)
@@ -94,12 +83,10 @@ Given(/^my order is empty$/) do
   expect(@current_user.reservations.unsubmitted.empty?).to be true
 end
 
-#Dann(/^sehe ich keine Zeitanzeige$/) do
 Then(/^I don't see a timer$/) do
   expect(has_no_selector?('#current-order-basket #timeout-countdown')).to be true
 end
 
-#Dann(/^sehe ich die Zeitanzeige$/) do
 Then(/^I see a timer$/) do
   step 'I visit the homepage'
   expect(has_selector?('#current-order-basket #timeout-countdown', visible: true)).to be true
@@ -111,12 +98,10 @@ Then(/^I see a timer$/) do
   @countdown = find('#timeout-countdown-time', match: :first).text
 end
 
-#Dann(/^die Zeitanzeige ist in einer Schaltfläche im Reiter "Bestellung" auf der rechten Seite$/) do
 Then(/^the timer is near the basket$/) do
   find('#current-order-basket .navigation-tab-item #timeout-countdown #timeout-countdown-time', match: :first)
 end
 
-#Dann(/^die Zeitanzeige zählt von (\d+) Minuten herunter$/) do |timeout_minutes|
 Then(/^the timer counts down from (\d+) minutes$/) do |timeout_minutes|
   @countdown = find('#timeout-countdown-time', match: :first).text
   minutes = @countdown.split(':')[0].to_i
@@ -126,19 +111,16 @@ Then(/^the timer counts down from (\d+) minutes$/) do |timeout_minutes|
   expect(find('#timeout-countdown-time', match: :first).reload.text.split(':')[1].to_i).to be < seconds
 end
 
-#Angenommen(/^die Bestellung ist nicht leer$/) do
 Given(/^my order is not empty$/) do
   #step 'ich ein Modell der Bestellung hinzufüge'
   step 'I add a model to an order'
 end
 
-#Wenn(/^ich den Time-Out zurücksetze$/) do
 When(/^I reset the timer$/) do
   @countdown = find('#timeout-countdown-time', match: :first).text
   find('#timeout-countdown-refresh', match: :first).click
 end
 
-#Dann(/^wird die Zeit zurückgesetzt$/) do
 Then(/^the timer is reset$/) do
   seconds = @countdown.split(':')[1].to_i
   secondsNow = find('#timeout-countdown-time', match: :first).reload.text.split(':')[1].to_i
@@ -150,23 +132,6 @@ Given(/^the timeout is set to (\d+) minutes?$/) do |arg1|
   expect(Contract::TIMEOUT_MINUTES).to eq arg1.to_i
 end
 
-#Wenn(/^die Zeit abgelaufen ist$/) do
 When(/^the timer has run down$/) do
   sleep(Contract::TIMEOUT_MINUTES * 60 + 1) # NOTE this sleep is required to test the timeout
 end
-
-#Dann(/^werde ich auf die Timeout Page weitergeleitet$/) do
-# alternative implementation in verfuegbarkeit_steps.rb
-#Then(/^I am redirected to the timeout page$/) do
-#  step 'I am informed that my items are no longer reserved for me'
-#  expect(current_path).to eq borrow_order_timed_out_path
-#end
-
-# #Wenn(/^die Zeit überschritten ist$/) do
-# When(/^time has run out$/) do
-#   past_date = Time.now - (Contract::TIMEOUT_MINUTES + 1).minutes
-#   @current_user.reservations.unsubmitted.each do |reservation|
-#     reservation.update_attribute :updated_at, past_date
-#   end
-#   page.execute_script %Q{ localStorage.currentTimeout = moment("#{past_date.to_s}").toDate() }
-# end

@@ -1,0 +1,42 @@
+:ruby
+  missing_references = @references.select {|r| not r[:values].to_a.empty? }
+
+- content_for :title, _("Database consistency")
+
+= render partial: "header"
+
+- if missing_references.empty?
+  %h3
+    = _("All correct")
+    %i.fa.fa-check-square-o
+
+- missing_references.each do |h|
+  .row
+    %h1
+      = h[:values].size
+      = _("%s with missing %s") % [h[:from_table], h[:to_table]]
+      = _(" (polymorphic association)") if h[:polymorphic]
+      = _(" (join table)") if h[:join_table]
+
+  .row
+    = h[:query]
+
+  .row
+    :ruby
+      button_label = case h[:dependent]
+                       when :delete, :delete_all
+                         _("%s from the database") % h[:dependent].to_s.humanize
+                       when :nullify, :destroy
+                         _("%s on the database") % h[:dependent].to_s.humanize
+                       else
+                         _("Delete from the database")
+                     end
+    = link_to admin.consistency_path(from_table: h[:from_table], to_table: h[:to_table], from_column: h[:from_column], to_column: h[:to_column], dependent: h[:dependent]), method: :delete, class: "btn btn-danger", data: { confirm: _("Delete") } do
+      = button_label
+
+  .row
+    - h[:values].each do |value|
+      .row
+        .line-info.red
+        .col-sm-12
+          = value.inspect

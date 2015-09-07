@@ -33,7 +33,7 @@
                             :autocomplete => :off,
                             :placeholder => _("Name of the responsible"),
                             :title => _("Responsible"),
-                            :data => { :url => (current_inventory_pool ? manage_inventory_pool_users_path(type: :user) : admin_users_path(type: :user)),
+                            :data => { :url => (current_inventory_pool ? manage_inventory_pool_users_path(type: :user) : admin.users_path(type: :user)),
                                        :type => "autocomplete",
                                        :autocomplete_search_attr => "search_term",
                                        :autocomplete_element_tmpl => "views/autocomplete/element",

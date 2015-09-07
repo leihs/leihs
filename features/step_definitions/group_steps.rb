@@ -68,7 +68,7 @@ end
 # Groups
 #
 Given /^a group '([^']*)'( exists)?$/ do |name,foo|
-  step "I add new group called \"#{name}\""
+  step "I add a group called \"#{name}\""
 end
 
 When /^I add a group called "([^"]*)"$/ do |name|
@@ -130,7 +130,8 @@ When /^I lend (\w+) item(s?) of that model to "([^"]*)"$/ do |n, plural, user_lo
 end
 
 When /^"([^"]*)" returns the item$/ do |user|
-  @user = User.find_by_login user
-  c = Contract.find_by_user_id @user
-  expect(c.close).to be true
+  @user = User.where(login: user).first
+  cl = @user.reservations.last
+  cl.update_attributes(returned_date: Date.today)
+  expect(cl.status).to be :closed
 end

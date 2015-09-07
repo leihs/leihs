@@ -1,0 +1,49 @@
+%h3= _("Basic Information")
+
+.row.form-group
+  .col-sm-6
+    %strong= "#{_("Last name")} *"
+  .col-sm-6.text-right
+    %input{type: "text", name: "user[lastname]", value: @user.lastname}
+
+.row.form-group
+  .col-sm-6
+    %strong= "#{_("First name")} *"
+  .col-sm-6.text-right
+    %input{type: "text", name: "user[firstname]", value: @user.firstname}
+
+.row.form-group
+  .col-sm-6
+    %strong= _("Address")
+  .col-sm-6.text-right
+    %input{type: "text", name: "user[address]", value: @user.address}
+
+.row.form-group
+  .col-sm-6
+    %strong= _("Zip")
+  .col-sm-6.text-right
+    %input{type: "text", name: "user[zip]", value: @user.zip}
+
+.row.form-group
+  .col-sm-6
+    %strong= _("City")
+  .col-sm-6.text-right
+    %input{type: "text", name: "user[city]", value: @user.city}
+
+.row.form-group
+  .col-sm-6
+    %strong= _("Country")
+  .col-sm-6.text-right
+    %input{type: "text", name: "user[country]", value: @user.country}
+
+.row.form-group
+  .col-sm-6
+    %strong= _("Phone")
+  .col-sm-6.text-right
+    %input{type: "text", name: "user[phone]", value: @user.phone}
+
+.row.form-group
+  .col-sm-6
+    %strong= "#{_("E-Mail")} *"
+  .col-sm-6.text-right
+    %input{type: "text", name: "user[email]", value: @user.email}

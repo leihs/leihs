@@ -15,7 +15,7 @@
           %ul.dropdown.right
             %li
               %a.dropdown-item{:href => ""}
-                %i.icon-undo
+                %i.fa.fa-undo
                 {{jed "Back to this user"/}}
 
   .modal-body
@@ -25,7 +25,7 @@
         .col1of3
         .col1of3
           %a.button.white.width-full{:href => "{{>contract.url()}}", :target => "_blank"}
-            %i.icon-file-alt
+            %i.fa.fa-file-alt
             {{jed "Contract"/}}
         .col1of3
 
@@ -33,6 +33,6 @@
         .col1of3
         .col1of3
           %a.button.white.width-full{:href => "{{>contract.url('value_list')}}", :target => "_blank"}
-            %i.icon-list-ol
+            %i.fa.fa-list-ol
             {{jed "Value List"/}}
         .col1of3

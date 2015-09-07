@@ -1,0 +1,9 @@
+- content_for :title, _("Statistics")
+
+%h2= yield :title
+
+.row
+  .col-sm-4
+    = render partial: "leihs_admin/statistics/index"
+
+  .col-sm-8

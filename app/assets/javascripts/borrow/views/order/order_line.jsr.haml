@@ -36,7 +36,7 @@
                            :"data-ids" => "[{{>ids}}]",
                            :"data-start-date" => "{{>start_date}}",
                            :"data-end-date" => "{{>end_date}}"}
-        %i.icon-calendar
+        %i.fa.fa-calendar
         {{jed "Change entry"/}}
 
       .dropdown-holder.inline-block
@@ -49,5 +49,5 @@
           %a.dropdown-item.red{:href => "/borrow/order/remove_reservations?{{param ids 'line_ids'/}}",
              :"data-confirm" => "{{jed 'Delete'/}}",
              :"data-method" => :delete}
-            %i.icon-trash
+            %i.fa.fa-trash
             {{jed 'Delete'/}}

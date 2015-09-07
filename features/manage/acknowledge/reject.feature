@@ -5,7 +5,7 @@ Feature: Reject Order
   I want to have functionalities on a submitted contract line
 
   Background:
-    Given Das System ist für den Mailversand im Testmodus konfiguriert
+    Given the system is configured for the mail delivery as test mode
     Given I am Pius
 
   @javascript @personas @browser

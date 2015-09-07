@@ -24,7 +24,7 @@
       .padding-bottom-m.padding-left-m.padding-right-m.margin-bottom-s
         - if @date == Date.today and is_group_manager?
           %a.button.white{href: manage_contracts_path(current_inventory_pool, status: [:submitted])}
-            %i.icon-thumbs-up
+            %i.fa.fa-thumbs-up
             = _("Open Orders")
             %span.badge= @submitted_reservations_count
 
@@ -37,7 +37,7 @@
 
           - if total_hand_overs_count > 0
             %a.button.white{href: manage_inventory_pool_visits_path(current_inventory_pool, status: "approved", start_date: (@date.today? ? nil : @date), end_date: @date)}
-              %i.icon-mail-forward
+              %i.fa.fa-mail-forward
               = _("Hand Overs")
               - if @overdue_hand_overs_count and @overdue_hand_overs_count > 0
                 %span.badge.red= @overdue_hand_overs_count
@@ -45,7 +45,7 @@
 
           - if total_take_backs_count > 0
             %a.button.white{href: manage_inventory_pool_visits_path(current_inventory_pool, status: "signed", start_date: (@date.today? ? nil : @date), end_date: @date)}
-              %i.icon-mail-reply
+              %i.fa.fa-mail-reply
               = _("Take Backs")
               - if @overdue_take_backs_count and @overdue_take_backs_count > 0
                 %span.badge.red= @overdue_take_backs_count

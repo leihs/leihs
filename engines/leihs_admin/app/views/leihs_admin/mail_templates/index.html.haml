@@ -1,0 +1,16 @@
+- content_for :title, _("Mail Templates")
+- content_for :manage_section, "active"
+
+.list-of-lines
+
+  - @existing_mail_templates.each do |existing_mail_template|
+    .row
+      .col-sm-2
+        = existing_mail_template.first
+      .col-sm-8
+        = existing_mail_template.last.gsub('_', ' ')
+      .col-sm-2
+        :ruby
+          path = "/admin/mail_templates/#{existing_mail_template.first}/#{existing_mail_template.last}"
+        %a.btn.btn-default{href: path}
+          = _("Edit")

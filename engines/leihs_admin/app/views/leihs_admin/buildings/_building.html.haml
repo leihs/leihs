@@ -1,0 +1,31 @@
+.row
+  .col-sm-4
+    %strong= building.name
+
+  .col-sm-2
+    = building.code
+
+  .col-sm-2
+    = _("%s locations") % building.locations.count
+
+  .col-sm-2
+    = _("%s items") % building.items.count
+
+  .col-sm-2.text-right.line-actions
+
+    - if building.can_destroy?
+      .btn-group
+        %a.btn.btn-default{href: admin.edit_building_path(building)}
+          = _("Edit")
+        %button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+          %i.caret
+        %ul.dropdown-menu
+          %li.bg-danger
+            %a{href: admin.building_path(building), data: {method: :delete, confirm: _("Are you sure you want to delete '%s'?") % building}}
+              %i.fa.fa-trash
+              = _("Delete")
+
+    - else
+
+      %a.btn.btn-default{href: admin.edit_building_path(building)}
+        = _("Edit")

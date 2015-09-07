@@ -105,7 +105,7 @@ When(/^I change a contract reservations quantity$/) do
   find('input#booking-calendar-quantity', match: :first).set @new_quantity
   step 'I save the booking calendar'
   step 'the booking calendar is closed'
-  find('#status .icon-ok')
+  find('#status .fa.fa-check')
 end
 
 Then(/^the contract line was duplicated$/) do

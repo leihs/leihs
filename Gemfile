@@ -1,28 +1,26 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.2.3'
+gem 'leihs_admin', path: "engines/leihs_admin"
+
+gem 'rails', '4.2.4'
 
 gem 'activerecord-jdbcmysql-adapter', platform: :jruby
 gem 'acts-as-dag', '~> 4.0' # alternative: 'dagnabit'
 gem 'audited-activerecord', git: 'https://github.com/sellittf/audited.git' #, '~> 4.2'
 gem 'barby', '~> 0.5.0'
-gem "bower-rails", "~> 0.9" # $ rails g bower_rails:initialize
 gem 'chunky_png', '~> 1.2'
 gem 'coffee-rails', '~> 4.0'
 gem 'coffee-script', '~> 2.2'
 gem 'compass-rails', '~> 2.0'
-gem 'execjs', '2.2.2' # NOTE '2.4.0' ExecJS::ProgramError: TypeError: Cannot set property 'root' of null (in /home/leihs/leihs-test/releases/20150410090031/vendor/assets/javascripts/spine/ajax.coffee)
-gem 'font-awesome-rails', '~> 3.2.1' # NOTE in order to upgrade to '~> 4.0', use .fa css class instead of .icon
+gem 'execjs', '~> 2.6'
 gem 'geocoder', '~> 1.1'
 gem 'gettext_i18n_rails', '~> 1.0'
 gem 'haml', '~> 4.0'
 gem 'haml_assets', '~> 0.2'
 gem 'jquery-tmpl-rails', '~> 1.1'
-gem 'jquery-ui-rails', '~> 5.0'
 gem 'jruby-openssl', platform: :jruby
 gem 'json', '~> 1.8'
 gem 'jsrender-rails', '~> 1.2', git: 'https://github.com/spape/jsrender-rails.git', branch: 'own_template_prefix'
-gem 'libv8', '3.16.14.7'
 gem 'liquid', '~> 3.0'
 gem 'mini_magick', '~> 3.4'
 gem 'money', '~> 6.5'
@@ -39,9 +37,22 @@ gem 'sass-rails', '~> 4.0'
 gem 'therubyracer', platform: :mri
 gem 'therubyrhino', platform: :jruby
 gem 'uglifier', '~> 2.4'
-gem 'underscore-rails', '~> 1.7'
 gem 'will_paginate', '~> 3.0'
 
+source 'https://rails-assets.org' # NOTE wrapping in a block not working on deploy
+gem 'rails-assets-accounting.js', '~> 0.4'
+gem 'rails-assets-fullcalendar', '~> 1.5'
+gem 'rails-assets-jquery', '~> 1.5'
+gem 'rails-assets-jquery-autosize', '~> 1.18'
+gem 'rails-assets-jquery.inview', '~> 1.0'
+gem 'rails-assets-jquery-ui', '~> 1.1'
+gem 'rails-assets-jquery-ujs', '~> 1.0'
+gem 'rails-assets-moment', '~> 2.10'
+gem 'rails-assets-timecop', '~> 0.1'
+gem 'rails-assets-underscore', '~> 1.8'
+gem 'rails-assets-uri.js', '~> 1.16'
+
+gem 'font-awesome-sass', '~> 4.4' # NOTE font not found using gem 'rails-assets-font-awesome'
 
 group :development do
   gem 'capistrano', '2.15.5'

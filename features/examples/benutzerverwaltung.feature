@@ -72,13 +72,6 @@ Feature: Manage users
     Then the user and all their information is saved
 
   @personas
-  Scenario: Auflistung der Inventarpools eines Benutzers
-    Given I am Ramon
-    And I am looking at the user list outside an inventory pool
-    And I edit a user that has access rights
-    Then inventory pools they have access to are listed with the respective role
-
-  @personas
   Scenario: Remove access as an inventory manager
     Given I am Pius
     And I am editing a user who has access to and no items from the current inventory pool
@@ -281,15 +274,6 @@ Feature: Manage users
     And I save
     Then I see a confirmation of success on the list of users
     And the user has the role "customer"
-
-  @javascript @personas @browser
-  Scenario: Requirements for deleting a user
-    Given I am Ramon
-    And I am looking at the user list outside an inventory pool
-    And I pick one user with access rights, one with orders and one with contracts
-    When I delete that user from the list
-    Then I see an error message
-    And the user is not deleted
 
   @personas
   Scenario: Editing a user who has no access rights without granting them any

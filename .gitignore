@@ -36,3 +36,4 @@ Gemfile.local*
 db/exports/
 tmp/
 features/reports/*
+.settings

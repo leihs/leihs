@@ -139,8 +139,8 @@ Feature: Lending
   Scenario: Autocomplete during take back
     When I open a take back
     And I enter something in the "Inventory Code/Name" field
-    Then werden mir diejenigen Gegenstände vorgeschlagen, die in den dargestellten Rücknahmen vorkommen
-    When ich etwas zuweise, das nicht in den Rücknahmen vorkommt
+    Then I see those items that are part of this take back
+    When I assign something that is not part of this take back
     Then I see an error message
     And I see the error message "_for_sure_this_is_not_part_of_the_take_back was not found for this take back"
 

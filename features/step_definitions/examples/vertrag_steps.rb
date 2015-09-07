@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-#Angenommen /^man öffnet einen Vertrag bei der Aushändigung( mit Software)?$/ do |arg1|
 Given /^I open a contract during hand over( that contains software)?$/ do |arg1|
   step 'I open a hand over which has multiple unassigned reservations and models in stock%s' % (arg1 ? ' with software' : nil)
 
@@ -22,7 +21,6 @@ Given /^I open a contract during hand over( that contains software)?$/ do |arg1|
   @contract_element = find('.contract')
 end
 
-#Dann /^möchte ich die folgenden Bereiche sehen:$/ do |table|
 Then /^I want to see the following areas:$/ do |table|
   within @contract_element do
     table.hashes.each do |area|
@@ -60,12 +58,10 @@ Then /^I want to see the following areas:$/ do |table|
   end
 end
 
-#Dann /^seh ich den Hinweis auf AGB "(.*?)"$/ do |note|
 Then /^I see a note mentioning the terms and conditions$/ do
   expect(@contract_element.find('.terms')).not_to be_nil
 end
 
-#Dann /^beinhalten Liste (\d+) und Liste (\d+) folgende Spalten:$/ do |arg1, arg2, table|
 Then /^list (\d+) and list (\d+) contain the following columns:$/ do |arg1, arg2, table|
   within @contract_element do
     table.hashes.each do |area|
@@ -118,18 +114,15 @@ Then /^list (\d+) and list (\d+) contain the following columns:$/ do |arg1, arg2
   end
 end
 
-#Dann /^sehe ich eine Liste Zwecken, getrennt durch Kommas$/ do
 Then /^I see a comma-separated list of purposes$/ do
   @contract.reservations.each {|line| expect(@contract_element.find('.purposes').has_content? line.purpose.to_s).to be true }
 end
 
-#Dann /^jeder identische Zweck ist maximal einmal aufgelistet$/ do
 Then /^each unique purpose is listed only once$/ do
   purposes = @contract.reservations.sort.map{|l| l.purpose.to_s }.uniq.join('; ')
   @contract_element.find('.purposes > p', text: purposes)
 end
 
-#Dann /^sehe ich das heutige Datum oben rechts$/ do
 Then /^I see today's date in the top right corner$/ do
   within @contract_element.find('.date') do
     expect(has_content? Date.today.month).to be true
@@ -138,27 +131,22 @@ Then /^I see today's date in the top right corner$/ do
   end
 end
 
-#Dann /^sehe ich den Titel im Format "(.*?)"$/ do |format|
 Then /^I see a title in the format "(.*?)"$/ do |format|
   @contract_element.find('h1').text.match Regexp.new(format.gsub('#', '\\d'))
 end
 
-#Dann /^sehe ich den Barcode oben links$/ do
 Then /^I see the barcode in the top left$/ do
   @contract_element.find('.barcode')
 end
 
-#Dann /^sehe ich den Ausleihenden oben links$/ do
 Then /^I see the borrower in the top left corner$/ do
   @contract_element.find('.parties .customer')
 end
 
-#Dann /^sehe ich den Verleiher neben dem Ausleihenden$/ do
 Then /^the lender is shown next to the borrower$/ do
   @contract_element.find('.parties .inventory_pool')
 end
 
-#Dann /^möchte ich im Feld des Ausleihenden die folgenden Bereiche sehen:$/ do |table|
 Then /^the following user information is included on the contract:$/ do |table|
   @customer_element = find('.parties .customer')
   @customer = @contract.user
@@ -178,7 +166,6 @@ Then /^the following user information is included on the contract:$/ do |table|
   end
 end
 
-#Wenn /^es Gegenstände gibt, die zurückgegeben wurden$/ do
 When /^there are returned items$/ do
   visit manage_take_back_path(@current_inventory_pool, @customer)
   step 'I select all reservations of an open contract'
@@ -192,7 +179,6 @@ When /^there are returned items$/ do
   page.driver.browser.switch_to.window(document_window.handle)
 end
 
-#Dann /^sehe ich die Liste (\d+) mit dem Titel "(.*?)"$/ do |arg1, titel|
 Then /^I see list (\d+) with the title "(.*?)"$/ do |arg1, titel|
   find('.contract')
 
@@ -205,19 +191,16 @@ Then /^I see list (\d+) with the title "(.*?)"$/ do |arg1, titel|
   find('.contract', text: find_titel)
 end
 
-#Dann /^diese Liste enthält Gegenstände die ausgeliehen und zurückgegeben wurden$/ do
 Then /^this list contains borrowed and returned items$/ do
   all('.modal .contract .returning_date').each do |date|
     expect(date).not_to eq ''
   end
 end
 
-#Wenn /^es Gegenstände gibt, die noch nicht zurückgegeben wurden$/ do
 When /^there are unreturned items$/ do
   @not_returned = @contract.reservations.select{|reservations| reservations.returned_date.nil?}
 end
 
-#Dann /^diese Liste enthält Gegenstände, die ausgeliehen und noch nicht zurückgegeben wurden$/ do
 Then /^this list contains items that were borrowed but not yet returned$/ do
   @not_returned.each do |line|
     within @contract_element.find('.not_returned_items') do
@@ -227,7 +210,6 @@ Then /^this list contains items that were borrowed but not yet returned$/ do
   end
 end
 
-#When(/^die Modelle sind innerhalb ihrer Gruppe alphabetisch sortiert$/) do
 Then(/^the models are sorted alphabetically within their group$/) do
   not_returned_lines, returned_lines = @contract.reservations.partition {|line| line.returned_date.blank? }
 
@@ -244,34 +226,28 @@ Then(/^the models are sorted alphabetically within their group$/) do
   end
 end
 
-#Dann(/^wird unter 'Verleiher\/in' der Gerätepark aufgeführt$/) do
 Then(/^the inventory pool is listed as lender$/) do
   find('.inventory_pool', text: @contract.inventory_pool.name)
 end
 
-#Angenommen(/^es gibt einen Kunden mit Vertrag wessen Addresse mit "(.*?)" endet$/) do |arg1|
 Given(/^there is a contract for a user whose address ends with "(.*?)"$/) do |arg1|
   @user = @current_inventory_pool.users.customers.find {|u| u.reservations_bundles.signed_or_closed.exists? and u.read_attribute(:address) =~ /, $/}
   expect(@user).not_to be_nil
 end
 
-#Wenn(/^ich einen Vertrag dieses Kunden öffne$/) do
 When(/^I open this user's contract$/) do
   visit manage_contract_path(@current_inventory_pool, @user.reservations_bundles.signed_or_closed.order('RAND()').first)
 end
 
-#Dann(/^wird seine Adresse ohne den abschliessenden "(.*?)" angezeigt$/) do |arg1|
-Then(/^their address is shown without the  "(.*?)"$/) do |arg1|
+Then(/^their address is shown without the "(.*?)"$/) do |arg1|
   find('.street', text: @user.address)
 end
 
-#Wenn(/^in den globalen Einstellungen die Adresse der Instanz konfiguriert ist$/) do
 When(/^the instance's address is configured in the global settings$/) do
   @address = Setting.contract_lending_party_string
   expect(@address).not_to be_nil
 end
 
-#Dann(/^wird unter dem Verleiher diese Adresse angezeigt$/) do
 Then(/^the lender address is shown underneath the lender$/) do
   all('.inventory_pool span')[1].text == @address
 end

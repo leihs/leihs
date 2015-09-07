@@ -4,744 +4,709 @@ tasks:
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/acknowledge.feature"
-- name: administration/buildings
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/administration/buildings.feature"
-- name: administration/database
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/administration/database.feature"
-- name: administration/geraetepark_administrieren
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/administration/geraetepark_administrieren.feature"
-- name: administration/statistik
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/administration/statistik.feature"
-- name: administration/suppliers
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/administration/suppliers.feature"
-- name: administration/users
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/administration/users.feature"
-- name: administration/wartungsmodus
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/administration/wartungsmodus.feature"
+        --strict "features/acknowledge.feature"
 - name: automatischer_email_versand
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/automatischer_email_versand.feature"
+        --strict "features/automatischer_email_versand.feature"
 - name: availability_caching
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/availability_caching.feature"
+        --strict "features/availability_caching.feature"
 - name: availability_inventory_pool_story
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/availability_inventory_pool_story.feature"
+        --strict "features/availability_inventory_pool_story.feature"
 - name: availability_story
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/availability_story.feature"
+        --strict "features/availability_story.feature"
 - name: borrow/abholungen
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/abholungen.feature"
+        --strict "features/borrow/abholungen.feature"
 - name: borrow/benutzeransicht
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/benutzeransicht.feature"
+        --strict "features/borrow/benutzeransicht.feature"
 - name: borrow/bestellfensterchen
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/bestellfensterchen.feature"
+        --strict "features/borrow/bestellfensterchen.feature"
 - name: borrow/bestelluebersicht
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/bestelluebersicht.feature"
+        --strict "features/borrow/bestelluebersicht.feature"
 - name: borrow/bestellungen
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/bestellungen.feature"
+        --strict "features/borrow/bestellungen.feature"
 - name: borrow/brotkrumennavigation
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/brotkrumennavigation.feature"
+        --strict "features/borrow/brotkrumennavigation.feature"
 - name: borrow/calendar
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/calendar.feature"
+        --strict "features/borrow/calendar.feature"
 - name: borrow/dokumente
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/dokumente.feature"
+        --strict "features/borrow/dokumente.feature"
 - name: borrow/explorative_suche
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/explorative_suche.feature"
+        --strict "features/borrow/explorative_suche.feature"
 - name: borrow/geraeteparks
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/geraeteparks.feature"
+        --strict "features/borrow/geraeteparks.feature"
 - name: borrow/kalender
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/kalender.feature"
+        --strict "features/borrow/kalender.feature"
 - name: borrow/modellliste
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/modellliste.feature"
+        --strict "features/borrow/modellliste.feature"
 - name: borrow/modelluebersicht
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/modelluebersicht.feature"
+        --strict "features/borrow/modelluebersicht.feature"
 - name: borrow/navigation
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/navigation.feature"
+        --strict "features/borrow/navigation.feature"
 - name: borrow/rueckgaben
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/rueckgaben.feature"
+        --strict "features/borrow/rueckgaben.feature"
 - name: borrow/startseite
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/startseite.feature"
+        --strict "features/borrow/startseite.feature"
 - name: borrow/suche
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/suche.feature"
+        --strict "features/borrow/suche.feature"
 - name: borrow/timeoutpage
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/timeoutpage.feature"
+        --strict "features/borrow/timeoutpage.feature"
 - name: borrow/verfuegbarkeit
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/verfuegbarkeit.feature"
+        --strict "features/borrow/verfuegbarkeit.feature"
 - name: borrow/vorlagen
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/borrow/vorlagen.feature"
+        --strict "features/borrow/vorlagen.feature"
 - name: category
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/category.feature"
+        --strict "features/category.feature"
 - name: examples/aushaendigung
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/aushaendigung.feature"
+        --strict "features/examples/aushaendigung.feature"
 - name: examples/benutzerverwaltung
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/benutzerverwaltung.feature"
+        --strict "features/examples/benutzerverwaltung.feature"
 - name: examples/bestellenden_wechseln
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/bestellenden_wechseln.feature"
+        --strict "features/examples/bestellenden_wechseln.feature"
 - name: examples/bestellung
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/bestellung.feature"
+        --strict "features/examples/bestellung.feature"
 - name: examples/besuche
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/besuche.feature"
+        --strict "features/examples/besuche.feature"
 - name: examples/contracts
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/contracts.feature"
+        --strict "features/examples/contracts.feature"
 - name: examples/explorative_suche
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/explorative_suche.feature"
+        --strict "features/examples/explorative_suche.feature"
 - name: examples/gegenstand_ausmustern
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/gegenstand_ausmustern.feature"
+        --strict "features/examples/gegenstand_ausmustern.feature"
 - name: examples/gegenstand_editieren
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/gegenstand_editieren.feature"
+        --strict "features/examples/gegenstand_editieren.feature"
 - name: examples/gegenstand_erstellen
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/gegenstand_erstellen.feature"
+        --strict "features/examples/gegenstand_erstellen.feature"
 - name: examples/gegenstand_kopieren
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/gegenstand_kopieren.feature"
+        --strict "features/examples/gegenstand_kopieren.feature"
 - name: examples/geraetepark_grundinformationen
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/geraetepark_grundinformationen.feature"
+        --strict "features/examples/geraetepark_grundinformationen.feature"
 - name: examples/gruppen
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/gruppen.feature"
+        --strict "features/examples/gruppen.feature"
 - name: examples/hinweis_wenn_nicht_angemeldet
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/hinweis_wenn_nicht_angemeldet.feature"
+        --strict "features/examples/hinweis_wenn_nicht_angemeldet.feature"
 - name: examples/hinzufuegen
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/hinzufuegen.feature"
+        --strict "features/examples/hinzufuegen.feature"
 - name: examples/inventar
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/inventar.feature"
+        --strict "features/examples/inventar.feature"
 - name: examples/inventar_csv
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/inventar_csv.feature"
+        --strict "features/examples/inventar_csv.feature"
 - name: examples/inventarhelfer
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/inventarhelfer.feature"
+        --strict "features/examples/inventarhelfer.feature"
 - name: examples/inventory_pool_settings
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/inventory_pool_settings.feature"
+        --strict "features/examples/inventory_pool_settings.feature"
 - name: examples/kalender
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/kalender.feature"
+        --strict "features/examples/kalender.feature"
 - name: examples/kategorien
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/kategorien.feature"
+        --strict "features/examples/kategorien.feature"
 - name: examples/modell
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/modell.feature"
+        --strict "features/examples/modell.feature"
 - name: examples/modell_eigenschaften
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/modell_eigenschaften.feature"
+        --strict "features/examples/modell_eigenschaften.feature"
 - name: examples/option
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/option.feature"
+        --strict "features/examples/option.feature"
 - name: examples/pakete
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/pakete.feature"
+        --strict "features/examples/pakete.feature"
 - name: examples/passwort
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/passwort.feature"
+        --strict "features/examples/passwort.feature"
 - name: examples/probleme
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/probleme.feature"
+        --strict "features/examples/probleme.feature"
 - name: examples/reservierenden_wechseln
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/reservierenden_wechseln.feature"
+        --strict "features/examples/reservierenden_wechseln.feature"
 - name: examples/ruecknahme
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/ruecknahme.feature"
+        --strict "features/examples/ruecknahme.feature"
 - name: examples/ruestliste
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/ruestliste.feature"
+        --strict "features/examples/ruestliste.feature"
 - name: examples/software_editieren
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/software_editieren.feature"
+        --strict "features/examples/software_editieren.feature"
 - name: examples/software_erfassen
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/software_erfassen.feature"
+        --strict "features/examples/software_erfassen.feature"
 - name: examples/software_kopieren
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/software_kopieren.feature"
+        --strict "features/examples/software_kopieren.feature"
 - name: examples/software_loeschen
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/software_loeschen.feature"
+        --strict "features/examples/software_loeschen.feature"
 - name: examples/sprachauswahl
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/sprachauswahl.feature"
+        --strict "features/examples/sprachauswahl.feature"
 - name: examples/suche
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/suche.feature"
+        --strict "features/examples/suche.feature"
 - name: examples/tagesansicht
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/tagesansicht.feature"
+        --strict "features/examples/tagesansicht.feature"
 - name: examples/verfuegbarkeit
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/verfuegbarkeit.feature"
+        --strict "features/examples/verfuegbarkeit.feature"
 - name: examples/vertrag
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/vertrag.feature"
+        --strict "features/examples/vertrag.feature"
 - name: examples/vorlagen
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/vorlagen.feature"
+        --strict "features/examples/vorlagen.feature"
 - name: examples/werteliste
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/werteliste.feature"
+        --strict "features/examples/werteliste.feature"
 - name: examples/zweck
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/examples/zweck.feature"
+        --strict "features/examples/zweck.feature"
 - name: frontend
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/frontend.feature"
+        --strict "features/frontend.feature"
 - name: groups
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/groups.feature"
+        --strict "features/groups.feature"
 - name: hand_over_story
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/hand_over_story.feature"
-- name: hauptkategorie
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/hauptkategorie.feature"
+        --strict "features/hand_over_story.feature"
 - name: home
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/home.feature"
+        --strict "features/home.feature"
 - name: inventory_creation
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/inventory_creation.feature"
+        --strict "features/inventory_creation.feature"
 - name: inventory_story
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/inventory_story.feature"
+        --strict "features/inventory_story.feature"
 - name: login/database_login
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/login/database_login.feature"
+        --strict "features/login/database_login.feature"
 - name: login/login
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/login/login.feature"
+        --strict "features/login/login.feature"
 - name: mail
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/mail.feature"
+        --strict "features/mail.feature"
 - name: mail_templates
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/mail_templates.feature"
+        --strict "features/mail_templates.feature"
 - name: manage/acknowledge/add_item
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/acknowledge/add_item.feature"
+        --strict "features/manage/acknowledge/add_item.feature"
 - name: manage/acknowledge/delete_lines
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/acknowledge/delete_lines.feature"
+        --strict "features/manage/acknowledge/delete_lines.feature"
 - name: manage/acknowledge/edit_order_line
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/acknowledge/edit_order_line.feature"
+        --strict "features/manage/acknowledge/edit_order_line.feature"
 - name: manage/acknowledge/edit_purpose
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/acknowledge/edit_purpose.feature"
+        --strict "features/manage/acknowledge/edit_purpose.feature"
 - name: manage/acknowledge/quick_approve
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/acknowledge/quick_approve.feature"
+        --strict "features/manage/acknowledge/quick_approve.feature"
 - name: manage/acknowledge/reject
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/acknowledge/reject.feature"
+        --strict "features/manage/acknowledge/reject.feature"
 - name: manage/availability/allocating
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/availability/allocating.feature"
+        --strict "features/manage/availability/allocating.feature"
 - name: manage/booking_calendar/availability_changes
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/booking_calendar/availability_changes.feature"
+        --strict "features/manage/booking_calendar/availability_changes.feature"
 - name: manage/booking_calendar/closed_day_alert
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/booking_calendar/closed_day_alert.feature"
+        --strict "features/manage/booking_calendar/closed_day_alert.feature"
 - name: manage/booking_calendar/summary_of_lines_in_calendar
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/booking_calendar/summary_of_lines_in_calendar.feature"
+        --strict "features/manage/booking_calendar/summary_of_lines_in_calendar.feature"
 - name: manage/daily_view/item_hover
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/daily_view/item_hover.feature"
+        --strict "features/manage/daily_view/item_hover.feature"
 - name: manage/delegation
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/delegation.feature"
+        --strict "features/manage/delegation.feature"
 - name: manage/delegation_mail
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/delegation_mail.feature"
+        --strict "features/manage/delegation_mail.feature"
 - name: manage/hand_over/add
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/hand_over/add.feature"
+        --strict "features/manage/hand_over/add.feature"
 - name: manage/hand_over/assign
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/hand_over/assign.feature"
+        --strict "features/manage/hand_over/assign.feature"
 - name: manage/hand_over/calendar
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/hand_over/calendar.feature"
+        --strict "features/manage/hand_over/calendar.feature"
 - name: manage/hand_over/delete
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/hand_over/delete.feature"
+        --strict "features/manage/hand_over/delete.feature"
 - name: manage/hand_over/edit_reservation
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/hand_over/edit_reservation.feature"
+        --strict "features/manage/hand_over/edit_reservation.feature"
 - name: manage/hand_over/sign_contract
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/hand_over/sign_contract.feature"
+        --strict "features/manage/hand_over/sign_contract.feature"
 - name: manage/lending/day_navigation
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/lending/day_navigation.feature"
+        --strict "features/manage/lending/day_navigation.feature"
 - name: manage/lending/lending
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/lending/lending.feature"
+        --strict "features/manage/lending/lending.feature"
 - name: manage/lending/tabs_navigation
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/lending/tabs_navigation.feature"
+        --strict "features/manage/lending/tabs_navigation.feature"
 - name: manage/linegroup/selection
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/linegroup/selection.feature"
+        --strict "features/manage/linegroup/selection.feature"
 - name: manage/navigation
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/navigation.feature"
+        --strict "features/manage/navigation.feature"
 - name: manage/orders
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/orders.feature"
+        --strict "features/manage/orders.feature"
 - name: manage/software/search_for_software
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/software/search_for_software.feature"
+        --strict "features/manage/software/search_for_software.feature"
 - name: manage/software/software_create
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/software/software_create.feature"
+        --strict "features/manage/software/software_create.feature"
 - name: manage/take_back/close_contract
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/take_back/close_contract.feature"
+        --strict "features/manage/take_back/close_contract.feature"
 - name: manage/take_back/edit_take_back_end_date
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/take_back/edit_take_back_end_date.feature"
+        --strict "features/manage/take_back/edit_take_back_end_date.feature"
 - name: manage/timeline
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/timeline.feature"
+        --strict "features/manage/timeline.feature"
 - name: manage/users
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/users.feature"
+        --strict "features/manage/users.feature"
 - name: manage/verification
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/manage/verification.feature"
+        --strict "features/manage/verification.feature"
 - name: package
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/package.feature"
+        --strict "features/package.feature"
 - name: performance_stability
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/performance_stability.feature"
+        --strict "features/performance_stability.feature"
 - name: search
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/search.feature"
+        --strict "features/search.feature"
 - name: search_complete
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/search_complete.feature"
+        --strict "features/search_complete.feature"
 - name: settings
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/settings.feature"
+        --strict "features/settings.feature"
 - name: take_back_story
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/take_back_story.feature"
+        --strict "features/take_back_story.feature"
+- name: technical/categories
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
+        --strict "features/technical/categories.feature"
 - name: technical/contract/add_lines_model
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/contract/add_lines_model.feature"
+        --strict "features/technical/contract/add_lines_model.feature"
 - name: technical/contract/approve_order_model
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/contract/approve_order_model.feature"
+        --strict "features/technical/contract/approve_order_model.feature"
 - name: technical/contract/orders_controller
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/contract/orders_controller.feature"
+        --strict "features/technical/contract/orders_controller.feature"
 - name: technical/contract/remove_line_model
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/contract/remove_line_model.feature"
+        --strict "features/technical/contract/remove_line_model.feature"
 - name: technical/contract/sign_model
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/contract/sign_model.feature"
+        --strict "features/technical/contract/sign_model.feature"
 - name: technical/contract/submit_model
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/contract/submit_model.feature"
+        --strict "features/technical/contract/submit_model.feature"
 - name: technical/contract/update_lines_model
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/contract/update_lines_model.feature"
+        --strict "features/technical/contract/update_lines_model.feature"
 - name: technical/field/field_instance_methods
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/field/field_instance_methods.feature"
+        --strict "features/technical/field/field_instance_methods.feature"
 - name: technical/field/fields_controller
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/field/fields_controller.feature"
+        --strict "features/technical/field/fields_controller.feature"
 - name: technical/field/provide_accessible_fields_model
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/field/provide_accessible_fields_model.feature"
+        --strict "features/technical/field/provide_accessible_fields_model.feature"
 - name: technical/inventory_pool/hand_over_visits_model
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/inventory_pool/hand_over_visits_model.feature"
+        --strict "features/technical/inventory_pool/hand_over_visits_model.feature"
 - name: technical/inventory_pool/take_back_visits_model
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/inventory_pool/take_back_visits_model.feature"
+        --strict "features/technical/inventory_pool/take_back_visits_model.feature"
 - name: technical/item/search_model
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/item/search_model.feature"
+        --strict "features/technical/item/search_model.feature"
 - name: technical/ldap
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/ldap.feature"
+        --strict "features/technical/ldap.feature"
 - name: technical/ldap_hslu
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/ldap_hslu.feature"
+        --strict "features/technical/ldap_hslu.feature"
 - name: technical/mailer/mailer_settings
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/mailer/mailer_settings.feature"
+        --strict "features/technical/mailer/mailer_settings.feature"
 - name: technical/purpose/purpose
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/purpose/purpose.feature"
+        --strict "features/technical/purpose/purpose.feature"
 - name: technical/shibboleth
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/shibboleth.feature"
+        --strict "features/technical/shibboleth.feature"
 - name: technical/timezone_settings
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/timezone_settings.feature"
+        --strict "features/technical/timezone_settings.feature"
 - name: technical/user/suspend
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/user/suspend.feature"
+        --strict "features/technical/user/suspend.feature"
 - name: technical/user/user
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/user/user.feature"
+        --strict "features/technical/user/user.feature"
 - name: technical/visit/hand_over_and_take_back_model
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/visit/hand_over_and_take_back_model.feature"
+        --strict "features/technical/visit/hand_over_and_take_back_model.feature"
 - name: technical/visit/overdue_model
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/visit/overdue_model.feature"
+        --strict "features/technical/visit/overdue_model.feature"
 - name: technical/visit/visits_controller
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/technical/visit/visits_controller.feature"
+        --strict "features/technical/visit/visits_controller.feature"
 - name: work_days_story
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        "features/work_days_story.feature"
+        --strict "features/work_days_story.feature"

@@ -34,7 +34,7 @@
     {{if unborrowable}}
 
     %button.button.red{:"data-destroy-template-line" => true}
-      %i.icon-trash
+      %i.fa.fa-trash
       {{jed "Delete" /}}
 
     {{else}}
@@ -46,7 +46,7 @@
                            :"data-quantity" => "{{> quantity}}",
                            :"data-start-date" => "{{> start_date}}",
                            :"data-end-date" => "{{> end_date}}"}
-        %i.icon-calendar
+        %i.fa.fa-calendar
         {{jed "Change"/}}
 
       .dropdown-holder.inline-block
@@ -57,7 +57,7 @@
         .dropdown.right
 
           %a.dropdown-item.red{:"data-destroy-template-line" => true}
-            %i.icon-trash
+            %i.fa.fa-trash
             {{jed "Delete"/}}
             
     {{/if}}

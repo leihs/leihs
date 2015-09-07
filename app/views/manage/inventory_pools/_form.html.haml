@@ -4,7 +4,7 @@
     %h1.headline-l.float-left= @inventory_pool.name || _("Create %s") % _("Inventory Pool")
 
     %div.float-right
-      %a.button.grey{:href => "/manage/inventory_pools"}= _("Cancel")
+      = link_to _('Cancel'), :back, class: 'button grey'
       %button.button.green{:type => :submit}= _("Save")
 
   .row.margin-top-m
@@ -118,13 +118,13 @@
               %label.row
                 %input#holiday-start-date.small{type: "text", name: "start_date", autocomplete: "off", placeholder: _("Start date"), title: _("Start date")}
                 .addon.transparent.small.padding-right-xs.padding-vertical-xxs
-                  %i.icon-calendar.icon-size-xs.grey
+                  %i.fa.fa-calendar.icon-xs.grey
 
             .col1of3.padding-inset-xxs
               %label.row
                 %input#holiday-end-date.small.autocomplete-off{type: "text", name: "end_date", autocomplete: "off", placeholder: _("End date"), title: _("End date")}
                 .addon.transparent.small.padding-right-xs.padding-vertical-xxs
-                  %i.icon-calendar.icon-size-xs.grey
+                  %i.fa.fa-calendar.icon-xs.grey
 
             .col1of3.padding-inset-xxs.text-align-center
               %input#holiday-name.small{type: "text", name: "name", placeholder: _("Name"), title: _("Name")}

@@ -1,0 +1,31 @@
+/*
+*= require jquery-ui
+*= require bootstrap
+* require fontawesome
+*= require select2
+*
+*= require leihs_admin/bootswatch_cerulean.min
+*
+*= require_self
+*/
+
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+body {
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
+
+.list-of-lines {
+  .row:nth-child(even) {
+    background-color: #eeeeee;
+  }
+}
+
+footer {
+  a {
+    color: white;
+    margin: 1em;
+  }
+}

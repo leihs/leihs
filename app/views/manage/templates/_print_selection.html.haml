@@ -3,8 +3,8 @@
   = hidden_field_tag :type, type
   %button.dropdown-item.font-size-larger{:"data-insert-before" => true}
     - if type == "value_list"
-      %i.icon-print
+      %i.fa.fa-print
       = _("Print Selection")
     - elsif type == "picking_list"
-      %i.icon-list-ol
+      %i.fa.fa-list-ol
       = _("Picking List")

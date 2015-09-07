@@ -7,14 +7,14 @@ Feature: Sign Contract
   Background:
     Given I am Pius
 
-  @personas @javascript
+  @personas @javascript @browser
   Scenario: Hand over an not complete quantity of an option line
-    When I open a hand over
+    When I open a hand over with options
     And I select an option line
     And I set the quantity for that option
     And I click hand over
     Then I see a summary of the things I selected for hand over
-    And I see the settet quantity for this option
+    And I see the quantity for this option
     When I click hand over inside the dialog
     Then the quantity of options is handed over
 

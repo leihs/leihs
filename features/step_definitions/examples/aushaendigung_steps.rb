@@ -3,26 +3,23 @@
 Given /^the availability is loaded$/ do
   within '#status' do
     unless has_content? _('No hand overs found')
-      find('.icon-ok')
+      find('.fa.fa-check')
       find('p', text: _('Availability loaded'))
     end
   end
 end
 
 
-#Angenommen(/^es besteht bereits eine Aushändigung mit mindestens (\d+) zugewiesenen Gegenständen für einen Benutzer$/) do |count|
 Given(/^there is a hand over with at least (\d+) assigned items for a user$/) do |count|
   @hand_over = @current_inventory_pool.visits.hand_over.find {|ho| ho.reservations.select(&:item).size >= count.to_i}
   expect(@hand_over).not_to be_nil
 end
 
-#Wenn(/^ich die Aushändigung öffne$/) do
 When(/^I open the hand over$/) do
   visit manage_hand_over_path(@current_inventory_pool, @hand_over.user)
   step 'the availability is loaded'
 end
 
-#Dann(/^sehe ich all die bereits zugewiesenen Gegenstände mittels Inventarcodes$/) do
 Then(/^I see the already assigned items and their inventory codes$/) do
   @hand_over.reservations.each do |line|
     next if not line.is_a?(ItemLine) or line.item_id.nil?
@@ -31,20 +28,17 @@ Then(/^I see the already assigned items and their inventory codes$/) do
 end
 
 
-#When(/^der Benutzer für die Aushändigung ist gesperrt$/) do
 When(/^the user in this hand over is suspended$/) do
   ensure_suspended_user(@customer, @current_inventory_pool)
   step 'I open a hand over to this customer'
 end
 
 # Superseded by sign_contract_steps.rb
-#Angenommen(/^ich öffne eine Aushändigung( mit einer Software)?$/) do |arg1|
 Given(/^I open a hand over containing software$/) do
   @hand_over = @current_inventory_pool.visits.hand_over.order('RAND ()').detect {|v| v.reservations.any?{|cl| cl.model.is_a? Software } }
   step 'I open the hand over'
 end
 
-#Angenommen(/^es gibt eine Aushändigung mit mindestens einem nicht problematischen Modell( und einer Option)?$/) do |arg1|
 Given(/^there is a hand over with at least one unproblematic model( and an option)?$/) do |arg1|
   @models_in_stock = @current_inventory_pool.items.in_stock.map(&:model).uniq
   @hand_over = @current_inventory_pool.visits.hand_over.detect do |v|
@@ -60,7 +54,6 @@ Given(/^there is a hand over with at least one unproblematic model( and an optio
 end
 
 
-#Angenommen(/^es gibt eine Aushändigung mit mindestens (einer problematischen Linie|einem Gegenstand ohne zugeteilt Raum und Gestell)$/) do |arg1|
 Given(/^there is a hand over with at least (one problematic line|an item without room or shelf)$/) do |arg1|
   @hand_over = @current_inventory_pool.visits.hand_over.find do |ho|
     ho.reservations.any? do |l|
@@ -82,7 +75,6 @@ Given(/^there is a hand over with at least (one problematic line|an item without
   expect(@hand_over).not_to be_nil
 end
 
-#Wenn(/^ich dem nicht problematischen Modell einen Inventarcode zuweise$/) do
 When(/^I assign an inventory code to the unproblematic model$/) do
   @reservation = @hand_over.reservations.find {|l| !l.start_date.past? and !l.item and @models_in_stock.include?(l.model) }
   @line_css = ".line[data-id='#{@reservation.id}']"
@@ -92,25 +84,21 @@ When(/^I assign an inventory code to the unproblematic model$/) do
   end
 end
 
-#Dann(/^wird der Gegenstand der Zeile zugeteilt$/) do
 Then(/^the item is assigned to the line$/) do
   find('#flash')
   expect(@reservation.reload.item).not_to be_nil
 end
 
 
-#Dann(/^die Zeile wird selektiert|wird die Zeile selektiert$/) do
 Then(/^the line is selected$/) do
   find(@line_css).find('input[type=checkbox]:checked')
 end
 
-#Dann(/^die Zeile wird grün markiert|wird die Zeile grün markiert$/) do
 Then(/^the line is highlighted in green$/) do
   expect(find(@line_css).native.attribute('class')).to include 'green'
 end
 
 
-#Wenn(/^ich die Zeile deselektiere$/) do
 When(/^I deselect the line$/) do
   within @line_css do
     find('input[type=checkbox]').click
@@ -118,12 +106,10 @@ When(/^I deselect the line$/) do
   end
 end
 
-#Dann(/^ist die Zeile nicht mehr grün eingefärbt$/) do
 Then(/^the line is no longer highlighted in green$/) do
   expect(find(@line_css).native.attribute('class')).not_to include 'green'
 end
 
-#Wenn(/^ich die Zeile wieder selektiere$/) do
 When(/^I reselect the line$/) do
   within @line_css do
     find('input[type=checkbox]').click
@@ -131,12 +117,10 @@ When(/^I reselect the line$/) do
   end
 end
 
-#Wenn(/^ich den zugeteilten Gegenstand auf der Zeile entferne$/) do
 When(/^I remove the assigned item from the line$/) do
-  find(@line_css).find('.icon-remove-sign').click
+  find(@line_css).find('.fa.fa-times-circle').click
 end
 
-#Dann(/^wird das Problemfeld für das problematische Modell angezeigt$/) do
 Then(/^problem notifications are shown for the problematic model$/) do
   @reservation = @hand_over.reservations.find do |l|
     if l.is_a? ItemLine
@@ -150,7 +134,6 @@ Then(/^problem notifications are shown for the problematic model$/) do
   step 'the problem notifications remain on the line'
 end
 
-#Wenn(/^ich dieser Linie einen Inventarcode manuell zuweise$/) do
 When(/^I manually assign an inventory code to that line$/) do
   within @line_css do
     find('input[data-assign-item]').click
@@ -158,7 +141,6 @@ When(/^I manually assign an inventory code to that line$/) do
   end
 end
 
-#Dann(/^die problematischen Auszeichnungen bleiben bei der Linie bestehen$/) do
 Then(/^the problem notifications remain on the line$/) do
   within @line_css do
     expect(has_selector?('.line-info.red')).to be true
@@ -166,48 +148,41 @@ Then(/^the problem notifications remain on the line$/) do
   end
 end
 
-#Wenn(/^ich einen bereits hinzugefügten Gegenstand zuteile$/) do
 When(/^I assign an already added item$/) do
   @reservation = @hand_over.reservations.find {|l| l.is_a? ItemLine and l.item}
   @line_css = ".line[data-id='#{@reservation.id}']"
   find(@line_css).find("input[type='checkbox']").click
 
   find('input#assign-or-add-input').set @reservation.item.inventory_code
-  find('form#assign-or-add button .icon-plus-sign-alt', match: :first).click
+  find('form#assign-or-add button .fa.fa-plus', match: :first).click
 end
 
 
 
-#Dann(/^erhalte ich eine entsprechende Info\-Meldung 'XY ist bereits diesem Vertrag zugewiesen'$/) do
 Then(/^I see the error message 'XY is already assigned to this contract'$/) do
   find '#flash', text: _('%s is already assigned to this contract') % @reservation.item.inventory_code
 end
 
 
-#Angenommen(/^ich öffne eine Aushändigung mit mindestens einem zugewiesenen Gegenstand$/) do
 Given(/^I open a hand over with at least one assigned item$/) do
   @hand_over = @current_inventory_pool.visits.hand_over.find {|ho| ho.reservations.any? &:item_id}
   step 'I open the hand over'
 end
 
-#Dann(/^die Zeile bleibt selektiert$/) do
 Then(/^the line remains selected$/) do
   expect(has_selector?("#{@line_css} input[type='checkbox']:checked")).to be true
 end
 
-#Dann(/^die Zeile bleibt grün markiert$/) do
 Then(/^the line remains highlighted in green$/) do
   expect(has_selector?("#{@line_css}.green")).to be true
 end
 
 
-#Angenommen(/^für den Gerätepark ist eine Standard\-Vertragsnotiz konfiguriert$/) do
 Given(/^there is a default contract note for the inventory pool$/) do
   expect(@current_inventory_pool.default_contract_note).not_to be_nil
 end
 
 
-#Dann(/^erscheint ein Aushändigungsdialog$/) do
 Then(/^a hand over dialog appears$/) do
   expect(has_selector?('.modal [data-hand-over]')).to be true
 end
@@ -217,7 +192,6 @@ Then(/^a dialog appears$/) do
 end
 
 
-#Dann(/^diese Standard\-Vertragsnotiz erscheint im Textfeld für die Vertragsnotiz$/) do
 Then(/^the contract note field in this dialog is already filled in with the default note$/) do
   find("textarea[name='note']", text: @current_inventory_pool.default_contract_note)
 end
@@ -259,18 +233,18 @@ end
 Given(/^a line with an assigned item which doesn't have a location is marked$/) do
   @reservation = @hand_over.reservations.where(type: 'ItemLine').find {|l| l.item and (l.item.location.nil? or (l.item.location.room.blank? and l.item.location.shelf.blank?)) }
   @line_css = ".line[data-id='#{@reservation.id}']"
-  step 'ich die Zeile wieder selektiere'
+  step 'I reselect the line'
 end
 
 Given(/^an option line is marked$/) do
   @reservation = @hand_over.reservations.where(type: 'OptionLine').order('RAND()').first
   @line_css = ".line[data-id='#{@reservation.id}']"
-  step 'ich die Zeile wieder selektiere'
+  step 'I reselect the line'
 end
 
 When(/^I select at least one line$/) do
   @line_css = all('.line[data-id]').to_a.sample
-  step 'ich die Zeile wieder selektiere'
+  step 'I reselect the line'
 end
 
 Given(/^there is a model with a problematic item$/) do

@@ -1,11 +1,9 @@
 # -*- encoding : utf-8 -*-
 
-#Dann(/^seh ich die Navigation$/) do
 Then(/^I can see the navigation bars$/) do
   find('nav', match: :first)
 end
 
-#Dann(/^die Navigation beinhaltet "(.*?)"$/) do |section|
 Then(/^the navigation contains "(.*?)"$/) do |section|
   within 'nav.topbar' do
     case section
@@ -37,31 +35,21 @@ Then(/^the navigation contains "(.*?)"$/) do |section|
   end
 end
 
-#Dann(/^seh ich in der Navigation den Home\-Button$/) do
 Then(/^I see a home button in the navigation bars$/) do
   find("nav a[href='#{borrow_root_path}']", match: :first)
 end
 
-#Wenn(/^ich den Home\-Button bediene$/) do
 When(/^I use the home button$/) do
   find("nav a[href='#{borrow_root_path}']", match: :first).click
 end
-
-#Dann(/^lande ich auf der Seite der Hauptkategorien$/) do
-#  expect(current_path).to eq borrow_root_path
-#end
 
 When(/^I visit the lending section$/) do
   visit manage_daily_view_path(@current_inventory_pool)
 end
 
-Dann(/^man sieht die Gerätepark\-Auswahl im Verwalten\-Bereich$/) do
-  find("[data-target='#ip-dropdown-menu']", text: @current_inventory_pool.name)
-end
-
 When(/^I visit the lending section on the list of (all|open|closed) contracts$/) do |arg1|
   visit manage_contracts_path(@current_inventory_pool, status: [:signed, :closed])
-  step %Q(Then I can view "#{arg1}" contracts)
+  step %Q(I can view "#{arg1}" contracts)
   find('#contracts.list-of-lines .line', match: :first)
 end
 
@@ -124,4 +112,3 @@ Then(/^I can view "(.*?)" contracts$/) do |arg1|
   find('#list-tabs a.inline-tab-item', text: _(arg1.capitalize)).click
   find('#contracts.list-of-lines')
 end
-

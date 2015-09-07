@@ -8,7 +8,7 @@ Feature: Navigation
   @personas @javascript
   Scenario: Navigation for borrowers
     Given I am Normin
-    And I am listing the root categories
+    And I am listing the main categories
     Then I can see the navigation bars
     And the navigation contains "To pick up"
     And the navigation contains "To return"
@@ -20,7 +20,7 @@ Feature: Navigation
   @personas @javascript
   Scenario: Navigation for managers
     Given I am Pius
-    And I am listing the root categories
+    And I am listing the main categories
     Then I can see the navigation bars
     And the navigation contains "To pick up"
     And the navigation contains "To return"
@@ -33,7 +33,7 @@ Feature: Navigation
   @personas @javascript
   Scenario: Navigation for validators
     Given I am Andi
-    And I am listing the root categories
+    And I am listing the main categories
     Then I can see the navigation bars
     And the navigation contains "To pick up"
     And the navigation contains "To return"
@@ -48,4 +48,4 @@ Feature: Navigation
     Given I am Normin
     Then I see a home button in the navigation bars
     When I use the home button
-    Then I am listing the root categories
+    Then I am listing the main categories

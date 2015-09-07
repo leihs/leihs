@@ -32,7 +32,7 @@
       {{if ~currentInventoryPool && accessRight()}}
 
       %a.button.white{:href => "{{>url('hand_over')}}"}
-        %i.icon-mail-forward
+        %i.fa.fa-mail-forward
         {{jed "Hand Over"/}}
 
       .dropdown-holder.inline-block
@@ -43,12 +43,12 @@
 
           %li
             %a.dropdown-item{:href => "{{>url('edit')}}"}
-              %i.icon-edit
+              %i.fa.fa-edit
               {{jed "Edit"/}}
 
           %li
             %a.dropdown-item{:href => "mailto:{{>email}}"}
-              %i.icon-envelope
+              %i.fa.fa-envelope
               {{jed "E-Mail"/}}
 
       {{else}}
@@ -64,13 +64,13 @@
 
           %li
             %a.dropdown-item{:href => "mailto:{{>email}}"}
-              %i.icon-envelope
+              %i.fa.fa-envelope
               {{jed "E-Mail"/}}
 
           {{if !~currentInventoryPool}}
           %li
             %a.dropdown-item.red{:href => "{{>url()}}", "data-method" => "delete"}
-              %i.icon-trash
+              %i.fa.fa-trash
               {{jed "Delete"/}}
           {{/if}}
 

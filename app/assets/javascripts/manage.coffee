@@ -7,9 +7,9 @@
 #
 #= require jqBarGraph/jqBarGraph.1.2
 #
-##### BOWER COMPONENTS
+##### RAILS ASSETS
 #
-#= require jquery-autosize/jquery.autosize
+#= require jquery-autosize
 #
 ##### APP
 #

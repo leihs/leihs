@@ -1,0 +1,6 @@
+%ul.nav.nav-pills.nav-stacked
+  - @statistics.each do |statistic|
+    %li{role: 'presentation', class: params[:id] == statistic.parameterize ? 'active' : nil}
+      %a{href: admin.statistic_path(statistic.parameterize, start_date: params[:start_date], end_date: params[:end_date])}
+        %i.fa.fa-bar-chart
+        = _(statistic)

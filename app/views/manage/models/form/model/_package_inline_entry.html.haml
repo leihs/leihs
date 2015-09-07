@@ -18,5 +18,5 @@
   .line-col.col2of5.text-align-right
     - if entry.in_stock?
       %button.button.small.inset{:"data-remove" => true, :type => :button, :title => _("Remove")}
-        %i.icon-trash
+        %i.fa.fa-trash
     %button.button.small.inset{:"data-edit-package" => true, :type => :button}= _("Edit")

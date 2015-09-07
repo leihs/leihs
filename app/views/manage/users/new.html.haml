@@ -3,7 +3,7 @@
 
 #user.wrapper.margin-top-m
 
-  = render :partial => 'manage/tabs/admin', :locals => {:active_tab => :users}
+  = render :partial => 'manage/tabs/manage', :locals => {:active_tab => :users}
 
   .row.content-wrapper.min-height-xl.min-width-full.straight-top
 
@@ -16,7 +16,7 @@
           %h1.headline-l.float-left= yield :title
 
           .float-right
-            %a.button.grey{:href => manage_inventory_pool_users_path(current_inventory_pool)}= _("Cancel")
+            = link_to _('Cancel'), :back, class: 'button grey'
             %button.button.green{:type => :submit}= _("Save")
 
         .row.margin-top-m

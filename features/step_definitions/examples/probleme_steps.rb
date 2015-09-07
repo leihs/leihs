@@ -1,13 +1,11 @@
 # encoding: utf-8
 
-#Angenommen /^ich editiere eine Bestellung( die nicht in der Vergangenheit liegt)?$/ do |arg1|
 
 #Given /^I edit an order( that is not in the past)?$/ do |arg1|
 #  @event = "order"
 #  step "I open a contract for acknowledgement%s" % (arg1 ? ", whose start date is not in the past" : "")
 #end
 
-#Angenommen /^ich mache eine Rücknahme(, die nicht überfällig ist)?$/ do |arg1|
 Given /^I am doing a take back( that is not overdue)?$/ do |arg1|
   @event = 'take_back'
   if arg1
@@ -17,7 +15,6 @@ Given /^I am doing a take back( that is not overdue)?$/ do |arg1|
   end
 end
 
-#Angenommen /^ein Modell ist nichtmehr verfügbar$/ do
 Given /^a model is no longer available$/ do
   if @event=='order' or @event=='hand_over'
     @entity = if @contract
@@ -44,7 +41,6 @@ Given /^a model is no longer available$/ do
   @max_before = [@max_before, 0].max
 end
 
-#Dann /^sehe ich auf den beteiligten Linien die Auszeichnung von Problemen$/ do
 Then /^I see any problems displayed on the relevant reservations$/ do
   @problems = []
   @lines.each do |line|
@@ -61,7 +57,6 @@ Then /^I see any problems displayed on the relevant reservations$/ do
   @av = @line.model.availability_in(@line.inventory_pool)
 end
 
-#Dann /^das Problem wird wie folgt dargestellt: "(.*?)"$/ do |format|
 Then /^the problem is displayed as: "(.*?)"$/ do |format|
   regexp = if format == 'Nicht verfügbar 2(3)/7'
              /#{_("Not available")} -*\d\(-*\d\)\/\d/
@@ -79,7 +74,6 @@ Then /^the problem is displayed as: "(.*?)"$/ do |format|
   end
 end
 
-#Dann /^"(.*?)" sind verfügbar für den Kunden inklusive seinen Gruppenzugehörigen$/ do |arg1|
 Then /^"(.*?)" are available for the user, also counting availability from groups the user is member of$/ do |arg1|
   max = if [:unsubmitted, :submitted].include? @line.status
           @initial_quantity + @max_before
@@ -91,7 +85,6 @@ Then /^"(.*?)" are available for the user, also counting availability from group
   expect(@reference_problem).to match /#{max}\(/
 end
 
-#Dann /^"(.*?)" sind insgesamt verfügbar inklusive diejenigen Gruppen, welchen der Kunde nicht angehört$/ do |arg1|
 Then /^"(.*?)" are available in total, also counting availability from groups the user is not member of$/ do |arg1|
   max = @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @av.inventory_pool_and_model_group_ids)
   if [:unsubmitted, :submitted].include? @line.status
@@ -102,12 +95,10 @@ Then /^"(.*?)" are available in total, also counting availability from groups th
   expect(@reference_problem).to match(/\(#{max}/)
 end
 
-#Dann /^"(.*?)" sind total im Pool bekannt \(ausleihbar\)$/ do |arg1|
 Then /^"(.*?)" are in this inventory pool \(and borrowable\)$/ do |arg1|
   expect(@reference_problem).to match("/#{@line.model.items.where(inventory_pool_id: @line.inventory_pool).borrowable.size}")
 end
 
-#Angenommen /^eine Gegenstand ist nicht ausleihbar$/ do
 Given /^one item is not borrowable$/ do
   case @event
     when 'hand_over'
@@ -156,7 +147,6 @@ Then /^I mark the item as (.*)$/ do |arg1|
   find(".modal button[type='submit']").click
 end
 
-#Angenommen /^eine Gegenstand ist defekt$/ do
 When /^one item is defective$/ do
   case @event
     when 'hand_over'
@@ -171,7 +161,6 @@ When /^one item is defective$/ do
   end
 end
 
-#Angenommen /^eine Gegenstand ist unvollständig$/ do
 Given /^one item is incomplete$/ do
   case @event
     when 'hand_over'
@@ -186,7 +175,6 @@ Given /^one item is incomplete$/ do
   end
 end
 
-#Dann /^sehe ich auf der Linie des betroffenen Gegenstandes die Auszeichnung von Problemen$/ do
 Then /^the affected item's line shows the item's problems$/ do
   target = find(".line[data-id='#{@line_id}'] .emboss.red")
   hover_for_tooltip target

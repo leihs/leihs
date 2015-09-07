@@ -1,7 +1,7 @@
 %li.topbar-item.dropdown-holder{:class => current_page?(borrow_current_user_path) ? "active" : nil}
   .topbar-item-inner
     - if current_user.is_delegation
-      .icon-group
+      .fa.fa-group
     - else
       %img.max-height-xxxs.max-width-xxs.emboss.deep{:src => current_user.image_url}
     %span
@@ -15,30 +15,30 @@
         = _("Start Screen")
 
     %li
-      %a.dropdown-item{href: borrow_current_user_path}
+      %a.dropdown-item{href: main_app.borrow_current_user_path}
         .width-xxxs.inline-block.text-align-center
-          .icon-user
+          .fa.fa-user
         = _("User data")
     %li
-      %a.dropdown-item{href: borrow_user_documents_path}
+      %a.dropdown-item{href: main_app.borrow_user_documents_path}
         .width-xxxs.inline-block.text-align-center
-          .icon-copy
+          .fa.fa-copy
         = _("My documents")
     - if current_user.delegations.exists?
       %li.separated-top
-        %a.dropdown-item{href: borrow_user_delegations_path}
+        %a.dropdown-item{href: main_app.borrow_user_delegations_path}
           .width-xxxs.inline-block.text-align-center
-            .icon-group
+            .fa.fa-group
           = _("Delegations")
     - elsif current_user.is_delegation and @current_delegated_user
       %li.separated-top
-        %a.dropdown-item{href: borrow_user_switch_back_path}
+        %a.dropdown-item{href: main_app.borrow_user_switch_back_path}
           .width-xxxs.inline-block.text-align-center
             %img.max-height-xxxs.max-width-xxs.emboss.deep{:src => @current_delegated_user.image_url}
           = _("Back to %s") % @current_delegated_user.to_s
 
     %li.separated-top
-      %a.dropdown-item{href: logout_path}
+      %a.dropdown-item{href: main_app.logout_path}
         .width-xxxs.inline-block.text-align-center
-          .icon-signout
+          .fa.fa-signout
         = _("Logout")

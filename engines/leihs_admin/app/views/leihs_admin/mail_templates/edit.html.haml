@@ -1,0 +1,84 @@
+:ruby
+  def list_variables(v)
+    haml_tag :ul, {style: "list-style-type: square; margin-left: 2em;"} do
+      v.each do |x|
+        if x.is_a? Hash
+          x.each_pair do |k1,v1|
+            haml_tag :li do
+              haml_tag :div, k1
+              list_variables v1
+            end
+          end
+        else
+          haml_tag :li, x
+        end
+      end
+    end
+  end
+
+- content_for :title, _("Editing system-wide mail templates")
+- content_for :manage_section, "active"
+
+= form_tag nil, :method => :put, :html => { class: "indent", name: "form" } do
+
+  .row
+    .col-sm-6
+      %h1= yield :title
+    .col-sm-6.text-right
+      %button.btn.btn-success{:type => :submit}= _("Save %s") % _("Mail Templates")
+
+  - @mail_templates.each do |mail_template|
+    .form-group{style: mail_template.errors.empty? ? nil : "background-color: #FFB0B0;" }
+      .row
+        .col-sm-3
+          %strong= _("Name")
+        .col-sm-9
+          %input.form-control{type: :hidden, name: "mail_templates[][name]", value: mail_template.name}
+          = mail_template.name.gsub('_', ' ')
+      .row
+        .col-sm-3
+          %strong= _("Language")
+        .col-sm-9
+          %input.form-control{type: :hidden, name: "mail_templates[][language]", value: mail_template.language.locale_name}
+          = "%s (%s)" % [mail_template.language.name, mail_template.language.locale_name]
+      .row
+        .col-sm-3
+          %strong= _("Format")
+        .col-sm-9
+          %input.form-control{type: :hidden, name: "mail_templates[][format]", value: mail_template.format}
+          = mail_template.format
+      .row
+        .col-sm-3
+          %strong= _("Body")
+        .col-sm-9
+          %textarea.form-control{name: "mail_templates[][body]", rows: 8}= mail_template.body
+      .row
+        .col-sm-3
+        .col-sm-9
+          .toggle_container
+            .toggle_title
+              %i.fa.fa-info-sign
+              %strong= _("List of available variables")
+            .toggle_body= capture_haml {list_variables MailTemplate.send("available_liquid_variables_for_#{params[:dir]}")}
+
+:scss
+  .toggle_container {
+    .toggle_title {
+      cursor: pointer;
+    }
+    .toggle_body {
+      display: none;
+    }
+  }
+
+:coffeescript
+  $(document).ready ->
+    $("textarea").on('focus', ->
+      $("textarea").trigger('autosize.destroy')
+      $(this).autosize()
+    #).on('blur', ->
+    #  $(this).trigger('autosize.destroy')
+    )
+
+    $(".toggle_title").click ->
+      $(this).siblings(".toggle_body").toggle()

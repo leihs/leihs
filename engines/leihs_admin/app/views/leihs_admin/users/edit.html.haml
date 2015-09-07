@@ -1,0 +1,35 @@
+- content_for :title, @user
+- content_for :manage_section, "active"
+
+#form-context
+
+  = form_tag admin.user_path(@user), method: :put do
+
+    .row
+
+      .col-sm-6
+        %h3= yield :title
+
+      .col-sm-6.text-right
+        = link_to _('Cancel'), :back, class: 'btn btn-default'
+        %button.btn.btn-success{:type => :submit}= _("Save")
+
+    .row.well
+
+      - if @user.is_delegation
+
+        = render partial: "delegation"
+
+      - else
+
+        .col-sm-6
+
+          = render partial: "leihs_admin/users/personal_details"
+
+          = render partial: "extended_info" if !@user.extended_info.blank?
+
+        .col-sm-6
+
+          = render partial: "leihs_admin/users/login_details" if @db_auth
+
+          = render partial: "leihs_admin/users/admin_details"

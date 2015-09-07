@@ -2,6 +2,7 @@
 require 'yaml'
 
 CI_SCENARIOS_PER_TASK = (ENV['CI_SCENARIOS_PER_TASK'] || 5).to_i
+STRICT_MODE = true
 
 def task_hash(name, exec)
   h = { 'name' => name,
@@ -14,9 +15,9 @@ def task_hash(name, exec)
   h
 end
 
-def task_for_feature_file file_path, _timeout = 200, strict = false
+def task_for_feature_file file_path, _timeout = 200
   name= file_path.match(/features\/(.*)\.feature/).captures.first
-  exec = %{DISPLAY=\":$XVNC_PORT\" bundle exec cucumber -p default -f json -o log/cucumber_report.json #{strict ? "--strict " : nil}"#{file_path}"}
+  exec = %{DISPLAY=\":$XVNC_PORT\" bundle exec cucumber -p default -f json -o log/cucumber_report.json #{STRICT_MODE ? "--strict " : nil}"#{file_path}"}
   task_hash(name, exec)
 end
 
@@ -33,7 +34,7 @@ default_browser = ENV['DEFAULT_BROWSER'] ? ENV['DEFAULT_BROWSER'] : :firefox # [
 filepath = './.cider-ci/tasks/cucumber_scenarios.yml'
 File.open(filepath,'w') do |f|
   h1 = {}
-  `egrep -R -n -B 1 "^\s*(Scenario|Szenario)" features/*`.split("--\n").map{|x| x.split("\n")}.each do |t, s|
+  `egrep -R -n -B 1 "^\s*(Scenario|Szenario)" features/* engines/**/features/*`.split("--\n").map{|x| x.split("\n")}.each do |t, s|
     next if t =~ /@old-ui|@upcoming|@generating_personas|@manual/
     splitted_string = s.split(/:\s*(Scenario|Szenario)( Outline| Template|grundriss)?: /)
     k, v = splitted_string.first.split(':')
@@ -43,9 +44,10 @@ File.open(filepath,'w') do |f|
 
   h2 = []
   h1.map do |k,v|
+    require = k =~ /^engines/ ? "-r engines/**/features" : nil
     v.each_slice(CI_SCENARIOS_PER_TASK) do |lines|
       path = ([k] + lines).join(':')
-      exec = "DISPLAY=\":$XVNC_PORT\" bundle exec cucumber -p default -f json -o log/cucumber_report.json %s DEFAULT_BROWSER=%s" % [path, default_browser]
+      exec = "DISPLAY=\":$XVNC_PORT\" bundle exec cucumber -p default %s -f json -o log/cucumber_report.json #{STRICT_MODE ? "--strict " : nil}%s DEFAULT_BROWSER=%s" % [require, path, default_browser]
       h2 << task_hash(path, exec)
     end
   end

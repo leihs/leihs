@@ -10,51 +10,43 @@ Feature: Groups
     Then each group shows the number of users assigned to it
     And each group shows how many of each model are assigned to it
 
-  # Not implemented
-  @personas
+  @personas @javascript
   Scenario: Visierungspflichtige Gruppe erstellen
     When I create a group
-    # Next step missing
-    And ich die Eigenschaft 'Visierung erforderlich' anwähle
+    And I select 'Verification required'
     And I fill in the group's name
     And I add users to the group
     And I add models and capacities to the group
     And I save
     Then the group is saved
-    # Next step missing
-    And die Gruppe ist visierungspflichtig
+    And the group requires verification
 
     And the group has users as well as models and their capacities
 
-  @personas
+  @personas @javascript
   Scenario: Mark a group as requiring verification
-    # Next step missing
-    When ich eine bestehende, nicht visierungspflichtige Gruppe editiere
-    # Next step missing
-    And ich die Eigenschaft 'Visierung erforderlich' anwähle
+    When I edit an existing non verifiable group
+    And I select 'Verification required'
     And I change the group's name
     And I add and remove users from the group
     And I add and remove models and their capacities from the group
     And I save
     Then the group is saved
-    # Next step missing
-    And die Gruppe ist visierungspflichtig
+    And the group requires verification
     And the group has users as well as models and their capacities
     Then I am listing groups
     And I receive a notification of success
 
-  @personas
+  @personas @javascript
   Scenario: Group does not require verification
-    # Next step missing
-    When ich eine bestehende visierungspflichtige Gruppe editiere
-    # Next step missing
+    When I edit an existing verifiable group
+    And I deselect 'Verification required'
     And I change the group's name
     And I add and remove users from the group
     And I add and remove models and their capacities from the group
     And I save
     Then the group is saved
-    # Next step missing
-    And die Gruppe ist nicht mehr visierungspflichtig
+    And the group doesn't require verification
     And the group has users as well as models and their capacities
     Then I am listing groups
     And I receive a notification of success
@@ -69,30 +61,28 @@ Feature: Groups
   @javascript @personas
   Scenario: Deleting groups
     When I delete a group
-    # Next step missing
-    #And die Gruppe wurde aus der Liste gelöscht
     And the group has been deleted from the database
 
   @javascript @personas
   Scenario: Adding users
-    When I edit a group that already exists
+    When I edit an existing group
     And I add one user to the group
     Then the user is added to the top of the list
 
   @javascript @personas
   Scenario: Adding models
-    When I edit a group that already exists
+    When I edit an existing group
     And I add a model to the group
     Then the model is added to the top of the list
 
   @personas
   Scenario: Sorting models
-    When I edit a group that already exists
+    When I edit an existing group
     Then the already present models are sorted alphabetically
 
   @javascript @personas
   Scenario: Adding already existing models
-    When I edit a group that already exists
+    When I edit an existing group
     And I add a model that is already present in the group
     Then the model is not added again
     And the already existing model slides to the top of the list
@@ -100,7 +90,7 @@ Feature: Groups
 
   @javascript @personas
   Scenario: Adding already existing users
-    When I edit a group that already exists
+    When I edit an existing group
     And I add a user that is already present in the group
     Then the already existing user is not added
     Then the already existing user slides to the top of the list

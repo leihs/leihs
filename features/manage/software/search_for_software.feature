@@ -15,21 +15,21 @@ Feature: Search for software
       | Dongle ID            | suchbegriff5        |
       | Quantity allocations | 1 / Christina Meier |
     And this software license is handed over to somebody
-    When ich nach einer dieser Software-Produkt Eigenschaften suche
-    Then they appear all matched software products
-    And they appear all matched software licenses
-    And they appear all matched contracts, in which this software product is contained
-    When ich nach einer dieser Software-Lizenz Eigenschaften suche
-    Then they appear all matched software licenses
-    And they appear all matched contracts, in which this software product is contained
+    When I search for one of these software product properties
+    Then all matching software products appear
+    And all matching software licenses appear
+    And all contracts containing this software product appear
+    When I search for one of these software license properties
+    Then all matching software licenses appear
+    And all contracts containing this software product appear
 
   @javascript @personas
   Scenario: Finding contracts for software by searching for a borrower
     Given a software license exists
     And this software license is handed over to somebody
     When I search after the name of that person
-    Then it appears the contract of this person in the search results
-    And it appears this person in the search results
+    Then the contract of this person appears in the search results
+    And this person appears in the search results
 
   @javascript @personas
   Scenario: How search results are displayed

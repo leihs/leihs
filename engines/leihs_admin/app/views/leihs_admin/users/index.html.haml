@@ -1,0 +1,85 @@
+- content_for :title, _("List of Users")
+- content_for :manage_section, "active"
+
+#user-index-view
+
+  .row
+    .col-sm-6
+      %h1= yield :title
+
+    .col-sm-6.text-right
+      .btn-group
+        %a.btn.btn-default{:href => admin.new_user_path}
+          %i.fa.fa-user
+          = _("New User")
+        %button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+          %i.caret
+        %ul.dropdown-menu
+          %li
+            %a{href: admin.new_user_path(type: :delegation)}
+              %i.fa.fa-group
+              = _("New Delegation")
+
+  %ul.nav.nav-tabs
+    %li{role: 'presentation', class: params[:role] != 'admins' ? 'active' : nil}
+      = link_to _("All"), admin.users_path
+    %li{role: 'presentation', class: params[:role] == 'admins' ? 'active' : nil}
+      = link_to _("Administrator"), admin.users_path(role: 'admins')
+
+  %form#list-filters.row.well
+    .col-sm-2
+      %input{type: 'text', name: 'search_term', value: params[:search_term], placeholder: _("Search..."), autocomplete: :false, autofocus: true}
+    .col-sm-2
+      = select_tag "type", options_for_select([[_("All"), ""], [_("Users"), "user"], [_("Delegations"), "delegation"]], params[:type])
+    .col-sm-8
+      %button.btn.btn-default{type: :submit}
+        %i.fa.fa-search
+        = _('Search')
+
+  .pages#user-list.list-of-lines
+    = render @users
+
+  %h1.pages-progress.text-center
+    %i.fa.fa-spinner
+
+:scss
+  .popover{
+    min-height: 5em;
+    min-width: 25em;
+    max-width: 100%;
+  }
+
+:coffeescript
+  $(document).on 'scroll', -> Pages.load_next()
+
+  $(document).ready ->
+    Pages.reset()
+
+    $('#user-index-view').popover
+      selector: '[data-toggle="popover"]'
+      placement: 'top'
+      trigger: 'hover'
+      delay:
+        show: 200
+        hide: 100
+      html: true
+      title: ->
+        $(this).data('name')
+      content: ->
+        r = '<div class="row"><div class="col-sm-4">'
+        if $(this).data('image_url')
+          r += '<img class="img-responsive" src="' + $(this).data('image_url') + '" />'
+        r += '</div><div class="col-sm-8">'
+        if $(this).data('delegator_user_name')
+          r += '#{_('Responsible')}: ' + $(this).data('delegator_user_name') + '<br>'
+        r += '#{_('Email')}: ' + ($(this).data('email') || '')
+        r += '<br>#{_('Badge')}: ' + ($(this).data('badge_id') || '')
+        r += '<br>#{_('Phone')}: ' + ($(this).data('phone') || '')
+        r += '<br>#{_('Address')}: ' + ($(this).data('address') || '')
+        if $(this).data('zip') or $(this).data('city')
+          r += ', ' + ($(this).data('zip') || '') + ' ' + ($(this).data('city') || '')
+        r += '</div></div>'
+        r
+
+    #$("#list-filters input[type='text']").on 'change', ->
+    #  $("form#list-filters").submit()

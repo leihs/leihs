@@ -1,0 +1,62 @@
+.row
+  .col-sm-6
+    %h2= @building.name || _("Create %s") % _("Building")
+
+  .col-sm-6.text-right
+    = link_to _('Cancel'), :back, class: 'btn btn-default'
+    %button.btn.btn-success{:type => :submit}= _("Save")
+
+.row
+  .col-sm-6
+
+    %h3= _("Basic Information")
+
+    .row
+      .col-sm-6
+        %strong= "#{_("Name")} *"
+      .col-sm-6.text-right
+        - if current_inventory_pool
+          %h3= @building.name
+        - else
+          %input{type: "text", name: "building[name]", value: @building.name}
+
+    .row
+      .col-sm-6
+        %strong= "#{_("Code")}"
+      .col-sm-6.text-right
+        - if current_inventory_pool
+          %h3= @building.code
+        - else
+          %input{type: "text", name: "building[code]", value: @building.code}
+
+  .col-sm-6
+
+    %h3= _("Locations")
+
+    .row
+      .col-sm-4
+        %strong= _("Room")
+      .col-sm-4
+        %strong= _("Shelf")
+      .col-sm-4
+        %strong= _("Items")
+
+    :ruby
+      locations = @building.locations
+      locations = locations.select do |l|
+        l.items.where("#{current_inventory_pool.id} IN (inventory_pool_id, owner_id)").exists?
+      end if current_inventory_pool
+
+    - locations.group_by(&:room).each_pair do |room, locations|
+      - locations.each_with_index do |l, i|
+        .row
+          %h4.col-sm-4
+            = room if i.zero?
+          .col-sm-4{style: "display: list-item"}
+            = l.shelf
+          .col-sm-4
+            = c = l.items.count
+            - if not current_inventory_pool and c.zero?
+              %a.btn.btn-xs.btn-danger{href: admin.location_path(l), data: {method: :delete, confirm: _("Are you sure you want to delete '%s'?") % "#{l.room} #{l.shelf}"}, style: 'font-size: 0.7em;'}
+                %i.fa.fa-trash
+                = _("Delete")

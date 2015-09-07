@@ -30,7 +30,7 @@
   .col1of10.line-col.text-align-center
     {{if purpose_id}}
     .tooltip{:"title" => "{{>purpose().description}}", :"data-tooltip-template" => "manage/views/purposes/tooltip"}
-      %i.icon-comment.grey
+      %i.fa.fa-comment.grey
     {{/if}}
 
   .col1of10.line-col.text-align-center
@@ -48,9 +48,9 @@
         %ul.dropdown.right
           %li
             %a.dropdown-item{:"data-open-time-line" => true, :"data-model-id" => "{{>model().id}}"}
-              %i.icon-align-left
+              %i.fa.fa-align-left
               {{jed "Timeline"/}}
           %li
             %a.dropdown-item.red{:"data-destroy-line" => true}
-              %i.icon-trash
+              %i.fa.fa-trash
               {{jed "Delete"/}}

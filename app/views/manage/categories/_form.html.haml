@@ -5,7 +5,7 @@
     %h1.headline-l.float-left= yield :title
 
     .float-right
-      %a.button.grey{:href => manage_categories_path(current_inventory_pool)}= _("Cancel")
+      = link_to _('Cancel'), :back, class: 'button grey'
       %button#save.button.green{:type => :submit}= _("Save")
 
 .padding-inset-m

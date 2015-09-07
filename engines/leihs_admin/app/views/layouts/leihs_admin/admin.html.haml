@@ -1,0 +1,65 @@
+!!! 5
+%html{:lang => I18n.locale}
+
+  %head
+    %title= "#{yield(:title)}#{(yield :title).blank? ? "":" | "}leihs"
+
+    %meta{:charset => 'utf-8'}
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
+
+    -# Work around a bug in Microsoft Internet Explorer that makes it render
+    -# leihs with the super-shitty MSIE 5.5 rendering engine whenever the leihs
+    -# server is located in what MSIE thinks is the "intranet zone". Microsoft
+    -# themselves say that this tag is deprecated and should not be used. MSIE 11
+    -# fixes all these bugs.
+    %meta{:"http-equiv" => 'XA-UA-Compatible', :content => 'IE=edge'}
+    = csrf_meta_tag
+
+    = favicon_link_tag "favicon.ico", :type => "image/x-icon"
+    = stylesheet_link_tag "leihs_admin/admin", :media => "all"
+
+    = javascript_include_tag "i18n/locale/#{I18n.locale}"
+    = javascript_include_tag "leihs_admin/admin"
+
+    = yield :head
+
+    - if Rails.env.test? or (Rails.env.development? and ENV['TEST_DATETIME'])
+      = javascript_include_tag "timecop/timecop-0.1.1"
+      :javascript
+        Timecop.install();
+        Timecop.travel(new Date("#{Time.now.iso8601}"));
+
+  %body
+
+    %header
+      %nav.navbar.navbar-default.navbar-fixed-top#topbar.topbar
+        .container
+          %a.navbar-brand{href: admin.root_path}
+            = render partial: 'layouts/leihs_admin/logo'
+          %ul.nav.navbar-nav.navbar-right
+            = render partial: 'layouts/leihs_admin/navigation'
+            = render partial: 'layouts/leihs_admin/user'
+
+    .container
+      = render partial: 'layouts/leihs_admin/flash', :locals => {:flash => flash}
+      = render partial: 'layouts/leihs_admin/tabs'
+      = yield
+
+    %footer
+      %nav.navbar.navbar-default.navbar-fixed-bottom
+        .container
+          .row
+            .col-sm-2
+              %h2= "leihs"
+            .col-sm-5
+              - unless controller_path =~ /^borrow/
+                %a{:href => "https://github.com/zhdk/leihs", :target => "_blank"}= _("Source code")
+            .col-sm-5.text-right
+              %i.fa.fa-globe.grey
+              - active_language = Language.find_by_locale_name(I18n.locale)
+              - Language.active_languages.each do |language|
+                - if language == active_language
+                  %a{:href => ""}
+                    %strong= language.name
+                - else
+                  %a{:href => @bread_crumbs ? @bread_crumbs.path_for(url_for(params.merge(:locale => language.locale_name))) : url_for(params.merge(:locale => language.locale_name))}= language.name

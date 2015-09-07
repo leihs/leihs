@@ -14,8 +14,7 @@
           %h2.headline-s.light= _("Insert all required information")
         .col1of2.text-align-right
 
-          %a.button.grey{:href => manage_inventory_path(current_inventory_pool)}
-            = _("Cancel")
+          = link_to _('Cancel'), :back, class: 'button grey'
 
           .multibutton
             %button#item-save.button.green
@@ -26,7 +25,7 @@
               %ul.dropdown.right
                 %li
                   %a#item-save-and-copy.dropdown-item
-                    %i.icon-copy
+                    %i.fa.fa-copy
                     = _("Save and copy")
 
     .padding-horizontal-m

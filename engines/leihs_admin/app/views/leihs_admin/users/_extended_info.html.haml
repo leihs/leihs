@@ -1,0 +1,8 @@
+%h3= _("Extended Information")
+
+- @user.extended_info.each do |k, v|
+  .row
+    .col-sm-6
+      %strong= "#{k}".force_encoding('UTF-8')
+    .col-sm-6
+      %p= "#{v}".force_encoding('UTF-8')

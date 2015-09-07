@@ -7,10 +7,14 @@ When(/^I specify a mail template for the (.*) action (for the whole system|in th
   case scope
     when 'for the whole system'
       visit '/admin/mail_templates'
+      selector1 = '.list-of-lines .row .col-sm-8'
+      selector2 = '.btn'
     when 'in the current inventory pool'
       visit "/manage/#{@current_inventory_pool.id}/mail_templates"
+      selector1 = '.list-of-lines .line-col.col3of5'
+      selector2 = '.button'
   end
-  find('.list-of-lines .line-col.col3of5', text: /^#{template_name}$/).find(:xpath, './..').find('.button', text: _('Edit')).click
+  find(selector1, text: /^#{template_name}$/).find(:xpath, './..').find(selector2, text: _('Edit')).click
   step 'I land on the mail templates edit page'
 end
 
@@ -257,7 +261,8 @@ Then(/^I receive a (custom|system\-wide|default) (.*) in "(.*?)"$/) do |scope, t
 end
 
 When(/^I edit the (reminder) with the "(.*?)" template in "(.*?)"$/) do |template_name, body, locale_name|
-  find('.row.margin-vertical-s', text: locale_name).find("textarea[name='mail_templates[][body]']").set body
+  selector = @current_inventory_pool ? '.row.margin-vertical-s' : '.form-group'
+  find(selector, text: locale_name).find("textarea[name='mail_templates[][body]']").set body
 end
 
 Then(/^I land on the mail templates edit page$/) do
@@ -268,7 +273,8 @@ Then(/^I land on the mail templates edit page$/) do
 end
 
 Then(/^the failing (reminder) mail template in "(.*?)" is highlighted in red$/) do |template_name, locale_name|
-  expect(find('.row.margin-vertical-s', text: locale_name).native.css_value('background-color')).to eq 'rgba(255, 176, 176, 1)'
+  selector = @current_inventory_pool ? '.row.margin-vertical-s' : '.form-group'
+  expect(find(selector, text: locale_name).native.css_value('background-color')).to eq 'rgba(255, 176, 176, 1)'
 end
 
 Then(/^the failing (reminder) mail template in "(.*?)" is not persisted with the "(.*?)" template$/) do |template_name, locale_name, body|

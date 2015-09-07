@@ -17,7 +17,7 @@
   .multibutton
     {{if ~accessRight.atLeastRole(~currentUserRole, "lending_manager") }}
     %a.button.white.text-ellipsis{:href => "{{>user().url('take_back')}}"}
-      %i.icon-mail-reply
+      %i.fa.fa-mail-reply
       {{jed "Take Back"/}}
     .dropdown-holder.inline-block
       .button.white.dropdown-toggle
@@ -25,19 +25,19 @@
       %ul.dropdown.right
         %li
           %a.dropdown-item{:href => "{{>url()}}", :target => "_blank"}
-            %i.icon-file-alt
+            %i.fa.fa-file-alt
             {{jed "Contract"/}}
         %li
           %a.dropdown-item{:href => "{{>url('value_list')}}", :target => "_blank"}
-            %i.icon-list-ol
+            %i.fa.fa-list-ol
             {{jed "Value List"/}}
         %li
           %a.dropdown-item{:href => "{{>url('picking_list')}}", :target => "_blank"}
-            %i.icon-list-ol
+            %i.fa.fa-list-ol
             {{jed "Picking List"/}}
     {{else}}
     %a.button.white.text-ellipsis{:href => "{{>url()}}", :target => "_blank"}
-      %i.icon-file-alt
+      %i.fa.fa-file-alt
       {{jed "Contract"/}}
     .dropdown-holder.inline-block
       .button.white.dropdown-toggle
@@ -45,10 +45,10 @@
       %ul.dropdown.right
         %li
           %a.dropdown-item{:href => "{{>url('value_list')}}", :target => "_blank"}
-            %i.icon-list-ol
+            %i.fa.fa-list-ol
             {{jed "Value List"/}}
         %li
           %a.dropdown-item{:href => "{{>url('picking_list')}}", :target => "_blank"}
-            %i.icon-list-ol
+            %i.fa.fa-list-ol
             {{jed "Picking List"/}}
     {{/if}}

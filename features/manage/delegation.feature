@@ -1,19 +1,19 @@
 Feature: Delegation
 
-  @javascript @personas
+  @upcoming @javascript @personas
   Scenario: Assigning a suspended responsible person to a delegation
     Given I am Pius
     And I am editing a delegation
     When I assign a responsible person that is suspended for the current inventory pool
-    Then ist dieser bei der Auswahl rot markiert
+    Then on the selection he is highlighted in red
     And I see the note 'Suspended!' next to their name
 
-  @javascript @personas
+  @upcoming @javascript @personas
   Scenario: Adding a suspended user to a delegation
     Given I am Pius
     And I am editing a delegation
-    When I assign a responsible person that is suspended for the current inventory pool
-    Then ist er bei der Auswahl rot markiert
+    When I add a user to the delegation that is suspended for the current inventory pool
+    Then on the selection he is highlighted in red
     And I see the note 'Suspended!' next to their name
 
   @javascript @personas @browser
@@ -24,24 +24,25 @@ Feature: Delegation
     When I finish this hand over
     Then I have to specify a contact person
 
-  @javascript @personas @browser
+  @upcoming @javascript @personas @browser
   Scenario: Displaying a suspended contact person while handing over
     Given I am Pius
     And there is a hand over for a delegation with assigned items
+    And the current inventory pool has at least suspended 1 user
     And I open this hand over
     When I finish this hand over
     And I choose a suspended contact person
-    Then ist diese Kontaktperson bei der Auswahl rot markiert
+    Then this contact person is highlighted in red
     And I see the note 'Suspended!' next to their name
 
-  @javascript @personas @browser
+  @upcoming @javascript @personas @browser
   Scenario: Picking a suspended contact person while ordering
     Given I am Pius
     And I open an order
     And I swap the user
     And I pick a delegation
     When I pick a contact person that is suspended for the current inventory pool
-    Then ist er bei der Auswahl rot markiert
+    Then that person is highlighted in red
     And I see the note 'Suspended!' next to their name
 
   @javascript @personas @browser
@@ -73,13 +74,13 @@ Feature: Delegation
     Then I see all results for Julie or the delegation named Julie
     And I see all delegations Julie is a member of
 
-  @personas
+  @personas @javascript
   Scenario: Suspended users can't submit orders
     Given I am Julie
-    When ich von meinem Benutzer zu einer Delegation wechsle
-    And die Delegation ist für einen Gerätepark freigeschaltet
-    But ich bin für diesen Gerätepark gesperrt
-    Then kann ich keine Gegenstände dieses Geräteparks absenden
+    When I switch from my user to a delegation
+    And that delegation is enabled for an inventory pool
+    But I am suspended in that inventory pool
+    Then I cannot place any reservations in this inventory pool
 
   @javascript @personas @browser
   Scenario: Filter der Delegationen
@@ -97,7 +98,7 @@ Feature: Delegation
     And I give the delegation access to the current inventory pool
     And I give the delegation a name
     And I assign none, one or more people to the delegation
-    And ich dieser Delegation keinen, einen oder mehrere Gruppen zuteile
+    And I assign none, one or more groups to the delegation
     And I cannot assign a delegation to the delegation
     And I enter exactly one responsible person
     And I save
@@ -154,7 +155,7 @@ Feature: Delegation
     And I save
     Then no orders can be created for this delegation in the current inventory pool
 
-  @javascript @personas
+  @javascript @personas @browser
   Scenario: Persönliche Bestellung in Delegationsbestellung ändern in Bestellung
     Given I am Pius
     And I open an order
@@ -163,16 +164,6 @@ Feature: Delegation
     And I confirm the user change
     Then the order shows the name of the user
     And the order shows the name of the contact person
-
-  @javascript @personas
-  Scenario: Delete delegation
-    Given I am Gino
-    And I can find the user administration features in the "Admin" area under "Users"
-    When there is no order, hand over or contract for a delegation
-    And that delegation has no access rights to any inventory pool
-    Then I can delete that delegation
-
-  #  ANZEIGE BACKEND
 
   @personas
   Scenario: Listing orders for a delegation

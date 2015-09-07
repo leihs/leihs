@@ -35,21 +35,21 @@ Feature: Remove line
 
   @personas
   Scenario: Removal of a line for SIGNED contract should NOT be possible
-    Given there is a "SIGNED" contract with 2 reservations
+    Given there is a "SIGNED" contract with reservations
     When one tries to delete a line
     Then that line has NOT been deleted
     And the amount of reservations remains unchanged
 
   @personas
   Scenario: Removal of a line for CLOSED contract should NOT be possible
-    Given there is a "CLOSED" contract with 2 reservations
+    Given there is a "CLOSED" contract with reservations
     When one tries to delete a line
     Then that line has NOT been deleted
     And the amount of reservations remains unchanged
 
   @personas
   Scenario: Removal of last line of a contract should also remove the contract
-    Given there is a "SUBMITTED" contract with 1 line
+    Given there is a "SUBMITTED" contract with 1 reservation
     When one tries to delete a line
     Then that line has been deleted
     And the amount of reservations decreases by one

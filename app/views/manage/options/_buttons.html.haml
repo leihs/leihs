@@ -1,7 +1,6 @@
 .col1of3.text-align-right
 
-  %a.button.grey{:href => manage_inventory_path(current_inventory_pool)}
-    = _("Cancel")
+  = link_to _('Cancel'), :back, class: 'button grey'
 
   %button.button.green{:type => :submit}
     = _("Save %s") % _("Option")

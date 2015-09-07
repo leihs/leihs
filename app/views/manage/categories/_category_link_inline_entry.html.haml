@@ -7,7 +7,7 @@
     = entry.name
 
   .line-col.col1of10.text-align-center{:title =>_("Subordinate to %s") % entry.name}
-    %i.icon-sitemap
+    %i.fa.fa-sitemap
 
   .line-col.col3of10.text-align-left
     %input.small.width-full{:type => :text, :autocomplete => :off, :placeholder => _("Label"), :name => "category[links][#{entry.id}][label]", :value => @category.label(entry.id)}

@@ -1,0 +1,15 @@
+- content_for :title, _("List of %s") % _("Suppliers")
+- content_for :manage_section, "active"
+
+.row
+
+  .col-sm-6
+    %h1= yield :title
+
+  .col-sm-6.text-right
+    %a.btn.btn-default{href: admin.new_supplier_path}
+      %i.fa.fa-plus
+      = _("Create %s") % _("Supplier")
+
+.list-of-lines
+  = render @suppliers

@@ -241,7 +241,3 @@ When(/^I assign an inventory code to the item line$/) do
   line_selected = find(".line[data-id='#{@item_line.id}'].green")
   @selected_items << item if line_selected
 end
-
-Then(/^wird die Adresse des Verleihers aufgeführt$/) do
-  expect(has_selector?('.parties .inventory_pool .name')).to be true
-end

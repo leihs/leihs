@@ -18,6 +18,10 @@ When(/^I hover over the navigation toggler$/) do
   find("nav.topbar .topbar-navigation.float-right > .topbar-item", match: :first).hover
 end
 
+When(/^I click the navigation toggler$/) do
+  find("nav.navbar .navbar-right > .dropdown", match: :first).click
+end
+
 Then(/^I see all inventory pools for which I am a manager$/) do
   within '#ip-dropdown-menu' do
     @current_user.inventory_pools.managed.each {|ip| has_content? ip.name unless ip == @current_inventory_pool}

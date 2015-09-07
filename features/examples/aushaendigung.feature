@@ -89,23 +89,23 @@ Feature: Edit a hand over
     Then I see the inventory codes and the complete serial numbers of that software
 
 
-  # Not implemented, so not translated.
-  @javascript @browser @personas
-  Scenario: Listing problematic items
-    Given there is a model with a problematic item
-    And ich öffne eine Aushändigung für irgendeinen Benutzer
-    When ich diesen Modell der Aushändigung hinzufüge
-    And ich auf der Modelllinie die Gegenstandsauswahl öffne
-    Then wird der problematische Gegenstand in rot aufgelistet
+  # This was never implemented, so not translated.
+  # @javascript @browser @personas
+  # Scenario: Listing problematic items
+  #   Given there is a model with a problematic item
+  #   And ich öffne eine Aushändigung für irgendeinen Benutzer
+  #   When ich diesen Modell der Aushändigung hinzufüge
+  #   And ich auf der Modelllinie die Gegenstandsauswahl öffne
+  #   Then wird der problematische Gegenstand in rot aufgelistet
 
-  # Not implemented, so not translated.
-  @javascript @browser @personas
-  Scenario: Keine Auflistung von ausgemusterten Gegenständen
-    Given es existiert ein Modell mit einem ausgemusterten und einem ausleihbaren Gegenstand
-    And ich öffne eine Aushändigung für irgendeinen Benutzer
-    When ich diesen Modell der Aushändigung hinzufüge
-    And ich auf der Modelllinie die Gegenstandsauswahl öffne
-    Then wird der ausgemusterte Gegenstand nicht aufgelistet
+  # This was never implemented, so not translated.
+  # @javascript @browser @personas
+  # Scenario: Keine Auflistung von ausgemusterten Gegenständen
+  #   Given es existiert ein Modell mit einem ausgemusterten und einem ausleihbaren Gegenstand
+  #   And ich öffne eine Aushändigung für irgendeinen Benutzer
+  #   When ich diesen Modell der Aushändigung hinzufüge
+  #   And ich auf der Modelllinie die Gegenstandsauswahl öffne
+  #   Then wird der ausgemusterte Gegenstand nicht aufgelistet
 
   @personas @javascript
   Scenario: Displaying already assigned items

@@ -1,0 +1,24 @@
+.row
+  .col-sm-6
+    %strong= inventory_pool.name
+
+  .col-sm-4
+    = inventory_pool.shortname
+
+  .col-sm-2.text-right.line-actions
+
+    - if inventory_pool.can_destroy?
+      .btn-group
+        %a.btn.btn-default{href: admin.edit_inventory_pool_path(inventory_pool)}
+          = _("Edit")
+        %button.btn.btn-default.dropdown-toggle(type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+          %i.caret
+        %ul.dropdown-menu
+          %li.bg-danger
+            %a{href: admin.inventory_pool_path(inventory_pool), data: {method: :delete}}
+              %i.fa.fa-trash
+              = _("Delete")
+
+    - else
+      %a.btn.btn-default{href: admin.edit_inventory_pool_path(inventory_pool)}
+        = _("Edit")

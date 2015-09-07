@@ -1,0 +1,18 @@
+.row.collapsed{style: 'padding-bottom: 1em'}
+
+  .col-sm-2.text-right
+    - s = "%s %s" % [number_with_delimiter(line[:quantity]), line[:unit]]
+    - unless line[:children].blank?
+      %button.btn.btn-xs.btn-default.toggle
+        %i.arrow.right
+        %span= s
+    - else
+      = s
+  .col-sm-2
+    = line[:object]
+  .col-sm-8
+    = line[:label]
+
+- unless line[:children].blank?
+  .children{style: 'padding-left: 1em'}
+    = render partial: "leihs_admin/statistics/show/line", collection: line[:children]

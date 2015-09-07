@@ -1,0 +1,20 @@
+- content_for :title, _("Database empty columns")
+
+= render partial: "header"
+
+- if @empty_columns.empty?
+  %h3
+    = _("All correct")
+    %i.fa.fa-check-square-o
+
+- else
+  = link_to admin.empty_columns_path, method: :delete, class: "btn btn-danger", data: { confirm: _("Nullify on the database") } do
+    = _("Nullify on the database")
+
+  - @empty_columns.each_pair do |key, v|
+    - values = v.to_a # NOTE it performs the executions. so that the next size check doesn't execute an additional mysql count(*)
+    .h3
+      = "%d %s" % [values.size, key]
+    - values.each do |value|
+      .well
+        = value.inspect

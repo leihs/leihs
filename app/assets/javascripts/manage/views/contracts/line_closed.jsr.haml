@@ -16,7 +16,7 @@
 .col2of8.line-col.line-actions
   .multibutton
     %a.button.white.text-ellipsis{:href => "{{>url()}}", :target => "_blank"}
-      %i.icon-file
+      %i.fa.fa-file
       {{jed "Contract"/}}
     .dropdown-holder.inline-block
       .button.white.dropdown-toggle
@@ -24,9 +24,9 @@
       %ul.dropdown.right
         %li
           %a.dropdown-item{:href => "{{>url('value_list')}}", :target => "_blank"}
-            %i.icon-list-ol
+            %i.fa.fa-list-ol
             {{jed "Value List"/}}
         %li
           %a.dropdown-item{:href => "{{>url('picking_list')}}", :target => "_blank"}
-            %i.icon-list-ol
+            %i.fa.fa-list-ol
             {{jed "Picking List"/}}

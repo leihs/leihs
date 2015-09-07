@@ -1,0 +1,19 @@
+%h3= _("Login Details")
+
+.row.form-group
+  .col-sm-6
+    %strong= "#{_("Login")} *"
+  .col-sm-6.text-right
+    %input{type: "text", name: "db_auth[login]", value: @db_auth.try(:login)}
+
+.row.form-group
+  .col-sm-6
+    %strong= "#{_("Password")} *"
+  .col-sm-6.text-right
+    %input{type: "password", name: "db_auth[password]", value: "#{"_password_" if @db_auth}"}
+
+.row.form-group
+  .col-sm-6
+    %strong= "#{_("Password Confirmation")} *"
+  .col-sm-6.text-right
+    %input{type: "password", name: "db_auth[password_confirmation]", value: "#{"_password_" if @db_auth}"}

@@ -1,0 +1,54 @@
+- content_for :title, _("Fields")
+- content_for :manage_section, "active"
+
+= form_tag nil, method: :put, class: 'indent' do
+
+  .text-right
+    %button.btn.btn-default#create_field{type: :button}
+      %i.fa.fa-plus
+      = _("Create %s") % _("Field")
+
+    %button.btn.btn-success{type: :submit}= _("Save %s") % _("Fields")
+
+  - @grouped_fields.each_pair do |group_name, fields|
+    .panel.panel-default
+      .panel-heading
+        %h4= group_name
+      .panel-body
+        - if group_name.blank?
+          #append_here
+        .sortable-list.list-of-lines
+          - fields.each do |field|
+            .row.sortable-item
+              .col-sm-4
+                %strong= field.id
+                %br
+                %input{type: :checkbox, name: "fields[#{field.id}][active]", value: 1, checked: field.active? }
+                = _("Active")
+                %br
+                %i.fa.fa-arrows-v
+              .col-sm-8
+                %textarea.form-control{name: "fields[#{field.id}][data]"}= field.data.to_json
+
+:scss
+  .sortable-item {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    textarea {
+      height: 6em;
+    }
+  }
+
+:coffeescript
+  $(".sortable-list").sortable()
+  $('#create_field').on 'click', ->
+    newRow = $('<div class="row">
+                  <div class="col-sm-4">
+                    <input name="fields[_new_fields_][][id]" type="text">
+                    <br><input name="fields[_new_fields_][][active]" type="checkbox" value="1" checked="checked">Active
+                  </div>
+                  <div class="col-sm-8">
+                    <textarea class="form-control" name="fields[_new_fields_][][data]">{"label":"LABEL","attribute":["properties","ATTRIBUTE"],"type":"text","group":null}</textarea>
+                  </div>
+                </div>')
+    newRow.prependTo('#append_here').effect('highlight')

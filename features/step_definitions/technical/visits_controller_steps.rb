@@ -49,7 +49,7 @@ Then /^the visit does not exist anymore$/ do
   expect(@visit_count).to eq Visit.count + 1
 end
 
-When /^the index action of the visits controller is called with the filter parameter "(hand_over|take back)" and a given date$/ do |arg1|
+When /^the index action of the visits controller is called with the filter parameter "(hand over|take back)" and a given date$/ do |arg1|
   @date = Date.today
   path = case arg1
            when 'hand over'

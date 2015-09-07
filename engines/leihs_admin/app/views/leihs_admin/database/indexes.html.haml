@@ -1,0 +1,26 @@
+- content_for :title, _("Database indexes")
+
+= render partial: "header"
+
+- if @indexes_not_found.empty?
+  %h3
+    = _("All correct")
+    %i.fa.fa-check-square-o
+
+%table.table.table-striped
+  - @indexes_not_found.each do |table, columns, options|
+    %tr
+      %td
+        = table
+      %td
+        = columns
+      %td
+        = options
+  - @indexes_found.each do |table, columns, options|
+    %tr
+      %td
+        = table
+      %td
+        = columns
+      %td
+        = options

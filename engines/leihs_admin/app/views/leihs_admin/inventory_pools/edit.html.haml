@@ -1,0 +1,6 @@
+- content_for :title, _("Edit")
+- content_for :admin_section, "active"
+
+= form_tag admin.inventory_pool_path(@inventory_pool), method: :put do
+
+  = render partial: "leihs_admin/inventory_pools/form"
