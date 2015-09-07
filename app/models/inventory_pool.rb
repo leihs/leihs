@@ -97,6 +97,12 @@ class InventoryPool < ActiveRecord::Base
 
   validates :email, format: /@/, allow_blank: true
 
+  after_save do
+    if automatic_access
+      User.all.each {|user| user.access_rights.create_with(role: :customer, inventory_pool: self).find_or_create_by(inventory_pool_id: id) }
+    end
+  end
+
 #######################################################################
 
   scope :search, lambda { |query|

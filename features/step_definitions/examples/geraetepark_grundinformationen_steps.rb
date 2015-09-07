@@ -148,27 +148,35 @@ Then(/^the reason for suspension is the one specified for this inventory pool$/)
   expect(@access_right.suspended_reason).to eq @reason
 end
 
-When(/^I disable automatic access$/) do
+When(/^I (enable|disable) automatic access$/) do |arg1|
+  b = arg1 == 'enable'
   within('.row.padding-inset-s', match: :prefer_exact, text: _('Automatic access')) do
-    find('input', match: :first).set false
+    find('input', match: :first).set b
   end
 end
 
-Then(/^automatic access is disabled$/) do
-  expect(@current_inventory_pool.reload.automatic_access).to be false
+Then(/^automatic access is (enabled|disabled)$/) do |arg1|
+  b = arg1 == 'enabled'
+  expect(@current_inventory_pool.reload.automatic_access).to be b
 end
 
-Given(/^I edit an inventory pool( that is granting automatic access)?$/) do |arg1|
+Given(/^I edit an inventory pool( that is( not)? granting automatic access)?$/) do |arg1, arg2|
   if arg1
-    @current_inventory_pool = @current_user.inventory_pools.managed.where(automatic_access: true).order('RAND()').first
+    b = !arg2
+    @current_inventory_pool = @current_user.inventory_pools.managed.where(automatic_access: b).order('RAND()').first
     @current_inventory_pool ||= begin
       ip = @current_user.inventory_pools.managed.order('RAND()').first
-      ip.update_attributes(automatic_access: true)
+      ip.update_attributes(automatic_access: b)
       ip
     end
   end
   visit manage_edit_inventory_pool_path(@current_inventory_pool)
   @last_edited_inventory_pool = @current_inventory_pool
+end
+
+Given(/^there are( no)? users without access right to this inventory pool$/) do |arg1|
+  b = !arg1
+  expect(User.all.any?{|user| user.access_rights.find_by(inventory_pool_id: @current_inventory_pool).nil? }).to be b
 end
 
 Given(/^multiple inventory pools are granting automatic access$/) do

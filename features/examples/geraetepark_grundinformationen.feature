@@ -58,6 +58,16 @@ Feature: Basic information for inventory pools
     When I have created a user with login "username" and password "password"
     Then the newly created user does not have access to that inventory pool
 
+  @personas
+  Scenario: Enable automatic access to a new inventory pool
+    Given I am Mike
+    And I edit an inventory pool that is not granting automatic access
+    And there are users without access right to this inventory pool
+    When I enable automatic access
+    And I save
+    Then automatic access is enabled
+    And there are no users without access right to this inventory pool
+
   #72676850
   @personas
   Scenario Outline: Deselect checkboxes
