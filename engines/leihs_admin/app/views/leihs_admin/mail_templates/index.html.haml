@@ -1,6 +1,8 @@
 - content_for :title, _("Mail Templates")
 - content_for :manage_section, "active"
 
+%h1= yield :title
+
 .list-of-lines
 
   - @existing_mail_templates.each do |existing_mail_template|

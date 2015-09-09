@@ -160,6 +160,7 @@ class App.InventoryHelperController extends Spine.Controller
       el: @flexibleFields
       itemData: @currentItemData
       writeable: writeable
+      hideable: true
   
   fetchItem: (inventoryCode, callback)=>
     App.Item.ajaxFetch

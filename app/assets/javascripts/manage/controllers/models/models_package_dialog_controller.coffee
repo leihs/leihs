@@ -27,6 +27,7 @@ class window.App.ModelsPackageDialogController extends Spine.Controller
       itemType: "item"
       forPackage: true
       writeable: true
+      hideable: false
 
   setupAutocomplete: (e)=>
     input = $ e.currentTarget

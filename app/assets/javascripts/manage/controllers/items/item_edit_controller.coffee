@@ -18,6 +18,7 @@ class window.App.ItemEditController extends Spine.Controller
       itemData: @itemData
       itemType: @itemType
       writeable: true
+      hideable: true
 
   save: =>
     if @flexibleFieldsController.validate()
