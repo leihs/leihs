@@ -107,7 +107,7 @@ Then(/^the timer counts down from (\d+) minutes$/) do |timeout_minutes|
   minutes = @countdown.split(':')[0].to_i
   seconds = @countdown.split(':')[1].to_i
   sleep(1) # NOTE this sleep is required in order to test the countdown
-  expect(Contract::TIMEOUT_MINUTES - 1).to be <= minutes
+  expect(Setting.timeout_minutes - 1).to be <= minutes
   expect(find('#timeout-countdown-time', match: :first).reload.text.split(':')[1].to_i).to be < seconds
 end
 
@@ -128,10 +128,10 @@ Then(/^the timer is reset$/) do
 end
 
 Given(/^the timeout is set to (\d+) minutes?$/) do |arg1|
-  Contract.const_set 'TIMEOUT_MINUTES', arg1.to_i
-  expect(Contract::TIMEOUT_MINUTES).to eq arg1.to_i
+  Setting.first.update_attributes(timeout_minutes: arg1.to_i)
+  expect(Setting.timeout_minutes).to eq arg1.to_i
 end
 
 When(/^the timer has run down$/) do
-  sleep(Contract::TIMEOUT_MINUTES * 60 + 1) # NOTE this sleep is required to test the timeout
+  sleep(Setting.timeout_minutes * 60 + 1) # NOTE this sleep is required to test the timeout
 end

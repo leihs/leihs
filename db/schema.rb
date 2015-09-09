@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150616123337) do
+ActiveRecord::Schema.define(version: 20150909134614) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "user_id",           limit: 4
@@ -456,6 +456,7 @@ ActiveRecord::Schema.define(version: 20150616123337) do
     t.boolean "disable_borrow_section",                       default: false,  null: false
     t.text    "disable_borrow_section_message", limit: 65535
     t.text    "text",                           limit: 65535
+    t.integer "timeout_minutes",                limit: 4,     default: 30,     null: false
   end
 
   create_table "suppliers", force: :cascade do |t|

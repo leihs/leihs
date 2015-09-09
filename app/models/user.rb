@@ -309,7 +309,7 @@ class User < ActiveRecord::Base
   ############################################
 
   def timeout?
-    reservations.unsubmitted.where('updated_at < ?', Time.now - Contract::TIMEOUT_MINUTES.minutes).exists?
+    reservations.unsubmitted.where('updated_at < ?', Time.now - Setting.timeout_minutes.minutes).exists?
   end
 
 end

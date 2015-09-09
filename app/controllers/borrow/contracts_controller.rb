@@ -45,7 +45,7 @@ class Borrow::ContractsController < Borrow::ApplicationController
   end
 
   def timed_out
-    flash[:error] = _('%d minutes passed. The items are not reserved for you any more!') % Contract::TIMEOUT_MINUTES
+    flash[:error] = _('%d minutes passed. The items are not reserved for you any more!') % Setting.timeout_minutes
     @timed_out = true
     render :current
   end

@@ -5,7 +5,7 @@ Given(/^I have an unsubmitted order with models$/) do
 end
 
 Given(/^the contract timeout is set to (\d+) minutes$/) do |arg1|
-  expect(Contract::TIMEOUT_MINUTES).to eq arg1.to_i
+  expect(Setting.timeout_minutes).to eq arg1.to_i
 end
 
 #######################################################################

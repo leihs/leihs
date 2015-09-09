@@ -19,7 +19,7 @@ Given(/^I hit the timeout page with (\d+) models that have conflicts$/) do |n|
 end
 
 Then(/^I am informed that my items are no longer reserved for me$/) do
-  expect(has_content?(_('%d minutes passed. The items are not reserved for you any more!') % Contract::TIMEOUT_MINUTES)).to be true
+  expect(has_content?(_('%d minutes passed. The items are not reserved for you any more!') % Setting.timeout_minutes)).to be true
 end
 
 Then(/^I am informed that the remaining models are all available$/) do

@@ -80,7 +80,7 @@ class InventoryPool < ActiveRecord::Base
             GROUP_CONCAT(groups_users.group_id) AS concat_group_ids").
     joins('LEFT JOIN groups_users ON groups_users.user_id = reservations.user_id').
     where.not(status: [:rejected, :closed]).
-    where.not("status = '#{:unsubmitted}' AND updated_at < '#{Time.now.utc - Contract::TIMEOUT_MINUTES.minutes}'").
+    where.not("status = '#{:unsubmitted}' AND updated_at < '#{Time.now.utc - Setting.timeout_minutes.minutes}'").
     where.not("end_date < '#{Date.today}' AND item_id IS NULL").
     group(:id).
     order(:start_date, :end_date) # the order is needed by the availability computation
