@@ -3852,6 +3852,10 @@ window.i18n.locale_data = {
       "Hide this field from all item forms": [
          null,
          "Dieses Feld beim Editieren von Gegenständen nicht mehr anzeigen"
+      ],
+      "product": [
+         null,
+         "Produkt"
       ]
    }
 }

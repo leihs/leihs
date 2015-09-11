@@ -9,7 +9,7 @@
     - Fr
     - Sa
     abbr_month_names:
-    - 
+    -
     - Jan
     - Feb
     - Mär
@@ -35,7 +35,7 @@
       long: ! '%e. %B %Y'
       short: ! '%e. %b'
     month_names:
-    - 
+    -
     - Januar
     - Februar
     - März
@@ -124,6 +124,10 @@
       header:
         one: ! 'Han %{model} nöd chönne speicherä: ein fähler.'
         other: ! 'Han %{model} nöd chönne speicherä: %{count} fähler.'
+    models:
+      model:
+        attributes:
+          product: Produkt        
   helpers:
     select:
       prompt: Bitte wähle
@@ -194,10 +198,3 @@
       long: ! '%A, %d. %B %Y, %H:%M Uhr'
       short: ! '%d. %B, %H:%M Uhr'
     pm: nachmittags
-  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
-  activemodel:
-    errors:
-      <<: *errors
-  activerecord:
-    errors:
-      <<: *errors
