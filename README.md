@@ -17,7 +17,7 @@ length of time, please [read our advisory](http://blog.zhdk.ch/leihs/2015/06/30/
 
 How to access the live demo is described in our wiki:
 
-https://github.com/zhdk/leihs/wiki
+https://github.com/zhdk/leihs/wiki#live-demo
 
 
 ## Installation guide
