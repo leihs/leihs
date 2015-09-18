@@ -3,7 +3,6 @@ LeihsAdmin::Engine.routes.draw do
   root to: redirect('/admin/inventory_pools')
 
   resources :buildings,       except: :show
-  resources :fields,          only: [:index, :update]
   resources :inventory_pools, except: :show
   resources :locations,       only: :destroy
   resources :scenarios,       only: :index
@@ -23,6 +22,10 @@ LeihsAdmin::Engine.routes.draw do
 
   # Export inventory of all inventory pools
   get 'inventory/csv',              :to => 'inventory#csv_export',  :as => 'global_inventory_csv_export'
+
+  # Fields
+  get 'fields', to: 'fields#index'
+  put 'fields', to: 'fields#update'
 
   # Administrate settings
   get 'settings', to: 'settings#edit'
