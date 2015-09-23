@@ -12,9 +12,6 @@ namespace :leihs do
   desc 'set the deploy information as footer'
   task :set_deploy_information_footer do |branch|
     branch = ENV['BRANCH']
-    sha = File.read(ENV['REVISION_PATH']) if ENV['REVISION_PATH']
-    sha = ENV['REVISION'] if ENV['REVISION']
-
     url = URI.parse("https://api.github.com/repos/zhdk/leihs/commits/#{branch}")
     request = Net::HTTP::Get.new(url.path)
 
@@ -25,6 +22,20 @@ namespace :leihs do
     time_now = Time.now.to_s
     sha = json['sha']
 
+    #new#
+    git_info = {
+        branch: branch,
+        time_of_deploy: time_now,
+        time_of_commit: time_of_commit,
+        author: author["name"],
+        sha: sha
+    }
+    File.open("log/git.json","w") do |f|
+      f.write(git_info.to_json)
+    end
+    #end new#
+
+    #old#
     File.open(Rails.root.join('app', 'views', 'staging', '_deploy_information.html.haml'), 'a+') do |f| 
 
       f.puts "\n        %span"
@@ -44,11 +55,11 @@ namespace :leihs do
       f.puts "\n        %span\n"
       f.print "          = \"#{sha}\""
     end
-
     text = File.read(Rails.root.join('app', 'views', 'staging', '_deploy_information.html.haml'))
     File.open(Rails.root.join('app', 'views', 'layouts', 'splash.html.haml'), 'a+') {|f| f.puts text}
     File.open(Rails.root.join('app', 'views', 'layouts', 'manage.html.haml'), 'a+') {|f| f.puts text}
     File.open(Rails.root.join('app', 'views', 'layouts', 'borrow.html.haml'), 'a+') {|f| f.puts text}
+    #end old#
   end
 
   desc 'Initialize'

@@ -51,15 +51,20 @@
           .row
             .col-sm-2
               %h2= "leihs"
-            .col-sm-5
-              - unless controller_path =~ /^borrow/
-                %a{:href => "https://github.com/zhdk/leihs", :target => "_blank"}= _("Source code")
-            .col-sm-5.text-right
-              %i.fa.fa-globe.grey
-              - active_language = Language.find_by_locale_name(I18n.locale)
-              - Language.active_languages.each do |language|
-                - if language == active_language
-                  %a{:href => ""}
-                    %strong= language.name
-                - else
-                  %a{:href => @bread_crumbs ? @bread_crumbs.path_for(url_for(params.merge(:locale => language.locale_name))) : url_for(params.merge(:locale => language.locale_name))}= language.name
+            .col-sm-10
+              .text-right
+                %i.fa.fa-globe.grey
+                - active_language = Language.find_by_locale_name(I18n.locale)
+                - Language.active_languages.each do |language|
+                  - if language == active_language
+                    %a{:href => ""}
+                      %strong= language.name
+                  - else
+                    %a{:href => @bread_crumbs ? @bread_crumbs.path_for(url_for(params.merge(:locale => language.locale_name))) : url_for(params.merge(:locale => language.locale_name))}= language.name
+
+              .text-left
+                - unless controller_path =~ /^borrow/
+                  %a{:href => "https://github.com/zhdk/leihs", :target => "_blank"}= _("Source code")
+
+                = render partial: 'layouts/leihs_admin/git_info'
+

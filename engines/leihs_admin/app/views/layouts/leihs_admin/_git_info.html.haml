@@ -1,0 +1,16 @@
+- if request.base_url == 'http://test.leihs.zhdk.ch' and File.exists?(File.join(Rails.root, 'log/git.json'))
+  :scss
+      body {
+        background: rgba(50, 255, 50, 0.5) !important;
+        & > .container {
+          background: white !important;
+        }
+      }
+  :ruby
+    json = JSON.parse(File.read(File.join(Rails.root, 'log/git.json')))
+
+  = _("this is the branch '%s'") % json["branch"]
+  = _("deployed %s ago") % distance_of_time_in_words_to_now(json["time_of_deploy"])
+  = _("last change by '%s'") % json["author"]
+  = _("is %s ago") % distance_of_time_in_words_to_now(json["time_of_commit"])
+  = json["sha"]
