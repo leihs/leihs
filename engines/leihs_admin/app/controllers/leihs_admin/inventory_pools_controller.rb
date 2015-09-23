@@ -2,7 +2,7 @@ module LeihsAdmin
   class InventoryPoolsController < AdminController
 
     def index
-      @inventory_pools = InventoryPool.all.sort
+      @inventory_pools = InventoryPool.search(params[:search_term]).sort
     end
 
     def new

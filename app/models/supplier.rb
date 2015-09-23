@@ -11,10 +11,21 @@ class Supplier < ActiveRecord::Base
   end
 
   def self.filter(params)
-    suppliers = order(:name)
+    suppliers = search(params[:search_term]).order(:name)
     suppliers = suppliers.where(id: params[:ids]) if params[:ids]
     suppliers
   end
+
+  scope :search, lambda { |query|
+                 sql = all
+                 return sql if query.blank?
+
+                 query.split.each { |q|
+                   q = "%#{q}%"
+                   sql = sql.where(arel_table[:name].matches(q))
+                 }
+                 sql
+               }
 
 end
 

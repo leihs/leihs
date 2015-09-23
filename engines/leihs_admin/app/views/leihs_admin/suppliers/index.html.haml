@@ -11,5 +11,13 @@
       %i.fa.fa-plus
       = _("Create %s") % _("Supplier")
 
+%form.row.well
+  .col-sm-4
+    %input.form-control{type: 'text', name: 'search_term', value: params[:search_term], placeholder: _("Search..."), autocomplete: :false, autofocus: true, onfocus: "this.value = this.value;"}
+  .col-sm-8
+    %button.btn.btn-default{type: :submit}
+      %i.fa.fa-search
+      = _('Search')
+
 .list-of-lines
   = render @suppliers

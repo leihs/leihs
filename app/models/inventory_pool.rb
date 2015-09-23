@@ -112,6 +112,7 @@ class InventoryPool < ActiveRecord::Base
     query.split.each{|q|
       q = "%#{q}%"
       sql = sql.where(arel_table[:name].matches(q).
+                      or(arel_table[:shortname].matches(q)).
                       or(arel_table[:description].matches(q)))
     }
     sql

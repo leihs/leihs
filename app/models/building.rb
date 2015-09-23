@@ -15,9 +15,22 @@ class Building < ActiveRecord::Base
   end
 
   def self.filter(params)
-    buildings = all
+    buildings = search(params[:search_term])
     buildings = buildings.where(id: params[:ids]) if params[:ids]
     buildings
   end
+
+  scope :search, lambda { |query|
+                 sql = all
+                 return sql if query.blank?
+
+                 query.split.each { |q|
+                   q = "%#{q}%"
+                   sql = sql.where(arel_table[:name].matches(q).
+                                       or(arel_table[:code].matches(q))
+                   )
+                 }
+                 sql
+               }
 
 end

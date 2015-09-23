@@ -28,7 +28,7 @@
 
   %form#list-filters.row.well
     .col-sm-2
-      %input{type: 'text', name: 'search_term', value: params[:search_term], placeholder: _("Search..."), autocomplete: :false, autofocus: true}
+      %input.form-control{type: 'text', name: 'search_term', value: params[:search_term], placeholder: _("Search..."), autocomplete: :false, autofocus: true, onfocus: "this.value = this.value;"}
     .col-sm-2
       = select_tag "type", options_for_select([[_("All"), ""], [_("Users"), "user"], [_("Delegations"), "delegation"]], params[:type])
     .col-sm-8
