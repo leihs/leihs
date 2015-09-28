@@ -136,6 +136,7 @@ class Item < ActiveRecord::Base
     items = items.broken if params[:broken]
     items = items.where(inventory_code: params[:inventory_code]) if params[:inventory_code]
     items = items.where(model_id: params[:model_ids]) if params[:model_ids]
+    items = items.where(arel_table[:last_check].lteq(Date.strptime(params[:before_last_check], I18n.translate('date.formats.default')))) unless params[:before_last_check].blank?
     items = items.search(params[:search_term]) unless params[:search_term].blank?
     items = items.default_paginate params unless params[:paginate] == 'false'
     items
@@ -296,15 +297,14 @@ class Item < ActiveRecord::Base
     h1
   end
 
-#old??#
-# def inventory_code
-#   s = read_attribute('inventory_code')
-#   s = "#{parent.inventory_code}/#{s}" if parent
-#   s
-# end
+####################################################################
 
-  def inv_code_with_location
-    "#{inventory_code}<br/><div>#{location}</div>"
+  def lowest_proposed_inventory_code
+    Item.proposed_inventory_code(owner, :lowest)
+  end
+
+  def highest_proposed_inventory_code
+    Item.proposed_inventory_code(owner, :highest)
   end
 
 ####################################################################
@@ -317,14 +317,20 @@ class Item < ActiveRecord::Base
 
   # proposes the next available number based on the owner inventory_pool
   # tries to take the next free inventory code after the previously created Item
-  def self.proposed_inventory_code(inventory_pool)
-    last_inventory_code = Item.where(owner_id: inventory_pool).order('created_at DESC').first.try(:inventory_code)
-    num = last_number(last_inventory_code)
-    next_num = free_inventory_code_ranges({from: num}).first.first
+  def self.proposed_inventory_code(inventory_pool, type = :last)
+    next_num = case type
+            when :lowest
+              free_inventory_code_ranges({from: 0}).first.first
+            when :highest
+              free_inventory_code_ranges({from: 0}).last.first
+            else # :last
+              num = last_number(Item.where(owner_id: inventory_pool).order('created_at DESC').first.try(:inventory_code))
+              free_inventory_code_ranges({from: num}).first.first
+          end
     return "#{inventory_pool.shortname}#{next_num}"
   end
 
-  # if argument is false returns { 1 => 3, 2 => 1, 77 => 1, 79 => 2, ... }
+# if argument is false returns { 1 => 3, 2 => 1, 77 => 1, 79 => 2, ... }
   # the key is the allocated inventory_code_number
   # the value is the count of the allocated items
   # if the value is larger than 1, then there is a allocation conflict

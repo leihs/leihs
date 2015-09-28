@@ -48,6 +48,10 @@
               %i.fa.fa-align-left
               {{jed "Timeline"/}}
           %li
+            %a.dropdown-item{:"data-swap-model" => true}
+              %i.fa.fa-exchange
+              {{jed "Swap Model"/}}
+          %li
             %a.dropdown-item.red{:"data-destroy-lines" => true, :"data-ids" => "[{{>ids/}}]"}
               %i.fa.fa-trash
               {{jed "Delete"/}}

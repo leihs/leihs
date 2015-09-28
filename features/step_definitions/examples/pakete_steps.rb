@@ -128,7 +128,7 @@ end
 Then /^I can only save this package if I also assign items$/ do
   find('#save-package').click
   expect(has_content?(_('You can not create a package without any item'))).to be true
-  expect(has_content?(_('New Package'))).to be true
+  find("h3", text: _('Package'))
   find('.modal-close').click
   expect(has_no_selector?("[data-type='field-inline-entry']")).to be true
 end

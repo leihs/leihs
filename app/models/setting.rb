@@ -8,7 +8,7 @@ class Setting < ActiveRecord::Base
   validates_presence_of :disable_manage_section_message, if: :disable_manage_section?
 
   #validates_numericality_of :smtp_port, greater_than: 0
-  validates_numericality_of :timeout_minutes, greater_than: 0
+  # FIXME migration not running # validates_numericality_of :timeout_minutes, greater_than: 0
 
   validates_format_of :default_email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 

@@ -1,7 +1,14 @@
 :ruby
   entries = @model.persisted? ? @model.items.unretired.where(inventory_pool: current_inventory_pool).order("created_at DESC") : []
+  last_proposed_inventory_code = "P-" + Item.proposed_inventory_code(current_inventory_pool, :last)
+  lowest_proposed_inventory_code = "P-" + Item.proposed_inventory_code(current_inventory_pool, :lowest)
+  highest_proposed_inventory_code = "P-" + Item.proposed_inventory_code(current_inventory_pool, :highest)
 
 #packages
   = render :layout => "manage/fields/field", :locals => {key: _("Packages"), entries: entries, entry_partial: "manage/models/form/model/package_inline_entry"} do
     .text-align-right
-      %button#add-package.button.inset{:type => :button}= _("Add %s") % _("Package")
+      %button#add-package.button.inset{type: :button,
+                                       data: { inventory_code: last_proposed_inventory_code,
+                                               lowest_proposed_inventory_code: lowest_proposed_inventory_code,
+                                               highest_proposed_inventory_code: highest_proposed_inventory_code}}
+        = _("Add %s") % _("Package")

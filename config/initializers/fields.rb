@@ -8,7 +8,8 @@ if ActiveRecord::Base.connection.tables.include?('fields')
           required: true,
           permissions: {role: :inventory_manager, owner: true},
           type: 'text',
-          group: nil
+          group: nil,
+          forPackage: true
       }, {
           id: :model_id,
           label: 'Model',

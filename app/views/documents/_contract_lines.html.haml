@@ -1,0 +1,22 @@
+- lines.sort.each do |line|
+  %tr{style: "vertical-align: top"}
+    %td.quantity= line.quantity
+    %td.inventory_code= line.item.inventory_code
+    %td.model_name
+      = line.model.name
+      - if line.model.is_a? Software
+        %br
+        = line.item.serial_number
+      - if line.model.is_a?(Model) and line.model.is_package?
+        %ul
+          - line.item.children.each do |item|
+            %li= item
+      - if line.model.is_a?(Model) and not (accessories = line.model.accessories.active_in(current_inventory_pool)).blank?
+        %ul
+          - accessories.each do |accessory|
+            %li= accessory
+    %td.end_date= l line.end_date
+    %td.returning_date
+      - if line.returned_date
+        = l line.returned_date
+        != "#{line.returned_to_user.try(:short_name)}"

@@ -84,7 +84,7 @@ class window.App.HandOverDialogController extends Spine.Controller
 
   handOver: =>
     @purpose = @purposeTextArea.val() unless @purpose.length
-    if @validatePurpose() and @validateDelegatedUser()
+    if @validateDelegatedUser()
       @contract.sign
         line_ids: _.map(@reservations, (l)->l.id)
         purpose: @purposeTextArea.val()
@@ -99,14 +99,6 @@ class window.App.HandOverDialogController extends Spine.Controller
         new App.DocumentsAfterHandOverController
           contract: new App.Contract data
           itemsCount: @itemsCount
-
-  validatePurpose: => 
-    unless @purpose.length
-      @errorContainer.find("strong").html(_jed("Specification of the purpose is required"))
-      @errorContainer.removeClass("hidden")
-      @purposeTextArea.focus()
-      return false
-    return true
 
   toggleAddPurpose: =>
 

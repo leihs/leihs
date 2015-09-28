@@ -225,6 +225,21 @@ class Manage::ReservationsController < Manage::ApplicationController
     end
   end
 
+  def swap_model
+    reservations = current_inventory_pool.reservations.where(id: params[:line_ids])
+    model = Model.find(params[:model_id])
+    ActiveRecord::Base.transaction do
+      reservations.each do |line|
+        line.update_attributes(model: model, item_id: nil)
+      end
+    end
+    if reservations.all? &:valid?
+      render json: reservations
+    else
+      render status: :bad_request, nothing: true
+    end
+  end
+
   def print
     @reservations = current_inventory_pool.reservations.where(id: params[:ids])
     case params[:type]

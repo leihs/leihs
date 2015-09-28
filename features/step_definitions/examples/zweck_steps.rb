@@ -58,16 +58,13 @@ end
 Then /^I am told during hand over to assign a purpose$/ do
   find('.multibutton .button[data-hand-over-selection]').click
   within '.modal' do
-    find('.button', match: :first)
-    find('#purpose')
+    find('#purpose-input', text: _("Please provide a purpose...")).find('#purpose')
   end
 end
 
-Then /^only when I assign a purpose$/ do
+Then /^I do not assign a purpose$/ do
   within '.modal' do
-    find('.button.green[data-hand-over]', text: _('Hand Over')).click
-    find('#error')
-    find('#purpose').set 'The purpose for this hand over'
+    expect(find('#purpose').text).to be_empty
   end
 end
 

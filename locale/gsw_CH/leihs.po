@@ -2917,3 +2917,15 @@ msgstr "Alli versteckte Fälder wieder azeige"
 
 msgid "Hide this field from all item forms"
 msgstr "Das Fäld bim Editiere vo Gägeständ nümme azeige"
+
+msgid "next from last used"
+msgstr "zletscht verwändet +1"
+
+msgid "fill up gaps"
+msgstr "Löcher uffülle"
+
+msgid "assign highest available"
+msgstr "högschtmöglich"
+
+msgid "Swap Model"
+msgstr "Modäll tuusche"

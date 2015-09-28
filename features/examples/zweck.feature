@@ -43,7 +43,7 @@ Feature: Purpose
     When I open a hand over
     And none of the selected items have an assigned purpose
     Then I am told during hand over to assign a purpose
-    And only when I assign a purpose
+    But I do not assign a purpose
     Then I can finish the hand over
 
   @javascript @browser @personas

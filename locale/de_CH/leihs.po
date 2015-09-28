@@ -2974,3 +2974,15 @@ msgstr "Alle versteckten Felder wieder anzeigen"
 
 msgid "Hide this field from all item forms"
 msgstr "Dieses Feld beim Editieren von Gegenständen nicht mehr anzeigen"
+
+msgid "next from last used"
+msgstr "zuletzt verwendet +1"
+
+msgid "fill up gaps"
+msgstr "Lücken auffüllen"
+
+msgid "assign highest available"
+msgstr "höchstmöglich"
+
+msgid "Swap Model"
+msgstr "Modell tauschen"

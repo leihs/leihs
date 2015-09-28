@@ -18,6 +18,14 @@
 
   .col4of10.line-col.text-align-left
     %strong {{>model().name()}}
+    {{if item() && item().children().all().length}}
+    %ul{style: 'font-size: 0.8em; list-style-type: disc; margin-left: 1.5em;'}
+      {{for item().children().all()}}
+      %li
+        {{>to_s}}
+      {{/for}}
+    {{/if}}
+
     {{if model().accessory_names && model().accessory_names.length}}
     %br
     %span {{>model().accessory_names}}
@@ -50,6 +58,10 @@
             %a.dropdown-item{:"data-open-time-line" => true, :"data-model-id" => "{{>model().id}}"}
               %i.fa.fa-align-left
               {{jed "Timeline"/}}
+          %li
+            %a.dropdown-item{:"data-swap-model" => true}
+              %i.fa.fa-exchange
+              {{jed "Swap Model"/}}
           %li
             %a.dropdown-item.red{:"data-destroy-line" => true}
               %i.fa.fa-trash

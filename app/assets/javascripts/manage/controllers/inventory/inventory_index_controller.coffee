@@ -15,6 +15,7 @@ class window.App.InventoryIndexController extends Spine.Controller
     @search = new App.ListSearchController {el: @el.find("#list-search"), reset: @reset}
     @tabs = new App.ListTabsController {el: @el.find("#list-tabs"), reset: @reset}
     @filter = new App.ListFiltersController {el: @filterElement, reset: @reset}
+    @range = new App.ListRangeController {el: @filterElement, reset: @reset}
     new App.TimeLineController {el: @el}
     new App.InventoryExpandController {el: @el}
     @exportButton.data "href", @exportButton.attr("href")

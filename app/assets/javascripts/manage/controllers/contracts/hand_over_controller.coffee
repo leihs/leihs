@@ -15,6 +15,7 @@ class window.App.HandOverController extends Spine.Controller
       "Model": "Item"
       "Software": "License"
     do @initalFetch
+    new App.SwapModelController {el: @el}
     new App.ReservationsDestroyController {el: @el}
     new App.ReservationAssignItemController {el: @el}
     new App.TimeLineController {el: @el}

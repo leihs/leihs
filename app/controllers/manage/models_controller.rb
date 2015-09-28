@@ -112,9 +112,9 @@ class Manage::ModelsController < Manage::ApplicationController
       if package['id'].blank?
         ActiveRecord::Base.transaction do
           item = Item.new
-          data = package.merge inventory_code: "P-#{Item.proposed_inventory_code(current_inventory_pool)}",
-                               owner_id: current_inventory_pool.id,
+          data = package.merge owner_id: current_inventory_pool.id,
                                model: @model
+          data[:inventory_code] ||= "P-#{Item.proposed_inventory_code(current_inventory_pool)}"
           item.update_attributes data
           children['id'].each do |child|
             item.children << Item.find_by_id(child)

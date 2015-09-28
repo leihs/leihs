@@ -20,6 +20,7 @@ class window.App.ContractsEditController extends Spine.Controller
     do @setupLineSelection
     do @fetchAvailability
     do @setupAddLine
+    new App.SwapModelController {el: @el}
     new App.TimeLineController {el: @el}
     new App.ContractsApproveController {el: @el, done: @contractApproved}
     new App.ContractsRejectController {el: @el, async: false}

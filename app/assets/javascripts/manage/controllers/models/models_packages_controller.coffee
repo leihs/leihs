@@ -6,13 +6,14 @@ class window.App.ModelsPackagesController extends Spine.Controller
 
   elements:
     ".list-of-lines": "list"
+    "#add-package": "addPackageButton"
 
   constructor: ->
     super
 
   createPackage: =>
     new App.ModelsPackageDialogController
-      item: new App.Item
+      item: new App.Item($(@addPackageButton).data())
       done: @saveNotExistingPackage
       children: []
 

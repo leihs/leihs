@@ -63,7 +63,7 @@
     for reservation in #{@reservations.to_json}
       App.Reservation.addRecord new App.Reservation reservation
 
-    for item in #{@items.to_json}
+    for item in #{@items.to_json(include: {children: {methods: :to_s}})}
       App.Item.addRecord new App.Item item
 
     for license in #{@licenses.to_json}

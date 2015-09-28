@@ -17,8 +17,7 @@
       
       = render :partial => "manage/inventory/index/tabs"
 
-      #filter-search-container.row.margin-vertical-xs.padding-horizontal-s
-
+      .row.margin-vertical-xs.padding-horizontal-s
         %form.row.margin-bottom-xs{data: {filter: "true"}, class: ( "hidden" if session[:params].try(:fetch, :type, nil) == "option" )}
           .col1of4.padding-right-xs
             %select.width-full{name: "retired", title: "#{_("retired")} / #{_("not retired")}"}
@@ -44,35 +43,40 @@
               - @responsibles.each do |responsible|
                 %option{value: responsible.id, selected: (session[:params].try(:fetch, :responsible_inventory_pool_id, nil).try(:to_i) == responsible.id)}= responsible.name
         .row
-          .col2of6.padding-right-xs
+          .col2of8.padding-right-xs
             .row
               .col1of6.padding-right-xs
                 %button#categories-toggle.button.inset.width-full.height-full.no-padding.text-align-center
                   %i.fa.fa-reorder.vertical-align-middle
               .col5of6
                 %input#list-search.width-full{type: "text", name: "input", placeholder: _("Search..."), autocomplete: :off, value: session[:params].try(:fetch, :search_term, nil)}
-          %form.col4of6{data: {filter: "true"}, class: ( "hidden" if session[:params].try(:fetch, :type, nil) == "option" )}
+          %form.col6of8{data: {filter: "true"}, class: ( "hidden" if session[:params].try(:fetch, :type, nil) == "option" )}
             .row
-              .col1of4.padding-right-xs
+              .col1of5.padding-right-xs
                 %label.button.inset.white.width-full.height-xxs{:for => :owned}
                   %input{:name => :owned, :type => :hidden, :value => "0"}
                   %input#owned{:name => :owned, :type => :checkbox, :value => "1", :autocomplete => :off, checked: session[:params].try(:fetch, :owned, nil)}
                   %span= _("Owned")
-              .col1of4.padding-right-xs
+              .col1of5.padding-right-xs
                 %label.button.inset.white.width-full.height-xxs{:for => :in_stock}
                   %input{:name => :in_stock, :type => :hidden, :value => "0"}
                   %input#in_stock{:name => :in_stock, :type => :checkbox, :value => "1", :autocomplete => :off, checked: session[:params].try(:fetch, :in_stock, nil)}
                   %span= _("In Stock")
-              .col1of4.padding-right-xs
+              .col1of5.padding-right-xs
                 %label.button.inset.white.width-full.height-xxs{:for => :incomplete}
                   %input{:name => :incomplete, :type => :hidden, :value => "0"}
                   %input#incomplete{:name => :incomplete, :type => :checkbox, :value => "1", :autocomplete => :off, checked: session[:params].try(:fetch, :incomplete, nil)}
                   %span= _("Incomplete")
-              .col1of4.padding-right-xs
+              .col1of5.padding-right-xs
                 %label.button.inset.white.width-full.height-xxs{:for => :broken}
                   %input{:name => :broken, :type => :hidden, :value => "0"}
                   %input#broken{:name => :broken, :type => :checkbox, :value => "1", :autocomplete => :off, checked: session[:params].try(:fetch, :broken, nil)}
                   %span= _("Broken")
+              .col1of5.padding-right-xs
+                %label.row
+                  %input.has-addon{type: "text", name: "before_last_check", placeholder: _("before check"), autocomplete: :off, value: params[:before_last_check]}
+                  %span.addon
+                    %i.fa.fa-calendar
 
       .table
 

@@ -3827,6 +3827,22 @@ window.i18n.locale_data = {
       "Hide this field from all item forms": [
          null,
          "Das Fäld bim Editiere vo Gägeständ nümme azeige"
+      ],
+      "next from last used": [
+         null,
+         "zletscht verwändet +1"
+      ],
+      "fill up gaps": [
+         null,
+         "Löcher uffülle"
+      ],
+      "assign highest available": [
+         null,
+         "högschtmöglich"
+      ],
+      "Swap Model": [
+         null,
+         "Modäll tuusche"
       ]
    }
 }

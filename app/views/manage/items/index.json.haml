@@ -2,4 +2,4 @@
   != @items.to_json :include => [:inventory_pool, :location, :model, :owner, :supplier]
 
 - else
-  != @items.to_json
+  != @items.to_json(include: {children: {methods: :to_s}})

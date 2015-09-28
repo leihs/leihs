@@ -2883,3 +2883,15 @@ msgstr ""
 
 msgid "Hide this field from all item forms"
 msgstr ""
+
+msgid "next from last used"
+msgstr ""
+
+msgid "fill up gaps"
+msgstr ""
+
+msgid "assign highest available"
+msgstr ""
+
+msgid "Swap Model"
+msgstr ""

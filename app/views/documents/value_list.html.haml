@@ -35,7 +35,19 @@
               - else
                 = consecutive_number += 1
             %td.inventory_code= line.item.inventory_code
-            %td.model_name= line.model.name
+            %td.model_name
+              = line.model.name
+              - if line.model.is_a? Software
+                %br
+                = line.item.serial_number
+              - if line.model.is_a?(Model) and line.model.is_package?
+                %ul
+                  - line.item.children.each do |item|
+                    %li= item
+              - if line.model.is_a?(Model) and not (accessories = line.model.accessories.active_in(current_inventory_pool)).blank?
+                %ul
+                  - accessories.each do |accessory|
+                    %li= accessory
             %td.end_date= l line.end_date
             %td.quantity= line.quantity
             %td.item_price= number_to_currency(line.price, format: '%n %u', :unit => Setting.local_currency_string)

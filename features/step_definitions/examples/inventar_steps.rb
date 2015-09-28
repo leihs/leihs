@@ -760,16 +760,19 @@ Then(/^the item corresponding to the model appears$/) do
 end
 
 Then(/^the item appears$/) do
+  step 'expand the corresponding model'
   within '#inventory' do
-    step 'expand the corresponding model'
     find(".line[data-type='item'][data-id='#{@item.id}']", text: @item.inventory_code)
   end
 end
 
 When(/^expand the corresponding model$/) do
-  within ".line[data-type='model'][data-id='#{@item.model.id}']" do
-    if has_selector?(".button[data-type='inventory-expander'] i.arrow.right")
-      find(".button[data-type='inventory-expander']").click
+  within '#inventory' do
+    within ".line[data-type='model'][data-id='#{@item.model.id}']" do
+      if has_selector?(".button[data-type='inventory-expander'] i.arrow.right")
+        find(".button[data-type='inventory-expander']").click
+      end
+      find(".button[data-type='inventory-expander'] i.arrow.down")
     end
   end
 end

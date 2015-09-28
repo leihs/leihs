@@ -22,5 +22,26 @@
 
       {{/if}}
 
-:javascript
-  $('[data-toggle="tooltip"]').tooltip()
+  {{if ~field.id == 'inventory_code' && !~itemData.created_at}}
+  #switch.row.text-align-right
+    %button.button.small.green{data: {inventory_code: "{{>~itemData.inventory_code}}"}}
+      {{jed 'next from last used'/}}
+    %button.button.small.white{data: {inventory_code: "{{>~itemData.lowest_proposed_inventory_code}}"}}
+      {{jed 'fill up gaps'/}}
+    %button.button.small.white{data: {inventory_code: "{{>~itemData.highest_proposed_inventory_code}}"}}
+      {{jed 'assign highest available'/}}
+  {{/if}}
+
+:coffeescript
+  $(document).ready ->
+    if !window.defined_once
+      $('[data-toggle="tooltip"]').tooltip()
+
+      $('body').on 'click', '#switch button[data-inventory_code]', ->
+        $('input[name="item[inventory_code]"]').val $(this).data('inventory_code')
+        $('#switch button[data-inventory_code]').removeClass('green').addClass('white')
+        $(this).removeClass('white').addClass('green')
+        return false
+
+      window.defined_once = true
+

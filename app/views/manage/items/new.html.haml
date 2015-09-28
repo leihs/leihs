@@ -14,6 +14,8 @@
           %h2.headline-s.light= _("Insert all required information")
         .col1of2.text-align-right
 
+          %button#show-all-fields.button.white{style: "display: none", data: {toggle: 'tooltip', placement: 'top'}, title: _("Reset visibility of all fields on the item forms")}= _("Show all fields")
+
           = link_to _('Cancel'), :back, class: 'button grey'
 
           .multibutton
@@ -44,6 +46,6 @@
   jQuery ->
     new App.ItemEditController
       el: $("#new-item-view")
-      itemData: #{@item.to_json(:include => [:inventory_pool, :location, :model, :owner, :supplier])}
+      itemData: #{@item.to_json(include: [:inventory_pool, :location, :model, :owner, :supplier], methods: [:lowest_proposed_inventory_code, :highest_proposed_inventory_code])}
       itemType: "#{@type.downcase}"
       writeable: true

@@ -3853,9 +3853,21 @@ window.i18n.locale_data = {
          null,
          "Dieses Feld beim Editieren von Gegenständen nicht mehr anzeigen"
       ],
-      "product": [
+      "next from last used": [
          null,
-         "Produkt"
+         "zuletzt verwendet +1"
+      ],
+      "fill up gaps": [
+         null,
+         "Lücken auffüllen"
+      ],
+      "assign highest available": [
+         null,
+         "höchstmöglich"
+      ],
+      "Swap Model": [
+         null,
+         "Modell tauschen"
       ]
    }
 }

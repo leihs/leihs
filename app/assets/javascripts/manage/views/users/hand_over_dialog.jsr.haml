@@ -33,15 +33,11 @@
           {{if ~showAddPurpose}}
           %button#add-purpose.button.inset {{jed 'Add Purpose'/}}
           {{/if}}
-      #purpose-input.hidden
+      {{/if}}
+      #purpose-input{class: "{{if purpose}}hidden{{/if}}" }
         .row.padding-bottom-s
           %p {{jed "Please provide a purpose..."/}}
         %textarea#purpose.row.height-xs{:name => :purpose}
-      {{else}}
-      .row.padding-bottom-s
-        %p {{jed "Please provide a purpose..."/}}
-      %textarea#purpose.row.height-xs{:name => :purpose}
-      {{/if}}
 
     .modal-body
 

@@ -31,23 +31,7 @@
             %td.end_date= _("End date")
             %td.returning_date= _("Return")
         %tbody
-          - returned_lines.sort.each do |line|
-            %tr{style: "vertical-align: top"}
-              %td.quantity= line.quantity
-              %td.inventory_code= line.item.inventory_code
-              %td.model_name
-                = line.model.name
-                - if line.model.is_a? Software
-                  %br
-                  = line.item.serial_number
-                - if line.model.is_a?(Model) and not (accessories = line.model.accessories.active_in(current_inventory_pool)).blank?
-                  %ul
-                    - accessories.each do |accessory|
-                      %li= accessory
-              %td.end_date= l line.end_date
-              %td.returning_date
-                = l line.returned_date
-                != "#{line.returned_to_user.try(:short_name)}"
+          = render partial: 'documents/contract_lines', locals: {lines: returned_lines}
 
   - unless not_returned_lines.empty?
     %section.list.not_returned_items
@@ -61,21 +45,7 @@
             %td.end_date= _("End date")
             %td.returning_date= _("Return")
         %tbody
-          - not_returned_lines.sort.each do |line|
-            %tr{style: "vertical-align: top"}
-              %td.quantity= line.quantity
-              %td.inventory_code= line.item.inventory_code
-              %td.model_name
-                = line.model.name
-                - if line.model.is_a? Software
-                  %br
-                  = line.item.serial_number
-                - if line.model.is_a?(Model) and not (accessories = line.model.accessories.active_in(current_inventory_pool)).blank?
-                  %ul
-                    - accessories.each do |accessory|
-                      %li= accessory
-              %td.end_date= l line.end_date
-              %td.returning_date
+          = render partial: 'documents/contract_lines', locals: {lines: not_returned_lines}
 
   .dontbreak
     %section.purposes

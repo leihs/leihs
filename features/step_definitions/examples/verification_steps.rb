@@ -9,7 +9,7 @@ Then(/^I can export to a CSV file$/) do
 end
 
 Then(/^I can search and filter$/) do
-  find('#inventory-index-view #filter-search-container')
+  expect(has_selector?('#inventory-index-view form[data-filter]')).to be true
 end
 
 Then(/^I can not edit models, items, options, software or licenses$/) do
