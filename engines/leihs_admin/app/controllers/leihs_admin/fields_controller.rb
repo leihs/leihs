@@ -31,8 +31,9 @@ module LeihsAdmin
         field = Field.unscoped.find(field_id)
         begin
           data = JSON.parse(param[:data])
-        rescue
-          redirect_to :back, flash: {error: _("Invalid JSON structure")} and return
+        rescue => e
+          #old# redirect_to :back, flash: {error: e.to_s} and return
+          render text: e.to_s,  status: :internal_server_error and return
         end
         return unless check_attribute(data['attribute'], item)
         field.update_attributes(data: data, active: param[:active] == "1", position: i)
@@ -43,8 +44,9 @@ module LeihsAdmin
           r.id = param[:id]
           begin
             r.data = JSON.parse(param[:data])
-          rescue
-            redirect_to :back, flash: {error: _("Invalid JSON structure")} and return
+          rescue => e
+            #old# redirect_to :back, flash: {error: e.to_s} and return
+            render text: e.to_s,  status: :internal_server_error and return
           end
           return unless check_attribute(r.data['attribute'], item)
           r.active = param[:active] == "1"
@@ -53,7 +55,8 @@ module LeihsAdmin
       end unless new_fields.blank?
 
       flash[:success] = _("Saved")
-      redirect_to admin.fields_path
+      #old# redirect_to admin.fields_path
+      head status: :ok
     end
 
   end

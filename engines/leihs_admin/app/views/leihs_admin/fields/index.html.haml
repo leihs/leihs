@@ -1,7 +1,7 @@
-- content_for :title, _("List of Fields")
+- content_for :title, _("Fields")
 - content_for :manage_section, "active"
 
-= form_tag nil, method: :put, class: 'indent' do
+= form_tag nil, method: :put, class: 'indent', remote: true, id: "fields_form" do
 
   .row
     .col-sm-6
@@ -39,18 +39,34 @@
     textarea {
       height: 6em;
     }
+
+    i.fa.fa-arrows-v {
+      cursor: move;
+    }
   }
 
 :coffeescript
-  $(".sortable-list").sortable()
-  $('#create_field').on 'click', ->
-    newRow = $('<div class="row">
-                  <div class="col-sm-4">
-                    <input name="fields[_new_fields_][][id]" type="text">
-                    <br><input name="fields[_new_fields_][][active]" type="checkbox" value="1" checked="checked">Active
-                  </div>
-                  <div class="col-sm-8">
-                    <textarea class="form-control" name="fields[_new_fields_][][data]">{"label":"LABEL","attribute":["properties","ATTRIBUTE"],"type":"text","group":null}</textarea>
-                  </div>
-                </div>')
-    newRow.prependTo('#append_here').effect('highlight')
+  $(document).ready ->
+    $("#fields_form").on("ajax:success", (e, data, status, xhr) ->
+      location.reload()
+    ).on "ajax:error", (e, xhr, status, error) ->
+      $(this).before '<div id="flash">
+                        <h4 class="alert alert-danger danger">
+                          <ul>
+                            <li>' + xhr.responseText + '</li>
+                          </ul>
+                        </h4>
+                      </div>'
+
+    $(".sortable-list").sortable()
+    $('#create_field').on 'click', ->
+      newRow = $('<div class="row">
+                    <div class="col-sm-4">
+                      <input name="fields[_new_fields_][][id]" type="text">
+                      <br><input name="fields[_new_fields_][][active]" type="checkbox" value="1" checked="checked">Active
+                    </div>
+                    <div class="col-sm-8">
+                      <textarea class="form-control" name="fields[_new_fields_][][data]">{"label":"LABEL","attribute":["properties","ATTRIBUTE"],"type":"text","group":null}</textarea>
+                    </div>
+                  </div>')
+      newRow.prependTo('#append_here').effect('highlight')
