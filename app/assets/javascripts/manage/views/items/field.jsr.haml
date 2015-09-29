@@ -22,7 +22,7 @@
 
       {{/if}}
 
-  {{if ~field.id == 'inventory_code' && !~itemData.created_at}}
+  {{if ~field.id == 'inventory_code' && ~itemData && !~itemData.created_at}}
   #switch.row.text-align-right
     %button.button.small.green{data: {inventory_code: "{{>~itemData.inventory_code}}"}}
       {{jed 'next from last used'/}}
