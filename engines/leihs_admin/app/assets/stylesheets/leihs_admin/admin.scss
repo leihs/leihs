@@ -23,6 +23,12 @@ body {
   }
 }
 
+#topbar .dropdown-menu {
+  max-height: 500px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
 footer {
   a {
     color: white;
