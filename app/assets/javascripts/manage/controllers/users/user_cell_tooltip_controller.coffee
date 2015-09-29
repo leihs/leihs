@@ -6,5 +6,5 @@ class window.App.UserCellTooltipController extends Spine.Controller
   onEnter: (e)=>
     trigger = $(e.currentTarget)
     new App.Tooltip
-      el: trigger.closest(".line-col")
+      el: trigger.closest(".user_tooltip")
       content: App.Render "manage/views/users/tooltip", App.User.findOrBuild trigger.data()
