@@ -1,17 +1,16 @@
 .row.line
-  .col2of8.line-col{:data => {:type => "user-cell",
-                              :id => "{{>id}}",
-                              :firstname => "{{>firstname}}",
-                              :lastname => "{{>lastname}}",
-                              :email => "{{>email}}",
-                              :phone => "{{>phone}}",
-                              :badge_id => "{{>badge_id}}",
-                              :address => "{{>address}}",
-                              :image_url => "{{>image_url}}",
-                              :zip => "{{>zip}}",
-                              :city => "{{>city}}"}}
-
-    %strong
+  .col2of8.line-col
+    %strong.user_tooltip{data: {type: "user-cell",
+                                id: "{{>id}}",
+                                firstname: "{{>firstname}}",
+                                lastname: "{{>lastname}}",
+                                email: "{{>email}}",
+                                phone: "{{>phone}}",
+                                badge_id: "{{>badge_id}}",
+                                address: "{{>address}}",
+                                image_url: "{{>image_url}}",
+                                zip: "{{>zip}}",
+                                city: "{{>city}}"}}
       {{>name()}}
       {{if isSuspended()}}
       %span.darkred-text {{jed "Suspended"/}}!

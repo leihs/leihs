@@ -1,0 +1,18 @@
+%span.user_tooltip{data: {type: "user-cell",
+                          id: user.id,
+                          firstname: user.firstname,
+                          lastname: user.lastname,
+                          email: user.email,
+                          phone: user.phone,
+                          badge_id: user.badge_id,
+                          address: user.address,
+                          image_url: user.image_url,
+                          zip: user.zip,
+                          city: user.city }}
+  = label ||= user
+  - if user.suspended?(current_inventory_pool)
+    %span.darkred-text= "%s!" % _("Suspended")
+
+:coffeescript
+  jQuery ->
+    new App.UserCellTooltipController {el: "body"}
