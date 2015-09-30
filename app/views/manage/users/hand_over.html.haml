@@ -40,7 +40,7 @@
 
   jQuery ->
 
-    App.User.addRecord new App.User $.extend {groupIds: #{@group_ids}}, #{@user.to_json(methods: :image_url, except: :extended_info)}
+    App.User.addRecord new App.User $.extend {groupIds: #{@group_ids}}, #{@user.to_json(except: :extended_info)}
 
     for purpose in #{@reservations.map(&:purpose).uniq.to_json}
       if purpose != null
