@@ -1,9 +1,8 @@
-production:
+test:
   unique_id_field: uid
   firstname_field: givenName
   lastname_field: sn
-  mail_field: email
   admin_uids:
-    - hewey
+    - admin_user
     - dewey
     - louie
