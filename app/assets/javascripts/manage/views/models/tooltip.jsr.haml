@@ -1,0 +1,46 @@
+.row.width-xxl.font-size-m
+
+  {{if image_url}}
+  %p
+    %img.max-size-xxs.margin-horziontal-auto{src: "{{>image_url/}}"}
+  {{/if}}
+  .row
+    .col1of3.text-align-right.padding-right-s
+      {{jed "Product"/}}:
+    .col2of3
+      %strong {{>product}}
+  .row
+    .col1of3.text-align-right.padding-right-s
+      {{jed "Version"/}}:
+    .col2of3
+      %strong {{>version}}
+  .row
+    .col1of3.text-align-right.padding-right-s
+      {{jed "Manufacturer"/}}:
+    .col2of3
+      %strong {{>manufacturer}}
+  .row
+    .col1of3.text-align-right.padding-right-s
+      {{jed "Description"/}}:
+    .col2of3
+      %strong {{>description}}
+  .row
+    .col1of3.text-align-right.padding-right-s
+      {{jed "Internal Description"/}}:
+    .col2of3
+      %strong {{>internal_description}}
+  .row
+    .col1of3.text-align-right.padding-right-s
+      {{jed "Technical Details"/}}:
+    .col2of3
+      %strong {{>technical_detail}}
+  .row
+    .col1of3.text-align-right.padding-right-s
+      {{jed "Important notes for hand over"/}}:
+    .col2of3
+      %strong {{>hand_over_note}}
+  .row
+    .col1of3.text-align-right.padding-right-s
+      {{jed "Accessories"/}}:
+    .col2of3
+      %strong {{>accessory_names}}

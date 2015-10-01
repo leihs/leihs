@@ -1,16 +1,16 @@
-%div{:class => "line-col {{>~grid}}"}
+%div{class: "line-col {{>~grid}}"}
 
-  %strong.user_tooltip{:data => { :type => "user-cell",
-                                  :id => "{{>id}}",
-                                  :firstname => "{{>firstname}}",
-                                  :lastname => "{{>lastname}}",
-                                  :email => "{{>email}}",
-                                  :phone => "{{>phone}}",
-                                  :badge_id => "{{>badge_id}}",
-                                  :address => "{{>address}}",
-                                  :image_url => "{{>image_url}}",
-                                  :zip => "{{>zip}}",
-                                  :city => "{{>city}}"}}
+  %strong{data: {type: "user-cell",
+                 id: "{{>id}}",
+                 firstname: "{{>firstname}}",
+                 lastname: "{{>lastname}}",
+                 email: "{{>email}}",
+                 phone: "{{>phone}}",
+                 badge_id: "{{>badge_id}}",
+                 address: "{{>address}}",
+                 image_url: "{{>image_url}}",
+                 zip: "{{>zip}}",
+                 city: "{{>city}}"}}
     {{>firstname}} {{>lastname}}
     {{if isSuspended()}}
     %span.darkred-text {{jed "Suspended"/}}!

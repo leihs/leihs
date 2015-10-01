@@ -22,6 +22,7 @@ class window.App.HandOverController extends Spine.Controller
     new App.ReservationAssignOrCreateController {el: @el.find("#assign-or-add"), user: @user, contract: @contract}
     new App.ReservationsEditController {el: @el, user: @user, contract: @contract}
     new App.OptionLineChangeController {el: @el}
+    new App.ModelCellTooltipController {el: @el}
 
   delegateEvents: =>
     super

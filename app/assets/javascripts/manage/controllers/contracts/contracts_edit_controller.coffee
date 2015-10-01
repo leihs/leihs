@@ -26,6 +26,7 @@ class window.App.ContractsEditController extends Spine.Controller
     new App.ContractsRejectController {el: @el, async: false}
     new App.ReservationsDestroyController {el: @el}
     new App.ReservationsEditController {el: @el, user: @contract.user(), contract: @contract}
+    new App.ModelCellTooltipController {el: @el}
 
   delegateEvents: =>
     super

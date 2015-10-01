@@ -25,6 +25,7 @@ class window.App.TakeBackController extends Spine.Controller
     new App.TimeLineController {el: @el}
     new App.ReservationsEditController {el: @el, user: @user, contract: @contract, startDateDisabled: true, quantityDisabled: true}
     new PreChange "[data-quantity-returned]"
+    new App.ModelCellTooltipController {el: @el}
 
   delegateEvents: =>
     super

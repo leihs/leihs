@@ -12,7 +12,8 @@
     .row {{>item().inventory_code}}
 
   .col4of10.line-col.text-align-left
-    %strong {{>model().name()}}
+    %strong{data: {type: "model-cell", id: "{{>model().id}}"}}
+      {{>model().name()}}
     {{if model().accessory_names && model().accessory_names.length}}
     %br
     %span {{>model().accessory_names}}
