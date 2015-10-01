@@ -98,8 +98,11 @@ class InventoryPool < ActiveRecord::Base
   validates :email, format: /@/, allow_blank: true
 
   after_save do
-    if automatic_access
-      User.all.each {|user| user.access_rights.create_with(role: :customer, inventory_pool: self).find_or_create_by(inventory_pool_id: id) }
+    if automatic_access and automatic_access_changed?
+      AccessRight.connection.execute %Q(INSERT INTO access_rights (role, inventory_pool_id, user_id, created_at, updated_at)
+                                          SELECT 'customer', #{id}, users.id, NOW(), NOW()
+                                          FROM users LEFT JOIN access_rights ON access_rights.user_id = users.id AND access_rights.inventory_pool_id = #{id}
+                                          WHERE access_rights.user_id IS NULL;)
     end
   end
 
