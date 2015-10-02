@@ -9,4 +9,155 @@
 
     = form_tag manage_update_inventory_pool_path(@inventory_pool), method: :put do
 
-      = render partial: "manage/inventory_pools/form"
+      .row.margin-top-l.padding-horizontal-m
+
+        .row
+          %h1.headline-l.float-left= @inventory_pool.name || _("Create %s") % _("Inventory Pool")
+
+          %div.float-right
+            = link_to _('Cancel'), :back, class: 'button grey'
+            %button.button.green{:type => :submit}= _("Save")
+
+        .row.margin-top-m
+
+          .col1of2.padding-right-xs
+
+            %h2.headline-m.padding-left-s= _("Basic Information")
+
+            .row.margin-vertical-s
+
+              .row.padding-inset-s.emboss.margin-bottom-xxs
+                .col1of2
+                  %strong.font-size-m= "#{_("Name")} *"
+                .col1of2.text-align-right
+                  %input{type: "text", name: "inventory_pool[name]", value: @inventory_pool.name}
+
+              .row.padding-inset-s.emboss.margin-bottom-xxs
+                .col1of2
+                  %strong.font-size-m= "#{_("Short Name")} *"
+                  %div.padding-top-xs
+                    = _("Additional label in inventory codes")
+                .col1of2.text-align-right
+                  %input{type: "text", name: "inventory_pool[shortname]", value: @inventory_pool.shortname}
+
+              .row.padding-inset-s.emboss.margin-bottom-xxs
+                .col1of2
+                  %strong.font-size-m= "#{_("E-Mail")} *"
+                  %div.padding-top-xs
+                    = _("Used for sending e-mails from leihs")
+                .col1of2.text-align-right
+                  %input{type: "text", name: "inventory_pool[email]", value: @inventory_pool.email}
+
+              .row.padding-inset-s.emboss.margin-bottom-xxs
+                .col1of2
+                  %strong.font-size-m= _("Description")
+                  %div.padding-top-xs
+                    = _("Visible for borrowers in frontend")
+                .col1of2.text-align-right
+                  %textarea{type: "text", name: "inventory_pool[description]", rows: 6}= @inventory_pool.description
+
+              .row.padding-inset-s.emboss.margin-bottom-xxs
+                .col1of2
+                  %strong.font-size-m= _("Default Contract Note")
+                .col1of2.text-align-right
+                  %textarea{type: "text", name: "inventory_pool[default_contract_note]", rows: 6}= @inventory_pool.default_contract_note
+
+              .row.padding-inset-s.emboss.margin-bottom-xxs
+                .col1of2
+                  %strong.font-size-m= _("Print Contracts")
+                  %div.padding-top-xs
+                    = _("Print dialog will open aut.")
+                .col1of2.text-align-center
+                  %input{type: "hidden",   name: "inventory_pool[print_contracts]", value: "0"}
+                  %input{type: "checkbox", name: "inventory_pool[print_contracts]", value: "1", checked: @inventory_pool.print_contracts}
+
+              .row.padding-inset-s.emboss.margin-bottom-xxs
+                .col1of2
+                  %strong.font-size-m= _("Automatic suspension")
+                  %div.padding-top-xs
+                    = _("Users who don't bring back the items on the required date are suspended from next day on.")
+                .col1of2.text-align-center
+                  %input{type: "hidden",   name: "inventory_pool[automatic_suspension]", value: "0"}
+                  %input{type: "checkbox", name: "inventory_pool[automatic_suspension]", value: "1", checked: @inventory_pool.automatic_suspension}
+
+              .row.padding-inset-s.emboss.margin-bottom-xxs
+                .col1of2
+                  %strong.font-size-m= _("Automatic suspension reason")
+                .col1of2.text-align-right
+                  %textarea{type: "text", name: "inventory_pool[automatic_suspension_reason]", rows: 6}= @inventory_pool.automatic_suspension_reason
+
+              .row.padding-inset-s.emboss.margin-bottom-xxs
+                .col1of2
+                  %strong.font-size-m= _("Automatic access")
+                  %div.padding-top-xs
+                    = _("New users will get customer access automatically.")
+                .col1of2.text-align-center
+                  %input{type: "hidden",   name: "inventory_pool[automatic_access]", value: "0"}
+                  %input{type: "checkbox", name: "inventory_pool[automatic_access]", value: "1", checked: @inventory_pool.automatic_access}
+
+              .row.padding-inset-s.emboss.margin-bottom-xxs
+                .col1of2
+                  %strong.font-size-m= _("Min. number of days between order and hand over")
+                .col1of2.text-align-right
+                  %input{type: "number", name: "inventory_pool[workday_attributes][reservation_advance_days]", value: @inventory_pool.workday.reservation_advance_days, style: "width: 5em"}
+
+              .row.padding-inset-s.emboss.margin-bottom-xxs
+                .col1of2
+                  %strong.font-size-m= "%s %s" % [_("Hand Over"), _("Purpose")]
+                  %div.padding-top-xs
+                    = _("Specification of the purpose is required")
+                .col1of2.text-align-center
+                  %input{type: "hidden",   name: "inventory_pool[required_purpose]", value: "0"}
+                  %input{type: "checkbox", name: "inventory_pool[required_purpose]", value: "1", checked: @inventory_pool.required_purpose}
+
+          .col1of2.padding-left-xs
+
+            %h2.headline-m.padding-left-s= _("Workdays")
+
+            .row.margin-vertical-s
+
+              - [1,2,3,4,5,6,0].each do |i|
+                .row.padding-inset-s.emboss.margin-bottom-xxs
+                  .col1of3
+                    %strong.font-size-m= "#{I18n.t('date.day_names')[i]}"
+                  .col1of3.text-align-right
+                    %select.small.width-full{:name => "inventory_pool[workday_attributes][workdays][#{i}][open]"}
+                      %option{label: _("Open"), value: 1}= _("Open")
+                      %option{label: _("Closed"), value: 0, selected: @inventory_pool.workday.closed_days.include?(i) ? true : nil}= _("Closed")
+                  .col1of3.text-align-right
+                    %input{type: "number", name: "inventory_pool[workday_attributes][workdays][#{i}][max_visits]", value: @inventory_pool.workday.max_visits_on(i), style: "width: 8em", placeholder: _("Max. visits")}
+
+            %h2.headline-m.padding-left-s= _("Closed Days")
+
+            .row.margin-vertical-s.padding-inset-xs.emboss
+
+              #holidays-container.row
+                .col4of5
+
+                  .col1of3.padding-inset-xxs
+                    %label.row
+                      %input#holiday-start-date.small{type: "text", name: "start_date", autocomplete: "off", placeholder: _("Start date"), title: _("Start date")}
+                      .addon.transparent.small.padding-right-xs.padding-vertical-xxs
+                        %i.fa.fa-calendar.icon-xs.grey
+
+                  .col1of3.padding-inset-xxs
+                    %label.row
+                      %input#holiday-end-date.small.autocomplete-off{type: "text", name: "end_date", autocomplete: "off", placeholder: _("End date"), title: _("End date")}
+                      .addon.transparent.small.padding-right-xs.padding-vertical-xxs
+                        %i.fa.fa-calendar.icon-xs.grey
+
+                  .col1of3.padding-inset-xxs.text-align-center
+                    %input#holiday-name.small{type: "text", name: "name", placeholder: _("Name"), title: _("Name")}
+
+                .col1of5.text-align-right
+                  %button.button.inset.small{:"data-add-holiday" => true}= _("Add")
+
+                .row.padding-top-s{:"data-holidays-list" => true}
+
+                  - if @holidays
+                    - @holidays.each_with_index do |holiday, i|
+                      = render partial: "holiday_entry", object: holiday, locals: {i: i}
+
+:coffeescript
+  jQuery ->
+    new App.InventoryPoolHolidaysController {el: "#holidays-container"}

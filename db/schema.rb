@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150918164018) do
+ActiveRecord::Schema.define(version: 20151001151820) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "user_id",           limit: 4
@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(version: 20150918164018) do
     t.boolean "automatic_suspension",                      default: false, null: false
     t.text    "automatic_suspension_reason", limit: 65535
     t.boolean "automatic_access"
+    t.boolean "required_purpose",                          default: true
   end
 
   add_index "inventory_pools", ["address_id"], name: "fk_rails_6a55965722", using: :btree

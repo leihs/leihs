@@ -39,7 +39,17 @@ Feature: Purpose
     Then I cannot assign any more purposes
 
   @javascript @browser @personas
-  Scenario: Handing over without purpose
+  Scenario: Handing over without purpose with required purpose
+    Given the current inventory pool requires purpose
+    When I open a hand over
+    And none of the selected items have an assigned purpose
+    Then I am told during hand over to assign a purpose
+    And only when I assign a purpose
+    Then I can finish the hand over
+
+  @javascript @browser @personas
+  Scenario: Handing over without purpose without required purpose
+    Given the current inventory pool doesn't require purpose
     When I open a hand over
     And none of the selected items have an assigned purpose
     Then I am told during hand over to assign a purpose

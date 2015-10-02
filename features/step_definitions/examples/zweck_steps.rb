@@ -62,6 +62,24 @@ Then /^I am told during hand over to assign a purpose$/ do
   end
 end
 
+Then /^only when I assign a purpose$/ do
+  within '.modal' do
+    find('.button.green[data-hand-over]', text: _('Hand Over')).click
+    find('#error')
+    find('#purpose').set 'The purpose for this hand over'
+  end
+end
+
+Given(/^the current inventory pool (requires|doesn't require) purpose$/) do |arg1|
+  b = case arg1
+        when "requires"
+          true
+        else
+          false
+      end
+  @current_inventory_pool.update_attributes(required_purpose: b)
+end
+
 Then /^I do not assign a purpose$/ do
   within '.modal' do
     expect(find('#purpose').text).to be_empty

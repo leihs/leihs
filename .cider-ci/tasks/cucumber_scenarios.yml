@@ -1265,11 +1265,11 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  -f json -o log/cucumber_report.json
         --strict features/technical/mailer/mailer_settings.feature:26:33 DEFAULT_BROWSER=firefox
-- name: features/technical/shibboleth.feature:8:15
+- name: features/technical/shibboleth.feature:8:15:21
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  -f json -o log/cucumber_report.json
-        --strict features/technical/shibboleth.feature:8:15 DEFAULT_BROWSER=firefox
+        --strict features/technical/shibboleth.feature:8:15:21 DEFAULT_BROWSER=firefox
 - name: features/technical/timezone_settings.feature:9:14:19
   scripts:
     test:
