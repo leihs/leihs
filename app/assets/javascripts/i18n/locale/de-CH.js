@@ -3095,11 +3095,11 @@ window.i18n.locale_data = {
       ],
       "Specification of the purpose is required": [
          null,
-         "Die Angabe eines Zwecks ist verpflichtend"
+         "Die Angabe eines Zwecks ist zwingend"
       ],
       "Specification of the contact person is required": [
          null,
-         "Die Angabe einer Kontaktperson ist verpflichtend"
+         "Die Angabe einer Kontaktperson ist zwingend"
       ],
       "Change": [
          null,
