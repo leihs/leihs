@@ -14,14 +14,15 @@ module LeihsAdmin
             # do nothing
           else
             target = item.send "build_#{attr.first}"
-            redirect_to :back, flash: {error: _("Unknown attribute %s") % attr.join('.')} and return false unless target.respond_to? "#{attr.last}="
+            return _("Unknown attribute %s") % attr.join('.') unless target.respond_to? "#{attr.last}="
           end
         else
-          redirect_to :back, flash: {error: _("Unknown attribute %s") % attr} and return false unless item.respond_to? "#{attr}="
+          return _("Unknown attribute %s") % attr unless item.respond_to? "#{attr}="
         end
         true
       end
 
+      errors = []
       new_fields = params[:fields].delete(:_new_fields_)
       item = Item.new
 
@@ -32,10 +33,13 @@ module LeihsAdmin
         begin
           data = JSON.parse(param[:data])
         rescue => e
-          #old# redirect_to :back, flash: {error: e.to_s} and return
-          render text: e.to_s,  status: :internal_server_error and return
+          errors << "%s: %s" % [field_id, e.to_s]
+          next
         end
-        return unless check_attribute(data['attribute'], item)
+        if (r = check_attribute(data['attribute'], item)).is_a? String
+          errors << r
+          next
+        end
         field.update_attributes(data: data, active: param[:active] == "1", position: i)
       end
 
@@ -45,18 +49,24 @@ module LeihsAdmin
           begin
             r.data = JSON.parse(param[:data])
           rescue => e
-            #old# redirect_to :back, flash: {error: e.to_s} and return
-            render text: e.to_s,  status: :internal_server_error and return
+            errors << "%s: %s" % [field_id, e.to_s]
+            next
           end
-          return unless check_attribute(r.data['attribute'], item)
+          if (r = check_attribute(r.data['attribute'], item)).is_a? String
+            errors << r
+            next
+          end
           r.active = param[:active] == "1"
           r.position = i
         end
       end unless new_fields.blank?
 
-      flash[:success] = _("Saved")
-      #old# redirect_to admin.fields_path
-      head status: :ok
+      if errors.empty?
+        flash[:success] = _("Saved")
+        head status: :ok
+      else
+        render json: errors,  status: :internal_server_error
+      end
     end
 
   end

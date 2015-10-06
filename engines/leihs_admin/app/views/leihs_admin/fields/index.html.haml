@@ -50,13 +50,10 @@
     $("#fields_form").on("ajax:success", (e, data, status, xhr) ->
       location.reload()
     ).on "ajax:error", (e, xhr, status, error) ->
-      $(this).before '<div id="flash">
-                        <h4 class="alert alert-danger danger">
-                          <ul>
-                            <li>' + xhr.responseText + '</li>
-                          </ul>
-                        </h4>
-                      </div>'
+      errors = ''
+      for error in xhr.responseJSON
+        errors += '<li>' + error + '</li>'
+      $("#flash").html '<ul class="alert alert-danger danger" style="padding-left: 2em;">' + errors + '</ul>'
 
     $(".sortable-list").sortable()
     $('#create_field').on 'click', ->
