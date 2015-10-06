@@ -2884,7 +2884,7 @@ msgstr ""
 msgid "Hide this field from all item forms"
 msgstr ""
 
-msgid "next from last used"
+msgid "last used +1"
 msgstr ""
 
 msgid "fill up gaps"

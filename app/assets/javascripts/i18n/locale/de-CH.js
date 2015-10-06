@@ -3853,7 +3853,7 @@ window.i18n.locale_data = {
          null,
          "Dieses Feld beim Editieren von Gegenständen nicht mehr anzeigen"
       ],
-      "next from last used": [
+      "last used +1": [
          null,
          "zuletzt verwendet +1"
       ],

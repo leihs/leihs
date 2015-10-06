@@ -3828,7 +3828,7 @@ window.i18n.locale_data = {
          null,
          "Das Fäld bim Editiere vo Gägeständ nümme azeige"
       ],
-      "next from last used": [
+      "last used +1": [
          null,
          "zletscht verwändet +1"
       ],
