@@ -228,7 +228,7 @@ class InventoryPool < ActiveRecord::Base
               Item.filter(params.clone.merge({paginate: 'false', all: 'true'}), inventory_pool)
             else
               Item.unscoped
-            end
+            end.includes(:current_reservation)
 
     options = if inventory_pool
                 if params[:type] != 'license' and [:unborrowable, :retired, :category_id, :in_stock, :incomplete, :broken, :owned, :responsible_inventory_pool_id, :unused_models].all? {|param| params[param].blank?}

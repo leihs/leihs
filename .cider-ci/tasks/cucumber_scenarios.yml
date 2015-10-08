@@ -839,11 +839,11 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  -f json -o log/cucumber_report.json
         --strict features/examples/zweck.feature:26:36:42 DEFAULT_BROWSER=firefox
-- name: features/examples/zweck.feature:50
+- name: features/examples/zweck.feature:51:60
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  -f json -o log/cucumber_report.json
-        --strict features/examples/zweck.feature:50 DEFAULT_BROWSER=firefox
+        --strict features/examples/zweck.feature:51:60 DEFAULT_BROWSER=firefox
 - name: features/groups.feature:9:39
   scripts:
     test:

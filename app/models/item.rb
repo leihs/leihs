@@ -28,6 +28,9 @@ class Item < ActiveRecord::Base
 
   has_many :item_lines, dependent: :restrict_with_exception
   alias :reservations :item_lines
+
+  has_one :current_reservation, -> { where(returned_date: nil) }, class_name: 'Reservation'
+
   store :properties
 
 ####################################################################
@@ -291,7 +294,9 @@ class Item < ActiveRecord::Base
     h1.merge! h2
 
     h1.merge!({
-                  _('Borrower') => current_borrowing_info
+                  "#{_('Borrower')} #{_('First name')}" => current_borrower.try(:firstname),
+                  "#{_('Borrower')} #{_('Last name')}" => current_borrower.try(:lastname),
+                  "#{_('Borrower')} #{_('Personal ID')}" => current_borrower.try(:extended_info).try(:fetch, "id", nil) || current_borrower.try(:unique_id)
               })
 
     h1
@@ -403,15 +408,6 @@ class Item < ActiveRecord::Base
 ####################################################################
 # TODO include Statistic module
 
-  def current_borrowing_info
-    reservation = current_reservation
-
-    # FIXME this is a quick fix
-    if reservation
-      _('%s until %s') % [reservation.user, I18n.l(reservation.end_date)] # TODO 1102** patch Date.to_s => to_s(:rfc822)
-    end
-  end
-
   def current_location
     current_location = []
     current_location.push inventory_pool.to_s if inventory_pool and owner != inventory_pool
@@ -444,11 +440,6 @@ class Item < ActiveRecord::Base
   end
 
   private
-  # TODO has_one
-  def current_reservation
-    # TODO 1102** make sure is only max 1 reservation
-    reservations.where(returned_date: nil).first
-  end
 
   # TODO has_one/has_many
   def latest_reservation

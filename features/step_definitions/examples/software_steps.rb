@@ -320,7 +320,6 @@ Given(/^there is a (.*) with the following properties:$/) do |arg1, table|
           @item = FactoryGirl.create :item, item_attrs.merge({model: @model})
         when 'software license'
           @item = FactoryGirl.create :license, item_attrs.merge({model: @model})
-          step 'this software license is handed over to somebody'
       end
 
     else

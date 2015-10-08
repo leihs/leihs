@@ -1,7 +1,7 @@
 Feature: Inventory (CSV export)
 
   @javascript @personas @browser
-  Scenario: Export der aktuellen Ansicht als CSV
+  Scenario: Export the current inventory list as CSV
     Given I am Mike
     And I open the inventory
     When I view the tab "Models"
@@ -57,7 +57,9 @@ Feature: Inventory (CSV export)
       | Check-In Date                 |
       | Check-In State                |
       | Check-In Note                 |
-      | Borrower                      |
+      | Borrower First name           |
+      | Borrower Last name            |
+      | Borrower Personal ID          |
     When I view the tab "Software"
     Then I can export this data as a CSV file
     And the file contains the same reservations as are shown right now, including any filtering
@@ -95,4 +97,6 @@ Feature: Inventory (CSV export)
       | Maintenance expiration |
       | Currency               |
       | Price                  |
-      | Borrower               |
+      | Borrower First name    |
+      | Borrower Last name     |
+      | Borrower Personal ID   |

@@ -91,6 +91,7 @@ class Reservation < ActiveRecord::Base
       end
     end
   end
+  validates_uniqueness_of :item_id, scope: :returned_date, if: Proc.new {|r| r.item_id and r.returned_date.nil? }
 
   before_save do
     if returned_date and returned_date_changed?
