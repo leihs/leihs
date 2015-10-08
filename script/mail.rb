@@ -1,6 +1,6 @@
 require 'optparse'
 
-class Mailer < ActionMailer::Base
+class MyMailer < ActionMailer::Base
   # Don't call this method "message", that's a reserved word
   def generic_message(recipients, subject, body)
       mail(to: recipients,
@@ -31,7 +31,7 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-message = Mailer.generic_message(options.recipients, options.subject, options.body)
+message = MyMailer.generic_message(options.recipients, options.subject, options.body)
 if message.deliver_now
   puts "Sent email to #{options.recipients.join(',')}."
   exit 0
