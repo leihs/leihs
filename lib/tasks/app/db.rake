@@ -4,7 +4,7 @@ namespace :app do
     desc 'Sync local application instance with test servers most recent database dump'
     task :sync do
       puts `mkdir ./db/backups/`
-      puts `rsync -avuz leihs@rails.zhdk.ch:/tmp/leihs-current.sql ./db/backups/`
+      puts `rsync -avuz leihs@test.leihs.zhdk.ch:~/test/leihs-current.sql ./db/backups/`
 
       Rake::Task['db:drop'].invoke
       Rake::Task['db:create'].invoke
