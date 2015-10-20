@@ -81,8 +81,10 @@ class Reservation < ActiveRecord::Base
   validate :date_sequence
   validate do
     errors.add(:base, _('No access')) unless user.access_right_for(inventory_pool)
-    if changed_attributes.keys.count == 1 and changed_attributes.keys.first.to_sym == :end_date
-      # we skip validation on end_date extension
+    if changed_attributes.keys.count == 1 and end_date_changed?
+      # we skip delegation validation on end_date extension
+    elsif returned_date
+      # we skip delegation validation on returning (or returned) reservations
     else
       if user.is_delegation
         errors.add(:base, _("Delegated user is not member of the contract's delegation or is empty")) unless user.delegated_users.include?(delegated_user)
