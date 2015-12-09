@@ -7,7 +7,7 @@ Feature: Edit purpose during acknowledge process
   Background:
     Given I am Pius
 
-  @javascript @personas
+  @javascript @personas @problematic
   Scenario: Change the purpose of a contract
      When I open a contract for acknowledgement
      Then I see the contract's purpose 

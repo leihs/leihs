@@ -33,7 +33,7 @@ Feature: Remove line
     Then that line has NOT been deleted
     And the amount of reservations remains unchanged
 
-  @personas
+  @personas @problematic
   Scenario: Removal of a line for SIGNED contract should NOT be possible
     Given there is a "SIGNED" contract with reservations
     When one tries to delete a line

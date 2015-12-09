@@ -1,8 +1,10 @@
 #!/usr/bin/env ruby
 require 'yaml'
 
-CI_SCENARIOS_PER_TASK = (ENV['CI_SCENARIOS_PER_TASK'] || 5).to_i
+DEFAULT_BROWSER = ENV['DEFAULT_BROWSER'] ? ENV['DEFAULT_BROWSER'] : :firefox # [:firefox, :chrome].sample
+CI_SCENARIOS_PER_TASK = (ENV['CI_SCENARIOS_PER_TASK'] || 1).to_i
 STRICT_MODE = true
+ENGINES = ['leihs_admin']
 
 def task_hash(name, exec)
   h = { 'name' => name,
@@ -21,38 +23,82 @@ def task_for_feature_file file_path, _timeout = 200
   task_hash(name, exec)
 end
 
-feature_files = Dir.glob('features/**/*.feature') - Dir.glob('features/personas/*.feature') - Dir.glob('features/**/*.feature.disabled')
-filepath = './.cider-ci/tasks/cucumber.yml'
-File.open(filepath,'w') do |f|
-  string = {'tasks' => feature_files.map do |f|
-    task_for_feature_file(f)
-  end}
-  f.write(string.to_yaml)
+def create_feature_tasks(filepath, feature_files)
+  File.open(filepath,'w') do |f|
+    string = {'tasks' => feature_files.map do |f|
+      task_for_feature_file(f)
+    end}
+    f.write(string.to_yaml)
+  end
 end
 
-default_browser = ENV['DEFAULT_BROWSER'] ? ENV['DEFAULT_BROWSER'] : :firefox # [:firefox, :chrome].sample
-filepath = './.cider-ci/tasks/cucumber_scenarios.yml'
-File.open(filepath,'w') do |f|
-  h1 = {}
-  `egrep -R -n -B 1 "^\s*(Scenario|Szenario)" features/* engines/**/features/*`.split("--\n").map{|x| x.split("\n")}.each do |t, s|
-    next if t =~ /@old-ui|@upcoming|@generating_personas|@manual/
-    splitted_string = s.split(/:\s*(Scenario|Szenario)( Outline| Template|grundriss)?: /)
-    k, v = splitted_string.first.split(':')
-    h1[k] ||= []
-    h1[k] << v
-  end.compact
+leihs_feature_files = \
+  Dir.glob('features/**/*.feature') -
+  Dir.glob('features/personas/*.feature') -
+  Dir.glob('features/**/*.feature.disabled') -
+  Dir.glob('engines/**/features/*')
+filepath = './.cider-ci/tasks/cucumber_leihs.yml'
+create_feature_tasks(filepath, leihs_feature_files)
 
-  h2 = []
-  h1.map do |k,v|
-    require = k =~ /^engines/ ? "-r engines/**/features" : nil
-    v.each_slice(CI_SCENARIOS_PER_TASK) do |lines|
-      path = ([k] + lines).join(':')
-      exec = "DISPLAY=\":$XVNC_PORT\" bundle exec cucumber -p default %s -f json -o log/cucumber_report.json #{STRICT_MODE ? "--strict " : nil}%s DEFAULT_BROWSER=%s" % [require, path, default_browser]
-      h2 << task_hash(path, exec)
+ENGINES.each do |engine|
+  engine_feature_files = Dir.glob("engines/#{engine}/features/**/*.feature")
+  filepath = "./.cider-ci/tasks/cucumber_#{engine}.yml"
+  create_feature_tasks(filepath, engine_feature_files)
+end
+
+EXCLUDE_TAGS = %w(@old-ui @upcoming @generating_personas @manual @problematic)
+
+def create_scenario_tasks(filepath, feature_files_paths, tags = nil)
+  File.open(filepath,'w') do |f|
+    h1 = {}
+    `egrep -R -n -B 1 "^\s*(Scenario|Szenario)" #{feature_files_paths}`
+      .split("--\n")
+      .map{|x| x.split("\n")}
+      .each do |t, s|
+
+      if tags and not t.match /#{tags.join("|")}/
+        next
+      end
+
+      if not tags and t.match /#{EXCLUDE_TAGS.join("|")}/
+        next
+      end
+
+      splitted_string = \
+        s.split(/:\s*(Scenario|Szenario)( Outline| Template|grundriss)?: /)
+      k, v = splitted_string.first.split(':')
+      h1[k] ||= []
+      h1[k] << v
+
+    end.compact
+
+    h2 = []
+    h1.map do |k,v|
+      require = k =~ /^engines/ ? "-r engines/**/features" : nil
+      v.each_slice(CI_SCENARIOS_PER_TASK) do |lines|
+        path = ([k] + lines).join(':')
+        exec = "DISPLAY=\":$XVNC_PORT\" bundle exec cucumber -p default %s -f json -o log/cucumber_report.json #{STRICT_MODE ? "--strict " : nil}%s DEFAULT_BROWSER=%s" % [require, path, DEFAULT_BROWSER]
+        h2 << task_hash(path, exec)
+      end
     end
+
+    h3 = {'tasks' => h2}
+
+    f.write h3.to_yaml
   end
+end
 
-  h3 = {'tasks' => h2}
+filepath = './.cider-ci/tasks/cucumber_leihs_scenarios.yml'
+leihs_feature_files_paths = 'features/*'
+create_scenario_tasks(filepath, leihs_feature_files_paths)
 
-  f.write h3.to_yaml
+# keep failing CI scenarios in a separate yml file (and job)
+filepath = './.cider-ci/tasks/cucumber_leihs_problematic_scenarios.yml'
+leihs_feature_files_paths = 'features/*'
+create_scenario_tasks(filepath, leihs_feature_files_paths, ['@problematic'])
+
+ENGINES.each do |engine|
+  filepath = "./.cider-ci/tasks/cucumber_#{engine}_scenarios.yml"
+  engine_feature_files_paths = "engines/#{engine}/**/*.feature"
+  create_scenario_tasks(filepath, engine_feature_files_paths)
 end

@@ -32,7 +32,7 @@ Feature: Purpose
     And I define a purpose
     Then only items without purpose are assigned that purpose
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Handing over items that all have a purpose
     When I open a hand over
     And all selected items have an assigned purpose

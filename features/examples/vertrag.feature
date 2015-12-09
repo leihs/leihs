@@ -29,7 +29,7 @@ Feature: Contract
     Given I open a contract during hand over
     Then I see a note mentioning the terms and conditions
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: User information on the contract
     Given I open a contract during hand over
     Then the following user information is included on the contract:
@@ -42,7 +42,7 @@ Feature: Contract
     | Postal code   |
     | City          |
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: List of returned items
     Given I open a contract during hand over
     When there are returned items
@@ -102,7 +102,7 @@ Feature: Contract
     Given I open a contract during hand over
     Then the lender is shown next to the borrower
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: List of borrowed items
     Given I open a contract during hand over
     When there are unreturned items

@@ -1,0 +1,34 @@
+jobs:
+
+  meta:
+
+    name: Meta
+    description: |
+      Various superordinate quality assurance tasks
+
+    depends-on:
+    - type: job
+      job: tests-leihs
+      states: [passed]
+    - type: job
+      job: tests-leihs-admin
+      states: [passed]
+
+    run-on:
+    - type: branch
+      include-match: ^.*$
+
+    context:
+      task-defaults:
+        max-auto-trials: 1
+        traits:
+          linux: true
+          ruby: true
+
+      tasks:
+        git_submodules_merged:
+          name: "Number of problematic tests did not increase"
+          scripts:
+            main:
+              body: ".cider-ci/bin/check_problematic_scenarios.rb"
+

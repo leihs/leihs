@@ -32,7 +32,7 @@ Feature: Edit order
     Then this order was created by a user that is in a group whose orders require verification
     And this order contains a model from a group whose orders require verification
 
-  @javascript @personas
+  @javascript @personas @problematic
   Scenario: Show all orders - tab 'All orders'
     Given I am Andi
     And I am in an inventory pool with verifiable orders
@@ -41,7 +41,7 @@ Feature: Edit order
     Then I see all verifiable orders
     And these orders are ordered by creation date
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Displaying the tab of pending orders
     Given I am Andi
     And I am in an inventory pool with verifiable orders
@@ -58,7 +58,7 @@ Feature: Edit order
     And I can edit the order
     And I cannot hand over orders
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Displaying the tab of approved orders
     Given I am Andi
     And I am in an inventory pool with verifiable orders

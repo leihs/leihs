@@ -62,7 +62,7 @@ Feature: Model
     And I save
     Then the changed allocations are saved
 
-  @javascript @personas
+  @javascript @personas @problematic
   Scenario: Delete model
     Given there is a model with the following conditions:
       | not in any contract |

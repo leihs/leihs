@@ -1,13 +1,11 @@
-name: Tests
-
 script-defaults:
   timeout: 600
 
 task-defaults:
   eager-trials: 1
-  max-auto-trials: 3
 
   environment-variables:
+    RBENV_VERSION: 2.1
     RAILS_ENV: test
     LANG: "en_US.UTF-8"
 
@@ -80,6 +78,8 @@ task-defaults:
       body: tightvncserver ":$XVNC_PORT"  -geometry 1024x768 -rfbport "$XVNC_PORT"  -interface '127.0.0.1'
 
     test:
+      environment-variables:
+        RBENV_VERSION: 2.1
       body: |
         export DISPLAY=":$XVNC_PORT" \
         && rm -rf coverage \
@@ -102,17 +102,3 @@ task-defaults:
       start-when:
       - script: test
         states: [aborted, passed, failed, skipped]
-
-_cider-ci_include: '.cider-ci/tasks/cucumber_scenarios.yml'
-
-# _cider-ci_generate-tasks:
-#  include-match: features/.*feature
-
-# tasks:
-#   cucumber:
-#     _cider-ci_include: '.cider-ci/tasks/cucumber_scenarios.yml'
-
-# tasks:
-#   availability:
-#     environment-variables:
-#       CIDER_CI_TASK_FILE: features/availability_caching.feature

@@ -1,3 +1,6 @@
 _cider-ci_include:
-  - .cider-ci/jobs/tests-mri.yml
-  - .cider-ci/jobs/code-checks.yml
+  - .cider-ci/jobs/tests-leihs.yml
+  - .cider-ci/jobs/problematic-tests.yml
+  - .cider-ci/jobs/tests-leihs-admin.yml
+  - .cider-ci/jobs/meta.yml
+  - .cider-ci/jobs/good-to-merge.yml

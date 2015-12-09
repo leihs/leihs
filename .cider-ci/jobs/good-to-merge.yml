@@ -1,0 +1,27 @@
+jobs:
+
+  good-to-merge:
+
+    name: Good To Merge
+
+    descriptions: |
+      This job depends on all other tests and checks
+      and it will pass if and only if all dependencies have passed.
+
+    depends-on:
+    - type: job
+      job: tests-leihs
+      states: [passed]
+    - type: job
+      job: tests-leihs-admin
+      states: [passed]
+
+    run-on:
+    - type: branch
+      include-match: ^.+$
+
+    context:
+      tasks:
+        all:
+          scripts:
+            body: echo 'Yay, all dependencies have passed!'

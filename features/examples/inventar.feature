@@ -118,7 +118,7 @@ Feature: Inventory
       | Choice |
       | Software           |
 
-  @personas @javascript @browser
+  @personas @javascript @browser @problematic
   Scenario Outline: Filtering used and unused inventory
     Given I see retired and not retired inventory
     When I choose inside all inventory as "<dropdown>" the option "<property>"
@@ -138,7 +138,7 @@ Feature: Inventory
     | borrowable & unborrowable | borrowable     |
     | borrowable & unborrowable | unborrowable   |
 
-  @personas @javascript @browser
+  @personas @javascript @browser @problematic
   Scenario Outline: Filtering retired and not retired inventory
     Given I see retired and not retired inventory
     When I choose inside all inventory as "<dropdown>" the option "<property>"

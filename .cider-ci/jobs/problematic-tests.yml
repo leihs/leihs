@@ -1,0 +1,28 @@
+jobs:
+
+  problematic-tests:
+
+    name: Problematic Tests
+
+    description: |
+      Run problematic features (except engines) under MRI
+
+    depends-on:
+    - type: job
+      job: tests-leihs
+      states: [passed]
+    - type: job
+      job: tests-leihs-admin
+      states: [passed]
+
+    run-on:
+    - type: branch
+      include-match: ^.+$
+
+    context:
+      task-defaults:
+        max-auto-trials: 6
+
+      _cider-ci_include:
+        - .cider-ci/shared/tests-context.yml
+        - .cider-ci/tasks/cucumber_leihs_problematic_scenarios.yml

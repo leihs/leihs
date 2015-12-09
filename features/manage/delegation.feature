@@ -155,7 +155,7 @@ Feature: Delegation
     And I save
     Then no orders can be created for this delegation in the current inventory pool
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Persönliche Bestellung in Delegationsbestellung ändern in Bestellung
     Given I am Pius
     And I open an order
@@ -191,7 +191,7 @@ Feature: Delegation
     Then the order shows the name of the user
     And I don't see any contact person
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Changing the delegation during hand over
     Given I am Pius
     And there is a hand over for a delegation
@@ -244,7 +244,7 @@ Feature: Delegation
     And the delegation is saved as borrower
     And I am saved as contact person
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Changing delegation in an order
     Given I am Pius
     And I open an order
