@@ -33,7 +33,7 @@ Then(/^I can restrict the user list to show only (users|delegations)$/) do |arg1
   within '#user-list.list-of-lines' do
     find('.line', match: :first)
     ids = all(".line [data-type='user-cell']").map { |user_data| user_data['data-id'] }
-    expect(User.find(ids).any?(&:is_delegation)).to be b
+    expect(User.find(ids).any?(&:delegation?)).to be b
   end
 end
 
@@ -150,7 +150,7 @@ Then(/^I am saved as contact person$/) do
 end
 
 Given(/^there is an order for a delegation$/) do
-  @contract = @current_inventory_pool.reservations_bundles.submitted.find {|c| c.user.is_delegation }
+  @contract = @current_inventory_pool.reservations_bundles.submitted.find {|c| c.user.delegation? }
   expect(@contract).not_to be_nil
 end
 
@@ -169,7 +169,7 @@ Then(/^I see the contact person$/) do
 end
 
 Given(/^there is an order placed by me personally$/) do
-  @contract = @current_inventory_pool.reservations_bundles.submitted.find {|c| not c.user.is_delegation }
+  @contract = @current_inventory_pool.reservations_bundles.submitted.find {|c| not c.user.delegation? }
   expect(@contract).not_to be_nil
 end
 
@@ -183,9 +183,9 @@ end
 
 Given(/^there is a hand over( for a delegation)?( with assigned items)?$/) do |arg1, arg2|
   @hand_over = if arg1 and arg2
-                 @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation and v.reservations.all?(&:item) and Date.today >= v.date }
+                 @current_inventory_pool.visits.hand_over.find {|v| v.user.delegation? and v.reservations.all?(&:item) and Date.today >= v.date }
                elsif arg1
-                 @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation and v.reservations.any? &:item and not v.date > Date.today } # NOTE v.date.future? doesn't work properly because timezone
+                 @current_inventory_pool.visits.hand_over.find {|v| v.user.delegation? and v.reservations.any? &:item and not v.date > Date.today } # NOTE v.date.future? doesn't work properly because timezone
                else
                  @current_inventory_pool.visits.hand_over.order('RAND()').first
                end
@@ -209,7 +209,7 @@ When(/^I change the delegation$/) do
   find('.modal', match: :first)
   @contract ||= @hand_over.reservations.map(&:contract).uniq.first
   @old_delegation = @contract.user
-  @new_delegation = @current_inventory_pool.users.find {|u| u.is_delegation and u.firstname != @old_delegation.firstname}
+  @new_delegation = @current_inventory_pool.users.find {|u| u.delegation? and u.firstname != @old_delegation.firstname}
   find('input#user-id', match: :first).set @new_delegation.name
   find('.ui-menu-item a', match: :first).click
   @contract.reservations.reload.all? {|c| c.user == @new_delegation }
@@ -396,7 +396,7 @@ Then(/^the edited delegation is saved with its current information$/) do
 end
 
 When(/^I edit a delegation that has access to the current inventory pool$/) do
-  @delegation = @current_inventory_pool.users.find {|u| u.is_delegation and not u.visits.take_back.exists? and u.inventory_pools.count >= 2}
+  @delegation = @current_inventory_pool.users.find {|u| u.delegation? and not u.visits.take_back.exists? and u.inventory_pools.count >= 2}
   expect(@delegation).not_to be_nil
   visit manage_edit_inventory_pool_user_path(@current_inventory_pool, @delegation)
 end
@@ -469,7 +469,7 @@ Then(/^the hand over shows the user$/) do
 end
 
 Then(/^I open a hand over for a delegation$/) do
-  @hand_over = @current_inventory_pool.visits.hand_over.find {|v| v.user.is_delegation }
+  @hand_over = @current_inventory_pool.visits.hand_over.find {|v| v.user.delegation? }
   @delegation = @hand_over.user
   visit manage_hand_over_path @current_inventory_pool, @delegation
 end

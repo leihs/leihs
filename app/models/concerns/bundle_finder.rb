@@ -5,7 +5,9 @@ module BundleFinder
     records = args.map do |arg|
       if arg.is_a? String and arg.include?('_')
         status, user_id, inventory_pool_id = arg.split('_')
-        find_by(status: status, user_id: user_id, inventory_pool_id: inventory_pool_id)
+        find_by(status: status,
+                user_id: user_id,
+                inventory_pool_id: inventory_pool_id)
       else
         find_by(contract_id: arg)
       end
@@ -21,9 +23,11 @@ module BundleFinder
     if args.first.is_a? Hash and arg = args.first.delete(:id)
       if arg.is_a? String and arg.include?('_')
         status, user_id, inventory_pool_id = arg.split('_')
-        args.first.merge!({status: status, user_id: user_id, inventory_pool_id: inventory_pool_id})
+        args.first.merge!(status: status,
+                          user_id: user_id,
+                          inventory_pool_id: inventory_pool_id)
       else
-        args.merge!({contract_id: arg})
+        args.merge!(contract_id: arg)
       end
     end
 
@@ -31,6 +35,6 @@ module BundleFinder
   end
 
   def empty?
-    to_a.count.zero?
+    to_a.size.zero?
   end
 end

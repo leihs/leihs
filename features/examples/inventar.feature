@@ -94,13 +94,13 @@ Feature: Inventory
       | Choice |
       | All               |
 
-  @personas @javascript @browser
+  @personas @javascript @browser @problematic
   Scenario: The tab 'Models'
     Then I can click one of the following tabs to filter inventory by:
       | Choice |
       | Models            |
 
-  @personas @javascript @browser
+  @personas @javascript @browser @problematic
   Scenario: The tab 'Packages'
     Then I can click one of the following tabs to filter inventory by:
       | Choice |
@@ -212,7 +212,7 @@ Feature: Inventory
       | Number available (now)   |
       | Number available (total) |
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Look of an item line
     When I view the tab "Models"
     And the item is in stock and my department is responsible for it

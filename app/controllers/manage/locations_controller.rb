@@ -5,4 +5,3 @@ class Manage::LocationsController < Manage::ApplicationController
   end
 
 end
-  

@@ -25,7 +25,11 @@ module LeihsAdmin
     end
 
     def edit
-      @items = @supplier.items.order(:inventory_pool_id).includes(:model, :inventory_pool)
+      @items = \
+        @supplier \
+          .items
+          .order(:inventory_pool_id)
+          .includes(:model, :inventory_pool)
     end
 
     def update
@@ -49,6 +53,5 @@ module LeihsAdmin
     end
 
   end
-
 
 end

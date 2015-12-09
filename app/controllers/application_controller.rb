@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include MainHelpers
 
   layout 'splash'
-  
+
   def root
     if logged_in?
       flash.keep

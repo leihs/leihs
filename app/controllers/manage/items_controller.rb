@@ -9,7 +9,7 @@ class Manage::ItemsController < Manage::ApplicationController
     items = Item.filter params, current_inventory_pool
     @locations = []
     items.each do |item|
-      @locations.push({id: item.id, location: item.current_location})
+      @locations.push(id: item.id, location: item.current_location)
     end
   end
 
@@ -20,13 +20,13 @@ class Manage::ItemsController < Manage::ApplicationController
     unless @current_user.has_role?(:lending_manager, current_inventory_pool)
       @item.inventory_pool = current_inventory_pool
     end
-    @item.is_inventory_relevant = (is_super_user? ? true : false)
+    @item.is_inventory_relevant = (super_user? ? true : false)
   end
 
   def edit
     fetch_item_by_id
   end
- 
+
   def create
     @item = Item.new(owner: current_inventory_pool)
 
@@ -37,29 +37,32 @@ class Manage::ItemsController < Manage::ApplicationController
     end
 
     respond_to do |format|
-      format.json {
+      format.json do
         if saved
           head status: :ok
         else
           if @item
-            render text: @item.errors.full_messages.uniq.join(', '), status: :bad_request
+            render text: @item.errors.full_messages.uniq.join(', '),
+                   status: :bad_request
           else
             render json: {}, status: :not_found
           end
         end
-      }
-      format.html {
+      end
+      format.html do
         if saved
           if params[:copy]
-            redirect_to manage_copy_item_path(current_inventory_pool, @item.id), flash: {success: _('New item created.')}
+            redirect_to manage_copy_item_path(current_inventory_pool, @item.id),
+                        flash: { success: _('New item created.') }
           else
-            redirect_to manage_inventory_path(current_inventory_pool), flash: {success: _('New item created.')}
+            redirect_to manage_inventory_path(current_inventory_pool),
+                        flash: { success: _('New item created.') }
           end
         else
           flash[:error] = @item.errors.full_messages.uniq
           redirect_to manage_new_item_path(current_inventory_pool)
         end
-      }
+      end
     end
   end
 
@@ -72,36 +75,47 @@ class Manage::ItemsController < Manage::ApplicationController
 
       unless @item.errors.any?
         # NOTE avoid to lose already stored properties
-        params[:item][:properties] = @item.properties.merge params[:item][:properties] if params[:item][:properties]
+        if params[:item][:properties]
+          params[:item][:properties] = \
+            @item.properties.merge params[:item][:properties]
+        end
         saved = @item.update_attributes(params[:item])
       end
 
     end
 
     respond_to do |format|
-      format.json { 
+      format.json do
         if saved
-          render status: :ok, json: @item.to_json(include: [:inventory_pool, :location, :model, :owner, :supplier])
+          render(status: :ok,
+                 json: @item.to_json(include: [:inventory_pool,
+                                               :location,
+                                               :model,
+                                               :owner,
+                                               :supplier]))
         else
           if @item
-            render text: @item.errors.full_messages.uniq.join(', '), status: :bad_request
+            render text: @item.errors.full_messages.uniq.join(', '),
+                   status: :bad_request
           else
             render json: {}, status: :not_found
           end
         end
-      }
-      format.html {
+      end
+      format.html do
         if saved
           if params[:copy]
-            redirect_to manage_copy_item_path(current_inventory_pool, @item.id), flash: {success: _('Item saved.')}
+            redirect_to manage_copy_item_path(current_inventory_pool, @item.id),
+                        flash: { success: _('Item saved.') }
           else
-            redirect_to manage_inventory_path(current_inventory_pool), flash: {success: _('Item saved.')}
+            redirect_to manage_inventory_path(current_inventory_pool),
+                        flash: { success: _('Item saved.') }
           end
         else
           flash[:error] = @item.errors.full_messages.uniq.join(', ')
           render action: :edit
         end
-      }
+      end
     end
   end
 
@@ -115,7 +129,7 @@ class Manage::ItemsController < Manage::ApplicationController
     @item.name = nil
     render :new
   end
-  
+
   def show
     fetch_item_by_id
   end
@@ -138,11 +152,14 @@ class Manage::ItemsController < Manage::ApplicationController
   def check_fields_for_write_permissions
     Field.all.each do |field|
       next unless field.data['permissions']
-      if field.get_value_from_params params[:item]
-        unless field.editable current_user, current_inventory_pool, @item
-          @item.errors.add(:base, _('You are not the owner of this item')+', '+_('therefore you may not be able to change some of these fields'))
-        end
-      end
+      next unless field.get_value_from_params params[:item]
+      next if field.editable(current_user, current_inventory_pool, @item)
+      @item
+        .errors
+        .add(:base,
+             _('You are not the owner of this item') \
+             + ', ' \
+             + _('therefore you may not be able to change some of these fields'))
     end
   end
 

@@ -3,25 +3,25 @@
   %nav
     %ul
 
-      - if is_lending_manager?
+      - if lending_manager?
         %li
           %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_daily_view_path(current_inventory_pool),
           :class => (defined? active_tab and active_tab == :daily_view) ? "active" : ""}
             = _("Daily View")
 
-      - if is_group_manager?
+      - if group_manager?
         %li
           %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_contracts_path(current_inventory_pool, status: [:approved, :submitted, :rejected]),
           :class => (defined? active_tab and active_tab == :orders) ? "active" : ""}
             = _("Orders")
 
-      - if is_lending_manager?
+      - if lending_manager?
         %li
           %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_inventory_pool_visits_path(current_inventory_pool),
           :class => (defined? active_tab and active_tab == :visits) ? "active" : ""}
             = _("Visits")
 
-      - if is_group_manager?
+      - if group_manager?
         %li
           %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_contracts_path(current_inventory_pool, status: [:signed, :closed]),
           :class => (defined? active_tab and active_tab == :contracts) ? "active" : ""}

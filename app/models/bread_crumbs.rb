@@ -1,4 +1,4 @@
-#NOTE: currently only works for category_ids
+# NOTE: currently only works for category_ids
 
 class BreadCrumbs
 
@@ -12,7 +12,14 @@ class BreadCrumbs
     @crumbs.each_with_index do |category_id, i|
       category = Category.find category_id
       category_ids = @crumbs[0..i]
-      crumbs.push [path_for(Rails.application.routes.url_helpers.borrow_models_path(category_id: category_id), category_ids, false), category.name]
+      url_helper = \
+        Rails \
+          .application
+          .routes
+          .url_helpers
+          .borrow_models_path(category_id: category_id)
+      crumbs.push [path_for(url_helper, category_ids, false),
+                   category.name]
     end
     crumbs
   end
@@ -24,7 +31,7 @@ class BreadCrumbs
     category_ids = (@crumbs + category_ids) if append_to_current
     query_hash.merge!(as_params(category_ids))
     uri.query = query_hash.to_param
-    
+
     uri.to_s
   end
 
@@ -35,7 +42,7 @@ class BreadCrumbs
     category_ids.each do |category_id|
       crumbs.push(category_id) unless crumbs.include? category_id
     end
-    {'_bc' => crumbs}
+    { '_bc' => crumbs }
   end
 
 end

@@ -17,7 +17,7 @@ Feature: Purpose
     When I open a hand over
     Then I see the assigned purpose on each line
 
-  @javascript @personas
+  @javascript @personas @problematic
   Scenario: Places where I can edit the purpose
     When I edit an order
     Then I can edit the purpose

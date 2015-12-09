@@ -7,14 +7,22 @@ class Field < ActiveRecord::Base
 
   ####################################
 
-  GROUPS_ORDER = [nil, 'General Information', 'Status', 'Location', 'Inventory', 'Invoice Information', 'Umzug', 'Toni Ankunftskontrolle', 'Maintenance']
+  GROUPS_ORDER = [nil,
+                  'General Information',
+                  'Status',
+                  'Location',
+                  'Inventory',
+                  'Invoice Information',
+                  'Umzug',
+                  'Toni Ankunftskontrolle',
+                  'Maintenance']
 
   default_scope { where(active: true).order(:position) }
 
   ####################################
 
   def value(item)
-    Array(data['attribute']).inject(item) do |r,m|
+    Array(data['attribute']).inject(item) do |r, m|
       if r.is_a?(Hash)
         r[m]
       else
@@ -28,11 +36,11 @@ class Field < ActiveRecord::Base
   end
 
   def set_default_value(item)
-    return unless data.has_key?('default')
+    return unless data.key?('default')
     return unless value(item).nil?
 
     attrs = Array(data['attribute'])
-    attrs.inject(item) do |r,m|
+    attrs.inject(item) do |r, m|
       if m == attrs[-1]
         if r.is_a?(Hash)
           r[m] = default
@@ -51,36 +59,49 @@ class Field < ActiveRecord::Base
 
   def values
     case data['values']
-      when 'all_inventory_pools'
-        (InventoryPool.all.map {|x| {value: x.id, label: x.name}}).as_json
-      when 'all_buildings'
-        ([{value: nil, label: _('None')}] + Building.all.map {|x| {value: x.id, label: x.to_s}}).as_json
-      when 'all_suppliers'
-        Supplier.order(:name).map {|x| {value: x.id, label: x.name}}.as_json
-      when 'all_currencies'
-        Money::Currency.all.map(&:iso_code).sort.map {|iso_code| {label: iso_code, value: iso_code} }
-      else
-        data['values']
+    when 'all_inventory_pools'
+      (InventoryPool.all.map { |x| { value: x.id, label: x.name } }).as_json
+    when 'all_buildings'
+      ([{ value: nil, label: _('None') }] \
+       + Building.all.map { |x| { value: x.id, label: x.to_s } }).as_json
+    when 'all_suppliers'
+      Supplier.order(:name).map { |x| { value: x.id, label: x.name } }.as_json
+    when 'all_currencies'
+      Money::Currency
+        .all
+        .map(&:iso_code)
+        .sort
+        .map { |iso_code| { label: iso_code, value: iso_code } }
+    else
+      data['values']
     end
   end
 
   def default
     case data['default']
-      when 'today'
-        Date.today.as_json
-      else
-        data['default']
+    when 'today'
+      Time.zone.today.as_json
+    else
+      data['default']
     end
   end
 
   def search_path(inventory_pool)
     case data['search_path']
-      when 'models'
-        Rails.application.routes.url_helpers.manage_models_path(inventory_pool, {all: true})
-      when 'software'
-        Rails.application.routes.url_helpers.manage_models_path(inventory_pool, {all: true, type: :software})
-      else
-        data['search_path']
+    when 'models'
+      Rails
+        .application
+        .routes
+        .url_helpers
+        .manage_models_path(inventory_pool, all: true)
+    when 'software'
+      Rails
+        .application
+        .routes
+        .url_helpers
+        .manage_models_path(inventory_pool, all: true, type: :software)
+    else
+      data['search_path']
     end
   end
 
@@ -97,13 +118,13 @@ class Field < ActiveRecord::Base
   def get_value_from_params(params)
     if data['attribute'].is_a? Array
       begin
-        data['attribute'].inject(params) {|params,attr|
+        data['attribute'].inject(params) do|params, attr|
           if params.is_a? Hash
             params[attr.to_sym]
           else
             params.send attr
           end
-        }
+        end
       rescue
         nil
       end
@@ -115,15 +136,20 @@ class Field < ActiveRecord::Base
   def editable(user, inventory_pool, item)
     return true unless data['permissions']
 
-    return false if data['permissions']['role'] and not user.has_role? data['permissions']['role'], inventory_pool
-    return false if data['permissions']['owner'] and item.owner != inventory_pool
+    if data['permissions']['role'] \
+      and not user.has_role? data['permissions']['role'], inventory_pool
+      return false
+    end
+    if data['permissions']['owner'] and item.owner != inventory_pool
+      return false
+    end
 
-    return true
+    true
   end
 
-########
+  ########
 
-  def accessible_by? user, inventory_pool
+  def accessible_by?(user, inventory_pool)
     if data['permissions']
       user.has_role? data['permissions']['role'], inventory_pool
     else

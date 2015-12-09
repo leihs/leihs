@@ -1,6 +1,6 @@
 %li.dropdown
   %a.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
-    - if current_user.is_delegation
+    - if current_user.delegation?
       %i.fa.fa-group
     - else
       %img.img-rounded{src: current_user.image_url, style: 'max-width: 2em; max-height: 2em'}
@@ -27,7 +27,7 @@
         %a{href: main_app.borrow_user_delegations_path}
           .fa.fa-group
           = _("Delegations")
-    - elsif current_user.is_delegation and @current_delegated_user
+    - elsif current_user.delegation? and @current_delegated_user
       %li
         %a{href: main_app.borrow_user_switch_back_path}
           %img.max-height-xxxs.max-width-xxs{:src => @current_delegated_user.image_url}

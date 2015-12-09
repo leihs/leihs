@@ -1,19 +1,21 @@
 require 'digest/sha1'
 
-class Authenticator::DatabaseAuthenticationController < Authenticator::AuthenticatorController
+class Authenticator::DatabaseAuthenticationController \
+  < Authenticator::AuthenticatorController
 
   def login_form_path
     '/authenticator/db/login'
   end
-  
+
   def login
     super
     @preferred_language = Language.preferred(request.env['HTTP_ACCEPT_LANGUAGE'])
     if request.post?
-      if (l = DatabaseAuthentication.authenticate(params[:login][:username], params[:login][:password]))
+      if (l = DatabaseAuthentication.authenticate(params[:login][:username],
+                                                  params[:login][:password]))
         self.current_user = l.user
         if current_user.access_rights.active.size == 0
-          render text: _("You don't have any rights to access this application.") 
+          render text: _("You don't have any rights to access this application.")
           return
         end
         redirect_back_or_default('/')
@@ -35,6 +37,5 @@ class Authenticator::DatabaseAuthenticationController < Authenticator::Authentic
     end
     redirect_to borrow_current_user_path
   end
-  
+
 end
-  

@@ -4,7 +4,7 @@
 ### CUCUMBER
 guard 'cucumber', all_on_start: false do
   watch(%r{^features/.+\.feature$})
-  watch(%r{^features/support/.+$})          { 'features' }
+  watch(%r{^features/support/.+$}) { 'features' }
   watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
 end
 
@@ -38,15 +38,15 @@ guard 'spork', cucumber_env: { 'RAILS_ENV' => 'test' }, rspec_env: { 'RAILS_ENV'
   watch(%r{features/support/}) { :cucumber }
 end
 
-### JASMINE HEADLESS WEBKIT # NOTE: GUARD JASMINE HEADLESS NOT WORKING ANY LONGER .... 
-#spec_location = "spec/javascripts/%s_spec"
-#guard 'jasmine-headless-webkit', :all_on_start => false do
+### JASMINE HEADLESS WEBKIT # NOTE: GUARD JASMINE HEADLESS NOT WORKING ANY LONGER ....
+# spec_location = "spec/javascripts/%s_spec"
+# guard 'jasmine-headless-webkit', :all_on_start => false do
 #  watch(%r{^(app|lib|vendor)/assets/javascripts/(.*)$}) { |m| newest_js_file(spec_location % m[1]) }
 #  watch(%r{^spec/javascripts/(.*)[Ss]pec\..*}) { |m| newest_js_file(spec_location % m[1]) }
-#end
+# end
 
 guard 'jasmine' do
-  watch(%r{spec/javascripts/spec\.(js\.coffee|js|coffee)$})         { 'spec/javascripts' }
+  watch(%r{spec/javascripts/spec\.(js\.coffee|js|coffee)$}) { 'spec/javascripts' }
   watch(%r{spec/javascripts/.+_spec\.(js\.coffee|js|coffee)$})
-  watch(%r{app/assets/javascripts/(.+?)\.(js\.coffee|js|coffee)$})  { |m| "spec/javascripts/#{m[1]}_spec.#{m[2]}" }
+  watch(%r{app/assets/javascripts/(.+?)\.(js\.coffee|js|coffee)$}) { |m| "spec/javascripts/#{m[1]}_spec.#{m[2]}" }
 end

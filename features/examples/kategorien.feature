@@ -35,7 +35,7 @@ Feature: Categories
     Then the category and all its aliases are removed from the tree
     And I see the list of categories
 
-  @javascript @personas
+  @javascript @personas @browser
   Scenario: Can't delete a category if it contains models
     When a category has models
     Then it's not possible to delete the category

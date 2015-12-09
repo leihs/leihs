@@ -15,28 +15,36 @@ namespace :leihs do
     url = URI.parse("https://api.github.com/repos/leihs/leihs/commits/#{branch}")
     request = Net::HTTP::Get.new(url.path)
 
-    response = Net::HTTP.start(url.host, use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE) {|http| http.request(request)}
+    response = \
+      Net::HTTP.start(url.host,
+                      use_ssl: true,
+                      verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
+        http.request(request)
+      end
     json = JSON.parse response.body
     author = json['commit']['author']
-    time_of_commit = DateTime.parse(author['date']).to_s
-    time_now = Time.now.to_s
+    time_of_commit = Time.zone.parse(author['date']).to_s
+    time_now = Time.zone.now.to_s
     sha = json['sha']
 
-    #new#
+    # new#
     git_info = {
-        branch: branch,
-        time_of_deploy: time_now,
-        time_of_commit: time_of_commit,
-        author: author["name"],
-        sha: sha
+      branch: branch,
+      time_of_deploy: time_now,
+      time_of_commit: time_of_commit,
+      author: author['name'],
+      sha: sha
     }
-    File.open("log/git.json","w") do |f|
+    File.open('log/git.json', 'w') do |f|
       f.write(git_info.to_json)
     end
-    #end new#
+    # end new#
 
-    #old#
-    File.open(Rails.root.join('app', 'views', 'staging', '_deploy_information.html.haml'), 'a+') do |f| 
+    # old#
+    File.open(Rails.root.join('app',
+                              'views',
+                              'staging',
+                              '_deploy_information.html.haml'), 'a+') do |f|
 
       f.puts "\n        %span"
       f.print "          = _(\"this is the branch '%s'\")"
@@ -48,32 +56,44 @@ namespace :leihs do
 
       f.puts "\n        %span\n"
       f.print "          = _(\"last change by '%s'\")"
-      f.print " % \"#{author["name"]}\"\n"
+      f.print " % \"#{author['name']}\"\n"
 
       f.print "          = _(\"is %s ago\")"
       f.print " % distance_of_time_in_words_to_now(\"#{time_of_commit}\")"
       f.puts "\n        %span\n"
       f.print "          = \"#{sha}\""
     end
-    text = File.read(Rails.root.join('app', 'views', 'staging', '_deploy_information.html.haml'))
-    File.open(Rails.root.join('app', 'views', 'layouts', 'splash.html.haml'), 'a+') {|f| f.puts text}
-    File.open(Rails.root.join('app', 'views', 'layouts', 'manage.html.haml'), 'a+') {|f| f.puts text}
-    File.open(Rails.root.join('app', 'views', 'layouts', 'borrow.html.haml'), 'a+') {|f| f.puts text}
-    #end old#
+    text = File.read(Rails.root.join('app',
+                                     'views',
+                                     'staging',
+                                     '_deploy_information.html.haml'))
+    File.open(Rails.root.join('app',
+                              'views',
+                              'layouts',
+                              'splash.html.haml'), 'a+') { |f| f.puts text }
+    File.open(Rails.root.join('app',
+                              'views',
+                              'layouts',
+                              'manage.html.haml'), 'a+') { |f| f.puts text }
+    File.open(Rails.root.join('app',
+                              'views',
+                              'layouts',
+                              'borrow.html.haml'), 'a+') { |f| f.puts text }
+    # end old#
   end
 
   desc 'Initialize'
   task init: :environment do
-    params = {all: ENV['items']}
+    params = { all: ENV['items'] }
     create_some(params)
   end
 
   desc 'Maintenance'
   task maintenance: :environment do
-    
+
     # nothing to do
-    
-    puts 'Maintenance complete ------------------------'    
+
+    puts 'Maintenance complete ------------------------'
   end
 
   desc 'Remind and suspend users'
@@ -83,7 +103,7 @@ namespace :leihs do
     puts 'Remind and suspend complete -----------------------------'
   end
 
-  desc 'Deadline soon reminder' 
+  desc 'Deadline soon reminder'
   task deadline_soon_reminder: :environment do
     puts 'Sending a deadline soon reminder...'
     User.send_deadline_soon_reminder_to_everybody
@@ -93,21 +113,20 @@ namespace :leihs do
   desc 'Cron: Remind & Maintenance'
   task cron: [:remind_and_suspend, :maintenance, :deadline_soon_reminder]
 
-
-  desc 'Recreate DB and reindex' 
+  desc 'Recreate DB and reindex'
   task reset: :environment  do
     Rake::Task['db:drop'].invoke
     Rake::Task['db:create'].invoke
     Rake::Task['db:migrate'].invoke
     Rake::Task['db:seed'].invoke
   end
-  
-################################################################################################
-# Refactoring from Backend::TemporaryController
+
+  ##############################################################################
+  # Refactoring from Backend::TemporaryController
 
   def create_some(params = {})
     puts "Initializing #{params[:all]} items ..."
-    
+
     params[:id] = 3
     params[:name] = 'model'
     max = params[:all].to_i
@@ -116,16 +135,13 @@ namespace :leihs do
     else
       Importer.new.start
     end
-    
+
     create_some_root_categories
 
     puts 'Complete'
   end
 
-
-  
-################################################################################################
-  
+  ###############################################################################
 
   def create_some_root_categories
     video = Category.find_or_create_by(name: 'Video')
@@ -135,7 +151,7 @@ namespace :leihs do
     foto = Category.find_or_create_by(name: 'Foto')
     other = Category.find_or_create_by(name: 'Anderes')
     stative = Category.find_or_create_by(name: 'Stative')
-    
+
     add_to(video, Category.find_or_create_by(name: 'Video Kamera'))
     add_to(video,  Category.find_or_create_by(name: 'Film Kamera'))
     add_to(video,  Category.find_or_create_by(name: 'Video Kamera Zubehör'))
@@ -143,7 +159,7 @@ namespace :leihs do
     add_to(video,  Category.find_or_create_by(name: 'Video Monitor'))
     add_to(video,  Category.find_or_create_by(name: 'Video Recorder/Player'))
     add_to(video,  Category.find_or_create_by(name: 'Stativ Video/Film/Foto'))
-    
+
     add_to(audio,  Category.find_or_create_by(name: 'Audio Recorder portable'))
     add_to(audio,  Category.find_or_create_by(name: 'Audio Recorder/Player'))
     add_to(audio,  Category.find_or_create_by(name: 'Kopfhörer'))
@@ -159,7 +175,7 @@ namespace :leihs do
     add_to(foto,  Category.find_or_create_by(name: 'Foto digital'))
     add_to(foto,  Category.find_or_create_by(name: 'Foto Zubehör'))
     add_to(foto,  Category.find_or_create_by(name: 'Stativ Video/Film/Foto'))
-    
+
     add_to(light,  Category.find_or_create_by(name: 'Licht/Scheinwerfer'))
     add_to(light,  Category.find_or_create_by(name: 'Licht Stative'))
     add_to(light,  Category.find_or_create_by(name: 'Licht Zubehör'))
@@ -182,14 +198,13 @@ namespace :leihs do
     add_to(other, Category.find_or_create_by(name: 'Andere Hardware'))
     add_to(other, Category.find_or_create_by(name: 'Leinwand'))
     add_to(other, Category.find_or_create_by(name: 'Set-/Bühnenbau'))
-    
+
     add_to(stative, Category.find_or_create_by(name: 'Licht Stative'))
     add_to(stative, Category.find_or_create_by(name: 'Stativ Video/Film/Foto'))
-    
   end
 
   def add_to(parent, sub)
     sub.set_parent_with_label(parent, sub.name)
   end
-  
+
 end

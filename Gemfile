@@ -82,6 +82,7 @@ group :development, :test do
   gem 'flay'
   gem 'haml-lint'
   gem 'launchy', '~> 2.1'
+  gem 'meta_request'
   gem 'phantomjs', '~> 1.9.8' # headless webdriver (UI & JS tests)
   gem 'pry'
   gem 'pry-rails'

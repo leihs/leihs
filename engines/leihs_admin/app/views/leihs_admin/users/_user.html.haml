@@ -1,6 +1,6 @@
 .row
   .col-sm-1
-    - if user.is_delegation
+    - if user.delegation?
       %i.fa.fa-group
     - elsif not user.image_url.blank?
       %img.img-rounded{src: user.image_url, style: 'max-width: 3em; max-height: 3em'}
@@ -8,7 +8,7 @@
   .col-sm-5
     %strong{data: {toggle: "popover",
                     name: user.name,
-                    delegator_user_name: user.is_delegation ? user.delegator_user.name : nil,
+                    delegator_user_name: user.delegation? ? user.delegator_user.name : nil,
                     email: user.email,
                     phone: user.phone,
                     badge_id: user.badge_id,

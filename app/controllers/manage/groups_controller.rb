@@ -1,11 +1,13 @@
 class Manage::GroupsController < Manage::ApplicationController
-  
-  before_filter do
+
+  before_action do
     params[:group_id] ||= params[:id] if params[:id]
-    @group = current_inventory_pool.groups.find(params[:group_id]) if params[:group_id]
+    if params[:group_id]
+      @group = current_inventory_pool.groups.find(params[:group_id])
+    end
   end
 
-######################################################################
+  ######################################################################
 
   def index
     @groups = current_inventory_pool.groups
@@ -23,37 +25,50 @@ class Manage::GroupsController < Manage::ApplicationController
   def create
     @group = Group.new name: params[:group][:name]
     @group.inventory_pool = current_inventory_pool
-    update_users(@group, params[:group].delete(:users)) if params[:group].has_key?(:users)
+    if params[:group].key?(:users)
+      update_users(@group, params[:group].delete(:users))
+    end
     if @group.save and @group.update_attributes(params[:group])
-      redirect_to manage_inventory_pool_groups_path, flash: {success: _('%s created') % _('Group')}
+      redirect_to manage_inventory_pool_groups_path,
+                  flash: { success: _('%s created') % _('Group') }
     else
-      redirect_to :back, flash: {error: @group.errors.full_messages.uniq.join(', ')}
+      redirect_to :back,
+                  flash: { error: @group.errors.full_messages.uniq.join(', ') }
     end
   end
-  
+
   def update
-    update_users(@group, params[:group].delete(:users)) if params[:group].has_key?(:users)
+    if params[:group].key?(:users)
+      update_users(@group, params[:group].delete(:users))
+    end
     if @group.update_attributes(params[:group])
-      redirect_to manage_inventory_pool_groups_path, flash: {success: _('%s saved') % _('Group')}
+      redirect_to manage_inventory_pool_groups_path,
+                  flash: { success: _('%s saved') % _('Group') }
     else
-      render text: @group.errors.full_messages.uniq.join(', '), status: :bad_request
+      render text: @group.errors.full_messages.uniq.join(', '),
+             status: :bad_request
     end
   end
 
   def destroy
     respond_to do |format|
       format.html do
-        begin @group.destroy
-          redirect_to manage_inventory_pool_groups_path, flash: { success: _('%s successfully deleted') % _('Group') }
+        begin
+          @group.destroy
+          redirect_to \
+            manage_inventory_pool_groups_path,
+            flash: { success: _('%s successfully deleted') % _('Group') }
         rescue ActiveRecord::DeleteRestrictionError => e
           @group.errors.add(:base, e)
-          redirect_to manage_inventory_pool_groups_path, flash: { error: @group.errors.full_messages.uniq.join(', ') }
+          redirect_to \
+            manage_inventory_pool_groups_path,
+            flash: { error: @group.errors.full_messages.uniq.join(', ') }
         end
       end
     end
   end
 
-#################################################################
+  #################################################################
 
   private ####
 

@@ -4,7 +4,7 @@ end
 
 Given "a reservation exists for $quantity '$model' from $from to $to" do |quantity, model, from, to|
   model = Model.find_by_name(model)
-  inventory_pool = model.inventory_pools.select{|ip| ip.is_open_on?(to_date(from)) and ip.is_open_on?(to_date(to))}.sample
+  inventory_pool = model.inventory_pools.select{|ip| ip.open_on?(to_date(from)) and ip.open_on?(to_date(to))}.sample
   user = inventory_pool.users.sample
   @reservations = []
   quantity.to_i.times do
@@ -23,7 +23,7 @@ end
 
 Given "a contract exists for $quantity '$model' from $from to $to" do |quantity, model, from, to|
   model = Model.find_by_name(model)
-  inventory_pool = model.inventory_pools.order('RAND()').detect { |ip| ip.is_open_on?(to_date(from)) && ip.is_open_on?(to_date(to)) }
+  inventory_pool = model.inventory_pools.order('RAND()').detect { |ip| ip.open_on?(to_date(from)) && ip.open_on?(to_date(to)) }
   user = inventory_pool.users.order('RAND()').first
   purpose = FactoryGirl.create(:purpose)
   @reservations = []

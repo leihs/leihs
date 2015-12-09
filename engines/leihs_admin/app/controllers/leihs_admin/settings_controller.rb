@@ -1,7 +1,7 @@
 module LeihsAdmin
   class SettingsController < AdminController
 
-    before_filter do
+    before_action do
       @setting = Setting.first || Setting.new
     end
 

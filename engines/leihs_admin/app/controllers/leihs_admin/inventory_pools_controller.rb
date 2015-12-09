@@ -46,35 +46,29 @@ module LeihsAdmin
         InventoryPool.find(params[:id]).destroy
         respond_to do |format|
           format.json { head status: :ok }
-          format.html {
+          format.html do
             flash[:success] = _('%s successfully deleted') % _('Inventory Pool')
             redirect_to action: :index
-          }
+          end
         end
       rescue => e
         respond_to do |format|
           format.json { render status: :bad_request, nothing: true }
-          format.html {
+          format.html do
             flash[:error] = e
             redirect_to action: :index
-          }
+          end
         end
       end
     end
 
     private
 
-    def process_params ip
+    def process_params(ip)
       ip[:email] = nil if params[:inventory_pool][:email].blank?
     end
 
     def inventory_managers_access_rights
-      existing_inventory_manager_ids = @inventory_pool.users.inventory_managers.pluck(:id).sort
-      submitted_inventory_manager_ids = if params[:inventory_managers] and params[:inventory_managers][:user_ids]
-                                          params[:inventory_managers][:user_ids].map {|x| x.to_i }.sort
-                                        else
-                                          []
-                                        end
       to_delete = existing_inventory_manager_ids - submitted_inventory_manager_ids
       to_delete.each do |id|
         user = User.find id
@@ -84,11 +78,28 @@ module LeihsAdmin
       to_add = submitted_inventory_manager_ids - existing_inventory_manager_ids
       to_add.each do |id|
         user = User.find id
-        ar = user.access_right_for(@inventory_pool) || user.access_rights.build(inventory_pool: @inventory_pool)
+        ar = user.access_right_for(@inventory_pool) \
+          || user.access_rights.build(inventory_pool: @inventory_pool)
         ar.update_attributes! role: :inventory_manager
       end
     end
 
-  end
+    def existing_inventory_manager_ids
+      @existing_inventory_manager_ids ||= \
+        @inventory_pool \
+          .users
+          .inventory_managers
+          .pluck(:id)
+          .sort
+    end
 
+    def submitted_inventory_manager_ids
+      @submitted_inventory_manager_ids ||= \
+        if params[:inventory_managers] and params[:inventory_managers][:user_ids]
+          params[:inventory_managers][:user_ids].map(&:to_i).sort
+        else
+          []
+        end
+    end
+  end
 end

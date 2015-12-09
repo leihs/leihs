@@ -164,7 +164,7 @@ Feature: Lending
     And I search for an order with its purpose
     Then all listed orders match the search term
 
-  @javascript @personas
+  @javascript @personas @problematic
   Scenario: Searching purpose globally
     Given orders exist
     When I search globally for an order with its purpose

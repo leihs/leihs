@@ -7,8 +7,8 @@ namespace :app do
 
       Dir.glob('locale/**/*.po').each do |path|
         lang = path.split('/')[1]
-        output_path = "app/assets/javascripts/i18n/locale/#{lang.gsub(/_/, '-')}.js"
-        base_path = "app/assets/javascripts/i18n/formats/#{lang.gsub(/_/, '-')}.js"
+        output_path = "app/assets/javascripts/i18n/locale/#{lang.tr('_', '-')}.js"
+        base_path = "app/assets/javascripts/i18n/formats/#{lang.tr('_', '-')}.js"
         puts "node app/node/po2json.js #{path} #{output_path} #{base_path}"
         `node app/node/po2json.js #{path} #{output_path} #{base_path}`
       end

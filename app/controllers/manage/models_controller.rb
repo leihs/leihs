@@ -5,7 +5,8 @@ class Manage::ModelsController < Manage::ApplicationController
   # NOTE overriding super controller
   def required_manager_role
     open_actions = [:timeline]
-    if not open_actions.include?(action_name.to_sym) and (request.post? or not request.format.json?)
+    if not open_actions.include?(action_name.to_sym) \
+      and (request.post? or not request.format.json?)
       super
     else
       require_role :group_manager, current_inventory_pool
@@ -24,23 +25,25 @@ class Manage::ModelsController < Manage::ApplicationController
   end
 
   def new
-    not_authorized! unless is_privileged_user?
+    not_authorized! unless privileged_user?
     @model = (params[:type].try(:humanize) || 'Model').constantize.new
   end
 
   def create
-    not_authorized! unless is_privileged_user?
+    not_authorized! unless privileged_user?
     ActiveRecord::Base.transaction do
       @model = case params[:model][:type]
-                 when 'software'
+               when 'software'
                    Software
-                 else
+               else
                    Model
-               end.create(product: params[:model][:product], version: params[:model][:version])
+               end.create(product: params[:model][:product],
+                          version: params[:model][:version])
       if save_model @model
-        render status: :ok, json: {id: @model.id}
+        render status: :ok, json: { id: @model.id }
       else
-        render status: :bad_request, text: @model.errors.full_messages.uniq.join(', ')
+        render status: :bad_request,
+               text: @model.errors.full_messages.uniq.join(', ')
       end
     end
   end
@@ -50,13 +53,14 @@ class Manage::ModelsController < Manage::ApplicationController
   end
 
   def update
-    not_authorized! unless is_privileged_user?
+    not_authorized! unless privileged_user?
     @model = fetch_model
     ActiveRecord::Base.transaction do
       if save_model @model
         head status: :ok
       else
-        render status: :bad_request, text: @model.errors.full_messages.uniq.join(', ')
+        render status: :bad_request,
+               text: @model.errors.full_messages.uniq.join(', ')
       end
     end
   end
@@ -68,7 +72,9 @@ class Manage::ModelsController < Manage::ApplicationController
         image = @model.images.build(file: file, filename: file.original_filename)
         image.save
       elsif params[:type] == 'attachment'
-        attachment = Attachment.new file: file, filename: file.original_filename, model_id: @model.id
+        attachment = Attachment.new(file: file,
+                                    filename: file.original_filename,
+                                    model_id: @model.id)
         attachment.save
       end
     end
@@ -77,17 +83,26 @@ class Manage::ModelsController < Manage::ApplicationController
 
   def destroy
     @model = fetch_model
-    begin @model.destroy
+    begin
+      @model.destroy
       respond_to do |format|
-        format.json {render json: true, status: :ok}
-        format.html {redirect_to manage_inventory_path(current_inventory_pool), flash: {success: _('%s successfully deleted') % _('Model')}}
+        format.json { render json: true, status: :ok }
+        format.html do
+          redirect_to \
+            manage_inventory_path(current_inventory_pool),
+            flash: { success: _('%s successfully deleted') % _('Model') }
+        end
       end
     rescue => e
       @model.errors.add(:base, e)
       text = @model.errors.full_messages.uniq.join(', ')
       respond_to do |format|
-        format.json {render text: text, status: :forbidden}
-        format.html {redirect_to manage_inventory_path(current_inventory_pool), flash: {error: text}}
+        format.json { render text: text, status: :forbidden }
+        format.html do
+          redirect_to \
+            manage_inventory_path(current_inventory_pool),
+            flash: { error: text }
+        end
       end
     end
   end
@@ -95,7 +110,7 @@ class Manage::ModelsController < Manage::ApplicationController
   def timeline
     @model = fetch_model
     respond_to do |format|
-      format.html { render layout: false}
+      format.html { render layout: false }
     end
   end
 
@@ -114,12 +129,13 @@ class Manage::ModelsController < Manage::ApplicationController
           item = Item.new
           data = package.merge owner_id: current_inventory_pool.id,
                                model: @model
-          data[:inventory_code] ||= "P-#{Item.proposed_inventory_code(current_inventory_pool)}"
+          data[:inventory_code] ||= \
+            "P-#{Item.proposed_inventory_code(current_inventory_pool)}"
           item.update_attributes data
           children['id'].each do |child|
             item.children << Item.find_by_id(child)
           end
-          flash[:success] = "#{_("Model saved")} / #{_("Packages created")}"
+          flash[:success] = "#{_('Model saved')} / #{_('Packages created')}"
         end
       else
         item = Item.find_by_id(package['id'])
@@ -128,7 +144,7 @@ class Manage::ModelsController < Manage::ApplicationController
             item.destroy
           else
             item.retired = true
-            item.retired_reason = '%s %s' % [_('Package'), _('Deleted')]
+            item.retired_reason = format('%s %s', _('Package'), _('Deleted'))
             item.save
           end
           next
@@ -142,7 +158,7 @@ class Manage::ModelsController < Manage::ApplicationController
             end
           end
         end
-        flash[:success] = "#{_("Model saved")} / #{_("Packages updated")}"
+        flash[:success] = "#{_('Model saved')} / #{_('Packages updated')}"
       end
     end
   end

@@ -15,6 +15,15 @@ jobs:
     - type: job
       job: leihs-admin-scenarios
       states: [passed]
+    - type: job
+      job: code-checks
+      states: [passed]
+    - type: job
+      job: leihs-admin-code-checks
+      states: [passed]
+    - type: job
+      job: procurement-code-checks
+      states: [passed]
 
     run-on:
     - type: branch

@@ -25,14 +25,14 @@
       = l @item.retired
       = @item.retired_reason unless @item.retired_reason.nil?
 
-- if not is_lending_manager?
+- if not lending_manager?
 
   .padding-bottom-m
     .row.emboss.error.text-align-center.font-size-m.padding-inset-s
       %strong= "#{_("You don't have permission")}"
       = _("to edit this item")
 
-- elsif not is_owner?
+- elsif not owner?
   
   .padding-bottom-m
     .row.emboss.notice.text-align-center.font-size-m.padding-inset-s

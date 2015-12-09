@@ -4,7 +4,7 @@ Feature: Verification
     Given I am Andi
 
 
-  @personas @javascript @browser
+  @personas @javascript @browser @problematic
   Scenario: Show inventory to group-manager
     When I open the inventory
     Then for each visible model I can see the Timeline

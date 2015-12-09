@@ -5,8 +5,8 @@ class Category < ModelGroup
   has_many :images, as: :target, dependent: :destroy
   accepts_nested_attributes_for :images, allow_destroy: true
 
-  def is_used
-    not(self.models.empty? and self.children.empty?)
+  def used?
+    not (models.empty? and children.empty?)
   end
 
   def self.filter(params, _inventory_pool = nil)

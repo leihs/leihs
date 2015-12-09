@@ -1,0 +1,27 @@
+inherit_from:
+  - '../../.rubocop.yml'
+
+AllCops:
+  Exclude:
+    - 'Gemfile'
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'db/**/*'
+    - 'features/**/*'
+    - 'tmp/**/*'
+    - 'node_modules/**/*'
+    - 'test/**/*'
+
+# Configuration parameters: CountComments.
+Metrics/ClassLength:
+  Max: 128
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+# Configuration parameters: CountComments.
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/PerceivedComplexity:
+  Max: 11

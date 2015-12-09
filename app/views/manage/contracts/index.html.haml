@@ -43,7 +43,7 @@
             %form#list-filters.col4of5.padding-left-s
               %label.button.inset.white.height-xxs
 
-                - if is_group_manager? and not is_lending_manager?
+                - if group_manager? and not lending_manager?
 
                   %input{ :name => :to_be_verified,
                     :type => :checkbox,
@@ -52,7 +52,7 @@
                     :autocomplete => :off }
                   %span= _("To be verified")
 
-                - elsif is_lending_manager?
+                - elsif lending_manager?
 
                   %input{ :name => :no_verification_required,
                     :type => :checkbox,

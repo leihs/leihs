@@ -5,7 +5,7 @@
   %a.button.white#csv-export{:href => manage_inventory_csv_export_path(current_inventory_pool), :target => "_blank"}
     %i.fa.fa-table.vertical-align-middle
     = _("CSV export")
-  - if is_lending_manager?
+  - if lending_manager?
     .dropdown-holder.inline-block
       .button.white.dropdown-toggle
         = _("Add inventory")

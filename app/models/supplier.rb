@@ -20,12 +20,11 @@ class Supplier < ActiveRecord::Base
                  sql = all
                  return sql if query.blank?
 
-                 query.split.each { |q|
+                 query.split.each do |q|
                    q = "%#{q}%"
                    sql = sql.where(arel_table[:name].matches(q))
-                 }
+                 end
                  sql
-               }
+  }
 
 end
-

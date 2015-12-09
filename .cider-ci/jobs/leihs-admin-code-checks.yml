@@ -1,0 +1,44 @@
+jobs:
+
+  leihs-admin-code-checks:
+
+    name: Leihs Admin Code Checks
+
+    description: |
+      Run static checks and metrics: complexity, duplication, code format for Leihs Admin engine.
+
+    run-on:
+    - type: branch
+      include-match: ^.*$
+
+    context:
+
+      task-defaults:
+
+        eager-trials: 1
+        max-auto-trials: 2
+        traits:
+          linux: true
+          rbenv: true
+          ruby: true
+
+        environment-variables:
+          RAILS_ENV: test
+          LANG: "en_US.UTF-8"
+          RBENV_VERSION: 2.1
+
+        scripts:
+          bundle-mri:
+            exclusive-executor-resource: bundler_2.1
+            body: bundle
+          test:
+            start-when:
+            - script: bundle-mri
+
+      tasks:
+
+        lint_ruby:
+          name: Lint/Stylecheck with Rubocop
+          scripts:
+            test:
+              body: bundle exec rubocop engines/leihs_admin/ -c engines/leihs_admin/.rubocop.yml

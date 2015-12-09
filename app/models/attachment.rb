@@ -8,7 +8,9 @@ class Attachment < ActiveRecord::Base
 
   define_attached_file_specification
   validates_attachment_size :file, less_than: 100.megabytes
-  validates_attachment_content_type :file, content_type: /^(image\/(png|gif|jpeg)|application\/pdf)/
+  validates_attachment_content_type \
+    :file,
+    content_type: %r{^(image\/(png|gif|jpeg)|application\/pdf)}
 
   # paperclip callback
   def destroy_attached_files

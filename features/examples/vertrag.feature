@@ -70,7 +70,7 @@ Feature: Contract
     Given I open a contract during hand over
     Then I see the barcode in the top left
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Position of the borrower
     Given I open a contract during hand over
     Then I see the borrower in the top left corner
@@ -109,7 +109,7 @@ Feature: Contract
     Then I see list 2 with the title "Borrowed Items"
     And this list contains items that were borrowed but not yet returned
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Listing the lending party's address
     Given I open a contract during hand over
     Then the inventory pool is listed as lender

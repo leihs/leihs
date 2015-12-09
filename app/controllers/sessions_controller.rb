@@ -15,7 +15,9 @@ class SessionsController < ApplicationController
       else
         render action: 'new'
       end
-    elsif Rails.env.development? and params['bypass'] and self.current_user = User.find_by_login(params['bypass'])
+    elsif Rails.env.development? \
+      and params['bypass'] \
+      and self.current_user = User.find_by_login(params['bypass'])
       redirect_back_or_default('/')
       flash[:notice] = _('Logged in successfully')
     else
@@ -26,19 +28,26 @@ class SessionsController < ApplicationController
   def authenticate(id = params[:id])
     @selected_system = AuthenticationSystem.active_systems.find(id) if id
     @selected_system ||= AuthenticationSystem.default_system.first
+    # TODO: try to get around without eval
+    # rubocop:disable Lint/Eval
     sys = eval('Authenticator::' + @selected_system.class_name + 'Controller').new
+    # rubocop:enable Lint/Eval
     redirect_to sys.login_form_path
   rescue
     logger.error($!)
-    raise 'No default authentication system selected.' unless AuthenticationSystem.default_system.first
+    unless AuthenticationSystem.default_system.first
+      raise 'No default authentication system selected.'
+    end
     raise 'No system selected.' unless @selected_system
-    raise 'Class not found or missing login_form_path method: ' + @selected_system.class_name
+    raise 'Class not found or missing login_form_path method: ' \
+      + @selected_system.class_name
   end
 
   def destroy
     # store last inventory pool to the settings column
     if current_user
-      current_user.latest_inventory_pool_id_before_logout = session[:current_inventory_pool_id]
+      current_user.latest_inventory_pool_id_before_logout = \
+        session[:current_inventory_pool_id]
       current_user.save
     end
     # delete cookie and reset session

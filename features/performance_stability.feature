@@ -1,8 +1,8 @@
 Feature: Leihs must perform acceptably for its users
 
-	We want to make sure that performance of leihs does not degrade as leihs evolves.
+  We want to make sure that performance of leihs does not degrade as leihs evolves.
 
-  @personas
+  @personas @problematic
   Scenario: Computing availability of a heavily booked model should remain acceptable
     Given I am Mike
     Given the model "Kamera Nikon X12" exists

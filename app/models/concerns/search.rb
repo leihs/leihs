@@ -8,7 +8,7 @@ module Search
       scope :search, lambda { |query|
         return all if query.blank?
 
-        q = query.split.map {|s| "%#{s}%"}
+        q = query.split.map { |s| "%#{s}%" }
         where(arel_table[:name].matches_all(q))
       }
 

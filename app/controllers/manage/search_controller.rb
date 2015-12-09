@@ -1,12 +1,13 @@
 class Manage::SearchController < Manage::ApplicationController
 
-  before_filter except: [:search] do
+  before_action except: [:search] do
     @search_term = CGI::unescape params[:search_term]
   end
 
   def search
     search_term = CGI::escape params[:search_term]
-    redirect_to manage_search_results_path(current_inventory_pool, {search_term: search_term})
+    redirect_to manage_search_results_path(current_inventory_pool,
+                                           search_term: search_term)
   end
 
   [:results,
@@ -18,6 +19,6 @@ class Manage::SearchController < Manage::ApplicationController
    :contracts,
    :orders,
    :options]
-    .each {|action| define_method(action) {}}
+    .each { |action| define_method(action) {} }
 
 end

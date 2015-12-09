@@ -11,7 +11,11 @@ class OptionLine < Reservation
 
   validates_presence_of :option
   validate do
-    errors.add(:base, _("The option doesn't belong to the inventory pool related to this contract")) unless option.inventory_pool == inventory_pool
+    unless option.inventory_pool == inventory_pool
+        errors.add(:base,
+                   _("The option doesn't belong to the inventory pool " \
+                     'related to this contract'))
+    end
   end
 
   def to_s
@@ -27,10 +31,8 @@ class OptionLine < Reservation
     self.errors.full_messages.uniq
   end
 
-
-  def is_late?(current_date = Date.today)
+  def late?(current_date = Time.zone.today)
     option and super
   end
 
 end
-
