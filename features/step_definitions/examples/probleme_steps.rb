@@ -25,13 +25,13 @@ Given /^a model is no longer available$/ do
     reservation = @entity.item_lines.order('RAND()').first
     @model = reservation.model
     @initial_quantity = @contract.reservations.where(model_id: @model.id).count
-    @max_before = reservation.model.availability_in(@entity.inventory_pool).maximum_available_in_period_summed_for_groups(reservation.start_date, reservation.end_date, reservation.group_ids)
+    @max_before = reservation.model.availability_in(@entity.inventory_pool).maximum_available_in_period_summed_for_groups(reservation.start_date, reservation.end_date, reservation.group_ids) || 0
     step 'I add so many reservations that I break the maximal quantity of a model'
   else
     reservation = @reservations_to_take_back.where(option_id: nil).order('RAND()').first
     @model = reservation.model
     step 'I open a hand over to this customer'
-    @max_before = @model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(reservation.start_date, reservation.end_date, reservation.group_ids)
+    @max_before = @model.availability_in(@current_inventory_pool).maximum_available_in_period_summed_for_groups(reservation.start_date, reservation.end_date, reservation.group_ids) || 0
     step 'I add so many reservations that I break the maximal quantity of a model'
     visit manage_take_back_path(@current_inventory_pool, @customer)
   end
@@ -78,7 +78,8 @@ Then /^"(.*?)" are available for the user, also counting availability from group
   max = if [:unsubmitted, :submitted].include? @line.status
           @initial_quantity + @max_before
         elsif [:approved, :signed].include? @line.status
-          @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @line.group_ids) + 1 # free up self blocking
+          (@av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @line.group_ids) || 0) \
+            + 1 # free up self blocking
         else
           @max_before - @quantity_added
         end
@@ -86,7 +87,7 @@ Then /^"(.*?)" are available for the user, also counting availability from group
 end
 
 Then /^"(.*?)" are available in total, also counting availability from groups the user is not member of$/ do |arg1|
-  max = @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @av.inventory_pool_and_model_group_ids)
+  max = @av.maximum_available_in_period_summed_for_groups(@line.start_date, @line.end_date, @av.inventory_pool_and_model_group_ids) || 0
   if [:unsubmitted, :submitted].include? @line.status
     max += @line.contract.reservations.where(start_date: @line.start_date, end_date: @line.end_date, model_id: @line.model).size
   else
@@ -152,6 +153,7 @@ When /^one item is defective$/ do
     when 'hand_over'
       @item = @current_inventory_pool.items.in_stock.broken.order('RAND()').first
       step 'I add an item to the hand over'
+      sleep 1
       @line_id = find("input[value='#{@item.inventory_code}']").find(:xpath, 'ancestor::div[@data-id]')['data-id']
     when 'take_back'
       @line_id = find(".line[data-line-type='item_line']", match: :first)[:"data-id"]
@@ -173,6 +175,16 @@ Given /^one item is incomplete$/ do
     else
       raise
   end
+end
+
+Then(/^the last added model line shows the line's problem$/) do
+  @line = @model.reservations.last
+  @av = @model.availability_in(@line.inventory_pool)
+  line = all(".line[data-id='#{@line.id}']", text: @model.name).last
+  hover_for_tooltip line.find(".emboss.red")
+  @problems = []
+  @problems << find('.tooltipster-default .tooltipster-content', text: /\w/).text
+  @reference_problem = @problems.first
 end
 
 Then /^the affected item's line shows the item's problems$/ do

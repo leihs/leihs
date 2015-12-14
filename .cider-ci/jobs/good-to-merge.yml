@@ -10,10 +10,10 @@ jobs:
 
     depends-on:
     - type: job
-      job: tests-leihs
+      job: scenarios
       states: [passed]
     - type: job
-      job: tests-leihs-admin
+      job: leihs-admin-scenarios
       states: [passed]
 
     run-on:

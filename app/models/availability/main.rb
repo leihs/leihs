@@ -83,7 +83,7 @@ module Availability
         # 2. general group
         # 3. groups which the user is not even member
         groups_to_check = (reservation_group_ids & @inventory_pool_and_model_group_ids) + [Group::GENERAL_GROUP_ID] + (@inventory_pool_and_model_group_ids - reservation_group_ids)
-        maximum = available_quantities_for_groups(groups_to_check, inner_changes)
+        maximum = min_quantities_among_groups(groups_to_check, inner_changes)
         # if still no group has enough available quantity, we allocate to general as fallback
         reservation.allocated_group_id = groups_to_check.detect(proc {Group::GENERAL_GROUP_ID}) {|group_id| maximum[group_id] >= reservation.quantity }
 
@@ -97,12 +97,18 @@ module Availability
     end
 
     def maximum_available_in_period_for_groups(start_date, end_date, group_ids)
-      quantities_for_groups_with_general_in_date_range(start_date, end_date, group_ids).max
+      min_quantities_among_groups(
+        [Group::GENERAL_GROUP_ID] + (group_ids & @inventory_pool_and_model_group_ids),
+        @changes.between(start_date, end_date)
+      ).values.max
     end
 
     def maximum_available_in_period_summed_for_groups(start_date, end_date, group_ids = nil)
       group_ids ||= @inventory_pool_and_model_group_ids
-      quantities_for_groups_with_general_in_date_range(start_date, end_date, group_ids).sum
+      summed_quantities_for_groups(
+        [Group::GENERAL_GROUP_ID] + (group_ids & @inventory_pool_and_model_group_ids),
+        @changes.between(start_date, end_date)
+      ).min
     end
 
     def available_total_quantities
@@ -118,16 +124,28 @@ module Availability
 
     private
 
-    def quantities_for_groups_with_general_in_date_range(start_date, end_date, group_ids)
-      available_quantities_for_groups([Group::GENERAL_GROUP_ID] + (group_ids & @inventory_pool_and_model_group_ids), @changes.between(start_date, end_date)).values
+    # returns a Hash {group_id => quantity}
+    def summed_quantities_for_groups(group_ids, inner_changes)
+      inner_changes.map do |date, change|
+        change
+          .select { |group_id, _| group_ids.include?(group_id) }
+          .values
+          .map { |stock_information| stock_information[:in_quantity] }
+          .sum
+      end
     end
 
     # returns a Hash {group_id => quantity}
-    def available_quantities_for_groups(group_ids, inner_changes = nil)
+    def min_quantities_among_groups(group_ids, inner_changes = nil)
       inner_changes ||= @changes
       h = {}
       group_ids.each do |group_id|
-        h[group_id] = inner_changes.values.map{|c| c[group_id].try(:fetch, :in_quantity).to_i }.min.to_i
+        h[group_id] = \
+          inner_changes
+            .values
+            .map {|c| c[group_id].try(:fetch, :in_quantity).to_i }
+            .min
+            .to_i
       end
       h
     end

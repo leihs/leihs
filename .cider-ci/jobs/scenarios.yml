@@ -1,11 +1,11 @@
 jobs:
 
-  tests-leihs-admin:
+  scenarios:
 
-    name: Admin Tests
+    name: Scenarios
 
     description: |
-      Run leihs admin engine features under MRI
+      Run leihs features (except engines) under MRI
 
     context:
       task-defaults:
@@ -13,4 +13,4 @@ jobs:
 
       _cider-ci_include:
         - .cider-ci/shared/tests-context.yml
-        - .cider-ci/tasks/cucumber_leihs_admin_scenarios.yml
+        - .cider-ci/tasks/cucumber_scenarios.yml

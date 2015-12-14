@@ -1,18 +1,18 @@
 jobs:
 
-  problematic-tests:
+  problematic-scenarios:
 
-    name: Problematic Tests
+    name: Problematic Scenarios
 
     description: |
       Run problematic features (except engines) under MRI
 
     depends-on:
     - type: job
-      job: tests-leihs
+      job: scenarios
       states: [passed]
     - type: job
-      job: tests-leihs-admin
+      job: leihs-admin-scenarios
       states: [passed]
 
     run-on:
@@ -25,4 +25,4 @@ jobs:
 
       _cider-ci_include:
         - .cider-ci/shared/tests-context.yml
-        - .cider-ci/tasks/cucumber_leihs_problematic_scenarios.yml
+        - .cider-ci/tasks/cucumber_problematic_scenarios.yml

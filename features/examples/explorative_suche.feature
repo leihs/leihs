@@ -52,7 +52,7 @@ Feature: Explorative search
   #  And I see the top-level category as well as the currently selected one and its children
   #  And the inventory I see is filtered by this category
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Filter not categorized models
     Given I open the inventory
     And I see retired and not retired inventory

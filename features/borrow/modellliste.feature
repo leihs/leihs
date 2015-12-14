@@ -77,7 +77,7 @@ Feature: Model list
     When I am listing models
     Then I cannot deselect all the inventory pools in the inventory pool selector
 
-  @javascript @personas
+  @javascript @personas @problematic
   Scenario: Specifying the start date of an order
     Given I am Petra
     When I am listing models and some of them are unavailable
@@ -163,7 +163,7 @@ Feature: Model list
     And the inventory pool selector is still expanded
     And the filter shows the name of the inventory pool that is left
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Resetting everything
     Given I am Normin
     And I am listing models

@@ -83,6 +83,8 @@ group :development, :test do
   gem 'haml-lint'
   gem 'launchy', '~> 2.1'
   gem 'phantomjs', '~> 1.9.8' # headless webdriver (UI & JS tests)
+  gem 'pry'
+  gem 'pry-rails'
   gem 'redcarpet' # This isn't being pulled in by yard, but it's required
   gem 'rspec-rails', '~> 3.0', require: false
   gem 'selenium-webdriver'

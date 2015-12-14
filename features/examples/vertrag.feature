@@ -65,7 +65,7 @@ Feature: Contract
     Given I open a contract during hand over
     Then I see a title in the format "Contract No. #"
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Position of the barcode
     Given I open a contract during hand over
     Then I see the barcode in the top left

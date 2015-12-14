@@ -50,11 +50,11 @@ Feature: Displaying problems
     Then the affected item's line shows the item's problems
     And the problem is displayed as: "Gegenstand nicht ausleihbar"
 
-  @personas @javascript @browser @problematic
+  @personas @javascript @browser
   Scenario: Showing problems when item is not available while handing over
     Given I am doing a hand over
       And a model is no longer available
-     Then I see any problems displayed on the relevant reservations
+     Then the last added model line shows the line's problem
       And the problem is displayed as: "Nicht verfügbar 2(3)/7"
       And "2" are available for the user, also counting availability from groups the user is member of
       And "3" are available in total, also counting availability from groups the user is not member of
@@ -70,7 +70,7 @@ Feature: Displaying problems
       And "3" are available in total, also counting availability from groups the user is not member of
       And "7" are in this inventory pool (and borrowable)
 
-  @javascript @personas
+  @javascript @personas @problematic
   Scenario: Problemanzeige bei Aushändigung wenn Gegenstand unvollständig
     Given I am doing a hand over
     And one item is incomplete

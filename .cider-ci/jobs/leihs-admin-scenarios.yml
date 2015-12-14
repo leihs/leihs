@@ -1,0 +1,16 @@
+jobs:
+
+  leihs-admin-scenarios:
+
+    name: Leihs Admin Scenarios
+
+    description: |
+      Run leihs admin engine features under MRI
+
+    context:
+      task-defaults:
+        max-auto-trials: 3
+
+      _cider-ci_include:
+        - .cider-ci/shared/tests-context.yml
+        - .cider-ci/tasks/cucumber_leihs_admin_scenarios.yml

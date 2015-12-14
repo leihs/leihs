@@ -14,11 +14,14 @@ class Borrow::ReservationsController < Borrow::ApplicationController
     @errors << _('Booking is no longer possible on this end date') if @inventory_pool.workday.reached_max_visits.include? @end_date
   end
 
-  def create(model = current_user.models.borrowable.find(params[:model_id]),
-             quantity = 1)
-    unless model.availability_in(@inventory_pool).maximum_available_in_period_for_groups(@start_date, @end_date, current_user.group_ids) >= quantity
+  def create
+    model = current_user.models.borrowable.find(params[:model_id])
+    quantity = 1
+
+    unless quantity_available?(model, quantity)
       @errors << _('Item is not available in that time range')
     end
+
     if @errors.empty? and (reservations = model.add_to_contract(@target_contract, current_user, quantity, @start_date, @end_date, session[:delegated_user_id])) and reservations.all?(&:valid?)
       render status: :ok, json: reservations.first
     else
@@ -49,4 +52,14 @@ class Borrow::ReservationsController < Borrow::ApplicationController
     end
   end
 
+  private
+
+  def quantity_available?(model, quantity)
+    model
+      .availability_in(@inventory_pool)
+      .maximum_available_in_period_summed_for_groups(@start_date,
+                                                     @end_date,
+                                                     current_user.group_ids) \
+      >= quantity
+  end
 end

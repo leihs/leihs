@@ -8,7 +8,7 @@ Feature: Reject Order
     Given the system is configured for the mail delivery as test mode
     Given I am Pius
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Reject a contract on the daily view
     When I navigate to the open orders
      And I reject a contract

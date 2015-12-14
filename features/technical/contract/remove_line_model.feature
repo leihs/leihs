@@ -40,7 +40,7 @@ Feature: Remove line
     Then that line has NOT been deleted
     And the amount of reservations remains unchanged
 
-  @personas
+  @personas @problematic
   Scenario: Removal of a line for CLOSED contract should NOT be possible
     Given there is a "CLOSED" contract with reservations
     When one tries to delete a line
