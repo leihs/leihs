@@ -17,15 +17,16 @@ def log_error(error, item)
 end
 
 def create_model(item)
-  Model.find_or_create_by_product_and_version_and_manufacturer(:product => item['Product'], 
-                                                               :version => item['Version'],
-                                                               :manufacturer => item['Manufacturer'])
+  Model.where(:product => item['Product'], 
+              :version => item['Version'],
+              :manufacturer => item['Manufacturer'],
+              :description => item['Description']).first_or_create
 end
 
 def create_location(item)
-  b = Building.find_or_create_by_name(item['Building'])
-  Location.find_or_create_by_building_id_and_room(:building => b,
-                                                      :room => item['Room'])
+  b = Building.where(:name => item['Building']).first_or_create
+  Location.where(:building => b,
+                 :room => item['Room']).first_or_create
 end
 
 items_to_import.each do |item|
@@ -34,7 +35,6 @@ items_to_import.each do |item|
   i.model = create_model(item)
   i.inventory_code = item['Inventory Code']
   i.name = item['Name']
-  i.description = item['Description']
   i.location = create_location(item)
 
   # Inventory relevance
@@ -45,51 +45,19 @@ items_to_import.each do |item|
   i.is_borrowable = true if item['Borrowable'] == '1'
 
   # Completeness
-  i.is_complete = false
-  i.is_complete = true if item['Completeness'] == '1'
+  i.is_incomplete = true
+  i.is_incomplete = false if item['Completeness'] == '1'
 
   # Ownership
   owner_ip = InventoryPool.where(:name => 'Guild Music').first
   i.owner = owner_ip
+  i.inventory_pool = owner_ip
 
   # Responsible department
-  unless item['Verantwortliche Abteilung'] == 'frei'
-    responsible_ip = InventoryPool.where(name: item['Verantwortliche Abteilung']).first
-    i.inventory_pool = responsible_ip
-  end
-
-  # Building and room
-  #building_code = item["Building"].match(/.*\((.*)\)$/)[1]
-  b = Building.where(code: 'TONI').first
-
-  room = nil
-  room = item['Raum'] unless item['Raum'].blank?
-  location = Location.find_or_create({'building_id' => b.id, 'room' => room})
-  i.location = location
-
-  # Invoice
-  i.invoice_number = item['Invoice Number']
-  i.invoice_date = Date.strptime(item['Invoice Date'], '%m/%d/%Y') unless item['Invoice Date'].blank?
-
-
-  i.responsible = item['Responsible person'] unless item['Responsible person'].blank?
-  i.price = item['Initial Price'] unless item['Initial Price'].blank?
-
-  i.last_check = Date.strptime(item['letzte Inventur'], '%m/%d/%Y') unless item['letzte Inventur'].blank?
-
-  # Supplier
-  i.supplier = Supplier.where(name: item['Lieferant']).first
-  if i.supplier.nil?
-    i.supplier = Supplier.create(name: item['Lieferant'])
-  end
-
-  # Properties
-  i.properties[:anschaffungskategorie] = item['Anschaffungskategorie']
-  #i.properties[:reference] = "invoice" if item["Bezug"] == "laufende Rechnung"
-  #i.properties[:reference] = "investment" if item["Bezug"] == "Investition"
-
-  puts i
-
+  #unless item['Verantwortliche Abteilung'] == 'frei'
+  #  responsible_ip = InventoryPool.where(name: item['Verantwortliche Abteilung']).first
+  #  i.inventory_pool = responsible_ip
+  #end
 
   if i.save
   #  puts "Item imported correctly:"
