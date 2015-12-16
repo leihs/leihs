@@ -33,7 +33,12 @@ items_to_import.each do |item|
   create_model(item)
   i = Item.new
   i.model = create_model(item)
-  i.model.categories << Category.where(:name => item['Categories']).first_or_create
+  
+  category = Category.where(:name => item['Categories']).first_or_create
+  unless i.model.categories.include?(category)
+    i.model.categories << category
+  end
+
   i.inventory_code = item['Inventory Code']
   i.name = item['Name']
   i.location = create_location(item)
