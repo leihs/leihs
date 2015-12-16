@@ -53,6 +53,9 @@ items_to_import.each do |item|
   i.owner = owner_ip
   i.inventory_pool = owner_ip
 
+  # Category
+  i.category = Category.where(:name => item['Categories']).first_or_create
+
   # Responsible department
   #unless item['Verantwortliche Abteilung'] == 'frei'
   #  responsible_ip = InventoryPool.where(name: item['Verantwortliche Abteilung']).first
