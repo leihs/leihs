@@ -9,18 +9,24 @@ import_file = '/tmp/items.csv'
 @successes = 0
 
 @errorlog = File.open('/tmp/import_errors.txt', 'w+')
+@itemlog = File.open('/tmp/import_items.txt', 'w+')
 
-items_to_import = CSV.open(import_file, col_sep: ",", headers: true)
+items_to_import = CSV.open(import_file, col_sep: "\t", headers: true)
 
 def log_error(error, item)
   @errorlog.puts "ERROR: #{error}. --- Item: #{item}"
 end
 
 def create_model(item)
-  Model.where(:product => item['Product'], 
-              :version => item['Version'],
-              :manufacturer => item['Manufacturer'],
-              :description => item['Description']).first_or_create
+  m = Model.where(:product => item['Product'], 
+                  :version => item['Version'],
+                  :manufacturer => item['Manufacturer']).first_or_create
+  m.description = item['Description'] if item['Description']
+  if m.save
+    return m
+  else
+    @errorlog.puts "Could not create model for item #{item}, #{m.errors.full_messages}"
+  end
 end
 
 def create_location(item)
@@ -32,6 +38,11 @@ end
 items_to_import.each do |item|
   create_model(item)
   i = Item.new
+  model = create_model(item)
+  if model.nil? or model == false
+    @failures += 1
+    next
+  end
   i.model = create_model(item)
   
   category = Category.where(:name => item['Categories']).first_or_create
@@ -69,7 +80,7 @@ items_to_import.each do |item|
   if i.save
   #  puts "Item imported correctly:"
     @successes += 1
-  #  puts i.inspect
+    @itemlog.puts(i.inspect)
   else
     @failures += 1
     @errorlog.puts "Could not import item #{i.inventory_code}. Errors: #{i.errors.full_messages}"
@@ -84,3 +95,4 @@ puts '-----------------------------------------'
 
 
 @errorlog.close
+@itemlog.close
