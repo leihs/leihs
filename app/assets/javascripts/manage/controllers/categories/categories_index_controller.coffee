@@ -33,7 +33,7 @@ class window.App.CategoriesIndexController extends Spine.Controller
     App.Category.ajaxFetch
       data: $.param
         include:
-          is_used: true
+          'used?': true
     .done (data) =>
       @categories = (App.Category.find datum.id for datum in data)
 

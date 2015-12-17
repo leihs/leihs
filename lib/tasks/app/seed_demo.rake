@@ -28,7 +28,10 @@ namespace :app do
       end
 
       # A normal user that people can use to log in with
-      normal_user = FactoryGirl.create(:user, login: 'normal_user', firstname: 'Normalio', lastname: 'Normex')
+      normal_user = FactoryGirl.create(:user,
+                                       login: 'normal_user',
+                                       firstname: 'Normalio',
+                                       lastname: 'Normex')
       normal_user.access_rights.build(role: :customer, inventory_pool: ip1)
       normal_user.access_rights.build(role: :customer, inventory_pool: ip2)
       normal_user.access_rights.build(role: :customer, inventory_pool: ip3)
@@ -36,10 +39,16 @@ namespace :app do
       set_stupid_password_for(normal_user)
 
       # An inventory manager
-      manager_user = FactoryGirl.create(:user, login: 'manager_user', firstname: 'Inventory', lastname: 'Manager')
-      manager_user.access_rights.build(role: :inventory_manager, inventory_pool: ip1)
-      manager_user.access_rights.build(role: :inventory_manager, inventory_pool: ip2)
-      manager_user.access_rights.build(role: :inventory_manager, inventory_pool: ip3)
+      manager_user = FactoryGirl.create(:user,
+                                        login: 'manager_user',
+                                        firstname: 'Inventory',
+                                        lastname: 'Manager')
+      manager_user.access_rights.build(role: :inventory_manager,
+                                       inventory_pool: ip1)
+      manager_user.access_rights.build(role: :inventory_manager,
+                                       inventory_pool: ip2)
+      manager_user.access_rights.build(role: :inventory_manager,
+                                       inventory_pool: ip3)
       manager_user.save
       set_stupid_password_for(manager_user)
 
@@ -66,23 +75,33 @@ namespace :app do
       head.save
 
       # Models and items
-      tt1 = FactoryGirl.create(:model, product: 'Test tube, 20 cm', manufacturer: 'ACME')
+      tt1 = FactoryGirl.create(:model,
+                               product: 'Test tube, 20 cm',
+                               manufacturer: 'ACME')
       tt1.categories << chem
       tt1.save
 
-      tt2 = FactoryGirl.create(:model, product: 'Test tube, 10 cm', manufacturer: 'ACME')
+      tt2 = FactoryGirl.create(:model,
+                               product: 'Test tube, 10 cm',
+                               manufacturer: 'ACME')
       tt2.categories << chem
       tt2.save
 
-      tt3 = FactoryGirl.create(:model, product: 'Test tube, 5 cm', manufacturer: 'ACME')
+      tt3 = FactoryGirl.create(:model,
+                               product: 'Test tube, 5 cm',
+                               manufacturer: 'ACME')
       tt3.categories << chem
       tt3.save
 
-      bb = FactoryGirl.create(:model, product: 'Bunsen burner', manufacturer: 'ACME')
+      bb = FactoryGirl.create(:model,
+                              product: 'Bunsen burner',
+                              manufacturer: 'ACME')
       bb.categories << chem
       bb.save
 
-      cob = FactoryGirl.create(:model, product: 'Chalice of blood', manufacturer: 'ACME')
+      cob = FactoryGirl.create(:model,
+                               product: 'Chalice of blood',
+                               manufacturer: 'ACME')
       cob.categories << chem
       cob.save
 
@@ -93,39 +112,59 @@ namespace :app do
         end
       end
 
-      lc = FactoryGirl.create(:model, product: 'Lighting case Arri Start-Up-Kit Fresnel', manufacturer: 'Arri')
+      lc = FactoryGirl.create(:model,
+                              product: 'Lighting case Arri Start-Up-Kit Fresnel',
+                              manufacturer: 'Arri')
       lc.categories << lighting
       lc.save
 
-      pb = FactoryGirl.create(:model, product: 'Battery-powered light Photon Beard Hyperlight 471', manufacturer: 'Photon Beard')
+      pb = FactoryGirl.create(
+        :model,
+        product: 'Battery-powered light Photon Beard Hyperlight 471',
+        manufacturer: 'Photon Beard')
       pb.categories = [lighting, film]
       pb.save
 
-      arri1 =  FactoryGirl.create(:model, product: 'Arri Alexa PLUS DTE-SXS Super 35mm', manufacturer: 'Arri')
+      arri1 = FactoryGirl.create(:model,
+                                 product: 'Arri Alexa PLUS DTE-SXS Super 35mm',
+                                 manufacturer: 'Arri')
       arri1.categories = [cams, film]
       arri1.save
 
-      genelec = FactoryGirl.create(:model, product: 'Genelec 8020B', manufacturer: 'Genelec')
+      genelec = FactoryGirl.create(:model,
+                                   product: 'Genelec 8020B',
+                                   manufacturer: 'Genelec')
       genelec.categories << speakers
       genelec.save
 
-      sony = FactoryGirl.create(:model, product: 'HDCAM Sony HDW-750PC', manufacturer: 'Sony')
+      sony = FactoryGirl.create(:model,
+                                product: 'HDCAM Sony HDW-750PC',
+                                manufacturer: 'Sony')
       sony.categories << cams
       sony.save
 
-      pana = FactoryGirl.create(:model, product: 'Panasonic HDC-HS300', manufacturer: 'Panasonic')
+      pana = FactoryGirl.create(:model,
+                                product: 'Panasonic HDC-HS300',
+                                manufacturer: 'Panasonic')
       pana.categories << cams
       pana.save
 
-      manfrotto = FactoryGirl.create(:model, product: 'Tripod Manfrotto Slide Leg Century A256SB', manufacturer: 'Manfrotto')
+      manfrotto = FactoryGirl.create(
+        :model,
+        product: 'Tripod Manfrotto Slide Leg Century A256SB',
+        manufacturer: 'Manfrotto')
       manfrotto.categories << tripods
       manfrotto.save
 
-      acer = FactoryGirl.create(:model, product: 'Acer H7531D Full-HD', manufacturer: 'Acer')
+      acer = FactoryGirl.create(:model,
+                                product: 'Acer H7531D Full-HD',
+                                manufacturer: 'Acer')
       acer.categories << projectors
       acer.save
 
-      sony_h = FactoryGirl.create(:model, product: 'Headphones Sony MDR-V500', manufacturer: 'Sony')
+      sony_h = FactoryGirl.create(:model,
+                                  product: 'Headphones Sony MDR-V500',
+                                  manufacturer: 'Sony')
       sony_h.categories << head
       sony_h.save
 

@@ -14,18 +14,20 @@ namespace :app do
       results = []
       step_files.each do |step_file|
         File.new(step_file).read.each_line.each_with_index do |line, number|
-          next unless line =~ /^\s*(?:Given|When|Then)\s+|\//
-          res = /^\s*(?:Given|When|Then)[\s\(]*\/[\^](.*)[\$]\/([imxo]*)[\s\)]*do\s*(?:$|\|(.*)\|)/.match(line)
+          next unless line =~ %r{^\s*(?:Given|When|Then)\s+|\/}
+          # rubocop:disable Metrics/LineLength
+          res = %r{^\s*(?:Given|When|Then)[\s\(]*\/[\^](.*)[\$]\/([imxo]*)[\s\)]*do\s*(?:$|\|(.*)\|)}.match(line)
+          # rubocop:enable Metrics/LineLength
           next unless res
           matches = res.captures
           results << OpenStruct.new(
-              steps: matches[0],
-              args: matches[2]
+            steps: matches[0],
+            args: matches[2]
           )
         end
       end
 
-      table results.sort_by{|x| x.steps}, resize: false, fields: [:steps, :args]
+      table results.sort_by(&:steps), resize: false, fields: [:steps, :args]
       puts ''
     end
 

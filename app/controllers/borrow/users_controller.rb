@@ -8,7 +8,7 @@ class Borrow::UsersController < Borrow::ApplicationController
 
   def documents
     @contracts = current_user.reservations_bundles.signed_or_closed
-    @contracts.to_a.sort! {|a,b| b.time_window_min <=> a.time_window_min}
+    @contracts.to_a.sort! { |a, b| b.time_window_min <=> a.time_window_min }
   end
 
   def delegations
@@ -34,7 +34,7 @@ class Borrow::UsersController < Borrow::ApplicationController
 
   ################################################################
 
-  before_filter only: [:contract, :value_list] do
+  before_action only: [:contract, :value_list] do
     @contract = current_user.reservations_bundles.find(params[:id])
   end
 

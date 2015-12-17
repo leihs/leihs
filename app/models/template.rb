@@ -1,7 +1,7 @@
 class Template < ModelGroup
   include DefaultPagination
 
-  # TODO 12** belongs_to :inventory_pool through
+  # TODO: 12** belongs_to :inventory_pool through
   # TODO 12** validates belongs_to 1 and only 1 inventory pool
   # TODO 12** validates all models are present to current inventory_pool
   # TODO 12** has_many :models through
@@ -12,21 +12,34 @@ class Template < ModelGroup
 
   def self.filter(params, inventory_pool)
     templates = inventory_pool.templates
-    templates = templates.search(params[:search_term]) unless params[:search_term].blank?
-    templates = templates.order("#{params[:sort] || 'name'} #{params[:order] || 'ASC'}")
+    unless params[:search_term].blank?
+      templates = templates.search(params[:search_term])
+    end
+    templates = \
+      templates.order("#{params[:sort] || 'name'} #{params[:order] || 'ASC'}")
     templates = templates.default_paginate params
     templates
   end
 
-  ####################################################################################
+  ################################################################################
 
   # returns an array of reservations
-  def add_to_contract(contract, user, _quantity = nil, start_date = nil, end_date = nil, delegated_user_id = nil)
+  def add_to_contract(contract,
+                      user,
+                      _quantity = nil,
+                      start_date = nil,
+                      end_date = nil,
+                      delegated_user_id = nil)
     model_links.flat_map do |ml|
-      ml.model.add_to_contract(contract, user, ml.quantity, start_date, end_date, delegated_user_id)
+      ml.model.add_to_contract(contract,
+                               user,
+                               ml.quantity,
+                               start_date,
+                               end_date,
+                               delegated_user_id)
     end
-  end  
-  
+  end
+
   def total_quantity
     model_links.sum(:quantity)
   end
@@ -37,7 +50,7 @@ class Template < ModelGroup
 
   def unaccomplishable_models(user = nil, quantity = nil)
     models.to_a.keep_if do |model|
-      q = quantity || model_links.detect{|l| l.model_id == model.id}.quantity
+      q = quantity || model_links.detect { |l| l.model_id == model.id }.quantity
       not inventory_pools.any? do |ip|
         if user
           model.total_borrowable_items_for_user(user, ip) >= q
@@ -48,4 +61,3 @@ class Template < ModelGroup
     end
   end
 end
-

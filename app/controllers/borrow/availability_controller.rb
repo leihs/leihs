@@ -6,8 +6,10 @@ class Borrow::AvailabilityController < Borrow::ApplicationController
       @availability =
         {
           id: "#{model.id}-#{current_user.id}-#{inventory_pool.id}",
-          changes: model.availability_in(inventory_pool).available_total_quantities,
-          total_borrowable: model.total_borrowable_items_for_user(current_user, inventory_pool),
+          changes: \
+            model.availability_in(inventory_pool).available_total_quantities,
+          total_borrowable: \
+            model.total_borrowable_items_for_user(current_user, inventory_pool),
           inventory_pool_id: inventory_pool.id,
           model_id: model.id
         }

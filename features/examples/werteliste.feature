@@ -4,7 +4,7 @@ Feature: Value list
   Background:
     Given I am Pius
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: What I want to see on the value list
     Given I open a value list
     Then I want to see the following sections in the value list:
@@ -15,7 +15,7 @@ Feature: Value list
     | Lender   |
     | List     |
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Content of a value list
     Given I open a value list
     Then the list contains the following columns:

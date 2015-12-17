@@ -59,14 +59,14 @@ Feature: Delegation
     When I pick a delegation instead of a user
     Then the order shows the delegation
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Tooltip display
     Given I am Pius
     When I search for a delegation
     And I hover over the delegation name
     Then the tooltip shows name and responsible person for the delegation
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Global search
     Given I am Pius
     And I search for 'Julie'
@@ -173,7 +173,7 @@ Feature: Delegation
     Then I see the delegation's name
     And I see the contact person
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Definition of the contact person when creating an order
     Given I am Julie
     When I create an order for a delegation

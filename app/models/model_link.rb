@@ -1,6 +1,6 @@
 class ModelLink < ActiveRecord::Base
   audited
-  
+
   belongs_to :model_group, inverse_of: :model_links
   belongs_to :model, inverse_of: :model_links
 
@@ -9,11 +9,11 @@ class ModelLink < ActiveRecord::Base
   end
 
   # prevent duplicated model in Category, but allow for Template
-  validates_uniqueness_of :model_id, scope: :model_group_id,
-                                     message: _('already in Category'),
-                                     if: Proc.new {|ml| ml.model_group.is_a?(Category) }
+  validates_uniqueness_of :model_id,
+                          scope: :model_group_id,
+                          message: _('already in Category'),
+                          if: proc { |ml| ml.model_group.is_a?(Category) }
   validates_presence_of :model_group, :model
   validates_numericality_of :quantity
-  
-end
 
+end

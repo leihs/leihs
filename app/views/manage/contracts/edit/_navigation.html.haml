@@ -9,7 +9,7 @@
 .multibutton
   %button.button.green{:"data-order-approve" => true, :"data-id" => @contract.id, :autocomplete => :off}
     %i.fa.fa-thumbs-up
-    = @contract.is_to_be_verified ? _("Verify + approve order") : _("Approve order")
+    = @contract.to_be_verified? ? _("Verify + approve order") : _("Approve order")
   .dropdown-holder.inline-block
     .button.green.dropdown-toggle
       .arrow.down

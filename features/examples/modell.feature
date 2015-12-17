@@ -54,7 +54,7 @@ Feature: Model
     And I save
     Then the model is saved without the compatible model that I removed
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Editing group capacities
     Given I edit a model that exists and has group capacities allocated to it
     When I remove existing allocations

@@ -179,7 +179,7 @@ Given(/^I am looking at the availability of a template that contains unavailable
   step 'I am looking at a template'
   find("[type='submit']", match: :first).click
   date = Date.today
-  while @template.inventory_pools.first.is_open_on?(date) do
+  while @template.inventory_pools.first.open_on?(date) do
    date += 1.day 
   end
   find('#start_date').set I18n::localize(date)

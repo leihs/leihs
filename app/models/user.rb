@@ -5,55 +5,77 @@ class User < ActiveRecord::Base
 
   serialize :extended_info
 
-  store :settings, accessors: [ :latest_inventory_pool_id_before_logout, :start_screen ]
+  store :settings, accessors: [:latest_inventory_pool_id_before_logout,
+                               :start_screen]
 
   belongs_to :authentication_system
   belongs_to :language
 
   has_many :access_rights, dependent: :restrict_with_exception
-  has_many :inventory_pools, -> { where(access_rights: {deleted_at: nil}).uniq }, through: :access_rights do
+  has_many(:inventory_pools,
+           -> { where(access_rights: { deleted_at: nil }).uniq },
+           through: :access_rights) do
     def with_borrowable_items
-      joins(:items).where(items: {retired: nil, is_borrowable: true, parent_id: nil})
+      joins(:items)
+        .where(items: { retired: nil, is_borrowable: true, parent_id: nil })
     end
 
     # get the inventory pools managed by the current user
     def managed(role = [:inventory_manager, :lending_manager, :group_manager])
-      where(access_rights: {role: role})
+      where(access_rights: { role: role })
     end
   end
 
   has_many :items, -> { uniq }, through: :inventory_pools
-  has_many :models, -> { uniq }, through: :inventory_pools do
+  has_many(:models, -> { uniq }, through: :inventory_pools) do
     def borrowable
-      # TODO dry with_borrowable_items
-      joins(:items).where(items: {retired: nil, is_borrowable: true, parent_id: nil}).
-      joins("INNER JOIN `partitions_with_generals` ON `models`.`id` = `partitions_with_generals`.`model_id`
-                                                  AND `inventory_pools`.`id` = `partitions_with_generals`.`inventory_pool_id`
-                                                  AND `partitions_with_generals`.`quantity` > 0
-                                                  AND (`partitions_with_generals`.`group_id` IN (SELECT `group_id` FROM `groups_users` WHERE `user_id` = #{proxy_association.owner.id}) OR `partitions_with_generals`.`group_id` IS NULL)")
+      # TODO: dry with_borrowable_items
+      joins(:items)
+        .where(items: { retired: nil, is_borrowable: true, parent_id: nil })
+        .joins('INNER JOIN `partitions_with_generals` ' \
+               'ON `models`.`id` = `partitions_with_generals`.`model_id` ' \
+               'AND `inventory_pools`.`id` = ' \
+                   '`partitions_with_generals`.`inventory_pool_id` ' \
+               'AND `partitions_with_generals`.`quantity` > 0 ' \
+               'AND (`partitions_with_generals`.`group_id` IN ' \
+                 '(SELECT `group_id` ' \
+                 'FROM `groups_users` ' \
+                 "WHERE `user_id` = #{proxy_association.owner.id}) " \
+                   'OR `partitions_with_generals`.`group_id` IS NULL)')
     end
   end
 
-  has_many :categories, -> { uniq }, through: :models do
+  has_many(:categories, -> { uniq }, through: :models) do
     def with_borrowable_items
-      where(items: {retired: nil, is_borrowable: true, parent_id: nil}).
-      joins("INNER JOIN `partitions_with_generals` ON `models`.`id` = `partitions_with_generals`.`model_id`
-                                              AND `inventory_pools`.`id` = `partitions_with_generals`.`inventory_pool_id`
-                                              AND `partitions_with_generals`.`quantity` > 0
-                                              AND (`partitions_with_generals`.`group_id` IN (SELECT `group_id` FROM `groups_users` WHERE `user_id` = #{proxy_association.owner.id}) OR `partitions_with_generals`.`group_id` IS NULL)")
+      where(items: { retired: nil, is_borrowable: true, parent_id: nil })
+      .joins('INNER JOIN `partitions_with_generals` ' \
+             'ON `models`.`id` = `partitions_with_generals`.`model_id` ' \
+             'AND `inventory_pools`.`id` = ' \
+                 '`partitions_with_generals`.`inventory_pool_id` ' \
+             'AND `partitions_with_generals`.`quantity` > 0 ' \
+             'AND (`partitions_with_generals`.`group_id` IN ' \
+               '(SELECT `group_id` ' \
+               'FROM `groups_users` ' \
+               "WHERE `user_id` = #{proxy_association.owner.id}) " \
+                 'OR `partitions_with_generals`.`group_id` IS NULL)')
     end
   end
 
   def all_categories
     borrowable_categories = categories.with_borrowable_items
 
-    ancestors = Category.joins('INNER JOIN `model_group_links` ON `model_groups`.`id` = `model_group_links`.`ancestor_id`').
-                          where(model_group_links: {descendant_id: borrowable_categories.pluck(:id)}).uniq
+    ancestors = \
+      Category \
+        .joins('INNER JOIN `model_group_links` ' \
+               'ON `model_groups`.`id` = `model_group_links`.`ancestor_id`')
+        .where(model_group_links: \
+                 { descendant_id: borrowable_categories.pluck(:id) })
+        .uniq
 
     [borrowable_categories, ancestors].flatten.uniq
   end
 
-  #temp#  has_many :templates, :through => :inventory_pools
+  # temp#  has_many :templates, :through => :inventory_pools
   def templates
     inventory_pools.flat_map(&:templates).sort
   end
@@ -71,18 +93,22 @@ class User < ActiveRecord::Base
 
   has_many :reservations, dependent: :restrict_with_exception
   has_many :reservations_bundles, -> { extending BundleFinder }
-  # TODO ?? # has_many :contracts, through: :reservations_bundles
+  # TODO: ?? # has_many :contracts, through: :reservations_bundles
   has_many :item_lines, dependent: :restrict_with_exception
   has_many :option_lines, dependent: :restrict_with_exception
-  has_many :visits #, :include => :inventory_pool # MySQL View based on reservations
+  # :include => :inventory_pool # MySQL View based on reservations
+  has_many :visits
 
-  validates_presence_of     :firstname
-  validates_presence_of     :lastname, :email, :login, unless: :is_delegation
-  validates_length_of       :login, within: 2..255, unless: :is_delegation
-  validates_uniqueness_of   :email, unless: :is_delegation
+  validates_presence_of :firstname
+  validates_presence_of :lastname, :email, :login, unless: :delegation?
+  validates_length_of :login, within: 2..255, unless: :delegation?
+  validates_uniqueness_of :email, unless: :delegation?
   validates :email, format: /.+@.+\..+/, allow_blank: true
 
-  has_and_belongs_to_many :groups do #tmp#2#, :finder_sql => 'SELECT * FROM `groups` INNER JOIN `groups_users` ON `groups`.id = `groups_users`.group_id OR groups.inventory_pool_id IS NULL WHERE (`groups_users`.user_id = #{id})'
+  # tmp#2#, :finder_sql => 'SELECT * FROM `groups`
+  # INNER JOIN `groups_users` ON `groups`.id = `groups_users`.group_id
+  # OR groups.inventory_pool_id IS NULL WHERE (`groups_users`.user_id = #{id})'
+  has_and_belongs_to_many :groups do
     def with_general
       to_a + [Group::GENERAL_GROUP_ID]
     end
@@ -90,7 +116,7 @@ class User < ActiveRecord::Base
 
   has_many :hidden_fields, dependent: :destroy
 
-################################################
+  ################################################
 
   before_save do
     self.language ||= Language.default_language
@@ -103,7 +129,7 @@ class User < ActiveRecord::Base
     end
   end
 
-################################################
+  ################################################
 
   SEARCHABLE_FIELDS = %w(login firstname lastname badge_id)
 
@@ -111,32 +137,45 @@ class User < ActiveRecord::Base
     sql = all
     return sql if query.blank?
 
-    sql = sql.uniq.joins('LEFT JOIN (`delegations_users` AS `du`, `users` AS `u2`) ON (`du`.`delegation_id` = `users`.`id` AND `du`.`user_id` = `u2`.`id`)')
+    sql = sql.uniq.joins(
+      'LEFT JOIN (`delegations_users` AS `du`, `users` AS `u2`) ' \
+      'ON (`du`.`delegation_id` = `users`.`id` AND `du`.`user_id` = `u2`.`id`)'
+    )
     u2_table = Arel::Table.new(:u2)
 
-    query.split.each{|q|
+    query.split.each do|q|
       q = "%#{q}%"
-      sql = sql.where(arel_table[:login].matches(q).
-                      or(arel_table[:firstname].matches(q)).
-                      or(arel_table[:lastname].matches(q)).
-                      or(arel_table[:badge_id].matches(q)).
-                      or(arel_table[:unique_id].matches(q)).
-                      or(u2_table[:login].matches(q)).
-                      or(u2_table[:firstname].matches(q)).
-                      or(u2_table[:lastname].matches(q)).
-                      or(u2_table[:badge_id].matches(q)).
-                      or(u2_table[:unique_id].matches(q))
+      sql = sql.where(arel_table[:login].matches(q)
+                      .or(arel_table[:firstname].matches(q))
+                      .or(arel_table[:lastname].matches(q))
+                      .or(arel_table[:badge_id].matches(q))
+                      .or(arel_table[:unique_id].matches(q))
+                      .or(u2_table[:login].matches(q))
+                      .or(u2_table[:firstname].matches(q))
+                      .or(u2_table[:lastname].matches(q))
+                      .or(u2_table[:badge_id].matches(q))
+                      .or(u2_table[:unique_id].matches(q))
                      )
-    }
+    end
     sql
   }
 
   def self.filter(params, inventory_pool = nil)
-    # NOTE if params[:role] == "all" is provided, then we have to skip the deleted access_rights, so we fetch directly from User
-    # NOTE the case of fetching users with specific ids from a specific inventory_pool is still missing, might be necessary in future
+    # NOTE if params[:role] == "all" is provided,
+    # then we have to skip the deleted access_rights,
+    # so we fetch directly from User
+    # NOTE the case of fetching users with specific ids
+    # from a specific inventory_pool is still missing,
+    # might be necessary in future
     if inventory_pool and params[:all].blank?
-      users = params[:suspended] == 'true' ? inventory_pool.suspended_users : inventory_pool.users
-      users = users.find(params[:delegation_id]).delegated_users unless params[:delegation_id].blank?
+      users = if params[:suspended] == 'true'
+                inventory_pool.suspended_users
+              else
+                inventory_pool.users
+              end
+      unless params[:delegation_id].blank?
+        users = users.find(params[:delegation_id]).delegated_users
+      end
       users = users.send params[:role] unless params[:role].blank?
     else
       users = all
@@ -152,15 +191,20 @@ class User < ActiveRecord::Base
     users
   end
 
-################################################
+  ################################################
 
-  scope :admins, -> {joins(:access_rights).where(access_rights: {role: :admin, deleted_at: nil})}
+  scope(:admins,
+        (lambda do
+          joins(:access_rights)
+            .where(access_rights: { role: :admin, deleted_at: nil })
+        end))
 
   AccessRight::ROLES_HIERARCHY.each do |role|
-    scope role.to_s.pluralize.to_sym, -> {joins(:access_rights).where(access_rights: {role: role}).uniq}
+    scope(role.to_s.pluralize.to_sym,
+          -> { joins(:access_rights).where(access_rights: { role: role }).uniq })
   end
 
-################################################
+  ################################################
 
   def to_s
     name
@@ -171,17 +215,17 @@ class User < ActiveRecord::Base
   end
 
   def short_name
-    if is_delegation
+    if delegation?
       name
     else
       "#{firstname[0]}. #{lastname}"
     end
   end
 
-################################################
+  ################################################
 
   def email
-    if is_delegation
+    if delegation?
       delegator_user.email
     else
       read_attribute(:email)
@@ -200,8 +244,11 @@ class User < ActiveRecord::Base
     if Setting.user_image_url
       if Setting.user_image_url.match(/\{:id\}/) and unique_id
         Setting.user_image_url.gsub(/\{:id\}/, unique_id)
-      elsif Setting.user_image_url.match(/\{:extended_info:id\}/) and extended_info and extended_info['id']
-        Setting.user_image_url.gsub(/\{:extended_info:id\}/, extended_info['id'].to_s)
+      elsif Setting.user_image_url.match(/\{:extended_info:id\}/) \
+        and extended_info \
+        and extended_info['id']
+        Setting.user_image_url.gsub(/\{:extended_info:id\}/,
+                                    extended_info['id'].to_s)
       end
     end
   end
@@ -210,17 +257,30 @@ class User < ActiveRecord::Base
     read_attribute(:address).try(:chomp, ', ')
   end
 
-################################################
+  ################################################
 
   def self.remind_and_suspend_all
-    # TODO dry
-    grouped_reservations = Visit.take_back_overdue.flat_map(&:reservations).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: (vl.delegated_user_id || vl.user_id)} }
+    # TODO: dry
+    grouped_reservations = \
+      Visit
+        .take_back_overdue
+        .flat_map(&:reservations)
+        .group_by do |vl|
+          { inventory_pool: vl.inventory_pool,
+            user_id: (vl.delegated_user_id || vl.user_id) }
+        end
     grouped_reservations.each_pair do |k, reservations|
       user = User.find(k[:user_id])
       user.remind(reservations)
     end
-    # TODO dry
-    grouped_reservations = Visit.take_back_overdue.flat_map(&:reservations).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: vl.user_id} }
+    # TODO: dry
+    grouped_reservations = \
+      Visit
+        .take_back_overdue
+        .flat_map(&:reservations)
+        .group_by do |vl|
+          { inventory_pool: vl.inventory_pool, user_id: vl.user_id }
+        end
     grouped_reservations.each_pair do |k, reservations|
       user = User.find(k[:user_id])
       user.automatic_suspend(k[:inventory_pool])
@@ -228,7 +288,15 @@ class User < ActiveRecord::Base
   end
 
   def self.send_deadline_soon_reminder_to_everybody
-    grouped_reservations = Visit.take_back.where('date = ?', Date.tomorrow).flat_map(&:reservations).group_by { |vl| {inventory_pool: vl.inventory_pool, user_id: (vl.delegated_user_id || vl.user_id)} }
+    grouped_reservations = \
+      Visit
+        .take_back
+        .where('date = ?', Date.tomorrow)
+        .flat_map(&:reservations)
+        .group_by do |vl|
+          { inventory_pool: vl.inventory_pool,
+            user_id: (vl.delegated_user_id || vl.user_id) }
+        end
     grouped_reservations.each_pair do |k, reservations|
       user = User.find(k[:user_id])
       user.send_deadline_soon_reminder(reservations)
@@ -237,8 +305,9 @@ class User < ActiveRecord::Base
 
   def automatic_suspend(inventory_pool)
     if inventory_pool.automatic_suspension? and not suspended?(inventory_pool)
-      access_right_for(inventory_pool).update_attributes suspended_until: AccessRight::AUTOMATIC_SUSPENSION_DATE,
-                                                         suspended_reason: inventory_pool.automatic_suspension_reason
+      access_right_for(inventory_pool).update_attributes \
+        suspended_until: AccessRight::AUTOMATIC_SUSPENSION_DATE,
+        suspended_reason: inventory_pool.automatic_suspension_reason
       puts "Suspended: #{self.name} on #{inventory_pool} for overdue take back"
     end
   end
@@ -259,7 +328,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def send_deadline_soon_reminder(reservations, reminder_user = self)
+  def send_deadline_soon_reminder(reservations, _reminder_user = self)
     unless reservations.empty?
       begin
         Notification.deadline_soon_reminder(self, reservations)
@@ -270,8 +339,10 @@ class User < ActiveRecord::Base
     end
   end
 
-#################### Start role_requirement
+  #################### Start role_requirement
 
+  # TODO: refactor has_role? to role?
+  # rubocop:disable Style/PredicateName
   def has_role?(role, inventory_pool = nil)
     role = role.to_sym
     if role == :admin
@@ -285,22 +356,25 @@ class User < ActiveRecord::Base
 
       if AccessRight::ROLES_HIERARCHY.include? role
         i = AccessRight::ROLES_HIERARCHY.index role
-        (roles & AccessRight::ROLES_HIERARCHY).any? {|r| AccessRight::ROLES_HIERARCHY.index(r) >= i }
+        (roles & AccessRight::ROLES_HIERARCHY).any? do |r|
+          AccessRight::ROLES_HIERARCHY.index(r) >= i
+        end
       else
         roles.include? role
       end
     end
   end
+  # rubocop:enable Style/PredicateName
 
   def access_right_for(ip)
-    access_rights.active.where(inventory_pool_id: ip).first
+    access_rights.active.find_by(inventory_pool_id: ip)
   end
 
   def suspended?(ip)
     access_rights.active.suspended.where(inventory_pool_id: ip).exists?
   end
 
-#################### End role_requirement
+  #################### End role_requirement
 
   def deletable?
     reservations_bundles.empty? and access_rights.active.empty?
@@ -309,8 +383,11 @@ class User < ActiveRecord::Base
   ############################################
 
   def timeout?
-    reservations.unsubmitted.where('updated_at < ?', Time.now - Setting.timeout_minutes.minutes).exists?
+    reservations
+      .unsubmitted
+      .where('updated_at < ?',
+             Time.zone.now - Setting.timeout_minutes.minutes)
+      .exists?
   end
 
 end
-

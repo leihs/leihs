@@ -1,10 +1,13 @@
 namespace :app do
   namespace :db do
 
-    desc 'Sync local application instance with test servers most recent database dump'
+    desc('Sync local application instance with test servers ' \
+         'most recent database dump')
     task :sync do
       puts `mkdir ./db/backups/`
+      # rubocop:disable Metrics/LineLength
       puts `rsync -avuz leihs@test.leihs.zhdk.ch:~/test/leihs-current.sql ./db/backups/`
+      # rubocop:enable Metrics/LineLength
 
       Rake::Task['db:drop'].invoke
       Rake::Task['db:create'].invoke

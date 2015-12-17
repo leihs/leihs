@@ -1,12 +1,13 @@
 module AuthenticatedSystem
   protected
+
     # Returns true or false if the user is logged in.
     # Preloads @current_user with the user model if they're logged in.
     def logged_in?
       current_user != nil
     end
 
-    # Accesses the current user from the session. 
+    # Accesses the current user from the session.
     # Future calls avoid the database because nil is not equal to false.
     def current_user
       @current_user ||= login_from_session unless @current_user == false
@@ -32,7 +33,8 @@ module AuthenticatedSystem
         redirect_to login_path
       else
         # NOTE in case of post requests
-        render status: :method_not_allowed, text: _("You don't have permission to perform this action")
+        render status: :method_not_allowed,
+               text: _("You don't have permission to perform this action")
       end
     end
 
@@ -40,7 +42,8 @@ module AuthenticatedSystem
     #
     # We can return to this location by calling #redirect_back_or_default.
     def store_location
-      session[:return_to] = request.fullpath #sellittf#Rails3.1# request.request_uri
+      session[:return_to] = \
+        request.fullpath # sellittf#Rails3.1# request.request_uri
     end
 
     # Redirect to the URI stored by the most recent store_location call or
@@ -56,7 +59,8 @@ module AuthenticatedSystem
       base.send :helper_method, :current_user, :logged_in?
     end
 
-    # Called from #current_user.  First attempt to login by the user id stored in the session.
+    # Called from #current_user.
+    # First attempt to login by the user id stored in the session.
     def login_from_session
       self.current_user = User.find_by_id(session[:user_id]) if session[:user_id]
     end

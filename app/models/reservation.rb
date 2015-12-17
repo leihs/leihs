@@ -25,7 +25,10 @@ class Reservation < ActiveRecord::Base
   end
 
   def contract_with_container
-    contract_without_container || ReservationsBundle.find_by(status: status, user_id: user_id, inventory_pool_id: inventory_pool_id)
+    contract_without_container \
+      || ReservationsBundle.find_by(status: status,
+                                    user_id: user_id,
+                                    inventory_pool_id: inventory_pool_id)
   end
   alias_method_chain :contract, :container
 
@@ -38,14 +41,19 @@ class Reservation < ActiveRecord::Base
   end
 
   STATUSES.each do |status|
-    scope status, -> {where(status: status)}
+    scope status, -> { where(status: status) }
   end
 
   #########################################################################
 
-  default_scope -> { order(:start_date, :end_date, :created_at) }
+  default_scope { order(:start_date, :end_date, :created_at) }
 
-  scope :handed_over_or_assigned_but_not_returned, -> { where(returned_date: nil).where('NOT (end_date < ? AND item_id IS NULL)', Date.today)}
+  scope(:handed_over_or_assigned_but_not_returned,
+        (lambda do
+          where(returned_date: nil)
+            .where('NOT (end_date < ? AND item_id IS NULL)',
+                   Time.zone.today)
+        end))
 
   def self.filter(params, inventory_pool)
     reservations = inventory_pool.reservations
@@ -53,9 +61,10 @@ class Reservation < ActiveRecord::Base
     if params[:contract_ids]
       conditions = params[:contract_ids].map do |p|
         if p.include?('_')
-          "(status = '%s' AND user_id = %d)" % p.split('_')[0,2]
+          format_args = p.split('_')[0, 2]
+          format("(status = '%s' AND user_id = %d)", *format_args)
         else
-          'contract_id = %d' % p
+          format('contract_id = %d', p)
         end
       end.join(' OR ')
       reservations = reservations.where(conditions)
@@ -65,19 +74,22 @@ class Reservation < ActiveRecord::Base
     reservations
   end
 
-#####################################################
+  #####################################################
 
   before_validation on: :create do
-    self.start_date ||= Date.today
-    self.end_date ||= Date.today
-    # simply choose the delegator user in order to pass contract validation. the delegated user has to be chosen again in the hand over process anyway
-    self.delegated_user ||= user.delegator_user if user.is_delegation
+    self.start_date ||= Time.zone.today
+    self.end_date ||= Time.zone.today
+    # simply choose the delegator user in order to pass contract validation.
+    # the delegated user has to be chosen again in the hand over process anyway
+    self.delegated_user ||= user.delegator_user if user.delegation?
   end
 
   validates_numericality_of :quantity, greater_than: 0, only_integer: true
   validates_presence_of :user, :inventory_pool, :status
-  validates_presence_of :contract, if: Proc.new {|r| [:signed, :closed].include?(r.status) }
-  # TODO validates_presence_of :purpose, if: Proc.new { |record| record.status != :unsubmitted }
+  validates_presence_of(:contract,
+                        if: proc { |r| [:signed, :closed].include?(r.status) })
+  # TODO: validates_presence_of :purpose,
+  # if: Proc.new { |record| record.status != :unsubmitted }
   validate :date_sequence
   validate do
     errors.add(:base, _('No access')) unless user.access_right_for(inventory_pool)
@@ -86,51 +98,62 @@ class Reservation < ActiveRecord::Base
     elsif returned_date
       # we skip delegation validation on returning (or returned) reservations
     else
-      if user.is_delegation
-        errors.add(:base, _("Delegated user is not member of the contract's delegation or is empty")) unless user.delegated_users.include?(delegated_user)
+      if user.delegation?
+        unless user.delegated_users.include?(delegated_user)
+          errors.add(:base,
+                     _("Delegated user is not member of the contract's " \
+                       'delegation or is empty'))
+        end
       else
-        errors.add(:base, _("Delegated user must be empty for contract's normal user")) if delegated_user
+        if delegated_user
+          errors.add(:base,
+                     _("Delegated user must be empty for contract's normal user"))
+        end
       end
     end
   end
-  validates_uniqueness_of :item_id, scope: :returned_date, if: Proc.new {|r| r.item_id and r.returned_date.nil? }
+  validates_uniqueness_of(:item_id,
+                          scope: :returned_date,
+                          if: proc { |r| r.item_id and r.returned_date.nil? })
 
   before_save do
     if returned_date and returned_date_changed?
       self.status = :closed
     end
   end
-###############################################
+  ###############################################
 
   # compares two objects in order to sort them
   def <=>(other)
-    # TODO prevent name with leading and trailing whitespaces directly on model and option save
-    [self.start_date, self.model.name.strip] <=> [other.start_date, other.model.name.strip]
+    # TODO: prevent name with leading and trailing whitespaces
+    # directly on model and option save
+    [self.start_date, self.model.name.strip] \
+      <=> [other.start_date, other.model.name.strip]
   end
 
-  def is_late?(current_date = Date.today)
+  def late?(current_date = Time.zone.today)
     returned_date.nil? and end_date < current_date
   end
 
-  def is_reserved?
-    start_date > Date.today and item
+  def reserved?
+    start_date > Time.zone.today and item
   end
 
-###############################################
+  ###############################################
 
-# TODO 03** merge here available_tooltip and complete_tooltip
+  # TODO: 03** merge here available_tooltip and complete_tooltip
   def tooltip
     r = ''
     r += self.available_tooltip
     r += '<br/>'
     r += self.complete_tooltip
-    # TODO 03** include errors?
+    # TODO: 03** include errors?
     # r += self.errors.full_messages.uniq
-    return r
+    r
   end
 
   def visits_on_open_date?
-    inventory_pool.is_open_on?(start_date) and inventory_pool.is_open_on?(end_date)
+    inventory_pool.open_on?(start_date) and inventory_pool.open_on?(end_date)
   end
 
   # custom valid? method
@@ -138,21 +161,26 @@ class Reservation < ActiveRecord::Base
     self.valid? and self.available?
   end
 
-  # TODO 04** merge in complete?
+  # TODO: 04** merge in complete?
   def complete_tooltip
     r = ''
-    r += _('not valid. ') unless self.valid? # TODO 04** self.errors.full_messages.uniq
+    # TODO: 04** self.errors.full_messages.uniq
+    r += _('not valid. ') unless self.valid?
     r += _('not available. ') unless self.available?
-    return r
+    r
   end
 
-  # TODO 04** merge in available?
+  # TODO: 04** merge in available?
   def available_tooltip
     r = ''
     r += _('quantity not available. ') unless available?
-    r += _('inventory pool is closed on start_date. ') unless inventory_pool.is_open_on?(start_date)
-    r += _('inventory pool is closed on end_date. ') unless inventory_pool.is_open_on?(end_date)
-    return r
+    unless inventory_pool.open_on?(start_date)
+      r += _('inventory pool is closed on start_date. ')
+    end
+    unless inventory_pool.open_on?(end_date)
+      r += _('inventory pool is closed on end_date. ')
+    end
+    r
   end
 
   ###############################################
@@ -165,13 +193,19 @@ class Reservation < ActiveRecord::Base
     if item
       (item.price || 0) * quantity
     else
-      (model.borrowable_items.where(inventory_pool_id: inventory_pool).map(&:price).compact.max || 0) * quantity
+      (model
+        .borrowable_items
+        .where(inventory_pool_id: inventory_pool)
+        .map(&:price)
+        .compact
+        .max || 0) \
+      * quantity
     end
   end
 
-  # TODO dry with ReservationsBundle
+  # TODO: dry with ReservationsBundle
   def target_user
-    if user.is_delegation and delegated_user
+    if user.delegation? and delegated_user
       delegated_user
     else
       user
@@ -185,10 +219,23 @@ class Reservation < ActiveRecord::Base
       errors.add(:base, _('This order has already been approved.'))
       false
     else
-      errors.add(:base, _('This user is suspended.')) if user.suspended?(inventory_pool)
-      errors.add(:base, _('The delegated user %s is suspended.') % delegated_user) if delegated_user.try :suspended?, inventory_pool
-      errors.add(:base, _('This order is not approvable because the inventory pool is closed on either the start or enddate.')) unless visits_on_open_date?
-      errors.add(:base, _('This order is not approvable because some reserved models are not available.')) unless available?
+      if user.suspended?(inventory_pool)
+        errors.add(:base, _('This user is suspended.'))
+      end
+      if delegated_user.try :suspended?, inventory_pool
+        errors.add(:base,
+                   _('The delegated user %s is suspended.') % delegated_user)
+      end
+      unless visits_on_open_date?
+        errors.add(:base,
+                   _('This order is not approvable because the inventory pool ' \
+                     'is closed on either the start or enddate.'))
+      end
+      unless available?
+        errors.add(:base,
+                   _('This order is not approvable because some reserved ' \
+                     'models are not available.'))
+      end
       errors.add(:base, _('Please provide a purpose...')) if purpose.to_s.blank?
       errors.empty?
     end
@@ -198,10 +245,12 @@ class Reservation < ActiveRecord::Base
     Reservation.transaction do
       start_date ||= self.start_date
       end_date ||= self.end_date
-      unless update_attributes(start_date: start_date, end_date: [start_date, end_date].max)
+      unless update_attributes(start_date: start_date,
+                               end_date: [start_date, end_date].max)
         raise errors.full_messages.uniq.join(', ')
       end
-      if user.access_right_for(inventory_pool).role == :group_manager and not available?
+      if user.access_right_for(inventory_pool).role == :group_manager \
+        and not available?
         raise _('Not available')
       end
     end
@@ -212,11 +261,13 @@ class Reservation < ActiveRecord::Base
   private
 
   def date_sequence
-    # OPTIMIZE strange behavior: in some cases, this error raises when shouldn't
-    errors.add(:base, _('Start Date must be before End Date')) if end_date < start_date
-    #TODO: Think about this a little bit more.... errors.add(:base, _("Start Date cannot be a past date")) if start_date < Date.today
+    # OPTIMIZE: strange behavior: in some cases, this error raises when shouldn't
+    if end_date < start_date
+      errors.add(:base, _('Start Date must be before End Date'))
+    end
+    # TODO: Think about this a little bit more....
+    # errors.add(:base, _("Start Date cannot be a past date"))
+    # if start_date < Date.today
   end
 
 end
-
-

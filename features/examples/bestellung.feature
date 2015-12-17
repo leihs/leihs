@@ -75,7 +75,7 @@ Feature: Edit order
     But I cannot hand over
 
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Displaying the tab of rejected orders
     Given I am Andi
     And I am in an inventory pool with verifiable orders

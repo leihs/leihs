@@ -3,7 +3,7 @@ Feature: Sending email for orders placed by a delegation
   Background:
     Given I am Pius
 
-  @javascript @personas
+  @javascript @personas @problematic
   Scenario: Approval email for a delegation's order
     Given there is an order for a delegation that was not placed by a person responsible for that delegation
     When I edit the order
@@ -19,7 +19,7 @@ Feature: Sending email for orders placed by a delegation
     Then the reminder is sent to the one who picked up the order
     And the approval email is not sent to the delegated user
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Sending email from the client to a delegation
     When I search for a delegation
     And I choose the mail function

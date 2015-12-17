@@ -31,7 +31,8 @@ FactoryGirl.define do
       end
       after(:create) do |model, evaluator|
         3.times do
-          model.items << FactoryGirl.create(:item, inventory_pool: evaluator.inventory_pool)
+          model.items << \
+            FactoryGirl.create(:item, inventory_pool: evaluator.inventory_pool)
         end
       end
     end

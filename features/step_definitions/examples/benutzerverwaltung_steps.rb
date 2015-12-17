@@ -155,6 +155,7 @@ Given /^a (.*?)user (with|without) assigned role appears in the user list$/ do |
   end
   step %Q(I can find the user administration features in the "Manage" area under "Users")
   within '#user-list' do
+    find('.line', match: :first)
     step 'I scroll loading all pages'
     @el = find('.line', match: :prefer_exact, text: user.name)
   end

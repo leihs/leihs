@@ -9,7 +9,11 @@ class Manage::SuppliersController < Manage::ApplicationController
   end
 
   def show
-    @items = @supplier.items.where("#{current_inventory_pool.id} IN (inventory_pool_id, owner_id)").includes(:model, :inventory_pool)
+    @items = \
+      @supplier
+        .items
+        .where("#{current_inventory_pool.id} IN (inventory_pool_id, owner_id)")
+        .includes(:model, :inventory_pool)
   end
 
   def destroy
@@ -23,4 +27,3 @@ class Manage::SuppliersController < Manage::ApplicationController
   end
 
 end
-  

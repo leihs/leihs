@@ -26,7 +26,7 @@ Feature: Create model with packages
     When I add a package to a model
     Then I can only save this package if I also assign items
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Remove single item from a package
     When I edit a package
     Then I can remove items from the package
@@ -103,7 +103,7 @@ Feature: Create model with packages
     | Last Checked           |
 
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Delete an item package that was never handed over
     Given a never handed over item package is currently in stock
     When edit the related model package
@@ -113,7 +113,7 @@ Feature: Create model with packages
     When edit the related model package
     Then that item package is not listed
 
-  @javascript @personas
+  @javascript @personas @problematic
   Scenario: Delete an item package related to a closed contract
     Given a once handed over item package is currently in stock
     When edit the related model package

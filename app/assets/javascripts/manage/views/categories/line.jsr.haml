@@ -14,14 +14,14 @@
       {{>name}}
 
   .col2of9.line-col
-    {{if !is_used}}
+    {{if !is_used()}}
     %strong.darkred-text
       {{jed "not used"/}}
     {{/if}}
 
   .col3of9.line-col.line-actions
 
-    {{if is_used}}
+    {{if is_used()}}
 
     %a.button.white{href: "{{>url('edit')}}"}
       {{jed "Edit"/}}

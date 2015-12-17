@@ -22,13 +22,13 @@
       = render :partial => "manage/inventory_pools/daily/last_visitors" if @last_visitors
 
       .padding-bottom-m.padding-left-m.padding-right-m.margin-bottom-s
-        - if @date == Date.today and is_group_manager?
+        - if @date == Date.today and group_manager?
           %a.button.white{href: manage_contracts_path(current_inventory_pool, status: [:submitted])}
             %i.fa.fa-thumbs-up
             = _("Open Orders")
             %span.badge= @submitted_reservations_count
 
-        - if is_lending_manager?
+        - if lending_manager?
           :ruby
             total_hand_overs_count = @hand_overs_count
             total_hand_overs_count += @overdue_hand_overs_count if @overdue_hand_overs_count

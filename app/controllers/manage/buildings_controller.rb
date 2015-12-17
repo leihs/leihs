@@ -27,4 +27,3 @@ class Manage::BuildingsController < Manage::ApplicationController
   end
 
 end
-  

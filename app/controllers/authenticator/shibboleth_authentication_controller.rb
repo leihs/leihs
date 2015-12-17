@@ -9,21 +9,26 @@
 #
 # You must also have a working service provider (SP) for this instance.
 
-class Authenticator::ShibbolethAuthenticationController < Authenticator::AuthenticatorController
+class Authenticator::ShibbolethAuthenticationController \
+  < Authenticator::AuthenticatorController
 
   before_action :load_config
   layout 'layouts/manage/general'
 
   def load_config
     begin
-      if (defined?(Setting::SHIBBOLETH_CONFIG) and not Setting::SHIBBOLETH_CONFIG.blank?)
+      if (defined?(Setting::SHIBBOLETH_CONFIG) \
+          and not Setting::SHIBBOLETH_CONFIG.blank?)
         shibboleth_config = YAML::load_file(Setting::SHIBBOLETH_CONFIG)
       else
-        shibboleth_config = YAML::load_file(File.join(Rails.root, 'config', 'shibboleth.yml'))
+        shibboleth_config = YAML::load_file(File.join(Rails.root,
+                                                      'config',
+                                                      'shibboleth.yml'))
       end
 
       if shibboleth_config[Rails.env].nil?
-        raise "The configuration section for the environment '#{Rails.env}' is missing in your shibboleth config file."
+        raise('The configuration section for the environment ' \
+              "'#{Rails.env}' is missing in your shibboleth config file.")
       else
         @config = shibboleth_config[Rails.env]
         validate_config
@@ -41,7 +46,8 @@ class Authenticator::ShibbolethAuthenticationController < Authenticator::Authent
     required_fields = %w(unique_id_field firstname_field lastname_field mail_field)
     required_fields.map do |field|
       if !@config[field] or @config[field].blank?
-        raise "The Shibboleth configuration file is missing the '#{field}' setting."
+        raise('The Shibboleth configuration file ' \
+              "is missing the '#{field}' setting.")
       end
     end
   end
@@ -68,10 +74,12 @@ class Authenticator::ShibbolethAuthenticationController < Authenticator::Authent
     #    "uid"=>"e10262@zhdk.ch",
     #    "homeOrganizationType"=>"uas",
     #    "givenName"=>"Ramon",
-    #    "Shib-AuthnContext-Class"=>"urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport",
+    #    "Shib-AuthnContext-Class"=>
+    #    "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport",
     #    "Shib-Identity-Provider"=>"https://aai-logon.zhdk.ch/idp/shibboleth",
     #    "Shib-InetOrgPerson-givenName"=>"Ramon",
-    #    "Shib-Authentication-Method"=>"urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport",
+    #    "Shib-Authentication-Method"=>
+    #    "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport",
     #    "mail"=>"ramon.cahenzli@zhdk.ch",
     #    "Shib-SwissEP-HomeOrganization"=>"zhdk.ch",
     #    "Shib-Application-ID"=>"leihs2shib",
@@ -87,13 +95,17 @@ class Authenticator::ShibbolethAuthenticationController < Authenticator::Authent
 
     uid = request.env[@config['unique_id_field']]
     email = request.env[@config['mail_field']]
-    user = User.where(unique_id: uid).first || User.where(email: email).first || User.new
+    user = \
+      User.where(unique_id: uid).first \
+      || User.where(email: email).first \
+      || User.new
     user.unique_id = uid
     user.login = uid
     user.email = email
     user.firstname = "#{request.env[@config['firstname_field']]}"
     user.lastname = "#{request.env[@config['lastname_field']]}"
-    user.authentication_system = AuthenticationSystem.where(class_name: 'ShibbolethAuthentication').first
+    user.authentication_system = \
+      AuthenticationSystem.where(class_name: 'ShibbolethAuthentication').first
     user.save
     unless user.errors.full_messages.blank?
       logger = Rails.logger

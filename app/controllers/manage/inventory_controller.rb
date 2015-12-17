@@ -16,39 +16,58 @@ class Manage::InventoryController < Manage::ApplicationController
 
   def index
     respond_to do |format|
-      format.html {
+      format.html do
         session[:params] = nil if params[:filters] == 'reset'
-        items = Item.filter params.clone.merge({paginate: 'false', all: 'true'}), current_inventory_pool
-        @responsibles = InventoryPool.uniq.joins(:items).where("items.id IN (#{items.select("items.id").to_sql})").where(InventoryPool.arel_table[:id].eq(Item.arel_table[:inventory_pool_id]))
-      }
-      format.json {
+        items = Item.filter(params.clone.merge(paginate: 'false', all: 'true'),
+                            current_inventory_pool)
+        @responsibles = \
+          InventoryPool
+            .uniq
+            .joins(:items)
+            .where("items.id IN (#{items.select('items.id').to_sql})")
+            .where(
+              InventoryPool
+                .arel_table[:id]
+                .eq(Item.arel_table[:inventory_pool_id])
+            )
+      end
+      format.json do
         session[:params] = params.symbolize_keys
         @inventory = current_inventory_pool.inventory params
         set_pagination_header(@inventory) unless params[:paginate] == 'false'
-      }
+      end
     end
   end
 
   def show
-    @record = current_inventory_pool.items.find_by_inventory_code(params[:inventory_code]) ||
-              current_inventory_pool.options.find_by_inventory_code(params[:inventory_code])
+    @record = \
+      current_inventory_pool
+        .items
+        .find_by_inventory_code(params[:inventory_code]) || \
+      current_inventory_pool
+        .options
+        .find_by_inventory_code(params[:inventory_code])
   end
 
   def helper
-    @fields = Field.all.select {|f| f.accessible_by? current_user, current_inventory_pool }
+    @fields = Field.all.select do |f|
+      f.accessible_by? current_user, current_inventory_pool
+    end
   end
 
   def csv_export
     send_data InventoryPool.csv_export(current_inventory_pool, params),
               type: 'text/csv; charset=utf-8; header=present',
-              disposition: "attachment; filename=#{_("Items-leihs")}.csv"
+              disposition: "attachment; filename=#{_('Items-leihs')}.csv"
   end
 
   def csv_import
     if request.post?
-      items = current_inventory_pool.csv_import(current_inventory_pool, params[:csv_file].tempfile)
+      items = current_inventory_pool.csv_import(current_inventory_pool,
+                                                params[:csv_file].tempfile)
 
-      @valid_items, @invalid_items = items.partition {|item| item.errors.empty? } # &:valid?
+      # &:valid?
+      @valid_items, @invalid_items = items.partition { |item| item.errors.empty? }
     end
   end
 

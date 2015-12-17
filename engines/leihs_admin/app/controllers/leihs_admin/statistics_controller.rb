@@ -10,7 +10,7 @@ module LeihsAdmin
                      'Which inventory pool has the most contracts?']
 
       params[:start_date] ||= I18n.l 30.days.ago.to_date
-      params[:end_date] ||= I18n.l Date.today
+      params[:end_date] ||= I18n.l Time.zone.today
     end
 
     def index
@@ -18,19 +18,21 @@ module LeihsAdmin
 
     def show
       @list = case params[:id]
-                when 'Who borrowed the most things?'.parameterize
+              when 'Who borrowed the most things?'.parameterize
                   Statistics::Base.hand_overs([User, Model], params.to_hash)
-                when 'Which inventory pool is busiest?'.parameterize
-                  Statistics::Base.hand_overs([InventoryPool, Model], params.to_hash)
-                when 'Who bought the most items?'.parameterize
-                  Statistics::Base.item_values([InventoryPool, Model], params.to_hash)
-                when 'Which item is busiest?'.parameterize
+              when 'Which inventory pool is busiest?'.parameterize
+                  Statistics::Base.hand_overs([InventoryPool, Model],
+                                              params.to_hash)
+              when 'Who bought the most items?'.parameterize
+                  Statistics::Base.item_values([InventoryPool, Model],
+                                               params.to_hash)
+              when 'Which item is busiest?'.parameterize
                   Statistics::Base.hand_overs([Item, User], params.to_hash)
-                when 'Which model is busiest?'.parameterize
+              when 'Which model is busiest?'.parameterize
                   Statistics::Base.hand_overs([Model, Item], params.to_hash)
-                when 'Which inventory pool has the most contracts?'.parameterize
+              when 'Which inventory pool has the most contracts?'.parameterize
                   Statistics::Base.contracts([InventoryPool, User], params.to_hash)
-                else
+              else
                   redirect_to admin.statistics_path
               end
     end

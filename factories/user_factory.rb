@@ -1,14 +1,21 @@
 FactoryGirl.define do
 
   factory :user do
-    login { [Faker::Internet.user_name, (100..9999).to_a.sample].join('_') } # make sure the login has at least 3 chars
+    # make sure the login has at least 3 chars
+    login { [Faker::Internet.user_name, (100..9999).to_a.sample].join('_') }
     firstname { Faker::Name.first_name }
     lastname { Faker::Name.last_name }
     phone { Faker::PhoneNumber.phone_number.gsub(/\D/, '') }
-    authentication_system { AuthenticationSystem.first.blank? ? FactoryGirl.create(:authentication_system) : AuthenticationSystem.first }
+    authentication_system do
+      if AuthenticationSystem.first.blank?
+        FactoryGirl.create(:authentication_system)
+      else
+        AuthenticationSystem.first
+      end
+    end
     unique_id { Faker::Lorem.characters(18) }
 
-    email {  # rubocop:disable Lint/UselessAssignment
+    email do
       existing_emails = User.pluck :email
       r = Faker::Internet.email
       loop do
@@ -16,7 +23,7 @@ FactoryGirl.define do
         break unless existing_emails.include? r
       end
       r
-    }
+    end
 
     badge_id { Faker::Lorem.characters(18) }
     address { Faker::Address.street_address }
@@ -27,8 +34,10 @@ FactoryGirl.define do
     delegator_user { nil }
 
     after(:create) do |user|
-      unless user.is_delegation
-        FactoryGirl.create(:database_authentication, user: user, password: 'password')
+      unless user.delegation?
+        FactoryGirl.create(:database_authentication,
+                           user: user,
+                           password: 'password')
       end
     end
   end

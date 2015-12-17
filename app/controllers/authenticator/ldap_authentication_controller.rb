@@ -14,7 +14,8 @@ class LdapHelper
         @ldap_config = YAML::load_file(File.join(Rails.root, 'config', 'LDAP.yml'))
       end
     rescue Exception => e
-      raise "Could not load LDAP configuration file #{File.join(Rails.root, "config", "LDAP.yml")}: #{e}"
+      raise 'Could not load LDAP configuration file ' \
+            "#{File.join(Rails.root, 'config', 'LDAP.yml')}: #{e}"
     end
     @base_dn = @ldap_config[Rails.env]['base_dn']
     @search_field = @ldap_config[Rails.env]['search_field']
@@ -30,40 +31,52 @@ class LdapHelper
     @master_bind_pw = @ldap_config[Rails.env]['master_bind_pw']
     @unique_id_field = @ldap_config[Rails.env]['unique_id_field']
     @video_displayname = @ldap_config[Rails.env]['video_displayname']
-    raise "'master_bind_dn' and 'master_bind_pw' must be set in LDAP configuration file" if (@master_bind_dn.blank? or @master_bind_pw.blank?)
-    raise "'unique_id_field' in LDAP configuration file must point to an LDAP field that allows unique identification of a user" if @unique_id_field.blank?
+    if (@master_bind_dn.blank? or @master_bind_pw.blank?)
+      raise "'master_bind_dn' and 'master_bind_pw' must be set in " \
+            'LDAP configuration file'
+    end
+    if @unique_id_field.blank?
+      raise "'unique_id_field' in LDAP configuration file must point to " \
+            'an LDAP field that allows unique identification of a user'
+    end
   end
 
   def bind(username = @master_bind_dn, password = @master_bind_pw)
     ldap = Net::LDAP.new host: @host,
-    port: @port,
-    encryption: @encryption,
-    base: @base_dn,
-    auth: {
-      method: @method,
-      username: username,
-      password: password
-    }
+                         port: @port,
+                         encryption: @encryption,
+                         base: @base_dn,
+                         auth: {
+                           method: @method,
+                           username: username,
+                           password: password
+                         }
 
     if ldap.bind
       return ldap
     else
       logger = Rails.logger
-      logger.error "ERROR: Can't bind to LDAP server #{@host} as user '#{username}'. Wrong bind credentials or encryption parameters?"
+      logger.error "ERROR: Can't bind to LDAP server #{@host} " \
+                   "as user '#{username}'. " \
+                   'Wrong bind credentials or encryption parameters?'
       return false
     end
   end
 end
 
-class Authenticator::LdapAuthenticationController < Authenticator::AuthenticatorController
+class Authenticator::LdapAuthenticationController \
+  < Authenticator::AuthenticatorController
 
   def validate_configuration
     logger = Rails.logger
     begin
-      # This thing will complain with an exception if something is wrong about our configuration
+      # This thing will complain with an exception if something
+      # is wrong about our configuration
       _helper = LdapHelper.new
     rescue Exception => e
-      flash[:error] = _('You will not be able to log in because this leihs server is not configured correctly. Contact your leihs system administrator.')
+      flash[:error] = \
+        _('You will not be able to log in because this leihs server ' \
+          'is not configured correctly. Contact your leihs system administrator.')
       logger.error("ERROR: LDAP is not configured correctly: #{e}")
     end
   end
@@ -75,36 +88,48 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
   # @param login [String] The login of the user you want to create
   # @param email [String] The email address of the user you want to create
   def create_user(login, email, firstname, lastname)
-    user = User.new(login: login, email: "#{email}", firstname: "#{firstname}", lastname: "#{lastname}")
-    user.authentication_system = AuthenticationSystem.where(class_name: 'LdapAuthentication').first
+    user = User.new(login: login,
+                    email: "#{email}",
+                    firstname: "#{firstname}",
+                    lastname: "#{lastname}")
+    user.authentication_system = \
+      AuthenticationSystem.where(class_name: 'LdapAuthentication').first
     if user.save
       return user
     else
       logger = Rails.logger
-      logger.error "ERROR: Could not create user with login #{login}: #{user.errors.full_messages}"
+      logger.error "ERROR: Could not create user with login #{login}: " \
+                   "#{user.errors.full_messages}"
       return false
     end
   end
 
   # @param user [User] The (local, database) user whose data you want to update
-  # @param user_data [Net::LDAP::Entry] The LDAP entry (it could also just be a hash of hashes and arrays that looks like a Net::LDAP::Entry) of that user
+  # @param user_data [Net::LDAP::Entry] The LDAP entry (it could also just be
+  # a hash of hashes and arrays that looks like a Net::LDAP::Entry) of that user
   def update_user(user, user_data)
     logger = Rails.logger
     ldaphelper = LdapHelper.new
-    # Make sure to set "user_image_url" in "/admin/settings" in leihs 3.0 for user images to appear, based
-    # on the unique ID. Example for the format:
+    # Make sure to set "user_image_url" in "/admin/settings" in leihs 3.0
+    # for user images to appear, based on the unique ID. Example for the format:
     # http://www.hslu.ch/portrait/{:id}.jpg
     # {:id} will be interpolated with user.unique_id there.
     user.unique_id = user_data[ldaphelper.unique_id_field.to_s].first.to_s
     user.firstname = user_data['givenname'].first.to_s
     user.lastname = user_data['sn'].first.to_s
-    user.phone = user_data['telephonenumber'].first.to_s unless user_data['telephonenumber'].blank?
+    unless user_data['telephonenumber'].blank?
+      user.phone = user_data['telephonenumber'].first.to_s
+    end
     user.language = Language.default_language if user.language.blank?
 
-    user.address = user_data['streetaddress'].first.to_s unless user_data['streetaddress'].blank?
+    unless user_data['streetaddress'].blank?
+      user.address = user_data['streetaddress'].first.to_s
+    end
     user.city = user_data['l'].first.to_s unless user_data['l'].blank?
     user.country = user_data['c'].first.to_s unless user_data['c'].blank?
-    user.zip = user_data['postalcode'].first.to_s unless user_data['postalcode'].blank?
+    unless user_data['postalcode'].blank?
+      user.zip = user_data['postalcode'].first.to_s
+    end
 
     admin_dn = ldaphelper.ldap_config[Rails.env]['admin_dn']
     unless admin_dn.blank?
@@ -117,11 +142,13 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
           in_admin_group = true
         end
       rescue Exception => e
-        logger.error "ERROR: Could not upgrade user #{user.unique_id} to an admin due to exception: #{e}"
+        logger.error "ERROR: Could not upgrade user #{user.unique_id} " \
+                     "to an admin due to exception: #{e}"
       end
 
       if in_admin_group == true
-        if user.access_rights.active.empty? or !user.access_rights.active.collect(&:role).include?(:admin)
+        if user.access_rights.active.empty? \
+          or !user.access_rights.active.collect(&:role).include?(:admin)
           user.access_rights.create(role: :admin)
         end
       end
@@ -148,10 +175,14 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
           redirect_back_or_default('/')
         else
           logger.error(u.errors.full_messages.to_s)
-          flash[:error] = _("Could not update user '#{username}' with new LDAP information. Contact your leihs system administrator.")
+          flash[:error] = \
+            _("Could not update user '#{username}' with new LDAP information. " \
+              'Contact your leihs system administrator.')
         end
       else
-        flash[:error] = _("Could not create new user for '#{username}' from LDAP source. Contact your leihs system administrator.")
+        flash[:error] = \
+          _("Could not create new user for '#{username}' from LDAP source. " \
+            'Contact your leihs system administrator.')
       end
     else
       flash[:error] = _('Invalid username/password')
@@ -173,19 +204,27 @@ class Authenticator::LdapAuthenticationController < Authenticator::Authenticator
           ldap = ldaphelper.bind
 
           if ldap
-            users = ldap.search(base: ldaphelper.base_dn, filter: Net::LDAP::Filter.eq(ldaphelper.search_field, "#{username}"))
+            users = \
+              ldap.search \
+                base: ldaphelper.base_dn,
+                filter: \
+                  Net::LDAP::Filter.eq(ldaphelper.search_field, "#{username}")
 
+            # TODO: remove 3rd level of block nesting
+            # rubocop:disable Metrics/BlockNesting
             if users.size == 1
               create_and_login_from_ldap_user(users.first, username, password)
             else
               flash[:error] = _('User unknown') if users.size == 0
               flash[:error] = _('Too many users found') if users.size > 0
             end
+            # rubocop:enable Metrics/BlockNesting
           else
             flash[:error] = _('Invalid technical user - contact your leihs admin')
           end
         rescue Net::LDAP::LdapError
-          flash[:error] = _("Couldn't connect to LDAP server: #{ldaphelper.host}:#{ldaphelper.port}")
+          flash[:error] = _("Couldn't connect to LDAP server: " \
+                            "#{ldaphelper.host}:#{ldaphelper.port}")
         end
       end
     else

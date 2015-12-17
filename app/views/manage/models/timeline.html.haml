@@ -34,10 +34,10 @@
       group_id = line.allocated_group_id.to_i
   
       # if line is late then it won't be available until the item is returned 
-      end_date = line.is_late? ? Availability::ETERNITY : (line.end_date.tomorrow.to_time - 1.second)
+      end_date = line.late? ? Availability::ETERNITY : (line.end_date.tomorrow.to_time - 1.second)
   
       # if line is reserved in the future and assigned an item, then the item will be reserved until then and not available from now on 
-      start_date = line.is_reserved? ? Date.today : line.start_date
+      start_date = line.reserved? ? Date.today : line.start_date
   
       events[group_id] ||= []
       events[group_id] << {:start         => start_date.to_time.to_s(:rfc822),
@@ -55,7 +55,7 @@
                                   [ _("Take Back"), manage_take_back_path(current_inventory_pool, user) ]
                                 end
                            
-                              document_link = unless is_lending_manager?
+                              document_link = unless lending_manager?
                                                 ""
                                               else
                                                 content_tag :div, :class => "buttons", :style => "margin: 1.5em;" do
@@ -63,8 +63,8 @@
                                                 end
                                               end
                               comment = ""
-                              comment += ("<b>" + _("Item is overdue and therefore unavailable!") + "</b>") if line.is_late?
-                              comment += ("<b>" + _("Item is reserved in the future, therefore it's not available!") + "</b>") if line.is_reserved?
+                              comment += ("<b>" + _("Item is overdue and therefore unavailable!") + "</b>") if line.late?
+                              comment += ("<b>" + _("Item is reserved in the future, therefore it's not available!") + "</b>") if line.reserved?
                         
                               ("#{_("Phone")}: #{user.phone}<br/>" +
                               "#{_("Reservation")}: #{line.start_date} " + _("until") + " #{line.end_date}<br/>" +
@@ -79,9 +79,9 @@
                                                 end 
                                               elsif line.returned_date
                                                 'is-returned'
-                                              elsif line.is_late?
+                                              elsif line.late?
                                                 'is-late'
-                                              elsif line.is_reserved?
+                                              elsif line.reserved?
                                                 'is-reserved'
                                               else
                                                 'without-conflict'

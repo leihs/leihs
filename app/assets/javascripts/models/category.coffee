@@ -6,7 +6,7 @@
 
 class window.App.Category extends Spine.Model
 
-  @configure "Category", "id", "name", "is_used"
+  @configure "Category", "id", "name", "used?"
   
   @extend Spine.Model.Ajax
   @extend App.Modules.FindOrBuild
@@ -16,6 +16,8 @@ class window.App.Category extends Spine.Model
   @hasMany "models", "App.ModelLink", "model_id"
 
   @url: => "/categories"
+
+  is_used: => this['used?'] # hack around coffeescript's existantial operator
 
   children: => 
     # filter out undefined records, they are coming from the inconsistent database: in some cases model group links reference not existing records!!!

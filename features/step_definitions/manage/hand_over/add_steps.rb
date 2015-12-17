@@ -36,7 +36,7 @@ When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over
   @inventory_codes << @item.inventory_code
   fill_in 'assign-or-add-input', with: @item.model.name
   find('.ui-menu-item', text: @item.model.name).click
-  find('.line', text: @item.model.name).find('form[data-assign-item-form] input').click
+  find('.line', text: @item.model.name, match: :first).find('form[data-assign-item-form] input').click
   find('.ui-menu-item', text: @item.inventory_code).click
 end
 

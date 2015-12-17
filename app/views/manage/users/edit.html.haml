@@ -21,7 +21,7 @@
 
         .row.margin-top-m
 
-          - if @user.is_delegation
+          - if @user.delegation?
 
             = render partial: "delegation"
 

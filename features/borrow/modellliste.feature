@@ -108,7 +108,7 @@ Feature: Model list
     And I am listing models
     Then I can also use a date picker to specify start and end date instead of entering them by hand
 
-  @javascript @personas
+  @javascript @personas @problematic
   Scenario: Searching for a model
     Given I am Normin
     And I am listing models
@@ -116,7 +116,7 @@ Feature: Model list
     And I press the Enter key
     Then those models are shown whose names or manufacturers match the search term
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Hovering over models
     Given I am Normin
     And there is a model with images, description and properties
@@ -154,7 +154,7 @@ Feature: Model list
     And the inventory pool selector is still expanded
     And the filter shows the count of selected inventory pools
 
-  @javascript @personas
+  @javascript @personas @problematic
   Scenario: Deselecting all but one inventory pool
     Given I am Normin
     And I am listing models

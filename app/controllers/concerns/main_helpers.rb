@@ -5,15 +5,17 @@ module MainHelpers
     require File.join(Rails.root, 'lib', 'authenticated_system.rb')
     include AuthenticatedSystem
 
-    before_filter :set_gettext_locale, :load_settings, :permit_params
+    before_action :set_gettext_locale, :load_settings, :permit_params
 
     protect_from_forgery
 
     protected
 
-    helper_method :current_inventory_pool, :current_managed_inventory_pools, :is_admin?
+    helper_method(:current_inventory_pool,
+                  :current_managed_inventory_pools,
+                  :admin?)
 
-    # TODO **20 optimize lib/role_requirement and refactor to backend
+    # TODO: **20 optimize lib/role_requirement and refactor to backend
     def current_inventory_pool
       nil
     end
@@ -40,14 +42,18 @@ module MainHelpers
           end
       language ||= Language.default_language
       unless language.nil?
-        current_user.update_attributes(language_id: language.id) if current_user and (params[:locale] or current_user.language_id.nil?)
+        if current_user and (params[:locale] or current_user.language_id.nil?)
+          current_user.update_attributes(language_id: language.id)
+        end
         session[:locale] = language.locale_name
         I18n.locale = language.locale_name.to_sym
       end
     end
 
     def load_settings
-      if not Setting.smtp_address and logged_in? and not [admin.settings_path, main_app.logout_path].include? request.path
+      if not Setting.smtp_address \
+        and logged_in? \
+        and not [admin.settings_path, main_app.logout_path].include? request.path
         if current_user.has_role?(:admin)
           redirect_to admin.settings_path
         else
@@ -58,16 +64,16 @@ module MainHelpers
 
     def set_pagination_header(paginated_active_record)
       headers['X-Pagination'] = {
-          total_count: paginated_active_record.total_entries,
-          per_page: paginated_active_record.per_page,
-          offset: paginated_active_record.offset
+        total_count: paginated_active_record.total_entries,
+        per_page: paginated_active_record.per_page,
+        offset: paginated_active_record.offset
       }.to_json
     end
 
     ##################################################
     # ACL
 
-    def not_authorized!(options = {redirect_path: nil})
+    def not_authorized!(options = { redirect_path: nil })
       options[:redirect_path] ||= admin.inventory_pools_path
       msg = "You don't have appropriate permission to perform this operation."
 
@@ -82,7 +88,7 @@ module MainHelpers
 
     ####### Helper Methods #######
 
-    def is_admin?
+    def admin?
       current_user.has_role?(:admin)
     end
 
@@ -91,6 +97,5 @@ module MainHelpers
     end
 
   end
-
 
 end

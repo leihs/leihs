@@ -1,6 +1,6 @@
 %li.topbar-item.dropdown-holder{:class => current_page?(borrow_current_user_path) ? "active" : nil}
   .topbar-item-inner
-    - if current_user.is_delegation
+    - if current_user.delegation?
       .fa.fa-group
     - else
       %img.max-height-xxxs.max-width-xxs.emboss.deep{:src => current_user.image_url}
@@ -30,7 +30,7 @@
           .width-xxxs.inline-block.text-align-center
             .fa.fa-group
           = _("Delegations")
-    - elsif current_user.is_delegation and @current_delegated_user
+    - elsif current_user.delegation? and @current_delegated_user
       %li.separated-top
         %a.dropdown-item{href: main_app.borrow_user_switch_back_path}
           .width-xxxs.inline-block.text-align-center

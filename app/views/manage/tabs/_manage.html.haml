@@ -3,7 +3,7 @@
   %nav
     %ul
 
-      - if is_inventory_manager?
+      - if inventory_manager?
         %li
           %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => manage_edit_inventory_pool_path(current_inventory_pool),
                                                                                   :class => (defined? active_tab and active_tab == :inventory_pools) ? "active" : ""}
@@ -19,7 +19,7 @@
                                                                                 :class => (defined? active_tab and active_tab == :groups) ? "active" : ""}
           = _("Groups")
 
-      - if is_inventory_manager?
+      - if inventory_manager?
         %li
           %a.navigation-tab-item.margin-right-xxs.padding-horizontal-m.float-left{:href => "/manage/#{current_inventory_pool.id}/suppliers",
                                                                                   :class => (defined? active_tab and active_tab == :suppliers) ? "active" : ""}

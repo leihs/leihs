@@ -24,6 +24,7 @@ Given(/^there is (an order|a take back|an overdue take back) for a delegation th
 end
 
 Then(/^the approval email is sent to the orderer$/) do
+  sleep 1
   expect(ActionMailer::Base.deliveries.count).to eq 1
   expect(ActionMailer::Base.deliveries.first.to).to eq  @contract.delegated_user.emails
 end

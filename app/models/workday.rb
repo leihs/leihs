@@ -6,15 +6,14 @@ class Workday < ActiveRecord::Base
   serialize :max_visits, Hash
 
   # deprecated
-  DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+  DAYS = %w(monday tuesday wednesday thursday friday saturday sunday)
 
   # better
-  WORKDAYS = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
-  
-  def is_open_on?(date)
-    
+  WORKDAYS = %w(sunday monday tuesday wednesday thursday friday saturday)
+
+  def open_on?(date)
     return false if date.nil?
-    
+
     case date.wday
     when 1
       return monday
@@ -31,10 +30,10 @@ class Workday < ActiveRecord::Base
     when 0
       return sunday
     else
-      return false #Should not be reached
+      return false # Should not be reached
     end
   end
-  
+
   def closed_days
     days = []
     days << 0 unless sunday
@@ -48,7 +47,7 @@ class Workday < ActiveRecord::Base
   end
 
   def workdays=(wdays)
-    wdays.each_pair do |k,v|
+    wdays.each_pair do |k, v|
       write_attribute(WORKDAYS[k.to_i], v['open'].to_i)
       max_visits[k.to_i] = v['max_visits'].blank? ? nil : v['max_visits'].to_i
     end
@@ -65,10 +64,12 @@ class Workday < ActiveRecord::Base
   def reached_max_visits
     dates = []
     total_visits_by_date.each_pair do |date, visits|
-      dates << date if not date.past? and max_visits_on(date.wday) and visits.size >= max_visits_on(date.wday)
+      next if date.past? \
+        or max_visits_on(date.wday).nil? \
+        or visits.size < max_visits_on(date.wday)
+      dates << date
     end
     dates.sort
   end
 
 end
-
