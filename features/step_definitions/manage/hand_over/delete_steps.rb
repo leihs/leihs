@@ -65,6 +65,6 @@ When(/^I delete all reservations of a model thats availability is blocked by the
 end
 
 Then(/^the availability of the keeped line is updated$/) do
-  reference_line = all('.line').detect{|line| line['data-id'] == @reference_id}
+  reference_line = find(".line[data-id='#{@reference_id}']")
   expect(reference_line[:class].match('error')).to eq nil
 end

@@ -64,7 +64,7 @@ Feature: Lending
     And I click on "Hand Over"
     Then there are inventory codes for item and license in the contract
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Handing over items and licenses by model search
     Given I am doing a hand over
     When I add a borrowable item to the hand over by using the search input field

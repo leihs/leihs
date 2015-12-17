@@ -2986,3 +2986,9 @@ msgstr "höchstmöglich"
 
 msgid "Swap Model"
 msgstr "Modell tauschen"
+
+msgid "Checked before"
+msgstr "Inventur bevor"
+
+msgid "Search category"
+msgstr "Kategorie suchen"

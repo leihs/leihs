@@ -3868,6 +3868,14 @@ window.i18n.locale_data = {
       "Swap Model": [
          null,
          "Modell tauschen"
+      ],
+      "Checked before": [
+         null,
+         "Inventur bevor"
+      ],
+      "Search category": [
+         null,
+         "Kategorie suchen"
       ]
    }
 }

@@ -24,7 +24,7 @@ Feature: Contract
     | Contract number      |
     And the models are sorted alphabetically within their group
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Mentioning terms and conditions
     Given I open a contract during hand over
     Then I see a note mentioning the terms and conditions
@@ -97,7 +97,7 @@ Feature: Contract
     And I click take back inside the dialog
     Then the relevant reservations show the person taking back the item in the format "F. Lastname"
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Lender
     Given I open a contract during hand over
     Then the lender is shown next to the borrower

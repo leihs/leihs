@@ -103,7 +103,7 @@ Feature: Create model with packages
     | Last Checked           |
 
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Delete an item package that was never handed over
     Given a never handed over item package is currently in stock
     When edit the related model package
