@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'yaml'
+require 'pry'
 
 DEFAULT_BROWSER = ENV['DEFAULT_BROWSER'] ? ENV['DEFAULT_BROWSER'] : :firefox # [:firefox, :chrome].sample
 CI_SCENARIOS_PER_TASK = (ENV['CI_SCENARIOS_PER_TASK'] || 1).to_i
@@ -37,12 +38,12 @@ leihs_feature_files = \
   Dir.glob('features/personas/*.feature') -
   Dir.glob('features/**/*.feature.disabled') -
   Dir.glob('engines/**/features/*')
-filepath = './.cider-ci/tasks/cucumber_features.yml'
+filepath = 'cider-ci/tasks/cucumber_features.yml'
 create_feature_tasks(filepath, leihs_feature_files)
 
 ENGINES.each do |engine|
   engine_feature_files = Dir.glob("engines/#{engine}/features/**/*.feature")
-  filepath = "./.cider-ci/tasks/cucumber_#{engine}_features.yml"
+  filepath = "cider-ci/tasks/cucumber_#{engine}_features.yml"
   create_feature_tasks(filepath, engine_feature_files)
 end
 
@@ -69,8 +70,7 @@ def create_scenario_tasks(filepath, feature_files_paths, tags = nil)
       k, v = splitted_string.first.split(':')
       h1[k] ||= []
       h1[k] << v
-
-    end.compact
+    end.compact.sort.to_h
 
     h2 = []
     h1.map do |k,v|
@@ -88,17 +88,17 @@ def create_scenario_tasks(filepath, feature_files_paths, tags = nil)
   end
 end
 
-filepath = './.cider-ci/tasks/cucumber_scenarios.yml'
+filepath = 'cider-ci/tasks/cucumber_scenarios.yml'
 leihs_feature_files_paths = 'features/*'
 create_scenario_tasks(filepath, leihs_feature_files_paths)
 
 # keep failing CI scenarios in a separate yml files (and job)
-filepath = './.cider-ci/tasks/cucumber_problematic_scenarios.yml'
+filepath = 'cider-ci/tasks/cucumber_problematic_scenarios.yml'
 leihs_feature_files_paths = 'features/*'
 create_scenario_tasks(filepath, leihs_feature_files_paths, ['@problematic'])
 
 ENGINES.each do |engine|
-  filepath = "./.cider-ci/tasks/cucumber_#{engine}_scenarios.yml"
+  filepath = "cider-ci/tasks/cucumber_#{engine}_scenarios.yml"
   engine_feature_files_paths = "engines/#{engine}/**/*.feature"
   create_scenario_tasks(filepath, engine_feature_files_paths)
 end

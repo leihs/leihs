@@ -1,11 +1,11 @@
 jobs:
 
-  leihs-admin-code-checks:
+  procurement-code-checks:
 
-    name: Leihs Admin Code Checks
+    name: Procurement Code Checks
 
     description: |
-      Run static checks and metrics: complexity, duplication, code format for Leihs Admin engine.
+      Run static checks and metrics: complexity, duplication, code format for Procurement engine.
 
     run-on:
     - type: branch
@@ -30,7 +30,7 @@ jobs:
         scripts:
           bundle-mri:
             exclusive-executor-resource: bundler_2.1
-            body: bundle
+            body: cider-ci/bin/bundle_with_cachestamp.sh
           test:
             start-when:
             - script: bundle-mri
@@ -41,4 +41,4 @@ jobs:
           name: Lint/Stylecheck with Rubocop
           scripts:
             test:
-              body: bundle exec rubocop engines/leihs_admin/ -c engines/leihs_admin/.rubocop.yml
+              body: bundle exec rubocop engines/procurement/ -c engines/procurement/.rubocop.yml

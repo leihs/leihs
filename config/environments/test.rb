@@ -12,6 +12,8 @@ Rails.application.configure do
   # preloads Rails for running tests, you may have to set it to true.
   config.eager_load = false
 
+  config.log_level = :debug
+
   # Configure static file server for tests with Cache-Control for performance.
   config.serve_static_files   = true
   config.static_cache_control = 'public, max-age=3600'
@@ -22,6 +24,11 @@ Rails.application.configure do
 
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = false
+
+  if ENV['CIDER_CI_TRIAL_ID'].present?
+    config.assets.compile = true
+    config.assets.digest = true
+  end
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false

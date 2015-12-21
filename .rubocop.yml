@@ -2,6 +2,7 @@ AllCops:
   Exclude:
     - 'bin/**/*'
     - 'config/**/*'
+    - 'cider-ci/**/*'
     - 'db/**/*'
     - 'doc/**/*'
     - 'engines/**/*'

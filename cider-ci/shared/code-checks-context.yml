@@ -15,7 +15,8 @@ task-defaults:
       scripts:
         bundle-mri:
           exclusive-executor-resource: bundler_2.1
-          body: bundle
+          body: cider-ci/bin/bundle_with_cachestamp.sh
+
           test:
             start-when:
               - script: bundle-mri

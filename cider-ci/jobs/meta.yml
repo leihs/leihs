@@ -30,10 +30,10 @@ jobs:
           name: "Number of problematic tests did not increase"
           scripts:
             main:
-              body: ".cider-ci/bin/check_problematic_scenarios.rb"
+              body: "cider-ci/bin/check_problematic_scenarios.rb"
 
         git-branch-current:
           name: "git tree contains latest commit from origin/master"
           scripts:
             main:
-              body: ".cider-ci/bin/check_if_branch_current"
+              body: "cider-ci/bin/check_if_branch_current"

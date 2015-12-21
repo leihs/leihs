@@ -12,5 +12,5 @@ jobs:
         max-auto-trials: 3
 
       _cider-ci_include:
-        - .cider-ci/shared/tests-context.yml
-        - .cider-ci/tasks/cucumber_leihs_admin_scenarios.yml
+        - cider-ci/shared/tests-context.yml
+        - cider-ci/tasks/cucumber_leihs_admin_scenarios.yml
