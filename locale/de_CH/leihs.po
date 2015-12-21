@@ -2988,7 +2988,7 @@ msgid "Swap Model"
 msgstr "Modell tauschen"
 
 msgid "Checked before"
-msgstr "Inventur bevor"
+msgstr "Inventur vor"
 
 msgid "Search category"
 msgstr "Kategorie suchen"

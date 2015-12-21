@@ -25,7 +25,7 @@ Feature: Viewing my orders
     Then the items are available for borrowing again
      And the entry is removed from the order
 
-  @javascript @personas
+  @javascript @personas @problematic
   Scenario: Timeout
     Given the timeout is set to 1 minute
     When I add a model to an order

@@ -25,6 +25,11 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  -f json -o log/cucumber_report.json
         --strict features/borrow/modellliste.feature:167 DEFAULT_BROWSER=firefox
+- name: features/borrow/bestelluebersicht.feature:29
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  -f json -o log/cucumber_report.json
+        --strict features/borrow/bestelluebersicht.feature:29 DEFAULT_BROWSER=firefox
 - name: features/examples/werteliste.feature:8
   scripts:
     test:
