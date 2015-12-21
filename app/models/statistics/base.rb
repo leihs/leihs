@@ -105,6 +105,26 @@ module Statistics
 
         items = Item.arel_table
 
+        query = prepare_query_for_item_values(klass, items, options)
+        query.map do |x|
+          h = { type: 'statistic',
+                object: klass.name,
+                id: x.id,
+                label: "#{x.quantity}x #{x.label}",
+                quantity: x.price.to_i,
+                unit: _('CHF') }
+          unless klasses.empty?
+            h[:children] = \
+              item_values(klasses,
+                          options.merge(klass.name.foreign_key.to_sym => x.id))
+          end
+          h
+        end
+      end
+
+      private
+
+      def prepare_query_for_item_values(klass, options)
         query = klass.unscoped
           .select("#{klass.name.tableize}.id, " \
                   'COUNT(items.id) AS quantity, ' \
@@ -146,29 +166,11 @@ module Statistics
                 Date.parse(options[:start_date]).to_s(:db)
         end
         unless options[:end_date].blank?
-          query = \
-            query.where \
-              items[:created_at].lteq \
-                Date.parse(options[:end_date]).to_s(:db)
-        end
-
-        query.map do |x|
-          h = { type: 'statistic',
-                object: klass.name,
-                id: x.id,
-                label: "#{x.quantity}x #{x.label}",
-                quantity: x.price.to_i,
-                unit: _('CHF') }
-          unless klasses.empty?
-            h[:children] = \
-              item_values(klasses,
-                          options.merge(klass.name.foreign_key.to_sym => x.id))
-          end
-          h
+          query.where \
+            items[:created_at].lteq \
+              Date.parse(options[:end_date]).to_s(:db)
         end
       end
-
-      private
 
       def get_query_for_contracts(klass, reservations, options)
         query = klass.unscoped
@@ -220,17 +222,19 @@ module Statistics
         end
       end
 
-      def get_query_for_hand_overs(klass, reservations, options)
-        query = \
-          klass.unscoped
-            .select("#{klass.name.tableize}.id, " \
-                    'SUM(reservations.quantity) AS quantity')
-            .where(reservations[:type].eq('ItemLine')
-                   .and(reservations[:item_id].not_eq(nil))
-                   .and(reservations[:returned_date].not_eq(nil)))
-            .order('quantity DESC')
-            .limit(options[:limit])
+      def get_initial_query_for_hand_overs(klass, reservations, options)
+        klass.unscoped
+          .select("#{klass.name.tableize}.id, " \
+                  'SUM(reservations.quantity) AS quantity')
+          .where(reservations[:type].eq('ItemLine')
+                 .and(reservations[:item_id].not_eq(nil))
+                 .and(reservations[:returned_date].not_eq(nil)))
+          .order('quantity DESC')
+          .limit(options[:limit])
+      end
 
+      def get_query_for_hand_overs(klass, reservations, options)
+        query = get_initial_query_for_hand_overs(klass, reservations, options)
         query = case klass.name
                 when 'User'
                   query.joins(:reservations)
@@ -288,7 +292,6 @@ module Statistics
               Date.parse(options[:end_date]).to_s(:db)
         end
       end
-
     end
   end
 end
