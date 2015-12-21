@@ -300,6 +300,11 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  -f json -o log/cucumber_report.json
         --strict features/manage/lending/lending.feature:68 DEFAULT_BROWSER=firefox
+- name: features/manage/lending/lending.feature:121
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  -f json -o log/cucumber_report.json
+        --strict features/manage/lending/lending.feature:121 DEFAULT_BROWSER=firefox
 - name: features/manage/lending/lending.feature:168
   scripts:
     test:

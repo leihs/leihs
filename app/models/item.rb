@@ -267,20 +267,22 @@ class Item < ActiveRecord::Base
     "#{model.name} #{inventory_code}"
   end
 
-  # Generates an array suitable for outputting a line of CSV using CSV
-  def to_csv_array(options = { global: false })
-    model_manufacturer = \
-      if self.model.nil? or self.model.name.blank?
-        # FIXME: using model.try because database inconsistency
-        'UNKNOWN' if self.model.try(:manufacturer).blank?
-      else
-        unless self.model.manufacturer.blank?
-          self.model.manufacturer.gsub(/\"/, '""')
-        end
-      end
+  private
 
+  def get_model_manufacturer
+    if self.model.nil? or self.model.name.blank?
+      # FIXME: using model.try because database inconsistency
+      'UNKNOWN' if self.model.try(:manufacturer).blank?
+    else
+      unless self.model.manufacturer.blank?
+        self.model.manufacturer.gsub(/\"/, '""')
+      end
+    end
+  end
+
+  def get_categories(global = false)
     categories = []
-    unless options[:global]
+    unless global
       # FIXME: using model.try because database inconsistency
       unless self.model.try(:categories).nil? or self.model.categories.count == 0
         self.model.categories.each do |c|
@@ -288,6 +290,24 @@ class Item < ActiveRecord::Base
         end
       end
     end
+    categories
+  end
+
+  def get_fields
+    # we use select instead of multiple where because we need to keep the sorting
+    # we exclude what is already hardcoded before (model_id as product and version)
+    Field.all.select do |f|
+      [nil, type.downcase].include?(f.data['target_type']) \
+        and not ['model_id'].include?(f.data['form_name'])
+    end.group_by { |f| f.data['group'] }.values.flatten
+  end
+
+  public
+
+  # Generates an array suitable for outputting a line of CSV using CSV
+  def to_csv_array(options = { global: false })
+    model_manufacturer = get_model_manufacturer
+    categories = get_categories options[:global]
 
     # retired = if options[:global] and self.retired? then
     #             "X"
@@ -354,12 +374,7 @@ class Item < ActiveRecord::Base
       )
     end
 
-    # we use select instead of multiple where because we need to keep the sorting
-    # we exclude what is already hardcoded before (model_id as product and version)
-    fields = Field.all.select do |f|
-      [nil, type.downcase].include?(f.data['target_type']) \
-        and not ['model_id'].include?(f.data['form_name'])
-    end.group_by { |f| f.data['group'] }.values.flatten
+    fields = get_fields
 
     h2 = {}
     fields.each do |field|

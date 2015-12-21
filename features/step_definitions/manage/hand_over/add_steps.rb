@@ -136,6 +136,7 @@ When /^I select the (.*?) from the list$/ do |type|
 end
 
 Then /^each model of the template is added to the hand over for the provided date range$/ do
+  sleep 1
   @template.models.each do |model|
     @model = model
     step 'the (.*?) is added to the hand over'

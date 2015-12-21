@@ -149,70 +149,77 @@ class Authenticator::HsluAuthenticationController \
       if user == '' || password == ''
         flash[:notice] = _('Empty Username and/or Password')
       else
-        ldaphelper = LdapHelper.new
-        begin
-          ldap = ldaphelper.bind
-
-          if ldap
-            users = \
-              ldap.search \
-                base: ldaphelper.base_dn,
-                filter: \
-                  Net::LDAP::Filter
-                    .eq(ldaphelper.ldap_config[Rails.env]['search_field'],
-                        "#{user}")
-
-            # TODO: remove 3rd level of block nesting
-            # rubocop:disable Metrics/BlockNesting
-            if users.size == 1
-              ldap_user = users.first
-              email = ldap_user.mail.first.to_s if ldap_user.mail
-              email ||= "#{user}@hslu.ch"
-              bind_dn = ldap_user.dn
-              firstname = ldap_user.givenname
-              lastname = ldap_user.sn
-              ldaphelper = LdapHelper.new
-              if ldaphelper.bind(bind_dn, password)
-                u = \
-                  User.find_by_unique_id \
-                    ldap_user[ldaphelper.unique_id_field.to_s]
-                unless u
-                  u = create_user(user, email, firstname, lastname)
-                end
-
-                if not u == false
-                  update_user(u, users.first)
-                  if u.save
-                    self.current_user = u
-                    redirect_back_or_default('/')
-                  else
-                    logger.error(u.errors.full_messages.to_s)
-                    flash[:notice] = \
-                      _("Could not update user '#{user}' with new " \
-                        'LDAP information. ' \
-                        'Contact your leihs system administrator.')
-                  end
-                else
-                  flash[:notice] = \
-                    _("Could not create new user for '#{user}' from " \
-                      'LDAP source. Contact your leihs system administrator.')
-                end
-              else flash[:notice] = _('Invalid username/password')
-              end
-            else
-              flash[:notice] = _('User unknown') if users.size == 0
-              flash[:notice] = _('Too many users found') if users.size > 0
-            end
-            # rubocop:enable Metrics/BlockNesting
-          else
-            flash[:notice] = _('Invalid technical user - contact your leihs admin')
-          end
-        rescue Net::LDAP::LdapError
-          flash[:notice] = \
-            _("Couldn't connect to LDAP: " \
-              "#{ldaphelper.ldap_config[:host]}:#{ldaphelper.ldap_config[:port]}")
-        end
+        create_or_update_user_considering_ldap(user, password)
       end
     end
   end
+
+  private
+
+  def create_or_update_user_considering_ldap(user, password)
+    ldaphelper = LdapHelper.new
+    begin
+      ldap = ldaphelper.bind
+
+      if ldap
+        users = \
+          ldap.search \
+            base: ldaphelper.base_dn,
+            filter: \
+              Net::LDAP::Filter
+                .eq(ldaphelper.ldap_config[Rails.env]['search_field'],
+                    "#{user}")
+
+        # TODO: remove 3rd level of block nesting
+        # rubocop:disable Metrics/BlockNesting
+        if users.size == 1
+          ldap_user = users.first
+          email = ldap_user.mail.first.to_s if ldap_user.mail
+          email ||= "#{user}@hslu.ch"
+          bind_dn = ldap_user.dn
+          firstname = ldap_user.givenname
+          lastname = ldap_user.sn
+          ldaphelper = LdapHelper.new
+          if ldaphelper.bind(bind_dn, password)
+            u = \
+              User.find_by_unique_id \
+                ldap_user[ldaphelper.unique_id_field.to_s]
+            unless u
+              u = create_user(user, email, firstname, lastname)
+            end
+
+            if not u == false
+              update_user(u, users.first)
+              if u.save
+                self.current_user = u
+                redirect_back_or_default('/')
+              else
+                logger.error(u.errors.full_messages.to_s)
+                flash[:notice] = \
+                  _("Could not update user '#{user}' with new " \
+                    'LDAP information. ' \
+                    'Contact your leihs system administrator.')
+              end
+            else
+              flash[:notice] = \
+                _("Could not create new user for '#{user}' from " \
+                  'LDAP source. Contact your leihs system administrator.')
+            end
+          else flash[:notice] = _('Invalid username/password')
+          end
+        else
+          flash[:notice] = _('User unknown') if users.size == 0
+          flash[:notice] = _('Too many users found') if users.size > 0
+        end
+        # rubocop:enable Metrics/BlockNesting
+      else
+        flash[:notice] = _('Invalid technical user - contact your leihs admin')
+      end
+    rescue Net::LDAP::LdapError
+      flash[:notice] = \
+        _("Couldn't connect to LDAP: " \
+          "#{ldaphelper.ldap_config[:host]}:#{ldaphelper.ldap_config[:port]}")
+    end
+  end
+
 end

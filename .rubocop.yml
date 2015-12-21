@@ -54,7 +54,7 @@ Metrics/LineLength:
 
 # Configuration parameters: CountComments.
 Metrics/MethodLength:
-  Max: 80
+  Max: 60
 
 Metrics/ParameterLists:
   Max: 12
