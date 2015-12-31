@@ -93,7 +93,7 @@ Feature: Basic information for inventory pools
    And I save
    Then those randomly chosen workdays are saved
 
-  @javascript @personas
+  @javascript @personas @problematic
   Scenario: Manage holidays
    Given I am Mike
    And I edit my inventory pool settings

@@ -11,7 +11,7 @@ collation_value = 'utf8_unicode_ci'
 query2 = connection.execute %Q(SHOW VARIABLES LIKE '#{collation_key}';)
 
 if query1.to_h[character_set_key] != character_set_value or query2.to_h[collation_key] != collation_value
-  connection.update %Q(ALTER DATABASE #{connection.current_database} DEFAULT CHARACTER SET #{character_set_value} COLLATE #{collation_value};)
+  connection.update %Q(ALTER DATABASE `#{connection.current_database}` DEFAULT CHARACTER SET #{character_set_value} COLLATE #{collation_value};)
 
   if query1.to_h[character_set_key] != character_set_value
     puts "The MySQL setting for %s was wrong, it was set to %s, now it is set to %s" % [character_set_key, query1.to_h[character_set_key], character_set_value]

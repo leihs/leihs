@@ -13,10 +13,10 @@ task-defaults:
       RBENV_VERSION: 2.1
 
       scripts:
-        bundle-mri:
+        bundle:
           exclusive-executor-resource: bundler_2.1
           body: cider-ci/bin/bundle_with_cachestamp.sh
 
           test:
             start-when:
-              - script: bundle-mri
+              - script: bundle

@@ -24,6 +24,9 @@ jobs:
     - type: job
       job: procurement-code-checks
       states: [passed]
+    - type: job
+      job: meta
+      states: [passed]
 
     run-on:
     - type: branch

@@ -3,13 +3,13 @@ Leihs::Application.routes.draw do
   root to: "application#root"
 
   # Authenticator
-  match 'authenticator/zhdk/login',                 to: 'authenticator/zhdk#login',                    via: [:get, :post]
-  match 'authenticator/zhdk/login_successful/:id',  to: 'authenticator/zhdk#login_successful',         via: [:get, :post]
-  match 'authenticator/db/:action',                 to: 'authenticator/database_authentication',       via: [:get, :post]
-  match 'authenticator/ldap/:action',               to: 'authenticator/ldap_authentication',           via: [:get, :post]
-  match 'authenticator/hslu/:action',               to: 'authenticator/hslu_authentication',           via: [:get, :post]
-  match 'authenticator/shibboleth/login',     to: 'authenticator/shibboleth_authentication#login',     via: [:get, :post]
-  match 'authenticator/login',                      to: "authenticator/database_authentication#login", via: [:get, :post]
+  match 'authenticator/zhdk/login', to: 'authenticator/zhdk#login', via: [:get, :post]
+  match 'authenticator/zhdk/login_successful/:id', to: 'authenticator/zhdk#login_successful', via: [:get, :post]
+  match 'authenticator/db/:action', controller: 'authenticator/database_authentication', via: [:get, :post]
+  match 'authenticator/ldap/:action', controller: 'authenticator/ldap_authentication', via: [:get, :post]
+  match 'authenticator/hslu/:action', controller: 'authenticator/hslu_authentication', via: [:get, :post]
+  match 'authenticator/shibboleth/login', to: 'authenticator/shibboleth_authentication#login', via: [:get, :post]
+  match 'authenticator/login', to: "authenticator/database_authentication#login", via: [:get, :post]
 
   # For RESTful_Authentication
   match 'login',                      to: 'sessions#new', as: :login,                via: [:get, :post]

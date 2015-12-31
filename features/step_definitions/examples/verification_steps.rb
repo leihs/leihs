@@ -18,10 +18,7 @@ Then(/^I can not edit models, items, options, software or licenses$/) do
 
     # clicking on all togglers via javascript is significantly faster than doing it with capybara in this case
     page.execute_script %Q( $(".button[data-type='inventory-expander']").click() )
-
-    # ensure there is at least an ajax request and it has been completed
-    expect(has_selector?("img[src='/assets/loading.gif']")).to be true
-    expect(has_no_selector?("img[src='/assets/loading.gif']")).to be true
+    sleep 2
 
     all('.line', visible: true)[0..5].each do |line|
       within line.find('.line-actions') do
