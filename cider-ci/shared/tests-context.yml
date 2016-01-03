@@ -20,12 +20,6 @@ task-defaults:
     logs:
       include-match: '\/logs?\/.+\.log$'
       content-type: text/plain
-    # coverage_resultset:
-    #   glob: 'coverage/.resultset.json'
-    #   content-type: application/json
-    # coverage_last_run:
-    #   glob: 'coverage/.last_run.json'
-    #   content-type: application/json
 
   traits:
     firefox-esr: true

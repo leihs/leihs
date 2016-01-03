@@ -22,7 +22,6 @@ rerun.txt
 public/images/attachments
 public/attachments
 .jhw-cache
-coverage
 public/assets
 db/structure.sql
 doc/diagrams/generated/captures.dot
