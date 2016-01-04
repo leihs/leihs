@@ -632,7 +632,7 @@ window.i18n.locale_data = {
       ],
       "Edit Software": [
          null,
-         "Sofware editieren"
+         "Software editieren"
       ],
       "Edit Item": [
          null,
@@ -3871,7 +3871,7 @@ window.i18n.locale_data = {
       ],
       "Checked before": [
          null,
-         "Inventur bevor"
+         "Inventur vor"
       ],
       "Search category": [
          null,

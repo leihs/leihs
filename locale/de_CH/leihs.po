@@ -439,7 +439,7 @@ msgid "Edit Model"
 msgstr "Modell editieren"
 
 msgid "Edit Software"
-msgstr "Sofware editieren"
+msgstr "Software editieren"
 
 msgid "Edit Item"
 msgstr "Gegenstand editieren"
