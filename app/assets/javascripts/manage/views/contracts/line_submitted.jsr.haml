@@ -14,7 +14,7 @@
   .multibutton
     %a.button.white.text-ellipsis{:"data-order-approve" => true}
       %i.fa.fa-thumbs-up
-      {{if is_to_be_verified}}
+      {{if to_be_verified()}}
       {{jed "Verify"/}} + {{jed "Approve"/}}
       {{else}}
       {{jed "Approve"/}}

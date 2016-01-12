@@ -6,7 +6,7 @@
 
 class window.App.Contract extends Spine.Model
 
-  @configure "Contract", "id", "user_id", "inventory_pool_id", "status", "delegated_user_id"
+  @configure "Contract", "id", "user_id", "inventory_pool_id", "status", "delegated_user_id", "to_be_verified?"
 
   @extend Spine.Model.Ajax
   @extend App.Modules.FindOrBuild
@@ -17,6 +17,8 @@ class window.App.Contract extends Spine.Model
   @hasMany "reservations", "App.Reservation", "contract_id"
 
   @url: => "/contracts"
+
+  to_be_verified: => this['to_be_verified?'] # hack around coffeescript's existantial operator
 
   isAvailable: => _.all @.reservations().all(), (line) -> line["available?"]
 
