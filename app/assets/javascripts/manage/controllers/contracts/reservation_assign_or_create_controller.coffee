@@ -39,35 +39,36 @@ class window.App.ReservationAssignOrCreateController extends Spine.Controller
     @input.val("")
 
   assignedOrCreated: (inventoryCode, data)=>
-    if App.Reservation.exists(data.id) # assigned
-      line = App.Reservation.update data.id, data
-      if line.model_id?
-        App.Flash
-          type: "success"
-          message: _jed "%s assigned to %s", [inventoryCode, line.model().name()]
-      else if line.option_id?
-        App.Flash
-          type: "notice"
-          message: _jed("%s quantity increased to %s", [line.option().name(), line.quantity])
-    else # created
-      line = App.Reservation.addRecord new App.Reservation(data)
-      done = =>
+    done = =>
+      if App.Reservation.exists(data.id) # assigned
+        line = App.Reservation.update data.id, data
+        if line.model_id?
+          App.Flash
+            type: "success"
+            message: _jed "%s assigned to %s", [inventoryCode, line.model().name()]
+        else if line.option_id?
+          App.Flash
+            type: "notice"
+            message: _jed("%s quantity increased to %s", [line.option().name(), line.quantity])
+      else # created
+        line = App.Reservation.addRecord new App.Reservation(data)
         App.Contract.trigger "refresh", @contract
         App.Flash
           type: "success"
           message: _jed("Added %s", line.model().name())
-      if line.model_id?
-        App.Item.ajaxFetch
+      App.LineSelectionController.add line.id
+
+    if data.model_id?
+      App.Item.ajaxFetch
+        data: $.param
+          ids: [data.item_id]
+      .done =>
+        App.Model.ajaxFetch
           data: $.param
-            ids: [line.item_id]
-        .done =>
-          App.Model.ajaxFetch
-            data: $.param
-              ids: [line.model_id]
-          .done(done)
-      else if line.option_id?
-        App.Option.ajaxFetch
-          data: $.param
-            ids: [line.option_id]
+            ids: [data.model_id]
         .done(done)
-    App.LineSelectionController.add line.id
+    else if data.option_id?
+      App.Option.ajaxFetch
+        data: $.param
+          ids: [data.option_id]
+      .done(done)
