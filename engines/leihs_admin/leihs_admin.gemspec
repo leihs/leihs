@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
                 'README.rdoc']
   s.test_files = Dir['test/**/*']
 
-  s.add_dependency 'rails', '~> 4.2.3'
+  s.add_dependency 'rails', '~> 4.2.6'
   s.add_dependency 'rails-assets-jquery', '~>1.5'
   s.add_dependency 'rails-assets-jquery-ujs', '~>1.0'
   s.add_dependency 'rails-assets-bootstrap', '~>3.3'

@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'leihs_admin', path: "engines/leihs_admin"
 
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.6'
 
 gem 'activerecord-jdbcmysql-adapter', platform: :jruby
 gem 'acts-as-dag', '~> 4.0' # alternative: 'dagnabit'
@@ -32,7 +32,7 @@ gem 'rails_autolink', '~> 1.0'
 gem 'rake' # So that cronjobs work -- otherwise they can't find rake
 gem 'rgl', '~> 0.4.0', require: 'rgl/adjacency' # use ruby-graphviz instead ?? (already in test group)
 gem 'ruby_parser', '~> 3.1' # gettext dependency that Bundler seems unable to resolve
-gem 'rubocop', require: false
+gem 'rubocop', '0.35.1', require: false
 gem 'sass-rails', '~> 4.0'
 gem 'therubyracer', platform: :mri
 gem 'therubyrhino', platform: :jruby
