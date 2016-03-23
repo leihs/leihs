@@ -17,8 +17,11 @@ task-defaults:
       timeout: 60
 
   trial-attachments:
+    screenshots:
+      include-match: tmp\/capybara\/.*\.png$
+      content-type: image/png
     logs:
-      include-match: '\/logs?\/.+\.log$'
+      include-match: log\/.*\.log$
       content-type: text/plain
 
   traits:
@@ -62,7 +65,7 @@ task-defaults:
       body:  echo $DATABASE && mysqladmin --user=$MYSQL_USER --password=$MYSQL_PASSWORD create $DATABASE
 
     start-vnc:
-      body: tightvncserver ":$XVNC_PORT"  -geometry 1024x768 -rfbport "$XVNC_PORT"  -interface '127.0.0.1'
+      body: tightvncserver ":$XVNC_PORT"  -geometry 1920x1080 -rfbport "$XVNC_PORT"  -interface '127.0.0.1'
 
     precompile-assets:
       exclusive-executor-resource: precompile-assets
@@ -79,7 +82,7 @@ task-defaults:
         export DISPLAY=":$XVNC_PORT" \
         # && rm -rf coverage \
         && ruby -v \
-        && bundle exec cucumber -p default -f json -o log/cucumber_report.json $CIDER_CI_TASK_FILE
+        && bundle exec cucumber -p default $CIDER_CI_TASK_FILE
       start-when:
       - script: start-vnc
       - script: create-database

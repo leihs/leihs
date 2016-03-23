@@ -1,0 +1,74 @@
+:ruby
+  opened_menu = if %w{requests}.include? controller.controller_name \
+                  or controller.action_name == 'choose'
+      :request
+    elsif %w{templates}.include? controller.controller_name
+      :template
+    else
+      :admin
+  end
+
+%header
+  %nav.navbar.navbar-inverse.navbar-fixed-top.wrapper
+
+    %a.navbar-brand.text-center{href: procurement.root_path}
+      = render partial: 'layouts/procurement/logo'
+
+    - if current_user
+      .page-content-wrapper.container-fluid
+        %ul.nav.navbar-nav.h4
+          - if policy('procurement/application'.to_sym).procurement_or_leihs_admin?
+            %li.dropdown{class: opened_menu == :admin ? 'active' : nil}
+              %a.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
+                %i.fa.fa-gear
+                = _('Admin')
+                %i.caret
+              %ul.dropdown-menu
+                %li
+                  %a{href: budget_periods_path}
+                    %i.fa.fa-calendar
+                    = _('Budget periods')
+                    - unless Procurement::BudgetPeriod.current
+                      %i.fa.fa-warning.text-danger
+                %li
+                  %a{href: groups_path}
+                    %i.fa.fa-shopping-cart
+                    = _('Groups')
+                    - unless Procurement::Group.exists?
+                      %i.fa.fa-warning.text-danger
+                %li
+                  %a{href: users_path}
+                    %i.fa.fa-user
+                    = _('Users')
+                    - if Procurement::Access.admins.empty? or Procurement::Access.requesters.empty?
+                      %i.fa.fa-warning.text-danger
+                %li
+                  %a{href: organizations_path}
+                    %i.fa.fa-sitemap
+                    = _('Organisations')
+                    - unless Procurement::Organization.exists?
+                      %i.fa.fa-warning.text-danger
+
+          %li{class: opened_menu == :request ? 'active' : nil}
+            %a{href: overview_requests_path}
+              %i.fa.fa-tasks
+              = _('Requests')
+
+          - unless (inspectable_groups = Procurement::Group.all.select{ |group| group.inspectable_by?(current_user) }).empty?
+            %li.dropdown{class: opened_menu == :template ? 'active' : nil}
+              %a.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
+                %i.fa.fa-cube
+                = _('Templates')
+                %i.caret
+              %ul.dropdown-menu
+                - inspectable_groups.each do |group|
+                  %li
+                    %a{href: group_templates_path(group)}
+                      %i.fa.fa-shopping-cart
+                      = group
+
+        %ul.nav.navbar-nav.navbar-right
+          = render partial: 'layouts/procurement/navigation'
+          - if current_user
+            = render partial: 'layouts/leihs_admin/user'
+          = render partial: 'layouts/procurement/locale'

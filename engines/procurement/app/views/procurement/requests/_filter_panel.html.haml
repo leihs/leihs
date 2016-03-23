@@ -1,0 +1,129 @@
+%form#filter_panel
+  %input{type: :hidden, name: 'filter[sort_by]', value: @filter['sort_by']}
+  %input{type: :hidden, name: 'filter[sort_dir]', value: @filter['sort_dir']}
+
+  - if procurement_requester? and procurement_inspector_or_admin?
+    .form-group
+      %b
+        %i.fa.fa-tasks
+        = _('Requests')
+      %ul
+        %label
+          %input{type: :checkbox, name: "user_id", value: current_user.id, checked: @filter['user_id'] == current_user.id}
+          .label.label-default= _('Only show my own requests')
+
+  .form-group
+    %b
+      %i.fa.fa-calendar
+      = _('Budget periods')
+    %ul
+      %select{name: 'filter[budget_period_ids][]', multiple: true}
+        - Procurement::BudgetPeriod.order(end_date: :desc).each do |budget_period|
+          %option{value: budget_period.id, selected: @filter['budget_period_ids'].map(&:to_i).include?(budget_period.id)}= budget_period
+
+  .form-group
+    %b
+      %i.fa.fa-shopping-cart
+      = _('Groups')
+    %ul
+      %select{name: 'filter[group_ids][]', multiple: true}
+        :ruby
+          my_groups, other_groups = Procurement::Group.all.partition { |group| group.inspectable_by?(current_user) }
+        - unless my_groups.blank?
+          %optgroup{label: _('My groups')}
+            - my_groups.each do |group|
+              %option{value: group.id, selected: @filter['group_ids'].map(&:to_i).include?(group.id)}= group
+          %optgroup{label: _('Other groups')}
+            - other_groups.each do |group|
+              %option{value: group.id, selected: @filter['group_ids'].map(&:to_i).include?(group.id)}= group
+        - else
+          - other_groups.each do |group|
+            %option{value: group.id, selected: @filter['group_ids'].map(&:to_i).include?(group.id)}= group
+
+  - if procurement_inspector_or_admin?
+    .form-group
+      %b
+        %i.fa.fa-sitemap
+        = _('Organisations')
+      %ul
+        %select{name: 'filter[organization_id]'}
+          %option{value: ''}= _('All')
+          %optgroup{label: "----------"}
+          - Procurement::Organization.departments.each do |department|
+            %option{value: department.id, selected: (@filter['organization_id'].to_i == department.id)}= department
+            - department.children.each do |organization_unit|
+              %option{value: organization_unit.id, selected: (@filter['organization_id'].to_i == organization_unit.id)}
+                &nbsp;&nbsp;&nbsp;
+                = organization_unit
+
+  .form-group
+    %b
+      %i.fa.fa-sort-amount-asc
+      = _('Priority')
+    %ul
+      - ['High', 'Normal'].each do |priority|
+        %label
+          %input{type: :checkbox, name: "filter[priorities][]", value: priority.downcase, checked: @filter['priorities'].include?(priority.downcase)}
+          .label.label-default= _(priority)
+
+  .form-group
+    %b
+      %i.fa.fa-code-fork
+      = _('State of Request')
+    %ul
+      - Procurement::Request::STATES.each do |state|
+        - next if state == :in_inspection and procurement_inspector_or_admin?
+        %li
+          %label
+            %input{type: :checkbox, name: "filter[states][]", value: state, checked: @filter['states'].map(&:to_sym).include?(state)}
+            .label{class: label_class(state)}= _(state.to_s.humanize)
+
+  .form-group
+    %b
+      %i.fa.fa-search
+      = _('Search')
+    %ul
+      %input.form-control{name: 'filter[search]', placeholder: _('Search'), value: @filter['search'], autocomplete: :off}
+
+%br
+%button.btn.btn-primary{type: :submit, name: 'format', value: 'csv', form: 'filter_panel'}
+  %i.fa.fa-table
+  = _('CSV export')
+
+
+:coffeescript
+  $(document).ready ->
+    currentRequest = null
+    timeoutId = null
+    $('form#filter_panel').on('ajax:beforeSend', (e, xhr, settings)->
+      $('#filter_target').addClass('transparency')
+      currentRequest.abort() if (currentRequest)
+      currentRequest = xhr
+    ).on('ajax:complete', (e, data, status, xhr) ->
+      $(this).removeAttr("data-remote").removeData('remote')
+      $('#filter_target').html(data.responseText).removeClass('transparency')
+    ).keydown((e)->
+      charCode = e.charCode || e.keyCode || e.which
+      if charCode == 13
+        return false
+      else if (charCode >= 65 and charCode <= 90) or
+        (charCode >= 48 and charCode <= 57) or
+        (charCode >= 96 and charCode <= 111) or
+         charCode == 8
+        clearTimeout(timeoutId) if timeoutId
+        timeoutId = setTimeout =>
+          $(this).data('remote', true).submit()
+        , 400
+    ).on('change', (event)->
+      unless event.target.name == 'filter[search]'
+        $(this).data('remote', true).submit()
+    ).change()
+
+    $("#filter_panel select").multiselect(
+      preventInputChangeEvent: true
+      includeSelectAllOption: true
+      selectAllText: "#{_('Select all')}"
+      nonSelectedText: "#{_('None selected')}"
+      allSelectedText: "#{_('All selected')}"
+      nSelectedText: " #{_('selected')}"
+    )

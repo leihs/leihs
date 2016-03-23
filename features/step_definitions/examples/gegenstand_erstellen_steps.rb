@@ -55,7 +55,6 @@ When(/^I enter the following item information$/) do |table|
     field_value = hash_row['value']
     field_type = hash_row['type']
     matched_field = all('.row.emboss', match: :prefer_exact, text: field_name).last
-    puts "handling field #{field_name}"
     case field_type
       when 'radio', 'radio must'
         matched_field.find('label', text: field_value).find('input').set true
@@ -78,6 +77,8 @@ When(/^I enter the following item information$/) do |table|
           find('input,textarea').set ''
           find('input,textarea').set field_value
         end
+        # NOTE trick closing the possible datepicker
+        find('body').click
     end
   end
 end

@@ -132,6 +132,9 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
+msgid "Administrators"
+msgstr ""
+
 msgid "All"
 msgstr ""
 
@@ -943,7 +946,7 @@ msgstr ""
 msgid "Orders"
 msgstr ""
 
-msgid "Other Groups"
+msgid "Other groups"
 msgstr ""
 
 msgid "Overbooked Quantity"
@@ -1059,6 +1062,9 @@ msgid "Qty."
 msgstr ""
 
 msgid "Quantity"
+msgstr ""
+
+msgid "Quantities"
 msgstr ""
 
 msgid "Quantity allocations"
@@ -1965,6 +1971,9 @@ msgid "Lending manager"
 msgstr ""
 
 msgid "Inventory manager"
+msgstr ""
+
+msgid "New"
 msgstr ""
 
 msgid "New Delegation"
@@ -2894,4 +2903,229 @@ msgid "assign highest available"
 msgstr ""
 
 msgid "Swap Model"
+msgstr ""
+
+msgid "Budget limits"
+msgstr ""
+
+msgid "Budget period"
+msgstr ""
+
+msgid "Budget periods"
+msgstr ""
+
+msgid "Budget period end date"
+msgstr ""
+
+msgid "The budget period is closed"
+msgstr ""
+
+msgid "requesting phase until %s"
+msgstr ""
+
+msgid "inspection phase until %s"
+msgstr ""
+
+msgid "Model name"
+msgstr ""
+
+msgid "Requested quantity"
+msgstr ""
+
+msgid "Approved quantity"
+msgstr ""
+
+msgid "Order quantity"
+msgstr ""
+
+msgid "Requests"
+msgstr ""
+
+msgid "Template Categories"
+msgstr ""
+
+msgid "Edit templates"
+msgstr ""
+
+msgid "Requester"
+msgstr ""
+
+msgid "Requesters"
+msgstr ""
+
+msgid "Not a requester"
+msgstr ""
+
+msgid "My groups"
+msgstr ""
+
+msgid "My requests"
+msgstr ""
+
+msgid "Motivation"
+msgstr ""
+
+msgid "Inspectors"
+msgstr ""
+
+msgid "Inspection"
+msgstr ""
+
+msgid "Inspection comment"
+msgstr ""
+
+msgid "Inspection start date"
+msgstr ""
+
+msgid "Priority"
+msgstr ""
+
+msgid "Name of receiver"
+msgstr ""
+
+msgid "Organisation"
+msgstr ""
+
+msgid "Organisations"
+msgstr ""
+
+msgid "Organisation unit"
+msgstr ""
+
+msgid "Organisations of the requesters"
+msgstr ""
+
+msgid "Department"
+msgstr ""
+
+msgid "Attachment"
+msgstr ""
+
+msgid "In inspection"
+msgstr ""
+
+msgid "Denied"
+msgstr ""
+
+msgid "Approved"
+msgstr ""
+
+msgid "Partially approved"
+msgstr ""
+
+msgid "incl. VAT"
+msgstr ""
+
+msgid "Item price"
+msgstr ""
+
+msgid "State"
+msgstr ""
+
+msgid "State of Request"
+msgstr ""
+
+msgid "Move to another group"
+msgstr ""
+
+msgid "Move to another budget period"
+msgstr ""
+
+msgid "Point of Delivery"
+msgstr ""
+
+msgid "max 255 characters"
+msgstr ""
+
+msgid "Article / Project"
+msgstr ""
+
+msgid "Procurement"
+msgstr ""
+
+msgid "Inquiry to procurement request"
+msgstr ""
+
+msgid "Article nr. / Producer nr."
+msgstr ""
+
+msgid "Replacement"
+msgstr ""
+
+msgid "Choose an article/project"
+msgstr ""
+
+msgid "Request moved"
+msgstr ""
+
+msgid "High"
+msgstr ""
+
+msgid "Normal"
+msgstr ""
+
+msgid "Are you sure you want to delete '%s'?"
+msgstr ""
+
+msgid "Type in a search term"
+msgstr ""
+
+msgid "No results"
+msgstr ""
+
+msgid "Searching..."
+msgstr ""
+
+msgid "must be greater or equal to the inspection start date"
+msgstr ""
+
+msgid "Check invalid fields"
+msgstr ""
+
+msgid "Name of the requester"
+msgstr ""
+
+msgid "Add article for specific group"
+msgstr ""
+
+msgid "You have unsaved data. Would you like to delete the data?"
+msgstr ""
+
+msgid "Only show my own requests"
+msgstr ""
+
+msgid "Add article"
+msgstr ""
+
+msgid "Add article for this group"
+msgstr ""
+
+msgid "Add article for another user"
+msgstr ""
+
+msgid "Select all"
+msgstr ""
+
+msgid "None selected"
+msgstr ""
+
+msgid "All selected"
+msgstr ""
+
+msgid "selected"
+msgstr ""
+
+msgid "You are not authorized for this action."
+msgstr ""
+
+msgid "Current budget period not defined yet"
+msgstr ""
+
+msgid "No groups defined yet"
+msgstr ""
+
+msgid "No admins defined yet"
+msgstr ""
+
+msgid "No requesters defined yet"
 msgstr ""

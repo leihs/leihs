@@ -1,15 +1,15 @@
 When /^I open a take back(, not overdue)?( with at least an option handed over before today)?$/ do |arg1, arg2|
-  contracts = ReservationsBundle.signed.where(inventory_pool_id: @current_user.inventory_pools.managed).order('RAND()')
-  contract = if arg1
-               contracts.detect {|c| not c.reservations.any? {|l| l.end_date < Date.today} }
-             elsif arg2
-               contracts.detect {|c| c.reservations.any? {|l| l.is_a? OptionLine and l.start_date < Date.today} }
-             else
-               contracts.first
-             end
-  expect(contract).not_to be_nil
-  @current_inventory_pool = contract.inventory_pool
-  @customer = contract.user
+  reservations = Reservation.signed.where(inventory_pool_id: @current_user.inventory_pools.managed).order('RAND()')
+  reservation = if arg1
+                  reservations.detect { |c| c.user.reservations.signed.all? { |l| not l.late? } }
+                elsif arg2
+                  reservations.detect { |c| c.user.reservations.signed.any? { |l| l.is_a? OptionLine and l.start_date < Date.today } }
+                else
+                  reservations.first
+                end
+  expect(reservation).not_to be_nil
+  @current_inventory_pool = reservation.inventory_pool
+  @customer = reservation.user
   visit manage_take_back_path(@current_inventory_pool, @customer)
   expect(has_selector?('#take-back-view')).to be true
   @reservations_to_take_back = @customer.reservations.signed.where(inventory_pool_id: @current_inventory_pool)

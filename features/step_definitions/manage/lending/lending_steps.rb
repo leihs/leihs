@@ -124,7 +124,7 @@ Then /^I see which groups the customer is not a member of$/ do
   @model.partitions.each do |partition|
     next if partition.group_id.nil?
     unless @customer_group_ids.include?(partition.group_id)
-      expect(find("#booking-calendar-partitions optgroup[label='#{_("Other Groups")}']").has_content? partition.group.name).to be true
+      expect(find("#booking-calendar-partitions optgroup[label='#{_("Other groups")}']").has_content? partition.group.name).to be true
     end
   end
 end

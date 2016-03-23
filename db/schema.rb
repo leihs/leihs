@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001151820) do
+ActiveRecord::Schema.define(version: 20151013060621) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "user_id",           limit: 4
@@ -384,6 +384,123 @@ ActiveRecord::Schema.define(version: 20151001151820) do
     t.decimal "quantity",                    precision: 33
   end
 
+  create_table "procurement_accesses", force: :cascade do |t|
+    t.integer "user_id",         limit: 4
+    t.integer "organization_id", limit: 4
+    t.boolean "is_admin"
+  end
+
+  add_index "procurement_accesses", ["is_admin"], name: "index_procurement_accesses_on_is_admin", using: :btree
+  add_index "procurement_accesses", ["organization_id"], name: "fk_rails_c116e35025", using: :btree
+  add_index "procurement_accesses", ["user_id"], name: "fk_rails_8c572e2cea", using: :btree
+
+  create_table "procurement_attachments", force: :cascade do |t|
+    t.integer  "request_id",        limit: 4
+    t.string   "file_file_name",    limit: 255
+    t.string   "file_content_type", limit: 255
+    t.integer  "file_file_size",    limit: 4
+    t.datetime "file_updated_at"
+  end
+
+  add_index "procurement_attachments", ["request_id"], name: "fk_rails_396a61ca60", using: :btree
+
+  create_table "procurement_budget_limits", force: :cascade do |t|
+    t.integer "budget_period_id", limit: 4
+    t.integer "group_id",         limit: 4
+    t.integer "amount_cents",     limit: 4,   default: 0,     null: false
+    t.string  "amount_currency",  limit: 255, default: "CHF", null: false
+  end
+
+  add_index "procurement_budget_limits", ["budget_period_id", "group_id"], name: "index_procurement_budget_limits_on_budget_period_id_and_group_id", unique: true, using: :btree
+  add_index "procurement_budget_limits", ["group_id"], name: "fk_rails_37087cbdec", using: :btree
+
+  create_table "procurement_budget_periods", force: :cascade do |t|
+    t.string   "name",                  limit: 255, null: false
+    t.date     "inspection_start_date",             null: false
+    t.date     "end_date",                          null: false
+    t.datetime "created_at",                        null: false
+  end
+
+  add_index "procurement_budget_periods", ["end_date"], name: "index_procurement_budget_periods_on_end_date", using: :btree
+
+  create_table "procurement_group_inspectors", force: :cascade do |t|
+    t.integer "user_id",  limit: 4
+    t.integer "group_id", limit: 4
+  end
+
+  add_index "procurement_group_inspectors", ["group_id"], name: "fk_rails_afcb11aedc", using: :btree
+  add_index "procurement_group_inspectors", ["user_id", "group_id"], name: "index_procurement_group_inspectors_on_user_id_and_group_id", unique: true, using: :btree
+
+  create_table "procurement_groups", force: :cascade do |t|
+    t.string "name",  limit: 255
+    t.string "email", limit: 255
+  end
+
+  create_table "procurement_organizations", force: :cascade do |t|
+    t.string  "name",      limit: 255
+    t.string  "shortname", limit: 255
+    t.integer "parent_id", limit: 4
+  end
+
+  add_index "procurement_organizations", ["parent_id"], name: "fk_rails_0731e8b712", using: :btree
+
+  create_table "procurement_requests", force: :cascade do |t|
+    t.integer  "budget_period_id",   limit: 4
+    t.integer  "group_id",           limit: 4
+    t.integer  "user_id",            limit: 4
+    t.integer  "organization_id",    limit: 4
+    t.integer  "model_id",           limit: 4
+    t.integer  "supplier_id",        limit: 4
+    t.integer  "location_id",        limit: 4
+    t.integer  "template_id",        limit: 4
+    t.string   "article_name",       limit: 255,                    null: false
+    t.string   "article_number",     limit: 255
+    t.integer  "requested_quantity", limit: 4,                      null: false
+    t.integer  "approved_quantity",  limit: 4
+    t.integer  "order_quantity",     limit: 4
+    t.integer  "price_cents",        limit: 4,   default: 0,        null: false
+    t.string   "price_currency",     limit: 255, default: "CHF",    null: false
+    t.string   "priority",           limit: 6,   default: "normal"
+    t.boolean  "replacement",                    default: true
+    t.string   "supplier_name",      limit: 255
+    t.string   "receiver",           limit: 255
+    t.string   "location_name",      limit: 255
+    t.string   "motivation",         limit: 255
+    t.string   "inspection_comment", limit: 255
+    t.datetime "created_at",                                        null: false
+  end
+
+  add_index "procurement_requests", ["budget_period_id"], name: "fk_rails_b6213e1ee9", using: :btree
+  add_index "procurement_requests", ["group_id"], name: "fk_rails_3bb6d01c34", using: :btree
+  add_index "procurement_requests", ["location_id"], name: "fk_rails_8244a2f05f", using: :btree
+  add_index "procurement_requests", ["model_id"], name: "fk_rails_214a7de1ff", using: :btree
+  add_index "procurement_requests", ["organization_id"], name: "fk_rails_4c51bafad3", using: :btree
+  add_index "procurement_requests", ["supplier_id"], name: "fk_rails_51707743b7", using: :btree
+  add_index "procurement_requests", ["template_id"], name: "fk_rails_bf7bec026c", using: :btree
+  add_index "procurement_requests", ["user_id"], name: "fk_rails_f365098d3c", using: :btree
+
+  create_table "procurement_template_categories", force: :cascade do |t|
+    t.integer "group_id", limit: 4
+    t.string  "name",     limit: 255
+  end
+
+  add_index "procurement_template_categories", ["group_id", "name"], name: "index_procurement_template_categories_on_group_id_and_name", unique: true, using: :btree
+
+  create_table "procurement_templates", force: :cascade do |t|
+    t.integer "template_category_id", limit: 4
+    t.integer "model_id",             limit: 4
+    t.integer "supplier_id",          limit: 4
+    t.string  "article_name",         limit: 255,                 null: false
+    t.string  "article_number",       limit: 255
+    t.integer "price_cents",          limit: 4,   default: 0,     null: false
+    t.string  "price_currency",       limit: 255, default: "CHF", null: false
+    t.string  "supplier_name",        limit: 255
+  end
+
+  add_index "procurement_templates", ["model_id"], name: "fk_rails_e6aab61827", using: :btree
+  add_index "procurement_templates", ["supplier_id"], name: "fk_rails_46cc05bf71", using: :btree
+  add_index "procurement_templates", ["template_category_id"], name: "fk_rails_76aecb3172", using: :btree
+
   create_table "properties", force: :cascade do |t|
     t.integer "model_id", limit: 4
     t.string  "key",      limit: 255
@@ -494,7 +611,7 @@ ActiveRecord::Schema.define(version: 20151001151820) do
   add_index "users", ["language_id"], name: "fk_rails_45f4f12508", using: :btree
 
   create_table "visits", id: false, force: :cascade do |t|
-    t.string  "id",                limit: 148
+    t.string  "id",                limit: 276
     t.integer "inventory_pool_id", limit: 4
     t.integer "user_id",           limit: 4
     t.string  "status",            limit: 11,                 null: false
@@ -551,6 +668,26 @@ ActiveRecord::Schema.define(version: 20151001151820) do
   add_foreign_key "partitions", "groups"
   add_foreign_key "partitions", "inventory_pools"
   add_foreign_key "partitions", "models", on_delete: :cascade
+  add_foreign_key "procurement_accesses", "procurement_organizations", column: "organization_id"
+  add_foreign_key "procurement_accesses", "users"
+  add_foreign_key "procurement_attachments", "procurement_requests", column: "request_id"
+  add_foreign_key "procurement_budget_limits", "procurement_budget_periods", column: "budget_period_id"
+  add_foreign_key "procurement_budget_limits", "procurement_groups", column: "group_id"
+  add_foreign_key "procurement_group_inspectors", "procurement_groups", column: "group_id"
+  add_foreign_key "procurement_group_inspectors", "users"
+  add_foreign_key "procurement_organizations", "procurement_organizations", column: "parent_id"
+  add_foreign_key "procurement_requests", "locations"
+  add_foreign_key "procurement_requests", "models"
+  add_foreign_key "procurement_requests", "procurement_budget_periods", column: "budget_period_id"
+  add_foreign_key "procurement_requests", "procurement_groups", column: "group_id"
+  add_foreign_key "procurement_requests", "procurement_organizations", column: "organization_id"
+  add_foreign_key "procurement_requests", "procurement_templates", column: "template_id"
+  add_foreign_key "procurement_requests", "suppliers"
+  add_foreign_key "procurement_requests", "users"
+  add_foreign_key "procurement_template_categories", "procurement_groups", column: "group_id"
+  add_foreign_key "procurement_templates", "models"
+  add_foreign_key "procurement_templates", "procurement_template_categories", column: "template_category_id"
+  add_foreign_key "procurement_templates", "suppliers"
   add_foreign_key "properties", "models", on_delete: :cascade
   add_foreign_key "reservations", "contracts", on_delete: :cascade
   add_foreign_key "reservations", "inventory_pools"

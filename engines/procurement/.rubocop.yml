@@ -8,9 +8,11 @@ AllCops:
     - 'config/**/*'
     - 'db/**/*'
     - 'features/**/*'
-    - 'tmp/**/*'
+    - 'lib/tasks/procurement_tasks.rake'
     - 'node_modules/**/*'
+    - 'spec/features/**/*'
     - 'test/**/*'
+    - 'tmp/**/*'
 
 # Configuration parameters: CountComments.
 Metrics/ClassLength:

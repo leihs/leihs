@@ -1310,7 +1310,7 @@ window.i18n.locale_data = {
          null,
          "Bestellungen"
       ],
-      "Other Groups": [
+      "Other groups": [
          null,
          "Andere Gruppen"
       ],

@@ -1,0 +1,113 @@
+%h4= format('%d %s', @h.values.flatten.count, _('Requests'))
+
+- @h.each_pair do |budget_period, requests|
+
+  .panel{class: "panel-#{header_color(budget_period)}"}
+    .panel-heading
+      .row
+        .col-sm-2.h4
+          %i.fa.fa-calendar
+          = budget_period
+          - if budget_period.in_requesting_phase? and procurement_requester?
+            %a{href: new_user_budget_period_request_path(current_user, budget_period), title: _('Add article'), data: {toggle: 'tooltip'}}
+              %i.fa.fa-plus-circle
+        .col-sm-7
+          = render partial: 'procurement/budget_periods/phases', locals: {budget_period: budget_period}
+        .col-sm-3
+          - total_price = requests.map {|r| r.total_price(current_user) }.sum
+          .label.label-primary.big_total_price
+            %i.fa.fa-shopping-cart
+            = money_without_cents_and_with_symbol total_price, false
+
+    .panel-body
+      :ruby
+        groups = requests.group_by(&:group)
+        selected_groups = Procurement::Group.all.select { |group| @filter['group_ids'].map(&:to_i).include?(group.id) }
+        selected_groups.each {|group| groups[group] ||= [] }
+
+      - groups.each_pair do |group, requests|
+        .row{style: 'line-height: 2.5em; background-color: #f5f5f5;'}
+          .col-sm-9.h4
+            %i.fa.fa-shopping-cart
+            = group
+            - unless budget_period.past?
+              - if procurement_requester? and (budget_period.in_requesting_phase? or group.inspectable_by? current_user)
+                %a{href: group_budget_period_user_requests_path(group, budget_period, current_user, request_id: 'new_request'), title: _('Add article for this group'), data: {toggle: 'tooltip'}}
+                  %i.fa.fa-plus-circle
+              - if group.inspectable_by? current_user
+                %a{href: choose_group_budget_period_users_path(group, budget_period), title: _('Add article for another user'), data: {toggle: 'tooltip'}}
+                  %i.fa.fa-user-plus
+          .col-sm-1
+            - total_price = requests.map {|r| r.total_price(current_user) }.sum
+            - if @user.nil? and group.inspectable_or_readable_by? current_user
+              - budget_limit_amount = group.budget_limits.find_by(budget_period_id: budget_period.id).try(:amount)
+              .label.label-default.budget_limit
+                %i.fa.fa-pie-chart
+                = money_without_cents_and_with_symbol budget_limit_amount, false
+              %br
+            .label.label-primary.big_total_price
+              %i.fa.fa-shopping-cart
+              = money_without_cents_and_with_symbol total_price, false
+          .col-sm-2
+            - if @user.nil? and group.inspectable_or_readable_by? current_user
+              = render partial: 'procurement/requests/progress_radial', locals: {used: total_price, max: budget_limit_amount}
+
+        - requests.each do |request|
+          %a.list-group-item.row{href: group_budget_period_user_requests_path(request.group, request.budget_period, request.user, request_id: request.id), data: {request_id: request.id}}
+            .col-sm-2
+              = request.article_name
+            .col-sm-2
+              = request.user
+            .col-sm-2
+              = request.organization.parent
+              %br
+              = request.organization
+            .col-sm-1
+              .label.label-primary.total_price
+                %i.fa.fa-tag
+                = money_without_cents_and_with_symbol request.price, false
+            .col-sm-2.quantities
+              :ruby
+                state, label_class = state_label(request)
+              .label{class: label_class}
+                = request.requested_quantity
+                %i.fa.fa-question
+              .label{class: label_class}
+                - if request.approved_quantity
+                  = request.approved_quantity
+                  %i.fa.fa-check
+                - else
+                  &nbsp;
+              .label{class: label_class}
+                - if request.order_quantity
+                  = request.order_quantity
+                  %i.fa.fa-shopping-cart
+                - else
+                  &nbsp;
+            .col-sm-1
+              .label.label-primary.total_price
+                %i.fa.fa-shopping-cart
+                = money_without_cents_and_with_symbol request.total_price(current_user), false
+            .col-sm-1
+              .label.label-default= _(request.priority.capitalize)
+            .col-sm-1
+              :ruby
+                state, label_class = state_label(request)
+              .label{class: label_class}
+                = _(state.to_s.humanize)
+
+:scss
+  .panel-body {
+    padding-top: 0;
+    padding-bottom: 0;
+
+    .list-group-item {
+      padding-left: 0;
+      padding-right: 0;
+
+      .quantities .label {
+        min-width: 4em;
+        display: inline-block;
+      }
+    }
+  }

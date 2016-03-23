@@ -1,0 +1,31 @@
+.well.well-sm{style: 'padding-left: 15px; padding-right: 15px;'}
+  #column-titles.row
+    %b.col-sm-3
+      %a{href: url_for(params: params.merge(sort_by: :user, sort_dir: params[:sort_dir] == 'asc' ? :desc : :asc ))}
+        = _('Requester')
+        %i.fa.fa-sort
+    %b.col-sm-3
+      %a{href: url_for(params: params.merge(sort_by: :department, sort_dir: params[:sort_dir] == 'asc' ? :desc : :asc ))}
+        = _('Department')
+        %i.fa.fa-sort
+    %b.col-sm-6
+      %a{href: url_for(params: params.merge(sort_by: :organization, sort_dir: params[:sort_dir] == 'asc' ? :desc : :asc ))}
+        = _('Organisation')
+        %i.fa.fa-sort
+
+.panel{class: "panel-#{header_color(@budget_period)}"}
+  .panel-heading{role: "tab"}
+    = render partial: 'procurement/budget_periods/header', locals: {budget_period: @budget_period, requests: nil}
+  .list-group
+    - @requester_accesses.each do |access|
+      %a.list-group-item{href: group_budget_period_user_requests_path(@group, @budget_period, access.user, request_id: 'new_request')}
+        .row
+          .col-xs-3
+            %i.fa.fa-plus-circle
+            %i.fa.fa-user
+            = access.user
+          .col-xs-3
+            = access.organization.parent
+          .col-xs-6
+            = access.organization
+

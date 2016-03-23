@@ -49,11 +49,17 @@ end
 
 When(/^I add an option$/) do
   @option = @current_inventory_pool.options.sample
-  field_value = @option.name
-  find('[data-add-contract-line]').set field_value
-  find(".ui-autocomplete a[title='#{field_value}']", match: :prefer_exact, text: field_value).click
-  @option_line = OptionLine.find find(".line[data-line-type='option_line']", match: :prefer_exact, text: @option.name)['data-id']
-  @line_css = ".line[data-id='#{@option_line.id}']"
+  find('[data-add-contract-line]').set @option.name
+  within '.ui-autocomplete' do
+    find("a[title='#{@option.name}']", match: :prefer_exact, text: @option.name).click
+  end
+  find('#flash .notice', text: _('Added %s') % @option.name)
+  within '#lines' do
+    within ".line[data-line-type='option_line']", match: :prefer_exact, text: @option.name do
+      @option_line = OptionLine.find current_scope['data-id']
+      @line_css = ".line[data-id='#{@option_line.id}']"
+    end
+  end
 end
 
 # Which implementation is better?

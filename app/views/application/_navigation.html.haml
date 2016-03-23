@@ -11,14 +11,19 @@
       %i.arrow.down
     %ul.dropdown.right.straight-top
       %li.separated-top
-        %a.dropdown-item{href:  main_app.borrow_root_path}
+        %a.dropdown-item{href: main_app.borrow_root_path}
           %i.fa.fa-shopping-cart
           %span= _('Borrow')
       - if current_user.has_role?(:admin)
         %li.separated-top
-          %a.dropdown-item{href:  admin.root_path}
+          %a.dropdown-item{href: admin.root_path}
             %i.fa.fa-wrench
             %span= _('Admin')
+      - if ("Procurement".constantize rescue false) and Procurement::Access.some_access?(current_user)
+        %li.separated-top
+          %a.dropdown-item{href: procurement.root_path}
+            %i.fa.fa-pie-chart
+            %span= _('Procurement')
       - if current_user.has_role?(:group_manager)
         %li.separated-top
           .dropdown-item

@@ -1,0 +1,114 @@
+/*
+*= require jquery-ui
+*= require bootstrap
+*= require jquery-tokeninput
+*= require bootstrap-multiselect
+* require fontawesome
+*
+*= require procurement/bootstrap_override
+*= require procurement/multiselect_override
+*= require procurement/simple-sidebar
+*= require procurement/radial-progress-bar
+* require procurement/jquery-tokeninput-facebook-theme
+*= require procurement/jquery-tokeninput-override
+*
+*= require_self
+*/
+
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+header {
+  padding-bottom: 4em;
+
+  .navbar {
+    height: 4em;
+
+    .dropdown-menu {
+      max-height: 500px;
+      overflow: hidden;
+      overflow-y: auto;
+    }
+  }
+}
+
+/*
+.total_price, .big_total_price, .budget_limit {
+  font-size: 0.9em;
+  line-height: 2em;
+}
+*/
+
+.ui-autocomplete {
+  max-height: 20em;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.fa-plus-circle, .fa-user-plus {
+  cursor: pointer;
+  color: #5cb85c;
+}
+
+form .fa-minus-circle {
+  cursor: pointer;
+  color: #cc0000;
+}
+
+div[data-toggle] {
+  cursor: pointer;
+}
+
+input[required]:invalid {
+  background-color: #f2dede !important;
+  border: 1px solid #F37373;
+}
+
+input[type='radio']:invalid + .label {
+  color: #777777;
+  background-color: #f2dede !important;
+  border: 1px solid #F37373;
+}
+
+.progress-radial {
+  margin: 0.7em 0 0.7em 0;
+}
+
+a.show_template {
+  overflow: hidden;
+}
+
+#column-titles > b {
+  white-space: nowrap;
+}
+
+#filter_panel {
+  ul {
+    list-style-type: none;
+    padding-left: 1em;
+    margin-bottom: 1.2em;
+  }
+
+  select {
+    display: none;
+  }
+}
+
+.transparency {
+  opacity:0.5;
+  filter:alpha(opacity=50);
+  -moz-opacity:0.5;
+}
+
+.spinner {
+  animation: spin 2s infinite linear;
+}
+
+@keyframes spin {
+  from { transform: scale(1) rotate(0deg);}
+  to { transform: scale(1) rotate(360deg);}
+}
+
+.flash ul {
+  list-style-type: none;
+}

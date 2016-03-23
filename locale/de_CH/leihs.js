@@ -1039,7 +1039,7 @@
 
   msgstr("Bestellungen");
 
-  msgid("Other Groups");
+  msgid("Other groups");
 
   msgstr("Andere Gruppen");
 

@@ -1,0 +1,12 @@
+%ul
+  - organizations.each do |organization|
+    %li
+      %b{style: organization.root? ? 'font-size: 1.4em;' : nil}
+        = organization
+
+      - if organization.accesses
+        %ul
+          - organization.accesses.each do |access|
+            %li= access.user
+
+      = render partial: 'index', locals: {organizations: organization.children}

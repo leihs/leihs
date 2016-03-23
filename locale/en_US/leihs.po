@@ -965,7 +965,7 @@ msgstr ""
 msgid "Orders"
 msgstr ""
 
-msgid "Other Groups"
+msgid "Other groups"
 msgstr ""
 
 msgid "Overbooked Quantity"

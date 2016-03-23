@@ -1,0 +1,12 @@
+:ruby
+  inspected_requests, new_requests = budget_period.requests.partition &:approved_quantity
+
+.label.label-info
+  %i.fa.fa-shopping-cart
+  = money_without_cents_and_with_symbol new_requests.map {|r| r.total_price(current_user) }.sum
+
+&nbsp;
+
+.label.label-success
+  %i.fa.fa-shopping-cart
+  = money_without_cents_and_with_symbol inspected_requests.map {|r| r.total_price(current_user) }.sum

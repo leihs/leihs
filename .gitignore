@@ -36,3 +36,4 @@ db/exports/
 tmp/
 features/reports/*
 .settings
+.byebug_history

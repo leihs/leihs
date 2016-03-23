@@ -1,0 +1,13 @@
+%li.dropdown
+  %a.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
+    %i.fa.fa-globe
+    %i.caret
+
+  %ul.dropdown-menu
+    - active_language = Language.find_by_locale_name(I18n.locale)
+    - Language.active_languages.each do |language|
+      %li
+        - if language == active_language
+          %b{style: 'padding: 3px 20px'}= language.name
+        - else
+          %a{href: url_for(params.merge(locale: language.locale_name))}= language.name

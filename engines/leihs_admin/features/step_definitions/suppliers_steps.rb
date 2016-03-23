@@ -47,7 +47,14 @@ end
 
 When(/^I delete a supplier$/) do
   within '.list-of-lines' do
-    within('.row', text: @supplier.name) do
+    el = find('.row', text: @supplier.name)
+
+    # NOTE trick scrolling element to the screen (not hidden by header)
+    # OPTIMIZE: not working if not at least 4 previous elements
+    prev_el = el.find(:xpath, "./preceding-sibling::div[4]")
+    page.driver.browser.action.move_to(prev_el.native).perform
+
+    within el do
       find('.dropdown-toggle').click
       find('.dropdown-menu a', text: _('Delete')).click
       step 'I am asked whether I really want to delete'

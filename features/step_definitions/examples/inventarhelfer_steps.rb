@@ -44,8 +44,12 @@ Then /^I set all their initial values$/ do
         end
       when 'date'
         dp = field_el.find("[data-type='datepicker']")
-        dp.click
-        find('.ui-datepicker-calendar').find('.ui-state-highlight, .ui-state-active', visible: true, match: :first).click
+        ori_value = dp.value
+        dp.set ''
+        dp.set ori_value
+        within '.ui-datepicker-calendar' do
+          find('.ui-state-highlight, .ui-state-active', visible: true, match: :first).click
+        end
         @data[field.id] = dp.value
       when 'autocomplete'
         target_name = find(".field[data-id='#{field.id}'] [data-type='autocomplete']")['data-autocomplete_value_target']
@@ -164,8 +168,7 @@ Then /^I see all the values of the item in an overview with model name and the m
 end
 
 Then /^the changed values are highlighted$/ do
-  find('#field-selection .field', match: :first)
-  all('#field-selection .field').each do |selected_field|
+  all('#field-selection .field', minimum: 1).each do |selected_field|
     c = all("#item-section .field[data-id='#{selected_field['data-id']}'].success").count + all("#item-section .field[data-id='#{selected_field['data-id']}'].error").count
     expect(c).to eq 1
   end

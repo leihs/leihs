@@ -1,52 +1,42 @@
 ---
 tasks:
-- name: statistik
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        --strict "engines/leihs_admin/features/statistik.feature"
 - name: buildings
   scripts:
     test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        --strict "engines/leihs_admin/features/buildings.feature"
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "engines/leihs_admin/features/buildings.feature"
 - name: database
   scripts:
     test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        --strict "engines/leihs_admin/features/database.feature"
-- name: wartungsmodus
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        --strict "engines/leihs_admin/features/wartungsmodus.feature"
-- name: suppliers
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        --strict "engines/leihs_admin/features/suppliers.feature"
-- name: settings
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        --strict "engines/leihs_admin/features/settings.feature"
-- name: inventory_pools
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        --strict "engines/leihs_admin/features/inventory_pools.feature"
-- name: users
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        --strict "engines/leihs_admin/features/users.feature"
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "engines/leihs_admin/features/database.feature"
 - name: delegation
   scripts:
     test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        --strict "engines/leihs_admin/features/delegation.feature"
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "engines/leihs_admin/features/delegation.feature"
 - name: inventar_csv
   scripts:
     test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -f json -o log/cucumber_report.json
-        --strict "engines/leihs_admin/features/inventar_csv.feature"
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "engines/leihs_admin/features/inventar_csv.feature"
+- name: inventory_pools
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "engines/leihs_admin/features/inventory_pools.feature"
+- name: settings
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "engines/leihs_admin/features/settings.feature"
+- name: statistik
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "engines/leihs_admin/features/statistik.feature"
+- name: suppliers
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "engines/leihs_admin/features/suppliers.feature"
+- name: users
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "engines/leihs_admin/features/users.feature"
+- name: wartungsmodus
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "engines/leihs_admin/features/wartungsmodus.feature"

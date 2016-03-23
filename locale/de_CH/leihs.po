@@ -140,6 +140,9 @@ msgstr "Adresse"
 msgid "Admin"
 msgstr "Admin"
 
+msgid "Administrators"
+msgstr "Administratoren"
+
 msgid "All"
 msgstr "Alle"
 
@@ -955,7 +958,7 @@ msgstr "Bestellung abgeschickt"
 msgid "Orders"
 msgstr "Bestellungen"
 
-msgid "Other Groups"
+msgid "Other groups"
 msgstr "Andere Gruppen"
 
 msgid "Overbooked Quantity"
@@ -1076,6 +1079,9 @@ msgstr "Anz."
 
 msgid "Quantity"
 msgstr "Anzahl"
+
+msgid "Quantities"
+msgstr "Mengen"
 
 msgid "Quantity allocations"
 msgstr "Anzahl-Zuteilungen"
@@ -2033,6 +2039,9 @@ msgstr "Ausleihe-Verwalter"
 
 msgid "Inventory manager"
 msgstr "Inventar-Verwalter"
+
+msgid "New"
+msgstr "Neu"
 
 msgid "New Delegation"
 msgstr "Neue Delegation"
@@ -2992,3 +3001,229 @@ msgstr "Inventur vor"
 
 msgid "Search category"
 msgstr "Kategorie suchen"
+
+msgid "Budget limits"
+msgstr "Budgetlimiten"
+
+msgid "Budget period"
+msgstr "Budgetperiode"
+
+msgid "Budget periods"
+msgstr "Budgetperioden"
+
+msgid "Budget period end date"
+msgstr "Enddatum der Budgetperiode"
+
+msgid "The budget period is closed"
+msgstr "Die Budgetperiode wird geschlossen"
+
+msgid "requesting phase until %s"
+msgstr "Antragsphase bis %s"
+
+msgid "inspection phase until %s"
+msgstr "Prüfphase bis %s"
+
+msgid "Model name"
+msgstr "Modellname"
+
+msgid "Requested quantity"
+msgstr "Menge beantragt"
+
+msgid "Approved quantity"
+msgstr "Menge bewilligt"
+
+msgid "Order quantity"
+msgstr "Bestellmenge"
+
+msgid "Requests"
+msgstr "Anträge"
+
+msgid "Template Categories"
+msgstr "Vorlag Kategorien"
+
+msgid "Edit templates"
+msgstr "Vorlagen editieren"
+
+msgid "Requester"
+msgstr "Antragsteller"
+
+msgid "Requesters"
+msgstr "Antragsteller"
+
+msgid "Not a requester"
+msgstr "Kein Antragsteller"
+
+msgid "My groups"
+msgstr "Meine Gruppen"
+
+msgid "My requests"
+msgstr "Meine Anträge"
+
+msgid "Motivation"
+msgstr "Begründung"
+
+msgid "Inspectors"
+msgstr "Prüfer"
+
+msgid "Inspection"
+msgstr "Überprüfung"
+
+msgid "Inspection comment"
+msgstr "Kommentar des Prüfers"
+
+msgid "Inspection start date"
+msgstr "Startdatum der Prüfphase"
+
+msgid "Priority"
+msgstr "Priorität"
+
+msgid "Name of receiver"
+msgstr "Name des Empfängers"
+
+msgid "Organisation"
+msgstr "Organisation"
+
+msgid "Organisations"
+msgstr "Organisationen"
+
+msgid "Organisation unit"
+msgstr "Organisationseinheiten"
+
+msgid "Organisations according to requester list"
+msgstr "Organisationen gemäss Antragstellerliste"
+
+msgid "Department"
+msgstr "Departement"
+
+msgid "Attachment"
+msgstr "Anhang"
+
+msgid "In inspection"
+msgstr "In Prüfung"
+
+msgid "Denied"
+msgstr "Abgelehnt"
+
+msgid "approved"
+msgstr "Bewilligt"
+
+msgid "Partially approved"
+msgstr "Teilweise bewilligt"
+
+msgid "incl. VAT"
+msgstr "inkl. MwSt"
+
+msgid "Item price"
+msgstr "Stückpreis"
+
+msgid "State"
+msgstr "Status"
+
+msgid "State of Request"
+msgstr "Status Antrag"
+
+msgid "Move to another group"
+msgstr "Gruppe ändern"
+
+msgid "Move to another budget period"
+msgstr "Budgetperiode ändern"
+
+msgid "Point of Delivery"
+msgstr "Lieferort"
+
+msgid "max 255 characters"
+msgstr "Max. 255 Zeichen"
+
+msgid "Article / Project"
+msgstr "Artikel / Projekt"
+
+msgid "Procurement"
+msgstr "Bedarfsermittlung"
+
+msgid "Inquiry to procurement request"
+msgstr "Frage zum Beschaffungsantrag"
+
+msgid "Article nr. / Producer nr."
+msgstr "Artikelnr. / Herstellernr."
+
+msgid "Replacement"
+msgstr "Ersatz"
+
+msgid "Choose an article/project"
+msgstr "Artikel/Projekt wählen"
+
+msgid "Request moved"
+msgstr "Antrag verschoben"
+
+msgid "High"
+msgstr "Hoch"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "Are you sure you want to delete '%s'?"
+msgstr "Sind Sie sicher, dass Sie '%s' löschen möchten?"
+
+msgid "Type in a search term"
+msgstr "Geben Sie einen Suchbegriff ein"
+
+msgid "No results"
+msgstr "Kein Ergebnis gefunden"
+
+msgid "Searching..."
+msgstr "Suche..."
+
+msgid "must be greater or equal to the inspection start date"
+msgstr "muss gleichzeitig oder später sein wie das Startdatum der Prüfphase"
+
+msgid "Check invalid fields"
+msgstr "Es existieren ungültige Felder"
+
+msgid "Name of the requester"
+msgstr "Name des Antragstellers"
+
+msgid "Add article for specific group"
+msgstr "Artikel für spezifische Gruppe hinzufügen"
+
+msgid "You have unsaved data. Would you like to delete the data?"
+msgstr "Sie haben nicht gespeicherte Daten. Möchten Sie diese löschen?"
+
+msgid "Only show my own requests"
+msgstr "Nur eigene Anträge anzeigen"
+
+msgid "Add article"
+msgstr "Artikel hinzufügen"
+
+msgid "Add article for this group"
+msgstr "Artikel für Gruppe hinzufügen"
+
+msgid "Add article for another user"
+msgstr "Artikel für einen anderen Benutzer hinzufügen"
+
+msgid "Select all"
+msgstr "Alle auswählen"
+
+msgid "None selected"
+msgstr "Keine ausgewählt"
+
+msgid "All selected"
+msgstr "Alle ausgewählt"
+
+msgid "selected"
+msgstr "selektiert"
+
+msgid "You are not authorized for this action."
+msgstr "Sie sind für diese Aktion nicht authorisiert."
+
+msgid "Current budget period not defined yet"
+msgstr "Es existiert keine aktuelle Budgetperiode"
+
+msgid "No groups defined yet"
+msgstr "Es ist noch keine Gruppe vorhanden"
+
+msgid "No admins defined yet"
+msgstr "Es wurde noch kein Administrator erfasst"
+
+msgid "No requesters defined yet"
+msgstr "Es wurde noch kein/e AntragstellerIn erfasst"
+

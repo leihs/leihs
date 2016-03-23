@@ -1320,7 +1320,7 @@ window.i18n.locale_data = {
          null,
          ""
       ],
-      "Other Groups": [
+      "Other groups": [
          null,
          ""
       ],

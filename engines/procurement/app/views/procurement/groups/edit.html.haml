@@ -1,0 +1,66 @@
+= form_for @group do |f|
+  .panel.panel-default
+    .panel-heading
+      .h3= _('Group')
+
+    .panel-body
+      .row
+        .col-sm-4
+          = _('Name')
+        .col-sm-4
+          = f.text_field :name, placeholder: _('Name'), class: 'form-control', required: true, autofocus: true
+        .col-sm-4
+      .row
+        .col-sm-4
+          = _('Inspectors')
+        .col-sm-4
+          %input{name: 'group[inspector_ids]', multiple: true, placeholder: _("Name of the inspector"), autocomplete: :off}
+        .col-sm-4
+      .row
+        .col-sm-4
+          = _('Email')
+        .col-sm-4
+          = f.email_field :email, placeholder: _('Email'), class: 'form-control'
+        .col-sm-4
+
+      %h4= _('Budget limits')
+
+      - Procurement::BudgetPeriod.order(end_date: :desc).each do |budget_period|
+        - budget_limit = @group.budget_limits.find_or_initialize_by(budget_period_id: budget_period.id)
+        = f.fields_for :budget_limits, budget_limit do |ff|
+          .row
+            .col-sm-4
+              = ff.hidden_field :budget_period_id
+              = budget_period
+            .col-sm-4
+              = ff.number_field :amount, min: 0, step: 1, placeholder: _('Budget'), autocomplete: :off, class: 'form-control', value: ff.object.amount.to_i
+            .col-sm-4
+
+    .panel-footer
+      .text-right
+        %button.btn.btn-success{type: :submit}
+          %i.fa.fa-check
+          = _('Save')
+
+
+:scss
+  .panel-body > .row:nth-of-type(even) {
+    background: #f9f9f9;
+  }
+
+:coffeescript
+  $(document).ready ->
+    $("input[name='group[inspector_ids]']").tokenInput '/procurement/users.json',
+      minChars: 3
+      queryParam: 'search_term'
+      propertyToSearch: "lastname"
+      resultsFormatter: (item)->
+        "<li>" + item.firstname + " " + item.lastname + "</li>"
+      tokenFormatter: (item)->
+        "<li>" + item.firstname + " " + item.lastname + "</li>"
+      prePopulate: #{@group.inspectors.sort{|a,b| a.firstname <=> b.firstname}.to_json(only: [:id, :firstname, :lastname])}
+      preventDuplicates: true
+      hintText: "#{_('Type in a search term')}"
+      noResultsText: "#{_('No results')}"
+      searchingText: "#{_('Searching...')}"
+      #theme: 'facebook'

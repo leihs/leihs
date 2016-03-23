@@ -1296,7 +1296,7 @@ window.i18n.locale_data = {
          null,
          "Bschtelige"
       ],
-      "Other Groups": [
+      "Other groups": [
          null,
          "Anderi Gruppe"
       ],

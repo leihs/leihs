@@ -1,0 +1,43 @@
+%h1= _('Groups')
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th.col-xs-4= _('Name')
+      %th.col-xs-3= _('Inspectors')
+      %th.col-xs-3= _('Email')
+      %th.col-xs-2
+  %tbody
+    - @groups.order(:name).each do |group|
+      %tr
+        %td
+          = group.name
+        %td
+          %ul{style: 'padding-left: 15px;'}
+            - group.inspectors.sort{|a,b| a.firstname <=> b.firstname}.each do |inspector|
+              %li= inspector
+        %td
+          = group.email
+        %td.text-right
+          .btn-group
+            %a.btn.btn-default{href: edit_group_path(group)}
+              %i.fa.fa-edit
+              = _('Edit')
+            - if group.can_destroy?
+              %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown"}
+                %span.caret
+                %span.sr-only Toggle Dropdown
+              %ul.dropdown-menu
+                %li
+                  %a{href: group_path(group), data: {method: :delete, confirm: _("Are you sure you want to delete '%s'?") % group}}
+                    %i.fa.fa-trash-o
+                    = _('Delete')
+
+  %tfoot
+    %tr
+      %td.text-right{colspan: 4}
+        %a.btn.btn-success{href: new_group_path}
+          %i.fa.fa-plus
+          = _('Add')
+
+

@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   get "properties", to: "properties#index", as: "properties"
 
   mount LeihsAdmin::Engine => '/admin', :as => 'admin'
+  mount Procurement::Engine => '/procurement', :as => 'procurement'
 
   # Borrow Section
   namespace :borrow do

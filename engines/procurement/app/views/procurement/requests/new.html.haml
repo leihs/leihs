@@ -1,0 +1,23 @@
+.panel{class: "panel-#{header_color(@budget_period)}"}
+  .panel-heading
+    .row
+      .col-sm-2.h4
+        %i.fa.fa-calendar
+        = @budget_period
+      .col-sm-6
+        = render partial: 'procurement/budget_periods/phases', locals: {budget_period: @budget_period}
+      .col-sm-4
+
+  .panel-body
+    .row
+      .col-sm-6
+        = render partial: 'procurement/templates/categories', locals: {template_categories: @template_categories}
+
+      .col-sm-6
+        %h4
+          %i.fa.fa-shopping-cart
+          = _('Add article for specific group')
+        .list-group
+          - @groups.each do |group|
+            %a.list-group-item{href: group_budget_period_user_requests_path(group, @budget_period, @user, request_id: 'new_request')}
+              = group

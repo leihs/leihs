@@ -1,0 +1,212 @@
+.row.request{data: {request_id: request.id, template_id: request.template_id}}
+  .col-xs-6
+    - if request.editable?(current_user)
+      %input{type: :hidden, name: "requests[#{request.id}][id]", value: request.id}
+
+    .form-group
+      %label.col-xs-4.control-label
+        = _('Article / Project')
+      .col-xs-8
+        - if request.editable?(current_user) and (request.template_id.nil? or request.group.inspectable_by?(current_user))
+          %input.form-control{name: "requests[#{request.id}][article_name]", placeholder: _('Article / Project'), value: request.article_name, data: {toggle: 'tooltip'}, title: request.article_name, required: true}
+          %input{type: :hidden, name: "requests[#{request.id}][model_id]", value: request.model_id}
+        - else
+          = request.article_name
+
+    .form-group
+      %label.col-xs-4.control-label
+        = _('Article nr. / Producer nr.')
+      .col-xs-8
+        - if request.editable?(current_user) and (request.template_id.nil? or request.group.inspectable_by?(current_user))
+          %input.form-control{name: "requests[#{request.id}][article_number]", placeholder: _('Article nr. / Producer nr.'), value: request.article_number}
+        - else
+          = request.article_number
+
+    .form-group
+      %label.col-xs-4.control-label
+        = _('Supplier')
+      .col-xs-8
+        - if request.editable?(current_user) and (request.template_id.nil? or request.group.inspectable_by?(current_user))
+          %input.form-control{name: "requests[#{request.id}][supplier_name]", placeholder: _('Supplier'), value: request.supplier_name}
+          %input{type: :hidden, name: "requests[#{request.id}][supplier_id]", value: request.supplier_id}
+        - else
+          = request.supplier_name
+
+    .form-group
+      %label.col-xs-4.control-label
+        = _('Name of receiver')
+      .col-xs-8
+        - if request.editable?(current_user)
+          %input.form-control{name: "requests[#{request.id}][receiver]", value: request.receiver, placeholder: _('Name of receiver'), autocomplete: :off}
+        - else
+          = request.receiver
+
+    .form-group
+      %label.col-xs-4.control-label
+        = _('Point of Delivery')
+      .col-xs-8
+        - if request.editable?(current_user)
+          %input.form-control{name: "requests[#{request.id}][location_name]", value: request.location_name, placeholder: _('Point of Delivery'), autocomplete: :off}
+          %input{type: :hidden, name: "requests[#{request.id}][location_id]", value: request.location_id}
+        - else
+          = request.location_name
+
+    .form-group
+      %label.col-xs-4.control-label
+        = _('Motivation')
+      .col-xs-8
+        - if request.editable?(current_user)
+          %input.form-control{name: "requests[#{request.id}][motivation]", value: request.motivation, placeholder: _('Motivation'), maxlength: 255, autocomplete: :off, title: _('max 255 characters'), data: {toggle: 'tooltip'}, required: true}
+        - else
+          = request.motivation
+
+    .form-group
+      %label.col-xs-4.control-label
+        = _('Priority')
+      .col-xs-8
+        - if request.editable?(current_user) and request.user_id == current_user.id
+          - ['High', 'Normal'].each do |priority|
+            %label
+              %input{type: :radio, name: "requests[#{request.id}][priority]", value: priority.downcase, checked: request.priority == priority.downcase}
+              .label.label-default= _(priority)
+        - else
+          .label.label-default= _(request.priority.capitalize)
+
+    .form-group
+      %label.col-xs-4.control-label
+        = format('%s / %s', _('Replacement'), _('New'))
+      .col-xs-8
+        - if request.editable?(current_user) and request.user_id == current_user.id
+          %label
+            %input{type: :radio, name: "requests[#{request.id}][replacement]", value: 1, checked: request.replacement}
+            .label.label-default= _('Replacement')
+          %label
+            %input{type: :radio, name: "requests[#{request.id}][replacement]", value: 0, checked: (not request.replacement)}
+            .label.label-default= _('New')
+        - else
+          .label.label-default= request.replacement ? _('Replacement') : _('New')
+
+  .col-xs-6
+    .form-group
+      %label.col-xs-4.control-label
+        = format('%s %s', _('Item price'), MoneyRails.default_currency)
+        %span.small= _('incl. VAT')
+      .col-xs-4
+        - if request.editable?(current_user) and (request.template_id.nil? or request.group.inspectable_by?(current_user))
+          %input.form-control{name: "requests[#{request.id}][price]", type: :number, min: 0, value: request.price.to_i, placeholder: format('%s %s', _('Item price'), _('incl. VAT')), autocomplete: :off}
+        - else
+          .label.label-primary
+            = money_without_cents_and_with_symbol request.price
+      .col-xs-4
+
+    .form-group
+      %label.col-xs-4.control-label
+        = _('Requested quantity')
+      .col-xs-4
+        - if request.editable?(current_user) and request.user_id == current_user.id
+          %input.form-control{name: "requests[#{request.id}][requested_quantity]", type: :number, min: 1, value: request.requested_quantity, placeholder: _('Requested quantity'), autocomplete: :off, required: true}
+        - else
+          .label.label-primary.requested_quantity
+            = request.requested_quantity
+      .col-xs-4
+
+    - if request.group.inspectable_or_readable_by?(current_user) or request.user_id == current_user.id
+      .form-group
+        %label.col-xs-4.control-label
+          = _('Approved quantity')
+        .col-xs-4
+          - if request.editable?(current_user) and request.group.inspectable_by?(current_user)
+            %input.form-control{name: "requests[#{request.id}][approved_quantity]", type: :number, min: 0, value: request.approved_quantity, placeholder: _('Approved quantity'), autocomplete: :off}
+          - else
+            - if request.approved_quantity
+              :ruby
+                state, label_class = state_label(request)
+              .label{class: label_class}
+                = request.approved_quantity
+        .col-xs-4
+
+    - if request.group.inspectable_or_readable_by?(current_user)
+      .form-group
+        %label.col-xs-4.control-label
+          = _('Order quantity')
+        .col-xs-4
+          - if request.editable?(current_user) and request.group.inspectable_by?(current_user)
+            %input.form-control{name: "requests[#{request.id}][order_quantity]", type: :number, min: 0, value: request.order_quantity, placeholder: _('Order quantity'), autocomplete: :off}
+          - elsif request.approved_quantity and request.order_quantity
+            .label{class: label_class}
+              = request.order_quantity
+        .col-xs-4
+
+    .form-group
+      %label.col-xs-4.control-label
+        = format('%s %s', _('Total'), MoneyRails.default_currency)
+        %span.small= _('incl. VAT')
+      .col-xs-8
+        .label.label-primary.total_price{data: {total: request.total_price(current_user)}}
+          = money_without_cents_and_with_symbol request.total_price(current_user)
+
+    - if request.group.inspectable_or_readable_by? current_user or request.user_id == current_user.id
+      .form-group
+        %label.col-xs-4.control-label
+          = _('Inspection comment')
+        .col-xs-8
+          - if request.editable?(current_user) and request.group.inspectable_by?(current_user)
+            %input.form-control{name: "requests[#{request.id}][inspection_comment]", value: request.inspection_comment, placeholder: _('Inspection comment'), maxlength: 255, data: {toggle: 'tooltip'}, title: _('max 255 characters')}
+          - else
+            = request.inspection_comment
+
+    .form-group.attachments
+      %label.col-xs-4.control-label
+        = _('Attachments')
+      .col-xs-8
+        - if request.editable?(current_user)
+          %input{type: :file, name: "requests[#{request.id}][attachments_attributes][][file]", multiple: true, style: "color:transparent;", onchange: "this.style.color = 'black';"}
+        %ul
+          - request.attachments.each do |attachment|
+            %li
+              %input{type: :hidden, name: "requests[#{request.id}][attachments_delete][#{attachment.id}]"}
+              %a{href: attachment.file.url, target: '_blank'}
+                = attachment.file.original_filename
+              - if request.editable?(current_user)
+                %a.delete{href: '#', data: {confirm: _("Are you sure you want to delete '%s'?") % attachment.file.original_filename}}
+                  %i.fa.fa-trash
+              - if attachment.file_content_type =~ /image/
+                %br
+                %a{href: attachment.file.url, target: '_blank'}
+                  %img{src: attachment.file.url, style: 'height: 4em; max-width: 10em'}
+
+    .form-group
+      %label.col-xs-4.control-label
+        = _('State')
+      .col-xs-6
+        = render partial: 'state', locals: {request: request}
+
+      .col-xs-2.text-right
+        - if request.editable?(current_user)
+          .btn-group
+            %button.btn.btn-default.btn-sm.dropdown-toggle{type: 'button', data: {toggle: 'dropdown'}, aria: {haspopup: true, expanded: false}}
+              %i.fa.fa-gear
+              %span.caret
+            %ul.dropdown-menu.dropdown-menu-right
+              %li.dropdown-header
+                %h5
+                  = _('Move to another group')
+              - Procurement::Group.where.not(id: @group).each do |group|
+                %li
+                  %a{href: move_group_budget_period_user_request_path(@group, @budget_period, @user, request, to_group_id: group.id), data: {remote: true, method: :put}}
+                    %i.fa.fa-arrow-right
+                    = group
+              %li.divider{role: 'separator'}
+              %li.dropdown-header
+                %h5
+                  = _('Move to another budget period')
+              - Procurement::BudgetPeriod.future.where.not(id: @budget_period).each do |budget_period|
+                %li
+                  %a{href: move_group_budget_period_user_request_path(@group, @budget_period, @user, request, to_budget_period_id: budget_period.id), data: {remote: true, method: :put}}
+                    %i.fa.fa-arrow-right
+                    = budget_period
+              %li.divider{role: 'separator'}
+              %li
+                %a{href: group_budget_period_user_request_path(@group, @budget_period, @user, request), data: {remote: true, method: :delete, confirm: _("Are you sure you want to delete '%s'?") % request.article_name }}
+                  %i.fa.fa-trash
+                  = _('Delete')

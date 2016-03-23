@@ -5,7 +5,7 @@ jobs:
     name: Leihs Admin Scenarios
 
     description: |
-      Run leihs admin engine features under MRI
+      Run leihs admin engine scenarios under MRI
 
     context:
       task-defaults:

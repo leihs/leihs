@@ -4,227 +4,189 @@ tasks:
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/buildings.feature:8
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/buildings.feature:8 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/buildings.feature:12
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/buildings.feature:12
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/buildings.feature:12 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/buildings.feature:19
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/buildings.feature:19
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/buildings.feature:19 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/buildings.feature:26
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/buildings.feature:26
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/buildings.feature:26 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/buildings.feature:33
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/buildings.feature:33
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/buildings.feature:33 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/database.feature:7
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/database.feature:7
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/database.feature:7 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/database.feature:12
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/database.feature:12
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/database.feature:12 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/database.feature:21
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/database.feature:21
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/database.feature:21 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/database.feature:26
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/database.feature:26
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/database.feature:26 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/delegation.feature:4
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/delegation.feature:4
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/delegation.feature:4 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/inventar_csv.feature:4
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/inventar_csv.feature:4
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/inventar_csv.feature:4 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/inventory_pools.feature:9
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/inventory_pools.feature:9
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/inventory_pools.feature:9 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/inventory_pools.feature:18
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/inventory_pools.feature:18
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/inventory_pools.feature:18 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/inventory_pools.feature:28
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/inventory_pools.feature:28
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/inventory_pools.feature:28 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/inventory_pools.feature:42
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/inventory_pools.feature:42
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/inventory_pools.feature:42 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/inventory_pools.feature:50
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/inventory_pools.feature:50
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/inventory_pools.feature:50 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/inventory_pools.feature:57
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/inventory_pools.feature:57
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/inventory_pools.feature:57 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/settings.feature:4
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/settings.feature:4
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/settings.feature:4 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/statistik.feature:7
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/statistik.feature:7
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/statistik.feature:7 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/statistik.feature:12
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/statistik.feature:12
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/statistik.feature:12 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/statistik.feature:17
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/statistik.feature:17
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/statistik.feature:17 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/suppliers.feature:8
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/suppliers.feature:8
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/suppliers.feature:8 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/suppliers.feature:12
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/suppliers.feature:12
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/suppliers.feature:12 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/suppliers.feature:19
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/suppliers.feature:19
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/suppliers.feature:19 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/suppliers.feature:26
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/suppliers.feature:26
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/suppliers.feature:26 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/suppliers.feature:33
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/suppliers.feature:33
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/suppliers.feature:33 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/users.feature:7
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/users.feature:7
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/users.feature:7 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/users.feature:16
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/users.feature:16
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/users.feature:16 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/users.feature:24
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/users.feature:24
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/users.feature:24 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/users.feature:39
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/users.feature:39
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/users.feature:39 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/users.feature:44
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/users.feature:44
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/users.feature:44 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/users.feature:52
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/users.feature:52
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/users.feature:52 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/users.feature:58
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/users.feature:58
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/users.feature:58 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/users.feature:64
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/users.feature:64
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/users.feature:64 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/wartungsmodus.feature:11
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/wartungsmodus.feature:11
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/wartungsmodus.feature:11 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/wartungsmodus.feature:22
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/wartungsmodus.feature:22
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/wartungsmodus.feature:22 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/wartungsmodus.feature:33
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/wartungsmodus.feature:33
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/wartungsmodus.feature:33 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/wartungsmodus.feature:42
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default -r engines/**/features
-        -f json -o log/cucumber_report.json --strict engines/leihs_admin/features/wartungsmodus.feature:42
-        DEFAULT_BROWSER=firefox
+        --strict engines/leihs_admin/features/wartungsmodus.feature:42 DEFAULT_BROWSER=firefox

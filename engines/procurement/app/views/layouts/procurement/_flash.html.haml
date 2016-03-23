@@ -1,0 +1,21 @@
+-#:ruby
+-#  flash[:info] ||= flash[:notice]
+-#  flash[:danger] ||= flash[:error]
+
+.flash
+  -#- [:success, :info, :warning, :danger].each do |x|
+  - [:success, :notice, :error].each do |x|
+    - if flash[x]
+      :ruby
+        xx = case x
+            when :notice
+              :info
+            when :error
+              :danger
+            else
+              x
+            end
+      %h4.alert{class: "alert-#{xx} #{x}"}
+        %ul
+          - Array(flash[x]).each do |y|
+            %li= y

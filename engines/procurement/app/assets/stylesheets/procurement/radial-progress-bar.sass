@@ -1,0 +1,52 @@
+
+// Colors
+$barColor: tomato
+$overlayColor: #fffde8
+$backColor: #2f3439
+$size: 50px
+
+/* -------------------------------------
+ * Bar container
+ * ------------------------------------- */
+.progress-radial
+  float: left
+  //margin-right: $size / 10 * 3
+  position: relative
+  width: $size
+  height: $size
+  border-radius: 50%
+  border: 1px solid $backColor // remove gradient color
+  background-color: $barColor // default 100%
+
+/* -------------------------------------
+ * Optional centered circle w/text
+ * ------------------------------------- */
+.progress-radial .overlay
+  position: absolute
+  width: $size / 10 * 6
+  height: $size / 10 * 6
+  background-color: $overlayColor
+  border-radius: 50%
+  margin-left: $size / 10 * 2
+  margin-top: $size / 10 * 2 / 10 * 9
+  text-align: center
+  line-height: $size / 10 * 6
+  font-size: 0.75em
+
+/* -------------------------------------
+ * Mixin for progress-% class
+ * ------------------------------------- */
+
+$step: 5 // step of % for created classes
+
+$loops: round(100 / $step)
+$increment: 360 / $loops
+$half: round($loops / 2)
+@for $i from 0 through $loops
+  .progress-#{$i*$step}
+    @if $i < $half
+      $nextdeg: 90deg + ( $increment * $i )
+      background-image: linear-gradient(90deg, $backColor 50%, transparent 50%, transparent), linear-gradient($nextdeg, $barColor 50%, $backColor 50%, $backColor)
+    @else
+      $nextdeg: -90deg + ( $increment * ( $i - $half ) )
+      background-image: linear-gradient($nextdeg, $barColor 50%, transparent 50%, transparent), linear-gradient(270deg, $barColor 50%, $backColor 50%, $backColor)

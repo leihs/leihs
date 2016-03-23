@@ -1,0 +1,31 @@
+%li.dropdown
+  %a.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
+    %i.fa.fa-pie-chart
+    %span= _("Procurement")
+    %i.caret
+  %ul.dropdown-menu
+    %li
+      %a{href: main_app.borrow_root_path}
+        %i.fa.fa-shopping-cart
+        %span= _('Borrow')
+    - if current_user.has_role?(:admin)
+      %li.divider
+      %li
+        %a{href: admin.root_path}
+          %i.fa.fa-wrench
+          %span= _('Admin')
+    - if ("Procurement".constantize rescue false) and Procurement::Access.some_access?(current_user)
+      %li.divider
+      %li
+        %a.dropdown-item{href: procurement.root_path}
+          %i.fa.fa-pie-chart
+          %span= _('Procurement')
+    - if current_user.has_role?(:group_manager)
+      %li.divider
+      %li#ip-dropdown-menu.dropdown-header
+        = succeed ':' do
+          %i.fa.fa-gears
+          = _('Inventory Pools')
+      - current_managed_inventory_pools.each do |ip|
+        %li{style: 'padding-left: 1.2em'}
+          %a.text-ellipsis{title: ip, href: main_app.manage_daily_view_path(ip)}= ip

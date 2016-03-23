@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.name        = 'leihs_admin'
   s.version     = LeihsAdmin::VERSION
   s.authors     = ['Franco Sellitto']
-  s.email       = ['franco.sellitto@zhdk.ch']
-  s.homepage    = 'https://github.com/zhdk/leihs'
+  s.email       = []
+  s.homepage    = 'https://github.com/leihs/leihs'
   s.summary     = 'leihs admin'
   s.description = 'leihs admin'
   s.license     = 'MIT'

@@ -1,0 +1,140 @@
+%h1= _('Users')
+
+= form_tag users_path do
+  .text-right
+    %button.btn.btn-success{type: :submit}
+      %i.fa.fa-check
+      = _('Save')
+  %br
+
+  .panel.panel-default
+    .panel-heading
+      %i.fa.fa-user-md
+      = _('Administrators')
+    .panel-body.row
+      .col-sm-4
+        %input{name: 'admin_ids', multiple: true, placeholder: _('Name of the admins')}
+      .col-sm-8
+
+  .panel.panel-default
+    .panel-heading
+      %i.fa.fa-user
+      = _('Requesters')
+    %table.table
+      %thead
+        %tr
+          %th.col-xs-4= _('Name')
+          %th.col-xs-4= _('Department')
+          %th.col-xs-3= _('Organisation')
+          %th.col-xs-1
+
+      %tbody
+        - @requester_accesses.each do |requester_access|
+          %tr{data: {access_id: requester_access.id}}
+            %td
+              %input{type: :hidden, name: 'requesters[][user_id]', value: requester_access.user_id}
+              %input{type: :hidden, name: 'requesters[][_destroy]'}
+              %input.form-control{name: 'requesters[][name]', placeholder: _('Name of the requester'), autocomplete: :off, value: requester_access.user}
+            %td
+              %input.form-control{name: 'requesters[][department]', placeholder: _('Department'), autocomplete: :off, value: requester_access.organization.parent}
+            %td
+              %input.form-control{name: 'requesters[][organization]', placeholder: _('Organisation'), autocomplete: :off, value: requester_access.organization}
+            %td.text-right.h3
+              %i.fa.fa-minus-circle
+        - if @requester_accesses.empty?
+          %tr
+            %td
+              %input{type: :hidden, name: 'requesters[][user_id]'}
+              %input.form-control{name: 'requesters[][name]', placeholder: _('Name of the requester'), autocomplete: :off}
+            %td
+              %input.form-control{name: 'requesters[][department]', placeholder: _('Department'), autocomplete: :off}
+            %td
+              %input.form-control{name: 'requesters[][organization]', placeholder: _('Organisation'), autocomplete: :off}
+            %td.text-right.h3
+              %i.fa.fa-minus-circle
+    .panel-footer
+      %div{style: 'font-size: 2em'}
+        %i.fa.fa-plus-circle
+
+  .text-right
+    %button.btn.btn-success{type: :submit}
+      %i.fa.fa-check
+      = _('Save')
+
+
+:scss
+  table > tbody > tr:nth-of-type(odd):not(.bg-danger) {
+    background: #f9f9f9;
+  }
+
+:coffeescript
+  $(document).ready ->
+    $("input[name='admin_ids']").tokenInput '/procurement/users.json',
+      minChars: 3
+      queryParam: 'search_term'
+      propertyToSearch: "lastname"
+      resultsFormatter: (item)->
+        "<li>" + item.firstname + " " + item.lastname + "</li>"
+      tokenFormatter: (item)->
+        "<li>" + item.firstname + " " + item.lastname + "</li>"
+      prePopulate: #{@admins.sort{|a,b| a.firstname <=> b.firstname}.to_json(only: [:id, :firstname, :lastname])}
+      preventDuplicates: true
+      hintText: "#{_('Type in a search term')}"
+      noResultsText: "#{_('No results')}"
+      searchingText: "#{_('Searching...')}"
+      #theme: 'facebook'
+
+    initAutocompletes = ->
+      $("input[name='requesters[][name]']").autocomplete
+        minLength: 3
+        source: ( request, response )->
+          $.ajax
+            url: '/procurement/users.json'
+            dataType: "json"
+            data:
+              search_term: request.term
+            success: ( data )->
+              response( data )
+              #response($.map data, (item)->
+              #  {label: item.firstname + ' ' + item.lastname, value: item.id})
+        select: ( event, ui )->
+          $(this).closest('tr').find("input[name='requesters[][user_id]']").val( ui.item.id )
+          $(this).val( ui.item.firstname + " " + ui.item.lastname )
+          false
+      .each ->
+        $(this).data('ui-autocomplete')._renderItem = ( ul, item )->
+          $( "<li>" ).append( "<a>" + item.firstname + " " + item.lastname + "</a>" ).appendTo( ul )
+
+    do initAutocompletes
+
+    $('.panel-footer').on 'click', '.fa-plus-circle', ->
+      target_el = $(this).closest('.panel').find('tbody > tr:last-child')
+      cloned_el = target_el.clone()
+      cloned_el.find('input').val('')
+      cloned_el.removeClass('bg-danger')
+      cloned_el.removeAttr('data-access_id').removeData('access_id')
+      cloned_el.insertAfter(target_el)
+      do initAutocompletes
+      false
+
+    $('tbody').on 'click', '.fa-minus-circle', ->
+      row_el = $(this).closest('tr')
+      if row_el.data('access_id')
+        target_el = row_el.find("input[name*='[_destroy]']")
+        if row_el.hasClass('bg-danger')
+          target_el.val('0').change()
+          row_el.removeClass('bg-danger')
+        else
+          target_el.val('1').change()
+          row_el.addClass('bg-danger')
+      else
+        row_el.remove()
+      false
+
+    $('tbody').on 'keyup change', 'tr td input', ->
+      inputs = $(this).closest('tr').find('input:not([type="hidden"])')
+      values = inputs.map(-> $.trim($(this).val()) ).get().join('')
+      if values.length
+        inputs.attr('required', 'true')
+      else
+        inputs.removeAttr('required')

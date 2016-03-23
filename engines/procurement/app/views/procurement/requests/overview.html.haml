@@ -1,0 +1,56 @@
+- content_for :sidebar do
+  = render partial: 'procurement/requests/filter_panel'
+
+.well.well-sm{style: 'padding-left: 15px; padding-right: 15px;'}
+  #column-titles.row
+    %b.col-sm-2
+      %a{href: '#', data: {sort_by: :article_name}}
+        = _('Article / Project')
+        %i.fa.fa-sort
+    %b.col-sm-2
+      %a{href: '#', data: {sort_by: :user}}
+        = _('Requester')
+        %i.fa.fa-sort
+    %b.col-sm-2
+      %a{href: '#', data: {sort_by: :department}}
+        = _('Organisation')
+        %i.fa.fa-sort
+    %b.col-sm-1
+      %a{href: '#', data: {sort_by: :price}}
+        = format('%s %s', _('Price'), Setting.local_currency_string)
+        %i.fa.fa-sort
+    %b.col-sm-2
+      %a{href: '#', data: {sort_by: :requested_quantity}}
+        = _('Quantities')
+        %i.fa.fa-sort
+    %b.col-sm-1
+      %a{href: '#', data: {sort_by: :total_price}}
+        = format('%s %s', _('Total'), Setting.local_currency_string)
+        %i.fa.fa-sort
+    %b.col-sm-1
+      %a{href: '#', data: {sort_by: :priority}}
+        = _('Priority')
+        %i.fa.fa-sort
+    %b.col-sm-1
+      %a{href: '#', data: {sort_by: :state}}
+        = _('State')
+        %i.fa.fa-sort
+
+#filter_target
+  .h3
+    %i.fa.fa-circle-o-notch.spinner
+
+:coffeescript
+  $(document).ready ->
+    $('#column-titles a').on 'click', ->
+      new_sort_by = $(this).data('sort_by')
+      form = $('form#filter_panel')
+      sort_by_el = form.find("input[name='filter[sort_by]']")
+      sort_dir_el = form.find("input[name='filter[sort_dir]']")
+      if sort_by_el.val() == new_sort_by and sort_dir_el.val() == 'asc'
+        sort_dir_el.val('desc')
+      else
+        sort_dir_el.val('asc')
+      sort_by_el.val(new_sort_by)
+      form.change()
+      false

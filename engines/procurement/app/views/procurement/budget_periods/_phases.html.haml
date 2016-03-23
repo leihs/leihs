@@ -1,0 +1,5 @@
+%div{style: budget_period.in_requesting_phase? ? 'font-weight: bold' : nil}
+  = _('requesting phase until %s') % l(budget_period.inspection_start_date)
+
+%div{style: budget_period.in_inspection_phase? ? 'font-weight: bold' : nil}
+  = _('inspection phase until %s') % l(budget_period.end_date)

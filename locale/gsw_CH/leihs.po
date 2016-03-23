@@ -940,7 +940,7 @@ msgstr "Bschtelig abgschickt"
 msgid "Orders"
 msgstr "Bschtelige"
 
-msgid "Other Groups"
+msgid "Other groups"
 msgstr "Anderi Gruppe"
 
 msgid "Overbooked Quantity"

@@ -1,4 +1,4 @@
-- if request.base_url == 'http://test.leihs.zhdk.ch' and File.exists?(File.join(Rails.root, 'log/git.json'))
+- if request.base_url =~ /http:\/\/(test|test2).leihs.zhdk.ch/ and File.exists?(File.join(Rails.root, 'log/git.json'))
   :scss
       body {
         background: rgba(50, 255, 50, 0.5) !important;

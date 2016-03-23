@@ -9,10 +9,11 @@ AllCops:
     - 'features/**/*'
     - 'Gemfile'
     - 'Guardfile'
+    - 'lib/tasks/leihs.rake'
     - 'tmp/**/*'
     - 'node_modules/**/*'
     - 'script/**/*'
-  RunRailsCops: true
+    - 'spec/**/*'
 
 Lint/AmbiguousOperator:
   Enabled: false

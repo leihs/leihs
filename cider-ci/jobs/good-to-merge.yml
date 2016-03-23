@@ -16,6 +16,9 @@ jobs:
       job: leihs-admin-scenarios
       states: [passed]
     - type: job
+      job: procurement-scenarios
+      states: [passed]
+    - type: job
       job: code-checks
       states: [passed]
     - type: job

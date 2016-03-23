@@ -379,13 +379,12 @@ end
 When(/^I add a user to the delegation$/) do
   expect(has_no_selector?('ul.ui-autocomplete')).to be true
   find('[data-search-users]').set ' '
-  find('ul.ui-autocomplete > li > a', match: :first)
-  el = all('ul.ui-autocomplete > li > a').to_a.sample
-  user = User.find {|u| u.name == el.text}
-  @delegated_users << user
+  el = find('ul.ui-autocomplete > li > a', match: :first)
+  user_name = el.text
+  @delegated_users << User.find {|u| u.name == user_name}
   el.click
   expect(has_no_selector?('ul.ui-autocomplete')).to be true
-  find('#users .line', text: user.name)
+  find('#users .line', text: user_name)
 end
 
 Then(/^the edited delegation is saved with its current information$/) do

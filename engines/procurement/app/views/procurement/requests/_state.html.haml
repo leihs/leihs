@@ -1,0 +1,5 @@
+:ruby
+  state, label_class = state_label(request)
+
+.label{class: label_class}
+  = _(state.to_s.humanize)

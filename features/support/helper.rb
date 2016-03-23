@@ -69,6 +69,7 @@ end
 def type_into_autocomplete(selector, value)
   raise 'please provide a value' if value.size.zero?
   step 'I release the focus from this field'
+  find(selector).click
   find(selector).set value
   find('.ui-autocomplete')
 end
@@ -83,7 +84,6 @@ def change_line_start_date(line, days = 2)
 end
 
 def hover_for_tooltip(target)
-  step 'I scroll to the end of the list' # move mouse somewhere else to ensure its currently not over the target
-  target.click
+  page.driver.browser.action.move_to(target.native).perform
   find('.tooltipster-content') # there should be just one
 end

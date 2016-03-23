@@ -1,0 +1,15 @@
+:ruby
+  max = max.to_i
+  used = used.to_i
+  percentage = if max > 0
+                 used * 100 / max
+               elsif used > 0
+                 100
+               else
+                 0
+               end
+
+.progress-radial{class: "progress-#{(percentage / 5).to_i * 5}"}
+  .overlay
+    = succeed '%' do
+      = percentage

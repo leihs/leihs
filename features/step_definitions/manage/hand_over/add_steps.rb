@@ -71,8 +71,9 @@ Then /^the (.*?) is added to the hand over$/ do |type|
     when 'option'
       find(".line[data-line-type='option_line'] .col1of10", match: :prefer_exact, text: @inventory_code)
       option = Option.find_by_inventory_code(@inventory_code)
+      find('#flash', text: option.name)
       @option_line = contract.reload.option_lines.where(option_id: option).order(:created_at).last
-      expect(contract.reload.options.include?(option)).to be true
+      expect(contract.reload.options).to include option
     when 'model'
       find(".line[data-line-type='item_line'] .col4of10", match: :prefer_exact, text: @model.name)
       expect(contract.reload.models.include?(@model)).to be true
@@ -118,7 +119,9 @@ end
 
 Then /^I see a list of suggested (.*?) names$/ do |type|
   find('[data-add-contract-line]').click
-  find('.ui-autocomplete a', match: :first)
+  within '.ui-autocomplete' do
+    find('a', match: :first)
+  end
 end
 
 Then(/^I see that model in the list of suggested model names as "(.*?)"$/) do |arg1|
@@ -132,7 +135,12 @@ end
 
 
 When /^I select the (.*?) from the list$/ do |type|
-  find('.ui-autocomplete a', match: :prefer_exact, text: @target_name).click
+  # trick closing possible tooltips
+  page.driver.browser.action.move_to(find('nav#topbar').native).perform
+
+  within '.ui-autocomplete' do
+    find('a', match: :prefer_exact, text: @target_name).click
+  end
 end
 
 Then /^each model of the template is added to the hand over for the provided date range$/ do

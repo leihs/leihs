@@ -1,0 +1,16 @@
+jobs:
+
+  procurement-scenarios:
+
+    name: Procurement Scenarios
+
+    description: |
+      Run procurement engine scenarios under MRI
+
+    context:
+      task-defaults:
+        max-auto-trials: 2
+
+      _cider-ci_include:
+        - cider-ci/shared/tests-context.yml
+        - cider-ci/tasks/cucumber_procurement_scenarios.yml

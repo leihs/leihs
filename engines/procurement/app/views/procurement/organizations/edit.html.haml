@@ -1,0 +1,19 @@
+= form_for @organization do |f|
+  %table.table.table-striped
+    %thead
+      %tr
+        %th.col-xs-4= _('Name')
+        %th.col-xs-4= _('Parent')
+    %tbody
+      %tr
+        %td
+          = f.text_field :name, placeholder: _('Name'), class: 'form-control'
+        %td
+          = f.select :parent_id, Procurement::Organization.all.collect {|x| [x.name, x.id] }, { include_blank: true }
+
+    %tfoot
+      %tr
+        %td.text-right{colspan: 2}
+          %button.btn.btn-success{type: :submit}
+            %i.fa.fa-check
+            = _('Save')

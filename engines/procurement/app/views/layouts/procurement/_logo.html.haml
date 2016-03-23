@@ -1,0 +1,7 @@
+- if Setting.logo_url
+  .table
+    .table-row
+      .table-cell
+        %img{:src => asset_path(Setting.logo_url.gsub('.png', '-white.png'))}
+- else
+  leihs

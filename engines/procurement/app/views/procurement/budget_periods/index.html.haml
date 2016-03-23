@@ -1,0 +1,85 @@
+%h1= _('Budget periods')
+
+= form_tag budget_periods_path, remote: true do
+  %table.table.table-striped
+    %thead
+      %tr
+        %th= _('Name')
+        %th= _('Inspection start date')
+        %th= _('Budget period end date')
+        %th= format('%s %s', _('Total'), _('Requests'))
+    %tbody
+      - if @budget_periods.empty?
+        %tr
+          %td
+            %input.form-control{name: 'budget_periods[][name]', placeholder: _('Name'), autocomplete: :off, required: true}
+          %td
+            %input.form-control.datepicker{name: 'budget_periods[][inspection_start_date]', placeholder: _('Inspection start date'), autocomplete: :off, required: true}
+          %td
+            %input.form-control.datepicker{name: 'budget_periods[][end_date]', placeholder: _('End date'), autocomplete: :off, required: true}
+          %td
+      - else
+        - @budget_periods.each do |budget_period|
+          %tr{class: header_color(budget_period)}
+            %td
+              %input{type: :hidden, name: 'budget_periods[][id]', value: budget_period.id}
+              %input.form-control{name: 'budget_periods[][name]', value: budget_period.name, placeholder: _('Name'), autocomplete: :off, required: true}
+            %td
+              %input.form-control.datepicker{name: 'budget_periods[][inspection_start_date]', value: l(budget_period.inspection_start_date, format: I18n.translate('date.formats.default')), placeholder: _('Inspection start date'), autocomplete: :off, required: true}
+            %td
+              %input.form-control.datepicker{name: 'budget_periods[][end_date]', value: l(budget_period.end_date, format: I18n.translate('date.formats.default')), placeholder: _('End date'), autocomplete: :off, required: true}
+            %td
+              - if budget_period.requests.empty?
+                %a.btn.btn-danger{href: budget_period_path(budget_period), data: {method: :delete, confirm: _("Are you sure you want to delete '%s'?") % budget_period}}
+                  %i.fa.fa-trash-o
+                  = _('Delete')
+              - else
+                = render partial: 'totals', locals: {budget_period: budget_period}
+    %tfoot
+      %tr
+        %td.h1{colspan: 3}
+          %i.fa.fa-plus-circle
+        %td.text-right
+          %button.btn.btn-success{type: :submit}
+            %i.fa.fa-check
+            = _('Save')
+      %tr
+        %td{colspan: 5}
+          = render partial: 'layouts/procurement/flash', :locals => {:flash => flash}
+
+:coffeescript
+  $(document).ready ->
+    $(".datepicker").datepicker({
+      dateFormat: i18n.datepicker.L
+    })
+
+    $('tfoot').on 'click', '.fa-plus-circle', ->
+      target_el = $(this).closest('tfoot').prev('tbody').find('tr:last-child')
+      cloned_el = target_el.clone()
+      cloned_el.find('td:last').html("<h4><i class='fa fa-minus-circle'></i></h4>")
+      cloned_el.find('input').val('')
+      cloned_el.find(".datepicker").removeClass('hasDatepicker').removeAttr('id').datepicker({
+        dateFormat: i18n.datepicker.L
+      })
+      cloned_el.insertAfter(target_el)
+      false
+
+    $('tbody').on 'click', '.fa-minus-circle', ->
+      row_el = $(this).closest('tr')
+      row_el.remove()
+      false
+
+    $("form").on("ajax:success", (e, data, status, xhr) ->
+      location.reload()
+    ).on "ajax:error", (e, xhr, status, error) ->
+      errors = ''
+      for error in xhr.responseJSON
+        errors += '<li>' + error + '</li>'
+      el = $(".flash")
+      el.html('<ul class="alert alert-danger" style="padding-left: 2em;">' + errors + '</ul>').show()
+      $('html, body').animate({
+        scrollTop: el.offset().top - 100
+      }, 200)
+
+    $('form').on 'change', ->
+      $('.flash').hide()
