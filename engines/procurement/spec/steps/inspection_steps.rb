@@ -151,6 +151,27 @@ steps_for :inspection do
     expect(Time.zone.today).to be < current_budget_period.end_date
   end
 
+  step 'the following fields are not editable' do |table|
+    table.raw.flatten.each do |value|
+      within '.form-group', text: _(value) do
+        case value
+        when 'Motivation'
+          expect(page).not_to have_selector \
+            "[name='requests[#{@request.id}][motivation]']"
+          find '.col-xs-8', text: @request.motivation
+        when 'Priority'
+          expect(page).not_to have_selector \
+            "[name='requests[#{@request.id}][priority]']"
+          find '.col-xs-8', text: _(@request.priority.capitalize)
+        when 'Requested quantity'
+          expect(page).not_to have_selector \
+            "[name='requests[#{@request.id}][requested_quantity]']"
+          find '.col-xs-4', text: @request.requested_quantity
+        end
+      end
+    end
+  end
+
   step 'the following information is deleted from the request' do |table|
     table.raw.flatten.each do |value|
       case value

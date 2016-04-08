@@ -25,7 +25,7 @@
                 = _('Category')
               %input{name: "template_categories[#{template_category.object_id}][name]", value: template_category.name}
           .col-xs-1.text-right{style: 'font-size: 1.6em'}
-            %i.fa.fa-minus-circle
+            %i.fa.fa-minus-circle{title: _("Delete category with all it's articles/projects"), data: {toggle: 'tooltip'}}
 
       %table.table(id="collapse_#{template_category.id}" class="panel-collapse collapse" role="tabpanel")
         %thead
@@ -45,7 +45,7 @@
               %td.col-xs-3
                 %input.form-control{name: "template_categories[#{template_category.object_id}][templates_attributes][][article_number]", placeholder: _('Article nr. / Producer nr.'), value: template.article_number}
               %td.col-xs-2
-                %input.form-control{name: "template_categories[#{template_category.object_id}][templates_attributes][][price]", type: :number, min: 0, value: template.price, placeholder: format('%s %s', _('Price'), _('incl. VAT')), autocomplete: :off}
+                %input.form-control{name: "template_categories[#{template_category.object_id}][templates_attributes][][price]", type: :number, min: 0, value: template.price.to_i, placeholder: format('%s %s', _('Price'), _('incl. VAT')), autocomplete: :off}
               %td.col-xs-3
                 %input.form-control{name: "template_categories[#{template_category.object_id}][templates_attributes][][supplier_name]", placeholder: _('Supplier'), value: template.supplier_name}
               %td.col-xs-1.text-right
@@ -63,7 +63,7 @@
               %i.fa.fa-minus-circle
         %tfoot
           %tr
-            %td.h3{colspan: 4}
+            %td.h3{colspan: 4, title: _('Add new article or project to category'), data: {toggle: 'tooltip'}}
               %i.fa.fa-plus-circle
 
   .row

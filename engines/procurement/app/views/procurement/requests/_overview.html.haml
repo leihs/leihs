@@ -6,16 +6,17 @@
     .panel-heading
       .row
         .col-sm-2.h4
-          %i.fa.fa-calendar
-          = budget_period
+          %span{data: {toggle: 'tooltip'}, title: _('Budget period')}
+            %i.fa.fa-calendar
+            = budget_period
           - if budget_period.in_requesting_phase? and procurement_requester?
-            %a{href: new_user_budget_period_request_path(current_user, budget_period), title: _('Add article'), data: {toggle: 'tooltip'}}
+            %a{href: new_user_budget_period_request_path(current_user, budget_period), title: _('Create request by choosing a group or recommended article or project'), data: {toggle: 'tooltip'}}
               %i.fa.fa-plus-circle
         .col-sm-7
           = render partial: 'procurement/budget_periods/phases', locals: {budget_period: budget_period}
         .col-sm-3
           - total_price = requests.map {|r| r.total_price(current_user) }.sum
-          .label.label-primary.big_total_price
+          .label.label-primary.big_total_price{data: {toggle: 'tooltip'}, title: _('Current total of budget period')}
             %i.fa.fa-shopping-cart
             = money_without_cents_and_with_symbol total_price, false
 
@@ -32,20 +33,20 @@
             = group
             - unless budget_period.past?
               - if procurement_requester? and (budget_period.in_requesting_phase? or group.inspectable_by? current_user)
-                %a{href: group_budget_period_user_requests_path(group, budget_period, current_user, request_id: 'new_request'), title: _('Add article for this group'), data: {toggle: 'tooltip'}}
+                %a{href: group_budget_period_user_requests_path(group, budget_period, current_user, request_id: 'new_request'), title: _('Create request for this group'), data: {toggle: 'tooltip'}}
                   %i.fa.fa-plus-circle
               - if group.inspectable_by? current_user
-                %a{href: choose_group_budget_period_users_path(group, budget_period), title: _('Add article for another user'), data: {toggle: 'tooltip'}}
+                %a{href: choose_group_budget_period_users_path(group, budget_period), title: _('Create request for another user'), data: {toggle: 'tooltip'}}
                   %i.fa.fa-user-plus
           .col-sm-1
             - total_price = requests.map {|r| r.total_price(current_user) }.sum
             - if @user.nil? and group.inspectable_or_readable_by? current_user
               - budget_limit_amount = group.budget_limits.find_by(budget_period_id: budget_period.id).try(:amount)
-              .label.label-default.budget_limit
+              .label.label-default.budget_limit{title: _('Limit of group for this budget period'), data: {toggle: 'tooltip'}}
                 %i.fa.fa-pie-chart
                 = money_without_cents_and_with_symbol budget_limit_amount, false
               %br
-            .label.label-primary.big_total_price
+            .label.label-primary.big_total_price{title: _('Current total of group'), data: {toggle: 'tooltip'}}
               %i.fa.fa-shopping-cart
               = money_without_cents_and_with_symbol total_price, false
           .col-sm-2
@@ -69,16 +70,16 @@
             .col-sm-2.quantities
               :ruby
                 state, label_class = state_label(request)
-              .label{class: label_class}
+              .label{class: label_class, data: {toggle: 'tooltip'}, title: _('Requested quantity')}
                 = request.requested_quantity
                 %i.fa.fa-question
-              .label{class: label_class}
+              .label{class: label_class, data: {toggle: 'tooltip'}, title: _('Approved quantity')}
                 - if request.approved_quantity
                   = request.approved_quantity
                   %i.fa.fa-check
                 - else
                   &nbsp;
-              .label{class: label_class}
+              .label{class: label_class, data: {toggle: 'tooltip'}, title: _('Order quantity')}
                 - if request.order_quantity
                   = request.order_quantity
                   %i.fa.fa-shopping-cart

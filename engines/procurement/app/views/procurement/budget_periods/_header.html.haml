@@ -32,7 +32,7 @@
 
   .col-xs-3
     - if @user
-      %h4
+      %h4{title: _('Requester'), data: {toggle: 'tooltip'}}
         %i.fa.fa-user
         = @user
       - unless Procurement::Access.requesters.find_by(user_id: @user)
@@ -53,6 +53,6 @@
           = money_without_cents_and_with_symbol budget_limit_amount
         %br
 
-      .label.label-primary.big_total_price
+      .label.label-primary.big_total_price{title: _('Current total of group'), data: {toggle: 'tooltip'}}
         %i.fa.fa-shopping-cart
         = money_without_cents_and_with_symbol total_price

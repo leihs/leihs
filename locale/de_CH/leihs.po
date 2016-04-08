@@ -3045,13 +3045,13 @@ msgid "Edit templates"
 msgstr "Vorlagen editieren"
 
 msgid "Requester"
-msgstr "Antragsteller"
+msgstr "Antragsteller/in"
 
 msgid "Requesters"
-msgstr "Antragsteller"
+msgstr "Antragsteller/innen"
 
 msgid "Not a requester"
-msgstr "Kein Antragsteller"
+msgstr "Kein/e Antragsteller/in"
 
 msgid "My groups"
 msgstr "Meine Gruppen"
@@ -3194,11 +3194,11 @@ msgstr "Nur eigene Anträge anzeigen"
 msgid "Add article"
 msgstr "Artikel hinzufügen"
 
-msgid "Add article for this group"
-msgstr "Artikel für Gruppe hinzufügen"
+msgid "Create request for this group"
+msgstr "Antrag für diese Gruppe erfassen"
 
-msgid "Add article for another user"
-msgstr "Artikel für einen anderen Benutzer hinzufügen"
+msgid "Create request for another user"
+msgstr "Antrag für eine andere Person erfassen"
 
 msgid "Select all"
 msgstr "Alle auswählen"
@@ -3225,5 +3225,37 @@ msgid "No admins defined yet"
 msgstr "Es wurde noch kein Administrator erfasst"
 
 msgid "No requesters defined yet"
-msgstr "Es wurde noch kein/e AntragstellerIn erfasst"
+msgstr "Es wurde noch kein/e Antragsteller/in erfasst"
 
+msgid "Create new budget period"
+msgstr "Neue Budgetperiode erstellen"
+
+msgid "Total of all requests in state \"New\""
+msgstr "Total aller Anträge mit Status \"Neu\""
+
+msgid "Total of all approved requests"
+msgstr "Total aller bewilligten Anträge"
+
+msgid "Create request by choosing a group or recommended article or project"
+msgstr "Zuerst Gruppe, Artikel oder Projekt auswählen und Antrag erstellen"
+
+msgid "Current total of budget period"
+msgstr "Aktuelles total dieser Budgetperiode"
+
+msgid "Current total of group"
+msgstr "Aktuelles Gruppentotal"
+
+msgid "Limit of group for this budget period"
+msgstr "Gruppenlimite dieser Budgetperiode"
+
+msgid "% used (group limit - current group total)"
+msgstr "% verbraucht (Gruppenlimite - aktuelles Gruppentotal)"
+
+msgid "Add new article or project to category"
+msgstr "Der Kategorie einen neuen Artikel oder ein neues Projekt hinzufügen"
+
+msgid "Delete category with all it's articles/projects"
+msgstr "Kategorie und alle ihre Artikel/Projekte löschen"
+
+msgid "Add new requester"
+msgstr "Neuen Antragsteller hinzufügen"

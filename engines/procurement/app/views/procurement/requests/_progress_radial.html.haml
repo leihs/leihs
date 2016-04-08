@@ -9,7 +9,7 @@
                  0
                end
 
-.progress-radial{class: "progress-#{(percentage / 5).to_i * 5}"}
+.progress-radial{class: "progress-#{(percentage / 5).to_i * 5}", title: _('% used (group limit - current group total)'), data: {toggle: 'tooltip'}}
   .overlay
     = succeed '%' do
       = percentage

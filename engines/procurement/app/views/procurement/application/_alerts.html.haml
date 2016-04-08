@@ -1,3 +1,8 @@
+- if Procurement::Access.admins.empty?
+  .alert.alert-danger
+    %i.fa.fa-warning.text-danger
+    = _('No admins defined yet')
+
 - unless Procurement::BudgetPeriod.current
   .alert.alert-danger
     %i.fa.fa-warning.text-danger
@@ -7,11 +12,6 @@
   .alert.alert-danger
     %i.fa.fa-warning.text-danger
     = _('No groups defined yet')
-
-- if Procurement::Access.admins.empty?
-  .alert.alert-danger
-    %i.fa.fa-warning.text-danger
-    = _('No admins defined yet')
 
 - if Procurement::Access.requesters.empty?
   .alert.alert-danger

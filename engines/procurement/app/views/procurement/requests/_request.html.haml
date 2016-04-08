@@ -55,7 +55,7 @@
       %label.col-xs-4.control-label
         = _('Motivation')
       .col-xs-8
-        - if request.editable?(current_user)
+        - if request.editable?(current_user) and request.user_id == current_user.id
           %input.form-control{name: "requests[#{request.id}][motivation]", value: request.motivation, placeholder: _('Motivation'), maxlength: 255, autocomplete: :off, title: _('max 255 characters'), data: {toggle: 'tooltip'}, required: true}
         - else
           = request.motivation
@@ -183,7 +183,7 @@
 
       .col-xs-2.text-right
         - if request.editable?(current_user)
-          .btn-group
+          .btn-group{title: _('Options'), data: {toggle: 'tooltip'}}
             %button.btn.btn-default.btn-sm.dropdown-toggle{type: 'button', data: {toggle: 'dropdown'}, aria: {haspopup: true, expanded: false}}
               %i.fa.fa-gear
               %span.caret

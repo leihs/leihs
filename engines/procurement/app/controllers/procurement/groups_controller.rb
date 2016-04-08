@@ -30,15 +30,13 @@ module Procurement
     end
 
     def create
-      # FIXME
-      budget_limits_attributes = params[:group].delete(:budget_limits_attributes)
-      group = Group.create(params[:group])
-      if group.valid?
-        group.update_attributes(budget_limits_attributes: budget_limits_attributes)
+      @group = Group.create(params[:group])
+      if @group.valid?
+        redirect_to groups_path
       else
-        flash[:error] = group.errors.full_messages
+        flash.now[:error] = @group.errors.full_messages
+        render :edit
       end
-      redirect_to groups_path
     end
 
     def edit

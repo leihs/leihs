@@ -3097,10 +3097,10 @@ msgstr ""
 msgid "Add article"
 msgstr ""
 
-msgid "Add article for this group"
+msgid "Create request for this group"
 msgstr ""
 
-msgid "Add article for another user"
+msgid "Create request for another user"
 msgstr ""
 
 msgid "Select all"
@@ -3128,4 +3128,37 @@ msgid "No admins defined yet"
 msgstr ""
 
 msgid "No requesters defined yet"
+msgstr ""
+
+msgid "Create new budget period"
+msgstr ""
+
+msgid "Total of all requests in state \"New\""
+msgstr ""
+
+msgid "Total of all approved requests"
+msgstr ""
+
+msgid "Create request by choosing a group or recommended article or project"
+msgstr ""
+
+msgid "Current total of budget period"
+msgstr ""
+
+msgid "Current total of group"
+msgstr ""
+
+msgid "Limit of group for this budget period"
+msgstr ""
+
+msgid "% used (group limit - current group total)"
+msgstr ""
+
+msgid "Add new article or project to category"
+msgstr ""
+
+msgid "Delete category with all it's articles/projects"
+msgstr ""
+
+msgid "Add new requester"
 msgstr ""

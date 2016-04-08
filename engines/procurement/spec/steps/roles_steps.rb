@@ -48,47 +48,54 @@ steps_for :roles do
     expect(page).not_to have_selector "input[name*='inspection_comment']"
   end
 
-  step 'I can modify the field "order quantity" of other person\'s request' do
-    requester = FactoryGirl.create(:user)
-    FactoryGirl.create(:procurement_access,
-                       user: requester,
-                       organization: \
+  step 'I :boolean modify the field of other person\'s request' do |boolean, table|
+    table.raw.flatten.each do |field|
+      requester = FactoryGirl.create(:user)
+      FactoryGirl.create(:procurement_access,
+                         user: requester,
+                         organization: \
                          FactoryGirl.create(:procurement_organization))
-    prepare_request requester: requester
-    @group.inspectors << @current_user
-    go_to_request user: requester
-    find("[name='requests[#{@request.id}][order_quantity]']").set 5
-    find('button', text: _('Save'), match: :first).click
-    expect(page).to have_content _('Saved')
-  end
+      prepare_request requester: requester
+      @group.inspectors << @current_user
+      go_to_request user: requester
 
-  step 'I can modify the field "approved quantity" of other person\'s request' do
-    requester = FactoryGirl.create(:user)
-    FactoryGirl.create(:procurement_access,
-                       user: requester,
-                       organization: \
-                         FactoryGirl.create(:procurement_organization))
-    prepare_request requester: requester
-    @group.inspectors << @current_user
-    go_to_request user: requester
-    find("[name='requests[#{@request.id}][approved_quantity]']").set 5
-    find('button', text: _('Save'), match: :first).click
-    expect(page).to have_content _('Saved')
-  end
+      if boolean
+        case field
+        when 'order quantity'
+          find("[name='requests[#{@request.id}][order_quantity]']").set 5
+        when 'approved quantity'
+          find("[name='requests[#{@request.id}][approved_quantity]']").set 5
+        when 'inspection comment'
+          find("[name='requests[#{@request.id}][inspection_comment]']")
+              .set Faker::Lorem.word
+        end
 
-  step 'I can modify the field "inspection comment" of other person\'s request' do
-    requester = FactoryGirl.create(:user)
-    FactoryGirl.create(:procurement_access,
-                       user: requester,
-                       organization: \
-                         FactoryGirl.create(:procurement_organization))
-    prepare_request requester: requester
-    @group.inspectors << @current_user
-    go_to_request user: requester
-    find("[name='requests[#{@request.id}][inspection_comment]']")
-      .set Faker::Lorem.word
-    find('button', text: _('Save'), match: :first).click
-    expect(page).to have_content _('Saved')
+        find('button', text: _('Save'), match: :first).click
+        expect(page).to have_content _('Saved')
+
+      else
+        case field
+        when 'motivation'
+          expect(page).not_to have_selector \
+            "[name='requests[#{@request.id}][motivation]']"
+          within '.form-group', text: _('Motivation') do
+            find '.col-xs-8', text: @request.motivation
+          end
+        when 'priority'
+          expect(page).not_to have_selector \
+            "[name='requests[#{@request.id}][priority]']"
+          within '.form-group', text: _('Priority') do
+            find '.col-xs-8', text: _(@request.priority.capitalize)
+          end
+        when 'requested quantity'
+          expect(page).not_to have_selector \
+            "[name='requests[#{@request.id}][requested_quantity]']"
+          within '.form-group', text: _('Requested quantity') do
+            find '.col-xs-4', text: @request.requested_quantity
+          end
+        end
+      end
+    end
   end
 
   step 'I can export the data' do

@@ -42,6 +42,18 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
       | state                 |
 
   @inspection
+  Scenario: Which fields are not editable
+    Given I am Barbara
+    And a request with following data exist
+      | key                | value   |
+      | user               | Roger   |
+    When I navigate to the requests form of Roger
+    Then the following fields are not editable
+      | Motivation         |
+      | Priority           |
+      | Requested quantity |
+
+  @inspection
   Scenario: Using the filters as inspector
     Given I am Barbara
     And templates for my group exist
@@ -83,7 +95,6 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     And I fill in the following fields
       | key            | value |
       | Order quantity | 2     |
-
     And the ordered amount and the price are multiplied and the result is shown
     When I upload a file
     And I choose the name of a receiver
@@ -128,7 +139,6 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     When I fill in the following fields
       | key                | value  |
       | Inspection comment | random |
-
     And I click on save
     Then I see a success message
     And the status is set to "Denied"
@@ -143,7 +153,6 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     When I fill in the following fields
       | key                | value  |
       | Inspection comment | random |
-
     And I click on save
     Then I see a success message
     And the status is set to "Partially approved"

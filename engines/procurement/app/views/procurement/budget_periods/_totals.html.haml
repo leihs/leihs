@@ -1,12 +1,12 @@
 :ruby
   inspected_requests, new_requests = budget_period.requests.partition &:approved_quantity
 
-.label.label-info
+.label.label-info{data: {toggle: 'tooltip'}, title: _('Total of all requests in state "New"')}
   %i.fa.fa-shopping-cart
   = money_without_cents_and_with_symbol new_requests.map {|r| r.total_price(current_user) }.sum
 
 &nbsp;
 
 .label.label-success
-  %i.fa.fa-shopping-cart
+  %i.fa.fa-shopping-cart{data: {toggle: 'tooltip'}, title: _('Total of all approved requests')}
   = money_without_cents_and_with_symbol inspected_requests.map {|r| r.total_price(current_user) }.sum

@@ -11,7 +11,7 @@ module Procurement
     has_many :template_categories, dependent: :delete_all
     has_many :templates, through: :template_categories
 
-    has_many :budget_limits, dependent: :delete_all
+    has_many :budget_limits, dependent: :delete_all, inverse_of: :group
     accepts_nested_attributes_for :budget_limits,
                                   allow_destroy: true
 
