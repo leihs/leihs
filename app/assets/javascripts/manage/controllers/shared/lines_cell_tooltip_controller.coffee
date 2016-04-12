@@ -31,6 +31,7 @@ class window.App.LinesCellTooltipController extends Spine.Controller
       App.Model.ajaxFetch
         data: $.param
           ids: ids
+          paginate: false
     else
       {done: (c)->c()}
 
@@ -39,5 +40,6 @@ class window.App.LinesCellTooltipController extends Spine.Controller
       App.Option.ajaxFetch
         data: $.param
           ids: ids
+          paginate: false
     else
       {done: (c)->c()}
