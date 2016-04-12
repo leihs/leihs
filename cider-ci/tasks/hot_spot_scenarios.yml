@@ -1,0 +1,6 @@
+---
+tasks:
+- name: features/borrow/modellliste.feature:33
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/borrow/modellliste.feature:33 DEFAULT_BROWSER=firefox

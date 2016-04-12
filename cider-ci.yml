@@ -1,5 +1,6 @@
 _cider-ci_include:
   - cider-ci/jobs/scenarios.yml
+  - cider-ci/jobs/hot-spot-scenarios.yml
   - cider-ci/jobs/leihs-admin-scenarios.yml
   - cider-ci/jobs/procurement-scenarios.yml
   - cider-ci/jobs/problematic-scenarios.yml
