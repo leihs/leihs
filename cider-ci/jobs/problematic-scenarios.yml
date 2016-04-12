@@ -14,6 +14,9 @@ jobs:
     - type: job
       job: leihs-admin-scenarios
       states: [passed]
+    - type: job
+      job: procurement-scenarios
+      states: [passed]
 
     run-on:
     - type: branch
