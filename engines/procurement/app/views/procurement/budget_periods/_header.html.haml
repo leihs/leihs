@@ -32,9 +32,10 @@
 
   .col-xs-3
     - if @user
-      %h4{title: _('Requester'), data: {toggle: 'tooltip'}}
-        %i.fa.fa-user
-        = @user
+      %h4
+        %span{title: _('Requester'), data: {toggle: 'tooltip'}}
+          %i.fa.fa-user
+          = @user
       - unless Procurement::Access.requesters.find_by(user_id: @user)
         .text-danger.h4
           %i.fa.fa-warning
