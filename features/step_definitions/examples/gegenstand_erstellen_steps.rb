@@ -5,6 +5,9 @@ def fill_in_autocomplete_field field_name, field_value
     find('input', match: :first).set ''
     find('input', match: :first).set field_value
   end
+  # NOTE: this sleep is needed in case of loops where there is a risk
+  # of click on a previously displayed autocomplete menu
+  sleep 1
   within '.ui-autocomplete' do
     find('a', match: :prefer_exact, text: field_value).click
   end
