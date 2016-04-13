@@ -7,6 +7,8 @@ jobs:
     description: |
       Run problematic features (except engines) under MRI
 
+    priority: -1
+
     depends-on:
     - type: job
       job: scenarios

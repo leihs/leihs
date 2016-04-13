@@ -7,6 +7,8 @@ jobs:
     description: |
       Run leihs admin engine scenarios under MRI
 
+    priority: -1
+
     context:
       task-defaults:
         max-auto-trials: 3
