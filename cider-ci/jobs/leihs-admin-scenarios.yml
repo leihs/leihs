@@ -9,6 +9,10 @@ jobs:
 
     priority: -1
 
+    run-on:
+    - type: branch
+      include-match: ^.*$
+
     context:
       task-defaults:
         max-auto-trials: 3
