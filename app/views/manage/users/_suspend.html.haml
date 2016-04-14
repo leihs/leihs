@@ -11,4 +11,4 @@
     .col1of2
       %strong.font-size-m= _("Suspended reason") + " *"
     .col1of2.text-align-right
-      %textarea{name: "access_right[suspended_reason]", value: @access_right.try(:suspended_reason), rows: 5}
+      %textarea{name: "access_right[suspended_reason]", rows: 5}= @access_right.try(:suspended_reason)

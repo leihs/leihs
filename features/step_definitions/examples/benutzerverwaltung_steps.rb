@@ -117,11 +117,14 @@ end
 Then(/^I have to specify a reason for suspension$/) do
   el = find("[name='access_right[suspended_reason]']")
   el.click
-  el.set('this is the reason')
+  @suspended_reason = 'this is the reason'
+  el.set(@suspended_reason)
+  click_on _('Save')
 end
 
 Then /^if the (user|delegation) is suspended, I can remove the suspension$/ do |arg1|
   visit manage_edit_inventory_pool_user_path(@inventory_pool, @customer)
+  expect(find("[name='access_right[suspended_reason]']").value).to be == @suspended_reason
   find('[data-suspended-until-input]').set('')
   find('.button', text: _('Save')).click
   find('.button.white', text: _('New User'))
