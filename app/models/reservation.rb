@@ -141,17 +141,6 @@ class Reservation < ActiveRecord::Base
 
   ###############################################
 
-  # TODO: 03** merge here available_tooltip and complete_tooltip
-  def tooltip
-    r = ''
-    r += self.available_tooltip
-    r += '<br/>'
-    r += self.complete_tooltip
-    # TODO: 03** include errors?
-    # r += self.errors.full_messages.uniq
-    r
-  end
-
   def visits_on_open_date?
     inventory_pool.open_on?(start_date) and inventory_pool.open_on?(end_date)
   end
@@ -159,28 +148,6 @@ class Reservation < ActiveRecord::Base
   # custom valid? method
   def complete?
     self.valid? and self.available?
-  end
-
-  # TODO: 04** merge in complete?
-  def complete_tooltip
-    r = ''
-    # TODO: 04** self.errors.full_messages.uniq
-    r += _('not valid. ') unless self.valid?
-    r += _('not available. ') unless self.available?
-    r
-  end
-
-  # TODO: 04** merge in available?
-  def available_tooltip
-    r = ''
-    r += _('quantity not available. ') unless available?
-    unless inventory_pool.open_on?(start_date)
-      r += _('inventory pool is closed on start_date. ')
-    end
-    unless inventory_pool.open_on?(end_date)
-      r += _('inventory pool is closed on end_date. ')
-    end
-    r
   end
 
   ###############################################

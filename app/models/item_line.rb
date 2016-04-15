@@ -40,13 +40,6 @@ class ItemLine < Reservation
     !self.item.nil? and super
   end
 
-  # TODO: 04** merge in complete?
-  def complete_tooltip
-    r = super
-    r += _('item not assigned. ') if self.item.nil?
-    r
-  end
-
   ##################################################
 
   def late?(current_date = Time.zone.today)

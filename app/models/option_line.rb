@@ -27,10 +27,6 @@ class OptionLine < Reservation
     self.valid?
   end
 
-  def tooltip
-    self.errors.full_messages.uniq
-  end
-
   def late?(current_date = Time.zone.today)
     option and super
   end
