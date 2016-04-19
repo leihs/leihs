@@ -82,7 +82,6 @@ group :development, :test do
   gem 'faker', '1.3.0' # NOTE '~> 1.4' doesn't work beacause "I18n::InvalidLocale" error, see note for config.i18n in config/application.rb
   gem 'flog'
   gem 'flay'
-  gem 'haml-lint'
   gem 'launchy', '~> 2.1'
   gem 'meta_request'
   gem 'phantomjs', '~> 2.1' # headless webdriver (UI & JS tests)
