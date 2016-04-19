@@ -7,16 +7,15 @@ task-defaults:
     rbenv: true
     ruby: true
 
-    environment-variables:
-      RAILS_ENV: test
-      LANG: "en_US.UTF-8"
-      RBENV_VERSION: 2.1
+  environment-variables:
+    RAILS_ENV: test
+    LANG: "en_US.UTF-8"
 
-      scripts:
-        bundle:
-          exclusive-executor-resource: bundler_2.1
-          body: cider-ci/bin/bundle_with_cachestamp.sh
+  scripts:
+    _cider-ci_include:
+      - cider-ci/shared/scripts/setup-ruby.yml
+      - cider-ci/shared/scripts/bundle.yml
 
-          test:
-            start-when:
-              - script: bundle
+    test:
+      start-when:
+        - script: bundle

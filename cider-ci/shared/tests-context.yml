@@ -6,7 +6,6 @@ task-defaults:
   eager-trials: 1
 
   environment-variables:
-    RBENV_VERSION: 2.1
     RAILS_ENV: test
     LANG: "en_US.UTF-8"
     DATABASE: "leihs_test_{{CIDER_CI_TRIAL_ID}}"
@@ -30,7 +29,6 @@ task-defaults:
     nodejs: true
     mysql: true
     rbenv: true
-    ruby-2.2: true
     ruby: true
     tightvnc: true
 
@@ -41,6 +39,9 @@ task-defaults:
       max: 5999
 
   scripts:
+    _cider-ci_include:
+      - cider-ci/shared/scripts/setup-ruby.yml
+      - cider-ci/shared/scripts/bundle.yml
 
     configure-database:
       body: |
@@ -56,10 +57,8 @@ task-defaults:
               'password' => ENV['MYSQL_PASSWORD'],
               'database' => ENV['DATABASE']}}
         File.open('config/database.yml','w') { |file| file.write config.to_yaml }
-
-    bundle:
-      exclusive-executor-resource: bundler_2.1
-      body: cider-ci/bin/bundle_with_cachestamp.sh
+      start-when:
+        - script: setup-ruby
 
     create-database:
       body:  echo $DATABASE && mysqladmin --user=$MYSQL_USER --password=$MYSQL_PASSWORD create $DATABASE
@@ -76,8 +75,6 @@ task-defaults:
       - script: create-database
 
     test:
-      environment-variables:
-        RBENV_VERSION: 2.1
       body: |
         export DISPLAY=":$XVNC_PORT" \
         # && rm -rf coverage \

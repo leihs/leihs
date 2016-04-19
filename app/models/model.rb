@@ -352,7 +352,7 @@ class Model < ActiveRecord::Base
         models = \
           models
             .joins(:categories)
-            .where(:"model_groups.id" => \
+            .where("model_groups.id": \
                    [Category.find(params[:category_id])] \
                    + Category.find(params[:category_id]).descendants)
       end

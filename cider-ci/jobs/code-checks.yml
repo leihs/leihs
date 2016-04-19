@@ -13,27 +13,8 @@ jobs:
 
     context:
 
-      task-defaults:
-
-        eager-trials: 1
-        max-auto-trials: 2
-        traits:
-          linux: true
-          rbenv: true
-          ruby: true
-
-        environment-variables:
-          RAILS_ENV: test
-          LANG: "en_US.UTF-8"
-          RBENV_VERSION: 2.1
-
-        scripts:
-          bundle:
-            exclusive-executor-resource: bundler_2.1
-            body: cider-ci/bin/bundle_with_cachestamp.sh
-          test:
-            start-when:
-            - script: bundle
+      _cider-ci_include:
+        - cider-ci/shared/code-checks-context.yml
 
       tasks:
 
