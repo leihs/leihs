@@ -22,11 +22,11 @@ module Dataset
     raise 'MySQL current datetime has not been changed' if mysql_now != Date.today
   end
 
-  def restore_random_dump(minimal = false)
+  def restore_random_dump(dataset)
     use_test_datetime
 
     config = Rails.configuration.database_configuration[Rails.env]
-    file_name = dump_file_name(minimal)
+    file_name = dump_file_name(dataset)
     cmd = "mysql #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil} #{config['database']} < #{file_name}"
 
     # we need this variable assignment in order to wait for the end of the system call. DO NOT DELETE !
@@ -80,12 +80,18 @@ module Dataset
     puts "\n        ------------------------- TEST_DATETIME=#{ENV['TEST_DATETIME']} -------------------------"
   end
 
-  def dump_file_name(minimal = false)
-    s = if minimal
-          'minimal_seed.sql'
-        else
+  def dump_file_name(dataset)
+    s = case dataset
+        when 'minimal'
+          'minimal.sql'
+        when 'normal'
           get_test_datetime
-          "seed_#{ENV['TEST_DATETIME']}.sql"
+          "normal_#{ENV['TEST_DATETIME']}.sql"
+        when 'huge'
+          get_test_datetime
+          "huge_#{ENV['TEST_DATETIME']}.sql"
+        else
+          raise
         end
     File.join(Rails.root, 'features/personas/dumps', s)
   end
@@ -95,14 +101,14 @@ module Dataset
   def get_test_datetime(reset = false)
     ENV['TEST_DATETIME'] = if not ENV['TEST_DATETIME'].blank? and not reset
                              ENV['TEST_DATETIME']
-                           elsif reset or (existing_dump_file_name = Dir.glob(File.join(Rails.root, 'features/personas/dumps', 'seed_*.sql')).sample).nil?
+                           elsif reset or (existing_dump_file_name = Dir.glob(File.join(Rails.root, 'features/personas/dumps', 'normal_*.sql')).sample).nil?
                              # NOTE we do not test on saturday or sunday
                              begin
                                new_date = rand(3.years.ago..3.years.from_now)
                              end while new_date.saturday? or new_date.sunday? or not (6..18).include?(new_date.hour)
                              new_date.to_time.iso8601
                            else
-                             existing_dump_file_name.match(/.*seed_(.*)\.sql/).captures.first
+                             existing_dump_file_name.match(/.*normal_(.*)\.sql/).captures.first
                            end
   end
 

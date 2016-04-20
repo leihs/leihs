@@ -11,7 +11,8 @@ class Manage::VisitsController < Manage::ApplicationController
   end
 
   def destroy
-    visit = current_inventory_pool.visits.hand_over.find params[:visit_id]
+    visit = current_inventory_pool.visits.hand_over
+                .having('id = ?', params[:visit_id]).first
     unless visit.blank?
       contract = \
         visit
@@ -27,7 +28,8 @@ class Manage::VisitsController < Manage::ApplicationController
   end
 
   def remind
-    visit = current_inventory_pool.visits.take_back.find params[:visit_id]
+    visit = current_inventory_pool.visits.take_back
+                .having('id = ?', params[:visit_id]).first
 
     # TODO: dry with User.remind_and_suspend_all
     grouped_reservations = visit.reservations.group_by do |vl|

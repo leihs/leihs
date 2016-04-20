@@ -1,4 +1,4 @@
-# Reading a MySQL View
+# No MySQL table, reading a query result
 class ReservationsBundle < ActiveRecord::Base
   include Delegation::ReservationsBundle
   audited

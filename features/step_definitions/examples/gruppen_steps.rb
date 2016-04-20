@@ -172,8 +172,7 @@ end
 
 Then(/^the already present models are sorted alphabetically$/) do
   within('#models-allocations') do
-    find('.list-of-lines .line', match: :first)
-    entries = all('.list-of-lines .line')
+    entries = all('.list-of-lines .line', minimum: 1)
     expect(entries.map(&:text).sort).to eq entries.map(&:text)
   end
 end

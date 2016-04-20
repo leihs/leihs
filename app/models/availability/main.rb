@@ -60,17 +60,11 @@ module Availability
     def initialize(attr)
       @model          = attr[:model]
       @inventory_pool = attr[:inventory_pool]
-      # we use array select instead of sql where condition to
-      # fetch once all running_reservations during the same request,
-      # instead of hit the db multiple times
-      @running_reservations = \
-        @inventory_pool
-          .running_reservations
-          .select { |line| line.model_id == @model.id }
+      @running_reservations = @inventory_pool.running_reservations
+                                  .where(model_id: @model.id)
+                                  .order(:start_date, :end_date)
       @partitions = \
-        @inventory_pool
-          .partitions_with_generals
-          .hash_for_model_and_groups(@model)
+        Partition.hash_with_generals(@inventory_pool, @model)
       @inventory_pool_and_model_group_ids = \
         (@inventory_pool.loaded_group_ids ||= @inventory_pool.group_ids) \
           & @partitions.keys
@@ -78,7 +72,7 @@ module Availability
       initial_change = {}
       @partitions.each_pair do |group_id, quantity|
         initial_change[group_id] = { in_quantity: quantity,
-                                     running_reservations: {} }
+                                     running_reservations: [] }
       end
       @changes = Changes[Time.zone.today => initial_change]
 
@@ -130,8 +124,7 @@ module Availability
         inner_changes.each_pair do |key, ic|
           qty = ic[reservation.allocated_group_id]
           qty[:in_quantity] -= reservation.quantity
-          qty[:running_reservations]['ItemLine'] ||= []
-          qty[:running_reservations]['ItemLine'] << reservation.id
+          qty[:running_reservations] << reservation.id
         end
       end
     end

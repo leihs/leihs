@@ -19,7 +19,7 @@
         - if k == "time_zone"
           = f.time_zone_select k
         - elsif k == "local_currency_string"
-          - all_currencies = Money::Currency.all.map(&:iso_code).sort
+          - all_currencies = Money::Currency.all.map(&:iso_code).uniq.sort
           = f.select k, all_currencies
         - else
           - case Setting.columns_hash[k].type

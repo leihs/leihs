@@ -1,16 +1,16 @@
 # -*- encoding : utf-8 -*-
 
   Given(/^I search for a model to add$/) do
-    @truncated_model_name = @current_user.inventory_pools.managed.first.items.first.model.name[0]
-    find('[data-add-contract-line]').set @truncated_model_name
-    find('.ui-autocomplete .ui-menu-item', match: :first)
+    ('a'..'z').to_a.each do |letter|
+      find('[data-add-contract-line]').set letter
+      break if has_selector? '.ui-autocomplete .ui-menu-item'
+    end
   end
 
 Then(/^the availability of the model is displayed as: "(?:.*?)"$/) do
   start_date = Date.parse find('#add-start-date').value
   end_date = Date.parse find('#add-end-date').value
-  find('.ui-autocomplete .ui-menu-item', match: :first)
-  all('.ui-autocomplete .ui-menu-item', text: 'Model').each do |item|
+  all('.ui-autocomplete .ui-menu-item', minimum: 1, text: 'Model').each do |item|
     name = item.find('.col3of4 strong').text
     model = Model.find_by_name(name)
     av = model.availability_in(@current_inventory_pool)

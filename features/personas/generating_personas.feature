@@ -13,13 +13,15 @@ Feature: Generating Personas
   Scenario: Genarating Minimal Dataset
     Given the minimal setup exists
     And the item fields are initialized
+    Then there are 44 fields in total
+    And the ZHdK item fields are initialized
     Then there are 50 fields in total
-    Then the minimal seed dump is generated
+    Then the minimal dump is generated
 
   @generating_personas
   Scenario: Genarating Dataset 1
     Given today is a random date
-    And the minimal seed dump is loaded
+    And the minimal dump is loaded
 
     And the following users exist
       | firstname                 | lastname                 | email                    | language | address                                 |
@@ -963,4 +965,12 @@ Feature: Generating Personas
 
     Then there are 50 fields in total
 
-    Then the current time dump is generated
+    Then the normal dump is generated
+
+  @generating_personas
+  Scenario: Genarating Huge Dataset
+    Given the normal dump is loaded
+    And each model has at least 300 items
+    And each model has at least 300 submitted reservations
+    And each model has at least 300 approved reservations
+    Then the huge dump is generated

@@ -3,32 +3,34 @@
 # when an inventory pool manager should hand over some items to
 # or get them back from the customer.
 #
-# Reading a MySQL View
+# No MySQL table, reading a query result
 class Visit < ActiveRecord::Base
   include LineModules::GroupedAndMergedLines
   include DefaultPagination
-
-  self.primary_key = :id
 
   #######################################################
   def readonly?
     true
   end
 
-  def delete
-    false
+  self.table_name = 'reservations'
+
+  default_scope do
+    select('date, reservations.inventory_pool_id, reservations.user_id, status, ' \
+           'SUM(quantity) AS quantity, ' \
+           'CONV(SUBSTRING(CAST(SHA(' \
+            "CONCAT_WS('_', date, reservations.inventory_pool_id, " \
+            'reservations.user_id, status)) AS CHAR)' \
+           ', 1, 8), 16, 10) AS id')
+    .from('(SELECT ' \
+              "IF((status = 'signed'), end_date, start_date) AS date, "\
+              'inventory_pool_id, user_id, status, quantity ' \
+            'FROM `reservations` ' \
+            "WHERE status IN ('submitted', 'approved','signed') ) AS reservations")
+    .group('user_id, status, date, inventory_pool_id')
+    .order('date')
   end
 
-  def self.delete_all
-    false
-  end
-
-  def self.destroy_all
-    false
-  end
-  before_destroy do
-    false
-  end
   #######################################################
 
   belongs_to :user

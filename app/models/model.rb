@@ -66,8 +66,6 @@ class Model < ActiveRecord::Base
     end
   end
   accepts_nested_attributes_for :partitions, allow_destroy: true
-  # MySQL View based on partitions and items
-  has_many :partitions_with_generals
 
   has_many :reservations, dependent: :restrict_with_exception
   has_many :properties, dependent: :destroy
@@ -414,20 +412,14 @@ class Model < ActiveRecord::Base
   def total_borrowable_items_for_user(user, inventory_pool = nil)
     groups = user.groups.with_general
     if inventory_pool
-      inventory_pool
-        .partitions_with_generals
-        .hash_for_model_and_groups(self, groups)
+      Partition.hash_with_generals(inventory_pool, self, groups)
         .values
         .sum
-      # tmp# inventory_pool.partitions_with_generals
-      # .where(model_id: id, group_id: groups).sum(:quantity)
     else
       inventory_pools
         .to_a
         .sum do |ip|
-          ip
-            .partitions_with_generals
-            .hash_for_model_and_groups(self, groups)
+          Partition.hash_with_generals(ip, self, groups)
             .values
             .sum
         end

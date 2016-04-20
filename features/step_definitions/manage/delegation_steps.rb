@@ -31,8 +31,7 @@ Then(/^I can restrict the user list to show only (users|delegations)$/) do |arg1
 
   find('#user-index-view form#list-filters select#type').select t
   within '#user-list.list-of-lines' do
-    find('.line', match: :first)
-    ids = all(".line [data-type='user-cell']").map { |user_data| user_data['data-id'] }
+    ids = all(".line [data-type='user-cell']", minimum: 1).map { |user_data| user_data['data-id'] }
     expect(User.find(ids).any?(&:delegation?)).to be b
   end
 end
@@ -69,7 +68,7 @@ When(/^I assign none, one or more people to the delegation$/) do
   rand(0..2).times do
     find('[data-search-users]').set ' '
     find('ul.ui-autocomplete')
-    el = all('ul.ui-autocomplete > li').to_a.sample
+    el = all('ul.ui-autocomplete > li > a', minimum: 1).to_a.sample
     @delegated_users << el.text
     el.click
   end
@@ -78,9 +77,9 @@ end
 When(/^I assign none, one or more groups to the delegation$/) do
   rand(0..2).times do
     find('#change-groups input').click
-    find('ul.ui-autocomplete')
-    el = all('ul.ui-autocomplete > li').to_a.sample
-    el.click
+    within 'ul.ui-autocomplete' do
+      all('li > a', minimum: 1).to_a.sample.click
+    end
   end
 end
 
@@ -216,8 +215,7 @@ When(/^I change the delegation$/) do
 end
 
 When(/^I try to change the delegation$/) do
-  expect(has_selector?('input[data-select-lines]', match: :first)).to be true
-  all('input[data-select-lines]').each_with_index do |line, i|
+  all('input[data-select-lines]', minimum: 1).each_with_index do |line, i|
     el = all('input[data-select-lines]')[i]
     el.click unless el.checked?
   end
@@ -290,8 +288,7 @@ When(/^I pick a user instead of a delegation$/) do
   @delegation = @contract.user
   @delegated_user = @contract.delegated_user
   @new_user = @current_inventory_pool.users.not_as_delegations.order('RAND()').first
-  has_selector?('input[data-select-lines]', match: :first)
-  all('input[data-select-lines]').each_with_index do |line, i|
+  all('input[data-select-lines]', minimum: 1).each_with_index do |line, i|
     el = all('input[data-select-lines]')[i]
     el.click unless el.checked?
   end
@@ -299,6 +296,12 @@ When(/^I pick a user instead of a delegation$/) do
   multibutton.find('.dropdown-toggle').click if multibutton
   find('#swap-user', match: :first).click
   within '.modal' do
+    # NOTE: need to unfocus delegate user input field, because clashing double #user-id reference
+    if has_selector? '#contact-person'
+      find('#contact-person input#user-id').click
+      find('#user input#user-id').click
+    end
+
     find('#user input#user-id', match: :first).set @new_user.name
     find('.ui-menu-item a', match: :first, text: @new_user.name).click
     find(".button[type='submit']", match: :first).click

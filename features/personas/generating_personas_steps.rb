@@ -38,22 +38,25 @@ Given(/^the minimal setup exists$/) do
   LeihsFactory.create_default_authentication_systems
 end
 
-Then(/^the (minimal seed|current time) dump is generated$/) do |arg1|
+Then(/^the (minimal|normal|huge) dump is generated$/) do |arg1|
   config = Rails.configuration.database_configuration[Rails.env]
-  file_name = Dataset.dump_file_name(arg1 == 'minimal seed')
+  file_name = Dataset.dump_file_name(arg1)
 
-  expect(File.exists?(file_name)).to be false
-
-  system "mysqldump #{config['host'] ? "-h #{config['host']}" : nil} -u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil}  #{config['database']} --no-create-db | grep -v 'SQL SECURITY DEFINER' > #{file_name}"
+  # TODO: faster alternative: Percona XtraBackup innobackupex
+  system "echo 'set autocommit=0; set unique_checks=0; set foreign_key_checks=0;' > #{file_name}"
+  system "mysqldump #{config['host'] ? "-h #{config['host']}" : nil} " \
+         "-u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil} " \
+         " #{config['database']} --no-create-db | grep -v 'SQL SECURITY DEFINER' >> #{file_name}"
+  system "echo 'commit; set unique_checks=1; set foreign_key_checks=1;' >> #{file_name}"
 
   expect(File.exists?(file_name)).to be true
 end
 
-Given(/^the minimal seed dump is loaded$/) do
+Given(/^the (minimal|normal|huge) dump is loaded$/) do |arg1|
   `RAILS_ENV=test rake db:drop db:create`
 
   config = Rails.configuration.database_configuration[Rails.env]
-  file_name = Dataset.dump_file_name(true)
+  file_name = Dataset.dump_file_name(arg1)
 
   expect(File.exists?(file_name)).to be true
 
@@ -64,8 +67,13 @@ Given(/^the minimal seed dump is loaded$/) do
   raise 'persona dump not loaded' unless dump_restored
 end
 
-Given /^the item fields are initialized$/ do
-  load "#{Rails.root}/config/initializers/fields.rb"
+Given /^the (ZHdK )?item fields are initialized$/ do |zhdk|
+  if zhdk
+    require "#{Rails.root}/features/personas/zhdk_fields.rb"
+    ZHdKFields.up
+  else
+    load "#{Rails.root}/config/initializers/fields.rb"
+  end
 end
 
 Given(/^(\d+) user(s)? exist(s)?$/) do |n, s1, s2|
@@ -699,4 +707,53 @@ Then(/^there are (\d+) (.*) in total$/) do |n, elements|
           Field.count
       end
   ).to eq n.to_i
+end
+
+Given(/^each model has at least (\d+) items$/) do |arg1|
+  n = arg1.to_i
+  Model.pluck(:id).each do |model_id|
+    if Item.where(model_id: model_id).count.zero?
+      FactoryGirl.create :item, model_id: model_id
+    end
+
+    Item.transaction do
+      n.times do |i|
+        # NOTE: too slow!
+        # FactoryGirl.create :item, model_id: model_id
+
+        Item.connection
+            .execute('INSERT INTO items ' \
+               '(inventory_code, serial_number, model_id, location_id, supplier_id, owner_id, parent_id, created_at, updated_at, inventory_pool_id) ' \
+               "SELECT CONCAT_WS(inventory_code, #{i}, '-'), CONCAT_WS(serial_number, #{i}, '-'), " \
+               'model_id, location_id, supplier_id, owner_id, parent_id, created_at, updated_at, inventory_pool_id ' \
+               'FROM items ' \
+               "WHERE model_id = #{model_id} " \
+               "LIMIT 1;")
+      end
+    end
+
+    expect(Item.where(model_id: model_id).count).to be >= n
+  end
+end
+
+Given(/^each model has at least (\d+) (submitted|approved) reservations$/) do |arg1, status|
+  n = arg1.to_i
+  status = status.to_sym
+  Model.pluck(:id).each do |model_id|
+    values = n.times.map do
+      # NOTE: too slow!
+      # FactoryGirl.create :reservation, attrs
+
+      "(#{model_id}, 1, DATE_ADD(CURDATE(), INTERVAL 100 * rand() DAY), DATE_ADD(DATE_ADD(CURDATE(), INTERVAL 200 DAY), INTERVAL 300 * rand() DAY), " \
+      "NOW(), NOW(), 'ItemLine', " \
+      "(SELECT id FROM purposes ORDER BY RAND() LIMIT 1), (SELECT id FROM inventory_pools ORDER BY RAND() LIMIT 1), (SELECT id FROM users ORDER BY RAND() LIMIT 1), '#{status}')"
+    end
+
+    Reservation.connection
+        .execute('INSERT INTO reservations ' \
+             '(model_id, quantity, start_date, end_date, created_at, updated_at, type, purpose_id, inventory_pool_id, user_id, status) ' \
+             "VALUES #{values.join(', ')};")
+
+    expect(Reservation.where(model_id: model_id).send(status).count).to be >= n
+  end
 end

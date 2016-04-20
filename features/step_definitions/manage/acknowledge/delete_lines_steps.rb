@@ -69,7 +69,8 @@ Then(/^all reservations of that hand over are deleted$/) do
   within(".line[data-id='#{@visit.id}']") do
     find('.line-actions', text: _('Deleted'))
   end
-  expect { @visit.reload }.to raise_error(ActiveRecord::RecordNotFound)
+  reloaded_visit = Visit.having('id = ?', @visit.id).first
+  expect(reloaded_visit).to be_nil
   @visit_line_ids.each do |line_id|
     expect { Reservation.find(line_id) }.to raise_error(ActiveRecord::RecordNotFound)
   end

@@ -564,6 +564,10 @@ tasks:
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/technical/visit/overdue_model.feature"
+- name: technical/visit/visit
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/technical/visit/visit.feature"
 - name: technical/visit/visits_controller
   scripts:
     test:

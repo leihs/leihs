@@ -38,8 +38,7 @@ end
 
 Then(/^the inventory I see is filtered by this category$/) do
   within('#inventory') do
-    find(".line[data-type='model']", match: :first)
-    all(".line[data-type='model']").each do |model_line|
+    all(".line[data-type='model']", minimum: 1).each do |model_line|
       model = Model.find_by_name(model_line.find('.col2of5 strong').text)
       expect((model.categories.include?(@child_category) or @child_category.descendants.any? {|c| model.categories.include? c})).to be true
     end

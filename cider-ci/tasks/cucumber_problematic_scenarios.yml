@@ -350,11 +350,6 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/manage/verification.feature:8
         DEFAULT_BROWSER=firefox
-- name: features/performance_stability.feature:6
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/performance_stability.feature:6
-        DEFAULT_BROWSER=firefox
 - name: features/technical/contract/remove_line_model.feature:37
   scripts:
     test:

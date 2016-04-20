@@ -39,11 +39,6 @@ Given /^visit that is (.*)$/ do |arg1|
   @visit = @inventory_pool.visits.hand_over.where("date #{sign} ?", Date.today).first
 end
 
-When /^the visit is deleted$/ do
-  @visit_count = Visit.count
-  @response = delete "/manage/#{@inventory_pool.id}/visits/#{@visit.id}.json"
-end
-
 Then /^the visit does not exist anymore$/ do
   expect(Visit.find_by_id(@visit)).to eq nil
   expect(@visit_count).to eq Visit.count + 1

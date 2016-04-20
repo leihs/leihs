@@ -3,27 +3,20 @@ class Contract < ActiveRecord::Base
   include DefaultPagination
   audited
 
-  # Rails3.1# TODO Reservation#default_scope
+  ORDER_BY = lambda do
+    order('reservations.start_date ASC, ' \
+          'reservations.end_date ASC, ' \
+          'reservations.created_at ASC')
+  end
+
   has_many :reservations,
-           (lambda do
-             order('reservations.start_date ASC, ' \
-                   'reservations.end_date ASC, ' \
-                   'reservations.created_at ASC')
-           end),
+           ORDER_BY,
            dependent: :destroy
   has_many :item_lines,
-           (lambda do
-             order('reservations.start_date ASC, ' \
-                   'reservations.end_date ASC, ' \
-                   'reservations.created_at ASC')
-           end),
+           ORDER_BY,
            dependent: :destroy
   has_many :option_lines,
-           (lambda do
-             order('reservations.start_date ASC, ' \
-                   'reservations.end_date ASC, ' \
-                   'reservations.created_at ASC')
-           end),
+           ORDER_BY,
            dependent: :destroy
   has_many :models,
            (lambda do

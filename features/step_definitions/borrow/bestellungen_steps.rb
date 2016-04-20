@@ -6,7 +6,7 @@ Then(/^I see the number of submitted, unapproved orders on every page$/) do
    borrow_current_order_path,
    borrow_current_user_path].each do |path|
     visit path
-    expect(find("nav a[href='#{borrow_orders_path}'] .badge", match: :first).text.to_i).to eq @current_user.reservations_bundles.submitted.to_a.count  # NOTE count returns a Hash because the group() in default scope
+    expect(find("nav a[href='#{borrow_orders_path}'] .badge", match: :first).text.to_i).to eq @current_user.reservations_bundles.submitted.to_a.size  # NOTE count returns a Hash because the group() in default scope
   end
 end
 

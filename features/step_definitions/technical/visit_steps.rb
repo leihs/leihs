@@ -43,3 +43,8 @@ Then(/^the other reservations of such contract must be "(.*?)"$/) do |line_state
     end
   end
 end
+
+Then /^all the generated visit ids are unique$/ do
+  ids = Visit.all.map &:id
+  expect(ids.size).to eq ids.uniq.size
+end

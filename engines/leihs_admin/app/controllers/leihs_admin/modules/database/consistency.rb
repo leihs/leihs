@@ -15,15 +15,14 @@ module LeihsAdmin
           @only_tables_no_views = @connection.execute(
             "SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'")
             .to_h.keys
-          @excluded_models = [ReservationsBundle,
+          @excluded_models = [ReservationsBundle, Visit,
                               Audited::Adapters::ActiveRecord::Audit]
-          @view_table_models = [PartitionsWithGeneral, Visit]
           @references = []
 
           Rails.application.eager_load! if Rails.env.development?
 
           ActiveRecord::Base.descendants.each do |klass|
-            next if klass.name =~ /^HABTM_/ or @view_table_models.include? klass
+            next if klass.name =~ /^HABTM_/
             klass.reflect_on_all_associations(:belongs_to).each do |ref|
               if ref.polymorphic?
                 # NOTE we cannot define foreign keys on multiple parent tables

@@ -45,8 +45,7 @@ Then(/^I can open the (contract|picking list|value list) of any (order|contract)
   find('body').click # closes the toggler if already open
 
   within '#contracts' do
-    find('.line', match: :first)
-    within all('.line').sample do
+    within all('.line', minimum: 1).sample do
       within find('.line-actions .multibutton') do
         if arg1 == 'contract' and current_role == :group_manager
           find("a[target='_blank']", text: s1).click

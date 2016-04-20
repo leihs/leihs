@@ -1,8 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 When(/^I press "Add to order" on a model$/) do
-  find('#model-list > a.line[data-id]', match: :first)
-  line = all('#model-list > a.line[data-id]').sample
+  line = all('#model-list > a.line[data-id]', minimum: 1).sample
   @model = Model.find line['data-id']
   line.find('button[data-create-order-line]').click
 end
@@ -121,7 +120,6 @@ end
 
 Then(/^the model has been added to the order with the respective start and end date, quantity and inventory pool$/) do
   within '#current-order-lines' do
-    find('.line', match: :first)
     find('.line', text: "#{@quantity}x #{@model.name}")
   end
   expect(@current_user.reservations.unsubmitted.detect{|line| line.model == @model}).not_to be_nil
@@ -380,7 +378,10 @@ Then(/^that inventory pool which comes alphabetically first is selected$/) do
 end
 
 When(/^a model exists that is only available to a group$/) do
-  @model = Model.all.detect{|m| m.partitions_with_generals.length > 1 and m.partitions_with_generals.find{|p| p.group_id == nil}.quantity == 0}
+  @model = Model.all.detect do |m|
+    partitions = Partition.with_generals(model_ids: [m.id])
+    partitions.count > 1 and partitions.find{|p| p.group_id == nil}.quantity == 0
+  end
   expect(@model.blank?).to be false
   @partition = @model.partitions.order('RAND()').first
 end

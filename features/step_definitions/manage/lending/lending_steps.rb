@@ -131,7 +131,7 @@ end
 
 
 When /^I open a hand over for a customer that has things to pick up today as well as in the future$/ do
-  @customer = @current_inventory_pool.users.detect{|u| u.visits.hand_over.to_a.count > 1} # NOTE count returns a Hash because the group() in default scope
+  @customer = @current_inventory_pool.users.detect{|u| u.visits.hand_over.to_a.size > 1} # NOTE count returns a Hash because the group() in default scope
   step 'I open a hand over to this customer'
 end
 
@@ -214,8 +214,7 @@ end
 
 
 Then /^I can inspect each item$/ do
-  find(".line[data-line-type='item_line']", match: :first)
-  line_ids = all(".line[data-line-type='item_line']").map {|l| l['data-id']}
+  line_ids = all(".line[data-line-type='item_line']", minimum: 1).map {|l| l['data-id']}
   line_ids.each do |id|
     within find(".line[data-id='#{id}'] .multibutton") do
       find('.dropdown-toggle').click
@@ -226,8 +225,7 @@ end
 
 
 When /^I inspect an item$/ do
-  find(".line[data-line-type='item_line']", match: :first)
-  within all(".line[data-line-type='item_line']").to_a.sample.find('.multibutton') do
+  within all(".line[data-line-type='item_line']", minimum: 1).to_a.sample.find('.multibutton') do
     @item = Reservation.find(JSON.parse(find('[data-ids]')['data-ids']).first).item
     find('.dropdown-toggle').click
     find('.dropdown-holder .dropdown-item', text: _('Inspect')).click
@@ -378,8 +376,7 @@ end
 
 Then /^I see one line per model$/ do
   within('.tooltipster-default', match: :first, visible: true) do
-    find('.exclude-last-child', match: :first)
-    all('.exclude-last-child').each do |div|
+    all('.exclude-last-child', minimum: 1).each do |div|
       model_names = div.all('.row .col7of8:nth-child(2) strong', text: /.+/).map &:text
       expect(model_names.size).to eq model_names.uniq.size
     end
@@ -388,8 +385,7 @@ end
 
 Then /^each line shows the sum of items of the respective model$/ do
   within('.tooltipster-default', match: :first, visible: true) do
-    find('.row .col1of8:nth-child(1)', match: :first)
-    quantities = all('.row .col1of8:nth-child(1)', text: /.+/).map{|x| x.text.to_i}
+    quantities = all('.row .col1of8:nth-child(1)', minimum: 1, text: /.+/).map{|x| x.text.to_i}
     expect(quantities.sum).to be >= quantities.size
   end
 end

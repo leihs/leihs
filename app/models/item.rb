@@ -299,6 +299,8 @@ class Item < ActiveRecord::Base
     Field.all.select do |f|
       [nil, type.downcase].include?(f.data['target_type']) \
         and not ['model_id'].include?(f.data['form_name'])
+    end.sort_by do |f|
+      [Field::GROUPS_ORDER.index(f.data['group']) || 999, f.position]
     end.group_by { |f| f.data['group'] }.values.flatten
   end
 

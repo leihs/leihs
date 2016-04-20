@@ -87,9 +87,9 @@ Then /^I do not assign a purpose$/ do
 end
 
 Then /^I can finish the hand over$/ do
-  signed_contracts_size = @customer.reservations_bundles.signed.to_a.count # NOTE count returns a Hash because the group() in default scope
+  signed_contracts_size = @customer.reservations_bundles.signed.to_a.size # NOTE count returns a Hash because the group() in default scope
   step 'I click hand over inside the dialog'
-  expect(@customer.reservations_bundles.signed.to_a.count).to be > signed_contracts_size # NOTE count returns a Hash because the group() in default scope
+  expect(@customer.reservations_bundles.signed.to_a.size).to be > signed_contracts_size # NOTE count returns a Hash because the group() in default scope
 end
 
 Then /^I don't have to assign a purpose in order to finish the hand over$/ do

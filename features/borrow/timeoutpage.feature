@@ -12,7 +12,7 @@ Feature: Timeout page
     Then I am redirected to the timeout page
     And I am informed that my items are no longer reserved for me
 
-  @personas
+  @personas @javascript @browser
   Scenario: View
     Given I hit the timeout page with a model that has conflicts
     Then I see my order
@@ -40,13 +40,14 @@ Feature: Timeout page
     When I correct all errors
     Then the error message appears
 
-  @personas
+  @personas @javascript @browser
   Scenario: Delete an order
     Given I hit the timeout page with a model that has conflicts
     When I delete the order
-    Then the models in my order are released
-    And the user's order has been deleted
+    Then I am asked whether I really want to delete
     And I am on the main category list
+    And the models in my order are released
+    And the user's order has been deleted
 
   @personas
   Scenario: Only use those models that are available to continue with your order

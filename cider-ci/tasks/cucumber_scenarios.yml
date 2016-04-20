@@ -565,20 +565,20 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/borrow/timeoutpage.feature:44
         DEFAULT_BROWSER=firefox
-- name: features/borrow/timeoutpage.feature:52
+- name: features/borrow/timeoutpage.feature:53
   scripts:
     test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/borrow/timeoutpage.feature:52
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/borrow/timeoutpage.feature:53
         DEFAULT_BROWSER=firefox
-- name: features/borrow/timeoutpage.feature:61
+- name: features/borrow/timeoutpage.feature:62
   scripts:
     test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/borrow/timeoutpage.feature:61
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/borrow/timeoutpage.feature:62
         DEFAULT_BROWSER=firefox
-- name: features/borrow/timeoutpage.feature:72
+- name: features/borrow/timeoutpage.feature:73
   scripts:
     test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/borrow/timeoutpage.feature:72
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/borrow/timeoutpage.feature:73
         DEFAULT_BROWSER=firefox
 - name: features/borrow/verfuegbarkeit.feature:10
   scripts:
@@ -1750,10 +1750,10 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/tagesansicht.feature:8
         DEFAULT_BROWSER=firefox
-- name: features/examples/tagesansicht.feature:14
+- name: features/examples/tagesansicht.feature:15
   scripts:
     test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/tagesansicht.feature:14
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/tagesansicht.feature:15
         DEFAULT_BROWSER=firefox
 - name: features/examples/verfuegbarkeit.feature:4
   scripts:
@@ -2530,6 +2530,26 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/manage/verification.feature:47
         DEFAULT_BROWSER=firefox
+- name: features/performance_stability.feature:6
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/performance_stability.feature:6
+        DEFAULT_BROWSER=firefox
+- name: features/performance_stability.feature:18
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/performance_stability.feature:18
+        DEFAULT_BROWSER=firefox
+- name: features/performance_stability.feature:22
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/performance_stability.feature:22
+        DEFAULT_BROWSER=firefox
+- name: features/performance_stability.feature:26
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/performance_stability.feature:26
+        DEFAULT_BROWSER=firefox
 - name: features/settings.feature:4
   scripts:
     test:
@@ -2749,6 +2769,11 @@ tasks:
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/technical/visit/overdue_model.feature:6
+        DEFAULT_BROWSER=firefox
+- name: features/technical/visit/visit.feature:5
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/technical/visit/visit.feature:5
         DEFAULT_BROWSER=firefox
 - name: features/technical/visit/visits_controller.feature:8
   scripts:

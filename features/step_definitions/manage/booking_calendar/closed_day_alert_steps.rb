@@ -2,8 +2,8 @@ When /^I pick a closed day for beeing the (start|end) date$/ do |date_target|
   next_closed_day = nil
   date = Date.today
   expect(has_selector?('td[data-date]')).to be true
-  if all("td[data-date='#{date}']").empty? then
-    date = Date.new(date.year, date.month + 1)
+  if all("td[data-date='#{date}']").empty?
+    date = (date + 1.month).beginning_of_month
   end
 
   while next_closed_day.nil?

@@ -67,11 +67,8 @@ class Field < ActiveRecord::Base
     when 'all_suppliers'
       Supplier.order(:name).map { |x| { value: x.id, label: x.name } }.as_json
     when 'all_currencies'
-      Money::Currency
-        .all
-        .map(&:iso_code)
-        .sort
-        .map { |iso_code| { label: iso_code, value: iso_code } }
+      Money::Currency.all.map(&:iso_code).uniq \
+        .sort.map { |iso_code| { label: iso_code, value: iso_code } }
     else
       data['values']
     end

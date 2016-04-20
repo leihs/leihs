@@ -209,8 +209,7 @@ end
 
 Then(/^the list is filtered by models that are available in that time frame$/) do
   within '#model-list' do
-    find('.line[data-id]', match: :first)
-    all('.line[data-id]').each do |model_el|
+    all('.line[data-id]', minimum: 1).each do |model_el|
       model = Model.find_by_id(model_el['data-id']) || Model.find_by_id(model_el.reload['data-id'])
       expect(model).not_to be_nil
       quantity = @current_user.inventory_pools.to_a.sum do |ip|
@@ -331,8 +330,7 @@ end
 
 Then(/^all models of the chosen category have been loaded and shown$/) do
   within '#model-list' do
-    find('.line', match: :first)
-    expect(all('.line').size).to eq @current_user.models.borrowable.from_category_and_all_its_descendants(@category).length
+    expect(all('.line', minimum: 1).size).to eq @current_user.models.borrowable.from_category_and_all_its_descendants(@category).length
   end
 end
 

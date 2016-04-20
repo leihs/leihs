@@ -208,8 +208,7 @@ When /^I search for a category by name$/ do
   countBefore = all('.line').size
   step %Q(I search for "%s") % @searchTerm
   find('#list-search')
-  find('.line', match: :first)
-  expect(countBefore).not_to eq all('.line').size
+  expect(countBefore).not_to eq all('.line', minimum: 1).size
 end
 
 Then /^I find categories whose names contain the search term$/ do

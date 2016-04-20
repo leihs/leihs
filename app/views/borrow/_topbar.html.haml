@@ -12,18 +12,18 @@
       %li#topbar-search.topbar-item.topbar-search.position-absolute-left
         = render :partial => 'topbar_search'
 
-      - if (q3 = current_user.reservations_bundles.submitted.to_a.count) > 0 # NOTE count returns a Hash because the group() in default scope
+      - if (q3 = current_user.reservations_bundles.submitted.to_a.size) > 0 # NOTE count returns a Hash because the group() in default scope
         %li.topbar-item{:class => current_page?(:controller => :contracts) ? "active" : nil}
           %a.topbar-item-inner{href: borrow_orders_path}
             != n_("%s Order", "%s Orders", q3) % "<span class='badge'>#{q3}</span>"
 
-      - if (q1 = current_user.visits.hand_over.to_a.count) > 0 # NOTE Visit.count returns a Hash because the group() in default scope
+      - if (q1 = current_user.visits.hand_over.to_a.size) > 0 # NOTE Visit.count returns a Hash because the group() in default scope
         %li.topbar-item{:class => current_page?(:controller => :to_pick_up) ? "active" : nil}
           %a.topbar-item-inner{href: borrow_to_pick_up_path}
             %span.badge= q1
             = _("To pick up")
 
-      - if (q2 = current_user.visits.take_back.to_a.count) > 0 # NOTE Visit.count returns a Hash because the group() in default scope
+      - if (q2 = current_user.visits.take_back.to_a.size) > 0 # NOTE Visit.count returns a Hash because the group() in default scope
         %li.topbar-item{:class => current_page?(:controller => :returns) ? "active" : nil}
           %a.topbar-item-inner{href: borrow_returns_path}
             != n_("%s Return", "%s Returns", q2) % "<span class='badge'>#{q2}</span>"

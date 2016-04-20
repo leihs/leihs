@@ -54,7 +54,7 @@ Feature: Lending
     When it doesn't exist in any future contracts
     Then it is added for the selected time span
 
-  @javascript @personas
+  @javascript @personas @browser
   Scenario: Handing over items and licenses by inventory code
     Given I am doing a hand over
     When I add an item to the hand over by providing an inventory code

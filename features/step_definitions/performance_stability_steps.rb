@@ -53,8 +53,66 @@ When /^its availability is recalculate$/ do
   }
 end
 
-Then /^it should take at maximum (\d+\.\d+) seconds$/ do |seconds|
+Then /^it should take maximum (\d+\.\d+) seconds$/ do |seconds|
   puts @time.real
   expect(@time.real).to be < seconds.to_f
 end
 
+Given /^approve each submitted contract with more than (.*) reservations should take maximum (.*) seconds$/ do |arg1, seconds|
+  require 'benchmark'
+
+  seconds = seconds.to_f
+
+  contracts = ReservationsBundle.submitted.select do |rb|
+    rb.reservations.count > arg1.to_i
+  end
+  expect(contracts).not_to be_empty
+
+  contracts.each do |contract|
+    time = Benchmark.measure {
+      contract.approve(Faker::Lorem.sentence)
+    }
+    puts time.real
+    puts contract.inspect if time.real >= seconds
+    expect(time.real).to be < seconds
+  end
+
+end
+
+Then /^approvable check on single approvable reservation should take maximum (\d+\.\d+) seconds$/ do |seconds|
+  require 'benchmark'
+
+  seconds = seconds.to_f
+
+  reservations = Reservation.submitted.order('RAND()')
+
+  b = false
+  reservations.each do |reservation|
+    time = Benchmark.measure {
+      b = reservation.approvable?
+    }
+    puts time.real
+    puts reservation.inspect if time.real >= seconds
+    expect(time.real).to be < seconds
+    break if b
+  end
+
+  expect(b).to be true
+end
+
+Then /^availability check on single submitted reservation should take maximum (\d+\.\d+) seconds$/ do |seconds|
+  require 'benchmark'
+
+  seconds = seconds.to_f
+
+  reservations = Reservation.submitted.order('RAND()').limit(200)
+
+  reservations.each do |reservation|
+    time = Benchmark.measure {
+      reservation.available?
+    }
+    puts time.real
+    puts reservation.inspect if time.real >= seconds
+    expect(time.real).to be < seconds
+  end
+end

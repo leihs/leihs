@@ -515,8 +515,9 @@ end
 When(/^I assign multiple groups$/) do
   @current_inventory_pool.groups.each do |group|
     find('#change-groups input').click
-    find('.ui-autocomplete .ui-menu-item a', match: :first)
-    find('.ui-autocomplete .ui-menu-item a', text: group.name).click
+    within '.ui-autocomplete' do
+      find('.ui-menu-item a', text: group.name).click
+    end
   end
 end
 

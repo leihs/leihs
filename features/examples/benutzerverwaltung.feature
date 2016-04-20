@@ -46,7 +46,7 @@ Feature: Manage users
       | Pius   |
       | Mike   |
 
-  @javascript @personas
+  @javascript @personas @browser
   Scenario: Add new user as inventory manager to an inventory pool
     Given I am Pius
     When I am looking at the user list
@@ -199,7 +199,7 @@ Feature: Manage users
     And I save the user
     Then their group membership is saved
 
-  @javascript @personas
+  @javascript @personas @browser
   Scenario: As an inventory manager, add a new user to the inventory pool
     Given I am Mike
     When I am looking at the user list

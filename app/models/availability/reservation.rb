@@ -7,8 +7,11 @@ module Availability
 
     def available?
       b =
-        if end_date < Time.zone.today # check if it was never handed over
+        if [:rejected, :closed].include?(status) \
+          or (item_id.nil? and end_date < Time.zone.today)
           false
+        elsif is_a?(OptionLine)
+          true
         elsif status == :unsubmitted
           if user.timeout?
             same_contract_summed_quantity = \
@@ -26,14 +29,6 @@ module Availability
             # the current reservation quantity (preventing self-blocking problem)
             (maximum_available_quantity + quantity >= quantity)
           end
-        elsif is_a?(OptionLine)
-          true
-        # NOTE doesn't work with include?(self) because are running_reservations
-        elsif not inventory_pool.running_reservations.detect { |x| x == self }
-          # we use array select instead of sql where condition to
-          # fetch once all running_reservations during the same request,
-          # instead of hit the db multiple times
-          true
         else
           # if an item is already assigned, but the start_date is in the future,
           # we only consider the real start-end range dates
