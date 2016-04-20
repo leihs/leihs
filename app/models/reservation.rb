@@ -88,6 +88,9 @@ class Reservation < ActiveRecord::Base
   validates_presence_of :user, :inventory_pool, :status
   validates_presence_of(:contract,
                         if: proc { |r| [:signed, :closed].include?(r.status) })
+  validates_absence_of(:contract,
+                       if: proc { |r| [:unsubmitted, :submitted, :approved, :rejected].include?(r.status) })
+
   # TODO: validates_presence_of :purpose,
   # if: Proc.new { |record| record.status != :unsubmitted }
   validate :date_sequence
