@@ -1,11 +1,23 @@
 _cider-ci_include:
-  - cider-ci/jobs/scenarios.yml
-  - cider-ci/jobs/hot-spot-scenarios.yml
-  - cider-ci/jobs/leihs-admin-scenarios.yml
+
+  # # per-engine jobs:
+
+  # ## CORE - on branches foo/core_bar
+  - cider-ci/jobs/core-scenarios.yml
+  - cider-ci/jobs/core-problematic-scenarios.yml
+  - cider-ci/jobs/core-code-checks.yml
+
+  # ## ADMIN - on branches foo/admin_bar
+  - cider-ci/jobs/admin-scenarios.yml
+  - cider-ci/jobs/admin-code-checks.yml
+
+  # ## PROCUREMENT - on branches foo/procurement_bar
   - cider-ci/jobs/procurement-scenarios.yml
-  - cider-ci/jobs/problematic-scenarios.yml
-  - cider-ci/jobs/code-checks.yml
-  - cider-ci/jobs/leihs-admin-code-checks.yml
   - cider-ci/jobs/procurement-code-checks.yml
+
+  # # always runs:
   - cider-ci/jobs/meta.yml
   - cider-ci/jobs/good-to-merge.yml
+
+  # # only manual run:
+  - cider-ci/jobs/hot-spot-scenarios.yml

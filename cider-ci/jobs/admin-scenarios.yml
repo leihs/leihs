@@ -1,17 +1,19 @@
 jobs:
 
-  leihs-admin-scenarios:
+  admin-scenarios:
 
-    name: Leihs Admin Scenarios
+    name: 'Admin: Scenarios'
 
     description: |
-      Run leihs admin engine scenarios under MRI
+      Run Admin engine scenarios under MRI
 
     priority: -1
 
     run-on:
     - type: branch
-      include-match: ^.*$
+      include-match: '[a-z]*/admin_.*$'
+    - type: branch
+      include-match: '[a-z]*/master_.*$'
 
     context:
       task-defaults:

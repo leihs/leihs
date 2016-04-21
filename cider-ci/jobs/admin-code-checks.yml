@@ -1,15 +1,17 @@
 jobs:
 
-  leihs-admin-code-checks:
+  admin-code-checks:
 
-    name: Leihs Admin Code Checks
+    name: 'Admin: Code Checks'
 
     description: |
-      Run static checks and metrics: complexity, duplication, code format for Leihs Admin engine.
+      Run static checks and metrics: complexity, duplication, code format for Admin engine.
 
     run-on:
     - type: branch
-      include-match: ^.*$
+      include-match: '[a-z]*/admin_.*$'
+    - type: branch
+      include-match: '[a-z]*/master_.*$'
 
     context:
 

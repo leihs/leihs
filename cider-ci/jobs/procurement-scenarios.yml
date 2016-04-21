@@ -2,7 +2,7 @@ jobs:
 
   procurement-scenarios:
 
-    name: Procurement Scenarios
+    name: 'Procurement: Scenarios'
 
     description: |
       Run procurement engine scenarios under MRI
@@ -11,7 +11,9 @@ jobs:
 
     run-on:
     - type: branch
-      include-match: ^.*$
+      include-match: '[a-z]*/procurement_.*$'
+    - type: branch
+      include-match: '[a-z]*/master_.*$'
 
     context:
       task-defaults:

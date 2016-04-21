@@ -2,16 +2,16 @@ jobs:
 
   scenarios:
 
-    name: Scenarios
+    name: 'Core: Scenarios'
 
     description: |
       Run leihs features (except engines) under MRI
 
-    priority: -1
-
     run-on:
     - type: branch
-      include-match: ^.*$
+      include-match: '[a-z]*/core_.*'
+    - type: branch
+      include-match: '[a-z]*/master_.*$'
 
     context:
       task-defaults:
@@ -20,4 +20,3 @@ jobs:
       _cider-ci_include:
         - cider-ci/shared/tests-context.yml
         - cider-ci/tasks/cucumber_scenarios.yml
-

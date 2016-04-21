@@ -2,14 +2,16 @@ jobs:
 
   procurement-code-checks:
 
-    name: Procurement Code Checks
+    name: 'Procurement: Code Checks'
 
     description: |
       Run static checks and metrics: complexity, duplication, code format for Procurement engine.
 
     run-on:
     - type: branch
-      include-match: ^.*$
+      include-match: '[a-z]*/procurement_.*$'
+    - type: branch
+      include-match: '[a-z]*/master_.*$'
 
     context:
 

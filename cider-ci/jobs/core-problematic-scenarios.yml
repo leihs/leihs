@@ -2,7 +2,7 @@ jobs:
 
   problematic-scenarios:
 
-    name: Problematic Scenarios
+    name: 'Core: Problematic Scenarios'
 
     description: |
       Run problematic features (except engines) under MRI
@@ -13,16 +13,12 @@ jobs:
     - type: job
       job: scenarios
       states: [passed]
-    - type: job
-      job: leihs-admin-scenarios
-      states: [passed]
-    - type: job
-      job: procurement-scenarios
-      states: [passed]
 
     run-on:
     - type: branch
-      include-match: ^.+$
+      include-match: '[a-z]*/procurement_.*$'
+    - type: branch
+      include-match: '[a-z]*/master_.*$'
 
     context:
       task-defaults:
