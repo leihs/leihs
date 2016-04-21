@@ -1,6 +1,6 @@
 jobs:
 
-  problematic-scenarios:
+  core-problematic-scenarios:
 
     name: 'Core: Problematic Scenarios'
 
@@ -9,16 +9,14 @@ jobs:
 
     priority: -1
 
-    depends-on:
-    - type: job
-      job: scenarios
-      states: [passed]
-
     run-on:
     - type: branch
       include-match: '[a-z]*/procurement_.*$'
     - type: branch
       include-match: '[a-z]*/master.*$'
+    - type: job
+      job: core-scenarios
+      states: [passed]
 
     context:
       task-defaults:
