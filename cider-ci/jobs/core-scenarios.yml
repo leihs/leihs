@@ -11,7 +11,7 @@ jobs:
     - type: branch
       include-match: '[a-z]*/core_.*'
     - type: branch
-      include-match: '[a-z]*/master_.*$'
+      include-match: '[a-z]*/master.*$'
 
     context:
       task-defaults:
