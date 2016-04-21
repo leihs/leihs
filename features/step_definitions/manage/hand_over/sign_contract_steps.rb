@@ -80,7 +80,10 @@ When(/^I open a hand over with overdue reservations$/) do
 end
 
 Given(/^I open a hand over which has model which not all accessories are activated for this inventory pool$/) do
-  @item_line = @current_inventory_pool.item_lines.approved.detect {|il| il.model.accessories.active_in(@current_inventory_pool).count > 1 and il.available? }
+  @item_line = FactoryGirl.create(:item_line,
+                                  inventory_pool: @current_inventory_pool,
+                                  status: :approved,
+                                  user: @current_inventory_pool.users.customers.not_as_delegations.first)
   expect(@item_line).not_to be_nil
   @customer = @item_line.user
   expect(@customer).not_to be_nil

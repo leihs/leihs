@@ -93,7 +93,7 @@ Feature: Model list
     Then the start date is automatically set to the previous day
     And the list is filtered by models that are available in that time frame
 
-  @javascript @personas
+  @javascript @personas @browser
   Scenario: Removing the lending time frame
     Given I am Petra
     When I am listing models and some of them are unavailable

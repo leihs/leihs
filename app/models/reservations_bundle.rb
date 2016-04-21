@@ -392,31 +392,28 @@ class ReservationsBundle < ActiveRecord::Base
   end
 
   def sign(current_user, selected_lines, note = nil, delegated_user_id = nil)
+    contract = Contract.new
+    contract.note = note
+
     transaction do
-      contract = Contract.create do |contract|
-        contract.note = note
+      selected_lines.each do |cl|
+        cl.contract = contract
+        cl.status = :signed
+        cl.handed_over_by_user_id = current_user.id
 
-        selected_lines.each do |cl|
-          attrs = {
-            contract: contract,
-            status: :signed,
-            handed_over_by_user_id: current_user.id
-          }
-
-          if delegated_user_id
-            attrs[:delegated_user] = user.delegated_users.find(delegated_user_id)
-          end
-
-          # Forces handover date to be today.
-          attrs[:start_date] = Time.zone.today if cl.start_date != Time.zone.today
-
-          cl.update_attributes(attrs)
-
-          contract.reservations << cl
+        if delegated_user_id
+          cl.delegated_user = user.delegated_users.find(delegated_user_id)
         end
+
+        # Forces handover date to be today.
+        cl.start_date = Time.zone.today if cl.start_date != Time.zone.today
+
+        contract.reservations << cl
       end
-      contract
+      contract.save!
     end
+
+    contract
   end
 
   def handed_over_by_user

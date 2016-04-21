@@ -21,6 +21,11 @@ When /^I sign the contract$/ do
   @contract.sign(@current_user, @contract.reservations)
 end
 
+Then(/^signing the contract raises an exception$/) do
+  expect { @contract.sign(@current_user, @contract.reservations) }
+    .to raise_error ActiveRecord::RecordInvalid
+end
+
 Then /^the contract is still approved$/ do
   expect(@reservation.reload.status).to eq :approved
 end

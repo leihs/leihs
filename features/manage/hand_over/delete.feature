@@ -20,7 +20,7 @@ Feature: Sign Contract
     And I delete the seleted reservations
     Then these seleted reservations are deleted
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Delete reservations which changes other reservations availability
     When I open a hand over
     And I delete all reservations of a model thats availability is blocked by these reservations

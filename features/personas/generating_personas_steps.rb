@@ -46,7 +46,7 @@ Then(/^the (minimal|normal|huge) dump is generated$/) do |arg1|
   system "echo 'set autocommit=0; set unique_checks=0; set foreign_key_checks=0;' > #{file_name}"
   system "mysqldump #{config['host'] ? "-h #{config['host']}" : nil} " \
          "-u #{config['username']} #{config['password'] ? "--password=#{config['password']}" : nil} " \
-         " #{config['database']} --no-create-db | grep -v 'SQL SECURITY DEFINER' >> #{file_name}"
+         " #{config['database']} --no-create-db --triggers | grep -v 'SQL SECURITY DEFINER' >> #{file_name}"
   system "echo 'commit; set unique_checks=1; set foreign_key_checks=1;' >> #{file_name}"
 
   expect(File.exists?(file_name)).to be true
@@ -219,6 +219,7 @@ Given(/^(\d+) (unsubmitted|submitted|approved) contract reservations?(?: for use
 end
 
 Given(/^all unsubmitted contract reservations are available$/) do
+  sleep 2
   expect(Reservation.unsubmitted.all? {|line| line.available? }).to be true
 end
 

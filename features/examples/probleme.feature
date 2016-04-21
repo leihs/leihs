@@ -50,7 +50,7 @@ Feature: Displaying problems
     Then the affected item's line shows the item's problems
     And the problem is displayed as: "Gegenstand nicht ausleihbar"
 
-  @personas @javascript @browser
+  @personas @javascript @browser @problematic
   Scenario: Showing problems when item is not available while handing over
     Given I am doing a hand over
       And a model is no longer available

@@ -201,7 +201,7 @@ Then(/^the entry's date is changed accordingly$/) do
                                        end_date: line.end_date).sum(:quantity)
     expect(t).to eq @new_quantity
 
-    @just_changed_line = find("[data-model-id='#{line.model_id}'][data-start-date='#{line.start_date}'][data-end-date='#{line.end_date}']")
+    @just_changed_line = find("[data-ids='[#{line.id}]'] [data-model-id='#{line.model_id}'][data-start-date='#{line.start_date}'][data-end-date='#{line.end_date}']")
   end
 end
 

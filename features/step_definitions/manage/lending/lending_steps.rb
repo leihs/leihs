@@ -217,8 +217,10 @@ Then /^I can inspect each item$/ do
   line_ids = all(".line[data-line-type='item_line']", minimum: 1).map {|l| l['data-id']}
   line_ids.each do |id|
     within find(".line[data-id='#{id}'] .multibutton") do
-      find('.dropdown-toggle').click
+      find('.dropdown-toggle').hover
       find('.dropdown-holder .dropdown-item', text: _('Inspect'))
+      find('button', match: :first).hover # in order to hide dropdown
+      expect(page).not_to have_selector('.dropdown-holder .dropdown-item', text: _('Inspect'), visible: true)
     end
   end
 end

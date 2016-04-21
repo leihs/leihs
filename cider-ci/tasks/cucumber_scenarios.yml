@@ -1565,11 +1565,6 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/probleme.feature:47
         DEFAULT_BROWSER=firefox
-- name: features/examples/probleme.feature:54
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/probleme.feature:54
-        DEFAULT_BROWSER=firefox
 - name: features/examples/probleme.feature:64
   scripts:
     test:
@@ -2239,11 +2234,6 @@ tasks:
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/manage/hand_over/calendar.feature:7
-        DEFAULT_BROWSER=firefox
-- name: features/manage/hand_over/delete.feature:24
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/manage/hand_over/delete.feature:24
         DEFAULT_BROWSER=firefox
 - name: features/manage/hand_over/delete.feature:30
   scripts:
