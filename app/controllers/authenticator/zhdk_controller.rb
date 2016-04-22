@@ -24,7 +24,7 @@ class Authenticator::ZhdkController < Authenticator::AuthenticatorController
   def target
     AUTHENTICATION_URL \
       + '&url_postlogin=' \
-      + CGI::escape("https://#{request.host}:#{request.port}" \
+      + CGI::escape("http://#{request.host}:#{request.port}" \
                     "#{url_for('/authenticator/zhdk/login_successful/%s')}")
   end
 
