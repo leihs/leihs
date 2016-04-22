@@ -135,7 +135,7 @@ Before('~@generating_personas') do
 
   Cucumber.logger.info "Current capybara driver: %s\n" % Capybara.current_driver
 
-  Dataset.restore_random_dump(!@use_personas)
+  Dataset.restore_random_dump(@use_personas ? 'normal' : 'minimal')
 end
 
 ##################################################################################

@@ -2,7 +2,7 @@ Then(/^I see a list of suppliers$/) do
   find('.nav-tabs .active', text: _('Suppliers'))
   within '.list-of-lines' do
     Supplier.order('RAND()').limit(5).each do |supplier|
-      find('.row > .col-sm-6', text: supplier.name)
+      find('.row > .col-sm-6', match: :prefer_exact, text: supplier.name)
     end
   end
 end

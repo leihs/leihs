@@ -2,7 +2,7 @@
 
 = render partial: "header"
 
-- if @visits.empty?
+- if @visits.to_a.empty?
   %h3
     = _("All correct")
     %i.fa.fa-check-square-o

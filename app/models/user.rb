@@ -32,32 +32,28 @@ class User < ActiveRecord::Base
       # TODO: dry with_borrowable_items
       joins(:items)
         .where(items: { retired: nil, is_borrowable: true, parent_id: nil })
-        .joins('INNER JOIN `partitions_with_generals` ' \
-               'ON `models`.`id` = `partitions_with_generals`.`model_id` ' \
-               'AND `inventory_pools`.`id` = ' \
-                   '`partitions_with_generals`.`inventory_pool_id` ' \
-               'AND `partitions_with_generals`.`quantity` > 0 ' \
-               'AND (`partitions_with_generals`.`group_id` IN ' \
-                 '(SELECT `group_id` ' \
-                 'FROM `groups_users` ' \
+        .joins("INNER JOIN (#{Partition.query}) AS pwg " \
+               'ON `models`.`id` = `pwg`.`model_id` ' \
+               'AND `inventory_pools`.`id` = `pwg`.`inventory_pool_id` ' \
+               'AND `pwg`.`quantity` > 0 ' \
+               'AND (`pwg`.`group_id` IN ' \
+                 '(SELECT `group_id` FROM `groups_users` ' \
                  "WHERE `user_id` = #{proxy_association.owner.id}) " \
-                   'OR `partitions_with_generals`.`group_id` IS NULL)')
+                   'OR `pwg`.`group_id` IS NULL)')
     end
   end
 
   has_many(:categories, -> { uniq }, through: :models) do
     def with_borrowable_items
       where(items: { retired: nil, is_borrowable: true, parent_id: nil })
-      .joins('INNER JOIN `partitions_with_generals` ' \
-             'ON `models`.`id` = `partitions_with_generals`.`model_id` ' \
-             'AND `inventory_pools`.`id` = ' \
-                 '`partitions_with_generals`.`inventory_pool_id` ' \
-             'AND `partitions_with_generals`.`quantity` > 0 ' \
-             'AND (`partitions_with_generals`.`group_id` IN ' \
-               '(SELECT `group_id` ' \
-               'FROM `groups_users` ' \
+      .joins("INNER JOIN (#{Partition.query}) AS pwg " \
+             'ON `models`.`id` = `pwg`.`model_id` ' \
+             'AND `inventory_pools`.`id` = `pwg`.`inventory_pool_id` ' \
+             'AND `pwg`.`quantity` > 0 ' \
+             'AND (`pwg`.`group_id` IN ' \
+               '(SELECT `group_id` FROM `groups_users` ' \
                "WHERE `user_id` = #{proxy_association.owner.id}) " \
-                 'OR `partitions_with_generals`.`group_id` IS NULL)')
+                 'OR `pwg`.`group_id` IS NULL)')
     end
   end
 
@@ -96,7 +92,6 @@ class User < ActiveRecord::Base
   # TODO: ?? # has_many :contracts, through: :reservations_bundles
   has_many :item_lines, dependent: :restrict_with_exception
   has_many :option_lines, dependent: :restrict_with_exception
-  # :include => :inventory_pool # MySQL View based on reservations
   has_many :visits
 
   validates_presence_of :firstname

@@ -163,6 +163,9 @@ end
 
 When(/^I click hand over$/) do
   expect(page).to have_no_selector '.button[data-hand-over-selection][disabled]'
+
+  step 'I close the flash message'
+
   find('.button[data-hand-over-selection]').click
 end
 

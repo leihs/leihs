@@ -54,7 +54,7 @@ end
 
 Given(/^there is a user with at least (\d+) and less than (\d+) contracts$/) do |min, max|
   @user = @current_inventory_pool.users.find do |u|
-    u.reservations_bundles.signed_or_closed.where(inventory_pool: @current_inventory_pool).to_a.count.between? min.to_i, max.to_i # NOTE count returns a Hash because the group() in default scope
+    u.reservations_bundles.signed_or_closed.where(inventory_pool: @current_inventory_pool).to_a.size.between? min.to_i, max.to_i # NOTE count returns a Hash because the group() in default scope
   end
   expect(@user).not_to be_nil
 end

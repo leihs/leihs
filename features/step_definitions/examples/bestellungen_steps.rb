@@ -195,8 +195,7 @@ end
 
 When(/^I edit an already approved order$/) do
   within '#contracts' do
-    find('.line[data-id]', match: :first)
-    within all('.line[data-id]').sample do
+    within all('.line[data-id]', minimum: 1).sample do
       a = find('a', text: _('Edit'))
       @target_url = a[:href]
       a.click
@@ -210,8 +209,7 @@ Then(/^I am directed to the hand over view$/) do
 end
 
 But(/^I cannot hand over$/) do
-  find("[data-line-type='item_line']", match: :first)
-  all("[data-line-type='item_line'] input[type='checkbox']:checked").each &:click
+  all("[data-line-type='item_line'] input[type='checkbox']:checked", minimum: 1).each &:click
   unless page.has_selector?('[data-hand-over-selection][disabled]')
     find('[data-hand-over-selection]').click
     find('#purpose').set Faker::Lorem.paragraph
@@ -243,8 +241,7 @@ end
 
 
 But(/^I cannot assign items$/) do
-  find("[data-line-type='item_line']", match: :first)
-  all("[data-line-type='item_line']").each do |dom_line|
+  all("[data-line-type='item_line']", minimum: 1).each do |dom_line|
     within dom_line do
       find('input[data-assign-item]').click
       next unless has_selector?('li.ui-menu-item a')
@@ -284,7 +281,7 @@ end
 When(/^I search( globally)? for (an order|a contract|a visit)( with its purpose)?$/) do |arg0, arg1, arg2|
   @contract = @contracts.order('RAND()').first
   @search_term = if arg2
-                   @contract.purpose.split.sample
+                   @contract.purpose.split.sample.gsub(/^\W*/, '').gsub(/\W*$/, '')
                  else
                    @contract.user.to_s
                  end

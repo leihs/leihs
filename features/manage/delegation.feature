@@ -215,7 +215,7 @@ Feature: Delegation
     When I try to change the contact person
     Then I can choose only those people that belong to the delegation group
 
-  @javascript @personas
+  @javascript @personas @browser
   Scenario: Changing contact person while editing an order
     Given I am Pius
     And I am editing a delegation's order

@@ -41,8 +41,12 @@ Then(/^the no longer available items are highlighted$/) do
 end
 
 Then(/^I can delete entries$/) do
-  all('.row.line').each do |x|
-    x.find('a', match: :first, text: _('Delete'))
+  all('.row.line', minimum: 1).each do |row|
+    within row do
+      find('.col4of9').hover # NOTE blur
+      find('.multibutton .dropdown-toggle').hover
+    end
+    find('.multibutton .dropdown-item.red', text: _('Delete'))
   end
 end
 

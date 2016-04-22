@@ -1,17 +1,21 @@
 # -*- encoding : utf-8 -*-
 
 Then(/^I see the number of "(.*?)" on each page$/) do |visit_type|
-  find("a[href*='borrow/#{case visit_type
-                          when "Returns"
-                            "returns"
-                          when "Pick ups"
-                            "to_pick_up"
-                          end}'] > span", match: :first, text: case visit_type
-                                                                when 'Returns'
-                                                                  @current_user.visits.take_back
-                                                                when 'Pick ups'
-                                                                  @current_user.visits.hand_over
-                                                                end.count.to_s)
+  link = case visit_type
+         when "Returns"
+           "returns"
+         when "Pick ups"
+           "to_pick_up"
+         end
+
+  text = case visit_type
+         when 'Returns'
+           @current_user.visits.take_back
+         when 'Pick ups'
+           @current_user.visits.hand_over
+         end.to_a.size.to_s
+
+  find("a[href*='borrow/#{link}'] > span", match: :first, text: text)
 end
 
 Given(/^I am in the borrow section$/) do

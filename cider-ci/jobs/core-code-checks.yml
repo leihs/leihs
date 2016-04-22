@@ -1,0 +1,27 @@
+jobs:
+
+  code-checks:
+
+    name: 'Core: Code Checks'
+
+    description: |
+      Run static checks and metrics: complexity, duplication, code format
+
+    run-on:
+    - type: branch
+      include-match: '[a-z]*/core_.*'
+    - type: branch
+      include-match: '[a-z]*/master_.*$'
+
+    context:
+
+      _cider-ci_include:
+        - cider-ci/shared/code-checks-context.yml
+
+      tasks:
+
+        lint_ruby:
+          name: Lint/Stylecheck with Rubocop
+          scripts:
+            test:
+              body: bundle exec rubocop

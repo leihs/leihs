@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160415140635) do
+ActiveRecord::Schema.define(version: 20160418075339) do
 
   create_table "access_rights", force: :cascade do |t|
-    t.integer  "user_id",           limit: 4
+    t.integer  "user_id",           limit: 4,     null: false
     t.integer  "inventory_pool_id", limit: 4
     t.date     "suspended_until"
     t.text     "suspended_reason",  limit: 65535
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20160415140635) do
 
   create_table "accessories", force: :cascade do |t|
     t.integer "model_id", limit: 4
-    t.string  "name",     limit: 255
+    t.string  "name",     limit: 255, null: false
     t.integer "quantity", limit: 4
   end
 
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 20160415140635) do
   end
 
   create_table "buildings", force: :cascade do |t|
-    t.string "name", limit: 255
+    t.string "name", limit: 255, null: false
     t.string "code", limit: 255
   end
 
@@ -109,10 +109,10 @@ ActiveRecord::Schema.define(version: 20160415140635) do
   end
 
   create_table "database_authentications", force: :cascade do |t|
-    t.string   "login",            limit: 255
+    t.string   "login",            limit: 255, null: false
     t.string   "crypted_password", limit: 40
     t.string   "salt",             limit: 40
-    t.integer  "user_id",          limit: 4
+    t.integer  "user_id",          limit: 4,   null: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
   end
@@ -136,8 +136,8 @@ ActiveRecord::Schema.define(version: 20160415140635) do
   add_index "fields", ["active"], name: "index_fields_on_active", using: :btree
 
   create_table "groups", force: :cascade do |t|
-    t.string   "name",                     limit: 255
-    t.integer  "inventory_pool_id",        limit: 4
+    t.string   "name",                     limit: 255,                 null: false
+    t.integer  "inventory_pool_id",        limit: 4,                   null: false
     t.boolean  "is_verification_required",             default: false
     t.datetime "created_at",                                           null: false
     t.datetime "updated_at",                                           null: false
@@ -185,15 +185,15 @@ ActiveRecord::Schema.define(version: 20160415140635) do
   add_index "images", ["target_id", "target_type"], name: "index_images_on_target_id_and_target_type", using: :btree
 
   create_table "inventory_pools", force: :cascade do |t|
-    t.string  "name",                        limit: 255
+    t.string  "name",                        limit: 255,                   null: false
     t.text    "description",                 limit: 65535
     t.string  "contact_details",             limit: 255
     t.string  "contract_description",        limit: 255
     t.string  "contract_url",                limit: 255
     t.string  "logo_url",                    limit: 255
     t.text    "default_contract_note",       limit: 65535
-    t.string  "shortname",                   limit: 255
-    t.string  "email",                       limit: 255
+    t.string  "shortname",                   limit: 255,                   null: false
+    t.string  "email",                       limit: 255,                   null: false
     t.text    "color",                       limit: 65535
     t.boolean "print_contracts",                           default: true
     t.text    "opening_hours",               limit: 65535
@@ -216,9 +216,9 @@ ActiveRecord::Schema.define(version: 20160415140635) do
   add_index "inventory_pools_model_groups", ["model_group_id"], name: "index_inventory_pools_model_groups_on_model_group_id", using: :btree
 
   create_table "items", force: :cascade do |t|
-    t.string   "inventory_code",        limit: 255
+    t.string   "inventory_code",        limit: 255,                                           null: false
     t.string   "serial_number",         limit: 255
-    t.integer  "model_id",              limit: 4
+    t.integer  "model_id",              limit: 4,                                             null: false
     t.integer  "location_id",           limit: 4
     t.integer  "supplier_id",           limit: 4
     t.integer  "owner_id",              limit: 4,                                             null: false
@@ -298,7 +298,7 @@ ActiveRecord::Schema.define(version: 20160415140635) do
 
   create_table "model_groups", force: :cascade do |t|
     t.string   "type",       limit: 255
-    t.string   "name",       limit: 255
+    t.string   "name",       limit: 255, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
@@ -306,9 +306,9 @@ ActiveRecord::Schema.define(version: 20160415140635) do
   add_index "model_groups", ["type"], name: "index_model_groups_on_type", using: :btree
 
   create_table "model_links", force: :cascade do |t|
-    t.integer "model_group_id", limit: 4
-    t.integer "model_id",       limit: 4
-    t.integer "quantity",       limit: 4, default: 1
+    t.integer "model_group_id", limit: 4,             null: false
+    t.integer "model_id",       limit: 4,             null: false
+    t.integer "quantity",       limit: 4, default: 1, null: false
   end
 
   add_index "model_links", ["model_group_id", "model_id"], name: "index_model_links_on_model_group_id_and_model_id", using: :btree
@@ -356,7 +356,7 @@ ActiveRecord::Schema.define(version: 20160415140635) do
   end
 
   create_table "options", force: :cascade do |t|
-    t.integer "inventory_pool_id", limit: 4
+    t.integer "inventory_pool_id", limit: 4,                           null: false
     t.string  "inventory_code",    limit: 255
     t.string  "manufacturer",      limit: 255
     t.string  "product",           limit: 255,                         null: false
@@ -367,22 +367,15 @@ ActiveRecord::Schema.define(version: 20160415140635) do
   add_index "options", ["inventory_pool_id"], name: "index_options_on_inventory_pool_id", using: :btree
 
   create_table "partitions", force: :cascade do |t|
-    t.integer "model_id",          limit: 4
-    t.integer "inventory_pool_id", limit: 4
-    t.integer "group_id",          limit: 4
-    t.integer "quantity",          limit: 4
+    t.integer "model_id",          limit: 4, null: false
+    t.integer "inventory_pool_id", limit: 4, null: false
+    t.integer "group_id",          limit: 4, null: false
+    t.integer "quantity",          limit: 4, null: false
   end
 
   add_index "partitions", ["group_id"], name: "fk_rails_44495fc6cf", using: :btree
   add_index "partitions", ["inventory_pool_id"], name: "fk_rails_b10a540212", using: :btree
   add_index "partitions", ["model_id", "inventory_pool_id", "group_id"], name: "index_partitions_on_model_id_and_inventory_pool_id_and_group_id", unique: true, using: :btree
-
-  create_table "partitions_with_generals", id: false, force: :cascade do |t|
-    t.integer "model_id",          limit: 4
-    t.integer "inventory_pool_id", limit: 4
-    t.integer "group_id",          limit: 4
-    t.decimal "quantity",                    precision: 33
-  end
 
   create_table "procurement_accesses", force: :cascade do |t|
     t.integer "user_id",         limit: 4
@@ -503,8 +496,8 @@ ActiveRecord::Schema.define(version: 20160415140635) do
 
   create_table "properties", force: :cascade do |t|
     t.integer "model_id", limit: 4
-    t.string  "key",      limit: 255
-    t.string  "value",    limit: 255
+    t.string  "key",      limit: 255, null: false
+    t.string  "value",    limit: 255, null: false
   end
 
   add_index "properties", ["model_id"], name: "index_properties_on_model_id", using: :btree
@@ -527,8 +520,8 @@ ActiveRecord::Schema.define(version: 20160415140635) do
     t.integer  "returned_to_user_id",    limit: 4
     t.datetime "created_at",                                              null: false
     t.datetime "updated_at",                                              null: false
-    t.integer  "inventory_pool_id",      limit: 4
-    t.integer  "user_id",                limit: 4
+    t.integer  "inventory_pool_id",      limit: 4,                        null: false
+    t.integer  "user_id",                limit: 4,                        null: false
     t.integer  "delegated_user_id",      limit: 4
     t.integer  "handed_over_by_user_id", limit: 4
     t.string   "status",                 limit: 11,                       null: false
@@ -554,11 +547,11 @@ ActiveRecord::Schema.define(version: 20160415140635) do
     t.string  "smtp_address",                   limit: 255
     t.integer "smtp_port",                      limit: 4
     t.string  "smtp_domain",                    limit: 255
-    t.string  "local_currency_string",          limit: 255
+    t.string  "local_currency_string",          limit: 255,                    null: false
     t.text    "contract_terms",                 limit: 65535
     t.text    "contract_lending_party_string",  limit: 65535
-    t.string  "email_signature",                limit: 255
-    t.string  "default_email",                  limit: 255
+    t.string  "email_signature",                limit: 255,                    null: false
+    t.string  "default_email",                  limit: 255,                    null: false
     t.boolean "deliver_order_notifications"
     t.string  "user_image_url",                 limit: 255
     t.string  "ldap_config",                    limit: 255
@@ -587,7 +580,7 @@ ActiveRecord::Schema.define(version: 20160415140635) do
 
   create_table "users", force: :cascade do |t|
     t.string   "login",                    limit: 255
-    t.string   "firstname",                limit: 255
+    t.string   "firstname",                limit: 255,               null: false
     t.string   "lastname",                 limit: 255
     t.string   "phone",                    limit: 255
     t.integer  "authentication_system_id", limit: 4,     default: 1
@@ -609,15 +602,6 @@ ActiveRecord::Schema.define(version: 20160415140635) do
   add_index "users", ["authentication_system_id"], name: "index_users_on_authentication_system_id", using: :btree
   add_index "users", ["delegator_user_id"], name: "fk_rails_cc67a09e58", using: :btree
   add_index "users", ["language_id"], name: "fk_rails_45f4f12508", using: :btree
-
-  create_table "visits", id: false, force: :cascade do |t|
-    t.string  "id",                limit: 276
-    t.integer "inventory_pool_id", limit: 4
-    t.integer "user_id",           limit: 4
-    t.string  "status",            limit: 11,                 null: false
-    t.date    "date"
-    t.decimal "quantity",                      precision: 32
-  end
 
   create_table "workdays", force: :cascade do |t|
     t.integer "inventory_pool_id",        limit: 4

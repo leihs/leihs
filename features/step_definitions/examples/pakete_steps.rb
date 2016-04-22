@@ -143,8 +143,7 @@ end
 Then /^I can remove items from the package$/ do
   within '.modal' do
     within '#items' do
-      find("[data-type='inline-entry']", match: :first)
-      items = all("[data-type='inline-entry']")
+      items = all("[data-type='inline-entry']", minimum: 1)
       @number_of_items_before = items.size
       @item_to_remove = items.first.text
       find('[data-remove]', match: :first).click
@@ -226,8 +225,7 @@ Then /^the package has all the previously entered values$/ do
     field_type = hash_row['type']
     field = Field.all.detect{|f| _(f.data['label']) == field_name}
     within '.modal' do
-      find("[data-type='field'][data-id='#{field.id}']", match: :first)
-      matched_field = all("[data-type='field'][data-id='#{field.id}']").last
+      matched_field = all("[data-type='field'][data-id='#{field.id}']", minimum: 1).last
       expect(matched_field).not_to be_blank
       case field_type
         when 'autocomplete'

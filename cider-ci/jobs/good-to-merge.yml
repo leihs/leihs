@@ -7,13 +7,14 @@ jobs:
     descriptions: |
       This job depends on all other tests and checks
       and it will pass if and only if all dependencies have passed.
+      Status of this job is **used by github's "branch protection"**!
 
     depends-on:
     - type: job
       job: scenarios
       states: [passed]
     - type: job
-      job: leihs-admin-scenarios
+      job: admin-scenarios
       states: [passed]
     - type: job
       job: procurement-scenarios
@@ -22,7 +23,7 @@ jobs:
       job: code-checks
       states: [passed]
     - type: job
-      job: leihs-admin-code-checks
+      job: admin-code-checks
       states: [passed]
     - type: job
       job: procurement-code-checks
@@ -33,7 +34,7 @@ jobs:
 
     run-on:
     - type: branch
-      include-match: ^.+$
+      include-match: ^.*$
 
     context:
       tasks:

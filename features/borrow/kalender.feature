@@ -105,7 +105,7 @@ Feature: Calendar
     When I close the calendar
     Then the dialog window closes
 
-  @javascript @personas
+  @javascript @personas @browser
   Scenario: Availability display on the calendar
     Given there is a model for which an order exists
     When I add this model from the model list

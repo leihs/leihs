@@ -1,0 +1,29 @@
+jobs:
+
+  problematic-scenarios:
+
+    name: 'Core: Problematic Scenarios'
+
+    description: |
+      Run problematic features (except engines) under MRI
+
+    priority: -1
+
+    depends-on:
+    - type: job
+      job: scenarios
+      states: [passed]
+
+    run-on:
+    - type: branch
+      include-match: '[a-z]*/procurement_.*$'
+    - type: branch
+      include-match: '[a-z]*/master_.*$'
+
+    context:
+      task-defaults:
+        max-auto-trials: 10
+
+      _cider-ci_include:
+        - cider-ci/shared/tests-context.yml
+        - cider-ci/tasks/cucumber_problematic_scenarios.yml

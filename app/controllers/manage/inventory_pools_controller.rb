@@ -31,18 +31,18 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
       @submitted_reservations_count = \
         current_inventory_pool.reservations_bundles.submitted.to_a.size
       @overdue_hand_overs_count = \
-        current_inventory_pool.visits.hand_over.where('date < ?', @date).count
+        current_inventory_pool.visits.hand_over.where('date < ?', @date).to_a.size
       @overdue_take_backs_count = \
-        current_inventory_pool.visits.take_back.where('date < ?', @date).count
+        current_inventory_pool.visits.take_back.where('date < ?', @date).to_a.size
     else
       if params[:tab] == 'orders' or params[:tab] == 'last_visitors'
         params[:tab] = nil
       end
     end
     @hand_overs_count = \
-      current_inventory_pool.visits.hand_over.where(date: @date).count
+      current_inventory_pool.visits.hand_over.where(date: @date).to_a.size
     @take_backs_count = \
-      current_inventory_pool.visits.take_back.where(date: @date).count
+      current_inventory_pool.visits.take_back.where(date: @date).to_a.size
     if session[:last_visitors]
       @last_visitors = session[:last_visitors].reverse.map
     end
@@ -118,7 +118,8 @@ class Manage::InventoryPoolsController < Manage::ApplicationController
 
   def latest_reminder
     user = current_inventory_pool.users.find(params[:user_id])
-    visit = current_inventory_pool.visits.find(params[:visit_id])
+    visit = current_inventory_pool.visits
+                .having('id = ?', params[:visit_id]).first
     @notifications = \
       user.notifications.where('created_at >= ?', visit.date).limit(10)
   end

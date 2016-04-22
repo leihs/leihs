@@ -86,7 +86,7 @@ When /^all the contract reservations of all the events are combined$/ do
 end
 
 Then /^the result is a set of contract reservations that are associated with the users' contracts$/ do
-  expect(@hand_over_visits.to_a.count).to eq @open_reservations.count # NOTE count returns a Hash because the group() in default scope
+  expect(@hand_over_visits.to_a.size).to eq @open_reservations.count # NOTE count returns a Hash because the group() in default scope
 end
 
 Given /^there is an open contract with reservations for a user$/ do
@@ -106,7 +106,7 @@ When /^the visits of the inventory pool are fetched$/ do
 end
 
 Then /^the first two contract reservations should now be grouped inside the first visit, which makes it two visits in total$/ do
-  expect(@hand_over_visits.to_a.count).to eq 2 # NOTE count returns a Hash because the group() in default scope
+  expect(@hand_over_visits.to_a.size).to eq 2 # NOTE count returns a Hash because the group() in default scope
 end
 
 Given /^there are 2 different contracts for 2 different users$/ do
@@ -120,11 +120,11 @@ Given /^there are 2 different contracts with reservations for 2 different users$
 end
 
 Then /^there are 2 hand over visits for the given inventory pool$/ do
-  expect(@current_inventory_pool.visits.hand_over.reload.to_a.count).to eq 2 # NOTE count returns a Hash because the group() in default scope
+  expect(@current_inventory_pool.visits.hand_over.reload.to_a.size).to eq 2 # NOTE count returns a Hash because the group() in default scope
 end
 
 Then /^there are 2 take back visits for the given inventory pool$/ do
-  expect(@current_inventory_pool.visits.take_back.reload.to_a.count).to eq 2 # NOTE count returns a Hash because the group() in default scope
+  expect(@current_inventory_pool.visits.take_back.reload.to_a.size).to eq 2 # NOTE count returns a Hash because the group() in default scope
 end
 
 Given /^1st contract line of 2nd contract has the same start date as the 1st contract line of the 1st contract$/ do
@@ -144,7 +144,7 @@ end
 
 Then /^there should be different visits for 2 users with same start and end date$/ do
   expected = 2
-  expect(@current_inventory_pool.visits.hand_over.reload.to_a.count).to eq expected # NOTE count returns a Hash because the group() in default scope
+  expect(@current_inventory_pool.visits.hand_over.reload.to_a.size).to eq expected # NOTE count returns a Hash because the group() in default scope
 end
 
 Given /^make sure no end date is identical to any other$/ do
@@ -169,7 +169,7 @@ When /^the take back visits of the given inventory pool are fetched$/ do
 end
 
 Then /^there should be as many events as there are different start dates$/ do
-  expect(@take_back_visits.to_a.count).to eq @open_reservations.map(&:end_date).uniq.count # NOTE count returns a Hash because the group() in default scope
+  expect(@take_back_visits.to_a.size).to eq @open_reservations.map(&:end_date).uniq.count # NOTE count returns a Hash because the group() in default scope
 end
 
 When /^all the contract reservations of all the visits are combined$/ do
@@ -189,7 +189,7 @@ Given /^3rd contract line ends on a different date than the other two$/ do
 end
 
 Then /^the first 2 contract reservations should be grouped inside the 1st visit, which makes it two visits in total$/ do
-  expect(@take_back_visits.to_a.count).to eq 2 # NOTE count returns a Hash because the group() in default scope
+  expect(@take_back_visits.to_a.size).to eq 2 # NOTE count returns a Hash because the group() in default scope
 end
 
 Given /^to each contract line of the user's contract an item is assigned$/ do
@@ -216,7 +216,7 @@ Given /^both contracts are signed$/ do
 end
 
 Then /^the first 2 contract reservations should now be grouped inside the 1st visit, which makes it 2 visits in total$/ do
-  expect(@take_back_visits.to_a.count).to eq 2 # NOTE count returns a Hash because the group() in default scope
+  expect(@take_back_visits.to_a.size).to eq 2 # NOTE count returns a Hash because the group() in default scope
 end
 
 Given(/^a maximum amount of visits is defined for a week day$/) do
@@ -231,9 +231,9 @@ Then(/^the amount of visits includes$/) do |table|
       when 'potential hand overs (not yet acknowledged orders)'
         @inventory_pool.visits.potential_hand_over.select{|v| v.date == date}.size
       when 'hand overs'
-        @inventory_pool.visits.hand_over.where(date: date).to_a.count # NOTE count returns a Hash because the group() in default scope
+        @inventory_pool.visits.hand_over.where(date: date).to_a.size # NOTE count returns a Hash because the group() in default scope
       when 'take backs'
-        @inventory_pool.visits.take_back.where(date: date).to_a.count # NOTE count returns a Hash because the group() in default scope
+        @inventory_pool.visits.take_back.where(date: date).to_a.size # NOTE count returns a Hash because the group() in default scope
     end
   end
   expect(@inventory_pool.workday.total_visits_by_date[date].size).to eq total_visits

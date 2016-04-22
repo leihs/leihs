@@ -58,12 +58,14 @@ end
 
 Then /^the first itemline in the selection matching the provided inventory code is assigned$/ do
   expect(has_selector?('.line.green')).to be true
-  line = @hand_over.reload.reservations.detect{|line| line.item == @item}
+  reloaded_visit = Visit.having('id = ?', @hand_over.id).first
+  line = reloaded_visit.reservations.detect{|line| line.item == @item}
   expect(line).not_to be_nil
 end
 
 Then /^no new line is added to the hand over$/ do
-  expect(@hand_over.reservations.size).to eq @hand_over.reload.reservations.size
+  reloaded_visit = Visit.having('id = ?', @hand_over.id).first
+  expect(@hand_over.reservations.size).to eq reloaded_visit.reservations.size
 end
 
 When /^I clean the inventory code of one of the reservations$/ do

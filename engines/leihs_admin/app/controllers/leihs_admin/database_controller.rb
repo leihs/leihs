@@ -60,19 +60,19 @@ module LeihsAdmin
     def access_rights
       @visits = \
         Visit.joins('LEFT JOIN access_rights ' \
-                    'ON visits.user_id = access_rights.user_id ' \
-                    'AND visits.inventory_pool_id = ' \
+                    'ON reservations.user_id = access_rights.user_id ' \
+                    'AND reservations.inventory_pool_id = ' \
                     'access_rights.inventory_pool_id')
           .where(access_rights: { id: nil })
           .order(:inventory_pool_id, :user_id, :date)
-          .group('visits.inventory_pool_id, visits.user_id')
+          .group('reservations.inventory_pool_id, reservations.user_id')
           .includes(:user, :inventory_pool)
       if request.post?
         @visits.each do |visit|
           visit
             .inventory_pool
             .access_rights
-            .create(user: visit.user, role: :customer)
+            .find_or_create_by(user: visit.user, role: :customer)
         end
         @visits.reload
       end

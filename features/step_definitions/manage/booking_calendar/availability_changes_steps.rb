@@ -59,9 +59,8 @@ Then /^I see all availabilities in that calendar, where the small number is the 
           # the quantity is considering only the partitions with groups we are member of (exclude soft overbookings)
           if change_date_el[:class].match('selected') != nil
             x = c[2].select {|h| ([nil] + @contract.user.group_ids).include? h[:group_id]}
-            y = x.map {|h| h[:running_reservations]}
-            z = y.flat_map {|h| h['ItemLine']}
-            quantity_to_restore = (z & @contract.reservations.pluck(:id)).size
+            y = x.flat_map {|h| h[:running_reservations] }
+            quantity_to_restore = (y & @contract.reservations.pluck(:id)).size
             quantity_for_borrower += quantity_to_restore
           end
 

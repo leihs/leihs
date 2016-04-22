@@ -46,7 +46,6 @@ class InventoryPool < ActiveRecord::Base
   has_many :reservations_bundles, -> { extending BundleFinder }
   # TODO: ?? # has_many :contracts, through: :reservations_bundles
   has_many :item_lines, dependent: :restrict_with_exception
-  # :include => {:user => [:groups]} # MySQL View based on reservations
   has_many :visits
 
   # tmp#2#, :finder_sql => 'SELECT * FROM `groups`
@@ -76,25 +75,6 @@ class InventoryPool < ActiveRecord::Base
 
   #######################################################################
 
-  # MySQL View based on partitions and items
-  has_many :partitions_with_generals do
-    # we use array select instead of sql where condition
-    # to fetch once all partitions during the same request,
-    # instead of hit the db multiple times
-    # returns a hash as {group_id => quantity}
-    # like {nil => 10, 41 => 3, 42 => 6, ...}
-    def hash_for_model_and_groups(model, groups = nil)
-      a = select { |p| p.model_id == model.id }
-      if groups
-        group_ids = groups.map { |x| x.try(:id) }
-        a = a.select { |p| group_ids.include? p.group_id }
-      end
-      h = Hash[a.map { |p| [p.group_id, p.quantity] }]
-      h = { Group::GENERAL_GROUP_ID => 0 } if h.empty?
-      h
-    end
-  end
-
   # we don't recalculate the past
   # if an item is already assigned, we block the availability
   # even if the start_date is in the future
@@ -106,7 +86,6 @@ class InventoryPool < ActiveRecord::Base
   # which the end_date is already in the past
   # we consider even unsubmitted reservations,
   # but not the already timed out ones
-  # NOTE: the order is needed by the availability computation
   has_many(:running_reservations,
            (lambda do
               select('id, inventory_pool_id, model_id, item_id, quantity, ' \
@@ -120,7 +99,6 @@ class InventoryPool < ActiveRecord::Base
                            "'#{Time.now.utc - Setting.timeout_minutes.minutes}'")
                 .where.not("end_date < '#{Time.zone.today}' AND item_id IS NULL")
                 .group(:id)
-                .order(:start_date, :end_date)
            end),
            class_name: 'ItemLine')
 

@@ -91,10 +91,10 @@ class window.App.Availability extends Spine.Model
       for allocation in change[2]
         for line in reservations
           # ItemLine is the only type we have
-          if allocation.running_reservations? and allocation.running_reservations["ItemLine"]?
-            outDocumentLines = allocation.running_reservations["ItemLine"]
+          if allocation.running_reservations?
+            outDocumentLines = allocation.running_reservations
             if _.include(outDocumentLines, line.id)
-              allocation.running_reservations["ItemLine"] = _.filter outDocumentLines, (l)-> l != line.id
+              allocation.running_reservations = _.filter outDocumentLines, (l)-> l != line.id
               # we recover the quantity only if is not a soft-overbooking
               # or if it is request by passing true as second argument
               if recoverSoftOverBooking or @groupIsIn line.user().groupIds, allocation.group_id

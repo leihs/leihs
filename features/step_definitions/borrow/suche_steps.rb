@@ -8,8 +8,7 @@ end
 Then(/^I see image, name and manufacturer of the first 6 matching models$/) do
   within '#search-autocomplete' do
     within '.ui-autocomplete' do
-      find('.ui-autocomplete a', match: :first)
-      matches = all('.ui-autocomplete a')
+      matches = all('.ui-autocomplete a', minimum: 1)
       expect(matches.length).to be >= 6
       matches[0,6].each do |match|
         within match do

@@ -11,14 +11,13 @@ When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over
                         items.in_stock.where(is_borrowable: false)
                     end.detect{|i| not existing_model_ids.include?(i.model_id)}.inventory_code
   @inventory_codes << @inventory_code
+  line_amount_before = all('.line', minimum: 1).size
+  step 'I close the flash message'
   find('[data-add-contract-line]').set @inventory_code
-  find('.line', match: :first)
-  line_amount_before = all('.line').size
   find('[data-add-contract-line] + .addon').click
   find('#flash')
-  find('.line', match: :first)
-  find("input[value='#{@inventory_code}']")
-  expect(line_amount_before).to be < all('.line').size
+  find(".line input[value='#{@inventory_code}']")
+  expect(line_amount_before).to be < all('.line', minimum: 1).size
 end
 
 When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over by using the search input field$/ do |item_attr, item_type|

@@ -11,7 +11,7 @@ jobs:
       job: scenarios
       states: [passed]
     - type: job
-      job: leihs-admin-scenarios
+      job: admin-scenarios
       states: [passed]
 
     run-on:

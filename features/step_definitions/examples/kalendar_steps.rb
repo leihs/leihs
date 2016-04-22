@@ -47,6 +47,8 @@ Then /^the (order|hand over) can be saved$/ do |arg1|
 end
 
 Given /^I edit all reservations$/ do
+  step 'I close the flash message'
+
   find('.multibutton .green.dropdown-toggle').click
   find(".multibutton .dropdown-item[data-edit-lines='selected-lines']", text: _('Edit Selection')).click
 end

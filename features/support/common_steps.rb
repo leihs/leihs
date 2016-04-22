@@ -45,3 +45,9 @@ Given(/^today corresponds to the start date of the order$/) do
   end
   visit current_path # reload the page in order to travel in time also in browser
 end
+
+Then 'I close the flash message' do
+  # NOTE prevent button not clickabe by over layer
+  selector = '#flash .fa-times-circle'
+  find(selector).click if has_selector? selector
+end

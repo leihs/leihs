@@ -35,8 +35,7 @@ Given /^a model is no longer available$/ do
     step 'I add so many reservations that I break the maximal quantity of a model'
     visit manage_take_back_path(@current_inventory_pool, @customer)
   end
-  find('.line', text: @model.name, match: :first)
-  @lines = all('.line', text: @model.name)
+  @lines = all('.line', minimum: 1, text: @model.name)
   expect(@lines.size).to be > 0
   @max_before = [@max_before, 0].max
 end
@@ -180,7 +179,7 @@ end
 Then(/^the last added model line shows the line's problem$/) do
   @line = @model.reservations.last
   @av = @model.availability_in(@line.inventory_pool)
-  line = all(".line[data-id='#{@line.id}']", text: @model.name).last
+  line = all(".line[data-id='#{@line.id}']", minimum: 1, text: @model.name).last
   hover_for_tooltip line.find(".emboss.red")
   @problems = []
   @problems << find('.tooltipster-default .tooltipster-content', text: /\w/).text

@@ -5,7 +5,7 @@ jobs:
     name: Hot Spot Scenarios
 
     description: |
-      Run hot spot scenarios under MRI
+      Manually run hot spot scenarios under MRI
 
     context:
       task-defaults:
@@ -14,4 +14,3 @@ jobs:
       _cider-ci_include:
         - cider-ci/shared/tests-context.yml
         - cider-ci/tasks/hot_spot_scenarios.yml
-

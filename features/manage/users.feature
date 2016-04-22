@@ -34,7 +34,7 @@ Feature: Manage users
     And I am looking at the user list in any inventory pool
     Then users are sorted alphabetically by first name
 
-  @javascript @personas
+  @javascript @personas @browser
   Scenario: Add new user to the inventory pool inventory manager
     When I am looking at the user list in any inventory pool
     And I add a user

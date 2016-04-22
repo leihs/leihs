@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 Given(/^I have an unsubmitted order with models$/) do
-  expect(@current_user.reservations_bundles.unsubmitted.to_a.count).to be >= 1
+  expect(@current_user.reservations_bundles.unsubmitted.to_a.size).to be >= 1
 end
 
 Given(/^the contract timeout is set to (\d+) minutes$/) do |arg1|
@@ -123,7 +123,12 @@ Given(/^the model "(.*)" has following partitioning in inventory pool "(.*)":$/)
                else
                  Group.find_by(name: h['group']).id
                end
-    expect(@model.partitions_with_generals.find_by(group_id: group_id, inventory_pool_id: @inventory_pool.id).quantity).to eq h['quantity'].to_i
+    partitions = Partition.with_generals(model_ids: [@model.id],
+                                         inventory_pool_id: @inventory_pool.id).select do |partition|
+      partition.group_id == group_id
+    end
+    expect(partitions.count).to eq 1
+    expect(partitions.first.quantity).to eq h['quantity'].to_i
   end
 end
 
@@ -169,8 +174,8 @@ end
 
 Then(/^(\d+) of these reservations (is|are) allocated to group "(.*?)"$/) do |arg1, arg2, arg3|
   group_id = arg3 == "General" ? Group::GENERAL_GROUP_ID : Group.find_by_name(arg3).id
-  expect(@av.changes[@date][group_id][:running_reservations]["ItemLine"].size).to eq arg1.to_i
-  expect(@av.changes[@date][group_id][:running_reservations]["ItemLine"].all? {|id| @reservations.map(&:id).include? id }).to be true
+  expect(@av.changes[@date][group_id][:running_reservations].size).to eq arg1.to_i
+  expect(@av.changes[@date][group_id][:running_reservations].all? {|id| @reservations.map(&:id).include? id }).to be true
 end
 
 Then(/^all these reservations are available$/) do

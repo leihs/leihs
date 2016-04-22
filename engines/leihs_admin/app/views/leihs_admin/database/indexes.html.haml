@@ -11,6 +11,8 @@
   - @indexes_not_found.each do |table, columns, options|
     %tr
       %td
+        %i.fa.fa-exclamation-circle
+      %td
         = table
       %td
         = columns
@@ -18,6 +20,8 @@
         = options
   - @indexes_found.each do |table, columns, options|
     %tr
+      %td
+        %i.fa.fa-check-circle
       %td
         = table
       %td

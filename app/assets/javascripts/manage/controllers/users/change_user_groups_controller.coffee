@@ -34,7 +34,6 @@ class window.App.ChangeUserGroupsController extends Spine.Controller
 
   select: (e, ui) =>
     @groupList.append(App.Render "manage/views/groups/group_entry", ui.item)
-    @input.blur()
 
   removeGroup: (e) ->
     e.preventDefault()
