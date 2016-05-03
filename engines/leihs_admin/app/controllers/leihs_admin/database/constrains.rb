@@ -1,3 +1,5 @@
+# rubocop:disable Metrics/ModuleLength
+
 module LeihsAdmin
   module Database
     module Constrains
@@ -10,7 +12,7 @@ module LeihsAdmin
           ['access_rights', %w(user_id inventory_pool_id deleted_at)],
           ['accessories', ['model_id']],
           ['accessories_inventory_pools',
-          ['accessory_id', 'inventory_pool_id'], unique: true],
+           ['accessory_id', 'inventory_pool_id'], unique: true],
           ['accessories_inventory_pools', ['inventory_pool_id']],
           ['addresses', %w(street zip_code city country_code), unique: true],
           ['attachments', ['model_id']],
@@ -116,3 +118,5 @@ module LeihsAdmin
     end
   end
 end
+
+# rubocop:enable Metrics/ModuleLength

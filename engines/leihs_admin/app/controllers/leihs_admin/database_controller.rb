@@ -59,9 +59,9 @@ module LeihsAdmin
 
     def not_null_columns
       @columns_found, @columns_not_found = begin
-        Database::Constrains::NOT_NULL_COLUMNS.partition do |table_name, column_name|
+        Database::Constrains::NOT_NULL_COLUMNS.partition do |table, column|
           r = @connection.execute(
-            "SELECT * FROM `#{table_name}` WHERE `#{column_name}` IS NULL").to_a
+            "SELECT * FROM `#{table}` WHERE `#{column}` IS NULL").to_a
           r.empty?
         end
       end
