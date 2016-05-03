@@ -1,6 +1,7 @@
 module LeihsAdmin
-  module Modules
-    module Database
+  module Database
+    module Constrains
+
       INDEXES = \
         [
           ['access_rights', ['deleted_at']],
@@ -9,7 +10,7 @@ module LeihsAdmin
           ['access_rights', %w(user_id inventory_pool_id deleted_at)],
           ['accessories', ['model_id']],
           ['accessories_inventory_pools',
-           ['accessory_id', 'inventory_pool_id'], unique: true],
+          ['accessory_id', 'inventory_pool_id'], unique: true],
           ['accessories_inventory_pools', ['inventory_pool_id']],
           ['addresses', %w(street zip_code city country_code), unique: true],
           ['attachments', ['model_id']],
@@ -70,6 +71,48 @@ module LeihsAdmin
           ['users', ['authentication_system_id']],
           ['workdays', ['inventory_pool_id']]
         ]
+
+      NOT_NULL_COLUMNS = \
+        [
+          [:access_rights, :user_id],
+          [:access_rights, :role],
+          [:accessories, :name],
+          [:buildings, :name],
+          [:database_authentications, :login],
+          [:database_authentications, :user_id],
+          [:groups, :name],
+          [:groups, :inventory_pool_id],
+          [:inventory_pools, :name],
+          [:inventory_pools, :shortname],
+          [:inventory_pools, :email],
+          [:accessories, :name],
+          [:items, :inventory_code],
+          [:items, :model_id],
+          [:items, :owner_id],
+          [:items, :inventory_pool_id],
+          [:models, :product],
+          [:model_groups, :name],
+          [:model_links, :model_group_id],
+          [:model_links, :model_id],
+          [:model_links, :quantity],
+          [:options, :inventory_pool_id],
+          [:options, :product],
+          [:partitions, :model_id],
+          [:partitions, :inventory_pool_id],
+          [:partitions, :group_id],
+          [:partitions, :quantity],
+          [:properties, :key],
+          [:properties, :value],
+          [:reservations, :user_id],
+          [:reservations, :inventory_pool_id],
+          [:reservations, :status],
+          [:settings, :local_currency_string],
+          [:settings, :email_signature],
+          [:settings, :default_email],
+          [:suppliers, :name],
+          [:users, :firstname]
+        ]
+
     end
   end
 end

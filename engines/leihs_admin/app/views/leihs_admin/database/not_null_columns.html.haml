@@ -1,0 +1,30 @@
+- content_for :title, _("Database not null columns")
+
+= render partial: "header"
+
+- if @columns_not_found.empty?
+  %h3
+    = _("All correct")
+    %i.fa.fa-check-square-o.text-success
+
+%table.table.table-striped
+  - @columns_not_found.each do |table, columns, options|
+    %tr
+      %td.text-danger
+        %i.fa.fa-exclamation-circle
+      %td
+        = table
+      %td
+        = columns
+      %td
+        = options
+  - @columns_found.each do |table, columns, options|
+    %tr
+      %td.text-success
+        %i.fa.fa-check-circle
+      %td
+        = table
+      %td
+        = columns
+      %td
+        = options

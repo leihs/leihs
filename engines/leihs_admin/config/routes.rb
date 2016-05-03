@@ -19,6 +19,7 @@ LeihsAdmin::Engine.routes.draw do
   match "database/empty_columns", to: "database#empty_columns", as: "empty_columns", via: [:get, :delete]
   match "database/consistency", to: "database#consistency", as: "consistency", via: [:get, :delete]
   match "database/access_rights", to: "database#access_rights", as: "access_rights", via: [:get, :post]
+  get "database/not_null_columns", to: "database#not_null_columns"
 
   # Export inventory of all inventory pools
   get 'inventory/csv',              :to => 'inventory#csv_export',  :as => 'global_inventory_csv_export'
