@@ -21,7 +21,7 @@ class Visit < ActiveRecord::Base
            'CONV(SUBSTRING(CAST(SHA(' \
             "CONCAT_WS('_', date, reservations.inventory_pool_id, " \
             'reservations.user_id, status)) AS CHAR)' \
-           ', 1, 8), 16, 10) AS id')
+           ', 1, 10), 16, 10) AS id')
     .from('(SELECT ' \
               "IF((status = 'signed'), end_date, start_date) AS date, "\
               'inventory_pool_id, user_id, status, quantity ' \

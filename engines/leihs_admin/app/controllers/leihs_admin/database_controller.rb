@@ -15,7 +15,7 @@
 
 module LeihsAdmin
   class DatabaseController < AdminController
-    include Modules::Database::Consistency
+    include Database::Consistency
 
     before_action do
       @connection = ActiveRecord::Base.connection
@@ -23,7 +23,7 @@ module LeihsAdmin
 
     def indexes
       @indexes_found, @indexes_not_found = begin
-        Modules::Database::INDEXES.partition do |table, columns, options|
+        Database::Constrains::INDEXES.partition do |table, columns, options|
           indexes = @connection.indexes(table)
           index = indexes.detect { |x| x.columns == columns }
           if not index
@@ -53,6 +53,17 @@ module LeihsAdmin
             .to_a
           next if r.empty?
           @empty_columns[[table_name, column.name]] = r
+        end
+      end
+    end
+
+    def not_null_columns
+      @columns_found, @columns_not_found = begin
+        Database::Constrains::NOT_NULL_COLUMNS.partition \
+          do |table_name, column_name|
+          columns = @connection.columns(table_name)
+          column = columns.detect { |x| x.name == column_name.to_s }
+          not column.null
         end
       end
     end

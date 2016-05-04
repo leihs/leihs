@@ -508,6 +508,10 @@ ActiveRecord::Schema.define(version: 20160418075339) do
 
   create_table "reservations", force: :cascade do |t|
     t.integer  "contract_id",            limit: 4
+    t.integer  "inventory_pool_id",      limit: 4,                        null: false
+    t.integer  "user_id",                limit: 4,                        null: false
+    t.integer  "delegated_user_id",      limit: 4
+    t.integer  "handed_over_by_user_id", limit: 4
     t.string   "type",                   limit: 255, default: "ItemLine", null: false
     t.integer  "item_id",                limit: 4
     t.integer  "model_id",               limit: 4
@@ -520,27 +524,23 @@ ActiveRecord::Schema.define(version: 20160418075339) do
     t.integer  "returned_to_user_id",    limit: 4
     t.datetime "created_at",                                              null: false
     t.datetime "updated_at",                                              null: false
-    t.integer  "inventory_pool_id",      limit: 4,                        null: false
-    t.integer  "user_id",                limit: 4,                        null: false
-    t.integer  "delegated_user_id",      limit: 4
-    t.integer  "handed_over_by_user_id", limit: 4
     t.string   "status",                 limit: 11,                       null: false
   end
 
-  add_index "reservations", ["contract_id"], name: "index_contract_lines_on_contract_id", using: :btree
+  add_index "reservations", ["contract_id"], name: "index_reservations_on_contract_id", using: :btree
   add_index "reservations", ["delegated_user_id"], name: "fk_rails_6f10314351", using: :btree
-  add_index "reservations", ["end_date"], name: "index_contract_lines_on_end_date", using: :btree
+  add_index "reservations", ["end_date"], name: "index_reservations_on_end_date", using: :btree
   add_index "reservations", ["handed_over_by_user_id"], name: "fk_rails_3cc4562273", using: :btree
   add_index "reservations", ["inventory_pool_id"], name: "fk_rails_151794e412", using: :btree
-  add_index "reservations", ["item_id"], name: "index_contract_lines_on_item_id", using: :btree
-  add_index "reservations", ["model_id"], name: "index_contract_lines_on_model_id", using: :btree
-  add_index "reservations", ["option_id"], name: "index_contract_lines_on_option_id", using: :btree
-  add_index "reservations", ["purpose_id"], name: "fk_rails_f33ca08ef1", using: :btree
-  add_index "reservations", ["returned_date", "contract_id"], name: "index_contract_lines_on_returned_date_and_contract_id", using: :btree
-  add_index "reservations", ["returned_to_user_id"], name: "fk_rails_2b7f188fdb", using: :btree
-  add_index "reservations", ["start_date"], name: "index_contract_lines_on_start_date", using: :btree
+  add_index "reservations", ["item_id"], name: "index_reservations_on_item_id", using: :btree
+  add_index "reservations", ["model_id"], name: "index_reservations_on_model_id", using: :btree
+  add_index "reservations", ["option_id"], name: "index_reservations_on_option_id", using: :btree
+  add_index "reservations", ["purpose_id"], name: "fk_rails_1391c89ed4", using: :btree
+  add_index "reservations", ["returned_date", "contract_id"], name: "index_reservations_on_returned_date_and_contract_id", using: :btree
+  add_index "reservations", ["returned_to_user_id"], name: "fk_rails_5cc2043d96", using: :btree
+  add_index "reservations", ["start_date"], name: "index_reservations_on_start_date", using: :btree
   add_index "reservations", ["status"], name: "index_reservations_on_status", using: :btree
-  add_index "reservations", ["type", "contract_id"], name: "index_contract_lines_on_type_and_contract_id", using: :btree
+  add_index "reservations", ["type", "contract_id"], name: "index_reservations_on_type_and_contract_id", using: :btree
   add_index "reservations", ["user_id"], name: "fk_rails_48a92fce51", using: :btree
 
   create_table "settings", force: :cascade do |t|
