@@ -94,7 +94,6 @@ class Visit < ActiveRecord::Base
       visits = visits.where(arel_table[:date].lteq(r[:end_date])) if r[:end_date]
     end
 
-    visits = visits.default_paginate params unless params[:paginate] == 'false'
     visits
   end
 
@@ -111,6 +110,19 @@ class Visit < ActiveRecord::Base
 
   def status
     read_attribute(:status).to_sym
+  end
+
+  # NOTE: `total_entries` from will_paginate gem does not
+  # work with our custom `Visit.default_scope`, thus we
+  # use our own `Visit.total_count_for_paginate`
+  def self.total_count_for_paginate
+    scope_sql = \
+      Visit
+        .arel_table
+        .from("(#{all.reorder(nil).to_sql}) visits")
+        .project(Arel.star)
+        .to_sql
+    ActiveRecord::Base.connection.execute(scope_sql).count
   end
 
 end

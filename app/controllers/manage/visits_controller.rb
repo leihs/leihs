@@ -4,8 +4,18 @@ class Manage::VisitsController < Manage::ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        @visits = Visit.filter params, current_inventory_pool
-        set_pagination_header(@visits) unless params[:paginate] == 'false'
+        visits = Visit.filter(params, current_inventory_pool)
+        unless params[:paginate] == 'false'
+          @visits = visits.default_paginate(params)
+          # NOTE: `total_entries` from will_paginate gem does not
+          # work with our custom `Visit.default_scope`, thus we
+          # use our own `Visit.total_count_for_paginate`
+          headers['X-Pagination'] = {
+            total_count: visits.total_count_for_paginate,
+            per_page: @visits.per_page,
+            offset: @visits.offset
+          }.to_json
+        end
       end
     end
   end
