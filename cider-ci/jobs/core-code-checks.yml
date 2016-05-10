@@ -10,8 +10,10 @@ jobs:
     run-on:
     - type: branch
       include-match: '[a-z]*/core_.*'
+      exclude-match: '^(.*no-ci.*)$'
     - type: branch
       include-match: '[a-z]*/master.*$'
+      exclude-match: '^(.*no-ci.*)$'
 
     context:
 

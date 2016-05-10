@@ -34,7 +34,8 @@ jobs:
 
     run-on:
     - type: branch
-      include-match: ^.*$
+      include-match: '^.*$'
+      exclude-match: '^(.*no-ci.*)$'
 
     context:
       tasks:
