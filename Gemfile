@@ -33,9 +33,10 @@ gem 'paperclip', '~> 4.3'
 gem 'rails_autolink', '~> 1.0'
 gem 'rake' # So that cronjobs work -- otherwise they can't find rake
 gem 'rgl', '~> 0.4.0', require: 'rgl/adjacency' # use ruby-graphviz instead ?? (already in test group)
-gem 'ruby_parser', '~> 3.1' # gettext dependency that Bundler seems unable to resolve
 gem 'rubocop', '0.35.1', require: false
+gem 'ruby_parser', '~> 3.1' # gettext dependency that Bundler seems unable to resolve
 gem 'sass-rails', '~> 4.0'
+gem 'scout'
 gem 'therubyracer', platform: :mri
 gem 'therubyrhino', platform: :jruby
 gem 'uglifier', '~> 2.4'
