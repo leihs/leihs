@@ -14,7 +14,7 @@ jobs:
       include-match: '[a-z]*/procurement_.*$'
       exclude-match: '^(.*no-ci.*)$'
     - type: branch
-      include-match: '[a-z]*/master.*$'
+      include-match: '^(.*master.*)$'
       exclude-match: '^(.*no-ci.*)$'
     - type: job
       job: core-scenarios

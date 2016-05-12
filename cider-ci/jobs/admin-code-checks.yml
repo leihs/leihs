@@ -12,7 +12,7 @@ jobs:
       include-match: '[a-z]*/admin_.*$'
       exclude-match: '^(.*no-ci.*)$'
     - type: branch
-      include-match: '[a-z]*/master.*$'
+      include-match: '^(.*master.*)$'
       exclude-match: '^(.*no-ci.*)$'
 
 
