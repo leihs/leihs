@@ -18,6 +18,7 @@ _cider-ci_include:
   # # always runs:
   - cider-ci/jobs/meta.yml
   - cider-ci/jobs/good-to-merge.yml
+  - cider-ci/jobs/rails-warnings-check.yml
 
   # # only manual run:
   - cider-ci/jobs/hot-spot-scenarios.yml
