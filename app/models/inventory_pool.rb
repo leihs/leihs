@@ -263,27 +263,34 @@ class InventoryPool < ActiveRecord::Base
     inventory
   end
 
+  ITEM_PARAMS_FOR_CSV_EXPORT = \
+    [:unborrowable,
+     :retired,
+     :category_id,
+     :in_stock,
+     :incomplete,
+     :broken,
+     :owned,
+     :responsible_inventory_pool_id,
+     :unused_models]
+
   def self.csv_export(inventory_pool, params)
     require 'csv'
 
-    items = if inventory_pool
-              Item.filter(params.clone.merge(paginate: 'false', all: 'true'),
-                          inventory_pool)
+    items = if params[:type] != 'option'
+              if inventory_pool
+                Item.filter(params.clone.merge(paginate: 'false', all: 'true'),
+                            inventory_pool)
+              else
+                Item.unscoped
+              end.includes(:current_reservation)
             else
-              Item.unscoped
-            end.includes(:current_reservation)
+              []
+            end
 
     options = if inventory_pool
                 if params[:type] != 'license' \
-                    and [:unborrowable,
-                         :retired,
-                         :category_id,
-                         :in_stock,
-                         :incomplete,
-                         :broken,
-                         :owned,
-                         :responsible_inventory_pool_id,
-                         :unused_models].all? { |param| params[param].blank? }
+                    and ITEM_PARAMS_FOR_CSV_EXPORT.all? { |p| params[p].blank? }
                   Option.filter \
                     params.clone.merge(paginate: 'false',
                                        sort: 'product',
@@ -307,9 +314,11 @@ class InventoryPool < ActiveRecord::Base
       (global ? [:model] : [:item_lines, model: [:model_links, :model_groups]])
 
     objects = []
-    items.includes(include_params).find_each do |i, index|
-      # How could an item ever be nil?
-      objects << i.to_csv_array(global: global) unless i.nil?
+    unless items.blank?
+      items.includes(include_params).find_each do |i, index|
+        # How could an item ever be nil?
+        objects << i.to_csv_array(global: global) unless i.nil?
+      end
     end
     unless options.blank?
       options.includes(:inventory_pool).find_each do |o|
@@ -403,4 +412,5 @@ class InventoryPool < ActiveRecord::Base
       i.properties[:project_number] = row['properties_project_number']
     end
   end
+
 end

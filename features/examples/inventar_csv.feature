@@ -5,9 +5,9 @@ Feature: Inventory (CSV export)
     Given I am Mike
     And I open the inventory
     When I view the tab "Models"
-    Then I can export this data as a CSV file
-    And the file contains the same reservations as are shown right now, including any filtering
-    And the reservations contain the following fields in order:
+    Then I can export this items data as a CSV file
+    And the file contains the same lines as are shown right now, including any filtering
+    And the lines contain the following fields in order:
       | Fields                        |
       | Created at                    |
       | Updated at                    |
@@ -61,9 +61,9 @@ Feature: Inventory (CSV export)
       | Borrower Last name            |
       | Borrower Personal ID          |
     When I view the tab "Software"
-    Then I can export this data as a CSV file
-    And the file contains the same reservations as are shown right now, including any filtering
-    And the reservations contain the following fields in order:
+    Then I can export this items data as a CSV file
+    And the file contains the same lines as are shown right now, including any filtering
+    And the lines contain the following fields in order:
       | Fields                 |
       | Created at             |
       | Updated at             |
@@ -100,3 +100,13 @@ Feature: Inventory (CSV export)
       | Borrower First name    |
       | Borrower Last name     |
       | Borrower Personal ID   |
+    When I view the tab "Options"
+    Then I can export this options data as a CSV file
+    And the file contains the same lines as are shown right now, including any filtering
+    And the lines contain the following fields in order:
+      | Fields                 |
+      | model_name             |
+      | Inventory Code         |
+      | Responsible department |
+      | Categories             |
+      | Initial Price          |

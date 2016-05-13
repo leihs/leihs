@@ -307,14 +307,14 @@ Then(/^such a line shows only inventory code and model name of the component$/) 
   end
 end
 
-Then /^I can export this data as a CSV file$/ do
-  def parsed_query
-    href = find('#csv-export')[:href]
-    uri = URI.parse href
-    expect(uri.path).to eq manage_inventory_csv_export_path(@current_inventory_pool)
-    Rack::Utils.parse_nested_query uri.query
-  end
+def parsed_query
+  href = find('#csv-export')[:href]
+  uri = URI.parse href
+  expect(uri.path).to eq manage_inventory_csv_export_path(@current_inventory_pool)
+  Rack::Utils.parse_nested_query uri.query
+end
 
+Then /^I can export this items data as a CSV file$/ do
   expect(parsed_query['retired']).to eq 'false'
   if [nil, '0'].include? parsed_query['in_stock']
     find('input#in_stock').click
@@ -323,26 +323,32 @@ Then /^I can export this data as a CSV file$/ do
   @params = ActionController::Parameters.new(parsed_query)
 end
 
-Then /^the file contains the same reservations as are shown right now, including any filtering$/ do
+Then /^I can export this options data as a CSV file$/ do
+  @params = ActionController::Parameters.new(parsed_query)
+end
+
+Then /^the file contains the same lines as are shown right now, including any filtering$/ do
   # not really downloading the file, but invoking directly the model class method
   require 'csv'
   @csv = CSV.parse InventoryPool.csv_export(@current_inventory_pool, @params),
                    {col_sep: ';', quote_char: "\"", force_quotes: true, headers: :first_row}
   step 'I fetch all pages of the list'
   within '#inventory' do
-    ['model', 'software'].each do |type|
+    ['model', 'software', 'option'].each do |type|
       selector = ".line[data-type='#{type}'] .button[data-type='inventory-expander'] i.arrow.right"
       while has_selector?(selector) do
         all(selector).each &:click
       end
     end
-      line_codes = (all(".line[data-type='item']").to_a + all(".line[data-type='license']").to_a).map { |l| l.find('.col2of5 .row', match: :first).text }
+    item_line_codes = (all(".line[data-type='item']").to_a + all(".line[data-type='license']").to_a).map { |l| l.find('.col2of5 .row', match: :first).text }
+    option_line_codes = all(".line[data-type='option']").to_a.map { |l| l.find('.row .col1of5', match: :first).text }
+    line_codes = item_line_codes + option_line_codes
     csv_codes = @csv.map {|csv_row| csv_row['Inventory Code'] }
     expect(csv_codes.sort).to eq line_codes.sort
   end
 end
 
-Then(/^the reservations contain the following fields in order:$/) do |table|
+Then(/^the lines contain the following fields in order:$/) do |table|
   csv_headers = @csv.headers
   table.hashes.each do |row|
     expect(csv_headers).to include row['Fields']
