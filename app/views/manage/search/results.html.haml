@@ -13,21 +13,21 @@
 
     .margin-top-l.padding-bottom-m.row
 
-      #models.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Models"),_("models")], :link => manage_search_models_path(current_inventory_pool, {:search_term => @search_term, :type => :model})}
+      #models.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Models")], :link => manage_search_models_path(current_inventory_pool, {:search_term => @search_term, :type => :model})}
 
-      #software.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Software"),_("software")], :link => manage_search_software_path(current_inventory_pool, {:search_term => @search_term, :type => :software})}
+      #software.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Software")], :link => manage_search_software_path(current_inventory_pool, {:search_term => @search_term, :type => :software})}
 
-      #items.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Items"),_("items")], :link => manage_search_items_path(current_inventory_pool, {:search_term => @search_term, :type => :item})}
+      #items.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Items")], :link => manage_search_items_path(current_inventory_pool, {:search_term => @search_term, :type => :item})}
 
-      #licenses.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Licenses"),_("licenses")], :link => manage_search_items_path(current_inventory_pool, {:search_term => @search_term, :type => :license})}
+      #licenses.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Licenses")], :link => manage_search_licenses_path(current_inventory_pool, {:search_term => @search_term, :type => :license})}
 
-      #options.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Options"),_("options")], :link => manage_search_options_path(current_inventory_pool, {:search_term => @search_term})}
+      #options.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Options")], :link => manage_search_options_path(current_inventory_pool, {:search_term => @search_term})}
 
-      #users.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Users"),_("users")], :link => manage_search_users_path(current_inventory_pool, {:search_term => @search_term})}
+      #users.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Users")], :link => manage_search_users_path(current_inventory_pool, {:search_term => @search_term})}
 
-      #contracts.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Contracts"),_("contracts")], :link => manage_search_contracts_path(current_inventory_pool, {:search_term => @search_term})}
+      #contracts.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Contracts")], :link => manage_search_contracts_path(current_inventory_pool, {:search_term => @search_term})}
 
-      #orders.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Orders"),_("orders")], :link => manage_search_orders_path(current_inventory_pool, {:search_term => @search_term})}
+      #orders.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Orders")], :link => manage_search_orders_path(current_inventory_pool, {:search_term => @search_term})}
 
       #loading.height-l.padding-top-xl.padding-bottom-l
         .padding-top-l
