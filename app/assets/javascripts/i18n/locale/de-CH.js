@@ -237,6 +237,10 @@ window.i18n.locale_data = {
          null,
          "Admin"
       ],
+      "Administrators": [
+         null,
+         "Administratoren"
+      ],
       "All": [
          null,
          "Alle"
@@ -1462,6 +1466,10 @@ window.i18n.locale_data = {
          null,
          "Anzahl"
       ],
+      "Quantities": [
+         null,
+         "Mengen"
+      ],
       "Quantity allocations": [
          null,
          "Anzahl-Zuteilungen"
@@ -2647,6 +2655,10 @@ window.i18n.locale_data = {
          null,
          "Inventar-Verwalter"
       ],
+      "New": [
+         null,
+         "Neu"
+      ],
       "New Delegation": [
          null,
          "Neue Delegation"
@@ -3395,7 +3407,7 @@ window.i18n.locale_data = {
       ],
       "%s is already assigned to a different contract": [
          null,
-         "%s ist bereits einem anderen Vertrag zugewiesen"
+         "%s ist bereits einem anderen Vertrag zugeteilt"
       ],
       "Hand over of %s item": [
          "Hand over of %s items",
@@ -3876,6 +3888,350 @@ window.i18n.locale_data = {
       "Search category": [
          null,
          "Kategorie suchen"
+      ],
+      "Budget limits": [
+         null,
+         "Budgetlimiten"
+      ],
+      "Budget period": [
+         null,
+         "Budgetperiode"
+      ],
+      "Budget periods": [
+         null,
+         "Budgetperioden"
+      ],
+      "Budget period end date": [
+         null,
+         "Enddatum der Budgetperiode"
+      ],
+      "The budget period is closed": [
+         null,
+         "Die Budgetperiode wird geschlossen"
+      ],
+      "requesting phase until %s": [
+         null,
+         "Antragsphase bis %s"
+      ],
+      "inspection phase until %s": [
+         null,
+         "Prüfphase bis %s"
+      ],
+      "Model name": [
+         null,
+         "Modellname"
+      ],
+      "Requested quantity": [
+         null,
+         "Menge beantragt"
+      ],
+      "Approved quantity": [
+         null,
+         "Menge bewilligt"
+      ],
+      "Order quantity": [
+         null,
+         "Bestellmenge"
+      ],
+      "Requests": [
+         null,
+         "Anträge"
+      ],
+      "Template Categories": [
+         null,
+         "Vorlag Kategorien"
+      ],
+      "Edit templates": [
+         null,
+         "Vorlagen editieren"
+      ],
+      "Requester": [
+         null,
+         "Antragsteller/in"
+      ],
+      "Requesters": [
+         null,
+         "Antragsteller/innen"
+      ],
+      "Not a requester": [
+         null,
+         "Kein/e Antragsteller/in"
+      ],
+      "My groups": [
+         null,
+         "Meine Gruppen"
+      ],
+      "My requests": [
+         null,
+         "Meine Anträge"
+      ],
+      "Motivation": [
+         null,
+         "Begründung"
+      ],
+      "Inspectors": [
+         null,
+         "Prüfer"
+      ],
+      "Inspection": [
+         null,
+         "Überprüfung"
+      ],
+      "Inspection comment": [
+         null,
+         "Kommentar des Prüfers"
+      ],
+      "Inspection start date": [
+         null,
+         "Startdatum der Prüfphase"
+      ],
+      "Priority": [
+         null,
+         "Priorität"
+      ],
+      "Name of receiver": [
+         null,
+         "Name des Empfängers"
+      ],
+      "Organisation": [
+         null,
+         "Organisation"
+      ],
+      "Organisations": [
+         null,
+         "Organisationen"
+      ],
+      "Organisation unit": [
+         null,
+         "Organisationseinheiten"
+      ],
+      "Organisations according to requester list": [
+         null,
+         "Organisationen gemäss Antragstellerliste"
+      ],
+      "Department": [
+         null,
+         "Departement"
+      ],
+      "Attachment": [
+         null,
+         "Anhang"
+      ],
+      "In inspection": [
+         null,
+         "In Prüfung"
+      ],
+      "Denied": [
+         null,
+         "Abgelehnt"
+      ],
+      "approved": [
+         null,
+         "Bewilligt"
+      ],
+      "Partially approved": [
+         null,
+         "Teilweise bewilligt"
+      ],
+      "incl. VAT": [
+         null,
+         "inkl. MwSt"
+      ],
+      "Item price": [
+         null,
+         "Stückpreis"
+      ],
+      "State": [
+         null,
+         "Status"
+      ],
+      "State of Request": [
+         null,
+         "Status Antrag"
+      ],
+      "Move to another group": [
+         null,
+         "Gruppe ändern"
+      ],
+      "Move to another budget period": [
+         null,
+         "Budgetperiode ändern"
+      ],
+      "Point of Delivery": [
+         null,
+         "Lieferort"
+      ],
+      "max 255 characters": [
+         null,
+         "Max. 255 Zeichen"
+      ],
+      "Article / Project": [
+         null,
+         "Artikel / Projekt"
+      ],
+      "Procurement": [
+         null,
+         "Bedarfsermittlung"
+      ],
+      "Inquiry to procurement request": [
+         null,
+         "Frage zum Beschaffungsantrag"
+      ],
+      "Article nr. / Producer nr.": [
+         null,
+         "Artikelnr. / Herstellernr."
+      ],
+      "Replacement": [
+         null,
+         "Ersatz"
+      ],
+      "Choose an article/project": [
+         null,
+         "Artikel/Projekt wählen"
+      ],
+      "Request moved": [
+         null,
+         "Antrag verschoben"
+      ],
+      "High": [
+         null,
+         "Hoch"
+      ],
+      "Normal": [
+         null,
+         "Normal"
+      ],
+      "Are you sure you want to delete '%s'?": [
+         null,
+         "Sind Sie sicher, dass Sie '%s' löschen möchten?"
+      ],
+      "Type in a search term": [
+         null,
+         "Geben Sie einen Suchbegriff ein"
+      ],
+      "No results": [
+         null,
+         "Kein Ergebnis gefunden"
+      ],
+      "Searching...": [
+         null,
+         "Suche..."
+      ],
+      "must be greater or equal to the inspection start date": [
+         null,
+         "muss gleichzeitig oder später sein wie das Startdatum der Prüfphase"
+      ],
+      "Check invalid fields": [
+         null,
+         "Es existieren ungültige Felder"
+      ],
+      "Name of the requester": [
+         null,
+         "Name des Antragstellers"
+      ],
+      "Add article for specific group": [
+         null,
+         "Artikel für spezifische Gruppe hinzufügen"
+      ],
+      "You have unsaved data. Would you like to delete the data?": [
+         null,
+         "Sie haben nicht gespeicherte Daten. Möchten Sie diese löschen?"
+      ],
+      "Only show my own requests": [
+         null,
+         "Nur eigene Anträge anzeigen"
+      ],
+      "Add article": [
+         null,
+         "Artikel hinzufügen"
+      ],
+      "Create request for this group": [
+         null,
+         "Antrag für diese Gruppe erfassen"
+      ],
+      "Create request for another user": [
+         null,
+         "Antrag für eine andere Person erfassen"
+      ],
+      "Select all": [
+         null,
+         "Alle auswählen"
+      ],
+      "None selected": [
+         null,
+         "Keine ausgewählt"
+      ],
+      "All selected": [
+         null,
+         "Alle ausgewählt"
+      ],
+      "selected": [
+         null,
+         "selektiert"
+      ],
+      "You are not authorized for this action.": [
+         null,
+         "Sie sind für diese Aktion nicht authorisiert."
+      ],
+      "Current budget period not defined yet": [
+         null,
+         "Es existiert keine aktuelle Budgetperiode"
+      ],
+      "No groups defined yet": [
+         null,
+         "Es ist noch keine Gruppe vorhanden"
+      ],
+      "No admins defined yet": [
+         null,
+         "Es wurde noch kein Administrator erfasst"
+      ],
+      "No requesters defined yet": [
+         null,
+         "Es wurde noch kein/e Antragsteller/in erfasst"
+      ],
+      "Create new budget period": [
+         null,
+         "Neue Budgetperiode erstellen"
+      ],
+      "Total of all requests in state \"New\"": [
+         null,
+         "Total aller Anträge mit Status \"Neu\""
+      ],
+      "Total of all approved requests": [
+         null,
+         "Total aller bewilligten Anträge"
+      ],
+      "Create request by choosing a group or recommended article or project": [
+         null,
+         "Zuerst Gruppe, Artikel oder Projekt auswählen und Antrag erstellen"
+      ],
+      "Current total of budget period": [
+         null,
+         "Aktuelles total dieser Budgetperiode"
+      ],
+      "Current total of group": [
+         null,
+         "Aktuelles Gruppentotal"
+      ],
+      "Limit of group for this budget period": [
+         null,
+         "Gruppenlimite dieser Budgetperiode"
+      ],
+      "% used (group limit - current group total)": [
+         null,
+         "% verbraucht (Gruppenlimite - aktuelles Gruppentotal)"
+      ],
+      "Add new article or project to category": [
+         null,
+         "Der Kategorie einen neuen Artikel oder ein neues Projekt hinzufügen"
+      ],
+      "Delete category with all it's articles/projects": [
+         null,
+         "Kategorie und alle ihre Artikel/Projekte löschen"
+      ],
+      "Add new requester": [
+         null,
+         "Neuen Antragsteller hinzufügen"
       ]
    }
 }
