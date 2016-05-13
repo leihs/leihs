@@ -207,7 +207,7 @@ Feature: Delegation
     When I try to change the delegation
     Then I can choose only those delegations that have access to this inventory pool
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Changing contact person during hand over
     Given I am Pius
     And there is a hand over for a delegation with assigned items

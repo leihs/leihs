@@ -74,7 +74,7 @@ Feature: Lending
     And I click on "Hand Over"
     Then there are inventory codes for item and license in the contract
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Inspection during take back
     Given I take back an item
     Then I can inspect each item
