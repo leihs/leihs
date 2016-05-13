@@ -14,7 +14,7 @@ Feature: Edit take back end date
      Then the end date of that line is changed
      And the start date of that line is not changed
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Change the time range of a single take back option line handed over in the past
     When I open a take back with at least an option handed over before today
     And I change an option line end date

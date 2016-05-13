@@ -365,6 +365,11 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/manage/lending/lending.feature:168
         DEFAULT_BROWSER=firefox
+- name: features/manage/take_back/edit_take_back_end_date.feature:18
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/manage/take_back/edit_take_back_end_date.feature:18
+        DEFAULT_BROWSER=firefox
 - name: features/manage/verification.feature:8
   scripts:
     test:
