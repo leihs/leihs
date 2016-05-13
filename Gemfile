@@ -57,6 +57,7 @@ source 'https://rails-assets.org' do
 end
 
 group :development do
+  gem 'better_errors', '~> 2.1', '>= 2.1.1'
   gem 'capistrano', '2.15.5'
   gem 'capistrano-ext'
   gem 'capistrano-rbenv', '~> 1.0'
