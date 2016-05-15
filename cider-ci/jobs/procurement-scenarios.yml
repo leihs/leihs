@@ -19,7 +19,7 @@ jobs:
 
     context:
       task-defaults:
-        max-auto-trials: 2
+        max-auto-trials: 3
 
       _cider-ci_include:
         - cider-ci/shared/tests-context.yml
