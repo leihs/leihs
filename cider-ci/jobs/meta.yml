@@ -8,10 +8,13 @@ jobs:
 
     depends-on:
     - type: job
-      job: scenarios
+      job: core-scenarios
       states: [passed]
     - type: job
       job: admin-scenarios
+      states: [passed]
+    - type: job
+      job: procurement-scenarios
       states: [passed]
 
     run-on:

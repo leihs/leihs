@@ -9,6 +9,11 @@ jobs:
 
     priority: -1
 
+    depends-on:
+    - type: job
+      job: core-scenarios
+      states: [passed]
+
     run-on:
     - type: branch
       include-match: '[a-z]*/core_.*$'
@@ -16,9 +21,6 @@ jobs:
     - type: branch
       include-match: '^(.*master.*)$'
       exclude-match: '^(.*no-ci.*)$'
-    - type: job
-      job: core-scenarios
-      states: [passed]
 
     context:
       task-defaults:

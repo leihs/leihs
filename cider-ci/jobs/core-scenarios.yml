@@ -1,6 +1,6 @@
 jobs:
 
-  scenarios:
+  core-scenarios:
 
     name: 'Core: Scenarios'
 
