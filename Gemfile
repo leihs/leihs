@@ -36,7 +36,7 @@ gem 'rgl', '~> 0.4.0', require: 'rgl/adjacency' # use ruby-graphviz instead ?? (
 gem 'rubocop', '0.35.1', require: false
 gem 'ruby_parser', '~> 3.1' # gettext dependency that Bundler seems unable to resolve
 gem 'sass-rails', '~> 4.0'
-gem 'scout_apm'
+gem 'scout_apm', '~> 2.0.x'
 gem 'therubyracer', platform: :mri
 gem 'therubyrhino', platform: :jruby
 gem 'uglifier', '~> 2.4'
