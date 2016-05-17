@@ -11,7 +11,7 @@ jobs:
 
     run-on:
     - type: branch
-      include-match: '[a-z]*/procurement_.*$'
+      include-match: '[a-z]*/core_.*$'
       exclude-match: '^(.*no-ci.*)$'
     - type: branch
       include-match: '^(.*master.*)$'
