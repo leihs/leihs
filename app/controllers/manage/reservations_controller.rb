@@ -120,12 +120,12 @@ class Manage::ReservationsController < Manage::ApplicationController
         @error =
           if item and line and line.model_id != item.model_id
             { message: \
-              _(format('The inventory code %s is not valid for this model',
-                       params[:inventory_code])) }
+                _('The inventory code %s is not valid for this model') % \
+                params[:inventory_code] }
           elsif line
             { message: \
-              _(format("The item with the inventory code '%s' was not found",
-                       params[:inventory_code])) }
+                _("The item with the inventory code '%s' was not found") % \
+                params[:inventory_code] }
           elsif item
             { message: _('The line was not found') }
           else
@@ -389,15 +389,15 @@ class Manage::ReservationsController < Manage::ApplicationController
     else
       error =
         if code
-          _(format('A model for the Inventory Code / ' \
-                   "Serial Number '%s' was not found",
-                   code_param))
+          _('A model for the Inventory Code / ' \
+            "Serial Number '%s' was not found") % \
+           code_param
         elsif model_id_param
-          _(format("A model with the ID '%s' was not found",
-                   model_id_param))
+          _("A model with the ID '%s' was not found") % \
+            model_id_param
         elsif model_group_id_param
-          _(format("A template with the ID '%s' was not found",
-                   model_group_id_param))
+          _("A template with the ID '%s' was not found") % \
+            model_group_id_param
         end
     end
     [line, error]
