@@ -30,15 +30,15 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/borrow/modellliste.feature:167
         DEFAULT_BROWSER=firefox
-- name: features/examples/aushaendigung.feature:63
+- name: features/examples/aushaendigung.feature:64
   scripts:
     test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/aushaendigung.feature:63
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/aushaendigung.feature:64
         DEFAULT_BROWSER=firefox
-- name: features/examples/aushaendigung.feature:73
+- name: features/examples/aushaendigung.feature:74
   scripts:
     test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/aushaendigung.feature:73
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/aushaendigung.feature:74
         DEFAULT_BROWSER=firefox
 - name: features/examples/benutzerverwaltung.feature:91
   scripts:
@@ -184,6 +184,11 @@ tasks:
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/probleme.feature:33
+        DEFAULT_BROWSER=firefox
+- name: features/examples/probleme.feature:47
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/probleme.feature:47
         DEFAULT_BROWSER=firefox
 - name: features/examples/probleme.feature:54
   scripts:
@@ -389,6 +394,11 @@ tasks:
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/manage/verification.feature:8
+        DEFAULT_BROWSER=firefox
+- name: features/manage/verification.feature:33
+  scripts:
+    test:
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/manage/verification.feature:33
         DEFAULT_BROWSER=firefox
 - name: features/technical/contract/remove_line_model.feature:37
   scripts:

@@ -29,7 +29,7 @@ Feature: Verification
     And I add a model which leads to an overbooking
     Then I see an error message
 
-  @personas @javascript @browser
+  @personas @javascript @browser @problematic
   Scenario: Overbooking in orders not possible for Group Managers in calendar
     When I open a submitted order to be verified by a Group Manager
     And I open the booking calendar

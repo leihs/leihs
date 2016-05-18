@@ -670,20 +670,20 @@ tasks:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/aushaendigung.feature:47
         DEFAULT_BROWSER=firefox
-- name: features/examples/aushaendigung.feature:55
+- name: features/examples/aushaendigung.feature:56
   scripts:
     test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/aushaendigung.feature:55
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/aushaendigung.feature:56
         DEFAULT_BROWSER=firefox
-- name: features/examples/aushaendigung.feature:86
+- name: features/examples/aushaendigung.feature:87
   scripts:
     test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/aushaendigung.feature:86
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/aushaendigung.feature:87
         DEFAULT_BROWSER=firefox
-- name: features/examples/aushaendigung.feature:111
+- name: features/examples/aushaendigung.feature:112
   scripts:
     test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/aushaendigung.feature:111
+      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/aushaendigung.feature:112
         DEFAULT_BROWSER=firefox
 - name: features/examples/benutzerverwaltung.feature:4
   scripts:
@@ -1544,11 +1544,6 @@ tasks:
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/probleme.feature:40
-        DEFAULT_BROWSER=firefox
-- name: features/examples/probleme.feature:47
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/examples/probleme.feature:47
         DEFAULT_BROWSER=firefox
 - name: features/examples/probleme.feature:64
   scripts:
@@ -2474,11 +2469,6 @@ tasks:
   scripts:
     test:
       body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/manage/verification.feature:27
-        DEFAULT_BROWSER=firefox
-- name: features/manage/verification.feature:33
-  scripts:
-    test:
-      body: DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default  --strict features/manage/verification.feature:33
         DEFAULT_BROWSER=firefox
 - name: features/manage/verification.feature:41
   scripts:
