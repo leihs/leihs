@@ -335,14 +335,13 @@ class Manage::ReservationsController < Manage::ApplicationController
     end
   end
 
-  def create_new_line_or_assign(model,
-                                item,
-                                option,
-                                contract)
+  def create_new_line_or_assign(model, item, option, contract)
     error = nil
-    line = nil
+    # error if item already assigned to some reservation of this contract
+    if contract && item && line = contract.reservations.find_by(item_id: item.id)
+      error = _('%s is already assigned to this contract') % item.inventory_code
     # create new line or assign
-    if model
+    elsif model
       # try to assign for (selected)line_ids first
       if line_ids_param and code_param
         line = contract.reservations.where(id: line_ids_param,

@@ -150,6 +150,8 @@ end
 
 When(/^I assign an already added item$/) do
   @reservation = @hand_over.reservations.find {|l| l.is_a? ItemLine and l.item}
+  @number_of_lines_with_item_model = \
+    all(".line", text: @reservation.model.name).size
   @line_css = ".line[data-id='#{@reservation.id}']"
   find(@line_css).find("input[type='checkbox']").click
 
@@ -177,6 +179,12 @@ Then(/^the line remains highlighted in green$/) do
   expect(has_selector?("#{@line_css}.green")).to be true
 end
 
+Then(/^no new line for this model is added$/) do
+  visit manage_hand_over_path(@current_inventory_pool, @hand_over.user)
+  find(".line", text: @reservation.model.name)
+  expect(all(".line", text: @reservation.model.name).size)
+    .to be == @number_of_lines_with_item_model
+end
 
 Given(/^there is a default contract note for the inventory pool$/) do
   expect(@current_inventory_pool.default_contract_note).not_to be_nil
