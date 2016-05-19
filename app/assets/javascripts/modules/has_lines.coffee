@@ -27,7 +27,15 @@ App.Modules.HasLines =
     $.each hash, (key, value) ->
       key_obj = JSON.parse key
       reservations = if mergeModels then App.Modules.HasLines.mergeLinesByModel(value) else value
-      reservations = _.sortBy reservations, (l)-> l.model().name()
+
+      # sort reservations by model name and id
+      reservations = _.sortBy reservations, (r)-> r.model().name()
+      groupedReservations = _.groupBy reservations, (r) -> r.model().name()
+      groupedReservations = \
+        _.mapObject(groupedReservations,
+                    (reservations, _) -> reservations.sort((r1, r2) -> r1.id - r2.id))
+      reservations = _.flatten _.values(groupedReservations)
+
       result.push {start_date: key_obj.start_date, end_date: key_obj.end_date, reservations: reservations}
     result.sort (a,b)->
       if moment(a.start_date).toDate() < moment(b.start_date).toDate()
