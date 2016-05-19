@@ -68,8 +68,8 @@ class ItemLine < Reservation
         .exists?
         # check if already assigned to the same contract
         errors.add(:base,
-                   format('%s is already assigned to this contract',
-                          item.inventory_code))
+                   _('%s is already assigned to this contract') % \
+                   item.inventory_code)
       elsif item \
         .reservations
         .handed_over_or_assigned_but_not_returned
@@ -77,8 +77,8 @@ class ItemLine < Reservation
         .exists?
         # check if available
         errors.add(:base,
-                   format('%s is already assigned to a different contract',
-                          item.inventory_code))
+                   _('%s is already assigned to a different contract') % \
+                   item.inventory_code)
       end
 
       # inventory_pool matching
