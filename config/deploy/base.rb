@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 set :scm, :git
-set :repository,  "git://github.com/zhdk/leihs.git"
-#set :repository,  "https://github.com/zhdk/leihs.git"
+set :repository,  "git://github.com/leihs/leihs.git"
+#set :repository,  "https://github.com/leihs/leihs.git"
 set :rails_env, "production"
 set :deploy_via, :remote_cache
 

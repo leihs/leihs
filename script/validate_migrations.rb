@@ -11,7 +11,7 @@ THIS_FILE = File.absolute_path(__FILE__)
 
 require "./#{File.join(File.dirname(__FILE__), "lib", "semverly")}"
 
-REPO_URL = 'https://github.com/zhdk/leihs.git'
+REPO_URL = 'https://github.com/leihs/leihs.git'
 TARGET_DIR = File.join('/tmp', 'migrations')
 
 # If no :ruby_version is given, we use this
