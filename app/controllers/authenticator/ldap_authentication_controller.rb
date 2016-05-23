@@ -5,7 +5,7 @@ class LdapHelper
   attr_reader :host
   attr_reader :port
   attr_reader :search_field
-  #user needs to be a member of this group OR admin group
+  #user needs to be a member of this group and/or admin group
   attr_reader :leihs_users_group_dn
   attr_reader :admin_dn
 
@@ -140,8 +140,10 @@ class Authenticator::LdapAuthenticationController \
       in_admin_group = false
       begin
         in_admin_group = user_is_member_of_ldap_group(user_data, admin_dn)
+        logger.error ("value of in_admin_group: #{in_admin_group}")
         if in_admin_group == true
-          flash[:info] = ('Logging in as member of admin group.')
+          logger.error ('Logging in as member of admin group.')
+          flash[:notice] = _('Logging in as member of admin group.')
           if user.access_rights.active.empty? \
             or !user.access_rights.active.collect(&:role).include?(:admin)
             user.access_rights.create(role: :admin)
@@ -163,10 +165,10 @@ class Authenticator::LdapAuthenticationController \
   # @return [Boolean] TRUE if user is a member of the group. FALSE if user is NOT a member of the group OR exception occured
   def user_is_member_of_ldap_group(user_data, group_dn)
     logger = Rails.logger
+    ldaphelper = LdapHelper.new
     begin
       my_group_filter = Net::LDAP::Filter.eq('member', user_data.dn)
       ldap = ldaphelper.bind
-      debugtest = 0 / 0
       if (ldap.search(base: group_dn, filter: my_group_filter).count >= 1 or
             (user_data['memberof'] and user_data['memberof'].include?(group_dn)))
         true
@@ -174,7 +176,7 @@ class Authenticator::LdapAuthenticationController \
         false
       end
     rescue Exception => e
-      logger.error "ERROR: Could not query LDAP group membership of user '#{user.unique_id}' for group '#{group_dn}' " \
+      logger.error "ERROR: Could not query LDAP group membership of user '#{user_data.dn}' for group '#{group_dn}' " \
                    "Exception: #{e}"
       false
     end
@@ -239,6 +241,7 @@ class Authenticator::LdapAuthenticationController \
             # rubocop:disable Metrics/BlockNesting
             if users.size == 1
               #TODO: add check if user is member of AD group that allows access to leihs
+              #admin group and/or users group
               create_and_login_from_ldap_user(users.first, username, password)
             else
               flash[:error] = _('User unknown') if users.size == 0
