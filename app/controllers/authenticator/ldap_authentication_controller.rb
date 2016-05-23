@@ -139,23 +139,21 @@ class Authenticator::LdapAuthenticationController \
     unless admin_dn.blank?
       in_admin_group = false
       begin
-        admin_group_filter = Net::LDAP::Filter.eq('member', user_data.dn)
-        ldap = ldaphelper.bind
-        if (ldap.search(base: admin_dn, filter: admin_group_filter).count >= 1 or
-              (user_data['memberof'] and user_data['memberof'].include?(admin_dn)))
-          in_admin_group = true
+        in_admin_group = user_is_member_of_ldap_group(user_data, admin_dn)
+        if in_admin_group == true
+          if user.access_rights.active.empty? \
+            or !user.access_rights.active.collect(&:role).include?(:admin)
+            user.access_rights.create(role: :admin)
+          end
+        end
+
         end
       rescue Exception => e
         logger.error "ERROR: Could not upgrade user #{user.unique_id} " \
                      "to an admin due to exception: #{e}"
       end
 
-      if in_admin_group == true
-        if user.access_rights.active.empty? \
-          or !user.access_rights.active.collect(&:role).include?(:admin)
-          user.access_rights.create(role: :admin)
-        end
-      end
+
     end
   end
   
