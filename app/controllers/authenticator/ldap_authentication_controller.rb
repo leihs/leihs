@@ -213,6 +213,7 @@ class Authenticator::LdapAuthenticationController \
             # TODO: remove 3rd level of block nesting
             # rubocop:disable Metrics/BlockNesting
             if users.size == 1
+              #TODO: add check if user is member of AD group that allows access to leihs
               create_and_login_from_ldap_user(users.first, username, password)
             else
               flash[:error] = _('User unknown') if users.size == 0
