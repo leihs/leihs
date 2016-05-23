@@ -141,12 +141,11 @@ class Authenticator::LdapAuthenticationController \
       begin
         in_admin_group = user_is_member_of_ldap_group(user_data, admin_dn)
         if in_admin_group == true
+          flash[:info] = ('Logging in as member of admin group.')
           if user.access_rights.active.empty? \
             or !user.access_rights.active.collect(&:role).include?(:admin)
             user.access_rights.create(role: :admin)
           end
-        end
-
         end
       rescue Exception => e
         logger.error "ERROR: Could not upgrade user #{user.unique_id} " \
@@ -161,7 +160,7 @@ class Authenticator::LdapAuthenticationController \
   # a hash of hashes and arrays that looks like a Net::LDAP::Entry) of that user
   # @param group_dn [String] The distinguished name of the LDAP group you want to check for.
   # Is the user is a member of this group?
-  # @return [Integer] 1 if user is a member of the group. 0 if user is NOT a member of the group or exception occured
+  # @return [Boolean] TRUE if user is a member of the group. FALSE if user is NOT a member of the group OR exception occured
   def user_is_member_of_ldap_group(user_data, group_dn)
     logger = Rails.logger
     begin
@@ -170,14 +169,14 @@ class Authenticator::LdapAuthenticationController \
       debugtest = 0 / 0
       if (ldap.search(base: group_dn, filter: my_group_filter).count >= 1 or
             (user_data['memberof'] and user_data['memberof'].include?(group_dn)))
-        return 1
+        true
       else
-        return 0
+        false
       end
     rescue Exception => e
       logger.error "ERROR: Could not query LDAP group membership of user '#{user.unique_id}' for group '#{group_dn}' " \
                    "Exception: #{e}"
-      return 0
+      false
     end
   end
 
