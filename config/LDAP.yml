@@ -7,8 +7,9 @@ production:
   port: 636
   encryption: simple_tls
   base: dc=bfh,dc=ch
-  log_file: log/ldap_server.log
-  log_level: warn
+  #Logging to extra file for LDAP module is not implemented (since at least Leihs 3.34.0)
+  #LDAP errors will be written to STDERR, Debug messages to STDOUT
+  #If you run Apache (production environment), check your Apache error log instead
   search_field: uid
   bind_dn: -----
   bind_pwd: -----
@@ -19,8 +20,9 @@ test:
   port: port_number
   encryption: simple_tls
   base: dc=xyz,dc=abcc,dc=ch
-  log_file: log/ldap_server.log
-  log_level: warn
+  #Logging to extra file for LDAP module is not implemented (since at least Leihs 3.34.0)
+  #LDAP errors will be written to STDERR, Debug messages to STDOUT
+  #If you run Apache (production environment), check your Apache error log instead
   search_field: userprincipalname
  
 
@@ -30,7 +32,8 @@ development:
   port: 636
   encryption: simple_tls
   base: dc=bfh,dc=ch
-  log_file: log/ldap_server.log
-  log_level: warn
+  #Logging to extra file for LDAP module is not implemented (since at least Leihs 3.34.0)
+  #LDAP errors will be written to STDERR, Debug messages to STDOUT
+  #If you run Apache (production environment), check your Apache error log instead
   search_field: cn
   bind_dn: cn=$username,ou=srv-account,dc=bfh,dc=ch	
