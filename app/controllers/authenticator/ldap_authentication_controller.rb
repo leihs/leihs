@@ -5,6 +5,9 @@ class LdapHelper
   attr_reader :host
   attr_reader :port
   attr_reader :search_field
+  #user needs to be a member of this group OR admin group
+  attr_reader :leihs_users_group_dn
+  attr_reader :admin_dn
 
   def initialize
     begin
@@ -18,6 +21,7 @@ class LdapHelper
             "#{File.join(Rails.root, 'config', 'LDAP.yml')}: #{e}"
     end
     @base_dn = @ldap_config[Rails.env]['base_dn']
+    @admin_dn = @ldap_config[Rails.env]['admin_dn']
     @search_field = @ldap_config[Rails.env]['search_field']
     @host = @ldap_config[Rails.env]['host']
     @port = @ldap_config[Rails.env]['port'].to_i || 636
@@ -131,7 +135,7 @@ class Authenticator::LdapAuthenticationController \
       user.zip = user_data['postalcode'].first.to_s
     end
 
-    admin_dn = ldaphelper.ldap_config[Rails.env]['admin_dn']
+    admin_dn = ldaphelper.admin_dn
     unless admin_dn.blank?
       in_admin_group = false
       begin
@@ -152,6 +156,30 @@ class Authenticator::LdapAuthenticationController \
           user.access_rights.create(role: :admin)
         end
       end
+    end
+  end
+  
+  # @param user_data [Net::LDAP::Entry] The LDAP entry (it could also just be
+  # a hash of hashes and arrays that looks like a Net::LDAP::Entry) of that user
+  # @param group_dn [String] The distinguished name of the LDAP group you want to check for.
+  # Is the user is a member of this group?
+  # @return [Integer] 1 if user is a member of the group. 0 if user is NOT a member of the group or exception occured
+  def user_is_member_of_ldap_group(user_data, group_dn)
+    logger = Rails.logger
+    begin
+      my_group_filter = Net::LDAP::Filter.eq('member', user_data.dn)
+      ldap = ldaphelper.bind
+      debugtest = 0 / 0
+      if (ldap.search(base: group_dn, filter: my_group_filter).count >= 1 or
+            (user_data['memberof'] and user_data['memberof'].include?(group_dn)))
+        return 1
+      else
+        return 0
+      end
+    rescue Exception => e
+      logger.error "ERROR: Could not query LDAP group membership of user '#{user.unique_id}' for group '#{group_dn}' " \
+                   "Exception: #{e}"
+      return 0
     end
   end
 
