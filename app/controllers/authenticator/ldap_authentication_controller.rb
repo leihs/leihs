@@ -171,13 +171,17 @@ class Authenticator::LdapAuthenticationController \
       ldap = ldaphelper.bind
       if (ldap.search(base: group_dn, filter: my_group_filter).count >= 1 or
             (user_data['memberof'] and user_data['memberof'].include?(group_dn)))
+        logger.debug("User logging in is a member of group #{group_dn}:" \
+                        '#{user_data.dn}')
         true
       else
+        logger.debug ("User logging in is NOT a member of group #{group_dn}:" \
+                        '#{user_data.dn}')
         false
       end
     rescue Exception => e
-      logger.error "ERROR: Could not query LDAP group membership of user '#{user_data.dn}' for group '#{group_dn}' " \
-                   "Exception: #{e}"
+      logger.error("ERROR: Could not query LDAP group membership of user '#{user_data.dn}' for group '#{group_dn}' " \
+                   "Exception: #{e}")
       false
     end
   end
