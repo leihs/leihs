@@ -38,7 +38,8 @@ class LdapHelper
     end
     @base_dn = @ldap_config[Rails.env]['base_dn']
     @admin_dn = @ldap_config[Rails.env]['admin_dn']
-    @look_in_nested_groups_for_membership = @ldap_config[Rails.env]['look_in_nested_groups_for_membership'] == "true"
+    #implicit cast from string to trueclass. handled by YAML
+    @look_in_nested_groups_for_membership = @ldap_config[Rails.env]['look_in_nested_groups_for_membership']
     @normal_users_dn = @ldap_config[Rails.env]['normal_users_dn']
     @search_field = @ldap_config[Rails.env]['search_field']
     @host = @ldap_config[Rails.env]['host']
@@ -187,7 +188,7 @@ class Authenticator::LdapAuthenticationController \
     begin
       ldap = ldaphelper.bind
       
-      if ldaphelper.look_in_nested_groups_for_membership
+      if ldaphelper.look_in_nested_groups_for_membership == true
         logger.debug("Nested LDAP group membership checking is enabled.")
         #construct a filter from string, according to RFC2254 syntax. Returns Filter object, needed for search 
         nested_group_filter = Net::LDAP::Filter.construct("member:#{ldaphelper.LDAP_MATCHING_RULE_IN_CHAIN}:=#{user_data.dn}")
@@ -202,6 +203,9 @@ class Authenticator::LdapAuthenticationController \
         #                 );
         logger.debug("Constructed nested_group_filter: #{nested_group_filter}")
         #result nested_group_filter value: (member:1.2.840.113556.1.4.1941:=CN=studiAnon,OU=Static,OU=HumanUsers,OU=mht_Users,DC=mhtnet,DC=mh-trossingen,DC=de)
+  
+        #limit the tree to search in to only group_dn
+        #search for all (nested and simple) group memberships of the user (that was set earlier in nested_group_filter)
         allNestedMemberShipGroups = ldap.search(base: group_dn, filter: nested_group_filter, attrs: ldaphelper.LDAP_return_only_DN)
         logger.debug("allNestedMemberShipGroups. Count: #{allNestedMemberShipGroups.count}")
         for item in allNestedMemberShipGroups.each
@@ -209,12 +213,17 @@ class Authenticator::LdapAuthenticationController \
         end
         
         #we have found the group membership we are looking for, if the search result was not empty
+        #this should normally be 1, but can be higher if the user is member of multiple group-nesting levels
         if allNestedMemberShipGroups.count >= 1
-          true
+          logger.debug("nestedSearch: User logging in is a member of group #{group_dn}:" \
+                        '#{user_data.dn}')
+          return true
         end
+      else
+        logger.debug("Ignoring nested LDAP groups: look_in_nested_groups_for_membership NOT true.")
       end  
 
-      #old method of search. included, as to minimize side-effects of above method I did not think of
+      #old method of search. ignoring nested groups
       simple_group_filter = Net::LDAP::Filter.eq('member', user_data.dn)
       
       #logger.debug("Ldap value: #{ldap}")
@@ -227,16 +236,16 @@ class Authenticator::LdapAuthenticationController \
             (user_data['memberof'] and user_data['memberof'].include?(group_dn)))
         logger.debug("User logging in is a member of group #{group_dn}:" \
                         '#{user_data.dn}')
-        true
+        return true
       else
         logger.debug ("User logging in is NOT a member of group #{group_dn}:" \
                         '#{user_data.dn}')
-        false
+        return false
       end
     rescue Exception => e
       logger.error("ERROR: Could not query LDAP group membership of user '#{user_data.dn}' for group '#{group_dn}' " \
                    "Exception: #{e}")
-      false
+      return false
     end
   end
 
