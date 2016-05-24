@@ -5,10 +5,25 @@ class LdapHelper
   attr_reader :host
   attr_reader :port
   attr_reader :search_field
+  #set this to true if you want to enable looking inside nested groups for user membership of 
+  #the groups mentioned below.
+  #example: User is member of group1, group1 is member of group2, admin_dn is set to group2
+  attr_reader :look_in_nested_groups_for_membership
   #group of normal users with permission to log into Leihs. Optional. Can be left blank.
   attr_reader :normal_users_dn
   #group of leihs admins. users may be member of normal_users_dn at the same time
   attr_reader :admin_dn
+  
+  #RFC2254 magic number. If used in a filter, allows looking inside nested LDAP groups for users
+  def LDAP_MATCHING_RULE_IN_CHAIN
+    return "1.2.840.113556.1.4.1941"
+  end
+  
+  #RFC 2251, Section 4.5.1. Special object identifier.
+  #If passed as an attribute of an LDAP search, only distinguished names are returned
+  def LDAP_return_only_DN
+    return "1.1"
+  end
 
   def initialize
     begin
@@ -23,6 +38,7 @@ class LdapHelper
     end
     @base_dn = @ldap_config[Rails.env]['base_dn']
     @admin_dn = @ldap_config[Rails.env]['admin_dn']
+    @look_in_nested_groups_for_membership = @ldap_config[Rails.env]['look_in_nested_groups_for_membership'] == "true"
     @normal_users_dn = @ldap_config[Rails.env]['normal_users_dn']
     @search_field = @ldap_config[Rails.env]['search_field']
     @host = @ldap_config[Rails.env]['host']
@@ -169,12 +185,45 @@ class Authenticator::LdapAuthenticationController \
     logger = Rails.logger
     ldaphelper = LdapHelper.new
     begin
-      my_group_filter = Net::LDAP::Filter.eq('member', user_data.dn)
       ldap = ldaphelper.bind
-      logger.debug("Ldap value: #{ldap}")
-      logger.debug("my_group_filter value: #{my_group_filter}")
-      logger.debug("user_data memberOf: #{user_data['memberof']}")
-      if (ldap.search(base: group_dn, filter: my_group_filter).count >= 1 or
+      
+      if ldaphelper.look_in_nested_groups_for_membership
+        logger.debug("Nested LDAP group membership checking is enabled.")
+        #construct a filter from string, according to RFC2254 syntax. Returns Filter object, needed for search 
+        nested_group_filter = Net::LDAP::Filter.construct("member:#{ldaphelper.LDAP_MATCHING_RULE_IN_CHAIN}:=#{user_data.dn}")
+      
+        #Example code for search of nested group memebership. stolen from cpan NET::LDAP
+        #See also Microsoft documentation at
+        #https://msdn.microsoft.com/en-us/library/aa746475%28v=vs.85%29.aspx
+        #2016.05.24, DerBachmannRocker
+        #$mesg = $ldap->search( base   => 'dc=your,dc=ads,dc=domain',
+        #                   filter => '(member:1.2.840.113556.1.4.1941:=cn=TestUser,ou=Users,dc=your,dc=ads,dc=domain)',
+        #                   attrs  => [ '1.1' ]
+        #                 );
+        logger.debug("Constructed nested_group_filter: #{nested_group_filter}")
+        #result nested_group_filter value: (member:1.2.840.113556.1.4.1941:=CN=studiAnon,OU=Static,OU=HumanUsers,OU=mht_Users,DC=mhtnet,DC=mh-trossingen,DC=de)
+        allNestedMemberShipGroups = ldap.search(base: group_dn, filter: nested_group_filter, attrs: ldaphelper.LDAP_return_only_DN)
+        logger.debug("allNestedMemberShipGroups. Count: #{allNestedMemberShipGroups.count}")
+        for item in allNestedMemberShipGroups.each
+          logger.debug(item.dn)
+        end
+        
+        #we have found the group membership we are looking for, if the search result was not empty
+        if allNestedMemberShipGroups.count >= 1
+          true
+        end
+      end  
+
+      #old method of search. included, as to minimize side-effects of above method I did not think of
+      simple_group_filter = Net::LDAP::Filter.eq('member', user_data.dn)
+      
+      #logger.debug("Ldap value: #{ldap}")
+      #logger.debug("simple_group_filter value: #{simple_group_filter}")
+      #result: simple_group_filter value: (member=CN=David Franzkoch,OU=Verwaltung,OU=Static,OU=HumanUsers,OU=mht_Users,DC=mhtnet,DC=mh-trossingen,DC=de)
+      #logger.debug("user_data memberOf: #{user_data['memberof']}")
+      #logger.debug("Ldap search: #{ldap.search(base: group_dn, filter: simple_group_filter)}")
+      
+      if (ldap.search(base: group_dn, filter: simple_group_filter).count >= 1 or
             (user_data['memberof'] and user_data['memberof'].include?(group_dn)))
         logger.debug("User logging in is a member of group #{group_dn}:" \
                         '#{user_data.dn}')
