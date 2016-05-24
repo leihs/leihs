@@ -159,10 +159,10 @@ class Authenticator::LdapAuthenticationController \
       in_admin_group = false
       begin
         in_admin_group = user_is_member_of_ldap_group(user_data, admin_dn)
-        logger.error ("value of in_admin_group: #{in_admin_group}")
+        #logger.error ("value of in_admin_group: #{in_admin_group}")
         if in_admin_group == true
-          logger.error ('Logging in as member of admin group.')
-          flash[:notice] = _('Logging in as member of admin group.')
+          logger.info ('User logging in is member of LDAP admin group: #{user_data['cn']}')
+          flash[:notice] = _('You are a member of the LDAP admin group.')
           if user.access_rights.active.empty? \
             or !user.access_rights.active.collect(&:role).include?(:admin)
             user.access_rights.create(role: :admin)
