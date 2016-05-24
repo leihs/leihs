@@ -5,8 +5,9 @@ class LdapHelper
   attr_reader :host
   attr_reader :port
   attr_reader :search_field
-  #user needs to be a member of this group and/or admin group
-  attr_reader :leihs_users_group_dn
+  #group of normal users with permission to log into Leihs. Optional. Can be left blank.
+  attr_reader :normal_users_dn
+  #group of leihs admins. users may be member of normal_users_dn at the same time
   attr_reader :admin_dn
 
   def initialize
@@ -22,6 +23,7 @@ class LdapHelper
     end
     @base_dn = @ldap_config[Rails.env]['base_dn']
     @admin_dn = @ldap_config[Rails.env]['admin_dn']
+    @normal_users_dn = @ldap_config[Rails.env]['normal_users_dn']
     @search_field = @ldap_config[Rails.env]['search_field']
     @host = @ldap_config[Rails.env]['host']
     @port = @ldap_config[Rails.env]['port'].to_i || 636
@@ -169,6 +171,9 @@ class Authenticator::LdapAuthenticationController \
     begin
       my_group_filter = Net::LDAP::Filter.eq('member', user_data.dn)
       ldap = ldaphelper.bind
+      logger.debug("Ldap value: #{ldap}")
+      logger.debug("my_group_filter value: #{my_group_filter}")
+      logger.debug("user_data memberOf: #{user_data['memberof']}")
       if (ldap.search(base: group_dn, filter: my_group_filter).count >= 1 or
             (user_data['memberof'] and user_data['memberof'].include?(group_dn)))
         logger.debug("User logging in is a member of group #{group_dn}:" \
