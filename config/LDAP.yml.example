@@ -3,8 +3,9 @@ production:
   port: 636
   encryption: simple_tls
   #Logging to extra file for LDAP module is not implemented (since at least Leihs 3.34.0)
-  #LDAP errors will be written to STDERR, Debug messages to STDOUT
-  #If you run Apache (production environment), check your Apache error log instead  
+  #LDAP errors will be written to default log file.
+  #Should be log/production.log
+  #If you run Apache (production environment), check your Apache error log too  
   #log_file: log/ldap_server.log
   #log_level: warn
   master_bind_dn: CN=blah,OU=diblah,DC=example,DC=org
