@@ -161,7 +161,7 @@ class Authenticator::LdapAuthenticationController \
         in_admin_group = user_is_member_of_ldap_group(user_data, admin_dn)
         #logger.error ("value of in_admin_group: #{in_admin_group}")
         if in_admin_group == true
-          logger.info ('User logging in is member of LDAP admin group: #{user_data['cn']}')
+          logger.info ("User logging in is member of LDAP admin group: #{user_data['cn']}")
           flash[:notice] = _('You are a member of the LDAP admin group.')
           if user.access_rights.active.empty? \
             or !user.access_rights.active.collect(&:role).include?(:admin)
