@@ -187,10 +187,12 @@ class Authenticator::LdapAuthenticationController \
     begin
       ldap = ldaphelper.bind
       
-      #new method of searching for group membership
-      #only one simple search, using special LDAP syntax
+      #New method of searching for group membership
+      #Only one simple search, using special LDAP syntax
       #I only tested this with Active Directory, Server 2012
-      #DerBachmannRocker
+      #SHOULD work for other LDAP flavours too, because the magic number the search
+      #uses is defined in RFC2254 which applies not only to Microsoft
+      #DerBachmannRocker 2016.5.25
       if ldaphelper.look_in_nested_groups_for_membership == true
         logger.debug("Nested LDAP group membership checking is enabled.")
         #construct a filter from string, according to RFC2254 syntax. Returns Filter object, needed for search 
@@ -199,8 +201,7 @@ class Authenticator::LdapAuthenticationController \
         #Example code for search of nested group memebership. stolen from cpan NET::LDAP
         #See also Microsoft documentation at
         #https://msdn.microsoft.com/en-us/library/aa746475%28v=vs.85%29.aspx
-        #2016.05.24, DerBachmannRocker
-        #$mesg = $ldap->search( base   => 'dc=your,dc=ads,dc=domain',
+        #  #$mesg = $ldap->search( base   => 'dc=your,dc=ads,dc=domain',
         #                   filter => '(member:1.2.840.113556.1.4.1941:=cn=TestUser,ou=Users,dc=your,dc=ads,dc=domain)',
         #                   attrs  => [ '1.1' ]
         #                 );
@@ -217,6 +218,7 @@ class Authenticator::LdapAuthenticationController \
         unless nestedGroupSearchResult
           logger.error("LDAP search for group returned NIL result, which should not happen. Probably the following group does not exist in LDAP. Check your LDAP config file." \
                       "#{group_dn}")
+          flash[:error] = ('There is a problem with LDAP group configuration. Please contact your LEIHS administrator.')
         else
           #logger.debug("nestedGroupSearchResult. Count: #{nestedGroupSearchResult.count}")
           #for item in nestedGroupSearchResult.each
@@ -236,7 +238,8 @@ class Authenticator::LdapAuthenticationController \
       #old method of search. ignoring nested groups
       #This is executed if the new method returns no result/is disabled
       #I kept this method of search in, because I can only test with Active Directory and I do not want to break
-      #login for different LDAP installations (Samba, etc.). Maybe they do not respond to the magic number search filter of the new method.
+      #login for different LDAP installations (Samba, etc.). Maybe they do not respond to the magic number search filter of the new method?
+      #Code may be removed if tests on other LDAP installations are successful
       #DerBachmannRocker 2016.5.25
       simple_group_filter = Net::LDAP::Filter.eq('member', user_data.dn)
       simpleGroupSearchResult = ldap.search(base: group_dn, filter: simple_group_filter)
@@ -359,6 +362,8 @@ class Authenticator::LdapAuthenticationController \
     super
     @preferred_language = Language.preferred(request.env['HTTP_ACCEPT_LANGUAGE'])
 
+    logger = Rails.logger
+
     if request.post?
       username = params[:login][:user]
       password = params[:login][:password]
@@ -366,6 +371,7 @@ class Authenticator::LdapAuthenticationController \
         flash[:notice] = _('Empty Username and/or Password')
       else
         ldaphelper = LdapHelper.new
+        logger.debug("LDAP user trying to log in: #{username}")
         begin
           ldap = ldaphelper.bind
 
@@ -384,11 +390,15 @@ class Authenticator::LdapAuthenticationController \
               create_and_login_from_ldap_user(users.first, username, password)
             else
               flash[:error] = _('User unknown') if users.size == 0
-              flash[:error] = _('Too many users found') if users.size > 0
+              if users.size > 0
+                 flash[:error] = _('Too many users found')
+                 logger.error("Too many users matching given username. This should not happen. User login: #{username}"
+              end
             end
             # rubocop:enable Metrics/BlockNesting
           else
-            flash[:error] = _('Invalid technical user - contact your leihs admin')
+            flash[:error] = _('Unable to connect to LDAP - contact your leihs admin!')
+            logger.error("Unable to bind to LDAP! ldaphelper.bind returned NIL. Check LDAP config file. (master_bind_dn, master_bind_pw, etc.)")
           end
         rescue Net::LDAP::LdapError
           flash[:error] = _("Couldn't connect to LDAP server: " \
