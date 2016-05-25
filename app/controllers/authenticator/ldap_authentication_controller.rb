@@ -187,8 +187,9 @@ class Authenticator::LdapAuthenticationController \
     begin
       ldap = ldaphelper.bind
       
-      #New method of searching for group membership
-      #Only one simple search, using special LDAP syntax
+      #New method of searching for group membership, using special LDAP syntax
+      #This enables using implied/nested group-membership of users
+      #Example: user is member in group, group is member in group2 -> is user a member of group2?
       #I only tested this with Active Directory, Server 2012
       #SHOULD work for other LDAP flavours too, because the magic number the search
       #uses is defined in RFC2254 which applies not only to Microsoft
@@ -210,7 +211,7 @@ class Authenticator::LdapAuthenticationController \
         #result nested_group_filter value: (member:1.2.840.113556.1.4.1941:=CN=leihstest,OU=Static,OU=HumanUsers,OU=mht_Users,DC=mhtnet,DC=mh-trossingen,DC=de)
   
         #limit scope of search. look only inside group_dn LDAP tree
-        #search for all (nested and simple) group memberships of the user
+        #search for all (nested and simple) group memberships of the user EXCLUDING the primary group
         #use LDAP_return_only_DN, because we do not want other types of results to be returned
         #(possibly not needed, but included to match example above)
         nestedGroupSearchResult = ldap.search(base: group_dn, filter: nested_group_filter, attrs: ldaphelper.LDAP_return_only_DN)
@@ -220,17 +221,37 @@ class Authenticator::LdapAuthenticationController \
                       "#{group_dn}")
           flash[:error] = ('There is a problem with LDAP group configuration. Please contact your LEIHS administrator.')
         else
-          #logger.debug("nestedGroupSearchResult. Count: #{nestedGroupSearchResult.count}")
+          logger.debug("nestedGroupSearchResult. Count: #{nestedGroupSearchResult.count}")
           #for item in nestedGroupSearchResult.each
           #  logger.debug(item.dn)
           #end
           
+          logger.debug("Primary group of user: #{user_data['memberof']}")
+          for item in user_data['memberof'].each
+            logger.debug(item)
+          end
+          
           #we have found the group membership we are looking for, if the search result was not empty
-          #this should normally be 1, but can be higher if the user is member of multiple group-nesting levels
-          if nestedGroupSearchResult.count >= 1
+          #this should normally be 1
+          if (nestedGroupSearchResult.count >= 1)
             logger.debug("nestedSearch: User logging in is a member of group #{group_dn}:" \
                           '#{user_data.dn}')
             return true
+          else
+            #Addidionally, we need to look at the primary group of the user (Default in AD: Domain-Users)
+            #This is one plain attribute (no array), containing the primary-group-id. completely different mechanism
+            #than the usual groups handled above. Normally not used in active-directory as it defaults to "domain-users" (everybody)
+            #Still included to make things complete
+            logger.error("Primary Group ID of user: #{user_data['primaryGroupID']}")
+            #primary_group_filter = Net::LDAP::Filter.construct("memberOf=#{group_dn}")
+            #configuredGroupSearch = ldap.search(base: ldaphelper.base_dn, filter: primary_group_filter)
+            configuredGroupSearch = ldap.search(base: group_dn, filter: Net::LDAP::Filter.eq("objectClass", "group"), scope: "base")
+            unless configuredGroupSearch and configuredGroupSearch.count != 1
+              configuredGroup = configuredGroupSearch.first
+              logger.error("configuredGroup: #{configuredGroup.dn}")
+              logger.error("configuredGroup.objectSid: #{configuredGroup['objectSid']}")
+              logger.error("configuredGroup.primaryGroupToken: #{configuredGroup.primaryGroupToken}")
+            end
           end
         end
       end  
@@ -393,7 +414,7 @@ class Authenticator::LdapAuthenticationController \
               flash[:error] = _('User unknown') if users.size == 0
               if users.size > 0
                  flash[:error] = _('Too many users found')
-                 logger.error("Too many users matching given username. This should not happen. User login: #{username}"
+                 logger.error("Too many users matching given username. This should not happen. User login: #{username}")
               end
             end
             # rubocop:enable Metrics/BlockNesting
