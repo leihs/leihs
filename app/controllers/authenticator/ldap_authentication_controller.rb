@@ -250,9 +250,12 @@ class Authenticator::LdapAuthenticationController \
 
   def create_and_login_from_ldap_user(ldap_user, username, password)
     logger = Rails.logger
-    begin
-      ldaphelper = LdapHelper.new
-      
+    
+    begin  
+    
+      #logger.error ("attribute names: #{ldap_user.attribute_names}")
+      #result: attribute names: [:dn, :objectclass, :cn, :sn, :givenname, :distinguishedname, :instancetype, :whencreated, :whenchanged, :displayname, :usncreated, :usnchanged, :name, :objectguid, :useraccountcontrol, :codepage, :countrycode, :pwdlastset, :primarygroupid, :objectsid, :accountexpires, :samaccountname, :samaccounttype, :userprincipalname, :objectcategory, :dscorepropagationdata]
+    
       #email address is mandatory for account creation
       #Made decision to show error instead of creating user with dummy mail address
       #This did not work before anyways. Leihs crashed if LDAP user logged on with no email set in LDAP
@@ -262,7 +265,7 @@ class Authenticator::LdapAuthenticationController \
       #email = ldap_user.mail.first.to_s if ldap_user.mail
       #email ||= "#{user}@localhost"
       #Replaced by:
-      if ldap_user.mail
+      if ldap_user.exists("mail") and (ldap_user.mail.first.to_s != '')
         email = ldap_user.mail.first.to_s
       else
         logger.error("LDAP user with blank eMail attribute attempted login: #{ldap_user.cn}")
@@ -271,8 +274,8 @@ class Authenticator::LdapAuthenticationController \
         return
       end
       
-      if ldap_user.givenname
-        firstname = ldap_user.givenname
+      if ldap_user.exists("givenname") and (ldap_user.givenname.to_s != '')
+        firstname = ldap_user.givenname.to_s
       else
         logger.error("LDAP user with blank givenname (first name) attribute attempted login: #{ldap_user.cn}")
         flash[:error] = \
@@ -280,16 +283,27 @@ class Authenticator::LdapAuthenticationController \
         return
       end
       
-      if ldap_user.sn
-        lastname = ldap_user.sn
+      if ldap_user.exists("sn") and (ldap_user.sn.to_s != '')
+        lastname = ldap_user.sn.to_s
       else
         logger.error("LDAP user with blank sn (family name) attribute attempted login: #{ldap_user.cn}")
         flash[:error] = \
-          _("Unable to login. Your user account has no family name set. Please contact your LEIHS administrator.")
+        _("Unable to login. Your user account has no family name set. Please contact your LEIHS administrator.")
         return
       end
-
+      
       bind_dn = ldap_user.dn
+    rescue Exception => e
+      logger.error("Unexpected exception while checking required LDAP user attributes:" \
+                  "Exception: #{e}")
+      flash[:error] = \
+      _("Unable to login. Unexpected error. Please contact your LEIHS administrator.")
+    end
+    
+
+
+    begin
+      ldaphelper = LdapHelper.new
 
       if not ldaphelper.bind(bind_dn, password)
         flash[:error] = _('Invalid username/password')
@@ -320,9 +334,11 @@ class Authenticator::LdapAuthenticationController \
           _("Could not update user '#{username}' with new LDAP information. " \
             'Contact your leihs system administrator.')
       end
-    rescue
-      logger.error("Unexcpected exception in create_and_login_from_ldap_user:" \
+    rescue Exception => e
+      logger.error("Unexpected exception in create_and_login_from_ldap_user:" \
                   "Exception: #{e}")
+      flash[:error] = \
+      _("Unable to login. Unexpected error. Please contact your LEIHS administrator.")
     end
   end
 
