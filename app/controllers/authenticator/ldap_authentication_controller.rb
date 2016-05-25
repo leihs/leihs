@@ -154,6 +154,7 @@ class Authenticator::LdapAuthenticationController \
       user.zip = user_data['postalcode'].first.to_s
     end
 
+    logger.error ("admin_dn value: #{ldaphelper.admin_dn}")
     admin_dn = ldaphelper.admin_dn
     unless admin_dn.blank?
       in_admin_group = false
@@ -172,8 +173,6 @@ class Authenticator::LdapAuthenticationController \
         logger.error "ERROR: Could not upgrade user #{user.unique_id} " \
                      "to an admin due to exception: #{e}"
       end
-
-
     end
   end
   
@@ -250,36 +249,86 @@ class Authenticator::LdapAuthenticationController \
   end
 
   def create_and_login_from_ldap_user(ldap_user, username, password)
-    email = ldap_user.mail.first.to_s if ldap_user.mail
-    email ||= "#{user}@localhost"
-    bind_dn = ldap_user.dn
-    firstname = ldap_user.givenname
-    lastname = ldap_user.sn
-    ldaphelper = LdapHelper.new
-    if ldaphelper.bind(bind_dn, password)
-      u = User.find_by_unique_id(ldap_user[ldaphelper.unique_id_field.to_s])
-      unless u
-        u = create_user(username, email, firstname, lastname)
+    logger = Rails.logger
+    begin
+      ldaphelper = LdapHelper.new
+      
+      #email address is mandatory for account creation
+      #Made decision to show error instead of creating user with dummy mail address
+      #This did not work before anyways. Leihs crashed if LDAP user logged on with no email set in LDAP
+      #so this is no new behaviour and admins needed to set the email correctly anyways.
+      #Probably better to show error if undefined and quit than to guess, as email notifications will probably not work
+      #with local addresses AND crashed before
+      #email = ldap_user.mail.first.to_s if ldap_user.mail
+      #email ||= "#{user}@localhost"
+      #Replaced by:
+      if ldap_user.mail
+        email = ldap_user.mail.first.to_s
+      else
+        logger.error("LDAP user with blank eMail attribute attempted login: #{ldap_user.cn}")
+        flash[:error] = \
+          _("Unable to login. Your user account has no eMail address set. Please contact your LEIHS administrator.")
+        return
+      end
+      
+      if ldap_user.givenname
+        firstname = ldap_user.givenname
+      else
+        logger.error("LDAP user with blank givenname (first name) attribute attempted login: #{ldap_user.cn}")
+        flash[:error] = \
+          _("Unable to login. Your user account has no first name set. Please contact your LEIHS administrator.")
+        return
+      end
+      
+      if ldap_user.sn
+        lastname = ldap_user.sn
+      else
+        logger.error("LDAP user with blank sn (family name) attribute attempted login: #{ldap_user.cn}")
+        flash[:error] = \
+          _("Unable to login. Your user account has no family name set. Please contact your LEIHS administrator.")
+        return
       end
 
-      unless u == false
-        update_user(u, ldap_user)
-        if u.save
-          self.current_user = u
-          redirect_back_or_default('/')
-        else
-          logger.error(u.errors.full_messages.to_s)
+      bind_dn = ldap_user.dn
+
+      if not ldaphelper.bind(bind_dn, password)
+        flash[:error] = _('Invalid username/password')
+        return
+      end 
+      
+      u = User.find_by_unique_id(ldap_user[ldaphelper.unique_id_field.to_s])
+      unless u
+        logger.info ("User was not found in local DB. Creating user with data from LDAP: #{ldap_user.cn}")
+        u = create_user(username, email, firstname, lastname)
+        if not u
           flash[:error] = \
-            _("Could not update user '#{username}' with new LDAP information. " \
-              'Contact your leihs system administrator.')
+           _("Could not create new user for '#{username}' from LDAP source. " \
+          'Contact your leihs system administrator.')
+          return
         end
+      end
+
+      if not u
+         flash[:error] = \
+        _("Could not create new user for '#{username}' from LDAP source. " \
+        'Contact your leihs system administrator.')
+        return
+      end
+      
+      update_user(u, ldap_user)
+      if u.save
+        self.current_user = u
+        redirect_back_or_default('/')
       else
+        logger.error(u.errors.full_messages.to_s)
         flash[:error] = \
-          _("Could not create new user for '#{username}' from LDAP source. " \
+          _("Could not update user '#{username}' with new LDAP information. " \
             'Contact your leihs system administrator.')
       end
-    else
-      flash[:error] = _('Invalid username/password')
+
+    rescue
+      logger.error("Unexcpected exception in create_and_login_from_ldap_user:" \
+                  "Exception: #{e}")
     end
   end
 
