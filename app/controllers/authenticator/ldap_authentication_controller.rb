@@ -265,42 +265,44 @@ class Authenticator::LdapAuthenticationController \
       #email = ldap_user.mail.first.to_s if ldap_user.mail
       #email ||= "#{user}@localhost"
       #Replaced by:
-      if ldap_user.exists("mail") and (ldap_user.mail.first.to_s != '')
+      if !(ldap_user['mail'].blank?) and (ldap_user.mail.first.to_s != '')
+        #warning: be careful to leave check for blank email in first position of the AND operator.
+        #Active directory does not return the attribute "mail" at all when left blank.
+        #crash in this case, when accessing ldap_user.mail (NIL)
         email = ldap_user.mail.first.to_s
       else
-        logger.error("LDAP user with blank eMail attribute attempted login: #{ldap_user.cn}")
+        logger.error("LDAP user with blank eMail attribute attempted login: #{username}")
         flash[:error] = \
           _("Unable to login. Your user account has no eMail address set. Please contact your LEIHS administrator.")
         return
       end
       
-      if ldap_user.exists("givenname") and (ldap_user.givenname.to_s != '')
+      if !(ldap_user['givenname'].blank?) and (ldap_user.givenname.to_s != '')
         firstname = ldap_user.givenname.to_s
       else
-        logger.error("LDAP user with blank givenname (first name) attribute attempted login: #{ldap_user.cn}")
+        logger.error("LDAP user with blank givenname (first name) attribute attempted login: #{username}")
         flash[:error] = \
           _("Unable to login. Your user account has no first name set. Please contact your LEIHS administrator.")
         return
       end
       
-      if ldap_user.exists("sn") and (ldap_user.sn.to_s != '')
+      if !(ldap_user['sn'].blank?) and (ldap_user.sn.to_s != '')
         lastname = ldap_user.sn.to_s
       else
-        logger.error("LDAP user with blank sn (family name) attribute attempted login: #{ldap_user.cn}")
+        logger.error("LDAP user with blank sn (family name) attribute attempted login: #{username}")
         flash[:error] = \
         _("Unable to login. Your user account has no family name set. Please contact your LEIHS administrator.")
         return
       end
       
+      #should be uncritical. every LDAP::Entry object should have this set
       bind_dn = ldap_user.dn
     rescue Exception => e
-      logger.error("Unexpected exception while checking required LDAP user attributes:" \
+      logger.error("Unexpected exception while checking required LDAP user attributes for user #{username}:" \
                   "Exception: #{e}")
       flash[:error] = \
       _("Unable to login. Unexpected error. Please contact your LEIHS administrator.")
     end
-    
-
 
     begin
       ldaphelper = LdapHelper.new
@@ -312,7 +314,7 @@ class Authenticator::LdapAuthenticationController \
       
       u = User.find_by_unique_id(ldap_user[ldaphelper.unique_id_field.to_s])
       unless u
-        logger.info ("User was not found in local DB. Creating user with data from LDAP: #{ldap_user.cn}")
+        logger.info ("User was not found in local DB. Creating user with data from LDAP: #{username}")
         u = create_user(username, email, firstname, lastname)
         unless u
           logger.error ("Could not create new user from LDAP (function create_user returned nothing)")
