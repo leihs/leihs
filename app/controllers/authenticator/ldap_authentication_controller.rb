@@ -342,6 +342,7 @@ class Authenticator::LdapAuthenticationController \
       update_user(u, ldap_user)
       if u.save
         self.current_user = u
+        logger.debug("Login successful for user #{username}.")
         redirect_back_or_default('/')
       else
         logger.error("Could not update user '#{username}' with new LDAP information.")
