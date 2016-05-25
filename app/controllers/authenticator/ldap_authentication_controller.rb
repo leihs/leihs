@@ -300,7 +300,8 @@ class Authenticator::LdapAuthenticationController \
       unless u
         logger.info ("User was not found in local DB. Creating user with data from LDAP: #{ldap_user.cn}")
         u = create_user(username, email, firstname, lastname)
-        if not u
+        unless u
+          logger.error ("Could not create new user from LDAP (function create_user returned nothing)")
           flash[:error] = \
            _("Could not create new user for '#{username}' from LDAP source. " \
           'Contact your leihs system administrator.')
@@ -308,24 +309,17 @@ class Authenticator::LdapAuthenticationController \
         end
       end
 
-      if not u
-         flash[:error] = \
-        _("Could not create new user for '#{username}' from LDAP source. " \
-        'Contact your leihs system administrator.')
-        return
-      end
-      
       update_user(u, ldap_user)
       if u.save
         self.current_user = u
         redirect_back_or_default('/')
       else
+        logger.error("Could not update user '#{username}' with new LDAP information.")
         logger.error(u.errors.full_messages.to_s)
         flash[:error] = \
           _("Could not update user '#{username}' with new LDAP information. " \
             'Contact your leihs system administrator.')
       end
-
     rescue
       logger.error("Unexcpected exception in create_and_login_from_ldap_user:" \
                   "Exception: #{e}")
