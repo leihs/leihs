@@ -187,6 +187,10 @@ class Authenticator::LdapAuthenticationController \
     begin
       ldap = ldaphelper.bind
       
+      #new method of searching for group membership
+      #only one simple search, using special LDAP syntax
+      #I only tested this with Active Directory, Server 2012
+      #DerBachmannRocker
       if ldaphelper.look_in_nested_groups_for_membership == true
         logger.debug("Nested LDAP group membership checking is enabled.")
         #construct a filter from string, according to RFC2254 syntax. Returns Filter object, needed for search 
@@ -200,38 +204,45 @@ class Authenticator::LdapAuthenticationController \
         #                   filter => '(member:1.2.840.113556.1.4.1941:=cn=TestUser,ou=Users,dc=your,dc=ads,dc=domain)',
         #                   attrs  => [ '1.1' ]
         #                 );
-        logger.debug("Constructed nested_group_filter: #{nested_group_filter}")
-        #result nested_group_filter value: (member:1.2.840.113556.1.4.1941:=CN=studiAnon,OU=Static,OU=HumanUsers,OU=mht_Users,DC=mhtnet,DC=mh-trossingen,DC=de)
-  
-        #limit the tree to search in to only group_dn
-        #search for all (nested and simple) group memberships of the user (that was set earlier in nested_group_filter)
-        allNestedMemberShipGroups = ldap.search(base: group_dn, filter: nested_group_filter, attrs: ldaphelper.LDAP_return_only_DN)
-        logger.debug("allNestedMemberShipGroups. Count: #{allNestedMemberShipGroups.count}")
-        for item in allNestedMemberShipGroups.each
-          logger.debug(item.dn)
-        end
         
-        #we have found the group membership we are looking for, if the search result was not empty
-        #this should normally be 1, but can be higher if the user is member of multiple group-nesting levels
-        if allNestedMemberShipGroups.count >= 1
-          logger.debug("nestedSearch: User logging in is a member of group #{group_dn}:" \
-                        '#{user_data.dn}')
-          return true
+        #logger.debug("Constructed nested_group_filter: #{nested_group_filter}")
+        #result nested_group_filter value: (member:1.2.840.113556.1.4.1941:=CN=leihstest,OU=Static,OU=HumanUsers,OU=mht_Users,DC=mhtnet,DC=mh-trossingen,DC=de)
+  
+        #limit scope of search. look only inside group_dn LDAP tree
+        #search for all (nested and simple) group memberships of the user
+        #use LDAP_return_only_DN, because we do not want other types of results to be returned
+        #(possibly not needed, but included to match example above)
+        nestedGroupSearchResult = ldap.search(base: group_dn, filter: nested_group_filter, attrs: ldaphelper.LDAP_return_only_DN)
+
+        unless nestedGroupSearchResult
+          logger.error("LDAP search for group returned NIL result, which should not happen. Probably the following group does not exist in LDAP. Check your LDAP config file." \
+                      "#{group_dn}")
+        else
+          #logger.debug("nestedGroupSearchResult. Count: #{nestedGroupSearchResult.count}")
+          #for item in nestedGroupSearchResult.each
+          #  logger.debug(item.dn)
+          #end
+          
+          #we have found the group membership we are looking for, if the search result was not empty
+          #this should normally be 1, but can be higher if the user is member of multiple group-nesting levels
+          if nestedGroupSearchResult.count >= 1
+            logger.debug("nestedSearch: User logging in is a member of group #{group_dn}:" \
+                          '#{user_data.dn}')
+            return true
+          end
         end
-      else
-        logger.debug("Ignoring nested LDAP groups: look_in_nested_groups_for_membership NOT true.")
       end  
 
       #old method of search. ignoring nested groups
+      #This is executed if the new method returns no result/is disabled
+      #I kept this method of search in, because I can only test with Active Directory and I do not want to break
+      #login for different LDAP installations (Samba, etc.). Maybe they do not respond to the magic number search filter of the new method.
+      #DerBachmannRocker 2016.5.25
       simple_group_filter = Net::LDAP::Filter.eq('member', user_data.dn)
-      
-      #logger.debug("Ldap value: #{ldap}")
-      #logger.debug("simple_group_filter value: #{simple_group_filter}")
-      #result: simple_group_filter value: (member=CN=David Franzkoch,OU=Verwaltung,OU=Static,OU=HumanUsers,OU=mht_Users,DC=mhtnet,DC=mh-trossingen,DC=de)
-      #logger.debug("user_data memberOf: #{user_data['memberof']}")
-      #logger.debug("Ldap search: #{ldap.search(base: group_dn, filter: simple_group_filter)}")
-      
-      if (ldap.search(base: group_dn, filter: simple_group_filter).count >= 1 or
+      simpleGroupSearchResult = ldap.search(base: group_dn, filter: simple_group_filter)
+
+      #check for simpleGroupSearchResult == NIL. Exception might occur otherwise -> NIL.count
+      if (simpleGroupSearchResult and simpleGroupSearchResult.count >= 1 or
             (user_data['memberof'] and user_data['memberof'].include?(group_dn)))
         logger.debug("User logging in is a member of group #{group_dn}:" \
                         '#{user_data.dn}')
@@ -244,6 +255,7 @@ class Authenticator::LdapAuthenticationController \
     rescue Exception => e
       logger.error("ERROR: Could not query LDAP group membership of user '#{user_data.dn}' for group '#{group_dn}' " \
                    "Exception: #{e}")
+      flash[:error] = ('Unexpected error while querying for LDAP group membership. Please contact your LEIHS administrator.')
       return false
     end
   end
@@ -252,23 +264,21 @@ class Authenticator::LdapAuthenticationController \
     logger = Rails.logger
     
     begin  
-    
-      #logger.error ("attribute names: #{ldap_user.attribute_names}")
-      #result: attribute names: [:dn, :objectclass, :cn, :sn, :givenname, :distinguishedname, :instancetype, :whencreated, :whenchanged, :displayname, :usncreated, :usnchanged, :name, :objectguid, :useraccountcontrol, :codepage, :countrycode, :pwdlastset, :primarygroupid, :objectsid, :accountexpires, :samaccountname, :samaccounttype, :userprincipalname, :objectcategory, :dscorepropagationdata]
-    
+      #check for mandatory user fields
+
       #email address is mandatory for account creation
       #Made decision to show error instead of creating user with dummy mail address
       #This did not work before anyways. Leihs crashed if LDAP user logged on with no email set in LDAP
-      #so this is no new behaviour and admins needed to set the email correctly anyways.
-      #Probably better to show error if undefined and quit than to guess, as email notifications will probably not work
-      #with local addresses AND crashed before
+      #so below code is *no new behaviour* and admins needed to set the email correctly anyways.
+      #Probably better to show error if undefined and quit than to blindly guess
+      #Line that caused crash and ELSE path:
       #email = ldap_user.mail.first.to_s if ldap_user.mail
       #email ||= "#{user}@localhost"
       #Replaced by:
       if !(ldap_user['mail'].blank?) and (ldap_user.mail.first.to_s != '')
         #warning: be careful to leave check for blank email in first position of the AND operator.
         #Active directory does not return the attribute "mail" at all when left blank.
-        #crash in this case, when accessing ldap_user.mail (NIL)
+        #exception in this case, when accessing ldap_user.mail (because NIL), when not catched by the AND
         email = ldap_user.mail.first.to_s
       else
         logger.error("LDAP user with blank eMail attribute attempted login: #{username}")
@@ -304,6 +314,7 @@ class Authenticator::LdapAuthenticationController \
       _("Unable to login. Unexpected error. Please contact your LEIHS administrator.")
     end
 
+    #checks passed. create user / log in
     begin
       ldaphelper = LdapHelper.new
 
