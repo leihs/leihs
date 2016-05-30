@@ -253,13 +253,13 @@ class Authenticator::LdapAuthenticationController \
     #returns exactly 1 object: the Net::LDAP::Entry for the group object (group_dn)
     groupObjSearch = ldap.search(base: group_dn, filter: Net::LDAP::Filter.eq("objectClass", "group"), scope: Net::LDAP::SearchScope_BaseObject)
   
-    if groupObjSearch.nill?
+    if groupObjSearch.nil?
       logger.error("LDAP search for group returned NIL result (while looking for Primary Group), which should not happen. Probably the following group does not exist in LDAP. Check your LDAP config file." \
                   "#{group_dn}")
       flash[:error] = ('There is a problem with LDAP group configuration. Please contact your LEIHS administrator.')
     elsif groupObjSearch.count == 1
       #we found the primary group LDAP object
-      groupObj = groupObj.first
+      groupObj = groupObjSearch.first
       
       60 / 0
       
