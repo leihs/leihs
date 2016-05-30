@@ -161,7 +161,6 @@ class Authenticator::LdapAuthenticationController \
       user.zip = user_data['postalcode'].first.to_s
     end
 
-    logger.error ("admin_dn value: #{ldaphelper.admin_dn}")
     admin_dn = ldaphelper.admin_dn
     unless admin_dn.blank?
       in_admin_group = false
