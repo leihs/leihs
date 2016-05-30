@@ -240,9 +240,9 @@ class Authenticator::LdapAuthenticationController \
   #Subroutine of user_is_member_of_ldap_group(user_data, group_dn)
    def user_is_member_of_ldap_group_method_primary(user_data, group_dn, ldap, ldaphelper, logger)
     #Look at the primary group of the user (Default in AD: Domain-Users)
-    #This is one plain Integer attribute of the user(no array), containing the primary-group-id.
+    #This is one plain Integer attribute of the user, representing the primary group id.
     #Completely different mechanism than the usual groups handled with the other methods.
-    #Works only for ActiveDirectory, because we compare MS proprietary LDAP attributes.
+    #Works only for ActiveDirectory, because we compare MS proprietary LDAP attributes (?)
     #Function should be save to be called in different environments, though.
     
     #Warning: the Primary Group ID uses non-unique values. They are only unique in their respective Active
@@ -252,11 +252,14 @@ class Authenticator::LdapAuthenticationController \
 
     #logger.debug("myDebug Primary Group ID of user: #{user_data['primaryGroupID']}")
 
-    #we are looking only for objects of class "group".
+    #Filter
+    #We are looking only for objects of class "group".
     groupObjFilter = Net::LDAP::Filter.eq("objectClass", "group")
-    #we need to request primaryGroupToken explicitly, because it is calculated on the fly. Attribute will be nonexistent otherwise.
-    #will exclude other attributes (no problem in our case)
+    #Attributes. Array of strings.
+    #We need to request primaryGroupToken explicitly, because it is calculated on the fly.
+    #Attribute will be nonexistent otherwise.
     groupObjAttributes = ["primaryGroupToken"]
+    
     #should return 1 Net::LDAP::Entry object, representing the group we are comparing against
     groupObjSearch = ldap.search(base: group_dn, filter: groupObjFilter, attributes: groupObjAttributes, scope: Net::LDAP::SearchScope_BaseObject)
   
