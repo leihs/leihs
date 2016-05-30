@@ -250,8 +250,14 @@ class Authenticator::LdapAuthenticationController \
     #primary_group_filter = Net::LDAP::Filter.construct("memberOf=#{group_dn}")
     #groupObjSearch = ldap.search(base: ldaphelper.base_dn, filter: primary_group_filter)
     
+
+    
     #returns exactly 1 object: the Net::LDAP::Entry for the group object (group_dn)
-    groupObjSearch = ldap.search(base: group_dn, filter: Net::LDAP::Filter.eq("objectClass", "group"), scope: Net::LDAP::SearchScope_BaseObject)
+    #force inclusion of primaryGroupToken calculated attribute
+
+    #groupObjFilter = Net::LDAP::Filter.eq("objectClass", "group")
+    groupObjFilter = Net::LDAP::Filter.construct("(objectClass=group)(primaryGroupToken=*)")
+    groupObjSearch = ldap.search(base: group_dn, filter: groupObjFilter, scope: Net::LDAP::SearchScope_BaseObject)
   
     if groupObjSearch.nil?
       logger.error("LDAP search for group returned NIL result (while looking for Primary Group), which should not happen. Probably the following group does not exist in LDAP. Check your LDAP config file." \
@@ -261,14 +267,18 @@ class Authenticator::LdapAuthenticationController \
       #we found the primary group LDAP object
       groupObj = groupObjSearch.first
       
-      60 / 0
-      
       #is the user a member of it?
+      
+      
       logger.error("myDebug groupObj: #{groupObj.dn}")
-      logger.error("myDebug groupObj.objectSid (binary): #{groupObj['objectSid']}")
-      logger.error("myDebug groupObj.primaryGroupToken: #{groupObj['PrimaryGroupToken'].to_s}")
-      logger.error("myDebug groupObj.member: #{groupObj['member']}")
-      logger.error("myDebug user.objectSid (binary): #{user_data['objectSid']}")
+      logger.error("myDebug groupObj.primaryGroupToken: #{groupObj['primaryGroupToken']}")
+      for item in groupObj.attribute_names()
+        logger.error("myDebug bulk attrib groupObj.#{item} = #{groupObj[item]}")
+      end
+      
+      #logger.error("myDebug groupObj.objectSid (binary): #{groupObj['objectSid']}")
+      #logger.error("myDebug groupObj.member: #{groupObj['member']}")
+      #logger.error("myDebug user.objectSid (binary): #{user_data['objectSid']}")
     end
     
     return false
