@@ -219,11 +219,11 @@ class Authenticator::LdapAuthenticationController \
       
       if isGroupMember == true
         logger.debug("nestedSearch: User logging in is a member of group #{group_dn}:" \
-            '#{user_data.dn}')
+            "#{user_data['cn']}")
         return true
       else
         logger.debug("nestedSearch: User logging in is *not* a member of group #{group_dn}:" \
-            '#{user_data.dn}')
+            "#{user_data['cn']}")
         return false
       end
       
