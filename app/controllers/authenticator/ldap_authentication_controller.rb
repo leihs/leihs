@@ -479,9 +479,18 @@ class Authenticator::LdapAuthenticationController \
             # TODO: remove 3rd level of block nesting
             # rubocop:disable Metrics/BlockNesting
             if users.size == 1
-              #TODO: add check if user is member of AD group that allows access to leihs
-              #admin group and/or users group
-              create_and_login_from_ldap_user(users.first, username, password)
+              user_data = users.first
+              normal_users_dn = ldaphelper.normal_users_dn
+              admin_users_dn = ldaphelper.admin_users_dn
+              
+              #normal_users_dn may be left blank in config. in this case any user who is able to bind to ldap may log in
+              if ((normal_users_dn == '') or user_is_member_of_ldap_group(user_data, normal_users_dn) or 
+              user_is_member_of_ldap_group(user_data, admin_users_dn) )
+                create_and_login_from_ldap_user(user_data, username, password)
+              else
+                flash[:error] = ('You are not allowed to use LEIHS at the moment. Please contact your LEIHS administrator.')
+                logger.warn ("User was denied access, because he/she is not member of LDAP Leihs users/admin group: #{user_data['cn']}")
+              end
             else
               flash[:error] = _('User unknown') if users.size == 0
               if users.size > 0
