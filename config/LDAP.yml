@@ -1,3 +1,6 @@
+#You should *not* use this LDAP.yml
+#Please read the Leihs LDAP guide
+
 # configuration for the LDAP server
 # host: where to reach the DRb server (used by application processes to contact the server)
 # port: which port the server should listen on
