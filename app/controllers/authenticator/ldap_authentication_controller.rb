@@ -47,7 +47,12 @@ class LdapHelper
     @look_in_nested_groups_for_membership = @ldap_config[Rails.env]['look_in_nested_groups_for_membership']
     #implicit cast from string to trueclass. handled by YAML
     @look_for_primary_group_membership_ActiveDirectory = @ldap_config[Rails.env]['look_for_primary_group_membership_ActiveDirectory']
-    @normal_users_dn = @ldap_config[Rails.env]['normal_users_dn']
+    #this option may be left blank. make sure we have a true empty string and no whitespace
+    if @ldap_config[Rails.env]['normal_users_dn'].to_s.strip.length == 0
+      @normal_users_dn = ''
+    else
+      @normal_users_dn = @ldap_config[Rails.env]['normal_users_dn']
+    end
     @search_field = @ldap_config[Rails.env]['search_field']
     @host = @ldap_config[Rails.env]['host']
     @port = @ldap_config[Rails.env]['port'].to_i || 636
@@ -483,9 +488,24 @@ class Authenticator::LdapAuthenticationController \
               normal_users_dn = ldaphelper.normal_users_dn
               admin_users_dn = ldaphelper.admin_dn
               
-              #normal_users_dn may be left blank in config. in this case any user who is able to bind to ldap may log in
-              if ((normal_users_dn == '') or user_is_member_of_ldap_group(user_data, normal_users_dn) or 
-              user_is_member_of_ldap_group(user_data, admin_users_dn) )
+              user_allowed = false
+              #Normal users group member? 
+              if normal_users_dn == ''
+                #normal_users_dn may be left blank in config. in this case any user who is able to bind to ldap may log in
+                logger.debug = "Any LDAP users may log in to LEIHS: normal_users_dn is blank in config."
+                user_allowed = true
+              elsif user_is_member_of_ldap_group(user_data, normal_users_dn)
+                logger.debug = "User is a member of normal users LDAP group. Access granted."
+                user_allowed = true
+              end
+              
+              #Admin group member?
+              if user_is_member_of_ldap_group(user_data, admin_users_dn)
+                logger.debug = "User is a member of ADMIN users LDAP group. Access granted."
+                user_allowed = true                
+              end
+              
+              if user_allowed
                 create_and_login_from_ldap_user(user_data, username, password)
               else
                 flash[:error] = ('You are not allowed to use LEIHS at the moment. Please contact your LEIHS administrator.')
