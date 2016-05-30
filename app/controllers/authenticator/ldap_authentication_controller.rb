@@ -226,7 +226,7 @@ class Authenticator::LdapAuthenticationController \
         logger.debug("nestedSearch: User logging in is *not* a member of group #{group_dn}:" \
             '#{user_data.dn}')
         return false
-      endif
+      end
       
     rescue Exception => e
       logger.error("ERROR: Could not query LDAP group membership of user '#{user_data.dn}' for group '#{group_dn}' " \
@@ -257,10 +257,13 @@ class Authenticator::LdapAuthenticationController \
                   "#{group_dn}")
       flash[:error] = ('There is a problem with LDAP group configuration. Please contact your LEIHS administrator.')
     elsif groupObjSearch.count == 1
+      #we found the primary group LDAP object
       groupObj = groupObj.first
+      
+      #is the user a member of it?
       logger.error("myDebug groupObj: #{groupObj.dn}")
       logger.error("myDebug groupObj.objectSid (binary): #{groupObj['objectSid']}")
-      logger.error("myDebug groupObj.primaryGroupToken: #{groupObj['primaryGroupToken']}")
+      logger.error("myDebug groupObj.primaryGroupToken: #{groupObj['PrimaryGroupToken'].to_s}")
       logger.error("myDebug groupObj.member: #{groupObj['member']}")
       logger.error("myDebug user.objectSid (binary): #{user_data['objectSid']}")
     end
