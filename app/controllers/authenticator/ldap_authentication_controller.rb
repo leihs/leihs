@@ -200,7 +200,7 @@ class Authenticator::LdapAuthenticationController \
       #new method with additional features
       if ldaphelper.look_in_nested_groups_for_membership == true
         logger.debug("Nested LDAP group membership checking is enabled.")
-        if is_group_member_method_nested(user_data, group_dn, ldap, ldaphelper, logger) == true
+        if user_is_member_of_ldap_group_method_nested(user_data, group_dn, ldap, ldaphelper, logger) == true
           isGroupMember = true
         end
       end
@@ -208,13 +208,13 @@ class Authenticator::LdapAuthenticationController \
       #also new. Primary group membership needs to be handled differently
       if ldaphelper.look_for_primary_group_membership_ActiveDirectory == true
         logger.debug("Primary LDAP group membership checking is enabled.")
-        if is_group_member_method_primary(user_data, group_dn, ldap, ldaphelper, logger) == true
+        if user_is_member_of_ldap_group_method_primary(user_data, group_dn, ldap, ldaphelper, logger) == true
           isGroupMember = true
         end
       end
       
       #Old, time-tested method
-      if is_group_member_method_simple(user_data, group_dn, ldap, ldaphelper, logger) == true
+      if user_is_member_of_ldap_group_method_simple(user_data, group_dn, ldap, ldaphelper, logger) == true
         isGroupMember = true
       end
       
@@ -230,7 +230,8 @@ class Authenticator::LdapAuthenticationController \
       
     rescue Exception => e
       logger.error("ERROR: Could not query LDAP group membership of user '#{user_data.dn}' for group '#{group_dn}' " \
-                   "Exception: #{e}")
+                   "Exception: #{e}" \
+                   "#{e.backtrace.slice(1,500)}...")
       flash[:error] = ('Unexpected error while querying for LDAP group membership. Please contact your LEIHS administrator.')
       return false
     end
@@ -259,6 +260,8 @@ class Authenticator::LdapAuthenticationController \
     elsif groupObjSearch.count == 1
       #we found the primary group LDAP object
       groupObj = groupObj.first
+      
+      60 / 0
       
       #is the user a member of it?
       logger.error("myDebug groupObj: #{groupObj.dn}")
