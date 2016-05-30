@@ -481,7 +481,7 @@ class Authenticator::LdapAuthenticationController \
             if users.size == 1
               user_data = users.first
               normal_users_dn = ldaphelper.normal_users_dn
-              admin_users_dn = ldaphelper.admin_users_dn
+              admin_users_dn = ldaphelper.admin_dn
               
               #normal_users_dn may be left blank in config. in this case any user who is able to bind to ldap may log in
               if ((normal_users_dn == '') or user_is_member_of_ldap_group(user_data, normal_users_dn) or 
