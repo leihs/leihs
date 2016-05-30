@@ -1,13 +1,34 @@
+# encoding: utf-8
+# This file should be saved in UTF-8 format, as to be able to have umlauts (ä,ö,ü) inside group/usernames below
 production:
-  host: hostname
+  host: ldapserver.example.org
   port: 636
   encryption: simple_tls
-  log_file: log/ldap_server.log
-  log_level: warn
-  master_bind_dn: CN=blah,OU=diblah,DC=example,DC=org
+  #Logging to extra file for LDAP module is not implemented (since at least Leihs 3.34.0)
+  #LDAP errors will be written to STDERR, Debug messages to STDOUT
+  #If you run Apache (production environment), check your Apache error log instead
+  #log_file: log/ldap_server.log
+  #log_level: warn
+  master_bind_dn: CN=LeihsEnumUser,OU=NonHuman,OU=users,DC=example,DC=org
   master_bind_pw: 12345
-  base_dn: OU=user,DC=example,DC=org
-  admin_dn: CN=admin,DC=example,DC=org
-  unique_id_field: uid
-  log_file: log/ldap_server.log
-  search_field: samaccountname
+  base_dn: OU=users,DC=example,DC=org
+  unique_id_field: userPrincipalName
+  search_field: sAMAccountName
+
+  #set this to true if you want to enable looking inside nested groups for user membership of
+  #the groups mentioned below.
+  #example: User is member of group1, group1 is member of group2, admin_dn is set to group2
+  #true or false
+  #Default: false
+  look_in_nested_groups_for_membership: true
+
+  #Active Directory handles Primary Group membership differently than other groups
+  #If you want to use the primary group of some users, set this to 'true'
+  #If you are not sure, set this to 'false'
+  look_for_primary_group_membership_ActiveDirectory: true
+
+  #group of normal users with permission to log into Leihs. Optional. Can be left blank to accept all LDAP users.
+  normal_users_dn: CN=ACL_Leihs_Login_NormalUsers,OU=Permissions,OU=Groups,DC=example,DC=org
+  
+  #group of leihs admins. users may be member of normal_users_dn at the same time
+  admin_dn: CN=ACL_Leihs_Login_Admins,OU=Permissions,OU=Groups,DC=example,DC=org
