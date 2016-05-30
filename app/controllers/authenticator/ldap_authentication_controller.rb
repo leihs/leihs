@@ -492,16 +492,16 @@ class Authenticator::LdapAuthenticationController \
               #Normal users group member? 
               if normal_users_dn == ''
                 #normal_users_dn may be left blank in config. in this case any user who is able to bind to ldap may log in
-                logger.debug = "Any LDAP users may log in to LEIHS: normal_users_dn is blank in config."
+                logger.debug("Any LDAP users may log in to LEIHS: normal_users_dn is blank in config.")
                 user_allowed = true
               elsif user_is_member_of_ldap_group(user_data, normal_users_dn)
-                logger.debug = "User is a member of normal users LDAP group. Access granted."
+                logger.debug("User is a member of normal users LDAP group. Access granted.")
                 user_allowed = true
               end
               
               #Admin group member?
               if user_is_member_of_ldap_group(user_data, admin_users_dn)
-                logger.debug = "User is a member of ADMIN users LDAP group. Access granted."
+                logger.debug("User is a member of ADMIN users LDAP group. Access granted.")
                 user_allowed = true                
               end
               
