@@ -76,6 +76,20 @@ class LdapHelper
     end
   end
 
+  # Returns an object of class Logger. Either the default Rails default log
+  # or, if configured, the LDAP logger (special logfile)
+  # @return [Logger] Object of class Logger
+  def get_logger()
+    begin
+      return Rails.logger
+    rescue Exception => e
+      logger.error("Unexpected exception in get_logger. Returning Rails default log." \
+                   "Exception: #{e}" \
+                   "#{e.backtrace.slice(1,500)}...")
+      return Rails.logger 
+    end
+  end
+
   def bind(username = @master_bind_dn, password = @master_bind_pw)
     ldap = Net::LDAP.new host: @host,
                          port: @port,
@@ -90,7 +104,7 @@ class LdapHelper
     if ldap.bind
       return ldap
     else
-      logger = Rails.logger
+      logger = get_logger()
       logger.error "ERROR: Can't bind to LDAP server #{@host} " \
                    "as user '#{username}'. " \
                    'Wrong bind credentials or encryption parameters?'
@@ -103,7 +117,8 @@ class Authenticator::LdapAuthenticationController \
   < Authenticator::AuthenticatorController
 
   def validate_configuration
-    logger = Rails.logger
+    ldaphelper = LdapHelper.new
+    logger = ldaphelper.get_logger()
     begin
       # This thing will complain with an exception if something
       # is wrong about our configuration
@@ -123,6 +138,9 @@ class Authenticator::LdapAuthenticationController \
   # @param login [String] The login of the user you want to create
   # @param email [String] The email address of the user you want to create
   def create_user(login, email, firstname, lastname)
+    ldaphelper = LdapHelper.new
+    logger = ldaphelper.get_logger()
+    
     user = User.new(login: login,
                     email: "#{email}",
                     firstname: "#{firstname}",
@@ -132,7 +150,6 @@ class Authenticator::LdapAuthenticationController \
     if user.save
       return user
     else
-      logger = Rails.logger
       logger.error "ERROR: Could not create user with login #{login}: " \
                    "#{user.errors.full_messages}"
       return false
@@ -143,8 +160,8 @@ class Authenticator::LdapAuthenticationController \
   # @param user_data [Net::LDAP::Entry] The LDAP entry (it could also just be
   # a hash of hashes and arrays that looks like a Net::LDAP::Entry) of that user
   def update_user(user, user_data)
-    logger = Rails.logger
     ldaphelper = LdapHelper.new
+    logger = ldaphelper.get_logger()
     # Make sure to set "user_image_url" in "/admin/settings" in leihs 3.0
     # for user images to appear, based on the unique ID. Example for the format:
     # http://www.hslu.ch/portrait/{:id}.jpg
@@ -195,8 +212,8 @@ class Authenticator::LdapAuthenticationController \
   # @return [Boolean] TRUE if user is a member of the group. FALSE if user is NOT a member of the group OR exception occured
   def user_is_member_of_ldap_group(user_data, group_dn)
     begin
-      logger = Rails.logger
       ldaphelper = LdapHelper.new
+      logger = ldaphelper.get_logger()
       ldap = ldaphelper.bind
       
       isGroupMember = false
@@ -362,7 +379,8 @@ class Authenticator::LdapAuthenticationController \
 
 
   def create_and_login_from_ldap_user(ldap_user, username, password)
-    logger = Rails.logger
+    ldaphelper = LdapHelper.new
+    logger = ldaphelper.get_logger()
     
     begin  
       #check for mandatory user fields
@@ -461,7 +479,8 @@ class Authenticator::LdapAuthenticationController \
     super
     @preferred_language = Language.preferred(request.env['HTTP_ACCEPT_LANGUAGE'])
 
-    logger = Rails.logger
+    ldaphelper = LdapHelper.new
+    logger = ldaphelper.get_logger()
 
     if request.post?
       username = params[:login][:user]
@@ -469,7 +488,6 @@ class Authenticator::LdapAuthenticationController \
       if username == '' || password == ''
         flash[:notice] = _('Empty Username and/or Password')
       else
-        ldaphelper = LdapHelper.new
         logger.debug("LDAP user trying to log in: #{username}")
         begin
           ldap = ldaphelper.bind
