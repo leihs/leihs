@@ -14,7 +14,7 @@ class LdapHelper
   #look_in_nested_groups_for_membership search method.
   #If you want to use the primary group for anything, set this to 'true'
   attr_reader :look_for_primary_group_membership_ActiveDirectory
-  #group of normal users with permission to log into Leihs. Optional. Can be left blank.
+  #group of normal users with permission to log into leihs. Optional. Can be left blank.
   attr_reader :normal_users_dn
   #group of leihs admins. users may be member of normal_users_dn at the same time
   attr_reader :admin_dn
@@ -236,7 +236,7 @@ class Authenticator::LdapAuthenticationController \
       logger.error("ERROR: Could not query LDAP group membership of user '#{user_data.dn}' for group '#{group_dn}' " \
                    "Exception: #{e}" \
                    "#{e.backtrace.slice(1,500)}...")
-      flash[:error] = _('Unexpected error while querying for LDAP group membership. Please contact your LEIHS system administrator.')
+      flash[:error] = _('Unexpected error while querying for LDAP group membership. Please contact your leihs system administrator.')
       return false
     end
   end
@@ -270,7 +270,7 @@ class Authenticator::LdapAuthenticationController \
     if groupObjSearch.nil?
       logger.error("LDAP search for group returned NIL result (while looking for Primary Group), which should not happen. Probably the following group does not exist in LDAP. Check your LDAP config file." \
                   "#{group_dn}")
-      flash[:error] = _('There is a problem with LDAP group configuration. Please contact your LEIHS system administrator.')
+      flash[:error] = _('There is a problem with LDAP group configuration. Please contact your leihs system administrator.')
     elsif groupObjSearch.count == 1
       #we found the primary group LDAP object
       groupObj = groupObjSearch.first
@@ -321,7 +321,7 @@ class Authenticator::LdapAuthenticationController \
     unless nestedGroupSearchResult
       logger.error("LDAP search for group returned NIL result (while looking for nested groups), which should not happen. Probably the following group does not exist in LDAP. Check your LDAP config file." \
                   "#{group_dn}")
-      flash[:error] = _('There is a problem with LDAP group configuration. Please contact your LEIHS administrator.')
+      flash[:error] = _('There is a problem with LDAP group configuration. Please contact your leihs system administrator.')
     else
       #we have found the group membership we are looking for, if the search result was not empty
       #this should normally be 1
@@ -348,7 +348,7 @@ class Authenticator::LdapAuthenticationController \
     unless simpleGroupSearchResult
       logger.error("LDAP search for group returned NIL result (using default search method), which should not happen. Probably the following group does not exist in LDAP. Check your LDAP config file." \
                   "#{group_dn}")
-      flash[:error] = _('There is a problem with LDAP group configuration. Please contact your LEIHS administrator.')
+      flash[:error] = _('There is a problem with LDAP group configuration. Please contact your leihs system administrator.')
     else 
       #user_data['memberof'].include?(group_dn) seems to be unneccessary for Active Directory
       if ((simpleGroupSearchResult.count >= 1) or
@@ -369,7 +369,7 @@ class Authenticator::LdapAuthenticationController \
 
       #email address is mandatory for account creation
       #Made decision to show error instead of creating user with dummy mail address
-      #This did not work before anyways. Leihs crashed if LDAP user logged on with no email set in LDAP
+      #This did not work before anyways. leihs crashed if LDAP user logged on with no email set in LDAP
       #so below code is *no new behaviour* and admins needed to set the email correctly anyways.
       #Probably better to show error if undefined and quit than to assign dummy value
       #Line that caused crash and its ELSE path:
@@ -384,7 +384,7 @@ class Authenticator::LdapAuthenticationController \
       else
         logger.error("LDAP user with blank eMail attribute attempted login: #{username}")
         flash[:error] = \
-          _("Unable to login. Your user account has no eMail address set. Please contact your LEIHS administrator.")
+          _("Unable to login. Your user account has no eMail address set. Please contact your leihs system administrator.")
         return
       end
       
@@ -393,7 +393,7 @@ class Authenticator::LdapAuthenticationController \
       else
         logger.error("LDAP user with blank givenname (first name) attribute attempted login: #{username}")
         flash[:error] = \
-          _("Unable to login. Your user account has no first name set. Please contact your LEIHS administrator.")
+          _("Unable to login. Your user account has no first name set. Please contact your leihs system administrator.")
         return
       end
       
@@ -402,7 +402,7 @@ class Authenticator::LdapAuthenticationController \
       else
         logger.error("LDAP user with blank sn (family name) attribute attempted login: #{username}")
         flash[:error] = \
-        _("Unable to login. Your user account has no family name set. Please contact your LEIHS administrator.")
+        _("Unable to login. Your user account has no family name set. Please contact your leihs system administrator.")
         return
       end
       
@@ -412,7 +412,7 @@ class Authenticator::LdapAuthenticationController \
       logger.error("Unexpected exception while checking required LDAP user attributes for user #{username}:" \
                   "Exception: #{e}")
       flash[:error] = \
-      _("Unable to login. Unexpected error. Please contact your LEIHS administrator.")
+      _("Unable to login. Unexpected error. Please contact your leihs system administrator.")
     end
 
     #checks passed. create user / log in
@@ -453,7 +453,7 @@ class Authenticator::LdapAuthenticationController \
       logger.error("Unexpected exception in create_and_login_from_ldap_user:" \
                   "Exception: #{e}")
       flash[:error] = \
-      _("Unable to login. Unexpected error. Please contact your LEIHS administrator.")
+      _("Unable to login. Unexpected error. Please contact your leihs system administrator.")
     end
   end
 
@@ -492,7 +492,7 @@ class Authenticator::LdapAuthenticationController \
               #Normal users group member? 
               if normal_users_dn == ''
                 #normal_users_dn may be left blank in config. in this case any user who is able to bind to ldap may log in
-                logger.debug("Any LDAP users may log in to LEIHS: normal_users_dn is blank in config.")
+                logger.debug("Any LDAP users may log in to leihs: normal_users_dn is blank in config.")
                 user_allowed = true
               elsif user_is_member_of_ldap_group(user_data, normal_users_dn)
                 logger.debug("User is a member of normal users LDAP group. Access granted.")
@@ -508,8 +508,8 @@ class Authenticator::LdapAuthenticationController \
               if user_allowed
                 create_and_login_from_ldap_user(user_data, username, password)
               else
-                flash[:error] = _("You are not allowed to use LEIHS at the moment. Please contact your LEIHS administrator.")
-                logger.warn ("User was denied access, because he/she is not member of LDAP Leihs users or admin group: #{user_data['cn']}")
+                flash[:error] = _("You are not allowed to use leihs at the moment. Please contact your leihs system administrator.")
+                logger.warn ("User was denied access, because he/she is not member of LDAP leihs users or admin group: #{user_data['cn']}")
               end
             else
               flash[:error] = _("User unknown") if users.size == 0
