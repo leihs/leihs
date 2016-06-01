@@ -62,6 +62,22 @@ class LdapHelper
       @encryption = @ldap_config[Rails.env]['encryption'].to_sym || :simple_tls
     end
     @method = :simple
+    if @ldap_config[Rails.env]['log_file'].to_s.strip.length == 0
+      @log_file = ''
+    else
+      @log_file = @ldap_config[Rails.env]['log_file'] #log/ldap_server.log
+    end
+
+    begin
+      severitySymbol = @ldap_config[Rails.env]['log_level'].parameterize.underscore.to_sym
+      myLogLevel = Logger::Severity::severitySymbol
+      @log_level = myLogLevel
+      #todo: testme!
+      Rails.logger = "LDAP log loglevel set to: #{severitySymbol.to_s}"
+    rescue Exception => e
+      raise "log_level needs to be set to any of the following values: DEBUG, ERROR, FATAL, INFO, UNKNOWN, WARN"
+    end
+    
     @master_bind_dn = @ldap_config[Rails.env]['master_bind_dn']
     @master_bind_pw = @ldap_config[Rails.env]['master_bind_pw']
     @unique_id_field = @ldap_config[Rails.env]['unique_id_field']
