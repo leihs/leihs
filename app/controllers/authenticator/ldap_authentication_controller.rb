@@ -236,7 +236,7 @@ class Authenticator::LdapAuthenticationController \
       logger.error("ERROR: Could not query LDAP group membership of user '#{user_data.dn}' for group '#{group_dn}' " \
                    "Exception: #{e}" \
                    "#{e.backtrace.slice(1,500)}...")
-      flash[:error] = ('Unexpected error while querying for LDAP group membership. Please contact your LEIHS administrator.')
+      flash[:error] = _('Unexpected error while querying for LDAP group membership. Please contact your LEIHS system administrator.')
       return false
     end
   end
@@ -270,7 +270,7 @@ class Authenticator::LdapAuthenticationController \
     if groupObjSearch.nil?
       logger.error("LDAP search for group returned NIL result (while looking for Primary Group), which should not happen. Probably the following group does not exist in LDAP. Check your LDAP config file." \
                   "#{group_dn}")
-      flash[:error] = ('There is a problem with LDAP group configuration. Please contact your LEIHS administrator.')
+      flash[:error] = _('There is a problem with LDAP group configuration. Please contact your LEIHS system administrator.')
     elsif groupObjSearch.count == 1
       #we found the primary group LDAP object
       groupObj = groupObjSearch.first
@@ -321,7 +321,7 @@ class Authenticator::LdapAuthenticationController \
     unless nestedGroupSearchResult
       logger.error("LDAP search for group returned NIL result (while looking for nested groups), which should not happen. Probably the following group does not exist in LDAP. Check your LDAP config file." \
                   "#{group_dn}")
-      flash[:error] = ('There is a problem with LDAP group configuration. Please contact your LEIHS administrator.')
+      flash[:error] = _('There is a problem with LDAP group configuration. Please contact your LEIHS administrator.')
     else
       #we have found the group membership we are looking for, if the search result was not empty
       #this should normally be 1
@@ -348,7 +348,7 @@ class Authenticator::LdapAuthenticationController \
     unless simpleGroupSearchResult
       logger.error("LDAP search for group returned NIL result (using default search method), which should not happen. Probably the following group does not exist in LDAP. Check your LDAP config file." \
                   "#{group_dn}")
-      flash[:error] = ('There is a problem with LDAP group configuration. Please contact your LEIHS administrator.')
+      flash[:error] = _('There is a problem with LDAP group configuration. Please contact your LEIHS administrator.')
     else 
       #user_data['memberof'].include?(group_dn) seems to be unneccessary for Active Directory
       if ((simpleGroupSearchResult.count >= 1) or
@@ -508,19 +508,19 @@ class Authenticator::LdapAuthenticationController \
               if user_allowed
                 create_and_login_from_ldap_user(user_data, username, password)
               else
-                flash[:error] = ('You are not allowed to use LEIHS at the moment. Please contact your LEIHS administrator.')
-                logger.warn ("User was denied access, because he/she is not member of LDAP Leihs users/admin group: #{user_data['cn']}")
+                flash[:error] = _("You are not allowed to use LEIHS at the moment. Please contact your LEIHS administrator.")
+                logger.warn ("User was denied access, because he/she is not member of LDAP Leihs users or admin group: #{user_data['cn']}")
               end
             else
-              flash[:error] = _('User unknown') if users.size == 0
+              flash[:error] = _("User unknown") if users.size == 0
               if users.size > 0
-                 flash[:error] = _('Too many users found')
-                 logger.error("Too many users matching given username. This should not happen. User login: #{username}")
+                 flash[:error] = _("Too many users found")
+                 logger.error("Too many users in LDAP matching given username. This should not happen. User login: #{username}")
               end
             end
             # rubocop:enable Metrics/BlockNesting
           else
-            flash[:error] = _('Unable to connect to LDAP - contact your leihs admin!')
+            flash[:error] = _("Unable to connect to LDAP - contact your leihs system administrator!")
             logger.error("Unable to bind to LDAP! ldaphelper.bind returned NIL. Check LDAP config file. (master_bind_dn, master_bind_pw, etc.)")
           end
         rescue Net::LDAP::LdapError
