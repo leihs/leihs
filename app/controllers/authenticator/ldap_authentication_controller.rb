@@ -264,7 +264,7 @@ class Authenticator::LdapAuthenticationController \
       #also new. Primary group membership needs to be handled differently
       if !isGroupMember
         logger.debug("Looking for LDAP group membership. Method: primary group.")
-        if ldaphelper.look_for_primary_group_membership_ActiveDirectory == true) and
+        if (ldaphelper.look_for_primary_group_membership_ActiveDirectory == true) and
           (user_is_member_of_ldap_group_method_primary(user_data, group_dn, ldap, ldaphelper, logger) == true)
           isGroupMember = true
         end
@@ -497,7 +497,7 @@ class Authenticator::LdapAuthenticationController \
       update_user(u, ldap_user)
       if u.save
         self.current_user = u
-        logger.info("Login successful for user #{username}.")
+        logger.debug("Updated address data from LDAP for user #{username}.")
         redirect_back_or_default('/')
       else
         logger.error("Could not update user '#{username}' with new LDAP information.")
