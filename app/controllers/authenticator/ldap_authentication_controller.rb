@@ -66,13 +66,15 @@ class LdapHelper
       @log_file = ''
     else
       @log_file = @ldap_config[Rails.env]['log_file'] #log/ldap_server.log
+      unless File.writable?(@log_file)
+        raise "The LDAP logfile specified can not be opened for write access. Check your LDAP config."
+      end
     end
 
     begin
       severitySymbol = @ldap_config[Rails.env]['log_level'].parameterize.underscore.to_sym
       myLogLevel = Logger::Severity::severitySymbol
       @log_level = myLogLevel
-      #todo: testme!
       Rails.logger = "LDAP log loglevel set to: #{severitySymbol.to_s}"
     rescue Exception => e
       raise "log_level needs to be set to any of the following values: DEBUG, ERROR, FATAL, INFO, UNKNOWN, WARN"
@@ -97,7 +99,13 @@ class LdapHelper
   # @return [Logger] Object of class Logger
   def get_logger()
     begin
-      return Rails.logger
+      if @log_file != ''
+        mylogger = Logger.new(File.new(@log_file,"a+"))
+        mylogger.Severity = @log_level
+        return mylogger
+      else
+        return Rails.logger
+      end
     rescue Exception => e
       logger.error("Unexpected exception in get_logger. Returning Rails default log." \
                    "Exception: #{e}" \
