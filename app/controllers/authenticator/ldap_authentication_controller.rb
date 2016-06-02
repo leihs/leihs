@@ -64,16 +64,14 @@ class LdapHelper
     end
     @method = :simple
     
-    Rails.logger.debug("myDebug: vor Check log_file defined?")
     #custom log file
     #may be left blank in config
     if (defined?(@ldap_config[Rails.env]['log_file']) and (not @ldap_config[Rails.env]['log_file'].blank?))
-      Rails.logger.debug("myDebug: log_file wurde gefunden und ist nicht leer")
       #config line log_file should be relative path to a file (does not have to exist yet)
       #log/ldap_server.log
       @log_file = Rails.root.join(@ldap_config[Rails.env]['log_file'])
       unless File.writable?(@log_file)
-        raise "The LDAP logfile specified can not be opened for write access. Check your LDAP config."
+        raise "The LDAP logfile specified can not be opened for write access. Check your LDAP config! Configured file path: #{@log_file}"
       end
       
       #serverity of custom log is only relevant if logfile path was configured
@@ -84,7 +82,6 @@ class LdapHelper
         raise "LDAP log_level needs to be set to any of the following values: DEBUG, ERROR, FATAL, INFO, UNKNOWN, WARN"
       end
     else
-      Rails.logger.debug("myDebug: log_file ist nicht konfiguriert")
       #custom logfile disabled. see get_logger()
       @log_file = ''
     end
@@ -110,7 +107,7 @@ class LdapHelper
     begin
       unless @log_file.blank?
         mylogger = Logger.new(File.new(@log_file,"a+"))
-        mylogger.Severity = @log_level
+        mylogger.level = @log_level
         return mylogger
       else
         return Rails.logger
