@@ -49,9 +49,9 @@ class LdapHelper
     @look_for_primary_group_membership_ActiveDirectory = @ldap_config[Rails.env]['look_for_primary_group_membership_ActiveDirectory']
 
     if (defined?(@ldap_config[Rails.env]['normal_users_dn']) and (not @ldap_config[Rails.env]['normal_users_dn'].blank?))
-      @normal_users_dn = ''
-    else
       @normal_users_dn = @ldap_config[Rails.env]['normal_users_dn']
+    else
+      @normal_users_dn = ''
     end
     @search_field = @ldap_config[Rails.env]['search_field']
     @host = @ldap_config[Rails.env]['host']
@@ -59,9 +59,13 @@ class LdapHelper
     
     if @ldap_config[Rails.env]['encryption'] == 'none'
       @encryption = nil
+    elsif @ldap_config[Rails.env]['encryption'] == 'simple_tls'
+      @encryption = :simple_tls
     else
-      @encryption = @ldap_config[Rails.env]['encryption'].to_sym || :simple_tls
+      raise "LDAP encryption needs to be set to one of the following values: none, simple_tls"
     end
+    
+    #LDAP bind method
     @method = :simple
     
     #custom log file
