@@ -274,7 +274,7 @@ class Authenticator::LdapAuthenticationController \
       end
       
       if isGroupMember == true
-        logger.debug("nestedSearch: User logging in is a member of group #{group_dn}:" \
+        logger.info("nestedSearch: User logging in is a member of group #{group_dn}:" \
             "#{user_data['cn']}")
         return true
       else
@@ -492,7 +492,7 @@ class Authenticator::LdapAuthenticationController \
       update_user(u, ldap_user)
       if u.save
         self.current_user = u
-        logger.debug("Login successful for user #{username}.")
+        logger.info("Login successful for user #{username}.")
         redirect_back_or_default('/')
       else
         logger.error("Could not update user '#{username}' with new LDAP information.")
@@ -522,7 +522,7 @@ class Authenticator::LdapAuthenticationController \
       if username == '' || password == ''
         flash[:notice] = _('Empty Username and/or Password')
       else
-        logger.debug("LDAP user trying to log in: #{username}")
+        logger.info("LDAP user trying to log in: #{username}")
         begin
           ldap = ldaphelper.bind
 
@@ -544,16 +544,16 @@ class Authenticator::LdapAuthenticationController \
               #Normal users group member? 
               if normal_users_dn == ''
                 #normal_users_dn may be left blank in config. in this case any user who is able to bind to ldap may log in
-                logger.debug("Any LDAP users may log in to leihs: normal_users_dn is blank in config.")
+                logger.warn("Any LDAP users may log in to leihs: normal_users_dn is blank in config. Check config / ignore this message.")
                 user_allowed = true
               elsif user_is_member_of_ldap_group(user_data, normal_users_dn)
-                logger.debug("User is a member of normal users LDAP group. Access granted.")
+                logger.info("User is a member of normal users LDAP group. Access granted.")
                 user_allowed = true
               end
               
               #Admin group member?
               if user_is_member_of_ldap_group(user_data, admin_users_dn)
-                logger.debug("User is a member of ADMIN users LDAP group. Access granted.")
+                logger.info("User is a member of ADMIN users LDAP group. Access granted.")
                 user_allowed = true                
               end
               
