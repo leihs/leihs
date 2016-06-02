@@ -149,8 +149,8 @@ class Authenticator::LdapAuthenticationController \
   < Authenticator::AuthenticatorController
 
   def validate_configuration
-    ldaphelper = LdapHelper.new
-    logger = ldaphelper.get_logger()
+    #need to use default logger, because custom logger is configured in the config-to-be-validated
+    logger = Rails.logger
     begin
       # This thing will complain with an exception if something
       # is wrong about our configuration
