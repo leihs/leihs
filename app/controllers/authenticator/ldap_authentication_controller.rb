@@ -253,32 +253,37 @@ class Authenticator::LdapAuthenticationController \
       isGroupMember = false
     
       #new method with additional features
-      if ldaphelper.look_in_nested_groups_for_membership == true
-        logger.debug("Nested LDAP group membership checking is enabled.")
-        if user_is_member_of_ldap_group_method_nested(user_data, group_dn, ldap, ldaphelper, logger) == true
-          isGroupMember = true
+      if !isGroupMember
+        logger.debug("Looking for LDAP group membership. Method: nested.")
+        if (ldaphelper.look_in_nested_groups_for_membership == true) and
+          (user_is_member_of_ldap_group_method_nested(user_data, group_dn, ldap, ldaphelper, logger) == true)
+            isGroupMember = true
         end
       end
       
       #also new. Primary group membership needs to be handled differently
-      if ldaphelper.look_for_primary_group_membership_ActiveDirectory == true
-        logger.debug("Primary LDAP group membership checking is enabled.")
-        if user_is_member_of_ldap_group_method_primary(user_data, group_dn, ldap, ldaphelper, logger) == true
+      if !isGroupMember
+        logger.debug("Looking for LDAP group membership. Method: primary group.")
+        if ldaphelper.look_for_primary_group_membership_ActiveDirectory == true) and
+          (user_is_member_of_ldap_group_method_primary(user_data, group_dn, ldap, ldaphelper, logger) == true)
           isGroupMember = true
         end
       end
       
       #Old, time-tested method
-      if user_is_member_of_ldap_group_method_simple(user_data, group_dn, ldap, ldaphelper, logger) == true
-        isGroupMember = true
+      if !isGroupMember 
+        logger.debug("Looking for LDAP group membership. Method: simple.")
+        if (user_is_member_of_ldap_group_method_simple(user_data, group_dn, ldap, ldaphelper, logger) == true)
+          isGroupMember = true
+        end
       end
       
       if isGroupMember == true
-        logger.info("nestedSearch: User logging in is a member of group #{group_dn}:" \
+        logger.info("User logging in is a member of group #{group_dn}:" \
             "#{user_data['cn']}")
         return true
       else
-        logger.debug("nestedSearch: User logging in is *not* a member of group #{group_dn}:" \
+        logger.debug("User logging in is *not* a member of group #{group_dn}:" \
             "#{user_data['cn']}")
         return false
       end
