@@ -56,30 +56,38 @@ class LdapHelper
     @search_field = @ldap_config[Rails.env]['search_field']
     @host = @ldap_config[Rails.env]['host']
     @port = @ldap_config[Rails.env]['port'].to_i || 636
+    
     if @ldap_config[Rails.env]['encryption'] == 'none'
       @encryption = nil
     else
       @encryption = @ldap_config[Rails.env]['encryption'].to_sym || :simple_tls
     end
     @method = :simple
+    
+    #custom log file
+    #may be left blank in config
     if @ldap_config[Rails.env]['log_file'].to_s.strip.length == 0
+      #custom logfile disabled. see get_logger()
       @log_file = ''
     else
-      @log_file = @ldap_config[Rails.env]['log_file'] #log/ldap_server.log
+      #config line log_file should be relative path to a file (does not have to exist yet)
+      #log/ldap_server.log
+      @log_file = Rails.root.join(@ldap_config[Rails.env]['log_file'])
       unless File.writable?(@log_file)
         raise "The LDAP logfile specified can not be opened for write access. Check your LDAP config."
       end
+      
+      #serverity of custom log is only relevant if logfile path was configured
+      begin
+        severitySymbol = @ldap_config[Rails.env]['log_level'].parameterize.underscore.to_sym
+        myLogLevel = Logger::Severity::severitySymbol
+        @log_level = myLogLevel
+        Rails.logger = "LDAP log loglevel set to: #{severitySymbol.to_s}"
+      rescue Exception => e
+        raise "log_level needs to be set to any of the following values: DEBUG, ERROR, FATAL, INFO, UNKNOWN, WARN"
+      end
     end
 
-    begin
-      severitySymbol = @ldap_config[Rails.env]['log_level'].parameterize.underscore.to_sym
-      myLogLevel = Logger::Severity::severitySymbol
-      @log_level = myLogLevel
-      Rails.logger = "LDAP log loglevel set to: #{severitySymbol.to_s}"
-    rescue Exception => e
-      raise "log_level needs to be set to any of the following values: DEBUG, ERROR, FATAL, INFO, UNKNOWN, WARN"
-    end
-    
     @master_bind_dn = @ldap_config[Rails.env]['master_bind_dn']
     @master_bind_pw = @ldap_config[Rails.env]['master_bind_pw']
     @unique_id_field = @ldap_config[Rails.env]['unique_id_field']
