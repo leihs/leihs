@@ -47,8 +47,8 @@ class LdapHelper
     @look_in_nested_groups_for_membership = @ldap_config[Rails.env]['look_in_nested_groups_for_membership']
     #implicit cast from string to trueclass. handled by YAML
     @look_for_primary_group_membership_ActiveDirectory = @ldap_config[Rails.env]['look_for_primary_group_membership_ActiveDirectory']
-    #this option may be left blank. make sure we have a true empty string and no whitespace
-    if @ldap_config[Rails.env]['normal_users_dn'].to_s.strip.length == 0
+
+    if (defined?(@ldap_config[Rails.env]['normal_users_dn']) and (not @ldap_config[Rails.env]['normal_users_dn'].blank?))
       @normal_users_dn = ''
     else
       @normal_users_dn = @ldap_config[Rails.env]['normal_users_dn']
@@ -64,12 +64,11 @@ class LdapHelper
     end
     @method = :simple
     
+    Rails.logger.debug("myDebug: vor Check log_file defined?")
     #custom log file
     #may be left blank in config
-    if @ldap_config[Rails.env]['log_file'].to_s.strip.length == 0
-      #custom logfile disabled. see get_logger()
-      @log_file = ''
-    else
+    if (defined?(@ldap_config[Rails.env]['log_file']) and (not @ldap_config[Rails.env]['log_file'].blank?))
+      Rails.logger.debug("myDebug: log_file wurde gefunden und ist nicht leer")
       #config line log_file should be relative path to a file (does not have to exist yet)
       #log/ldap_server.log
       @log_file = Rails.root.join(@ldap_config[Rails.env]['log_file'])
@@ -79,13 +78,15 @@ class LdapHelper
       
       #serverity of custom log is only relevant if logfile path was configured
       begin
-        severitySymbol = @ldap_config[Rails.env]['log_level'].parameterize.underscore.to_sym
-        myLogLevel = Logger::Severity::severitySymbol
-        @log_level = myLogLevel
-        Rails.logger = "LDAP log loglevel set to: #{severitySymbol.to_s}"
+        @log_level = Logger.const_get(@ldap_config[Rails.env]['log_level'])
       rescue Exception => e
-        raise "log_level needs to be set to any of the following values: DEBUG, ERROR, FATAL, INFO, UNKNOWN, WARN"
+        #see Logger::Severity
+        raise "LDAP log_level needs to be set to any of the following values: DEBUG, ERROR, FATAL, INFO, UNKNOWN, WARN"
       end
+    else
+      Rails.logger.debug("myDebug: log_file ist nicht konfiguriert")
+      #custom logfile disabled. see get_logger()
+      @log_file = ''
     end
 
     @master_bind_dn = @ldap_config[Rails.env]['master_bind_dn']
@@ -107,7 +108,7 @@ class LdapHelper
   # @return [Logger] Object of class Logger
   def get_logger()
     begin
-      if @log_file != ''
+      unless @log_file.blank?
         mylogger = Logger.new(File.new(@log_file,"a+"))
         mylogger.Severity = @log_level
         return mylogger
@@ -115,7 +116,7 @@ class LdapHelper
         return Rails.logger
       end
     rescue Exception => e
-      logger.error("Unexpected exception in get_logger. Returning Rails default log." \
+      Rails.logger.error("Unexpected exception in get_logger. Returning Rails default log." \
                    "Exception: #{e}" \
                    "#{e.backtrace.slice(1,500)}...")
       return Rails.logger 
