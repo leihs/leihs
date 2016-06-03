@@ -43,10 +43,8 @@ class LdapHelper
     end
     @base_dn = @ldap_config[Rails.env]['base_dn']
     @admin_dn = @ldap_config[Rails.env]['admin_dn']
-    #implicit cast from string to trueclass. handled by YAML
-    @look_in_nested_groups_for_membership = @ldap_config[Rails.env]['look_in_nested_groups_for_membership']
-    #implicit cast from string to trueclass. handled by YAML
-    @look_for_primary_group_membership_ActiveDirectory = @ldap_config[Rails.env]['look_for_primary_group_membership_ActiveDirectory']
+    @look_in_nested_groups_for_membership = @ldap_config[Rails.env]['look_in_nested_groups_for_membership'] == 'true'
+    @look_for_primary_group_membership_ActiveDirectory = @ldap_config[Rails.env]['look_for_primary_group_membership_ActiveDirectory'] == 'true'
 
     if (defined?(@ldap_config[Rails.env]['normal_users_dn']) and (not @ldap_config[Rails.env]['normal_users_dn'].blank?))
       @normal_users_dn = @ldap_config[Rails.env]['normal_users_dn']
@@ -141,7 +139,9 @@ class LdapHelper
       logger = get_logger()
       logger.error "ERROR: Can't bind to LDAP server #{@host} " \
                    "as user '#{username}'. " \
-                   'Wrong bind credentials or encryption parameters?'
+                   'Wrong bind credentials or encryption parameters?' \
+                   "Returned error code: #{ldap.get_operation_result.code}" \
+                   "Error Message: #{ldap.get_operation_result.message}"
       return false
     end
   end
