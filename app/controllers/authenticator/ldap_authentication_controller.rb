@@ -56,7 +56,7 @@ class LdapHelper
           @@log_file = Rails.root.join(@ldap_config[Rails.env]['log_file'])
         else
           @@log_file = ''
-          raise "The LDAP logfile specified can not be opened for write access. Check your LDAP config! Configured file path: #{@log_file}"
+          raise "The LDAP logfile specified can not be opened for write access. Configured file path: #{@log_file}"
         end
         
         #serverity of custom log is only relevant if logfile path was configured
@@ -102,8 +102,7 @@ class LdapHelper
       @unique_id_field = @ldap_config[Rails.env]['unique_id_field']
       @video_displayname = @ldap_config[Rails.env]['video_displayname']
       if (@master_bind_dn.blank? or @master_bind_pw.blank?)
-        raise "'master_bind_dn' and 'master_bind_pw' must be set in " \
-              'LDAP configuration file'
+        raise "'master_bind_dn' and 'master_bind_pw' may not be left blank!"
       end
       if @unique_id_field.blank?
         raise "'unique_id_field' in LDAP configuration file must point to " \
@@ -112,14 +111,15 @@ class LdapHelper
       
       #check the master_bind credentials
       if self.bind() == false
-        raise "Could not bind to LDAP using configured master_bind credentials. Check your config file."
+        raise "Could not bind to LDAP using configured master_bind credentials."
       end
       
       @configIsOk = true
     rescue Exception => e
       @configIsOk = false
       logger = LdapHelper::get_logger()
-      logger.error("ERROR: LDAP is not configured correctly: #{e}")
+      logger.error("ERROR: LDAP is not configured correctly: #{e}" \
+      "Please check LDAP config file: #{configFilePath}" )
     end
   end
 
