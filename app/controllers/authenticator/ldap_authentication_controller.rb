@@ -287,7 +287,7 @@ class Authenticator::LdapAuthenticationController \
       isGroupMember = false
     
       #new method with additional features
-      if !isGroupMember
+      if isGroupMember == false
         logger.debug("Looking for LDAP group membership. Method: nested.")
         if (ldaphelper.look_in_nested_groups_for_membership == true) and
           (user_is_member_of_ldap_group_method_nested(user_data, group_dn, ldap, ldaphelper, logger) == true)
@@ -296,7 +296,7 @@ class Authenticator::LdapAuthenticationController \
       end
       
       #also new. Primary group membership needs to be handled differently
-      if !isGroupMember
+      if isGroupMember == false
         logger.debug("Looking for LDAP group membership. Method: primary group.")
         if (ldaphelper.look_for_primary_group_membership_ActiveDirectory == true) and
           (user_is_member_of_ldap_group_method_primary(user_data, group_dn, ldap, ldaphelper, logger) == true)
@@ -305,7 +305,7 @@ class Authenticator::LdapAuthenticationController \
       end
       
       #Old, time-tested method
-      if !isGroupMember 
+      if isGroupMember == false
         logger.debug("Looking for LDAP group membership. Method: simple.")
         if (user_is_member_of_ldap_group_method_simple(user_data, group_dn, ldap, ldaphelper, logger) == true)
           isGroupMember = true
@@ -466,7 +466,7 @@ class Authenticator::LdapAuthenticationController \
       #email = ldap_user.mail.first.to_s if ldap_user.mail
       #email ||= "#{user}@localhost"
       #Replaced by:
-      if !(ldap_user['mail'].blank?) and (ldap_user.mail.first.to_s != '')
+      if (not ldap_user['mail'].blank?) and (ldap_user.mail.first.to_s != '')
         #warning: be careful to leave check for blank email in first position of the AND operator.
         #Active directory does not return the attribute "mail" at all when left blank.
         #exception in this case, when accessing ldap_user.mail (because == NIL)
@@ -478,7 +478,7 @@ class Authenticator::LdapAuthenticationController \
         return
       end
       
-      if !(ldap_user['givenname'].blank?) and (ldap_user.givenname.to_s != '')
+      if (not ldap_user['givenname'].blank?) and (ldap_user.givenname.to_s != '')
         firstname = ldap_user.givenname.to_s
       else
         logger.error("LDAP user with blank givenname (first name) attribute attempted login: #{username}")
@@ -487,7 +487,7 @@ class Authenticator::LdapAuthenticationController \
         return
       end
       
-      if !(ldap_user['sn'].blank?) and (ldap_user.sn.to_s != '')
+      if (not ldap_user['sn'].blank?) and (ldap_user.sn.to_s != '')
         lastname = ldap_user.sn.to_s
       else
         logger.error("LDAP user with blank sn (family name) attribute attempted login: #{username}")
@@ -603,7 +603,7 @@ class Authenticator::LdapAuthenticationController \
                 create_and_login_from_ldap_user(user_data, username, password)
               else
                 flash[:error] = _("You are not allowed to use leihs at the moment. Please contact your leihs system administrator.")
-                logger.warn ("User was denied access, because he/she is not member of LDAP leihs users or admin group: #{user_data['cn']}")
+                logger.warn ("User was denied access, because he/she is not member of LDAP leihs users and/or admin group: #{user_data['cn']}")
               end
             else
               flash[:error] = _("User unknown") if users.size == 0
