@@ -100,6 +100,11 @@ class LdapHelper
       raise "'unique_id_field' in LDAP configuration file must point to " \
             'an LDAP field that allows unique identification of a user'
     end
+    
+    #check the master_bind credentials
+    if self.bind() == false
+      raise "Could not bind to LDAP using configured master_bind credentials. Check your config file."
+    end
   end
 
   # Returns an object of class Logger. Either the default Rails default log
