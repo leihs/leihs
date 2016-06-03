@@ -285,10 +285,11 @@ class Authenticator::LdapAuthenticationController \
       ldap = ldaphelper.bind
       
       isGroupMember = false
+      logger.debug("Looking for LDAP group membership in: #{group_dn}")
     
-      #new method with additional features
+      #new method with additional features (nested groups)
       if isGroupMember == false
-        logger.debug("Looking for LDAP group membership. Method: nested.")
+        logger.debug("Search method: nested.")
         if (ldaphelper.look_in_nested_groups_for_membership == true) and
           (user_is_member_of_ldap_group_method_nested(user_data, group_dn, ldap, ldaphelper, logger) == true)
             isGroupMember = true
@@ -297,7 +298,7 @@ class Authenticator::LdapAuthenticationController \
       
       #also new. Primary group membership needs to be handled differently
       if isGroupMember == false
-        logger.debug("Looking for LDAP group membership. Method: primary group.")
+        logger.debug("Search method: primary group.")
         if (ldaphelper.look_for_primary_group_membership_ActiveDirectory == true) and
           (user_is_member_of_ldap_group_method_primary(user_data, group_dn, ldap, ldaphelper, logger) == true)
           isGroupMember = true
@@ -306,7 +307,7 @@ class Authenticator::LdapAuthenticationController \
       
       #Old, time-tested method
       if isGroupMember == false
-        logger.debug("Looking for LDAP group membership. Method: simple.")
+        logger.debug("Search method: simple.")
         if (user_is_member_of_ldap_group_method_simple(user_data, group_dn, ldap, ldaphelper, logger) == true)
           isGroupMember = true
         end
@@ -599,7 +600,7 @@ class Authenticator::LdapAuthenticationController \
                 user_allowed = true                
               end
               
-              if user_allowed
+              if user_allowed == true
                 create_and_login_from_ldap_user(user_data, username, password)
               else
                 flash[:error] = _("You are not allowed to use leihs at the moment. Please contact your leihs system administrator.")
