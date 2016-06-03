@@ -181,7 +181,7 @@ class Authenticator::LdapAuthenticationController \
     #outside a begin / rescue block
 
     _helper = LdapHelper.new
-    unless _helper.configIsOk
+    unless _helper.configIsOk == true
       flash[:error] = \
        _('You will not be able to log in because this leihs server ' \
           'is not configured correctly. Contact your leihs system administrator.')
@@ -197,7 +197,7 @@ class Authenticator::LdapAuthenticationController \
   def create_user(login, email, firstname, lastname)
     ldaphelper = LdapHelper.new
     logger = LdapHelper::get_logger()
-    unless ldaphelper.configIsOk
+    unless ldaphelper.configIsOk == true
       return false
     end
     
@@ -222,7 +222,7 @@ class Authenticator::LdapAuthenticationController \
   def update_user(user, user_data)
     ldaphelper = LdapHelper.new
     logger = LdapHelper::get_logger()
-    unless ldaphelper.configIsOk
+    unless ldaphelper.configIsOk == true
       return
     end
     
@@ -278,7 +278,7 @@ class Authenticator::LdapAuthenticationController \
     begin
       ldaphelper = LdapHelper.new
       logger = LdapHelper::get_logger()
-      unless ldaphelper.configIsOk
+      unless ldaphelper.configIsOk == true
         return false
       end
       
@@ -507,7 +507,7 @@ class Authenticator::LdapAuthenticationController \
     #checks passed. create user / log in
     begin
       ldaphelper = LdapHelper.new
-      unless ldaphelper.configIsOk
+      unless ldaphelper.configIsOk == true
         return
       end
 
