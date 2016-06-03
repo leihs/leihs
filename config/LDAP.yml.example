@@ -3,6 +3,7 @@
 production:
   host: ldapserver.example.org
   port: 636
+  #simple_tls or none
   encryption: simple_tls
   #Uncomment to use a dedicated LDAP logfile. Otherwise the leihs default log will be used
   #(production.log)
