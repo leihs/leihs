@@ -37,14 +37,41 @@ class LdapHelper
     begin
       begin
         if (defined?(Setting::LDAP_CONFIG) and not Setting::LDAP_CONFIG.blank?)
-          @ldap_config = YAML::load_file(Setting::LDAP_CONFIG)
+          configFilePath = Setting::LDAP_CONFIG
         else
-          @ldap_config = YAML::load_file(File.join(Rails.root, 'config', 'LDAP.yml'))
+          configFilePath = File.join(Rails.root, 'config', 'LDAP.yml')
         end
+        @ldap_config = YAML::load_file(configFilePath)
       rescue Exception => e
         raise 'Could not load LDAP configuration file ' \
-              "#{File.join(Rails.root, 'config', 'LDAP.yml')}: #{e}"
+              "#{configFilePath}: #{e}"
       end
+      
+      #custom log file. should be read first to enable logging of errors with other LDAPconfig flags
+      #may be left blank in config
+      if (defined?(@ldap_config[Rails.env]['log_file']) and (not @ldap_config[Rails.env]['log_file'].blank?))
+        #config line log_file should be relative path to a file (does not have to exist yet)
+        #log/ldap_server.log
+        if File.writable?(Rails.root.join(@ldap_config[Rails.env]['log_file']))
+          @@log_file = Rails.root.join(@ldap_config[Rails.env]['log_file'])
+        else
+          @@log_file = ''
+          raise "The LDAP logfile specified can not be opened for write access. Check your LDAP config! Configured file path: #{@log_file}"
+        end
+        
+        #serverity of custom log is only relevant if logfile path was configured
+        begin
+          @@log_level = Logger.const_get(@ldap_config[Rails.env]['log_level'])
+        rescue Exception => e
+          #see Logger::Severity
+          raise "LDAP log_level needs to be set to any of the following values: DEBUG, ERROR, FATAL, INFO, UNKNOWN, WARN"
+          @@log_level = Logger::DEBUG
+        end
+      else
+        #custom logfile disabled. see get_logger()
+        @@log_file = ''
+      end      
+      
       @base_dn = @ldap_config[Rails.env]['base_dn']
       @admin_dn = @ldap_config[Rails.env]['admin_dn']
       @look_in_nested_groups_for_membership = @ldap_config[Rails.env]['look_in_nested_groups_for_membership'] == 'true'
@@ -70,31 +97,6 @@ class LdapHelper
       #LDAP bind method
       @method = :simple
       
-      #custom log file
-      #may be left blank in config
-      if (defined?(@ldap_config[Rails.env]['log_file']) and (not @ldap_config[Rails.env]['log_file'].blank?))
-        #config line log_file should be relative path to a file (does not have to exist yet)
-        #log/ldap_server.log
-        if File.writable?(Rails.root.join(@ldap_config[Rails.env]['log_file']))
-          @@log_file = Rails.root.join(@ldap_config[Rails.env]['log_file'])
-        else
-          @@log_file = ''
-          raise "The LDAP logfile specified can not be opened for write access. Check your LDAP config! Configured file path: #{@log_file}"
-        end
-        
-        #serverity of custom log is only relevant if logfile path was configured
-        begin
-          @@log_level = Logger.const_get(@ldap_config[Rails.env]['log_level'])
-        rescue Exception => e
-          #see Logger::Severity
-          raise "LDAP log_level needs to be set to any of the following values: DEBUG, ERROR, FATAL, INFO, UNKNOWN, WARN"
-          @@log_level = Logger::DEBUG
-        end
-      else
-        #custom logfile disabled. see get_logger()
-        @@log_file = ''
-      end
-  
       @master_bind_dn = @ldap_config[Rails.env]['master_bind_dn']
       @master_bind_pw = @ldap_config[Rails.env]['master_bind_pw']
       @unique_id_field = @ldap_config[Rails.env]['unique_id_field']
@@ -556,7 +558,7 @@ class Authenticator::LdapAuthenticationController \
     
     logger = LdapHelper::get_logger()
     
-    if request.post? and ldaphelper.configIsOk
+    if request.post? and (ldaphelper.configIsOk == true)
       username = params[:login][:user]
       password = params[:login][:password]
       if username == '' || password == ''
