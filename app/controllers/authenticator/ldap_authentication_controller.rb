@@ -338,7 +338,7 @@ class Authenticator::LdapAuthenticationController \
       end
       
       if isGroupMember == true
-        logger.info("User logging in is a member of group #{group_dn}:" \
+        logger.debug("User logging in is a member of group #{group_dn}:" \
             "#{user_data['cn']}")
         return true
       else
