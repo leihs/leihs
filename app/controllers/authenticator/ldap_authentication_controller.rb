@@ -95,9 +95,14 @@ class LdapHelper
       else
         @normal_users_dn = ''
       end
+      
       @search_field = @ldap_config[Rails.env]['search_field']
       @host = @ldap_config[Rails.env]['host']
-      @port = @ldap_config[Rails.env]['port'].to_i || 636
+      
+      @port = @ldap_config[Rails.env]['port'].to_i
+      if @port == 0
+        raise "Host port needs to be a valid integer number"
+      end
       
       if @ldap_config[Rails.env]['encryption'] == 'none'
         @encryption = nil
