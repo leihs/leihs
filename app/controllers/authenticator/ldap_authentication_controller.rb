@@ -613,17 +613,18 @@ class Authenticator::LdapAuthenticationController \
                 logger.warn("Any LDAP users may log in to leihs: normal_users_dn is blank in config. Check config / ignore this message.")
                 user_allowed = true
               elsif user_is_member_of_ldap_group(user_data, normal_users_dn)
-                logger.info("User is a member of normal users LDAP group. Access granted.")
                 user_allowed = true
+                logger.info("User is member of normal users group.")
               end
               
               #Admin group member?
               if user_is_member_of_ldap_group(user_data, admin_users_dn)
-                logger.info("User is a member of ADMIN users LDAP group. Access granted.")
-                user_allowed = true                
+                user_allowed = true
+                logger.info("User is member of admin users group")
               end
               
               if user_allowed == true
+                logger.info("OK to login via LDAP.")
                 create_and_login_from_ldap_user(user_data, username, password)
               else
                 flash[:error] = _("You are not allowed to use leihs at the moment. Please contact your leihs system administrator.")
