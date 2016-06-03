@@ -59,7 +59,7 @@ class LdapHelper
           @@log_file = Rails.root.join(@ldap_config[Rails.env]['log_file'])
         else
           @@log_file = ''
-          raise "The LDAP logfile specified can not be opened for write access. Configured file path: #{@log_file}"
+          raise "The LDAP logfile specified can not be opened for write access. Configured file path: #{Rails.root.join(@ldap_config[Rails.env]['log_file'])}"
         end
         
         #serverity of custom log is only relevant if logfile path was configured
@@ -135,11 +135,21 @@ class LdapHelper
     begin
       unless @@log_file.blank?
         unless @@mylogger
-          #shift age: keep 2 oldest logfiles, turn over at 1MB filesize
-          @@mylogger = Logger.new(logdev = File.new(@@log_file,"a+"), shift_age = 2, shift_size = 1048576)
+          #shift_age: keep 2 oldest logfiles
+          #shift_size: rename old log and start new file at 1MB filesize
+          @@mylogger = ActiveSupport::Logger.new(logdev = @@log_file, shift_age = 2, shift_size = 1.megabytes)
         end
         @@mylogger.level = @@log_level
-        Rails.logger.error("myDebug: returning custom logger: #{@@mylogger}")
+        #make sure we use the same format as the default leihs log
+        @@mylogger.formatter = Rails.logger.formatter
+
+        #debug
+        Rails.logger.error("Default logger is of class: #{Rails.logger}")
+        Rails.logger.error("Logger::DEBUG: #{Logger::DEBUG}")
+        Rails.logger.error("myDebug: returning custom logger: #{@@mylogger}. Level: #{@@mylogger.level}")
+        Rails.logger.error("myDebug: path: #{@@log_file}")
+        @@mylogger.error("myDebug: Write Test.")
+        
         return @@mylogger
       else
         Rails.logger.error("myDebug: returning default logger")
