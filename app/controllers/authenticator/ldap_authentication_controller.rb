@@ -115,10 +115,8 @@ class LdapHelper
       
       @configIsOk = true
     rescue Exception => e
+      @configIsOk = false
       logger = LdapHelper::get_logger()
-      flash[:error] = \
-        _('You will not be able to log in because this leihs server ' \
-          'is not configured correctly. Contact your leihs system administrator.')
       logger.error("ERROR: LDAP is not configured correctly: #{e}")
     end
   end
@@ -174,21 +172,18 @@ class Authenticator::LdapAuthenticationController \
   < Authenticator::AuthenticatorController
 
   def validate_configuration
-    #this method is not needed anymore. initialize() of class LdapHelper will handle
-    #exceptions by itself. This is much safer, in case LdapHelper is instantiated 
-    #outside a begin / rescue block
+    #this method will display the result of ldap config file validation to the user
     
-    #logger = Rails.logger
-    #begin
-    #  # This thing will complain with an exception if something
-    #  # is wrong about our configuration
-    #  _helper = LdapHelper.new
-    #rescue Exception => e
-    #  flash[:error] = \
-    #   _('You will not be able to log in because this leihs server ' \
-    #      'is not configured correctly. Contact your leihs system administrator.')
-    #  logger.error("ERROR: LDAP is not configured correctly: #{e}")
-    #end
+    #initialize() of class LdapHelper will handle
+    #exceptions, checks and log entries by itself. This is much safer, in case LdapHelper is instantiated 
+    #outside a begin / rescue block
+
+    _helper = LdapHelper.new
+    unless _helper.configIsOk
+      flash[:error] = \
+       _('You will not be able to log in because this leihs server ' \
+          'is not configured correctly. Contact your leihs system administrator.')
+    end
   end
 
   def login_form_path
@@ -556,8 +551,9 @@ class Authenticator::LdapAuthenticationController \
     super
     @preferred_language = Language.preferred(request.env['HTTP_ACCEPT_LANGUAGE'])
     
-    #this will validate the LDAP config file
+    #this will validate the LDAP config file. informing the user of the result is handled by validate_configuration()
     ldaphelper = LdapHelper.new
+    
     logger = LdapHelper::get_logger()
     
     if request.post? and ldaphelper.configIsOk
@@ -624,6 +620,8 @@ class Authenticator::LdapAuthenticationController \
                             "#{ldaphelper.host}:#{ldaphelper.port}")
         end
       end
+    else
+      validate_configuration()
     end
   end
 
