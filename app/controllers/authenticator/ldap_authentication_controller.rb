@@ -18,6 +18,8 @@ class LdapHelper
   attr_reader :normal_users_dn
   #group of leihs admins. users may be member of normal_users_dn at the same time
   attr_reader :admin_dn
+  #if no errors are raised during the config file, this is set to true. Otherwise false.
+  attr_reader: configInitOk?
   
   #RFC2254 magic number. If used in a filter, allows looking inside nested LDAP groups for users
   def LDAP_MATCHING_RULE_IN_CHAIN
@@ -31,90 +33,106 @@ class LdapHelper
   end
 
   def initialize
+    @configInitOk? = false
     begin
-      if (defined?(Setting::LDAP_CONFIG) and not Setting::LDAP_CONFIG.blank?)
-        @ldap_config = YAML::load_file(Setting::LDAP_CONFIG)
-      else
-        @ldap_config = YAML::load_file(File.join(Rails.root, 'config', 'LDAP.yml'))
+      begin
+        if (defined?(Setting::LDAP_CONFIG) and not Setting::LDAP_CONFIG.blank?)
+          @ldap_config = YAML::load_file(Setting::LDAP_CONFIG)
+        else
+          @ldap_config = YAML::load_file(File.join(Rails.root, 'config', 'LDAP.yml'))
+        end
+      rescue Exception => e
+        raise 'Could not load LDAP configuration file ' \
+              "#{File.join(Rails.root, 'config', 'LDAP.yml')}: #{e}"
       end
-    rescue Exception => e
-      raise 'Could not load LDAP configuration file ' \
-            "#{File.join(Rails.root, 'config', 'LDAP.yml')}: #{e}"
-    end
-    @base_dn = @ldap_config[Rails.env]['base_dn']
-    @admin_dn = @ldap_config[Rails.env]['admin_dn']
-    @look_in_nested_groups_for_membership = @ldap_config[Rails.env]['look_in_nested_groups_for_membership'] == 'true'
-    @look_for_primary_group_membership_ActiveDirectory = @ldap_config[Rails.env]['look_for_primary_group_membership_ActiveDirectory'] == 'true'
-
-    if (defined?(@ldap_config[Rails.env]['normal_users_dn']) and (not @ldap_config[Rails.env]['normal_users_dn'].blank?))
-      @normal_users_dn = @ldap_config[Rails.env]['normal_users_dn']
-    else
-      @normal_users_dn = ''
-    end
-    @search_field = @ldap_config[Rails.env]['search_field']
-    @host = @ldap_config[Rails.env]['host']
-    @port = @ldap_config[Rails.env]['port'].to_i || 636
-    
-    if @ldap_config[Rails.env]['encryption'] == 'none'
-      @encryption = nil
-    elsif @ldap_config[Rails.env]['encryption'] == 'simple_tls'
-      @encryption = :simple_tls
-    else
-      raise "LDAP encryption needs to be set to one of the following values: none, simple_tls"
-    end
-    
-    #LDAP bind method
-    @method = :simple
-    
-    #custom log file
-    #may be left blank in config
-    if (defined?(@ldap_config[Rails.env]['log_file']) and (not @ldap_config[Rails.env]['log_file'].blank?))
-      #config line log_file should be relative path to a file (does not have to exist yet)
-      #log/ldap_server.log
-      @log_file = Rails.root.join(@ldap_config[Rails.env]['log_file'])
-      unless File.writable?(@log_file)
-        raise "The LDAP logfile specified can not be opened for write access. Check your LDAP config! Configured file path: #{@log_file}"
+      @base_dn = @ldap_config[Rails.env]['base_dn']
+      @admin_dn = @ldap_config[Rails.env]['admin_dn']
+      @look_in_nested_groups_for_membership = @ldap_config[Rails.env]['look_in_nested_groups_for_membership'] == 'true'
+      @look_for_primary_group_membership_ActiveDirectory = @ldap_config[Rails.env]['look_for_primary_group_membership_ActiveDirectory'] == 'true'
+  
+      if (defined?(@ldap_config[Rails.env]['normal_users_dn']) and (not @ldap_config[Rails.env]['normal_users_dn'].blank?))
+        @normal_users_dn = @ldap_config[Rails.env]['normal_users_dn']
+      else
+        @normal_users_dn = ''
+      end
+      @search_field = @ldap_config[Rails.env]['search_field']
+      @host = @ldap_config[Rails.env]['host']
+      @port = @ldap_config[Rails.env]['port'].to_i || 636
+      
+      if @ldap_config[Rails.env]['encryption'] == 'none'
+        @encryption = nil
+      elsif @ldap_config[Rails.env]['encryption'] == 'simple_tls'
+        @encryption = :simple_tls
+      else
+        raise "LDAP encryption needs to be set to one of the following values: none, simple_tls"
       end
       
-      #serverity of custom log is only relevant if logfile path was configured
-      begin
-        @log_level = Logger.const_get(@ldap_config[Rails.env]['log_level'])
-      rescue Exception => e
-        #see Logger::Severity
-        raise "LDAP log_level needs to be set to any of the following values: DEBUG, ERROR, FATAL, INFO, UNKNOWN, WARN"
+      #LDAP bind method
+      @method = :simple
+      
+      #custom log file
+      #may be left blank in config
+      if (defined?(@ldap_config[Rails.env]['log_file']) and (not @ldap_config[Rails.env]['log_file'].blank?))
+        #config line log_file should be relative path to a file (does not have to exist yet)
+        #log/ldap_server.log
+        if File.writable?(Rails.root.join(@ldap_config[Rails.env]['log_file']))
+          @@log_file = Rails.root.join(@ldap_config[Rails.env]['log_file'])
+        else
+          @@log_file = ''
+          raise "The LDAP logfile specified can not be opened for write access. Check your LDAP config! Configured file path: #{@log_file}"
+        end
+        
+        #serverity of custom log is only relevant if logfile path was configured
+        begin
+          @@log_level = Logger.const_get(@ldap_config[Rails.env]['log_level'])
+        rescue Exception => e
+          #see Logger::Severity
+          raise "LDAP log_level needs to be set to any of the following values: DEBUG, ERROR, FATAL, INFO, UNKNOWN, WARN"
+          @@log_level = Logger::DEBUG
+        end
+      else
+        #custom logfile disabled. see get_logger()
+        @@log_file = ''
       end
-    else
-      #custom logfile disabled. see get_logger()
-      @log_file = ''
-    end
-
-    @master_bind_dn = @ldap_config[Rails.env]['master_bind_dn']
-    @master_bind_pw = @ldap_config[Rails.env]['master_bind_pw']
-    @unique_id_field = @ldap_config[Rails.env]['unique_id_field']
-    @video_displayname = @ldap_config[Rails.env]['video_displayname']
-    if (@master_bind_dn.blank? or @master_bind_pw.blank?)
-      raise "'master_bind_dn' and 'master_bind_pw' must be set in " \
-            'LDAP configuration file'
-    end
-    if @unique_id_field.blank?
-      raise "'unique_id_field' in LDAP configuration file must point to " \
-            'an LDAP field that allows unique identification of a user'
-    end
-    
-    #check the master_bind credentials
-    if self.bind() == false
-      raise "Could not bind to LDAP using configured master_bind credentials. Check your config file."
+  
+      @master_bind_dn = @ldap_config[Rails.env]['master_bind_dn']
+      @master_bind_pw = @ldap_config[Rails.env]['master_bind_pw']
+      @unique_id_field = @ldap_config[Rails.env]['unique_id_field']
+      @video_displayname = @ldap_config[Rails.env]['video_displayname']
+      if (@master_bind_dn.blank? or @master_bind_pw.blank?)
+        raise "'master_bind_dn' and 'master_bind_pw' must be set in " \
+              'LDAP configuration file'
+      end
+      if @unique_id_field.blank?
+        raise "'unique_id_field' in LDAP configuration file must point to " \
+              'an LDAP field that allows unique identification of a user'
+      end
+      
+      #check the master_bind credentials
+      if self.bind() == false
+        raise "Could not bind to LDAP using configured master_bind credentials. Check your config file."
+      end
+      
+      @configInitOk? = true
+    rescue Exception => e
+      logger = LdapHelper::get_logger()
+      flash[:error] = \
+        _('You will not be able to log in because this leihs server ' \
+          'is not configured correctly. Contact your leihs system administrator.')
+      logger.error("ERROR: LDAP is not configured correctly: #{e}")
     end
   end
 
   # Returns an object of class Logger. Either the default Rails default log
   # or, if configured, the LDAP logger (special logfile)
+  # This is defined as static method to not complicate things while trying to log
+  # errors during initialization of an instance
   # @return [Logger] Object of class Logger
-  def get_logger()
+  def self.get_logger()
     begin
-      unless @log_file.blank?
-        mylogger = Logger.new(File.new(@log_file,"a+"))
-        mylogger.level = @log_level
+      unless @@log_file.blank?
+        mylogger = Logger.new(File.new(@@log_file,"a+"))
+        mylogger.level = @@log_level
         return mylogger
       else
         return Rails.logger
@@ -141,7 +159,7 @@ class LdapHelper
     if ldap.bind
       return ldap
     else
-      logger = get_logger()
+      logger = self.get_logger()
       logger.error "ERROR: Can't bind to LDAP server #{@host} " \
                    "as user '#{username}'. " \
                    'Wrong bind credentials or encryption parameters?' \
@@ -156,18 +174,21 @@ class Authenticator::LdapAuthenticationController \
   < Authenticator::AuthenticatorController
 
   def validate_configuration
-    #need to use default logger, because custom logger is configured in the config-to-be-validated
-    logger = Rails.logger
-    begin
-      # This thing will complain with an exception if something
-      # is wrong about our configuration
-      _helper = LdapHelper.new
-    rescue Exception => e
-      flash[:error] = \
-        _('You will not be able to log in because this leihs server ' \
-          'is not configured correctly. Contact your leihs system administrator.')
-      logger.error("ERROR: LDAP is not configured correctly: #{e}")
-    end
+    #this method is not needed anymore. initialize() of class LdapHelper will handle
+    #exceptions by itself. This is much safer, in case LdapHelper is instantiated 
+    #outside a begin / rescue block
+    
+    #logger = Rails.logger
+    #begin
+    #  # This thing will complain with an exception if something
+    #  # is wrong about our configuration
+    #  _helper = LdapHelper.new
+    #rescue Exception => e
+    #  flash[:error] = \
+    #   _('You will not be able to log in because this leihs server ' \
+    #      'is not configured correctly. Contact your leihs system administrator.')
+    #  logger.error("ERROR: LDAP is not configured correctly: #{e}")
+    #end
   end
 
   def login_form_path
@@ -178,7 +199,7 @@ class Authenticator::LdapAuthenticationController \
   # @param email [String] The email address of the user you want to create
   def create_user(login, email, firstname, lastname)
     ldaphelper = LdapHelper.new
-    logger = ldaphelper.get_logger()
+    logger = LdapHelper::get_logger()
     
     user = User.new(login: login,
                     email: "#{email}",
@@ -200,7 +221,7 @@ class Authenticator::LdapAuthenticationController \
   # a hash of hashes and arrays that looks like a Net::LDAP::Entry) of that user
   def update_user(user, user_data)
     ldaphelper = LdapHelper.new
-    logger = ldaphelper.get_logger()
+    logger = LdapHelper::get_logger()
     # Make sure to set "user_image_url" in "/admin/settings" in leihs 3.0
     # for user images to appear, based on the unique ID. Example for the format:
     # http://www.hslu.ch/portrait/{:id}.jpg
@@ -252,7 +273,7 @@ class Authenticator::LdapAuthenticationController \
   def user_is_member_of_ldap_group(user_data, group_dn)
     begin
       ldaphelper = LdapHelper.new
-      logger = ldaphelper.get_logger()
+      logger = LdapHelper::get_logger()
       ldap = ldaphelper.bind
       
       isGroupMember = false
@@ -424,7 +445,7 @@ class Authenticator::LdapAuthenticationController \
 
   def create_and_login_from_ldap_user(ldap_user, username, password)
     ldaphelper = LdapHelper.new
-    logger = ldaphelper.get_logger()
+    logger = LdapHelper::get_logger()
     
     begin  
       #check for mandatory user fields
@@ -524,9 +545,10 @@ class Authenticator::LdapAuthenticationController \
     @preferred_language = Language.preferred(request.env['HTTP_ACCEPT_LANGUAGE'])
 
     ldaphelper = LdapHelper.new
-    logger = ldaphelper.get_logger()
+    logger = LdapHelper::get_logger()
 
     if request.post?
+      ldap = ldaphelper.new
       username = params[:login][:user]
       password = params[:login][:password]
       if username == '' || password == ''
@@ -590,8 +612,6 @@ class Authenticator::LdapAuthenticationController \
                             "#{ldaphelper.host}:#{ldaphelper.port}")
         end
       end
-    else
-      validate_configuration
     end
   end
 
