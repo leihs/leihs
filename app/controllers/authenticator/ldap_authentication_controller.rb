@@ -276,6 +276,7 @@ class Authenticator::LdapAuthenticationController \
     unless admin_dn.blank?
       in_admin_group = false
       begin
+        logger.debug("Checking if user should be granted leihs admin permissions.")
         in_admin_group = user_is_member_of_ldap_group(user_data, admin_dn)
         #logger.error ("value of in_admin_group: #{in_admin_group}")
         if in_admin_group == true
