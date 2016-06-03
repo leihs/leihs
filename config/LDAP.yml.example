@@ -4,9 +4,8 @@ production:
   host: ldapserver.example.org
   port: 636
   encryption: simple_tls
-  #Logging to extra file for LDAP module is not implemented (since at least Leihs 3.34.0)
-  #LDAP errors will be written to STDERR, Debug messages to STDOUT
-  #If you run Apache (production environment), check your Apache error log instead
+  #Uncomment to use a dedicated LDAP logfile. Otherwise the leihs default log will be used
+  #(production.log)
   #log_file: log/ldap_server.log
   #log_level: warn
   master_bind_dn: CN=LeihsEnumUser,OU=NonHuman,OU=users,DC=example,DC=org
