@@ -77,8 +77,10 @@ class LdapHelper
       
       @base_dn = @ldap_config[Rails.env]['base_dn']
       @admin_dn = @ldap_config[Rails.env]['admin_dn']
-      @look_in_nested_groups_for_membership = @ldap_config[Rails.env]['look_in_nested_groups_for_membership'] == 'true'
-      @look_for_primary_group_membership_ActiveDirectory = @ldap_config[Rails.env]['look_for_primary_group_membership_ActiveDirectory'] == 'true'
+      
+      #enable/disable new search modes
+      @look_in_nested_groups_for_membership = (true if @ldap_config[Rails.env]['look_in_nested_groups_for_membership'].strip.downcase == 'true') || false
+      @look_for_primary_group_membership_ActiveDirectory = (true if @ldap_config[Rails.env]['look_for_primary_group_membership_ActiveDirectory'].strip.downcase == 'true') || false
   
       if (defined?(@ldap_config[Rails.env]['normal_users_dn']) and (not @ldap_config[Rails.env]['normal_users_dn'].blank?))
         @normal_users_dn = @ldap_config[Rails.env]['normal_users_dn']
@@ -142,14 +144,6 @@ class LdapHelper
         @@mylogger.level = @@log_level
         #make sure we use the same format as the default leihs log
         @@mylogger.formatter = Rails.logger.formatter
-
-        #debug
-        Rails.logger.error("Default logger is of class: #{Rails.logger}")
-        Rails.logger.error("Logger::DEBUG: #{Logger::DEBUG}")
-        Rails.logger.error("myDebug: returning custom logger: #{@@mylogger}. Level: #{@@mylogger.level}")
-        Rails.logger.error("myDebug: path: #{@@log_file}")
-        @@mylogger.error("myDebug: Write Test.")
-        
         return @@mylogger
       else
         Rails.logger.error("myDebug: returning default logger")
@@ -306,19 +300,17 @@ class Authenticator::LdapAuthenticationController \
       logger.debug("Looking for LDAP group membership in: #{group_dn}")
     
       #new method with additional features (nested groups)
-      if isGroupMember == false
+      if (isGroupMember == false) and (ldaphelper.look_in_nested_groups_for_membership == true)
         logger.debug("Search method: nested.")
-        if (ldaphelper.look_in_nested_groups_for_membership == true) and
-          (user_is_member_of_ldap_group_method_nested(user_data, group_dn, ldap, ldaphelper, logger) == true)
+        if (user_is_member_of_ldap_group_method_nested(user_data, group_dn, ldap, ldaphelper, logger) == true)
             isGroupMember = true
         end
       end
       
       #also new. Primary group membership needs to be handled differently
-      if isGroupMember == false
+      if (isGroupMember == false) and (ldaphelper.look_for_primary_group_membership_ActiveDirectory == true)
         logger.debug("Search method: primary group.")
-        if (ldaphelper.look_for_primary_group_membership_ActiveDirectory == true) and
-          (user_is_member_of_ldap_group_method_primary(user_data, group_dn, ldap, ldaphelper, logger) == true)
+        if (user_is_member_of_ldap_group_method_primary(user_data, group_dn, ldap, ldaphelper, logger) == true)
           isGroupMember = true
         end
       end
@@ -465,7 +457,7 @@ class Authenticator::LdapAuthenticationController \
         return true
       end
     end
-    
+
     return false
   end
 
