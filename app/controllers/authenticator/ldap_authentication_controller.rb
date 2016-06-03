@@ -18,8 +18,8 @@ class LdapHelper
   attr_reader :normal_users_dn
   #group of leihs admins. users may be member of normal_users_dn at the same time
   attr_reader :admin_dn
-  #if no errors are raised during the config file, this is set to true. Otherwise false.
-  attr_reader: configInitOk?
+  #if no errors are raised during reading of LDAP config file, this is set to true. Otherwise false.
+  attr_reader :configIsOk
   
   #RFC2254 magic number. If used in a filter, allows looking inside nested LDAP groups for users
   def LDAP_MATCHING_RULE_IN_CHAIN
@@ -33,7 +33,7 @@ class LdapHelper
   end
 
   def initialize
-    @configInitOk? = false
+    @configIsOk = false
     begin
       begin
         if (defined?(Setting::LDAP_CONFIG) and not Setting::LDAP_CONFIG.blank?)
@@ -113,7 +113,7 @@ class LdapHelper
         raise "Could not bind to LDAP using configured master_bind credentials. Check your config file."
       end
       
-      @configInitOk? = true
+      @configIsOk = true
     rescue Exception => e
       logger = LdapHelper::get_logger()
       flash[:error] = \
@@ -200,7 +200,7 @@ class Authenticator::LdapAuthenticationController \
   def create_user(login, email, firstname, lastname)
     ldaphelper = LdapHelper.new
     logger = LdapHelper::get_logger()
-    unless ldaphelper.configInitOk?
+    unless ldaphelper.configIsOk
       return false
     end
     
@@ -225,7 +225,7 @@ class Authenticator::LdapAuthenticationController \
   def update_user(user, user_data)
     ldaphelper = LdapHelper.new
     logger = LdapHelper::get_logger()
-    unless ldaphelper.configInitOk?
+    unless ldaphelper.configIsOk
       return
     end
     
@@ -281,7 +281,7 @@ class Authenticator::LdapAuthenticationController \
     begin
       ldaphelper = LdapHelper.new
       logger = LdapHelper::get_logger()
-      unless ldaphelper.configInitOk?
+      unless ldaphelper.configIsOk
         return false
       end
       
@@ -510,7 +510,7 @@ class Authenticator::LdapAuthenticationController \
     #checks passed. create user / log in
     begin
       ldaphelper = LdapHelper.new
-      unless ldaphelper.configInitOk?
+      unless ldaphelper.configIsOk
         return
       end
 
@@ -560,7 +560,7 @@ class Authenticator::LdapAuthenticationController \
     ldaphelper = LdapHelper.new
     logger = LdapHelper::get_logger()
     
-    if request.post? and ldaphelper.configInitOk?
+    if request.post? and ldaphelper.configIsOk
       username = params[:login][:user]
       password = params[:login][:password]
       if username == '' || password == ''
