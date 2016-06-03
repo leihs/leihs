@@ -200,6 +200,9 @@ class Authenticator::LdapAuthenticationController \
   def create_user(login, email, firstname, lastname)
     ldaphelper = LdapHelper.new
     logger = LdapHelper::get_logger()
+    unless ldaphelper.configInitOk?
+      return false
+    end
     
     user = User.new(login: login,
                     email: "#{email}",
@@ -222,6 +225,10 @@ class Authenticator::LdapAuthenticationController \
   def update_user(user, user_data)
     ldaphelper = LdapHelper.new
     logger = LdapHelper::get_logger()
+    unless ldaphelper.configInitOk?
+      return
+    end
+    
     # Make sure to set "user_image_url" in "/admin/settings" in leihs 3.0
     # for user images to appear, based on the unique ID. Example for the format:
     # http://www.hslu.ch/portrait/{:id}.jpg
@@ -274,6 +281,10 @@ class Authenticator::LdapAuthenticationController \
     begin
       ldaphelper = LdapHelper.new
       logger = LdapHelper::get_logger()
+      unless ldaphelper.configInitOk?
+        return false
+      end
+      
       ldap = ldaphelper.bind
       
       isGroupMember = false
@@ -444,7 +455,6 @@ class Authenticator::LdapAuthenticationController \
 
 
   def create_and_login_from_ldap_user(ldap_user, username, password)
-    ldaphelper = LdapHelper.new
     logger = LdapHelper::get_logger()
     
     begin  
@@ -488,7 +498,6 @@ class Authenticator::LdapAuthenticationController \
         _("Unable to login. Your user account has no family name set. Please contact your leihs system administrator.")
         return
       end
-      
       #should be uncritical. every LDAP::Entry object should have this set
       bind_dn = ldap_user.dn
     rescue Exception => e
@@ -501,6 +510,9 @@ class Authenticator::LdapAuthenticationController \
     #checks passed. create user / log in
     begin
       ldaphelper = LdapHelper.new
+      unless ldaphelper.configInitOk?
+        return
+      end
 
       if not ldaphelper.bind(bind_dn, password)
         flash[:error] = _('Invalid username/password')
@@ -543,12 +555,12 @@ class Authenticator::LdapAuthenticationController \
   def login
     super
     @preferred_language = Language.preferred(request.env['HTTP_ACCEPT_LANGUAGE'])
-
+    
+    #this will validate the LDAP config file
     ldaphelper = LdapHelper.new
     logger = LdapHelper::get_logger()
-
-    if request.post?
-      ldap = ldaphelper.new
+    
+    if request.post? and ldaphelper.configInitOk?
       username = params[:login][:user]
       password = params[:login][:password]
       if username == '' || password == ''
