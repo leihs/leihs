@@ -21,6 +21,9 @@ class LdapHelper
   #if no errors are raised during reading of LDAP config file, this is set to true. Otherwise false.
   attr_reader :configIsOk
   
+  #LDAP custom logfile
+  @@mylogger = nil
+  
   #RFC2254 magic number. If used in a filter, allows looking inside nested LDAP groups for users
   def LDAP_MATCHING_RULE_IN_CHAIN
     return "1.2.840.113556.1.4.1941"
@@ -131,11 +134,12 @@ class LdapHelper
   def self.get_logger()
     begin
       unless @@log_file.blank?
-        if @@mylogger.nil?
-          @@mylogger = Logger.new(File.new(@@log_file,"a+"))
+        unless @@mylogger
+          #shift age: keep 2 oldest logfiles, turn over at 1MB filesize
+          @@mylogger = Logger.new(logdev = File.new(@@log_file,"a+"), shift_age = 2, shift_size = 1048576)
         end
         @@mylogger.level = @@log_level
-        Rails.logger.error("myDebug: returning custom logger")
+        Rails.logger.error("myDebug: returning custom logger: #{@@mylogger}")
         return @@mylogger
       else
         Rails.logger.error("myDebug: returning default logger")
