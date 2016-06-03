@@ -131,10 +131,14 @@ class LdapHelper
   def self.get_logger()
     begin
       unless @@log_file.blank?
-        mylogger = Logger.new(File.new(@@log_file,"a+"))
-        mylogger.level = @@log_level
-        return mylogger
+        if @@mylogger.nil?
+          @@mylogger = Logger.new(File.new(@@log_file,"a+"))
+        end
+        @@mylogger.level = @@log_level
+        Rails.logger.error("myDebug: returning custom logger")
+        return @@mylogger
       else
+        Rails.logger.error("myDebug: returning default logger")
         return Rails.logger
       end
     rescue Exception => e
