@@ -79,8 +79,16 @@ class LdapHelper
       @admin_dn = @ldap_config[Rails.env]['admin_dn']
       
       #enable/disable new search modes
-      @look_in_nested_groups_for_membership = (true if @ldap_config[Rails.env]['look_in_nested_groups_for_membership'].strip.downcase == 'true') || false
-      @look_for_primary_group_membership_ActiveDirectory = (true if @ldap_config[Rails.env]['look_for_primary_group_membership_ActiveDirectory'].strip.downcase == 'true') || false
+      #implicit cast by YAML to trueclass. Throw exception if not trueclass / falseclass
+      @look_in_nested_groups_for_membership = @ldap_config[Rails.env]['look_in_nested_groups_for_membership']
+      unless (@look_in_nested_groups_for_membership == true) or (@look_in_nested_groups_for_membership == false)
+        raise "look_in_nested_groups_for_membership needs to be set to true or false"
+      end
+      
+      @look_for_primary_group_membership_ActiveDirectory = @ldap_config[Rails.env]['look_for_primary_group_membership_ActiveDirectory']
+      unless (@look_for_primary_group_membership_ActiveDirectory == true) or (@look_for_primary_group_membership_ActiveDirectory == false) 
+        raise "look_for_primary_group_membership_ActiveDirectory needs to be set to true or false"
+      end
   
       if (defined?(@ldap_config[Rails.env]['normal_users_dn']) and (not @ldap_config[Rails.env]['normal_users_dn'].blank?))
         @normal_users_dn = @ldap_config[Rails.env]['normal_users_dn']
