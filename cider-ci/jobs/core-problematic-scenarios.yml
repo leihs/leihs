@@ -28,4 +28,4 @@ jobs:
 
       _cider-ci_include:
         - cider-ci/shared/tests-context.yml
-        - cider-ci/tasks/cucumber_problematic_scenarios.yml
+        - cider-ci/tasks/core_problematic_scenarios.yml

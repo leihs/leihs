@@ -38,12 +38,12 @@ leihs_feature_files = \
   Dir.glob('features/personas/*.feature') -
   Dir.glob('features/**/*.feature.disabled') -
   Dir.glob('engines/**/features/*')
-filepath = 'cider-ci/tasks/cucumber_features.yml'
+filepath = 'cider-ci/tasks/all_features.yml'
 create_feature_tasks(filepath, leihs_feature_files)
 
 ENGINES.each do |engine|
   engine_feature_files = Dir.glob("engines/#{engine}/features/**/*.feature")
-  filepath = "cider-ci/tasks/cucumber_#{engine}_features.yml"
+  filepath = "cider-ci/tasks/#{engine}_features.yml"
   create_feature_tasks(filepath, engine_feature_files)
 end
 
@@ -96,17 +96,17 @@ def create_scenario_tasks(filepath, feature_files_paths, test_with, tags = nil)
   end
 end
 
-filepath = 'cider-ci/tasks/cucumber_scenarios.yml'
+filepath = 'cider-ci/tasks/core_scenarios.yml'
 leihs_feature_files_paths = 'features/*'
 create_scenario_tasks(filepath, leihs_feature_files_paths, :cucumber)
 
 # keep failing CI scenarios in a separate yml files (and job)
-filepath = 'cider-ci/tasks/cucumber_problematic_scenarios.yml'
+filepath = 'cider-ci/tasks/core_problematic_scenarios.yml'
 leihs_feature_files_paths = 'features/*'
 create_scenario_tasks(filepath, leihs_feature_files_paths, :cucumber, ['@problematic'])
 
 ENGINES.each do |engine|
-  filepath = "cider-ci/tasks/cucumber_#{engine}_scenarios.yml"
+  filepath = "cider-ci/tasks/#{engine}_scenarios.yml"
   if engine == 'procurement'
     engine_feature_files_paths = "engines/#{engine}/spec/features/*.feature"
     create_scenario_tasks(filepath, engine_feature_files_paths, :rspec)
