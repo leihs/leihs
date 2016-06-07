@@ -395,7 +395,7 @@ class Item < ActiveRecord::Base
       "#{_('Borrower')} #{_('Personal ID')}" => \
         current_borrower.try(:extended_info).try(:fetch, 'id', nil) \
           || current_borrower.try(:unique_id),
-      'Borrowed until' => current_reservation.try(:end_date)
+      "#{_('Borrowed until')}" => current_reservation.try(:end_date)
     )
     h1
   end
