@@ -255,6 +255,9 @@ msgstr ""
 msgid "Borrowed Items"
 msgstr ""
 
+msgid "Borrowed until"
+msgstr ""
+
 msgid "Borrower"
 msgstr ""
 

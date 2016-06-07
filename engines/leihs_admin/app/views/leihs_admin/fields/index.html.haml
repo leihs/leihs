@@ -4,13 +4,18 @@
 = form_tag nil, method: :put, class: 'indent', remote: true, id: "fields_form" do
 
   .row
-    .col-sm-6
-      %h1= yield :title
-    .col-sm-6.text-right
-      %button.btn.btn-default#create_field{type: :button}
-        %i.fa.fa-plus
-        = _("Create %s") % _("Field")
-      %button.btn.btn-success{type: :submit}= _("Save %s") % _("Fields")
+    .row
+      .col-sm-6
+        %h1= yield :title
+      .col-sm-6.text-right
+        %button.btn.btn-default#create_field{type: :button}
+          %i.fa.fa-plus
+          = _("Create %s") % _("Field")
+        %button.btn.btn-success{type: :submit}= _("Save %s") % _("Fields")
+    %p.row.bg-danger.lead
+      WARNING:
+      %br
+      Be sure what you are doing here. This feature is undocumented and untested. Misconfiguration of the fields' data may lead to inconsistent data, broken features or in the worst case to failure of server start.
 
   - @grouped_fields.each_pair do |group_name, fields|
     .panel.panel-default

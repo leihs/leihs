@@ -401,6 +401,10 @@ window.i18n.locale_data = {
          null,
          "Geliehene Gegenstände"
       ],
+      "Borrowed until": [
+         null,
+         "ausgeliehen bis"
+      ],
       "Borrower": [
          null,
          "Ausleihende/r"

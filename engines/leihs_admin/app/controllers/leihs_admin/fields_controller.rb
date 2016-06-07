@@ -7,6 +7,9 @@ module LeihsAdmin
       end.group_by { |f| f.data['group'] }
     end
 
+    # NOTE: disabling rubocop here, as the whole feature will be most probably
+    # refactored completely
+    # rubocop:disable Metrics/MethodLength
     def handle_new_fields
       new_fields = params[:fields].delete(:_new_fields_)
 
@@ -20,21 +23,22 @@ module LeihsAdmin
               @errors << format('%s: %s', field_id, e.to_s)
               next
             end
-            if (r = check_attribute(r.data['attribute'], @item)).is_a? String
-              @errors << r
+            check_attribute_result = check_attribute(r.data['attribute'], @item)
+            if check_attribute_result.is_a? String
+              @errors << check_result
               next
             end
             r.active = param[:active] == '1'
-            r.position = i
+            r.position = @position
           end
         end
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     def handle_existing_fields
-      i = 0
       params[:fields].each_pair do |field_id, param|
-        i += 1
+        @position += 1
         field = Field.unscoped.find(field_id)
         begin
           data = JSON.parse(param[:data])
@@ -48,7 +52,7 @@ module LeihsAdmin
         end
         field.update_attributes(data: data,
                                 active: param[:active] == '1',
-                                position: i)
+                                position: @position)
       end
     end
 
@@ -56,8 +60,10 @@ module LeihsAdmin
       @errors = []
       @item = Item.new
 
-      handle_existing_fields
+      @position = 0
+
       handle_new_fields
+      handle_existing_fields
 
       if @errors.empty?
         flash[:success] = _('Saved')

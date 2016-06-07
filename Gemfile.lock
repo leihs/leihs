@@ -449,7 +449,6 @@ GEM
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
-    scout_apm (1.5.1)
     selenium-webdriver (2.53.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
@@ -585,7 +584,6 @@ DEPENDENCIES
   rubocop (= 0.35.1)
   ruby_parser (~> 3.1)
   sass-rails (~> 4.0)
-  scout_apm
   selenium-webdriver (~> 2.53)
   spring
   therubyracer

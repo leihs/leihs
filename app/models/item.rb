@@ -11,6 +11,7 @@
 # and two which are still available to be taken out for
 # riding pleasure.
 #
+# rubocop:disable Metrics/ClassLength
 class Item < ActiveRecord::Base
   include DefaultPagination
   audited
@@ -380,7 +381,11 @@ class Item < ActiveRecord::Base
 
     h2 = {}
     fields.each do |field|
-      h2[_(field.data['label'])] = field.value(self)
+      h2[_(field.data['label'])] = if field.id == 'location_building_id'
+                                     location.try(:building).try(:to_s)
+                                   else
+                                     field.value(self)
+                                   end
     end
     h1.merge! h2
 
@@ -390,7 +395,7 @@ class Item < ActiveRecord::Base
       "#{_('Borrower')} #{_('Personal ID')}" => \
         current_borrower.try(:extended_info).try(:fetch, 'id', nil) \
           || current_borrower.try(:unique_id),
-      'Borrowed until' => current_reservation.try(:end_date)
+      "#{_('Borrowed until')}" => current_reservation.try(:end_date)
     )
     h1
   end
@@ -727,3 +732,4 @@ class Item < ActiveRecord::Base
   end
 
 end
+# rubocop:enable Metrics/ClassLength

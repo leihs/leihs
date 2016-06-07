@@ -263,6 +263,9 @@ msgstr "Ausleihbar"
 msgid "Borrowed Items"
 msgstr "Geliehene Gegenstände"
 
+msgid "Borrowed until"
+msgstr "ausgeliehen bis"
+
 msgid "Borrower"
 msgstr "Ausleihende/r"
 
