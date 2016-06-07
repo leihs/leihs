@@ -1,5 +1,5 @@
 
-Feature: Verfügbarkeit
+Feature: Availability
 
   Background:
     Given I am Normin

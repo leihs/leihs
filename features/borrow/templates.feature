@@ -1,5 +1,5 @@
 
-Feature: Vorlagen
+Feature: Templates
 
   Background:
     Given I am Normin

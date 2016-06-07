@@ -1,5 +1,5 @@
 
-Feature: Returning stuff
+Feature: Returns
 
   @personas
   Scenario: Quantities and return button

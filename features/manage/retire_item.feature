@@ -1,4 +1,4 @@
-Feature: Retire
+Feature: Retire item
 
   @javascript @personas
   Scenario Outline: Retire
