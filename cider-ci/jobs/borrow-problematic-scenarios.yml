@@ -1,0 +1,31 @@
+jobs:
+
+  borrow-problematic-scenarios:
+
+    name: 'Borrow: Problematic Scenarios'
+
+    description: |
+      Run problematic features (except engines) under MRI
+
+    priority: -1
+
+    depends-on:
+    - type: job
+      job: borrow-scenarios
+      states: [passed]
+
+    run-on:
+    - type: branch
+      include-match: '[a-z]*/borrow_.*$'
+      exclude-match: '^(.*no-ci.*)$'
+    - type: branch
+      include-match: '^(.*master.*)$'
+      exclude-match: '^(.*no-ci.*)$'
+
+    context:
+      task-defaults:
+        max-auto-trials: 10
+
+      _cider-ci_include:
+        - cider-ci/shared/tests-context.yml
+        - cider-ci/tasks/borrow_problematic_scenarios.yml

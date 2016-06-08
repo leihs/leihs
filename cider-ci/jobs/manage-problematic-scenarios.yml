@@ -1,8 +1,8 @@
 jobs:
 
-  core-problematic-scenarios:
+  manage-problematic-scenarios:
 
-    name: 'Core: Problematic Scenarios'
+    name: 'Manage: Problematic Scenarios'
 
     description: |
       Run problematic features (except engines) under MRI
@@ -11,12 +11,12 @@ jobs:
 
     depends-on:
     - type: job
-      job: core-scenarios
+      job: manage-scenarios
       states: [passed]
 
     run-on:
     - type: branch
-      include-match: '[a-z]*/core_.*$'
+      include-match: '[a-z]*/manage_.*$'
       exclude-match: '^(.*no-ci.*)$'
     - type: branch
       include-match: '^(.*master.*)$'
@@ -28,4 +28,4 @@ jobs:
 
       _cider-ci_include:
         - cider-ci/shared/tests-context.yml
-        - cider-ci/tasks/core_problematic_scenarios.yml
+        - cider-ci/tasks/manage_problematic_scenarios.yml

@@ -1,15 +1,15 @@
 jobs:
 
-  core-scenarios:
+  borrow-scenarios:
 
-    name: 'Core: Scenarios'
+    name: 'Borrow: Scenarios'
 
     description: |
       Run leihs features (except engines) under MRI
 
     run-on:
     - type: branch
-      include-match: '[a-z]*/core_.*'
+      include-match: '[a-z]*/borrow_.*'
       exclude-match: '^(.*no-ci.*)$'
     - type: branch
       include-match: '^(.*master.*)$'
@@ -21,4 +21,4 @@ jobs:
 
       _cider-ci_include:
         - cider-ci/shared/tests-context.yml
-        - cider-ci/tasks/core_scenarios.yml
+        - cider-ci/tasks/borrow_scenarios.yml

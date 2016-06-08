@@ -1,0 +1,24 @@
+jobs:
+
+  manage-scenarios:
+
+    name: 'Manage: Scenarios'
+
+    description: |
+      Run leihs features (except engines) under MRI
+
+    run-on:
+    - type: branch
+      include-match: '[a-z]*/manage_.*'
+      exclude-match: '^(.*no-ci.*)$'
+    - type: branch
+      include-match: '^(.*master.*)$'
+      exclude-match: '^(.*no-ci.*)$'
+
+    context:
+      task-defaults:
+        max-auto-trials: 3
+
+      _cider-ci_include:
+        - cider-ci/shared/tests-context.yml
+        - cider-ci/tasks/manage_scenarios.yml
