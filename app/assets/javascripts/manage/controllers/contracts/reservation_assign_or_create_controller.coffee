@@ -1,44 +1,73 @@
 class window.App.ReservationAssignOrCreateController extends Spine.Controller
 
   elements:
-    "#assign-or-add-input": "input"
     "#add-start-date": "addStartDate"
     "#add-end-date": "addEndDate"
 
-  events:
-    "submit": "submit"
-
   constructor: ->
     super
-    new App.ReservationsAddController
+    that = @
+
+    reservationsAddController = new App.ReservationsAddController
       el: @el
       user: @user
       status: @status
       contract: @contract
       optionsEnabled: true
+      modelsPerPage: 30
+      optionsPerPage: 100
+      onSubmitInventoryCode: @submit
+      addModelForHandOver: true
+
+    onChangeCallback = (value) ->
+      that.inputValue = value
+      that.autocompleteController.setProps(isLoading: true)
+      reservationsAddController.search value, (data)->
+        that.autocompleteController.setProps(searchResults: data, isLoading: false)
+
+    # create and mount the input field:
+    props =
+      onChange: _.debounce(onChangeCallback, 300)
+      onSelect: reservationsAddController.select
+      isLoading: false
+      placeholder: _jed("Inventory code, model name, search term")
+
+    @autocompleteController =
+      new App.HandOverAutocompleteController \
+        props,
+        @el.find("#assign-or-add-input")[0]
+
+    @autocompleteController._render()
+
+    window.autocompleteController = @autocompleteController
+
+    reservationsAddController.setupAutocomplete(@autocompleteController)
 
   getStartDate: => moment(@addStartDate.val(), i18n.date.L)
 
   getEndDate: => moment(@addEndDate.val(), i18n.date.L)
 
-  submit: (e)=>
-    e.preventDefault()
-    e.stopImmediatePropagation()
-    inventoryCode = @input.val()
-    return false unless inventoryCode.length
+  submit: (inventoryCode)=>
+    # debugger
+    console.log 'TEST', inventoryCode
+    return false unless inventoryCode?.length
     App.Reservation.assignOrCreate
       start_date: @getStartDate().format("YYYY-MM-DD")
       end_date: @getEndDate().format("YYYY-MM-DD")
       code: inventoryCode
       contract_id: @contract.id
-    .done((data) => @assignedOrCreated inventoryCode, data)
+    .done((data) =>
+      console.log data
+      @assignedOrCreated inventoryCode, data)
     .error (e)=>
       App.Flash
         type: "error"
         message: e.responseText
-    @input.val("")
+    @autocompleteController.getInstance().resetInput()
 
   assignedOrCreated: (inventoryCode, data)=>
+    console.log 'assignedOrCreated', {inventoryCode, data}, App.Reservation.exists(data.id)
+    # debugger
     done = =>
       if App.Reservation.exists(data.id) # assigned
         line = App.Reservation.update data.id, data

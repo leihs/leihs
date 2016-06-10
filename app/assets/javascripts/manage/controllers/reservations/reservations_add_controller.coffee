@@ -3,25 +3,55 @@ class window.App.ReservationsAddController extends Spine.Controller
   elements:
     "#add-start-date": "addStartDate"
     "#add-end-date": "addEndDate"
-    "[data-add-contract-line]": "input"
 
   events:
-    "focus [data-add-contract-line]": "setupAutocomplete"
-    "click [type='submit']": "showExplorativeSearch"
-    "submit": "submit"
+    "click [type='submit']": "handleEvents"
+    "submit": "handleEvents"
 
-  constructor: ->
-    super 
+  handleEvents: (e) =>
+    e?.preventDefault()
+    focused = document.querySelector(':focus')
+    value = @getInputValue()
+    if value.length == 0
+      if not focused or focused.nodeName == 'BUTTON'
+        @showExplorativeSearch(e)
+      else if focused.nodeName == 'INPUT'
+        @submit(e)
+    else
+      @submit(e)
+
+  constructor: (@onSubmitInventoryCode) ->
+    super
     @preventSubmit = false
     do @setupDatepickers
-    @input.preChange()
+
+  setupAutocomplete: (autocompleteController) =>
+    @autocompleteController = autocompleteController
+
+  search: (value, response)=>
+    return false unless value.length
+    @models = @options = @templates = @availabilities = @options = null
+    handleResponses = =>
+      if @models? and @templates? and @availabilities? and (if @optionsEnabled then @options? else true)
+        data = []
+        @pushModelsTo data
+        @pushOptionsTo data if @optionsEnabled
+        @pushTemplatesTo data
+        response data # TODO: if @input.is(":focus")
+    @searchModels(value, handleResponses)
+    @searchTemplates(value, handleResponses)
+    @searchOptions(value, handleResponses) if @optionsEnabled
+
+  select: (item) =>
+    @add item.record, @getStartDate(), @getEndDate()
+    @autocompleteController._render()
 
   setupDatepickers: =>
     for date in [@addStartDate, @addEndDate]
       $(date).datepicker()
     @addStartDate.datepicker "option", "minDate", moment().startOf("day").toDate()
     @addEndDate.datepicker "option", "minDate", getTime: => moment(@addStartDate.val(), i18n.date.L).startOf("day").toDate()
-    @addStartDate.datepicker "option", "onSelect", (newStartDate)=> 
+    @addStartDate.datepicker "option", "onSelect", (newStartDate)=>
       newStartDate = moment(newStartDate, i18n.date.L).startOf("day")
       endDate = moment(@addEndDate.val(), i18n.date.L).startOf("day")
       if newStartDate.toDate() > endDate.toDate()
@@ -59,31 +89,31 @@ class window.App.ReservationsAddController extends Spine.Controller
         type: _jed "Option"
         record: option
 
-  searchModels: (callback)=>
+  searchModels: (value, callback)=>
     App.Model.ajaxFetch
       data: $.param
-        search_term: @input.val()
+        search_term: value
         used: true
         as_responsible_only: true
-        per_page: 5
-    .done (data)=> 
+        per_page: @modelsPerPage or 5
+    .done (data)=>
       @models = (App.Model.find(datum.id) for datum in data)
       @fetchAvailabilities => do callback
 
-  searchOptions: (callback)=>
+  searchOptions: (value, callback)=>
     App.Option.ajaxFetch
       data: $.param
-        search_term: @input.val()
-        per_page: 5
-    .done (data)=> 
+        search_term: value
+        per_page: @optionsPerPage or 5
+    .done (data)=>
       @options = (App.Option.find(datum.id) for datum in data)
       do callback
 
-  searchTemplates: (callback)=>
+  searchTemplates: (value, callback)=>
     App.Template.ajaxFetch
       data: $.param
-        search_term: @input.val()
-        per_page: 5
+        search_term: value
+        per_page: @templatesPerPage or 5
     .done (data)=>
       @templates = (App.Template.find(datum.id) for datum in data)
       do callback
@@ -96,93 +126,65 @@ class window.App.ReservationsAddController extends Spine.Controller
           user_id: @user.id
       .done (data)=>
         @availabilities = (App.Availability.find(datum.id) for datum in data)
-        do callback 
+        do callback
     else
       @availabilities = []
       do callback
 
-  setupAutocomplete: (data)->
-    @input.autocomplete
-      appendTo: @el
-      source: (request, response)=> 
-        response []
-        @search request, response
-      search: => console.log "Search"
-      focus: => return false
-      select: @select
-    .data("uiAutocomplete")._renderItem = (ul, item) => 
-      $(App.Render "manage/views/reservations/add/autocomplete_element", item).data("value", item).appendTo(ul)
-    @input.autocomplete("search")
-
-  search: (request, response)=>
-    return false unless @input.val().length
-    @models = @options = @templates = @availabilities = @options = null
-    done = =>
-      if @models? and @templates? and @availabilities? and (if @optionsEnabled then @options? else true)
-        data = []
-        @pushModelsTo data
-        @pushOptionsTo data if @optionsEnabled
-        @pushTemplatesTo data
-        response data if @input.is(":focus")
-    @searchModels done
-    @searchTemplates done
-    @searchOptions(done) if @optionsEnabled
-
-  select: (e, ui)=>
-    e.preventDefault()
-    record = ui.item.record
-    @add record, @getStartDate(), @getEndDate()
-    @preventSubmit = true
-    setTimeout (=> 
-      @preventSubmit = false
-      @input.val("").change()
-    ), 100
+  getInputValue: => @autocompleteController.getInstance().state.value
 
   submit: (e)=>
-    e.preventDefault() if e?
     return false if @preventSubmit
-    inventoryCode = @input.val()
+    inventoryCode = @getInputValue()
     if inventoryCode.length
-      console.log inventoryCode
-      App.Inventory.findByInventoryCode(inventoryCode).done @addInventoryItem, inventoryCode
-    @input.val("").change()
+      App.Inventory.findByInventoryCode(inventoryCode).done((data) => @addInventoryItem(data, inventoryCode))
+    @autocompleteController.getInstance().resetInput()
 
   addInventoryItem: (data, inventoryCode)=>
-    console.log inventoryCode
     if data?
       if data.model_id?
-        App.Model.ajaxFetch({id: data.model_id}).done (data)=> @add App.Model.find(data.id), @getStartDate(), @getEndDate()
+        App.Model.ajaxFetch({id: data.model_id}).done (data)=>
+          @add App.Model.find(data.id), @getStartDate(), @getEndDate(), inventoryCode
+      else
+        option = App.Option.addRecord new App.Option(data)
+        @add option, @getStartDate(), @getEndDate()
     else
       App.Flash
         type: "error"
         message: _jed "The Inventory Code %s was not found.", inventoryCode
 
-  add: (record, startDate, endDate)=>
+  add: (record, startDate, endDate, inventoryCode)=>
     if record instanceof App.Model
-      @addModel record, startDate, endDate
+      @addModel record, startDate, endDate, inventoryCode
     else if record instanceof App.Option
       @addOption record, startDate, endDate
     else if record instanceof App.Template
       @addTemplate record, startDate, endDate
 
-  addModel: (model, startDate, endDate)=>
-    App.Reservation.createOne
-      inventory_pool_id: App.InventoryPool.current.id
-      start_date: moment(startDate).format "YYYY-MM-DD"
-      end_date: moment(endDate).format "YYYY-MM-DD"
-      contract_id: @contract.id
-      purpose_id: @purpose?.id
-      quantity: 1
-      model_id: model.id
-    .done (line)->
-      App.LineSelectionController.add line.id
-      App.Flash
-        type: "notice"
-        message: _jed("Added %s", model.name())
-    .fail (e)->
-      App.Flash
-        type: "error"
-        message: e.responseText
+  addModel: (model, startDate, endDate, inventoryCode)=>
+    if @addModelForHandOver and inventoryCode
+      # just continue in callback from ReservationAssignOrCreateController
+      @onSubmitInventoryCode?(inventoryCode)
+    else
+      App.Reservation.createOne
+        inventory_pool_id: App.InventoryPool.current.id
+        start_date: moment(startDate).format "YYYY-MM-DD"
+        end_date: moment(endDate).format "YYYY-MM-DD"
+        contract_id: @contract.id
+        purpose_id: @purpose?.id
+        quantity: 1
+        model_id: model.id
+      .done (line)=>
+        App.LineSelectionController.add line.id
+        # always trigger this:
+        @onSubmitInventoryCode?(inventoryCode)
+        App.Flash
+          type: "notice"
+          message: _jed("Added %s", model.name())
+      .fail (e)->
+        App.Flash
+          type: "error"
+          message: e.responseText
 
 
   addOption: (option, startDate, endDate)=>
@@ -208,7 +210,7 @@ class window.App.ReservationsAddController extends Spine.Controller
         quantity: 1
         option_id: option.id
       ,
-        done: -> 
+        done: ->
           App.LineSelectionController.add @id
           App.Flash
             type: "notice"
@@ -228,10 +230,9 @@ class window.App.ReservationsAddController extends Spine.Controller
         type: "notice"
         message: _jed("Added %s", template.name)
 
-  showExplorativeSearch: =>
-    if @input.val().length == 0
-      new App.ReservationsExplorativeAddController
-        contract: @contract
-        startDate: @getStartDate()
-        endDate: @getEndDate()
-        addModel: @addModel
+  showExplorativeSearch: (e) =>
+    new App.ReservationsExplorativeAddController
+      contract: @contract
+      startDate: @getStartDate()
+      endDate: @getEndDate()
+      addModel: @addModel

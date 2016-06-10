@@ -50,7 +50,7 @@ end
 
 When(/^I add an option$/) do
   @option = @current_inventory_pool.options.sample
-  find('[data-add-contract-line]').set @option.name
+  find('#assign-or-add-input input').set @option.name
   within '.ui-autocomplete' do
     find("a[title='#{@option.name}']", match: :prefer_exact, text: @option.name).click
   end

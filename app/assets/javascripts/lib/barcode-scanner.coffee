@@ -5,7 +5,7 @@ class BarcodeScanner
     @buffer = null
     @delay = 100
     @timer = null
-  
+
   addChar: (char)=>
     @buffer ?= ""
     @buffer += char
@@ -21,13 +21,21 @@ class BarcodeScanner
 
   execute: =>
     activeElement = $ document.activeElement
-    target = if activeElement.is("input, textarea") then activeElement else $("[data-barcode-scanner-target]:last")
+    target = if activeElement.is("input, textarea")
+      activeElement
+    else # HACK: support react inputs, need ref to element not DOM node
+      if window.reactBarcodeScannerTarget
+        window.reactBarcodeScannerTarget
+      else
+        $("[data-barcode-scanner-target]:last")
+
     code = @buffer
     action = @getAction code
     if action?
       action.callback.apply target, @getArguments(code, action)
     else
-      target.val("").val(code)
+      target.val("")
+      target.val(code)
       @submit target
     @buffer = null
 
@@ -50,8 +58,13 @@ class BarcodeScanner
       @addChar char
 
   submit: (target)=>
-    if not target.closest("[data-prevent-barcode-scanner-submit]").length
-      target.closest("form").submit()
+    input = if _.isFunction(target.closest) # its jQuery
+      target
+    else # its React…
+      $(ReactDOM.findDOMNode(target))
+
+    if not input.closest("[data-prevent-barcode-scanner-submit]").length
+      input.closest("form").submit()
 
 window.BarcodeScanner = new BarcodeScanner()
 

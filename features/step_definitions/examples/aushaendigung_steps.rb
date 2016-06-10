@@ -155,7 +155,7 @@ When(/^I assign an already added item$/) do
   @line_css = ".line[data-id='#{@reservation.id}']"
   find(@line_css).find("input[type='checkbox']").click
 
-  find('input#assign-or-add-input').set @reservation.item.inventory_code
+  find('#assign-or-add-input input').set @reservation.item.inventory_code
   find('form#assign-or-add button .fa.fa-plus', match: :first).click
 end
 

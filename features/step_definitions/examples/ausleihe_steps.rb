@@ -8,8 +8,8 @@ Then /^I see those items that are part of this take back$/ do
 end
 
 When /^I assign something that is not part of this take back$/ do
-  find('[data-add-contract-line]').set '_for_sure_this_is_not_part_of_the_take_back'
-  find('[data-add-contract-line] + .addon').click
+  find('#assign-input').set '_for_sure_this_is_not_part_of_the_take_back'
+  find('#assign button').click
 end
 
 def check_printed_contract(window_handles, ip = nil, reservation = nil)

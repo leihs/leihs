@@ -18,8 +18,8 @@ When /^I assign an item to the hand over by providing an inventory code and a da
   line_amount_before = all('.line').count
   assigned_amount_before = all('.line [data-assign-item][disabled]').count
 
-  find('[data-add-contract-line]').set @inventory_code
-  find('[data-add-contract-line] + .addon').click
+  find('#assign-or-add-input input').set @inventory_code
+  find('#assign-or-add button').click
   find("input[data-assign-item][value='#{@inventory_code}']")
 
   line_amount_after = all('.line').count
@@ -52,8 +52,8 @@ When /^I add an item which is matching the model of one of the selected unassign
   expect(has_selector?('.line')).to be true
   selected_ids = all('.line [data-select-line]:checked').map {|cb| cb.find(:xpath, 'ancestor::div[@data-id]')['data-id']}
   @item = @hand_over.reservations.select{|l| !l.item and selected_ids.include?(l.id.to_s) and l.model.items.in_stock.where(inventory_pool_id: @current_inventory_pool).exists?}.first.model.items.in_stock.first
-  find('[data-add-contract-line]').set @item.inventory_code
-  find('[data-add-contract-line] + .addon').click
+  find('#assign-or-add-input input').set @item.inventory_code
+  find('#assign-or-add button').click
 end
 
 Then /^the first itemline in the selection matching the provided inventory code is assigned$/ do

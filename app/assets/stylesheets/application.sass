@@ -82,6 +82,7 @@
 
 
 @import "components/autocomplete"
+@import "components/autocomplete-scrollable"
 @import "components/badge"
 @import "components/booking-calendar"
 @import "components/buttons"
@@ -107,3 +108,17 @@
 @import "combos/group-of-lines"
 @import "combos/list-of-lines"
 @import "combos/multibutton"
+
+
+// hacks
+
+// NOTE: needed to use asset without access to sprockets (React)
+.loading-bg
+  background-image: url(asset_path("loading.gif"))
+  background-position: 50% 50%
+  background-repeat: no-repeat
+  min-height: 40px
+.loading-bg-small
+  @extend .loading-bg
+  background-size: 16px
+  min-height: 20px

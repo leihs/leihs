@@ -220,8 +220,8 @@ But(/^I cannot hand over$/) do
 end
 
 def hand_over_assign_or_add(s)
-  find('input#assign-or-add-input').set s
-  find('form#assign-or-add .ui-menu-item a:not(.red)', match: :first).click
+  find('#assign-or-add-input input').set s
+  find('form#assign-or-add .row a:not(.red)', text: s).click
   find('#flash .notice', text: _('Added %s') % s)
 end
 

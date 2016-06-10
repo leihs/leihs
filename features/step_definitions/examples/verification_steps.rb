@@ -83,7 +83,7 @@ end
 
 When(/^I add a model which leads to an overbooking$/) do
   ('a'..'z').each do |char|
-    type_into_autocomplete '[data-add-contract-line]', char
+    type_into_autocomplete '#assign-or-add-input input, #add-input input', char
     if has_selector?('.ui-autocomplete a.light-red')
       find('.ui-autocomplete a.light-red', match: :first).click
       break

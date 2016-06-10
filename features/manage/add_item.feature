@@ -9,7 +9,7 @@ Feature: Displaying availability
     And I search for a model to add
     Then the availability of the model is displayed as: "2(3)/7 Model name type"
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Displaying availability when adding things to a hand over
     Given I am doing a hand over
     And I search for a model to add
