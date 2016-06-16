@@ -1,5 +1,5 @@
 
-Feature: Gegenstand erstellen
+Feature: Create item
 
   @javascript @personas
   Scenario: Order of the fields when creating an item

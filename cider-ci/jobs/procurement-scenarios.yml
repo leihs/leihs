@@ -23,4 +23,4 @@ jobs:
 
       _cider-ci_include:
         - cider-ci/shared/tests-context.yml
-        - cider-ci/tasks/cucumber_procurement_scenarios.yml
+        - cider-ci/tasks/procurement_scenarios.yml

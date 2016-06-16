@@ -1,15 +1,15 @@
 jobs:
 
-  code-checks:
+  borrow-manage-code-checks:
 
-    name: 'Core: Code Checks'
+    name: 'Borrow/Manage: Code Checks'
 
     description: |
       Run static checks and metrics: complexity, duplication, code format
 
     run-on:
     - type: branch
-      include-match: '[a-z]*/core_.*'
+      include-match: '[a-z]*/(borrow|manage)_.*'
       exclude-match: '^(.*no-ci.*)$'
     - type: branch
       include-match: '^(.*master.*)$'

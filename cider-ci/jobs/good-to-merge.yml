@@ -11,7 +11,10 @@ jobs:
 
     depends-on:
     - type: job
-      job: core-scenarios
+      job: borrow-scenarios
+      states: [passed]
+    - type: job
+      job: manage-scenarios
       states: [passed]
     - type: job
       job: admin-scenarios
@@ -20,7 +23,7 @@ jobs:
       job: procurement-scenarios
       states: [passed]
     - type: job
-      job: code-checks
+      job: borrow-manage-code-checks
       states: [passed]
     - type: job
       job: admin-code-checks

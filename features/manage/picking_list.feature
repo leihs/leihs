@@ -1,5 +1,5 @@
 
-Feature: Rüstliste
+Feature: Picking list
 
   Um die Gegenstände in den Gestellen möglichst schnell zu finden
   möchte ich als Verleiher

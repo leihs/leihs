@@ -13,9 +13,10 @@
           = _("Create %s") % _("Field")
         %button.btn.btn-success{type: :submit}= _("Save %s") % _("Fields")
     %p.row.bg-danger.lead
-      WARNING:
-      %br
-      Be sure what you are doing here. This feature is undocumented and untested. Misconfiguration of the fields' data may lead to inconsistent data, broken features or in the worst case to failure of server start.
+      %span
+        WARNING: Be sure what you are doing here. Read the 
+        %a{href: "https://github.com/leihs/leihs/wiki/Fields"}= "documentation."
+        Misconfiguration of the fields' data may lead to inconsistent data, broken features or in the worst case to failure of server start.
 
   - @grouped_fields.each_pair do |group_name, fields|
     .panel.panel-default

@@ -1,4 +1,4 @@
-Feature: calendar
+Feature: Calendar
 
   In order to view the availability of a model
   As a customer

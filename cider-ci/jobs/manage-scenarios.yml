@@ -1,17 +1,15 @@
 jobs:
 
-  admin-scenarios:
+  manage-scenarios:
 
-    name: 'Admin: Scenarios'
+    name: 'Manage: Scenarios'
 
     description: |
-      Run Admin engine scenarios under MRI
-
-    priority: -1
+      Run leihs features (except engines) under MRI
 
     run-on:
     - type: branch
-      include-match: '[a-z]*/admin_.*$'
+      include-match: '[a-z]*/manage_.*'
       exclude-match: '^(.*no-ci.*)$'
     - type: branch
       include-match: '^(.*master.*)$'
@@ -23,4 +21,4 @@ jobs:
 
       _cider-ci_include:
         - cider-ci/shared/tests-context.yml
-        - cider-ci/tasks/leihs_admin_scenarios.yml
+        - cider-ci/tasks/manage_scenarios.yml
