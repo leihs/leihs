@@ -1,0 +1,26 @@
+jobs:
+
+  borrow_scenarios:
+
+    name: 'Borrow: Scenarios'
+
+    description: |
+      Run Borrow scenarios under MRI
+
+    priority: -1
+
+    run_when:
+      branch name matches master or borrow:
+        type: branch
+        include_match: '^(.*master.*|[a-z]*/borrow_.*)$'
+
+    context:
+
+      task_defaults:
+        include:
+          - cider-ci_v4/task_components/database.yml
+          - cider-ci_v4/task_components/precompile_assets.yml
+
+      include:
+        - cider-ci_v4/shared/main_context.yml
+        - cider-ci_v4/tasks/borrow_scenarios.yml

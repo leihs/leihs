@@ -1,0 +1,26 @@
+jobs:
+
+  manage_scenarios:
+
+    name: 'Manage: Scenarios'
+
+    description: |
+      Run Manage scenarios under MRI
+
+    priority: -1
+
+    run_when:
+      branch name matches master or manage:
+        type: branch
+        include_match: '^(.*master.*|[a-z]*/manage_.*)$'
+
+    context:
+
+      task_defaults:
+        include:
+          - cider-ci_v4/task_components/database.yml
+          - cider-ci_v4/task_components/precompile_assets.yml
+
+      include:
+        - cider-ci_v4/shared/main_context.yml
+        - cider-ci_v4/tasks/manage_scenarios.yml

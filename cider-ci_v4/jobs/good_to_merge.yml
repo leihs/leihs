@@ -1,0 +1,55 @@
+jobs:
+
+  good_to_merge:
+
+    name: Good To Merge
+
+    description: |
+      This job depends on all other tests and checks
+      and it will pass if and only if all dependencies have passed.
+      Status of this job is **used by github's "branch protection"**!
+
+    depends_on:
+      borrow_manage_code_checks:
+        type: job
+        job_key: borrow_manage_code_checks
+        states: [passed]
+      borrow_scenarios:
+        type: job
+        job_key: borrow_scenarios
+        states: [passed]
+      manage_scenarios:
+        type: job
+        job_key: manage_scenarios
+        states: [passed]
+      leihs_admin_code_checks:
+        type: job
+        job_key: leihs_admin_code_checks
+        states: [passed]
+      leihs_admin_scenarios:
+        type: job
+        job_key: leihs_admin_scenarios
+        states: [passed]
+      procurement_code_checks:
+        type: job
+        job_key: procurement_code_checks
+        states: [passed]
+      procurement_scenarios:
+        type: job
+        job_key: procurement_scenarios
+        states: [passed]
+      meta:
+        type: job
+        job_key: meta
+        states: [passed]
+
+    run_when:
+      any branch name:
+        type: branch
+        include_match: '^.*$'
+
+    context:
+      tasks:
+        all:
+          scripts:
+            body: echo 'Yay, all dependencies have passed!'

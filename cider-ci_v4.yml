@@ -1,0 +1,29 @@
+include:
+  # per-engine jobs:
+
+  ## BORROW/MANAGE - on branches foo/borrow_bar or foo/manage_bar
+  - cider-ci_v4/jobs/borrow_manage_code_checks.yml
+
+  ## BORROW - on branches foo/borrow_bar
+  - cider-ci_v4/jobs/borrow_scenarios.yml
+
+  ## MANAGE - on branches foo/manage_bar
+  - cider-ci_v4/jobs/manage_scenarios.yml
+
+  ## ADMIN - on branches foo/admin_bar
+  - cider-ci_v4/jobs/leihs_admin_scenarios.yml
+  - cider-ci_v4/jobs/leihs_admin_code_checks.yml
+
+  ## PROCUREMENT - on branches foo/procurement_bar
+  - cider-ci_v4/jobs/procurement_scenarios.yml
+  - cider-ci_v4/jobs/procurement_code_checks.yml
+
+  # always runs
+  - cider-ci_v4/jobs/rails_warnings_check.yml
+
+  # always runs, but depends on other jobs
+  - cider-ci_v4/jobs/meta.yml
+  - cider-ci_v4/jobs/good_to_merge.yml
+
+  # run manually
+  - cider-ci_v4/jobs/hot_spot_scenarios.yml

@@ -7,6 +7,10 @@ require 'database_cleaner'
 Dir.glob("engines/procurement/spec/steps/**/*.rb") { |f| load f, true }
 Dir.glob("engines/procurement/spec/factories/**/*factory.rb") { |f| load f, true }
 
+if ENV['FIREFOX_ESR_PATH'].present?
+  Selenium::WebDriver::Firefox.path = ENV['FIREFOX_ESR_PATH']
+end
+
 [:firefox, :chrome, :phantomjs].each do |browser|
   Capybara.register_driver browser do |app|
     Capybara::Selenium::Driver.new app, browser: browser

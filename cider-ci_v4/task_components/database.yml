@@ -1,0 +1,46 @@
+traits:
+  MySQL: true
+  Ruby: true
+
+environment_variables:
+  DATABASE: "leihs_test_{{CIDER_CI_TRIAL_ID}}"
+
+scripts:
+
+  configure-database:
+    body: |
+      #!/usr/bin/ruby
+      require 'yaml'
+      config = \
+        { 'test' =>
+          { 'adapter' => 'mysql2',
+            'encoding' => 'utf8',
+            'host' => 'localhost',
+            'pool' => 3,
+            'username' => ENV['MYSQL_USER'],
+            'password' => ENV['MYSQL_PASSWORD'],
+            'database' => ENV['DATABASE']}}
+      File.open('config/database.yml','w') { |file| file.write config.to_yaml }
+
+
+  create-database:
+    body: mysqladmin --user=$MYSQL_USER --password=$MYSQL_PASSWORD create $DATABASE
+    start_when:
+      database is configured:
+        script_key: configure-database
+
+  test:
+    start_when:
+      the database is configured:
+        script_key: create-database
+
+  delete-database:
+    body:  mysqladmin --user=$MYSQL_USER --password=$MYSQL_PASSWORD --force drop $DATABASE
+    start_when:
+      tests is in terminal state:
+        script_key: test
+        states: [aborted, defective, passed, failed, skipped]
+
+
+
+

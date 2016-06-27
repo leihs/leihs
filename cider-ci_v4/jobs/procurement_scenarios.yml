@@ -1,0 +1,26 @@
+jobs:
+
+  procurement_scenarios:
+
+    name: 'Procurement: Scenarios'
+
+    description: |
+      Run Procurement engine scenarios under MRI
+
+    priority: -1
+
+    run_when:
+      branch name matches master or procurement:
+        type: branch
+        include_match: '^(.*master.*|[a-z]*/procurement_.*)$'
+
+    context:
+
+      task_defaults:
+        include:
+          - cider-ci_v4/task_components/database.yml
+          - cider-ci_v4/task_components/precompile_assets.yml
+
+      include:
+        - cider-ci_v4/shared/main_context.yml
+        - cider-ci_v4/tasks/procurement_scenarios.yml
