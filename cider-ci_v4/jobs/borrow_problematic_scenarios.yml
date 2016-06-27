@@ -13,6 +13,7 @@ jobs:
       branch name matches master or borrow:
         type: branch
         include_match: '^(.*master.*|[a-z]*/borrow_.*)$'
+        exclude_match: '.*no-ci.*$'
 
     depends_on:
       borrow_scenarios:

@@ -47,6 +47,7 @@ jobs:
       any branch name:
         type: branch
         include_match: '^.*$'
+        exclude_match: '.*no-ci.*$'
 
     context:
       tasks:

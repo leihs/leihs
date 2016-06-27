@@ -11,6 +11,7 @@ jobs:
       branch name matches master:
         type: branch
         include_match: '^.*rails_warnings.*$'
+        exclude_match: '.*no-ci.*$'
 
     context:
 
