@@ -5,8 +5,9 @@ module Procurement
 
     helper_method :procurement_requester?, :procurement_inspector_or_admin?
 
-    before_action except: :root do
+    before_action do
       authorize 'procurement/application'.to_sym, :authenticated?
+      authorize 'procurement/application'.to_sym, :procurement_any_access?
     end
 
     # defined in a separate before_action as it is skiped in
@@ -30,22 +31,28 @@ module Procurement
     def handle_not_authorized(exception)
       case exception.query
       when :authenticated?
-        flash.now[:error] = _('You are not logged in')
+        redirect_to main_app.login_path
+
+      when :procurement_any_access?
+        redirect_to main_app.root_path
 
       when :admins_defined?
         flash.now[:error] = _('No admins defined yet')
+        render action: :root
 
       when :current_budget_period_defined?
         flash.now[:error] = _('Current budget period not defined yet')
+        render action: :root
 
       when :not_past?
         flash.now[:error] = _('The budget period is closed')
+        render action: :root
 
       else
         flash.now[:error] = _('You are not authorized for this action.')
-      end
+        render action: :root
 
-      render action: :root
+      end
     end
 
     def procurement_or_leihs_admin?

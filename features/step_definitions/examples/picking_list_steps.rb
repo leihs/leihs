@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 
 Given(/^I open (a|the) picking list( for a signed contract)?$/) do |arg1, arg2|
+  step 'I close the flash message'
+  
   if @hand_over and arg1 == 'the'
     within '#lines' do
       @selected_lines = @current_inventory_pool.reservations.find all(".line input[type='checkbox']:checked").map { |x| x.find(:xpath, './../../../../..')['data-id'] }

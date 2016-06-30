@@ -36,17 +36,21 @@ Feature: Section Users
   Scenario: Delete a requester
     Given I am Hans Ueli
     And there exists a requester
+    And there exist requests for this requester
     When I navigate to the users page
     And I click on the minus button on the requester line
     And the requester line is marked for deletion
     When I click on save
     Then the requester disappears from the list
     And the requester was successfully deleted from the database
+    And the existing requests keep the reference to the original requester
+    And that requester can not submit new requests anymore
 
   @users_and_organisations
   Scenario: Modify a requester
     Given I am Hans Ueli
     And there exists a requester
+    And there exist requests for this requester
     And there exists an extra user
     And I navigate to the users page
     When I modify the requester name to be that of the extra user
@@ -56,6 +60,9 @@ Feature: Section Users
     Then I see a success message
     And I see the successful changes on the page
     And the requester information was changed successfully in the database
+    And the existing requests keep the reference to the original requester
+    And the existing requests keep the reference to the original organisation
+    And that requester can not submit new requests anymore
 
   @users_and_organisations
   Scenario: Sorting of requester

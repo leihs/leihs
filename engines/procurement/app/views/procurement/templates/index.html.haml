@@ -1,70 +1,69 @@
-%h1
+- content_for :sidebar do
+  = render partial: 'procurement/templates/filter_panel'
+
+%h3
   %i.fa.fa-cube
   = _('Templates')
 
-%h4
-  %i.fa.fa-shopping-cart
-  = @group
-
 = form_tag nil, remote: true, id: "accordion" do
 
-  - @group.template_categories.build
-  - @template_categories.each do |template_category|
-    .panel.panel-default
-      .panel-heading.collapsed(data-toggle="collapse" data-parent="#accordion" href="#collapse_#{template_category.id}")
-        .row
-          .col-xs-11
-            %span.toggler
-              %i.fa.fa-caret-right
-            %i.fa.fa-cube
-            - if template_category.id
-              %input{type: :hidden, name: "template_categories[#{template_category.object_id}][id]", value: template_category.id}
-              %input{type: :hidden, name: "template_categories[#{template_category.object_id}][_destroy]"}
-            %label
-              = succeed ':' do
-                = _('Category')
-              %input{name: "template_categories[#{template_category.object_id}][name]", value: template_category.name}
-          .col-xs-1.text-right{style: 'font-size: 1.6em'}
-            %i.fa.fa-minus-circle{title: _("Delete category with all it's articles/projects"), data: {toggle: 'tooltip'}}
+  - @categories.group_by(&:main_category).each_pair do |main_category, categories|
+    .panel.panel-info
+      .panel-heading.collapsed(data-toggle="collapse" href="#collapse_#{main_category.id}")
+        %h4{data: {searchable: main_category.name.try(:downcase)}}
+          %span.toggler
+            %i.fa.fa-caret-right
+          - if main_category.image.exists?
+            %img.main_category_image{src: main_category.image.url}
+          - else
+            %i.fa.fa-outdent.main_category_image
+          = main_category.name
 
-      %table.table(id="collapse_#{template_category.id}" class="panel-collapse collapse" role="tabpanel")
-        %thead
-          %tr.row
-            %th.col-xs-3= _('Article / Project')
-            %th.col-xs-3= _('Article nr. / Producer nr.')
-            %th.col-xs-2= format('%s %s %s', _('Price'), MoneyRails.default_currency, _('incl. VAT'))
-            %th.col-xs-3= _('Supplier')
-            %th.col-xs-1
-        %tbody
-          - template_category.templates.each do |template|
-            %tr.row
-              %td.col-xs-3
-                %input{type: :hidden, name: "template_categories[#{template_category.object_id}][templates_attributes][][id]", value: template.id}
-                %input{type: :hidden, name: "template_categories[#{template_category.object_id}][templates_attributes][][_destroy]"}
-                %input.form-control{name: "template_categories[#{template_category.object_id}][templates_attributes][][article_name]", placeholder: _('Article / Project'), value: template.article_name}
-              %td.col-xs-3
-                %input.form-control{name: "template_categories[#{template_category.object_id}][templates_attributes][][article_number]", placeholder: _('Article nr. / Producer nr.'), value: template.article_number}
-              %td.col-xs-2
-                %input.form-control{name: "template_categories[#{template_category.object_id}][templates_attributes][][price]", type: :number, min: 0, value: template.price.to_i, placeholder: format('%s %s', _('Price'), _('incl. VAT')), autocomplete: :off}
-              %td.col-xs-3
-                %input.form-control{name: "template_categories[#{template_category.object_id}][templates_attributes][][supplier_name]", placeholder: _('Supplier'), value: template.supplier_name}
-              %td.col-xs-1.text-right
-                %i.fa.fa-minus-circle
-          %tr.row
-            %td.col-xs-3
-              %input.form-control{name: "template_categories[#{template_category.object_id}][templates_attributes][][article_name]", placeholder: _('Article / Project')}
-            %td.col-xs-3
-              %input.form-control{name: "template_categories[#{template_category.object_id}][templates_attributes][][article_number]", placeholder: _('Article nr. / Producer nr.')}
-            %td.col-xs-2
-              %input.form-control{name: "template_categories[#{template_category.object_id}][templates_attributes][][price]", type: :number, min: 0, placeholder: format('%s %s', _('Price'), _('incl. VAT')), autocomplete: :off}
-            %td.col-xs-3
-              %input.form-control{name: "template_categories[#{template_category.object_id}][templates_attributes][][supplier_name]", placeholder: _('Supplier')}
-            %td.col-xs-1.text-right
-              %i.fa.fa-minus-circle
-        %tfoot
-          %tr
-            %td.h3{colspan: 4}
-              %i.fa.fa-plus-circle{title: _('Add new article or project to category'), data: {toggle: 'tooltip'}}
+      .panel-body(id="collapse_#{main_category.id}" class="panel-collapse collapse" role="tabpanel")
+        - categories.each do |category|
+          .panel.panel-default
+            .panel-heading{data: {searchable: category.name.try(:downcase)}}
+              %i.fa.fa-outdent
+              %b= category.name
+
+            %table.table
+              %thead
+                %tr.row
+                  %td.col-xs-3= _('Article or Project')
+                  %td.col-xs-3= _('Article nr. or Producer nr.')
+                  %td.col-xs-2= format('%s %s %s', _('Price'), MoneyRails.default_currency, _('incl. VAT'))
+                  %td.col-xs-3= _('Supplier')
+                  %td.col-xs-1
+              %tbody
+                - category.templates.each do |template|
+                  %tr.row
+                    %td.col-xs-3{data: {searchable: template.article_name.try(:downcase)}}
+                      %input{type: :hidden, name: "categories[#{category.id}]templates_attributes[][id]", value: template.id}
+                      %input{type: :hidden, name: "categories[#{category.id}]templates_attributes[][_destroy]"}
+                      %input.form-control{name: "categories[#{category.id}]templates_attributes[][article_name]", placeholder: _('Article or Project'), value: template.article_name, required: true}
+                    %td.col-xs-3{data: {searchable: template.article_number.try(:downcase)}}
+                      %input.form-control{name: "categories[#{category.id}]templates_attributes[][article_number]", placeholder: _('Article nr. or Producer nr.'), value: template.article_number}
+                    %td.col-xs-2
+                      %input.form-control{name: "categories[#{category.id}]templates_attributes[][price]", type: :number, min: 0, value: template.price.to_i, placeholder: format('%s %s', _('Price'), _('incl. VAT')), autocomplete: :off}
+                    %td.col-xs-3{data: {searchable: template.supplier_name.try(:downcase)}}
+                      %input.form-control{name: "categories[#{category.id}]templates_attributes[][supplier_name]", placeholder: _('Supplier'), value: template.supplier_name}
+                    %td.col-xs-1.text-right
+                      %i.fa.fa-minus-circle{title: _("Delete line"), data: {toggle: 'tooltip'}}
+                %tr.row.new_template
+                  %td.col-xs-3
+                    %input.form-control{name: "categories[#{category.id}]templates_attributes[][article_name]", placeholder: _('Article or Project')}
+                  %td.col-xs-3
+                    %input.form-control{name: "categories[#{category.id}]templates_attributes[][article_number]", placeholder: _('Article nr. or Producer nr.')}
+                  %td.col-xs-2
+                    %input.form-control{name: "categories[#{category.id}]templates_attributes[][price]", type: :number, min: 0, placeholder: format('%s %s', _('Price'), _('incl. VAT')), autocomplete: :off}
+                  %td.col-xs-3
+                    %input.form-control{name: "categories[#{category.id}]templates_attributes[][supplier_name]", placeholder: _('Supplier')}
+                  %td.col-xs-1.text-right
+                    %i.fa.fa-minus-circle{title: _("Delete line"), data: {toggle: 'tooltip'}}
+              %tfoot
+                %tr
+                  %td.h3{colspan: 6}
+                    %i.fa.fa-plus-circle{title: _('Add new article to category'), data: {toggle: 'tooltip'}}
 
   .row
     .col-xs-12
@@ -74,10 +73,15 @@
       %i.fa.fa-check
       = _('Save')
 
+:scss
+  .new_template {
+    display: none;
+  }
+
 :coffeescript
   $(document).ready ->
     initAutocompletes = ->
-      $("input[name*='[templates_attributes][][article_name]']").autocomplete
+      $("input[name*='templates_attributes[][article_name]']").autocomplete
         minLength: 3
         source: ( request, response )->
           $.ajax
@@ -94,7 +98,7 @@
         $(this).data('ui-autocomplete')._renderItem = ( ul, item )->
           $( "<li>" ).append( "<a>" + item.name + "</a>" ).appendTo( ul )
 
-      $("input[name*='[templates_attributes][][supplier_name]']").autocomplete
+      $("input[name*='templates_attributes[][supplier_name]']").autocomplete
         minLength: 3
         source: ( request, response )->
           $.ajax
@@ -117,19 +121,9 @@
       target_el = $(this).closest('tfoot').prev('tbody').find('tr:last-child')
       cloned_el = target_el.clone()
       cloned_el.find('input').val('')
-      cloned_el.insertAfter(target_el)
+      cloned_el.insertBefore(target_el)
+      cloned_el.show()
       do initAutocompletes
-      false
-
-    $('.panel-heading').on 'click', '.fa-minus-circle', ->
-      panel_el = $(this).closest('.panel')
-      target_el = panel_el.find(".panel-heading input[name*='[_destroy]']")
-      if target_el.val() == '1'
-        target_el.val('').change()
-        panel_el.removeClass('panel-danger').addClass('panel-default')
-      else
-        target_el.val('1').change()
-        panel_el.removeClass('panel-default').addClass('panel-danger')
       false
 
     $('tbody').on 'click', '.fa-minus-circle', ->
@@ -143,14 +137,6 @@
         row_el.addClass('bg-danger')
       false
 
-    $('.panel').on('click', '.panel-heading:not(.collapsed) input', (e)->
-      e.stopPropagation()
-    ).on('show.bs.collapse', '.panel-collapse', ()->
-      $(this).closest('.panel').find('.panel-heading .toggler').html('<i class="fa fa-caret-down"></i>')
-    ).on('hidden.bs.collapse', '.panel-collapse', ()->
-      $(this).closest('.panel').find('.panel-heading .toggler').html('<i class="fa fa-caret-right"></i>')
-    )
-
     $('form').on('ajax:success', (e, data, status, xhr) ->
       location.reload()
     ).on 'ajax:error', (e, xhr, status, error) ->
@@ -161,3 +147,7 @@
 
     $('form').on 'change', ->
       $('.flash').hide()
+
+    $('.panel').on('click', '.panel-heading:not(.collapsed) input', (e)->
+      e.stopPropagation()
+    )

@@ -1,0 +1,207 @@
+%h1
+  %i.fa.fa-outdent
+  = _('Categories')
+
+= form_tag nil, remote: true, id: "accordion" do
+  .text-right
+    %button.btn.btn-success{type: :submit}
+      %i.fa.fa-check
+      = _('Save')
+  %br
+
+  - @categories.each do |main_category|
+    .panel.panel-info
+      .panel-heading
+        .row
+          .col-xs-2.collapsed(data-toggle="collapse" href="#collapse_#{main_category.id}")
+            %span.toggler
+              %i.fa.fa-caret-right
+            %i.fa.fa-cube
+            - if main_category.id
+              %input{type: :hidden, name: "main_categories[#{main_category.object_id}][id]", value: main_category.id}
+              %input{type: :hidden, name: "main_categories[#{main_category.object_id}][_destroy]"}
+            %label.form-group
+              = succeed ':' do
+                = _('Main category')
+          .col-xs-9
+            %input.form-control{name: "main_categories[#{main_category.object_id}][name]", value: main_category.name}
+          .col-xs-1.text-right{style: 'font-size: 1.6em'}
+            - if main_category.can_destroy?
+              %i.fa.fa-minus-circle{title: _("Delete main category"), data: {toggle: 'tooltip', confirm: _("Are you sure you want to delete '%s'?") % main_category}}
+
+      .panel-body(id="collapse_#{main_category.id}" class="panel-collapse collapse" role="tabpanel")
+        .row
+          .col-xs-4
+            %h4= _('Image')
+            %input{type: :file, name: "main_categories[#{main_category.object_id}][image]", style: "color:transparent;", onchange: "this.style.color = 'black';"}
+            - if main_category.image and main_category.image.content_type =~ /image/
+              %img.main_category_image{src: main_category.image.url}
+              %input{type: :hidden, name: "main_categories[#{main_category.object_id}][image_delete]"}
+              %a.delete{href: '#', data: {confirm: _("Are you sure you want to delete '%s'?") % main_category.image.original_filename}}
+                %i.fa.fa-trash
+
+            %h4= _('Budget limits')
+            - Procurement::BudgetPeriod.order(end_date: :desc).each do |budget_period|
+              - budget_limit = main_category.budget_limits.find_or_initialize_by(budget_period_id: budget_period.id)
+              = fields_for :budget_limits, budget_limit do |ff|
+                - if budget_limit.persisted?
+                  %input{type: :hidden, name: "main_categories[#{main_category.object_id}][budget_limits_attributes][#{budget_limit.object_id}][id]", value: ff.object.id}
+                .row
+                  .col-sm-4
+                    %input{type: :hidden, name: "main_categories[#{main_category.object_id}][budget_limits_attributes][#{budget_limit.object_id}][budget_period_id]", value: ff.object.budget_period_id}
+                    = budget_period
+                  .col-sm-8
+                    %input.form-control{type: :number, name: "main_categories[#{main_category.object_id}][budget_limits_attributes][#{budget_limit.object_id}][amount]", min: 0, step: 1, placeholder: _('Budget'), autocomplete: :off, value: ff.object.amount.to_i}
+
+          .col-xs-8.border-left
+            %h4= _('Subcategories')
+            %table.table
+              %thead
+                %tr.row
+                  %th.col-xs-5= _('Name')
+                  %th.col-xs-6= _('Inspectors')
+                  %th.col-xs-1
+              %tbody
+                - main_category.categories.each do |subcategory|
+                  %tr.row
+                    %td.col-xs-5
+                      %input{type: :hidden, name: "main_categories[#{main_category.object_id}][categories_attributes][#{subcategory.object_id}][id]", value: subcategory.id}
+                      %input{type: :hidden, name: "main_categories[#{main_category.object_id}][categories_attributes][#{subcategory.object_id}][_destroy]"}
+                      %input.form-control{name: "main_categories[#{main_category.object_id}][categories_attributes][#{subcategory.object_id}][name]", placeholder: _('Name'), value: subcategory.name}
+                    %td.col-xs-6
+                      %input.form-control{name: "main_categories[#{main_category.object_id}][categories_attributes][#{subcategory.object_id}][inspector_ids]", multiple: true, placeholder: _("Name of the inspector"), autocomplete: :off, data: {current: subcategory.inspectors.to_json(only: [:id, :firstname, :lastname])}}
+                    %td.col-xs-1.text-right
+                      - if subcategory.can_destroy?
+                        %i.fa.fa-minus-circle{title: _("Delete subcategory"), data: {toggle: 'tooltip'}}
+                %tr.row.new_subcategory
+                  %td.col-xs-5
+                    %input.form-control{name: "main_categories[#{main_category.object_id}][categories_attributes][new][name]", placeholder: _('Name')}
+                  %td.col-xs-6
+                    %input.form-control{name: "main_categories[#{main_category.object_id}][categories_attributes][new][inspector_ids]", multiple: true, placeholder: _("Name of the inspector"), autocomplete: :off}
+                  %td.col-xs-1.text-right
+                    %i.fa.fa-minus-circle{title: _("Delete subcategory "), data: {toggle: 'tooltip'}}
+              %tfoot
+                %tr
+                  %td.h3{colspan: 3}
+                    %i.fa.fa-plus-circle{title: _('Add new subcategory'), data: {toggle: 'tooltip'}}
+
+  = render partial: 'new_category'
+  .h3
+    %i.fa.fa-plus-circle{title: _('Add new main category'), data: {toggle: 'tooltip'}}
+
+  .row
+    .col-xs-12
+      = render partial: 'layouts/procurement/flash', :locals => {:flash => flash}
+  .text-right
+    %button.btn.btn-success{type: :submit}
+      %i.fa.fa-check
+      = _('Save')
+
+:scss
+  #new_main_category, .new_subcategory {
+    display: none;
+  }
+  .border-left {
+    border-left: 1px dashed #555;
+  }
+
+:coffeescript
+  @enable_tokenInput = (el)->
+    $(el).tokenInput '/procurement/users.json',
+      minChars: 3
+      queryParam: 'search_term'
+      propertyToSearch: "lastname"
+      resultsFormatter: (item)->
+        "<li>" + item.firstname + " " + item.lastname + "</li>"
+      tokenFormatter: (item)->
+        "<li>" + item.firstname + " " + item.lastname + "</li>"
+      prePopulate: $(el).data('current')
+      preventDuplicates: true
+      hintText: "#{_('Type in a search term')}"
+      noResultsText: "#{_('No results')}"
+      searchingText: "#{_('Searching...')}"
+
+  $(document).ready ->
+    $('form > .h3').on 'click', '.fa-plus-circle', ->
+      el = $('#new_main_category')
+      el.find('[data-to_be_required]').attr('required', 'true')
+      el.show()
+      $(this).hide()
+      false
+
+    $('tfoot').on 'click', '.fa-plus-circle', ->
+      target_el = $(this).closest('tfoot').prev('tbody').find('tr.new_subcategory:last-child')
+      cloned_el = target_el.clone()
+      key = Math.random()
+      cloned_el.find("input[name*='[categories_attributes][new]']").each (i, el)->
+        $(el).attr('name', $(el).attr('name').replace(/\[categories_attributes\]\[new\]/, '[categories_attributes]['+key+']'))
+      cloned_el.find("input[name*='[inspector_ids]']").each (i, el)->
+        enable_tokenInput(el)
+      cloned_el.show().insertBefore(target_el)
+      false
+
+    $('.panel-heading').on 'click', '.fa-minus-circle', ->
+      panel_el = $(this).closest('.panel')
+      if panel_el.is("#new_main_category")
+        if confirm $(this).data('confirm')
+          panel_el.remove()
+      else
+        target_el = panel_el.find(".panel-heading input[name*='[_destroy]']")
+        if target_el.val() == '1'
+          target_el.val('').change()
+          panel_el.removeClass('panel-danger').addClass('panel-info')
+        else
+          if confirm $(this).data('confirm')
+            target_el.val('1').change()
+            panel_el.removeClass('panel-info').addClass('panel-danger')
+      false
+
+    $('tbody').on 'click', '.fa-minus-circle', ->
+      row_el = $(this).closest('tr')
+      target_el = row_el.find("input[name*='[_destroy]']")
+      if target_el.val() == '1'
+        target_el.val('').change()
+        row_el.removeClass('bg-danger')
+      else
+        target_el.val('1').change()
+        row_el.addClass('bg-danger')
+      false
+
+    form_data_before_changes = $('form').serialize()
+
+    $('form').on('change keyup', ->
+      attachments = $("input[type='file']").map(-> $(this).val() ).get().join('')
+      if form_data_before_changes != $('form').serialize() or attachments != ''
+        $('.flash').hide()
+        $("form button[type='submit']").removeAttr('disabled')
+        window.onbeforeunload = -> return "#{_('You have unsaved data. Would you like to delete the data?')}"
+      else
+        $('.flash').show()
+        $("form button[type='submit']").attr('disabled', 'true')
+        window.onbeforeunload = null
+    ).on('ajax:success', (e, data, status, xhr) ->
+      window.onbeforeunload = null
+      location.reload()
+    ).on 'ajax:error', (e, xhr, status, error) ->
+      errors = ''
+      for error in xhr.responseJSON
+        errors += '<li>' + error + '</li>'
+      $('.flash').html '<ul class="alert alert-danger" style="padding-left: 2em;">' + errors + '</ul>'
+
+    $('form').on 'change', ->
+      $('.flash').hide()
+
+    $("tr:not(.new_subcategory) input[name*='[inspector_ids]']").each (i, el)->
+      enable_tokenInput(el)
+
+    $('a.delete').on 'click', ->
+      el = $(this).closest('.col-xs-4')
+      if el.find("input[name*='[image_delete]']").val() == '1'
+        el.find("input[name*='[image_delete]']").val('')
+        el.find('img').css('visibility', 'visible')
+      else
+        if confirm $(this).data('confirm')
+          el.find("input[name*='[image_delete]']").val('1')
+          el.find('img').css('visibility', 'hidden')
+      el.closest('form').change()
+      false

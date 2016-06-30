@@ -19,7 +19,7 @@ Procurement::Engine.routes.draw do
     end
   end
 
-  resources :groups do
+  resources :categories, only: [:index, :create] do
     resources :budget_periods, only: [] do
       resources :users, only: [] do
         collection do
@@ -37,13 +37,16 @@ Procurement::Engine.routes.draw do
         resources :requests, only: [:index]
       end
     end
-    resources :templates, only: [:index, :create]
   end
+
+  resources :templates, only: [:index, :create]
 
   resources :models, only: :index
   resources :suppliers, only: :index
   resources :locations, only: :index
 
   resources :organizations, only: :index
+
+  resource :settings, only: [:edit, :create]
 
 end

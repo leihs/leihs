@@ -20,7 +20,7 @@ module Procurement
 
       def some_access?(user)
         where(user_id: user).exists? or
-          Procurement::Group.inspector_of_any_group_or_admin?(user) or
+          Procurement::Category.inspector_of_any_category_or_admin?(user) or
           (admins.empty? and user.has_role?(:admin))
       end
 

@@ -16,18 +16,20 @@ module PersonasSteps
   # inspector and requester
   step 'I am Barbara' do
     persona = create_persona('Barbara')
-    @group = FactoryGirl.create(:procurement_group_inspector, user: persona).group
+    @category = FactoryGirl.create(:procurement_category_inspector,
+                                   user: persona).category
     FactoryGirl.create(:procurement_access, :requester, user: persona)
     login_as persona
-    step 'I am inspector of this group'
+    step 'I am inspector of this category'
   end
 
   # inspector
   step 'I am Anna' do
     persona = create_persona('Anna')
-    @group = FactoryGirl.create(:procurement_group_inspector, user: persona).group
+    @category = FactoryGirl.create(:procurement_category_inspector,
+                                   user: persona).category
     login_as persona
-    step 'I am inspector of this group'
+    step 'I am inspector of this category'
   end
 
   # leihs admin
@@ -37,8 +39,14 @@ module PersonasSteps
     login_as persona
   end
 
-  step 'I am inspector of this group' do
-    expect(@group.inspectable_by?(@current_user)).to be true
+  # leihs user
+  step 'I am Pius' do
+    persona = create_persona('Pius')
+    login_as persona
+  end
+
+  step 'I am inspector of this category' do
+    expect(@category.inspectable_by?(@current_user)).to be true
   end
 
   step 'several admin users exist' do

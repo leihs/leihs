@@ -35,7 +35,13 @@ module Procurement
     end
 
     def procurement_inspector_or_admin?
-      Procurement::Group.inspector_of_any_group_or_admin?(user)
+      Procurement::Category.inspector_of_any_category_or_admin?(user)
+    end
+
+    def procurement_any_access?
+      procurement_requester? \
+        or procurement_inspector_or_admin? \
+        or procurement_or_leihs_admin?
     end
 
     def leihs_admin?

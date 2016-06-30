@@ -11,20 +11,21 @@ steps_for :managing_requests do
   include NavigationSteps
   include PersonasSteps
 
+  step 'a new line containing this template article is added' do
+    find ".request[data-template_id='#{@template.id}']"
+  end
+
   step 'a new request line is added' do
     find '.request[data-request_id="new_request"]', visible: true
   end
 
   step 'a request containing a template article exists' do
-    template_category = FactoryGirl.create :procurement_template_category,
-                                           group: @group
-    @template = FactoryGirl.create :procurement_template,
-                                   template_category: template_category
+    @category ||= FactoryGirl.create :procurement_category
+    @template = FactoryGirl.create :procurement_template, category: @category
     @request = FactoryGirl.create :procurement_request,
                                   user: @current_user,
-                                  group: @group,
+                                  category: @category,
                                   template: @template
-
   end
 
   step 'all fields turn white' do
@@ -37,15 +38,16 @@ steps_for :managing_requests do
     end
   end
 
-  step 'an email for a group exists' do
-    @group = FactoryGirl.create :procurement_group,
-                                email: Faker::Internet.email
+  step 'a link to a contact site exists' do
+    @setting = FactoryGirl.create :procurement_setting,
+                                  key: 'contact_url',
+                                  value: 'http://www.example.com/contact'
   end
 
   step 'each template article contains' do |table|
     table.raw.flatten.each do |value|
       key = case value
-            when 'Article nr. / Producer nr.'
+            when 'Article nr. or Producer nr.'
                 :article_number
             when 'Item price'
                 :price
@@ -60,10 +62,31 @@ steps_for :managing_requests do
     end
   end
 
+  step 'for all main categories pictures have been uploaded' do
+    path = "#{Rails.root}/features/data/images/image1.jpg"
+
+    Procurement::MainCategory.all.each do |main_category|
+      unless main_category.image.exists?
+        main_category.update_attributes image: File.open(path)
+        expect(main_category.reload.image).to exist
+      end
+    end
+  end
+
+  step 'no picture for a main category is uploaded' do
+    @main_category.image.destroy
+    expect(@main_category.reload.image).not_to exist
+  end
+
   step 'I am navigated to the request containing this template article' do
     find ".request[data-request_id='#{@request.id}']" \
          "[data-template_id='#{@request.template_id}']",
          visible: true
+  end
+
+  step 'I am navigated to the specific website' do
+    expect(current_url).to eq @url
+    expect(current_url).to eq @setting.value
   end
 
   step 'I can change the budget period of my request' do
@@ -131,7 +154,7 @@ steps_for :managing_requests do
             end
 
     within '.request[data-request_id="new_request"]' do
-      within '.form-group', text: _('Article / Project') do
+      within '.form-group', text: _('Article or Project') do
         find('input').set @text
       end
     end
@@ -147,9 +170,16 @@ steps_for :managing_requests do
   step 'I choose a template article' do
     @template = @category.templates.sample
     within '.panel-success > .panel-body' do
-      within '.panel', text: @category.name do
+      within '.panel-info > .panel-body', text: @category.name do
         find('.list-group-item', text: @template.article_name).click
       end
+    end
+  end
+
+  step 'I choose a template article from the sidebar' do
+    @template = @category.templates.first
+    within '.sidebar-wrapper' do
+      find('.list-group-item', text: @template.article_name).click
     end
   end
 
@@ -175,17 +205,21 @@ steps_for :managing_requests do
     end
   end
 
-  step 'I click on the email icon' do
-    # NOTE we don't click to open the mail client, just parsing the mailto link
-    within '.panel-success > .panel-heading' do
-      @mailto_link = find('.fa-envelope').find(:xpath, 'ancestor::a')[:href]
+  step 'I click on the contact link' do
+    within 'header ul.nav.h4' do
+      link = find('.fa-envelope').find(:xpath, 'ancestor::a')
+      @url = link[:href]
+      expect(@url).to eq @setting.value
+      document_window = window_opened_by do
+        link.click
+      end
+      page.driver.browser.switch_to.window(document_window.handle)
     end
   end
 
   step 'I click on the template article which has ' \
        'already been added to the request' do
     within '.sidebar-wrapper' do
-      find('.panel-heading', text: @request.template.template_category.name).click
       find('.list-group-item', text: @request.template.article_name).click
     end
   end
@@ -208,8 +242,8 @@ steps_for :managing_requests do
 
   step 'I do not see the budget limits' do
     within '.panel-success .panel-body' do
-      displayed_groups.each do |group|
-        within '.row', text: group.name do
+      displayed_categories.each do |category|
+        within '.row', text: category.name do
           expect(page).to have_no_selector '.budget_limit'
         end
       end
@@ -218,8 +252,8 @@ steps_for :managing_requests do
 
   step 'I do not see the percentage signs' do
     within '.panel-success .panel-body' do
-      displayed_groups.each do |group|
-        within '.row', text: group.name do
+      displayed_categories.each do |category|
+        within '.row', text: category.name do
           expect(page).to have_no_selector '.progress-radial'
         end
       end
@@ -246,21 +280,24 @@ steps_for :managing_requests do
   end
 
   step 'I open the request' do
-    find(".list-group-item[data-request_id='#{@request.id}']").click
-  end
-
-  step 'I press on a category' do
-    @category = Procurement::TemplateCategory.all.sample
-    within '.panel-success > .panel-body' do
-      find('.panel-heading', text: @category.name).click
+    step 'I expand all the sub categories'
+    within '#filter_target' do
+      find(".list-group-item[data-request_id='#{@request.id}']").click
     end
   end
 
-  step 'I press on the plus icon of the budget period' do
-    within '#filter_target' do
-      within '.panel-success > .panel-heading' do
-        find('i.fa-plus-circle').click
-      end
+  step 'I visit the request' do
+    visit_request @request
+  end
+
+  step 'I press on a sub category' do
+    @category = @main_category.categories.sample
+    find('.panel-heading', text: @category.name).click
+  end
+
+  step 'I see the sub categories of this main category' do
+    @main_category.categories.each do |category|
+      find('.panel-heading', text: category.name)
     end
   end
 
@@ -275,17 +312,77 @@ steps_for :managing_requests do
     page.driver.browser.switch_to.alert
   end
 
-  step 'I see all categories of all groups listed' do
-    Procurement::TemplateCategory.all.each do |category|
-      within '.panel-success > .panel-body' do
-        find '.panel-heading', text: category.name
-      end
+  step 'I see the main categories collapsed' do
+    all('.row.main_category', minimum: 1).each do |el|
+      expect(el).to have_no_selector 'a[aria-expanded="true"]'
+    end
+  end
+
+  step 'I see all main categories, having sub categories, collapsed' do
+    Procurement::MainCategory.all.select do |mc|
+      mc.categories.exists?
+    end.each do |main_category|
+      find '.panel-info > .panel-heading.collapsed',
+           text: main_category.name
+    end
+  end
+
+  step 'I see the default picture' do
+    within '.main_category', text: @main_category.name do
+      find 'i.main_category_image.fa-outdent'
+    end
+  end
+
+  step 'I see the picture of the main category' do
+    selector, name = if has_selector? '.panel .row.main_category'
+                       ['.panel .row.main_category',
+                        @main_category.name]
+                     elsif has_selector? '.panel-info > .panel-heading.collapsed'
+                       ['.panel-info > .panel-heading.collapsed',
+                        @main_category.name]
+                     else
+                       ['.panel .panel-heading .col-xs-4',
+                        @category.name]
+                     end
+    within selector, text: name do
+      find 'img[src*="image1.jpg"]'
+    end
+  end
+
+  step 'I see the pictures of the main categories' do
+    Procurement::MainCategory.all.select do |mc|
+      mc.categories.exists?
+    end.each do |main_category|
+      @main_category = main_category
+      step 'I see the picture of the main category'
+    end
+  end
+
+  step "I don't see main categories not having sub categories" do
+    Procurement::MainCategory.all.select do |mc|
+      mc.categories.empty?
+    end.each do |main_category|
+      expect(page).to have_no_selector \
+        '.panel-info > .panel-heading', text: main_category.name
+    end
+  end
+
+  step 'I see all main categories expanded' do
+    # Procurement::MainCategory.all.each do |main_category|
+    Procurement::Category.all.map(&:main_category).uniq.each do |main_category|
+      find '.panel-body .h4', text: main_category.name
+    end
+  end
+
+  step 'I see all sub categories collapsed' do
+    Procurement::Category.all.each do |category|
+      find '.panel-body .h4', text: category.name
     end
   end
 
   step 'I see all template articles of this category' do
     within '.panel-success > .panel-body' do
-      within '.panel', text: @category.name do
+      within '.panel-info > .panel-body', text: @category.name do
         @category.templates.each do |template|
           find '.list-group-item', text: template.article_name
         end
@@ -338,34 +435,6 @@ steps_for :managing_requests do
     end
   end
 
-  step 'I sort the requests by :field' do |field|
-    within '#column-titles' do
-      label, @key = case field
-                    when 'article name'
-                        [_('Article / Project'), 'article_name']
-                    when 'requester'
-                        [_('Requester'), 'user']
-                    when 'organisation'
-                        [_('Organisation'), 'department']
-                    when 'price'
-                        [_('Price'), 'price']
-                    when 'quantity'
-                        [_('Quantities'), 'requested_quantity']
-                    when 'the total amount'
-                        [_('Total'), 'total_price']
-                    when 'priority'
-                        [_('Priority'), 'priority']
-                    when 'state'
-                        [_('State'), 'state']
-                    else
-                        raise
-                    end
-      click_on label
-    end
-
-    step 'page has been loaded'
-  end
-
   step 'I type the first character in a field of the request form' do
     within ".request[data-request_id='new_request']" do
       @field = find("input[name*='[article_number]']")
@@ -375,6 +444,27 @@ steps_for :managing_requests do
 
   step 'no search result is found' do
     expect(page).to have_no_selector '.ui-autocomplete'
+  end
+
+  step 'only main categories containing sub categories are shown in the filter' do
+    with_cats, without_cats = Procurement::MainCategory.all.partition do |mc|
+      mc.categories.exists?
+    end
+
+    within '#filter_panel .form-group', text: _('Categories') do
+      within '.btn-group' do
+        current_scope.click
+
+        with_cats.each do |main_category|
+          find 'li.multiselect-group', text: main_category.name
+        end
+
+        without_cats.each do |main_category|
+          expect(current_scope).to \
+            have_no_selector 'li.multiselect-group', text: main_category.name
+        end
+      end
+    end
   end
 
   step 'only my requests are shown' do
@@ -391,9 +481,16 @@ steps_for :managing_requests do
   end
 
   step 'no option is chosen yet for the field Replacement / New' do
-    label = format('%s / %s', _('Replacement'), _('New'))
-    within '.form-group', text: label do
-      expect(page).to have_no_selector "input[type='radio']:checked"
+    el = if @template
+           ".page-content-wrapper .request[data-template_id='#{@template.id}']"
+         else
+           '.page-content-wrapper'
+         end
+    within el do
+      label = format('%s / %s', _('Replacement'), _('New'))
+      within '.form-group', text: label do
+        expect(page).to have_no_selector "input[type='radio']:checked"
+      end
     end
   end
 
@@ -451,32 +548,62 @@ steps_for :managing_requests do
       Procurement::BudgetPeriod.current.inspection_start_date
   end
 
-  step 'the data is shown in the according sort order' do
-    client_ids = all('[data-request_id]', minimum: 1).map do |el|
-      el['data-request_id'].to_i
-    end
+  step 'I sort the requests and ' \
+       'the data is showing in the according sort order' do |table|
+    table.raw.flatten.each do |field|
+      within '#column-titles' do
+        label, @key = case field
+                      when 'article name'
+                        [_('Article or Project'), 'article_name']
+                      when 'requester'
+                        [_('Requester'), 'user']
+                      when 'organisation'
+                        [_('Organisation'), 'department']
+                      when 'price'
+                        [_('Price'), 'price']
+                      when 'quantity'
+                        [_('Quantities'), 'requested_quantity']
+                      when 'the total amount'
+                        [_('Total'), 'total_price']
+                      when 'priority'
+                        [_('Priority'), 'priority']
+                      when 'state'
+                        [_('State'), 'state']
+                      else
+                        raise
+                      end
+        click_on label
+      end
 
-    server_ids = Procurement::Request.where(id: client_ids).sort do |a, b|
-      case @key
-      when 'total_price'
+      step 'page has been loaded'
+      step 'I expand all the sub categories'
+
+      client_ids = all('[data-request_id]', minimum: 1).map do |el|
+        el['data-request_id'].to_i
+      end
+
+      server_ids = Procurement::Request.where(id: client_ids).sort do |a, b|
+        case @key
+        when 'total_price'
           a.total_price(@current_user) <=> b.total_price(@current_user)
-      when 'state'
+        when 'state'
           Procurement::Request::STATES.index(a.state(@current_user)) <=> \
                 Procurement::Request::STATES.index(b.state(@current_user))
-      when 'department'
+        when 'department'
           a.organization.parent.to_s.downcase <=> \
                 b.organization.parent.to_s.downcase
-      when 'article_name', 'user'
+        when 'article_name', 'user'
           a.send(@key).to_s.downcase <=> b.send(@key).to_s.downcase
-      else
+        else
           a.send(@key) <=> b.send(@key)
-      end
-    end.map &:id
+        end
+      end.map &:id
 
-    # NOTE the default sort is on state, then the first click sorts descending
-    server_ids.reverse! if @key == 'state'
+      # NOTE the default sort is on state, then the first click sorts descending
+      # server_ids.reverse! if @key == 'state'
 
-    expect(client_ids).to eq server_ids
+      expect(client_ids).to eq server_ids
+    end
   end
 
   step 'the entered article name is saved' do
@@ -529,9 +656,9 @@ steps_for :managing_requests do
           when 'prefilled'
               expect(find('input').value).to eq \
                 case value
-                when 'Article / Project'
+                when 'Article or Project'
                     @template.article_name
-                when 'Article nr. / Producer nr.'
+                when 'Article nr. or Producer nr.'
                     @template.article_number
                 when 'Item price'
                     @template.price.to_i.to_s
@@ -543,9 +670,9 @@ steps_for :managing_requests do
           when 'displayed as read-only'
               expect(page).to have_content \
                 case value
-                when 'Article / Project'
+                when 'Article or Project'
                    @template.article_name
-                when 'Article nr. / Producer nr.'
+                when 'Article nr. or Producer nr.'
                    @template.article_number
                 when 'Item price'
                    currency @template.price.to_i
@@ -566,16 +693,9 @@ steps_for :managing_requests do
 
   step 'the list of requests is adjusted immediately ' \
        'according to the filters chosen' do
-    step 'page has been loaded'
+    @found_requests = found_requests
+    step 'I expand all the sub categories'
     within '#filter_target' do
-      @found_requests = Procurement::Request.search(@filter[:search]).where(
-        user_id: @current_user,
-        budget_period_id: @filter[:budget_period_ids],
-        group_id: @filter[:group_ids],
-        priority: @filter[:priorities]
-      ).select do |r|
-        @filter[:states].map(&:to_sym).include? r.state(@current_user)
-      end
       all('[data-request_id]', minimum: 1).map do |el|
         el['data-request_id']
       end.each do |id|
@@ -588,24 +708,17 @@ steps_for :managing_requests do
     # NOTE we don't click to open the mail client, just parsing the mailto link
   end
 
+  step 'the main categories are in alphabetical order' do
+    texts = all('.row.main_category', minimum: 1).map &:text
+    expect(texts).to eq texts.sort
+  end
+
   step 'the model name is copied into the article name field' do
     within '.request[data-request_id="new_request"]' do
-      within '.form-group', text: _('Article / Project') do
+      within '.form-group', text: _('Article or Project') do
         expect(find('input').value).to eq @model.to_s
       end
     end
-  end
-
-  step 'the receiver of the email is the email of the group' do
-    expect(@mailto_link.match(/mailto:(.*)\?.*/)[1]).to eq @group.email
-  end
-  step 'the subject of the email is :subject' do |subject|
-    expect(@mailto_link.match(/.*subject=(.*)\(.*/)[1].gsub('%20', ' ').strip).to \
-      eq subject
-  end
-  step 'the group name is placed in paranthesis at the end of the subject' do
-    expect(@mailto_link.match(/.*subject=.*\((.*)\)/)[1].gsub('%20', ' ')).to \
-      eq @group.name
   end
 
   step 'the request includes an :string_with_spaces' do |string_with_spaces|

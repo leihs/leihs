@@ -5,8 +5,12 @@ include EvalHelpers
 Given(/^today is a random date$/) do
   d1 = Date.today
 
-  Dataset.use_test_datetime(reset: true, freeze: true)
-  expect(ENV['TEST_DATETIME']).not_to be_empty
+  if ENV['TEST_DATETIME'].blank?
+    Dataset.use_test_datetime(reset: true, freeze: true)
+    expect(ENV['TEST_DATETIME']).not_to be_empty
+  else
+    Dataset.use_test_datetime(reset: false, freeze: true)
+  end
 
   @random_date = Date.today
   expect(d1).not_to eq @random_date

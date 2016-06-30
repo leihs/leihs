@@ -39,7 +39,7 @@ When(/^I edit an existing supplier$/) do
 end
 
 Given(/^there is a deletable supplier$/) do
-  @supplier = Supplier.order('RAND ()').detect {|b| b.can_destroy? }
+  @supplier = Supplier.all.detect {|b| b.can_destroy? }
   @supplier ||= FactoryGirl.create(:supplier)
   expect(@supplier).not_to be_nil
   expect(@supplier.can_destroy?).to be true
@@ -51,8 +51,11 @@ When(/^I delete a supplier$/) do
 
     # NOTE trick scrolling element to the screen (not hidden by header)
     # OPTIMIZE: not working if not at least 4 previous elements
-    prev_el = el.find(:xpath, "./preceding-sibling::div[4]")
-    page.driver.browser.action.move_to(prev_el.native).perform
+    #prev_el = el.find(:xpath, "./preceding-sibling::div[4]")
+    #page.driver.browser.action.move_to(prev_el.native).perform
+
+    page.driver.browser.action.move_to(el.native).perform
+    page.execute_script 'window.scrollBy(0,-200)'
 
     within el do
       find('.dropdown-toggle').click

@@ -1,0 +1,45 @@
+%h1= _('Settings')
+
+= form_tag settings_path, remote: true do
+  %table.table.table-striped
+    %thead
+      %tr
+        %th= _('Key')
+        %th= _('Value')
+    %tbody
+      - @settings.each_pair do |key, value|
+        %tr
+          %td
+            %input.form-control{name: 'settings[][key]', value: key, placeholder: _('Key'), autocomplete: :off, required: true}
+          %td
+            %input.form-control{name: 'settings[][value]', value: value, placeholder: _('Value'), autocomplete: :off, required: true}
+    %tfoot
+      %tr
+        %td.text-right{colspan: 2}
+          %button.btn.btn-success{type: :submit}
+            %i.fa.fa-check
+            = _('Save')
+      %tr
+        %td{colspan: 2}
+          = render partial: 'layouts/procurement/flash', :locals => {:flash => flash}
+
+:coffeescript
+  $(document).ready ->
+    $(".datepicker").datepicker({
+      dateFormat: i18n.datepicker.L
+    })
+
+    $("form").on("ajax:success", (e, data, status, xhr) ->
+      location.reload()
+    ).on "ajax:error", (e, xhr, status, error) ->
+      errors = ''
+      for error in xhr.responseJSON
+        errors += '<li>' + error + '</li>'
+      el = $(".flash")
+      el.html('<ul class="alert alert-danger" style="padding-left: 2em;">' + errors + '</ul>').show()
+      $('html, body').animate({
+        scrollTop: el.offset().top - 100
+      }, 200)
+
+    $('form').on 'change', ->
+      $('.flash').hide()

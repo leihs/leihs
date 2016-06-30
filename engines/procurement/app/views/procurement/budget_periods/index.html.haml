@@ -37,7 +37,7 @@
                 = render partial: 'totals', locals: {budget_period: budget_period}
     %tfoot
       %tr
-        %td.h1{colspan: 3}
+        %td.h3{colspan: 3}
           %i.fa.fa-plus-circle{data: {toggle: 'tooltip'}, title: _('Create new budget period')}
         %td.text-right
           %button.btn.btn-success{type: :submit}

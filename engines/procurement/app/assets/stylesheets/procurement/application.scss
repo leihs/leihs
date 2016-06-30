@@ -2,9 +2,9 @@
 *= require jquery-ui
 *= require bootstrap
 *= require jquery-tokeninput
-*= require bootstrap-multiselect
 * require fontawesome
 *
+*= require procurement/bootstrap-multiselect
 *= require procurement/bootstrap_override
 *= require procurement/multiselect_override
 *= require procurement/simple-sidebar
@@ -23,12 +23,6 @@ header {
 
   .navbar {
     height: 4em;
-
-    .dropdown-menu {
-      max-height: 500px;
-      overflow: hidden;
-      overflow-y: auto;
-    }
   }
 }
 
@@ -38,6 +32,12 @@ header {
   line-height: 2em;
 }
 */
+
+.dropdown-menu {
+  max-height: 500px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 
 .ui-autocomplete {
   max-height: 20em;
@@ -59,7 +59,7 @@ div[data-toggle] {
   cursor: pointer;
 }
 
-input[required]:invalid {
+*[required]:invalid {
   background-color: #f2dede !important;
   border: 1px solid #F37373;
 }
@@ -71,7 +71,7 @@ input[type='radio']:invalid + .label {
 }
 
 .progress-radial {
-  margin: 0.7em 0 0.7em 0;
+  margin: 0.4em 0 0.4em 0;
 }
 
 a.show_template {
@@ -111,4 +111,36 @@ a.show_template {
 
 .flash ul {
   list-style-type: none;
+}
+
+.toggler.h2 {
+  margin: 0;
+}
+
+a.toggler {
+  color: black;
+  text-decoration: none;
+}
+
+*[data-toggle='collapse'][aria-expanded='true'] {
+  i.fa.fa-caret-right {
+    transform: rotate(90deg);
+  }
+}
+
+.label-custom {
+  color: black;
+  background-color: #eee;
+}
+
+.label {
+  font-size: 0.85em;
+}
+
+.main_category_image {
+  width: 40px;
+  height: 40px;
+  margin: 8px;
+  font-size: 40px;
+  vertical-align: middle;
 }

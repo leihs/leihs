@@ -3,19 +3,19 @@
   .col-xs-6
     .form-group
       %label.col-xs-4.control-label
-        = _('Article / Project')
+        = _('Article or Project')
       .col-xs-8
-        - if @group.inspectable_by? current_user
-          %input.form-control{name: "requests[new_#{i}][article_name]", value: template.article_name, placeholder: _('Article / Project'), autocomplete: :off}
+        - if @category.inspectable_by? current_user
+          %input.form-control{name: "requests[new_#{i}][article_name]", value: template.article_name, placeholder: _('Article or Project'), autocomplete: :off}
         - else
           %input{type: :hidden, name: "requests[new_#{i}][article_name]", value: template.article_name}
           = template.article_name
     .form-group
       %label.col-xs-4.control-label
-        = _('Article nr. / Producer nr.')
+        = _('Article nr. or Producer nr.')
       .col-xs-8
-        - if @group.inspectable_by? current_user
-          %input.form-control{name: "requests[new_#{i}][article_number]", value: template.article_number, placeholder: _('Article nr. / Producer nr.'), autocomplete: :off}
+        - if @category.inspectable_by? current_user
+          %input.form-control{name: "requests[new_#{i}][article_number]", value: template.article_number, placeholder: _('Article nr. or Producer nr.'), autocomplete: :off}
         - else
           %input{type: :hidden, name: "requests[new_#{i}][article_number]", value: template.article_number}
           = template.article_number
@@ -23,7 +23,7 @@
       %label.col-xs-4.control-label
         = _('Supplier')
       .col-xs-8
-        - if @group.inspectable_by? current_user
+        - if @category.inspectable_by? current_user
           %input.form-control{name: "requests[new_#{i}][supplier_name]", value: template.supplier_name, placeholder: _('Supplier'), autocomplete: :off}
         - else
           %input{type: :hidden, name: "requests[new_#{i}][supplier_name]", value: template.supplier_name}
@@ -42,7 +42,7 @@
       %label.col-xs-4.control-label
         = _('Motivation')
       .col-xs-8
-        %input.form-control{name: "requests[new_#{i}][motivation]", placeholder: _('Motivation'), autocomplete: :off, maxlength: 255, title: _('max 255 characters'), data: {toggle: 'tooltip', to_be_required: true}}
+        %textarea.form-control{name: "requests[new_#{i}][motivation]", placeholder: _('Motivation'), autocomplete: :off, maxlength: 255, title: _('max 255 characters'), data: {toggle: 'tooltip', to_be_required: true}}
     .form-group
       %label.col-xs-4.control-label
         = _('Priority')
@@ -67,11 +67,11 @@
         = format('%s %s', _('Item price'), MoneyRails.default_currency)
         %span.small= _('incl. VAT')
       .col-xs-4
-        - if @group.inspectable_by? current_user
+        - if @category.inspectable_by? current_user
           %input.form-control{name: "requests[new_#{i}][price]", type: :number, min: 0, value: template.price.to_i, placeholder: format('%s %s', _('Item price'), _('incl. VAT')), autocomplete: :off}
         - else
           %input{type: :hidden, name: "requests[new_#{i}][price]", value: template.price}
-          .label.label-primary
+          .label.label-custom
             = money_without_cents_and_with_symbol template.price
       -#%input.form-control{name: "requests[new_#{i}][price]", type: :number, min: 0, value: template.price.to_i, placeholder: format('%s %s', _('Item price'), _('incl. VAT')), autocomplete: :off}
       .col-xs-4
@@ -81,14 +81,14 @@
       .col-xs-4
         %input.form-control{name: "requests[new_#{i}][requested_quantity]", type: :number, min: 1, placeholder: _('Requested quantity'), autocomplete: :off, data: {to_be_required: true}}
       .col-xs-4
-    - if @group.inspectable_by? current_user
+    - if @category.inspectable_by? current_user
       .form-group
         %label.col-xs-4.control-label
           = _('Approved quantity')
         .col-xs-4
           %input.form-control{name: "requests[new_#{i}][approved_quantity]", type: :number, min: 0, placeholder: _('Approved quantity'), autocomplete: :off}
         .col-xs-4
-    - if @group.inspectable_by? current_user
+    - if @category.inspectable_by? current_user
       .form-group
         %label.col-xs-4.control-label
           = _('Order quantity')
@@ -101,12 +101,12 @@
         %span.small= _('incl. VAT')
       .col-xs-8
         .label.label-primary.total_price
-    - if @group.inspectable_by? current_user
+    - if @category.inspectable_by? current_user
       .form-group
         %label.col-xs-4.control-label
           = _('Inspection comment')
         .col-xs-8
-          %input.form-control{name: "requests[new_#{i}][inspection_comment]", placeholder: _('Inspection comment'), maxlength: 255, data: {toggle: 'tooltip'}, title: _('max 255 characters')}
+          %textarea.form-control{name: "requests[new_#{i}][inspection_comment]", placeholder: _('Inspection comment'), maxlength: 255, data: {toggle: 'tooltip'}, title: _('max 255 characters')}
     .form-group
       %label.col-xs-4.control-label
         = _('Attachments')

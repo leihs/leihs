@@ -1,11 +1,11 @@
 # rubocop:disable Metrics/ModuleLength
 module FilterSteps
 
-  step 'all groups in the filter groups are selected' do
+  step 'all categories are selected' do
     within '#filter_panel' do
-      within 'select[name="filter[group_ids][]"]', visible: false do
-        Procurement::Group.all.each do |group|
-          expect(find "option[value='#{group.id}']", visible: false).to \
+      within 'select[name="filter[category_ids][]"]', visible: false do
+        Procurement::Category.all.each do |category|
+          expect(find "option[value='#{category.id}']", visible: false).to \
             be_selected
         end
       end
@@ -36,18 +36,11 @@ module FilterSteps
     end
   end
 
-  step 'I do not see the filter "Only show my own requests"' do
-    within '#filter_panel' do
-      expect(page).to have_no_selector 'input[name="user_id"]'
-      expect(page).to have_no_selector('div', text: _('Only show my own requests'))
-    end
-  end
-
   step 'I enter a search string' do
-    @filter ||= {}
+    @filter ||= get_filter
     request = Procurement::Request.where(
       budget_period_id: @filter[:budget_period_ids],
-      group_id: @filter[:group_ids],
+      category_id: @filter[:category_ids],
       priority: @filter[:priorities]
     ).all.sample
     text = request.article_name[0, 6]
@@ -78,8 +71,8 @@ module FilterSteps
 
   step 'I select all :string_with_spaces' do |string_with_spaces|
     text = case string_with_spaces
-           when 'groups'
-               _('Groups')
+           when 'categories'
+               _('Categories')
            when 'budget periods'
                _('Budget periods')
            when 'organisations'
@@ -89,29 +82,29 @@ module FilterSteps
            else
                raise
            end
-    within '#filter_panel .form-group', text: text do
+    within '#filter_panel .form-group', text: text, match: :prefer_exact do
       case string_with_spaces
       when 'states'
           all(:checkbox, minimum: 4).each { |x| x.set true }
       else
           within '.btn-group' do
             find('button.multiselect').click # NOTE open the dropdown
+            expect(current_scope[:class]).to include 'open'
+
             within '.dropdown-menu' do
-              case string_with_spaces
-              when 'organisations'
-                  choose _('All')
-              else
-                  check _('Select all')
-              end
+              check _('Select all')
             end
-            find('button.multiselect').click # NOTE close the dropdown
+
+            # NOTE close the dropdown
+            find("button.multiselect[aria-expanded='true']").click
+            expect(current_scope[:class]).not_to include 'open'
           end
       end
     end
   end
 
   step 'I select both priorities' do
-    @filter ||= {}
+    @filter ||= get_filter
     within '#filter_panel .form-group', text: _('Priority') do
       @filter[:priorities] = all(:checkbox, count: 2).map do |x|
         x.set true
@@ -121,7 +114,7 @@ module FilterSteps
   end
 
   step 'I select one ore both priorities' do
-    @filter ||= {}
+    @filter ||= get_filter
     if [true, false].sample
       step 'I select both priorities'
     else
@@ -135,14 +128,16 @@ module FilterSteps
   end
 
   step 'I select one or more :string_with_spaces' do |string_with_spaces|
-    @filter ||= {}
+    @filter ||= get_filter
     text, key = case string_with_spaces
-                when 'groups'
-                  [_('Groups'), :group_ids]
+                when 'main categories', 'sub categories'
+                  [_('Categories'), :category_ids]
                 when 'budget periods'
                   [_('Budget periods'), :budget_period_ids]
                 when 'states'
                   [_('State of Request'), :states]
+                when 'departments', 'organisations'
+                  [_('Organisations'), :organization_ids]
                 else
                   raise
                 end
@@ -157,11 +152,18 @@ module FilterSteps
           within '.btn-group' do
             find('button.multiselect').click # NOTE open the dropdown
             within '.dropdown-menu' do
-              @filter[key] = all(:checkbox, minimum: 1).sample(2).map do |x|
+              selector = case string_with_spaces
+                         when 'main categories'
+                           "li.multiselect-group input[type='checkbox']"
+                         else
+                           'li:not(.multiselect-group):not(.multiselect-all) ' \
+                           "input[type='checkbox']"
+                         end
+              @filter[key] = all(selector, minimum: 1).sample(2).map do |x|
                 x.set true
                 x[:value]
               end
-              @filter[key].delete('multiselect-all')
+              # @filter[key].delete('multiselect-all')
             end
             find('button.multiselect').click # NOTE close the dropdown
           end
@@ -169,15 +171,32 @@ module FilterSteps
     end
   end
 
-  step 'I select "Only show my own requests"' do
-    within '#filter_panel .form-group', text: _('Requests') do
-      check _('Only show my own requests')
+  step 'I :boolean the filter :special_filter' do |boolean, special_filter|
+    if boolean
+      within '#filter_panel .form-group', text: _('Special filters') do
+        expect(page).to have_selector 'ul label .label', text: _(special_filter)
+      end
+    else
+      expect(page).to have_no_selector \
+        '#filter_panel .form-group ul label .label', text: _(special_filter)
     end
   end
 
-  step 'I select "Only show my own requests" if present' do
-    if has_selector? '#filter_panel .form-group', text: _('Requests')
-      step 'I select "Only show my own requests"'
+  step 'I deselect :special_filter' do |special_filter|
+    within '#filter_panel .form-group', text: _('Special filters') do
+      uncheck _(special_filter)
+    end
+  end
+
+  step 'I select :special_filter' do |special_filter|
+    within '#filter_panel .form-group', text: _('Special filters') do
+      check _(special_filter)
+    end
+  end
+
+  step 'I select "Only my own requests" if present' do
+    if has_selector? '#filter_panel .form-group', text: _('Special filters')
+      step 'I select "Only my own requests"'
     end
   end
 
@@ -194,18 +213,38 @@ module FilterSteps
     end
   end
 
-  step 'only my groups are selected' do
-    my_groups, other_groups = Procurement::Group.all.partition do |group|
-      group.inspectable_by?(@current_user)
+  step 'only my categories are selected' do
+    my_categories, other_categories = \
+    Procurement::Category.all.partition do |category|
+      category.inspectable_by?(@current_user)
     end
     within '#filter_panel' do
-      within 'select[name="filter[group_ids][]"]', visible: false do
-        my_groups.each do |group|
-          expect(find "option[value='#{group.id}']", visible: false).to \
+      within 'select[name="filter[category_ids][]"]', visible: false do
+        my_categories.each do |category|
+          expect(find "option[value='#{category.id}']", visible: false).to \
             be_selected
         end
-        other_groups.each do |group|
-          expect(find "option[value='#{group.id}']", visible: false).not_to \
+        other_categories.each do |category|
+          expect(find "option[value='#{category.id}']", visible: false).not_to \
+            be_selected
+        end
+      end
+    end
+  end
+
+  step 'only categories having requests are selected' do
+    cats_with, cats_without = \
+    Procurement::Category.all.partition do |category|
+      category.requests.exists?
+    end
+    within '#filter_panel' do
+      within 'select[name="filter[category_ids][]"]', visible: false do
+        cats_with.each do |category|
+          expect(find "option[value='#{category.id}']", visible: false).to \
+            be_selected
+        end
+        cats_without.each do |category|
+          expect(find "option[value='#{category.id}']", visible: false).not_to \
             be_selected
         end
       end
@@ -213,7 +252,7 @@ module FilterSteps
   end
 
   step 'the checkbox "Only show my own request" is not marked' do
-    within '#filter_panel .form-group', text: _('Requests') do
+    within '#filter_panel .form-group', text: _('Special filters') do
       expect(find('input[name="user_id"]')).not_to be_checked
     end
   end
@@ -228,16 +267,16 @@ module FilterSteps
     end
   end
 
-  step 'the filter "Only show my own requests" is selected' do
-    within '#filter_panel .form-group', text: _('Requests') do
-      expect(find('input[name="user_id"]')).to be_checked
+  step 'the filter "Only my own requests" is not selected' do
+    within '#filter_panel .form-group', text: _('Special filters') do
+      expect(find('input[name="user_id"]')).not_to be_checked
     end
   end
 
   step 'the filter settings have not changed' do
-    step 'the filter "Only show my own requests" is selected'
+    step 'the filter "Only my own requests" is not selected'
     step 'the current budget period is selected'
-    step 'all groups in the filter groups are selected'
+    step 'all categories are selected'
     step 'all organisations are selected'
     step 'both priorities are selected'
     step 'all states are selected'
@@ -262,5 +301,39 @@ module FilterSteps
       end
     end
   end
+
+  def found_requests
+    @filter ||= get_filter
+    h = { budget_period_id: @filter[:budget_period_ids],
+          category_id: @filter[:category_ids],
+          priority: @filter[:priorities] }
+    h[:user_id] = @filter[:user_id] if @filter[:user_id]
+
+    Procurement::Request.search(@filter[:search]).where(h).select do |r|
+      @filter[:states].map(&:to_sym).include? r.state(@current_user)
+    end
+  end
+
+  def get_filter
+    params_string = page.evaluate_script %{ $('form#filter_panel').serialize() }
+    params_hash = CGI::parse params_string
+    h = { budget_period_ids: params_hash['filter[budget_period_ids][]'],
+          category_ids: params_hash['filter[category_ids][]'],
+          organization_ids: params_hash['filter[organization_ids]'],
+          priorities: params_hash['filter[priorities][]'],
+          states: params_hash['filter[states][]'],
+          search: params_hash['filter[search][]'] }
+    h[:user_id] = @current_user.id unless params_hash['user_id'].blank?
+
+    h[:budget_period_ids].delete('multiselect-all')
+    h[:organization_ids].delete('multiselect-all')
+
+    if h[:search].blank?
+      h.delete(:search)
+    end
+
+    h
+  end
+
 end
 # rubocop:enable Metrics/ModuleLength

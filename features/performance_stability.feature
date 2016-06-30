@@ -17,12 +17,12 @@ Feature: Leihs must perform acceptably for its users
 
   Scenario: Approve an order with a lot of reservations should remain acceptable
     Given the huge dump is loaded
-    Then approve each submitted contract with more than 100 reservations should take maximum 1.0 seconds
+    Then approve each submitted contract with more than 100 reservations should take maximum 2.0 seconds
 
   Scenario: Approvable check on single reservation
     Given the huge dump is loaded
-    Then approvable check on single approvable reservation should take maximum 0.5 seconds
+    Then approvable check on single approvable reservation should take maximum 0.6 seconds
 
   Scenario: Availability check on single reservation
     Given the huge dump is loaded
-    Then availability check on single submitted reservation should take maximum 0.6 seconds
+    Then availability check on single submitted reservation should take maximum 1.0 seconds

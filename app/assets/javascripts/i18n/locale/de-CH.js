@@ -4069,9 +4069,9 @@ window.i18n.locale_data = {
          null,
          "Max. 255 Zeichen"
       ],
-      "Article / Project": [
+      "Article or Project": [
          null,
-         "Artikel / Projekt"
+         "Artikel oder Projekt"
       ],
       "Procurement": [
          null,
@@ -4081,9 +4081,9 @@ window.i18n.locale_data = {
          null,
          "Frage zum Beschaffungsantrag"
       ],
-      "Article nr. / Producer nr.": [
+      "Article nr. or Producer nr.": [
          null,
-         "Artikelnr. / Herstellernr."
+         "Artikelnr. oder Herstellernr."
       ],
       "Replacement": [
          null,
@@ -4141,7 +4141,7 @@ window.i18n.locale_data = {
          null,
          "Sie haben nicht gespeicherte Daten. Möchten Sie diese löschen?"
       ],
-      "Only show my own requests": [
+      "Only my own requests": [
          null,
          "Nur eigene Anträge anzeigen"
       ],
@@ -4149,9 +4149,9 @@ window.i18n.locale_data = {
          null,
          "Artikel hinzufügen"
       ],
-      "Create request for this group": [
+      "Create request for this category": [
          null,
-         "Antrag für diese Gruppe erfassen"
+         "Antrag für diese Kategorie erfassen"
       ],
       "Create request for another user": [
          null,
@@ -4205,27 +4205,27 @@ window.i18n.locale_data = {
          null,
          "Total aller bewilligten Anträge"
       ],
-      "Create request by choosing a group or recommended article or project": [
+      "Create request by choosing an article or project": [
          null,
-         "Zuerst Gruppe, Artikel oder Projekt auswählen und Antrag erstellen"
+         "Artikel oder Projekt auswählen und Antrag erstellen"
       ],
       "Current total of budget period": [
          null,
          "Aktuelles total dieser Budgetperiode"
       ],
-      "Current total of group": [
+      "Current total of category": [
          null,
-         "Aktuelles Gruppentotal"
+         "Aktuelles Total der Kategorie"
       ],
-      "Limit of group for this budget period": [
+      "Current total of selected requests": [
          null,
-         "Gruppenlimite dieser Budgetperiode"
+         "Aktuelles Total der selektierten Anträge"
       ],
-      "% used (group limit - current group total)": [
+      "% used (category limit - total of selected requests)": [
          null,
-         "% verbraucht (Gruppenlimite - aktuelles Gruppentotal)"
+         "% verbraucht (Kategorielimite - Total der selektierten Anträge)"
       ],
-      "Add new article or project to category": [
+      "Add new article to category": [
          null,
          "Der Kategorie einen neuen Artikel oder ein neues Projekt hinzufügen"
       ],

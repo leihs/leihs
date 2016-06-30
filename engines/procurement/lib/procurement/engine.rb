@@ -1,6 +1,6 @@
 require 'rails-assets-bootstrap'
 require 'rails-assets-jquery-tokeninput'
-require 'rails-assets-bootstrap-multiselect'
+# require 'rails-assets-bootstrap-multiselect'
 # require "font-awesome-sass"
 require 'acts_as_tree'
 require 'paperclip'

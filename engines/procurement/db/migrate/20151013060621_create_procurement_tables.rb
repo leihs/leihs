@@ -1,5 +1,5 @@
 class CreateProcurementTables < ActiveRecord::Migration
-  def change
+  def up
 
     create_table :procurement_budget_periods do |t|
       t.string :name,                 null: false
@@ -27,7 +27,6 @@ class CreateProcurementTables < ActiveRecord::Migration
     create_table :procurement_group_inspectors do |t|
       t.belongs_to :user, foreign_key: true
       t.belongs_to :group
-      # TODO deleted_at ??
 
       t.index [:user_id, :group_id], unique: true
     end

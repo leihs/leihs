@@ -14,3 +14,13 @@ placeholder :boolean do
     true
   end
 end
+
+placeholder :confirm do
+  match ', confirming to leave the page' do
+    true
+  end
+
+  match '' do
+    false
+  end
+end

@@ -398,6 +398,9 @@ msgstr ""
 msgid "Delete %s"
 msgstr ""
 
+msgid "Delete line"
+msgstr ""
+
 msgid "Delete Selection"
 msgstr ""
 
@@ -1119,6 +1122,9 @@ msgid "Requested Items"
 msgstr ""
 
 msgid "Reservation"
+msgstr ""
+
+msgid "Contact"
 msgstr ""
 
 msgid "Contact person"
@@ -3040,7 +3046,7 @@ msgstr ""
 msgid "max 255 characters"
 msgstr ""
 
-msgid "Article / Project"
+msgid "Article or Project"
 msgstr ""
 
 msgid "Procurement"
@@ -3049,13 +3055,16 @@ msgstr ""
 msgid "Inquiry to procurement request"
 msgstr ""
 
-msgid "Article nr. / Producer nr."
+msgid "Article nr. or Producer nr."
 msgstr ""
 
 msgid "Replacement"
 msgstr ""
 
 msgid "Choose an article/project"
+msgstr ""
+
+msgid "Choose an article or a category"
 msgstr ""
 
 msgid "Request moved"
@@ -3094,13 +3103,22 @@ msgstr ""
 msgid "You have unsaved data. Would you like to delete the data?"
 msgstr ""
 
-msgid "Only show my own requests"
+msgid "Special filters"
 msgstr ""
 
-msgid "Add article"
+msgid "Only my own requests"
 msgstr ""
 
-msgid "Create request for this group"
+msgid "Only my own categories"
+msgstr ""
+
+msgid "Only categories with requests"
+msgstr ""
+
+msgid "New line (Add Article or Project)"
+msgstr ""
+
+msgid "Create request for this category"
 msgstr ""
 
 msgid "Create request for another user"
@@ -3124,7 +3142,7 @@ msgstr ""
 msgid "Current budget period not defined yet"
 msgstr ""
 
-msgid "No groups defined yet"
+msgid "No categories defined yet"
 msgstr ""
 
 msgid "No admins defined yet"
@@ -3142,22 +3160,22 @@ msgstr ""
 msgid "Total of all approved requests"
 msgstr ""
 
-msgid "Create request by choosing a group or recommended article or project"
+msgid "Create request by choosing an article or project"
 msgstr ""
 
 msgid "Current total of budget period"
 msgstr ""
 
-msgid "Current total of group"
+msgid "Current total of category"
 msgstr ""
 
-msgid "Limit of group for this budget period"
+msgid "Current total of selected requests"
 msgstr ""
 
-msgid "% used (group limit - current group total)"
+msgid "% used (category limit - total of selected requests)"
 msgstr ""
 
-msgid "Add new article or project to category"
+msgid "Add new article to category"
 msgstr ""
 
 msgid "Delete category with all it's articles/projects"
@@ -3165,3 +3183,28 @@ msgstr ""
 
 msgid "Add new requester"
 msgstr ""
+
+msgid "Main category"
+msgstr ""
+
+msgid "Subcategory"
+msgstr ""
+
+msgid "Subcategories"
+msgstr ""
+
+msgid "Add new main category"
+msgstr ""
+
+msgid "Add new subcategory"
+msgstr ""
+
+msgid "Delete main category"
+msgstr ""
+
+msgid "Delete subcategory"
+msgstr ""
+
+msgid "Choose a suggested article or a category"
+msgstr ""
+

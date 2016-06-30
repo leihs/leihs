@@ -4,31 +4,27 @@
       %i.fa.fa-calendar
       = budget_period.name
       - if @user == current_user and not budget_period.past?
-        %a{href: new_user_budget_period_request_path(@user, budget_period), title: _('Add article'), data: {toggle: 'tooltip'}}
+        %a{href: new_user_budget_period_request_path(@user, budget_period), title: _('New line (Add Article or Project)'), data: {toggle: 'tooltip'}}
           %i.fa.fa-plus-circle
-    - if @user and @group
+    - if @user and @category
       = render partial: 'procurement/budget_periods/phases', locals: {budget_period: budget_period}
 
-  .col-xs-3
-    - if @group
+  .col-xs-4
+    - if @category
       %h4
-        %i.fa.fa-shopping-cart
-        = @group
-      - if @user
-        - if @group.email
-          %a{href: "mailto:#{@group.email}?subject=#{_('Inquiry to procurement request')} (#{@group.name})"}
-            %b
-              = succeed ':' do
-                %i.fa.fa-envelope
-                = _('Inspectors')
+        - if @category.main_category.image.exists?
+          %img{src: @category.main_category.image.url}
         - else
-          %b
-            = succeed ':' do
-              = _('Inspectors')
-        - @group.inspectors.each do |inspector|
-          %div{style: 'padding-left: 1em'}
-            %i.fa.fa-user-md
-            = inspector
+          %i.fa.fa-outdent
+        = @category.name
+
+      %b
+        = succeed ':' do
+          = _('Inspectors')
+      - @category.inspectors.each do |inspector|
+        %div{style: 'padding-left: 1em'}
+          %i.fa.fa-user-md
+          = inspector
 
   .col-xs-3
     - if @user
@@ -41,7 +37,7 @@
           %i.fa.fa-warning
           = _('Not a requester')
 
-  .col-xs-3.text-right
+  .col-xs-2.text-right
     - if requests
       - total_price = requests.map {|r| r.total_price(current_user) }.sum
       -#old#- if @user.nil? and @group and @group.inspectable_or_readable_by?(current_user)
@@ -54,6 +50,6 @@
           = money_without_cents_and_with_symbol budget_limit_amount
         %br
 
-      .label.label-primary.big_total_price{title: _('Current total of group'), data: {toggle: 'tooltip'}}
+      .label.label-primary.big_total_price{title: _('Current total of category'), data: {toggle: 'tooltip'}}
         %i.fa.fa-shopping-cart
         = money_without_cents_and_with_symbol total_price
