@@ -3210,7 +3210,7 @@ msgid "Only my own categories"
 msgstr "Nur eigene Kategorien"
 
 msgid "Only categories with requests"
-msgstr "Nur Kagetorien mit Anträgen"
+msgstr "Nur Kategorien mit Anträgen"
 
 msgid "New line (Add Article or Project)"
 msgstr "Neue Linie (Artikel oder Projekt hinzufügen)"
