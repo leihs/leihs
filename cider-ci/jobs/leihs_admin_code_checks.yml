@@ -12,7 +12,7 @@ jobs:
         exclude_match: '.*no-ci.*$'
 
     context:
-      include: cider-ci_v4/shared/main_context.yml
+      include: cider-ci/shared/main_context.yml
 
       tasks:
         lint_ruby:

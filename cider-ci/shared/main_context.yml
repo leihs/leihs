@@ -4,7 +4,7 @@ script_defaults:
 
 task_defaults:
 
-  include: cider-ci_v4/task_components/bundle_rspec_ruby.yml
+  include: cider-ci/task_components/bundle_rspec_ruby.yml
 
   environment_variables:
     RUBY_ENGINE: ruby

@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'yaml'
+require 'pry'
 
 DEFAULT_BROWSER = ENV['DEFAULT_BROWSER'] ? ENV['DEFAULT_BROWSER'] : :firefox # [:firefox, :chrome].sample
 CI_SCENARIOS_PER_TASK = (ENV['CI_SCENARIOS_PER_TASK'] || 1).to_i
@@ -9,9 +10,9 @@ ENGINES = ['leihs_admin', 'procurement']
 def task_hash(name, exec)
   h = { 'name' => name,
         'scripts' => {
-            'test' => {
-                'body' => exec
-            }
+          'test' => {
+            'body' => "set -eux\nexport PATH=~/.rubies/$RUBY/bin:$PATH\nmkdir -p log\n#{exec}"
+          }
         }
       }
   h
@@ -78,11 +79,12 @@ def create_scenario_tasks(filepath, feature_files_paths, test_with, tags: nil, e
       require = k =~ /^engines/ ? "-r engines/**/features" : nil
       v.each_slice(CI_SCENARIOS_PER_TASK) do |lines|
         path = ([k] + lines).join(':')
+        xvfb = "xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24'"
         case test_with
         when :cucumber
-          exec = "DISPLAY=\":$XVNC_PORT\" bundle exec cucumber -p default %s #{STRICT_MODE ? "--strict " : nil}%s DEFAULT_BROWSER=%s" % [require, path, DEFAULT_BROWSER]
+          exec = "#{xvfb} bundle exec cucumber -p default %s #{STRICT_MODE ? "--strict " : nil}%s DEFAULT_BROWSER=%s" % [require, path, DEFAULT_BROWSER]
         when :rspec
-          exec = "DISPLAY=\":$XVNC_PORT\" bundle exec rspec #{path}"
+          exec = "#{xvfb} bundle exec rspec #{path}"
         else
           raise 'Undefined testing framework'
         end

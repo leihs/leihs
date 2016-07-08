@@ -26,9 +26,8 @@ jobs:
       task_defaults:
         max_trials: 10
         include:
-          - cider-ci_v4/task_components/database.yml
-          - cider-ci_v4/task_components/precompile_assets.yml
+          - cider-ci/task_components/database.yml
 
       include:
-        - cider-ci_v4/shared/main_context.yml
-        - cider-ci_v4/tasks/borrow_problematic_scenarios.yml
+        - cider-ci/shared/main_context.yml
+        - cider-ci/tasks/borrow_problematic_scenarios.yml

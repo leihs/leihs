@@ -1,18 +1,18 @@
 jobs:
-  procurement_code_checks:
+  borrow_manage_code_checks:
 
-    name: 'Procurement: Code Checks'
+    name: 'Borrow/Manage: Code Checks'
 
     description: 'Run static checks and metrics: complexity, duplication, code format'
 
     run_when:
-      branch name matches master or procurement:
+      branch name matches master or manage or borrow:
         type: branch
-        include_match: '^(.*master.*|[a-z]*/procurement_.*)$'
+        include_match: '^(.*master.*|[a-z]*/(borrow|manage)_.*)$'
         exclude_match: '.*no-ci.*$'
 
     context:
-      include: cider-ci_v4/shared/main_context.yml
+      include: cider-ci/shared/main_context.yml
 
       tasks:
         lint_ruby:
@@ -22,4 +22,4 @@ jobs:
               body: |
                 set -eux
                 export PATH=~/.rubies/$RUBY/bin:$PATH
-                bundle exec rubocop engines/procurement/ -c engines/procurement/.rubocop.yml
+                bundle exec rubocop

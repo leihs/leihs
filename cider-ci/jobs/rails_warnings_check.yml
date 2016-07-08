@@ -16,11 +16,11 @@ jobs:
     context:
 
       include:
-        - cider-ci_v4/shared/main_context.yml
+        - cider-ci/shared/main_context.yml
 
       task_defaults:
         include:
-          - cider-ci_v4/task_components/database.yml
+          - cider-ci/task_components/database.yml
 
       tasks:
         count_stderr_lines:
@@ -28,4 +28,4 @@ jobs:
           name: 'Count if number of STDERR lines greater than 0'
           scripts:
             test:
-              body: cider-ci_v4/bin/check_rails_warnings.rb
+              body: cider-ci/bin/check_rails_warnings.rb

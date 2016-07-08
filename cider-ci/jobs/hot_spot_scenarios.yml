@@ -11,9 +11,8 @@ jobs:
       task_defaults:
         max_trials: 3
         include:
-          - cider-ci_v4/task_components/database.yml
-          - cider-ci_v4/task_components/precompile_assets.yml
+          - cider-ci/task_components/database.yml
 
       include:
-        - cider-ci_v4/shared/main_context.yml
+        - cider-ci/shared/main_context.yml
         - cider-ci/tasks/hot_spot_scenarios.yml
