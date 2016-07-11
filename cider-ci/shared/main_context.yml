@@ -12,8 +12,6 @@ task_defaults:
     RUBY: '{{RUBY_ENGINE}}-{{RUBY_VERSION}}'
     RAILS_ENV: test
 
-  max_trials: 3
-
   trial_attachments:
     screenshots:
       include_match: tmp\/capybara\/.*\.png$

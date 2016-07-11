@@ -6,9 +6,11 @@ include:
 
   ## BORROW - on branches foo/borrow_bar
   - cider-ci/jobs/borrow_scenarios.yml
+  - cider-ci/jobs/borrow_problematic_scenarios.yml
 
   ## MANAGE - on branches foo/manage_bar
   - cider-ci/jobs/manage_scenarios.yml
+  - cider-ci/jobs/manage_problematic_scenarios.yml
 
   ## ADMIN - on branches foo/admin_bar
   - cider-ci/jobs/leihs_admin_scenarios.yml

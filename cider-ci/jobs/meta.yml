@@ -43,7 +43,7 @@ jobs:
         states: [passed]
 
     context:
-      task-defaults:
+      task_defaults:
         max_trials: 1
         traits:
           Ruby: true

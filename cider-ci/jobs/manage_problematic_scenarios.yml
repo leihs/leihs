@@ -23,11 +23,11 @@ jobs:
 
     context:
 
+      include:
+        - cider-ci/shared/main_context.yml
+        - cider-ci/tasks/manage_problematic_scenarios.yml
+
       task_defaults:
         max_trials: 10
         include:
           - cider-ci/task_components/database.yml
-
-      include:
-        - cider-ci/shared/main_context.yml
-        - cider-ci/tasks/manage_problematic_scenarios.yml
