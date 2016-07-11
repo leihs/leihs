@@ -68,7 +68,7 @@ Feature: Create model with packages
     And I add one or more items to this package
 
   #74210792
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Entering package properties for newly created models
     When I add a package to a model
     And I add one or more items to this package

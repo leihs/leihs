@@ -22,7 +22,7 @@ Feature: Purpose
     When I edit an order
     Then I can edit the purpose
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Handing over items will copy the existing purposes to any blank purposes
     When I open a hand over
      And I click an inventory code input field of an item line

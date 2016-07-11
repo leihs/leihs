@@ -23,7 +23,7 @@ Feature: Calendar view in the manage section
      Then there is no limit on augmenting the quantity, thus I can overbook
      And the hand over can be saved
 
-  @personas @javascript @browser
+  @personas @javascript @browser @problematic
   Scenario: Unavailable time spans
     Given I am doing a hand over
      And a model is no longer available

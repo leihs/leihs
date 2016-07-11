@@ -97,7 +97,7 @@ Feature: Lending
     When I open a hand over
     Then start and end date are set to the corresponding dates of the hand over's first time window
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Show all search results
     Given I search for 'a'
     Then I see search results in the following categories:

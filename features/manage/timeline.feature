@@ -14,7 +14,7 @@ Feature: Model availability Timeline
     When I open the inventory
     Then for each visible model I can see the Timeline
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: open timeline in pending orders as group-manager
     Given I am Andi
     When I open a contract for acknowledgement
