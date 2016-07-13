@@ -50,7 +50,4 @@ jobs:
         exclude_match: '.*no-ci.*$'
 
     context:
-      tasks:
-        all:
-          scripts:
-            body: echo 'Yay, all dependencies have passed!'
+      task: "echo 'All dependencies have passed' ; exit 0"
