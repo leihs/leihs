@@ -18,7 +18,7 @@ jobs:
     context:
 
       task_defaults:
-        max_trials: 3
+        max_trials: 4
         include:
           - cider-ci/task_components/database.yml
 
