@@ -85,7 +85,7 @@ Feature: Model list
     Then the end date is automatically set to the next day
     And the list is filtered by models that are available in that time frame
 
-  @javascript @personas
+  @javascript @personas @problematic
   Scenario: Specifying the end date of an order
     Given I am Petra
     When I am listing models and some of them are unavailable
