@@ -1,6 +1,6 @@
 Feature: Model availability Timeline
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Where is visible the timeline
     Given I am Mike
     When I open a contract for acknowledgement

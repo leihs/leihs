@@ -616,6 +616,14 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/take_back/edit_take_back_end_date.feature:18 DEFAULT_BROWSER=firefox
+- name: features/manage/timeline.feature:4
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/timeline.feature:4 DEFAULT_BROWSER=firefox
 - name: features/manage/timeline.feature:18
   scripts:
     test:
