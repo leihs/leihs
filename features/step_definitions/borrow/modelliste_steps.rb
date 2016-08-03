@@ -257,7 +257,7 @@ Then(/^I see the models of the selected category$/) do
   category = Category.find Rack::Utils.parse_nested_query(URI.parse(current_url).query)['category_id']
   models = @current_user.models.borrowable.from_category_and_all_its_descendants(@category)
   within '#model-list' do
-    find('.line[data-id]')
+    find('.line[data-id]', match: :first)
     all('.line[data-id]').each do |model_line|
       model = Model.find model_line['data-id']
       expect(models.include? model).to be true

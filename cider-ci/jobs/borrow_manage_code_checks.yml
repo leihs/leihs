@@ -9,7 +9,7 @@ jobs:
       branch name matches master or manage or borrow:
         type: branch
         include_match: '^(.*master.*|[a-z]*/(borrow|manage)_.*)$'
-        exclude_match: '.*no-ci.*$'
+        exclude_match: '.*(no-ci|hotspot).*$'
 
     context:
       include: cider-ci/shared/main_context.yml
