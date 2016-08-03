@@ -19,6 +19,7 @@ When(/^I add an existing model to the order$/) do
 end
 
 Then(/^the calendar opens$/) do
+  find('.modal')
   within '.modal' do
     find('#booking-calendar .fc-day-content', match: :first)
   end
