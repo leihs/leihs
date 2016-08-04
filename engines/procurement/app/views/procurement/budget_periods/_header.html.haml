@@ -13,9 +13,9 @@
     - if @category
       %h4
         - if @category.main_category.image.exists?
-          %img{src: @category.main_category.image.url}
+          %img.main_category_image{src: @category.main_category.image.url}
         - else
-          %i.fa.fa-outdent
+          %i.fa.fa-outdent.main_category_image{style: 'font-size: 30px'}
         = @category.name
 
       %b

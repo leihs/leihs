@@ -42,7 +42,7 @@
             - if main_category.image.exists?
               %img.main_category_image{src: main_category.image.url}
             - else
-              %i.fa.fa-outdent.main_category_image
+              %i.fa.fa-outdent.main_category_image{style: 'font-size: 30px'}
             = main_category.name
           .col-sm-1
             - total_price = requests.select{|r| main_category.category_ids.include? r.category_id }.map {|r| r.total_price(current_user) }.sum
