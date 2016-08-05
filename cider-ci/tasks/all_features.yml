@@ -1,45 +1,109 @@
 ---
 tasks:
-- name: acknowledge
+- name: _OLD/acknowledge
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/acknowledge.feature"
-- name: automatic_email_notification
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/_OLD/acknowledge.feature"
+- name: _OLD/availability_caching
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/automatic_email_notification.feature"
-- name: availability_caching
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/_OLD/availability_caching.feature"
+- name: _OLD/category
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/availability_caching.feature"
-- name: availability_inventory_pool_story
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/_OLD/category.feature"
+- name: _OLD/frontend
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/availability_inventory_pool_story.feature"
-- name: availability_story
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/_OLD/frontend.feature"
+- name: _OLD/hand_over_story
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/availability_story.feature"
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/_OLD/hand_over_story.feature"
+- name: _OLD/home
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/_OLD/home.feature"
+- name: _OLD/inventory_creation
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/_OLD/inventory_creation.feature"
+- name: _OLD/mail
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/_OLD/mail.feature"
+- name: _OLD/package
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/_OLD/package.feature"
+- name: _OLD/search
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/_OLD/search.feature"
+- name: _OLD/search_complete
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/_OLD/search_complete.feature"
+- name: _OLD/take_back_story
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/_OLD/take_back_story.feature"
+- name: _OLD/work_days_story
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/_OLD/work_days_story.feature"
 - name: borrow/availability
   scripts:
     test:
@@ -200,70 +264,6 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/borrow/view_my_user_data.feature"
-- name: category
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/category.feature"
-- name: email_templates
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/email_templates.feature"
-- name: frontend
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/frontend.feature"
-- name: groups
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/groups.feature"
-- name: hand_over_story
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/hand_over_story.feature"
-- name: home
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/home.feature"
-- name: inventory_creation
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/inventory_creation.feature"
-- name: inventory_story
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/inventory_story.feature"
 - name: login/database_login
   scripts:
     test:
@@ -280,22 +280,6 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/login/login.feature"
-- name: mail
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/mail.feature"
-- name: mail_templates
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/mail_templates.feature"
 - name: manage/acknowledge/add_item
   scripts:
     test:
@@ -360,14 +344,14 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/availability/allocating.feature"
-- name: manage/availability
+- name: manage/availability/availability
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/availability.feature"
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/availability/availability.feature"
 - name: manage/booking_calendar/availability_changes
   scripts:
     test:
@@ -400,22 +384,6 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/calendar.feature"
-- name: manage/categories
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/categories.feature"
-- name: manage/change_borrower
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/change_borrower.feature"
 - name: manage/change_language
   scripts:
     test:
@@ -424,70 +392,22 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/change_language.feature"
-- name: manage/change_orderer
+- name: manage/contract/contracts
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/change_orderer.feature"
-- name: manage/contract
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/contract/contracts.feature"
+- name: manage/daily_view/daily_view
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/contract.feature"
-- name: manage/contracts
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/contracts.feature"
-- name: manage/copy_item
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/copy_item.feature"
-- name: manage/copy_software
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/copy_software.feature"
-- name: manage/create_item
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/create_item.feature"
-- name: manage/create_model_with_packages
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/create_model_with_packages.feature"
-- name: manage/create_software
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/create_software.feature"
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/daily_view/daily_view.feature"
 - name: manage/daily_view/item_hover
   scripts:
     test:
@@ -496,14 +416,6 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/daily_view/item_hover.feature"
-- name: manage/daily_view
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/daily_view.feature"
 - name: manage/delegation
   scripts:
     test:
@@ -512,22 +424,6 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/delegation.feature"
-- name: manage/delegation_mail
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/delegation_mail.feature"
-- name: manage/delete_software
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/delete_software.feature"
 - name: manage/displaying_problems
   scripts:
     test:
@@ -536,22 +432,6 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/displaying_problems.feature"
-- name: manage/edit_item
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/edit_item.feature"
-- name: manage/edit_software
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/edit_software.feature"
 - name: manage/explorative_search
   scripts:
     test:
@@ -560,14 +440,6 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/explorative_search.feature"
-- name: manage/groups
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/groups.feature"
 - name: manage/hand_over/add
   scripts:
     test:
@@ -592,6 +464,14 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/hand_over/calendar.feature"
+- name: manage/hand_over/change_borrower
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/hand_over/change_borrower.feature"
 - name: manage/hand_over/delete
   scripts:
     test:
@@ -608,6 +488,14 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/hand_over/edit_reservation.feature"
+- name: manage/hand_over/hand_over
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/hand_over/hand_over.feature"
 - name: manage/hand_over/sign_contract
   scripts:
     test:
@@ -616,54 +504,126 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/hand_over/sign_contract.feature"
-- name: manage/hand_over
+- name: manage/inventory/categories
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/hand_over.feature"
-- name: manage/inventory
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory/categories.feature"
+- name: manage/inventory/copy_item
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory.feature"
-- name: manage/inventory_csv_export
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory/copy_item.feature"
+- name: manage/inventory/create_item
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory_csv_export.feature"
-- name: manage/inventory_helper
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory/create_item.feature"
+- name: manage/inventory/create_model_with_packages
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory_helper.feature"
-- name: manage/inventory_pool_basic_information
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory/create_model_with_packages.feature"
+- name: manage/inventory/edit_item
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory_pool_basic_information.feature"
-- name: manage/inventory_pool_settings
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory/edit_item.feature"
+- name: manage/inventory/inventory
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory_pool_settings.feature"
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory/inventory.feature"
+- name: manage/inventory/inventory_csv_export
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory/inventory_csv_export.feature"
+- name: manage/inventory/inventory_helper
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory/inventory_helper.feature"
+- name: manage/inventory/model
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory/model.feature"
+- name: manage/inventory/model_properties
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory/model_properties.feature"
+- name: manage/inventory/option
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory/option.feature"
+- name: manage/inventory/retire_item
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory/retire_item.feature"
+- name: manage/inventory_pool/groups
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory_pool/groups.feature"
+- name: manage/inventory_pool/inventory_pool_basic_information
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory_pool/inventory_pool_basic_information.feature"
+- name: manage/inventory_pool/inventory_pool_settings
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/inventory_pool/inventory_pool_settings.feature"
 - name: manage/lending/day_navigation
   scripts:
     test:
@@ -696,14 +656,30 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/linegroup/selection.feature"
-- name: manage/manage_orders
+- name: manage/mails/delegation_mail
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/manage_orders.feature"
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/mails/delegation_mail.feature"
+- name: manage/mails/email_templates
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/mails/email_templates.feature"
+- name: manage/mails/mail_templates
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/mails/mail_templates.feature"
 - name: manage/manage_templates
   scripts:
     test:
@@ -720,22 +696,6 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/manage_users.feature"
-- name: manage/model
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/model.feature"
-- name: manage/model_properties
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/model_properties.feature"
 - name: manage/navigation
   scripts:
     test:
@@ -752,22 +712,38 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/not_logged_in_information.feature"
-- name: manage/option
+- name: manage/order/change_orderer
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/option.feature"
-- name: manage/orders
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/order/change_orderer.feature"
+- name: manage/order/contract
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/orders.feature"
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/order/contract.feature"
+- name: manage/order/manage_orders
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/order/manage_orders.feature"
+- name: manage/order/orders
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/order/orders.feature"
 - name: manage/picking_list
   scripts:
     test:
@@ -784,14 +760,6 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/purpose.feature"
-- name: manage/retire_item
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/retire_item.feature"
 - name: manage/search
   scripts:
     test:
@@ -800,6 +768,46 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/search.feature"
+- name: manage/settings
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/settings.feature"
+- name: manage/software/copy_software
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/software/copy_software.feature"
+- name: manage/software/create_software
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/software/create_software.feature"
+- name: manage/software/delete_software
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/software/delete_software.feature"
+- name: manage/software/edit_software
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/software/edit_software.feature"
 - name: manage/software/search_for_software
   scripts:
     test:
@@ -832,14 +840,14 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/take_back/edit_take_back_end_date.feature"
-- name: manage/take_back
+- name: manage/take_back/take_back
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/take_back.feature"
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/take_back/take_back.feature"
 - name: manage/timeline
   scripts:
     test:
@@ -888,54 +896,30 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/manage/visits.feature"
-- name: package
+- name: technical/automatic_email_notification
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/package.feature"
-- name: performance_stability
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/technical/automatic_email_notification.feature"
+- name: technical/availability_inventory_pool_story
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/performance_stability.feature"
-- name: search
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/technical/availability_inventory_pool_story.feature"
+- name: technical/availability_story
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/search.feature"
-- name: search_complete
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/search_complete.feature"
-- name: settings
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/settings.feature"
-- name: take_back_story
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/take_back_story.feature"
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/technical/availability_story.feature"
 - name: technical/categories
   scripts:
     test:
@@ -1024,6 +1008,14 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/technical/field/provide_accessible_fields_model.feature"
+- name: technical/groups
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/technical/groups.feature"
 - name: technical/inventory_pool/hand_over_visits_model
   scripts:
     test:
@@ -1040,6 +1032,14 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/technical/inventory_pool/take_back_visits_model.feature"
+- name: technical/inventory_story
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/technical/inventory_story.feature"
 - name: technical/item/search_model
   scripts:
     test:
@@ -1072,6 +1072,14 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/technical/mailer/mailer_settings.feature"
+- name: technical/performance_stability
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/technical/performance_stability.feature"
 - name: technical/purpose/purpose
   scripts:
     test:
@@ -1144,11 +1152,3 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/technical/visit/visits_controller.feature"
-- name: work_days_story
-  scripts:
-    test:
-      body: |-
-        set -eux
-        export PATH=~/.rubies/$RUBY/bin:$PATH
-        mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "features/work_days_story.feature"
