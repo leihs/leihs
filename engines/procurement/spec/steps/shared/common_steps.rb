@@ -714,6 +714,23 @@ module CommonSteps
     end
   end
 
+  step 'I press on the first main category inside of the last budget period' do
+    @budget_period = Procurement::BudgetPeriod.all.sort_by(&:end_date).first
+    @main_category = Procurement::MainCategory.all.sort_by(&:name).first
+    @main_category_element = \
+      find('.panel', text: @budget_period.name)
+        .find('.main_category', text: @main_category.name)
+    @main_category_element.click
+  end
+
+  step 'I see the sub-categories of this main category' do
+    within "#collapse_mc_#{@budget_period.id}_#{@main_category.id}" do
+      @main_category.categories.each do |c|
+        find('.row', text: c.name)
+      end
+    end
+  end
+
   def number_with_delimiter(n)
     ActionController::Base.helpers.number_with_delimiter(n)
   end

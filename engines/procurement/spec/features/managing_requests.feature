@@ -439,3 +439,17 @@ Feature: section Managing Requests
     And I see the following request information
       | approved amount    |
       | inspection comment |
+
+  # this scenario should test that the correct category is
+  # expanded upon click given that this category is displayed
+  # inside of several budget periods
+  @managing_requests
+  Scenario: Correct expansion of the category, which was clicked
+    Given I am Hans Ueli
+    And several categories exist
+    And several template articles in sub categories exist
+    And several budget periods exist
+    And I navigate to the requests overview page
+    And I select all budget periods
+    When I press on the first main category inside of the last budget period
+    Then I see the sub-categories of this main category
