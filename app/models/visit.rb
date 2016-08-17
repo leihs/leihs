@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A Visit is an event on a particular date, on which a specific
 # customer should come to pick up or return items - or from the other perspective:
 # when an inventory pool manager should hand over some items to

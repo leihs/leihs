@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # No MySQL table, reading a query result
 class ReservationsBundle < ActiveRecord::Base
   include Delegation::ReservationsBundle
@@ -17,31 +19,38 @@ class ReservationsBundle < ActiveRecord::Base
     # NOTE: MAX(reservations.status) AS status
     # this is a trick to get 'signed' in case
     # there are both 'signed' and 'closed' reservations
-    select('IFNULL(reservations.contract_id, ' \
-                  "CONCAT_WS('_', " \
-                    'reservations.status, ' \
-                    'reservations.user_id, ' \
-                    'reservations.inventory_pool_id)) AS id, ' \
-           'MAX(reservations.status) AS status, ' \
-           'reservations.user_id, ' \
-           'reservations.inventory_pool_id, ' \
-           'reservations.delegated_user_id, ' \
-           'IF(SUM(groups.is_verification_required) > 0, 1, 0) ' \
-             'AS verifiable_user, ' \
-           'COUNT(partitions.id) > 0 AS verifiable_user_and_model, ' \
-           'MAX(reservations.created_at) AS created_at')
-      .joins('LEFT JOIN (groups_users, groups) ' \
-             'ON reservations.user_id = groups_users.user_id ' \
-               'AND groups_users.group_id = groups.id ' \
-               'AND groups.is_verification_required = 1 ' \
-               'AND reservations.inventory_pool_id = groups.inventory_pool_id')
-      .joins('LEFT JOIN partitions ' \
-             'ON partitions.group_id = groups.id ' \
-               'AND partitions.model_id = reservations.model_id')
-      .group('IFNULL(reservations.contract_id, reservations.status), ' \
-             'reservations.user_id, ' \
-             'reservations.inventory_pool_id')
-      .order(nil)
+    select(<<-SQL)
+      IFNULL(reservations.contract_id,
+             CONCAT_WS('_',
+                       reservations.status,
+                       reservations.user_id,
+                       reservations.inventory_pool_id)) AS id,
+      MAX(reservations.status) AS status,
+      reservations.user_id,
+      reservations.inventory_pool_id,
+      reservations.delegated_user_id,
+      IF(SUM(groups.is_verification_required) > 0, 1, 0) AS verifiable_user,
+      COUNT(partitions.id) > 0 AS verifiable_user_and_model,
+      MAX(reservations.created_at) AS created_at
+    SQL
+    .joins(<<-SQL)
+      LEFT JOIN (groups_users, groups)
+      ON reservations.user_id = groups_users.user_id
+      AND groups_users.group_id = groups.id
+      AND groups.is_verification_required = 1
+      AND reservations.inventory_pool_id = groups.inventory_pool_id
+    SQL
+    .joins(<<-SQL)
+      LEFT JOIN partitions
+      ON partitions.group_id = groups.id
+      AND partitions.model_id = reservations.model_id
+    SQL
+    .group(<<-SQL)
+      IFNULL(reservations.contract_id, reservations.status),
+             reservations.user_id,
+             reservations.inventory_pool_id
+    SQL
+    .order(nil)
   end
 
   def id
@@ -63,11 +72,14 @@ class ReservationsBundle < ActiveRecord::Base
 
   LINE_CONDITIONS = \
     lambda do |r|
-      where("(reservations.status IN ('#{:signed}', '#{:closed}') " \
-              'AND reservations.contract_id = ?) ' \
-            "OR (reservations.status NOT IN ('#{:signed}', '#{:closed}') " \
-                  'AND reservations.user_id = ? ' \
-                  'AND reservations.status = ?)',
+      where(<<-SQL,
+        (reservations.status IN ('signed', 'closed')
+         AND reservations.contract_id = ?)
+        OR
+        (reservations.status NOT IN ('signed', 'closed')
+         AND reservations.user_id = ?
+         AND reservations.status = ?)
+      SQL
             r.id,
             r.user_id,
             r.status)
@@ -128,8 +140,10 @@ class ReservationsBundle < ActiveRecord::Base
 
           sql = uniq
             .joins('INNER JOIN users ON users.id = reservations.user_id')
-            .joins('LEFT JOIN contracts ON reservations.id = contracts.id ' \
-                   "AND reservations.status IN ('#{:signed}', '#{:closed}')")
+            .joins(<<-SQL)
+              LEFT JOIN contracts ON reservations.id = contracts.id
+              AND reservations.status IN ('signed', 'closed')
+            SQL
             .joins('LEFT JOIN options ON options.id = reservations.option_id')
             .joins('LEFT JOIN models ON models.id = reservations.model_id')
             .joins('LEFT JOIN items ON items.id = reservations.item_id')
