@@ -3208,3 +3208,5 @@ msgstr ""
 msgid "Choose a suggested article or a category"
 msgstr ""
 
+msgid "You do not have the responsibility to lend this item. Responsible for this item is the pool \"%s\"."
+msgstr ""

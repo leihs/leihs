@@ -290,3 +290,15 @@ end
 Then(/^the retired item is not displayed in the list$/) do
   expect(page).not_to have_selector('.ui-menu .ui-menu-item', text: @item.inventory_code)
 end
+
+Given(/^there exists an item owned by the current inventory pool but in responsibility of pool "(.*?)"$/) do |arg1|
+  @item = FactoryGirl.create(:item,
+                             owner: @current_inventory_pool,
+                             inventory_pool: FactoryGirl.create(:inventory_pool,
+                                                                name: arg1))
+end
+
+When(/^I assign an owned item where other inventory pool is responsible$/) do
+  find('#assign-or-add-input input').set @item.inventory_code
+  find('#assign-or-add button').click
+end

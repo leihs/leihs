@@ -142,12 +142,17 @@ class window.App.ReservationsAddController extends Spine.Controller
 
   addInventoryItem: (data, inventoryCode)=>
     if data?
-      if data.model_id?
-        App.Model.ajaxFetch({id: data.model_id}).done (data)=>
-          @add App.Model.find(data.id), @getStartDate(), @getEndDate(), inventoryCode
+      unless data.error?
+        if data.model_id?
+          App.Model.ajaxFetch({id: data.model_id}).done (data)=>
+            @add App.Model.find(data.id), @getStartDate(), @getEndDate(), inventoryCode
+        else
+          option = App.Option.addRecord new App.Option(data)
+          @add option, @getStartDate(), @getEndDate()
       else
-        option = App.Option.addRecord new App.Option(data)
-        @add option, @getStartDate(), @getEndDate()
+        App.Flash
+          type: "error"
+          message: data.error
     else
       App.Flash
         type: "error"

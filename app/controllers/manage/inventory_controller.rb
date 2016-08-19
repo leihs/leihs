@@ -47,6 +47,19 @@ class Manage::InventoryController < Manage::ApplicationController
       current_inventory_pool
         .options
         .find_by_inventory_code(params[:inventory_code])
+
+    @record ||= \
+      begin
+        owned_item = \
+          current_inventory_pool
+          .own_items
+          .find_by_inventory_code(params[:inventory_code])
+        if owned_item
+          { error: _('You do not have the responsibility to lend this item. ' \
+                     "Responsible for this item is the pool \"%s\".") % \
+                    owned_item.inventory_pool.name }
+        end
+      end
   end
 
   def helper

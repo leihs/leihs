@@ -113,3 +113,10 @@ Feature: Edit a hand over
     Given there is a hand over with at least 21 assigned items for a user
     When I open the hand over
     Then I see the already assigned items and their inventory codes
+
+  @javascript @personas
+  Scenario: Assigning an owned item where other pool is responsible
+    Given I open a hand over
+    And there exists an item owned by the current inventory pool but in responsibility of pool "Another Pool XY"
+    When I assign an owned item where other inventory pool is responsible
+    Then I see the error message "You do not have the responsibility to lend this item. Responsible for this item is the pool "Another Pool XY"."
