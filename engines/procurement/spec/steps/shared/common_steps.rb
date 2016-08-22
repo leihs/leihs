@@ -550,7 +550,7 @@ module CommonSteps
   end
 
   step 'several categories exist' do
-    3.times do
+    10.times do
       FactoryGirl.create :procurement_category
     end
   end

@@ -196,7 +196,7 @@
               %li.dropdown-header
                 %h5
                   = _('Move to another category')
-              - Procurement::Category.where.not(id: @category).group_by(&:main_category).each_pair do |k,v|
+              - Procurement::Category.where.not(id: @category).group_by(&:main_category).sort_by { |k, v| k.name }.each do |k, v|
                 %li.dropdown-header
                   %h5= k.name
                 - v.each do |category|

@@ -323,6 +323,8 @@ Feature: section Managing Requests
     And several requests created by myself exist
     And the current date has not yet reached the inspection start date
     When I navigate to the requests form of myself
+    And I click on the settings button for a request
+    Then I see the main categories sorted alphabetically in the dropdown
     And I move a request to the other category
     Then I see a success message
     And the changes are saved successfully to the database

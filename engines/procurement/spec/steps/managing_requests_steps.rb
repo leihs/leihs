@@ -758,6 +758,24 @@ steps_for :managing_requests do
     expect(@request.reload.template).to be_nil
   end
 
+  step 'I click on the settings button for a request' do
+    find('button.dropdown-toggle', match: :first).click
+  end
+
+  step 'I see the main categories sorted alphabetically in the dropdown' do
+    within '.dropdown-menu' do
+      hs = all('.dropdown-header').map(&:text)
+      mcs = hs.slice(1, hs.count - 2)
+      expect(mcs).to be == \
+        Procurement::Category
+        .where.not(id: @category)
+        .group_by(&:main_category)
+        .map(&:first)
+        .map(&:name)
+        .sort
+    end
+  end
+
   private
 
   def get_current_request(user)
