@@ -75,7 +75,7 @@ Feature: Contract
     Given I open a contract during hand over
     Then I see the borrower in the top left corner
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Content of lists 1 and 2
     Given I open a contract during hand over that contains software
     Then list 1 and list 2 contain the following columns:
