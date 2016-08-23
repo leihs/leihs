@@ -174,3 +174,4 @@ Feature: Create item
     | Musical Instrument    |
     | Facility Management   |
     | IT/Software           |
+    | Durch Kunde beschafft |

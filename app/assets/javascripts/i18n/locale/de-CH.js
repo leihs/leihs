@@ -4292,6 +4292,10 @@ window.i18n.locale_data = {
       "Choose a suggested article or a category": [
          null,
          "Vorgeschlagener Artikel oder Kategorie wählen"
+      ],
+      "You do not have the responsibility to lend this item. Responsible for this item is the pool \"%s\".": [
+         null,
+         "Sie sind nicht befugt, diesen Gegenstand auszuleihen. Verantwortlich für diesen Gegenstand ist der Gerätepark \"%s\"."
       ]
    }
 }

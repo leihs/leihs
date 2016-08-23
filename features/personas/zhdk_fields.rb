@@ -46,13 +46,13 @@ module ZHdKFields
                                   group: 'Toni Ankunftskontrolle'
                               }, {
                                   id: :properties_anschaffungskategorie,
-                                  label: 'Anschaffungskategorie',
+                                  label: 'Beschaffungsgruppe',
                                   attribute: ['properties', 'anschaffungskategorie'],
                                   value_label: ['properties', 'anschaffungskategorie'],
                                   required: true,
                                   type: 'select',
                                   target_type: 'item',
-                                  values: [{label: '', value: nil}, {label: 'Werkstatt-Technik', value: 'Werkstatt-Technik'}, {label: 'Produktionstechnik', value: 'Produktionstechnik'}, {label: 'AV-Technik', value: 'AV-Technik'}, {label: 'Musikinstrumente', value: 'Musikinstrumente'}, {label: 'Facility Management', value: 'Facility Management'}, {label: 'IC-Technik/Software', value: 'IC-Technik/Software'}],
+                                  values: [{label: '', value: nil}, {label: 'Werkstatt-Technik', value: 'Werkstatt-Technik'}, {label: 'Produktionstechnik', value: 'Produktionstechnik'}, {label: 'AV-Technik', value: 'AV-Technik'}, {label: 'Musikinstrumente', value: 'Musikinstrumente'}, {label: 'Facility Management', value: 'Facility Management'}, {label: 'IC-Technik/Software', value: 'IC-Technik/Software'}, {label: 'Durch Kunde beschafft', value: 'Durch Kunde beschafft'}],
                                   default: nil,
                                   visibility_dependency_field_id: :is_inventory_relevant,
                                   visibility_dependency_value: 'true',
