@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class InventoryPool < ActiveRecord::Base
   include Availability::InventoryPool
   audited

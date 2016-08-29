@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A Model is a type of a thing which is available inside
 # an #InventoryPool for borrowing. If a customer wants to
 # borrow a thing, he opens an #Order and chooses the
