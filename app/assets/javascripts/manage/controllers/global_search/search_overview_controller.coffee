@@ -6,6 +6,7 @@ class window.App.SearchOverviewController extends Spine.Controller
     "#items": "items"
     "#licenses": "licenses"
     "#users": "users"
+    "#delegations": "delegations"
     "#contracts": "contracts"
     "#orders": "orders"
     "#options": "options"
@@ -20,6 +21,7 @@ class window.App.SearchOverviewController extends Spine.Controller
     do @searchLicenses
     do @searchOptions
     do @searchUsers
+    do @searchDelegations
     do @searchContracts
     do @searchOrders
     new App.LatestReminderTooltipController {el: @el}
@@ -114,11 +116,22 @@ class window.App.SearchOverviewController extends Spine.Controller
         all: true
         paginate: false
 
+  searchDelegations: =>
+    App.User.ajaxFetch
+      data: $.param
+        per_page: @previewAmount
+        search_term: @searchTerm
+        type: 'delegation'
+    .done (data, status, xhr)=>
+      delegations = (App.User.find datum.id for datum in data)
+      @render @delegations, "manage/views/users/search_result_line", delegations, xhr
+
   searchUsers: =>
     App.User.ajaxFetch
       data: $.param
         per_page: @previewAmount
         search_term: @searchTerm
+        type: 'user'
     .done (data, status, xhr)=>
       users = (App.User.find datum.id for datum in data)
       App.User.fetchDelegators users, =>

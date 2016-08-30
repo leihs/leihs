@@ -69,10 +69,11 @@ Feature: Delegation
   @javascript @personas @browser @problematic
   Scenario: Global search
     Given I am Pius
-    And I search for 'Julie'
-    When Julie is in a delegation
-    Then I see all results for Julie or the delegation named Julie
-    And I see all delegations Julie is a member of
+    And there exists a delegation with 'Julie' in its name
+    And Julie is in a delegation
+    When I search for 'Julie'
+    Then I see all results in the users box for users matching Julie
+    And I see all results in delegations box for delegations matching Julie or delegations having members matching Julie
 
   @personas @javascript
   Scenario: Suspended users can't submit orders

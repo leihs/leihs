@@ -626,3 +626,36 @@ Then(/^I cannot place any reservations in this inventory pool$/) do
           And I see an error message
         }
 end
+
+Given(/^there exists a delegation with 'Julie' in its name$/) do
+  delegator = FactoryGirl.create(:user)
+  @delegation = \
+    FactoryGirl.create(:user,
+                       delegator_user: delegator,
+                       firstname: "#{Faker::Lorem.word} Julie #{Faker::Lorem.word}")
+  FactoryGirl.create(:access_right,
+                     role: 'customer',
+                     user: delegator,
+                     inventory_pool: @current_inventory_pool)
+  FactoryGirl.create(:access_right,
+                     user: @delegation,
+                     role: 'customer',
+                     inventory_pool: @current_inventory_pool)
+end
+
+Then(/^I see all results in the users box for users matching Julie$/) do
+  expect(page).to have_selector "#users"
+  within("#users") do
+    find(".row", text: @user.name)
+  end
+end
+
+Then(/^I see all results in delegations box for delegations matching Julie or delegations having members matching Julie$/) do
+  expect(page).to have_selector "#delegations"
+  within("#delegations") do
+    find(".row", text: @delegation.name)
+    @current_inventory_pool.users.where(id: @user.delegations.map(&:id)).each do |delegation|
+      find(".row", text: delegation.name)
+    end
+  end
+end
