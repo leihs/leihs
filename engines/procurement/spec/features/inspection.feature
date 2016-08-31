@@ -87,6 +87,23 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     And I navigate back to the request overview page
     Then the filter settings have not changed
 
+  # this scenario is a reaction to a bug:
+  # if multiple budget periods were selected, then no categories with requests were selected,
+  # although there have been some. It was working for a single budget period however.
+  @inspection
+  Scenario: Check proper display of categories with requests if multiple budget periods are selected
+    Given I am Barbara
+    And several budget periods exist
+    And following requests exist for the current budget period
+      | quantity | user   | category  |
+      | 2        | myself | inspected |
+      | 1        | Roger  | inspected |
+    When I navigate to the requests overview page
+    And I select all budget periods
+    And I select "Only categories with requests"
+    Then the list of requests is adjusted immediately
+    And only categories having requests are shown
+
   @inspection
   Scenario: Creating a request as inspector
     Given I am Barbara

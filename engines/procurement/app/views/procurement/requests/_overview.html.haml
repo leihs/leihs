@@ -2,8 +2,11 @@
 
 - @h.each_pair do |budget_period, requests|
   :ruby
-    @categories = @categories.where(id: requests.map(&:category_id)) if @filter['categories_with_requests'] == '1'
-    grouped_categories = @categories.group_by(&:main_category).sort_by {|k,v| k.name}.to_h
+    if @filter['categories_with_requests'] == '1'
+      categories_with_requests = @categories.where(id: requests.map(&:category_id))
+      categories_with_requests ||= []
+    end
+    grouped_categories = (categories_with_requests or @categories).group_by(&:main_category).sort_by {|k,v| k.name}.to_h
 
   .panel{class: "panel-#{header_color(budget_period)}"}
     .panel-heading
