@@ -75,6 +75,10 @@ group :test do
   gem 'turnip'
 end
 
+group :production do
+  gem 'scout_apm'
+end
+
 group :development, :test do
   gem 'byebug' # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'cider_ci-support'
