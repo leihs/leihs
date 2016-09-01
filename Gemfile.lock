@@ -459,7 +459,7 @@ GEM
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
-    scout_apm (1.5.1)
+    scout_apm (2.1.6)
     selenium-webdriver (2.53.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
