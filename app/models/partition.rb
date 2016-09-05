@@ -23,7 +23,7 @@ class Partition < ActiveRecord::Base
       a = a.select { |p| group_ids.include? p.group_id }
     end
     h = Hash[a.map { |p| [p.group_id, p.quantity] }]
-    h = { Group::GENERAL_GROUP_ID => 0 } if h.empty?
+    h[Group::GENERAL_GROUP_ID] = 0 if h.empty? or not h.key?(nil)
     h
   end
 
