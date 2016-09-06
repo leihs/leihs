@@ -453,5 +453,6 @@ Feature: section Managing Requests
     And several budget periods exist
     And I navigate to the requests overview page
     And I select all budget periods
+    And all budget periods are visible
     When I press on the first main category inside of the last budget period
     Then I see the sub-categories of this main category

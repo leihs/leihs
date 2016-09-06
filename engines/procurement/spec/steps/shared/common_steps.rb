@@ -714,13 +714,20 @@ module CommonSteps
     end
   end
 
+  step 'all budget periods are visible' do
+    # wait till all budget periods are visible
+    Procurement::BudgetPeriod.all.map do |budget_period|
+      find('.panel-heading .h4', text: budget_period.name)
+    end
+  end
+
   step 'I press on the first main category inside of the last budget period' do
     @budget_period = Procurement::BudgetPeriod.all.sort_by(&:end_date).first
     @main_category = Procurement::MainCategory.all.sort_by(&:name).first
-    @main_category_element = \
-      find('.panel', text: @budget_period.name)
-        .find('.main_category', text: @main_category.name)
-    @main_category_element.click
+    find('.panel-heading .h4', text: @budget_period.name)
+      .find(:xpath, "../../../div[@class='panel-body']")
+      .find("[href='#collapse_mc_#{@budget_period.id}_#{@main_category.id}']")
+      .click
   end
 
   step 'I see the sub-categories of this main category' do
