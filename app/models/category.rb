@@ -16,4 +16,9 @@ class Category < ModelGroup
     categories
   end
 
+  def has_any_models_considering_also_descendants?
+    models.present? or
+      children.any? { |c| c.has_any_models_considering_also_descendants? }
+  end
+
 end
