@@ -183,7 +183,7 @@ steps_for :inspection do
 
   step 'only categories having requests are shown' do
     expect(page).to have_no_selector \
-      '.label-primary.big_total_price', text: /^0$/
+      '.panel-body .label-primary.big_total_price', text: /^0$/
   end
 
   step 'only my categories are shown' do
