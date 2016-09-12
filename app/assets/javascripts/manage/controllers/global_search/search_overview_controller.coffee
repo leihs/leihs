@@ -124,7 +124,8 @@ class window.App.SearchOverviewController extends Spine.Controller
         type: 'delegation'
     .done (data, status, xhr)=>
       delegations = (App.User.find datum.id for datum in data)
-      @render @delegations, "manage/views/users/search_result_line", delegations, xhr
+      App.User.fetchDelegators delegations, =>
+        @render @delegations, "manage/views/users/search_result_line", delegations, xhr
 
   searchUsers: =>
     App.User.ajaxFetch
@@ -134,8 +135,7 @@ class window.App.SearchOverviewController extends Spine.Controller
         type: 'user'
     .done (data, status, xhr)=>
       users = (App.User.find datum.id for datum in data)
-      App.User.fetchDelegators users, =>
-        @render @users, "manage/views/users/search_result_line", users, xhr
+      @render @users, "manage/views/users/search_result_line", users, xhr
 
   searchContracts: =>
     App.Contract.ajaxFetch

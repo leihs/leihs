@@ -108,7 +108,7 @@ When(/^I search for a delegation$/) do
 end
 
 When(/^I hover over the delegation name$/) do
-  find('#users .list-of-lines .line', match: :prefer_exact, text: @delegation.to_s).find("[data-type='user-cell']").hover
+  find('#delegations .list-of-lines .line', match: :prefer_exact, text: @delegation.to_s).find("[data-type='user-cell']").hover
 end
 
 Then(/^the tooltip shows name and responsible person for the delegation$/) do
