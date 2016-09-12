@@ -5,7 +5,18 @@ FactoryGirl.define do
 
     transient do
       inventory_pool { FactoryGirl.create(:inventory_pool) }
-      user { FactoryGirl.create(:user) }
+      user do
+        user = FactoryGirl.create(:user)
+        unless AccessRight.find_by(user: user,
+                                   inventory_pool: inventory_pool,
+                                   deleted_at: nil)
+          FactoryGirl.create(:access_right,
+                             user: user,
+                             inventory_pool: inventory_pool,
+                             role: :customer)
+        end
+        user
+      end
     end
 
     factory :signed_contract do
