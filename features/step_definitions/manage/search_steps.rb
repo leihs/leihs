@@ -119,3 +119,69 @@ end
 Then(/^I do not see the items container$/) do
   expect(page).to have_no_selector '#items'
 end
+
+Given(/^enough data for "(.*?)" having "(.*?)" exists$/) do |subsection, search_string|
+  amount = 25
+  @results = []
+  make_string = proc { "#{Faker::Lorem.characters(8)} #{search_string} #{Faker::Lorem.characters(8)}" }
+
+  amount.times do
+    @results << \
+      case subsection
+      when 'Models'
+        FactoryGirl.create(:model, product: make_string.call)
+      when 'Software'
+        FactoryGirl.create(:software, product: make_string.call)
+      when 'Items'
+        FactoryGirl.create(:item, note: make_string.call, inventory_pool: @current_inventory_pool)
+      when 'Licenses'
+        FactoryGirl.create(:license, note: make_string.call, inventory_pool: @current_inventory_pool)
+      when 'Options'
+        FactoryGirl.create(:option, product: make_string.call, inventory_pool: @current_inventory_pool)
+      when 'Users'
+        user = FactoryGirl.create(:user, lastname: make_string.call)
+        FactoryGirl.create(:access_right, user: user, inventory_pool: @current_inventory_pool, role: 'customer')
+        user
+      when 'Contracts'
+        user = FactoryGirl.create(:user, lastname: make_string.call)
+        FactoryGirl.create(:access_right, user: user, inventory_pool: @current_inventory_pool, role: 'customer')
+        FactoryGirl.create(:closed_contract, user: user, inventory_pool: @current_inventory_pool)
+        user
+      when 'Orders'
+        user = FactoryGirl.create(:user, lastname: make_string.call)
+        FactoryGirl.create(:access_right, user: user, inventory_pool: @current_inventory_pool, role: 'customer')
+        FactoryGirl.create(:reservation, user: user, inventory_pool: @current_inventory_pool, status: :submitted)
+        user
+      end
+  end
+end
+
+When(/^I search globally for "(.*?)"$/) do |search_string|
+  within '#search' do
+    find('input#search_term').set search_string
+    find("button[type='submit']").click
+  end
+end
+
+Then(/^the search results for "(.*?)" are displayed$/) do |search_string|
+  expect(page).to have_content _('Search Results')
+end
+
+When(/^I click on the tab named "(.*?)"$/) do |subsection|
+  find('.navigation-tab-item', text: _(subsection)).click
+end
+
+Then(/^the first page of results is shown$/) do
+  expect(page).to have_selector '.row.line'
+end
+
+Then(/^I see all the entries matching "(.*?)" in the "(.*?)"$/) do |search_string, subsection|
+  @results.each do |r|
+    case subsection
+    when 'Models', 'Software', 'Users', 'Contracts', 'Orders'
+      find '.row.line', text: r.name
+    when 'Items', 'Licenses', 'Options'
+      find '.row.line', text: r.inventory_code
+    end
+  end
+end

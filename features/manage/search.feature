@@ -62,3 +62,114 @@ Feature: Search
       | Retired      |
       | Incomplete   |
       | Unborrowable |
+
+  # this outline split into individual scenarios due to duration of execution
+  #
+  # @personas @javascript @browser
+  # Scenario Outline: Checking the subsection tabs
+  #   Given I am Mike
+  #   And enough data for "<subsection>" having "search string" exists
+  #   When I search globally for "search string"
+  #   Then the search results for "search string" are displayed
+  #   When I click on the tab named "<subsection>"
+  #   Then the first page of results is shown
+  #   And I scroll to the end of the list
+  #   Then I see all the entries matching "search string" in the "<subsection>"
+  #   Examples:
+  #     | subsection |
+  #     | Models     |
+  #     | Software   |
+  #     | Items      |
+  #     | Licenses   |
+  #     | Options    |
+  #     | Users      |
+  #     | Contracts  |
+  #     | Orders     |
+
+  @personas @javascript @browser
+  Scenario: Checking the 'Models' subsection tab
+    Given I am Mike
+    And enough data for "Models" having "search string" exists
+    When I search globally for "search string"
+    Then the search results for "search string" are displayed
+    When I click on the tab named "Models"
+    Then the first page of results is shown
+    And I scroll to the end of the list
+    Then I see all the entries matching "search string" in the "Models"
+
+  @personas @javascript @browser
+  Scenario: Checking the 'Software' subsection tab
+    Given I am Mike
+    And enough data for "Software" having "search string" exists
+    When I search globally for "search string"
+    Then the search results for "search string" are displayed
+    When I click on the tab named "Software"
+    Then the first page of results is shown
+    And I scroll to the end of the list
+    Then I see all the entries matching "search string" in the "Software"
+
+  @personas @javascript @browser
+  Scenario: Checking the 'Items' subsection tab
+    Given I am Mike
+    And enough data for "Items" having "search string" exists
+    When I search globally for "search string"
+    Then the search results for "search string" are displayed
+    When I click on the tab named "Items"
+    Then the first page of results is shown
+    And I scroll to the end of the list
+    Then I see all the entries matching "search string" in the "Items"
+
+  @personas @javascript @browser
+  Scenario: Checking the 'Licenses' subsection tabs
+    Given I am Mike
+    And enough data for "Licenses" having "search string" exists
+    When I search globally for "search string"
+    Then the search results for "search string" are displayed
+    When I click on the tab named "Licenses"
+    Then the first page of results is shown
+    And I scroll to the end of the list
+    Then I see all the entries matching "search string" in the "Licenses"
+
+  @personas @javascript @browser
+  Scenario: Checking the 'Options' subsection tabs
+    Given I am Mike
+    And enough data for "Options" having "search string" exists
+    When I search globally for "search string"
+    Then the search results for "search string" are displayed
+    When I click on the tab named "Options"
+    Then the first page of results is shown
+    And I scroll to the end of the list
+    Then I see all the entries matching "search string" in the "Options"
+
+  @personas @javascript @browser
+  Scenario: Checking the 'Users' subsection tabs
+    Given I am Mike
+    And enough data for "Users" having "search string" exists
+    When I search globally for "search string"
+    Then the search results for "search string" are displayed
+    When I click on the tab named "Users"
+    Then the first page of results is shown
+    And I scroll to the end of the list
+    Then I see all the entries matching "search string" in the "Users"
+
+  @personas @javascript @browser
+  Scenario: Checking the 'Contracts' subsection tabs
+    Given I am Mike
+    And enough data for "Contracts" having "search string" exists
+    When I search globally for "search string"
+    Then the search results for "search string" are displayed
+    When I click on the tab named "Contracts"
+    Then the first page of results is shown
+    And I scroll to the end of the list
+    Then I see all the entries matching "search string" in the "Contracts"
+
+  @personas @javascript @browser
+  Scenario: Checking the 'Orders' subsection tabs
+    Given I am Mike
+    And enough data for "Orders" having "search string" exists
+    When I search globally for "search string"
+    Then the search results for "search string" are displayed
+    When I click on the tab named "Orders"
+    Then the first page of results is shown
+    And I scroll to the end of the list
+    Then I see all the entries matching "search string" in the "Orders"

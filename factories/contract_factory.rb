@@ -5,6 +5,7 @@ FactoryGirl.define do
 
     transient do
       inventory_pool { FactoryGirl.create(:inventory_pool) }
+      user { FactoryGirl.create(:user) }
     end
 
     factory :signed_contract do
@@ -14,8 +15,8 @@ FactoryGirl.define do
             FactoryGirl.create(
               :reservation,
               status: :signed,
-              inventory_pool: \
-                evaluator.inventory_pool || FactoryGirl.create(:inventory_pool),
+              inventory_pool: evaluator.inventory_pool,
+              user: evaluator.user,
               contract: c,
               item: FactoryGirl.create(:item)
             )
@@ -30,8 +31,8 @@ FactoryGirl.define do
             FactoryGirl.create(
               :reservation,
               status: :closed,
-              inventory_pool: \
-                evaluator.inventory_pool || FactoryGirl.create(:inventory_pool),
+              inventory_pool: evaluator.inventory_pool,
+              user: evaluator.user,
               contract: c,
               item: FactoryGirl.create(:item)
             )
