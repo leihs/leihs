@@ -86,15 +86,15 @@ module CommonSteps
           when 'price'
               find '.col-sm-1 .total_price', text: request.price.to_i
           when 'requested amount'
-              within all('.col-sm-2.quantities div', count: 3)[0] do
+              within all('.col-sm-2.quantities div')[0] do
                 expect(page).to have_content request.requested_quantity
               end
           when 'approved amount'
-              within all('.col-sm-2.quantities div', count: 3)[1] do
+              within all('.col-sm-2.quantities div')[1] do
                 expect(page).to have_content request.approved_quantity
               end
           when 'order amount'
-              within all('.col-sm-2.quantities div', count: 3)[2] do
+              within all('.col-sm-2.quantities div')[2] do
                 expect(page).to have_content request.order_quantity
               end
           when 'total amount'

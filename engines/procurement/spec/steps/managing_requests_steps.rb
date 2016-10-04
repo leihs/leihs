@@ -776,6 +776,16 @@ steps_for :managing_requests do
     end
   end
 
+  step 'I see the empty label for approved amount' do
+    expect(all('.col-sm-2.quantities div')[1].text).to be_blank
+  end
+
+  step 'I do not see the order amount' do
+    expect(page)
+      .not_to have_selector \
+        ".quantities .label[data-original-title='#{_('Order quantity')}']"
+  end
+
   private
 
   def get_current_request(user)

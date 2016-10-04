@@ -43,6 +43,8 @@ Feature: section Managing Requests
       | total amount          |
       | priority              |
       | state                 |
+    And I see the empty label for approved amount
+    But I do not see the order amount
     When no picture for a main category is uploaded
     And I navigate to the requests overview page
     Then I see the default picture
@@ -437,6 +439,7 @@ Feature: section Managing Requests
     And for each request I see the following information
       | requested amount |
       | approved amount  |
+    But I do not see the order amount
     When I open the request
     And I see the following request information
       | approved amount    |
