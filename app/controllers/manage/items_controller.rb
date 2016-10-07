@@ -1,15 +1,27 @@
 class Manage::ItemsController < Manage::ApplicationController
 
   def index
-    @items = Item.filter params, current_inventory_pool
+    cip = unless params[:current_inventory_pool] == 'false'
+             current_inventory_pool
+          end
+    @items = Item.filter params, cip
     set_pagination_header(@items) unless params[:paginate] == 'false'
   end
 
   def current_locations
-    items = Item.filter params, current_inventory_pool
+    cip = unless params[:current_inventory_pool] == 'false'
+             current_inventory_pool
+          end
+    items = Item.filter params, cip
     @locations = []
     items.each do |item|
-      @locations.push(id: item.id, location: item.current_location)
+      @locations.push \
+        id: item.id,
+        location: if current_inventory_pool.owner_or_responsible_for?(item)
+                    item.current_location
+                  else
+                    item.inventory_pool.name
+                  end
     end
   end
 

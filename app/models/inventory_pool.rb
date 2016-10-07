@@ -76,6 +76,12 @@ class InventoryPool < ActiveRecord::Base
 
   #######################################################################
 
+  def owner_or_responsible_for?(item)
+    self == item.owner or self == item.inventory_pool
+  end
+
+  #######################################################################
+
   # we don't recalculate the past
   # if an item is already assigned, we block the availability
   # even if the start_date is in the future

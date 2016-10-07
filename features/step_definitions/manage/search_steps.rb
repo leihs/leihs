@@ -185,3 +185,26 @@ Then(/^I see all the entries matching "(.*?)" in the "(.*?)"$/) do |search_strin
     end
   end
 end
+
+Then(/^the items container shows the item line with the following information:$/) do |table|
+  # table is a Cucumber::Ast::Table
+  within "#items .line[data-id='#{@item.id}']" do
+    table.raw.flatten.each do |field|
+      expect(page).to have_content \
+        case field
+        when 'Inventory Code'
+          @item.inventory_code
+        when 'Model name'
+          @item.model.name
+        when 'Responsible inventory pool'
+          @item.inventory_pool.name
+        end
+    end
+  end
+end
+  #
+Then(/^I don't see the button group on the item line$/) do
+  within "#items .line[data-id='#{@item.id}']" do
+    expect(page).not_to have_selector '.multibutton'
+  end
+end
