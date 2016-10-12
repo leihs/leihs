@@ -70,7 +70,8 @@ class App.InventoryHelperController extends Spine.Controller
     @noFieldsMessage.removeClass("hidden") unless @fieldSelection.find("[data-type='field']").length
 
   toggleChildren: (e)=> 
-    App.Field.toggleChildren $(e.currentTarget).closest("[data-type='field']"), @fieldSelection, {writeable: true, removeable: true, fieldColor: "white"}
+    field = e.field ? $(e.currentTarget).closest("[data-type='field']")
+    App.Field.toggleChildren field, @fieldSelection, {writeable: true, removeable: true, fieldColor: "white"}
 
   setupItemAutocomplete: =>    
     @itemInput.autocomplete
@@ -109,7 +110,7 @@ class App.InventoryHelperController extends Spine.Controller
       @formRightSide
     template = $(App.Render "manage/views/items/field", {}, {field: field, writeable: true, removeable: true, fieldColor: "white"})
     target.append template
-    @toggleChildren {currentTarget: template}
+    @toggleChildren {field: target.find("[data-type='field']")}
 
   applyFields: =>
     do @resetNotifications
