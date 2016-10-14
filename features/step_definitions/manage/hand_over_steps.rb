@@ -302,3 +302,7 @@ When(/^I assign an owned item where other inventory pool is responsible$/) do
   find('#assign-or-add-input input').set @item.inventory_code
   find('#assign-or-add button').click
 end
+
+Then(/^I unfocus the option line$/) do
+  find('body').click
+end

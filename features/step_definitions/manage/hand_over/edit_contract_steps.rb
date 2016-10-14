@@ -10,8 +10,9 @@ end
 When(/^I select an option line$/) do
   @option_line_el = find(".line[data-line-type='option_line']", match: :first)
   @option_line_el.find("input[type='checkbox'][data-select-line]").click
+  @option_line_el_id = @option_line_el["data-id"]
   @selected_items = []
-  @selected_items << Reservation.find(@option_line_el["data-id"]).option
+  @selected_items << Reservation.find(@option_line_el_id).option
   expect(@selected_items.size).to eq 1
 end
 
@@ -76,7 +77,6 @@ When(/^I set the quantity for that option$/) do
   @quantity = rand(2..9)
   within @option_line_el do
     find('input[data-line-quantity]').set @quantity
-    find("input[data-line-quantity][value='#{@quantity}']")
   end
 end
 
@@ -84,7 +84,6 @@ When(/^I change the quantity right on the line$/) do
   @quantity = rand(2..9)
   within(".line[data-line-type='option_line'][data-id='#{@option_line.id}']") do
     find('input[data-line-quantity]').set @quantity
-    find("input[data-line-quantity][value='#{@quantity}']")
   end
 end
 
@@ -116,7 +115,7 @@ Then(/^I see the quantity for this option$/) do
 end
 
 Then(/^the quantity of options is handed over$/) do
-  @reservation = Reservation.find(@option_line_el["data-id"])
+  @reservation = Reservation.find(@option_line_el_id)
   expect(@reservation.quantity).to eq @quantity
   expect(@reservation.status).to eq :signed
 end

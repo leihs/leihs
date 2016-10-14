@@ -2,7 +2,6 @@ class window.App.OptionLineChangeController extends Spine.Controller
 
   events:
     "change [data-line-type='option_line'] [data-line-quantity]": "change"
-    "preChange [data-line-type='option_line'] [data-line-quantity]": "change"
     "focus [data-line-type='option_line'] [data-line-quantity]": "focus"
 
   constructor: ->

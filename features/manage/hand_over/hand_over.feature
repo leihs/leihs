@@ -75,12 +75,16 @@ Feature: Edit a hand over
     When I open a hand over
     And I add an option
     And I change the quantity to "0"
+    And I unfocus the option line
     Then the quantity will be restored to the original value
     And I change the quantity to "-1"
+    And I unfocus the option line
     Then the quantity will be restored to the original value
     When I change the quantity to "abc"
+    And I unfocus the option line
     Then the quantity will be restored to the original value
     And I change the quantity to "2"
+    And I unfocus the option line
     Then the quantity will be stored to the value "2"
 
   @javascript @browser @personas
