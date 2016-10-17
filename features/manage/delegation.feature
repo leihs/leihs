@@ -112,7 +112,7 @@ Feature: Delegation
     When I create a new delegation
     Then I can at most give the delegation access on the customer level
 
-  @javascript @personas
+  @javascript @personas @browser
   Scenario: Switching delegation to a user in an order
     Given I am Pius
     And there is an order for a delegation

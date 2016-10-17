@@ -30,6 +30,7 @@ When /^I save$/ do
 end
 
 Then(/^the "(.*?)" is saved as "(.*?)"$/) do |arg1, arg2|
+  sleep 1
   last_created_software_license = @current_inventory_pool.items.licenses.sort_by(&:created_at).last
   visit manage_edit_item_path(@current_inventory_pool, last_created_software_license)
   case arg1

@@ -53,7 +53,8 @@ class App.InventoryHelperController extends Spine.Controller
     fields = _.filter App.Field.all(), (field)=> 
       field.getLabel().match(new RegExp(request.term,"i"))? and
       not App.Field.isPresent(field, @fieldSelection) and
-      not field.visibility_dependency_field_id?
+      not field.visibility_dependency_field_id? and
+      field.id != 'attachments'
     response _.map (_.sortBy fields, (field)-> field.getLabel()), (field)-> {label: field.getLabel(), value: field.value, field: field}
 
   selectField: (e,ui) =>

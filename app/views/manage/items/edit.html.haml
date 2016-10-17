@@ -19,7 +19,7 @@
           = link_to _('Cancel'), :back, class: 'button grey'
 
           .multibutton
-            %button#item-save.button.green
+            %button#save.button.green{:autocomplete => :off}
               = _("Save %s") % ( @item.type == "License" ? _("License") : _("Item") )
             .dropdown-holder.inline-block
               .button.green.dropdown-toggle
@@ -34,7 +34,7 @@
 
       #notifications.padding-vertical-m= render :partial => "notifications"
 
-      = form_tag manage_update_item_path(current_inventory_pool, @item), method: :put, id: "item-form", class: "overflow-hidden" do
+      %form#form
         %input{:type => :hidden, :name => "copy", :disabled => :disabled}
 
         #flexible-fields
@@ -49,6 +49,9 @@
   jQuery ->
     new App.ItemEditController
       el: $("#edit-item-view")
-      itemData: #{@item.to_json(:include => [:inventory_pool, :location, :model, :owner, :supplier])}
+      itemData: #{@item.to_json(:include => [:inventory_pool, :location, :model, :owner, :supplier, { attachments: { methods: :public_filename }}])}
       itemType: "#{@item.type.downcase}"
+      item: new App.Item #{@item.to_json}
       writeable: true
+      url: "#{manage_update_item_path(current_inventory_pool, @item)}"
+      method: "PUT"

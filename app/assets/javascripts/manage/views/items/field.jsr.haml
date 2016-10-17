@@ -1,36 +1,42 @@
-%div{:class => "{{if ~fieldColor}}{{>~fieldColor}} {{/if}}{{if ~field.hidden}}hidden {{/if}}field row emboss padding-inset-xs margin-vertical-xxs margin-right-xs",
-     data: {type: "field", id:  "{{>~field.id}}", required: "{{>~field.required}}", editable: "{{>~field.isEditable(~itemData)}}"}}
-  .row
-    .col1of2.padding-vertical-xs{data: {type: 'key'}}
-      {{if !~field.visibility_dependency_field_id && (~removeable || (~hideable && !~field.required) )}}
-      %a.font-size-m.link.grey.padding-inset-xs{data: {type: 'remove-field', toggle: 'tooltip', placement: 'top'}, title: "{{jed 'Hide this field from all item forms'/}}"}
-        %i.fa.fa-times-circle
-      {{/if}}
-      %strong.font-size-m.inline-block
-        {{>~field.getLabel()}}
-        {{if ~field.required}}*{{/if}}
-    .col1of2{data: {type: 'value'}}
-      
-      {{if (~writeable && !~itemData) || (~writeable && ~field.isEditable(~itemData))}}
+%div{id: "{{>~field.id}}"}
+  %div{:class => "{{if ~fieldColor}}{{>~fieldColor}} {{/if}}{{if ~field.hidden}}hidden {{/if}}field row emboss padding-inset-xs margin-vertical-xxs margin-right-xs",
+       data: {type: "field", id:  "{{>~field.id}}", required: "{{>~field.required}}", editable: "{{>~field.isEditable(~itemData)}}"}}
+    .row
+      .col1of2.padding-vertical-xs{data: {type: 'key'}}
+        {{if !~field.visibility_dependency_field_id && (~removeable || (~hideable && !~field.required) )}}
+        %a.font-size-m.link.grey.padding-inset-xs{data: {type: 'remove-field', toggle: 'tooltip', placement: 'top'}, title: "{{jed 'Hide this field from all item forms'/}}"}
+          %i.fa.fa-times-circle
+        {{/if}}
+        %strong.font-size-m.inline-block
+          {{>~field.getLabel()}}
+          {{if ~field.required}}*{{/if}}
+      .col1of2{data: {type: 'value'}}
+        
+        {{if (~writeable && !~itemData) || (~writeable && ~field.isEditable(~itemData))}}
 
-      {{include tmpl="manage/views/items/fields/writeable/"+~field.type/}}
+        {{include tmpl="manage/views/items/fields/writeable/"+~field.type/}}
 
-      {{else}}
+        {{else}}
 
-      .padding-vertical-xs.font-size-m{data: {value: "{{>~field.getValue(~itemData, ~field.attribute)}}"}}
-        {{include tmpl="manage/views/items/fields/readonly/"+~field.type/}}
+        .padding-vertical-xs.font-size-m{data: {value: "{{>~field.getValue(~itemData, ~field.attribute)}}"}}
+          {{include tmpl="manage/views/items/fields/readonly/"+~field.type/}}
 
-      {{/if}}
+        {{/if}}
 
-  {{if ~field.id == 'inventory_code' && ~itemData && !~itemData.created_at}}
-  #switch.row.text-align-right
-    %button.button.small.green{data: {inventory_code: "{{>~itemData.inventory_code}}"}}
-      {{jed 'last used +1'/}}
-    %button.button.small.white{data: {inventory_code: "{{>~itemData.lowest_proposed_inventory_code}}"}}
-      {{jed 'fill up gaps'/}}
-    %button.button.small.white{data: {inventory_code: "{{>~itemData.highest_proposed_inventory_code}}"}}
-      {{jed 'assign highest available'/}}
-  {{/if}}
+    {{if ~field.id == 'inventory_code' && ~itemData && !~itemData.created_at}}
+    #switch.row.text-align-right
+      %button.button.small.green{data: {inventory_code: "{{>~itemData.inventory_code}}"}}
+        {{jed 'last used +1'/}}
+      %button.button.small.white{data: {inventory_code: "{{>~itemData.lowest_proposed_inventory_code}}"}}
+        {{jed 'fill up gaps'/}}
+      %button.button.small.white{data: {inventory_code: "{{>~itemData.highest_proposed_inventory_code}}"}}
+        {{jed 'assign highest available'/}}
+    {{/if}}
+
+    {{if ~field.id == 'attachments'}}
+    .list-of-lines.even.padding-bottom-xxs
+      {{partial 'manage/views/items/fields/writeable/partials/uploaded_attachment' ~itemData.attachments/}}
+    {{/if}}
 
 :coffeescript
   $(document).ready ->

@@ -133,3 +133,15 @@ Feature: Creating software
     And I fill in the field "Initial Price" with the value "1200"
     And I save
     Then "Initial Price" is saved as "1,200.00"
+
+  @javascript @personas @browser
+  Scenario: Create and view attachments
+    When I add a new Software License
+    And I fill in all the required fields for the license
+    And I add 2 attachments
+    And I remove one attachment
+    And I save
+    Then I am redirected to the inventory list
+    And 1 attachment is saved
+    When I open the edit page for the item
+    Then I can view the attachment when klicking on the filename

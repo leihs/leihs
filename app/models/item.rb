@@ -43,6 +43,9 @@ class Item < ActiveRecord::Base
           -> { where(returned_date: nil) },
           class_name: 'Reservation')
 
+  has_many :attachments, dependent: :destroy
+  accepts_nested_attributes_for :attachments, allow_destroy: true
+
   store :properties
 
   ####################################################################
@@ -381,6 +384,8 @@ class Item < ActiveRecord::Base
 
     h2 = {}
     fields.each do |field|
+      next if field.id == 'attachments'
+
       h2[_(field.data['label'])] = if field.id == 'location_building_id'
                                      location.try(:building).try(:to_s)
                                    else

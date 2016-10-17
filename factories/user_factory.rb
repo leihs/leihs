@@ -2,7 +2,12 @@ FactoryGirl.define do
 
   factory :user do
     # make sure the login has at least 3 chars
-    login { [Faker::Internet.user_name, (100..9999).to_a.sample].join('_') }
+    login do
+      [Faker::Internet.user_name,
+       Faker::Lorem.characters(8),
+       (100..9999).to_a.sample]
+        .join('_')
+    end
     firstname { Faker::Name.first_name }
     lastname { Faker::Name.last_name }
     phone { Faker::PhoneNumber.phone_number.gsub(/\D/, '') }

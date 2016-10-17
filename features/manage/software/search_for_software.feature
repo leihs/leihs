@@ -23,7 +23,7 @@ Feature: Search for software
     Then all matching software licenses appear
     And all contracts containing this software product appear
 
-  @javascript @personas
+  @javascript @personas @problematic
   Scenario: Finding contracts for software by searching for a borrower
     Given a software license exists
     And this software license is handed over to somebody

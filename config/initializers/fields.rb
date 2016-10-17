@@ -426,6 +426,13 @@ if ActiveRecord::Base.connection.tables.include?('fields')
           type: 'text',
           target_type: 'license',
           group: 'Invoice Information'
+      }, {
+          id: :attachments,
+          label: "Attachments",
+          attribute: "attachments",
+          type: "attachment",
+          group: "General Information",
+          permissions: {role: :inventory_manager, owner: true}
       }
   ]
 

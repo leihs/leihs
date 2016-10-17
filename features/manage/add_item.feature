@@ -3,7 +3,7 @@ Feature: Displaying availability
   Background:
     Given I am Pius
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Displaying availability when adding things to an order
     Given I edit an order
     And I search for a model to add

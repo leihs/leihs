@@ -131,7 +131,7 @@ Feature: Model
     | model    |
     | software |
 
-  @javascript @personas
+  @javascript @personas @browser
   Scenario Outline: Preventing deletion of a model
     Given the model has an assigned <assignment>
     Then I cannot delete the model from the list

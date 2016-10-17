@@ -42,6 +42,7 @@ Feature: Create item
       | IMEI-Number                |
       | Name                       |
       | Note                       |
+      | Attachments                |
       | - Location -               |
       | Building                   |
       | Room                       |
@@ -175,3 +176,20 @@ Feature: Create item
     | Facility Management   |
     | IT/Software           |
     | Durch Kunde beschafft |
+
+  @javascript @personas @browser
+  Scenario: Create and view attachments
+    Given I am Mike
+    When I create an item
+    And these required fields are filled in:
+    | Model           |
+    | Inventory Code  |
+    | Project Number  |
+    | Supply Category |
+    And I add 2 attachments
+    And I remove one attachment
+    And I save
+    Then I am redirected to the inventory list
+    And 1 attachment is saved
+    When I open the edit page for the item
+    Then I can view the attachment when klicking on the filename

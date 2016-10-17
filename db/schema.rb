@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160527094851) do
+ActiveRecord::Schema.define(version: 20161005103353) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "user_id",           limit: 4,     null: false
@@ -63,8 +63,10 @@ ActiveRecord::Schema.define(version: 20160527094851) do
     t.string  "content_type", limit: 255
     t.string  "filename",     limit: 255
     t.integer "size",         limit: 4
+    t.integer "item_id",      limit: 4
   end
 
+  add_index "attachments", ["item_id"], name: "index_attachments_on_item_id", using: :btree
   add_index "attachments", ["model_id"], name: "index_attachments_on_model_id", using: :btree
 
   create_table "audits", force: :cascade do |t|
@@ -636,6 +638,7 @@ ActiveRecord::Schema.define(version: 20160527094851) do
   add_foreign_key "accessories", "models", on_delete: :cascade
   add_foreign_key "accessories_inventory_pools", "accessories"
   add_foreign_key "accessories_inventory_pools", "inventory_pools"
+  add_foreign_key "attachments", "items", name: "attachments_item_id_fk", on_delete: :cascade
   add_foreign_key "attachments", "models", on_delete: :cascade
   add_foreign_key "database_authentications", "users", on_delete: :cascade
   add_foreign_key "delegations_users", "users"

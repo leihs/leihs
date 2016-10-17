@@ -87,7 +87,7 @@ Feature: Lending
     And I save the inspection
     Then the item is saved with the currently set states
 
-  @javascript @browser @personas
+  @javascript @browser @personas @problematic
   Scenario: Automatic printing during hand over
     When I open a hand over
     Then the print dialog opens automatically
@@ -164,7 +164,7 @@ Feature: Lending
     And I search for an order with its purpose
     Then all listed orders match the search term
 
-  @javascript @personas @problematic
+  @javascript @personas
   Scenario: Searching purpose globally
     Given orders exist
     When I search globally for an order with its purpose

@@ -33,7 +33,7 @@ Feature: Inventory helper
     And I retire an item that is not in stock
     Then I see an error message that I can't retire the item because it's already handed over or assigned to a contract
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Editing items on the helper screen using a complete inventory code (barcode scanner)
     Given I go to the inventory helper screen
     When I choose all fields through a list or by name

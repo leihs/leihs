@@ -379,9 +379,18 @@ Then(/^all matching (.*) appear$/) do |arg1|
             when 'contracts'
               ['#contracts', @contract]
           end
-    within '#search-overview' do
-      within x do
+    begin
+      within '#search-overview' do
+        within x do
+          find(".line[data-id='#{y.id}']")
+        end
+      end
+    # if not found in the overview, try in the subsection
+    rescue
+      if x == '#orders'
+        find("[data-type='show-all']").click
         find(".line[data-id='#{y.id}']")
+        find("#orders-search-results nav li a", match: :first).click
       end
     end
   elsif page.has_selector? '#inventory'
@@ -496,7 +505,7 @@ end
 
 When(/^I fill in all the required fields for the license$/) do
   step 'I fill in the software'
-  @inv_code = find('.field', text: _('Inventory Code')).find('input').value
+  @inventory_code_value = @inv_code = find('.field', text: _('Inventory Code')).find('input').value
 end
 
 When(/^I fill in the software$/) do
@@ -509,6 +518,7 @@ When(/^I fill in the field "(.*?)" with the value "(.*?)"$/) do |field, value|
 end
 
 Then(/^"(.*?)" is saved as "(.*?)"$/) do |field, format|
+  sleep 1
   item = Item.find_by_inventory_code(@inv_code)
   visit manage_edit_item_path(@current_inventory_pool, item)
   expect(find('.field', text: _(field)).find('input').value).to eq format
@@ -590,13 +600,13 @@ Then(/^the links of software information open in a new tab upon clicking$/) do
 end
 
 Then(/^I see the attachments of the software$/) do
-  within('.field', text: _('Attachments')) do
+  within all('.field', text: _('Attachments')).last do
     expect(@license.model.attachments.all?{|a| has_selector?('a', text: a.filename)}).to be true
   end
 end
 
 Then(/^I can open the attachments in a new tab$/) do
-  f = find('.field', text: _('Attachments'))
+  f = all('.field', text: _('Attachments')).last
   f.all('a').each do |link|
     expect(link.native.attribute('target')).to eq '_blank'
   end
@@ -801,6 +811,7 @@ Then(/^the (.*) is labeled as "(.*?)"$/) do |arg1, arg2|
 end
 
 Then(/^the new software license is created$/) do
+  sleep 1
   @target_item = @current_inventory_pool.items.find_by_inventory_code(@target_inventory_code)
   expect(@target_item).not_to be_nil
 end

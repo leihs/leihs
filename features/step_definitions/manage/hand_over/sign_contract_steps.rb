@@ -147,6 +147,8 @@ When(/^I select (an item|a license) line and assign an inventory code$/) do |arg
                        end
   expect(@item_line).not_to be_nil
   step 'I assign an inventory code to the item line'
+  find('#flash .fa-times-circle').click
+
   find(".button[data-edit-lines][data-ids='[#{@item_line.id}]']").click
   step "I set the start date in the calendar to '#{I18n.l(Date.today)}'"
   step 'I save the booking calendar'

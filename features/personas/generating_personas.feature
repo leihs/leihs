@@ -13,9 +13,9 @@ Feature: Generating Personas
   Scenario: Genarating Minimal Dataset
     Given the minimal setup exists
     And the item fields are initialized
-    Then there are 44 fields in total
+    Then there are 45 fields in total
     And the ZHdK item fields are initialized
-    Then there are 50 fields in total
+    Then there are 51 fields in total
     Then the minimal dump is generated
 
   @generating_personas
@@ -963,7 +963,7 @@ Feature: Generating Personas
 
     And all unsubmitted contract reservations are available
 
-    Then there are 50 fields in total
+    Then there are 51 fields in total
 
     Then the normal dump is generated
 

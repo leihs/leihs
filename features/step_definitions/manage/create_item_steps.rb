@@ -44,11 +44,12 @@ Then(/^I can create an item$/) do
 end
 
 
-Given(/^I create an item$/) do
-  visit manage_new_item_path(@current_inventory_pool)
+Given(/^I create an? (item|license)$/) do |object_type|
+  opts = {}
+  opts.merge! type: :license if object_type == 'license'
+  visit manage_new_item_path(@current_inventory_pool, opts)
   expect(has_selector?('.row.emboss')).to be true
 end
-
 
 When(/^I enter the following item information$/) do |table|
   @table_hashes = table.hashes
@@ -250,6 +251,7 @@ end
 
 
 Then(/^the (created|edited|copied) item has the (new|existing) supplier$/) do |arg1, arg2|
+  sleep 2
   expect(
     case arg1
       when 'created'
@@ -263,4 +265,40 @@ Then(/^the (created|edited|copied) item has the (new|existing) supplier$/) do |a
         Item.find_by_inventory_code(@inventory_code).supplier.name
     end
   ).to eq @new_supplier
+end
+
+When(/^I add (\d+) attachments$/) do |count|
+  @attachment_filenames = (1..count.to_i).map { |n| "image#{n}.jpg" }
+  within '#attachments' do
+    upload_images(@attachment_filenames)
+  end
+end
+
+When(/^I remove one attachment$/) do
+  @attachment_to_remove = @attachment_filenames.first
+  @attachment_filenames.delete(@attachment_to_remove)
+  find('.row.emboss', match: :prefer_exact, text: _('Attachments'))
+    .find("[data-type='inline-entry']", text: @attachment_to_remove)
+    .find('button[data-remove]', match: :first)
+    .click
+end
+
+Then(/^(\d+) attachment is saved$/) do |count|
+  find '#inventory'
+  @item = Item.find_by_inventory_code @inventory_code_value
+  expect(@item.attachments.count).to be == count.to_i
+  expect(@item.attachments.map(&:filename)).not_to include @attachment_to_remove
+end
+
+Then(/^I can view the attachment when klicking on the filename$/) do
+  f = find('.field', text: _('Attachments'))
+  f.all('.list-of-lines a').each do |link|
+    expect(link.native.attribute('target')).to eq '_blank'
+    expect(@attachment_filenames).to include link.text
+  end
+end
+
+When(/^I open the edit page for the item$/) do
+  visit manage_edit_item_path(@current_inventory_pool, @item)
+  find '#form'
 end

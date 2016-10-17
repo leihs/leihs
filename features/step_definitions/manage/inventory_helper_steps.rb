@@ -76,6 +76,15 @@ Then /^I set all their initial values$/ do
         @data[field.id] = 'This is a text for a input text'
       else
         raise 'field type not found'
+      end
+
+    if field.id == 'inventory_pool_id'
+      # remove flash which gets displaced on cider and covers other elements
+      begin
+        find('#flash .fa-times-circle').click
+      rescue
+        # do nothing
+      end
     end
   end
 end

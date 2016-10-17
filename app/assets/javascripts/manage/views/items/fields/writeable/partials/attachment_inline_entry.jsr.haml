@@ -1,0 +1,11 @@
+.row.line.font-size-xs.focus-hover-thin{:"data-type" => "inline-entry", :"data-new" => true}
+
+  .line-col.text-align-center{:title => "{{jed 'File has to be uploaded on save'/}}"}
+    %i.fa.fa-cloud-upload
+
+  .line-col.col7of10.text-align-left
+    {{>name}}
+
+  .line-col.col3of10.text-align-right
+    %button.button.small.inset{:"data-remove" => true, :type => :button}
+      {{jed "Remove"/}}

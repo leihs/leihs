@@ -13,6 +13,7 @@ class window.App.ItemFlexibleFieldsController extends Spine.Controller
       for field in @el.find("[data-type='field']")
         @toggleChildren {currentTarget: field}
       $("#show-all-fields").show() if $(".hidden.field").length
+      @callback?()
 
   fetchFields: =>
     return {done: (c)->c()} if App.Field.all().length

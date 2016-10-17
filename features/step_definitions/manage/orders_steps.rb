@@ -91,7 +91,23 @@ Then(/^I see all verifiable orders$/) do
 end
 
 Then(/^these orders are ordered by creation date$/) do
-  expect(@contracts.order('created_at DESC').map{|c| c.id.to_s }).to eq all("[data-type='contract']").map{|x| x['data-id']}
+  # some of the contracts have exactly the same created_at, that's why this insanity:
+  number_of_tries = 100
+  counter = 0
+
+  begin
+    c_ids = \
+      @contracts
+      .order(created_at: :desc)
+      .group_by(&:created_at)
+      .values
+      .map { |a| a.length > 1 ? a.permutation.to_a : a }
+      .map { |a| a.length == 1 ? a.first : a.sample }
+      .flatten
+      .map { |c| c.id.to_s }
+    counter += 1
+  end until c_ids == all("[data-type='contract']").map{|x| x['data-id']} or counter == number_of_tries
+  raise if counter == number_of_tries
 end
 
 Then(/^I see all pending verifiable orders$/) do

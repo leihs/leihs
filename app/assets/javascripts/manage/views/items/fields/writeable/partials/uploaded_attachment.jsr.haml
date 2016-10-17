@@ -1,0 +1,12 @@
+.row.line.font-size-xs.focus-hover-thin{:"data-type" => "inline-entry"}
+
+  %input{:type => :hidden, :name => "item[attachments_attributes][{{>id}}][id]", :value => "{{>id}}"}
+  %input{:type => :hidden, :name => "item[attachments_attributes][{{>id}}][_destroy]"}
+
+  .line-col.col7of10.text-align-left
+    %a.blue{:href => "{{>public_filename}}", :target => "_blank"}
+      {{>filename}}
+
+  .line-col.col3of10.text-align-right
+    %button.button.small.inset{:"data-remove" => true, :type => :button}
+      {{jed "Remove"/}}

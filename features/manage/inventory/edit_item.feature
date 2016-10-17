@@ -41,6 +41,7 @@ Feature: Editing an item
       | IMEI-Number                |
       | Name                       |
       | Note                       |
+      | Attachments                |
       | - Location -               |
       | Building                   |
       | Room                       |

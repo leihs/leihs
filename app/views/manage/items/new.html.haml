@@ -19,7 +19,7 @@
           = link_to _('Cancel'), :back, class: 'button grey'
 
           .multibutton
-            %button#item-save.button.green
+            %button#save.button.green{:autocomplete => :off}
               = _("Save %s") % ( @type == "license" ? _("License") : _("Item") )
             .dropdown-holder.inline-block
               .button.green.dropdown-toggle
@@ -34,7 +34,7 @@
 
       #notifications.padding-vertical-m
 
-      = form_tag manage_create_item_path(current_inventory_pool), method: :post, id: "item-form" do
+      %form#form
         %input{:type => :hidden, :name => "copy", :disabled => :disabled}
         #flexible-fields
           .height-s
@@ -46,6 +46,8 @@
   jQuery ->
     new App.ItemEditController
       el: $("#new-item-view")
-      itemData: #{@item.to_json(include: [:inventory_pool, :location, :model, :owner, :supplier], methods: [:lowest_proposed_inventory_code, :highest_proposed_inventory_code])}
+      itemData: #{@item.to_json(include: [:inventory_pool, :location, :model, :owner, :supplier, { attachments: { methods: :public_filename }}], methods: [:lowest_proposed_inventory_code, :highest_proposed_inventory_code])}
       itemType: "#{@type.downcase}"
       writeable: true
+      url: "#{manage_create_item_path(current_inventory_pool)}"
+      method: "POST"

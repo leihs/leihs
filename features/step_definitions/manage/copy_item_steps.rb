@@ -13,6 +13,7 @@ Then(/^the item is saved$/) do
   # This seems wrong, the page doesn't have that page title, and besides,
   # there is a separate step testing for the page title explicitly.
   #expect(has_content?(_("Create copied item"))).to be true
+  find '#flash'
   @new_item = Item.find_by_inventory_code(@inventory_code_original)
   expect(@new_item.blank?).to be false
 end
@@ -71,6 +72,7 @@ Then(/^the copied item is saved$/) do
 end
 
 Then(/^an item copy screen is shown$/) do
+  sleep 1
   expect(current_path).to eq manage_copy_item_path(@current_inventory_pool, @item)
 end
 
