@@ -31,5 +31,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'pundit', '~> 1.1'
   s.add_dependency 'remotipart', '~> 1.2'
   s.add_dependency 'rails-assets-jquery-tokeninput', '~> 1.7'
-  s.add_dependency 'rails-assets-bootstrap-multiselect', '~> 0.9'
+
+  # directly downloaded in assets because incompatible jquery version
+  # s.add_dependency 'rails-assets-bootstrap-multiselect', '~> 0.9'
 end

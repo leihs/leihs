@@ -1,4 +1,11 @@
 !!! 5
+
+- if request.base_url =~ /http:\/\/(test|test2).leihs.zhdk.ch/
+  :scss
+    article .page-content-wrapper {
+      background: rgba(50, 255, 50, 0.5) !important;
+    }
+
 %html{:lang => I18n.locale}
 
   %head

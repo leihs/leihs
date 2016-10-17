@@ -25,6 +25,8 @@
 
       #users.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Users")], :link => manage_search_users_path(current_inventory_pool, {:search_term => @search_term})}
 
+      #delegations.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Delegations")], :link => manage_search_users_path(current_inventory_pool, {:search_term => @search_term})}
+
       #contracts.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Contracts")], :link => manage_search_contracts_path(current_inventory_pool, {:search_term => @search_term})}
 
       #orders.hidden= render :partial => "manage/search/result_preview", :locals => {names: [_("Orders")], :link => manage_search_orders_path(current_inventory_pool, {:search_term => @search_term})}

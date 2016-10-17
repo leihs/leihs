@@ -23,6 +23,8 @@ steps_for :csv do
     # NOTE not really downloading the file,
     # but invoking directly the model class method
 
+    step 'I expand all the sub categories'
+
     client_ids = all('[data-request_id]', minimum: 1).map do |el|
       el['data-request_id'].to_i
     end

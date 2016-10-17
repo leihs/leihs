@@ -7,23 +7,32 @@ Feature: section Managing Requests
   Scenario: What to see in section "Requests" as requester only
     Given I am Roger
     And several requests created by myself exist
+    And for all main categories pictures have been uploaded
     When I navigate to the requests overview page
     Then the current budget period is selected
-    And all groups in the filter groups are selected
+    And only main categories containing sub categories are shown in the filter
+    And only categories having requests are selected
     And both priorities are selected
     And the state "In inspection" is present
     And all states are selected
     And the search field is empty
-    And I do not see the filter "Only show my own requests"
+    And I do not see the filter "Only my own requests"
+    And I do not see the filter "Only my own categories"
+    And I do not see the filter "Only categories with requests"
     And I see the headers of the columns of the overview
     And I see the amount of requests listed
     And I see the current budget period
     And I see the requested amount per budget period
-    And I see the requested amount per group of each budget period
+    And I see the requested amount per category of each budget period
     And I see when the requesting phase of this budget period ends
     And I see when the inspection phase of this budget period ends
-    And I see all groups
-    And only my requests are shown
+    And I see the main categories collapsed
+    And the main categories are in alphabetical order
+    And I see the pictures of the main categories
+    When I expand all the main categories
+    Then I see all sub categories collapsed
+    When I expand all the sub categories
+    Then only my requests are shown
     And for each request I see the following information
       | article name          |
       | name of the requester |
@@ -34,31 +43,37 @@ Feature: section Managing Requests
       | total amount          |
       | priority              |
       | state                 |
+    And I see the empty label for approved amount
+    But I do not see the order amount
+    When no picture for a main category is uploaded
+    And I navigate to the requests overview page
+    Then I see the default picture
 
   @managing_requests
   Scenario: Using the filters as requester only
     Given I am Roger
     And several requests created by myself exist
     When I navigate to the requests overview page
-    Then I do not see the filter "Only show my own requests"
-    When I select one or more budget periods
-    And I select one or more groups
+    And I enter a search string
+    And I select one or more budget periods
+    And I select one or more main categories
+    And I select one or more sub categories
     And I select one ore both priorities
     And I select one or more states
-    And I enter a search string
     Then the list of requests is adjusted immediately according to the filters chosen
     And the amount of requests found is shown
 
   @managing_requests
-  Scenario: Creating a request as requester only
-    Given I am Roger
-    And several receivers exist
-    And several points of delivery exist
+  Scenario Outline: Creating a request for a sub category
+    Given I am <username>
+    And for all main categories pictures have been uploaded
     When I want to create a new request
-    And I fill in the following fields
+    Then I am navigated to the request form
+    And I see the picture of the main category
+    When I fill in the following fields
       | key                        | value  |
-      | Article / Project          | random |
-      | Article nr. / Producer nr. | random |
+      | Article or Project          | random |
+      | Article nr. or Producer nr. | random |
       | Supplier                   | random |
       | Motivation                 | random |
       | Price                      | random |
@@ -75,22 +90,6 @@ Feature: section Managing Requests
     And I click on save
     Then I see a success message
     And the request with all given information was created successfully in the database
-
-  @managing_requests
-  Scenario Outline: Creating a request for a group
-    Given I am <username>
-    When I navigate to the requests overview page
-    And I press on the plus icon of a group
-    Then I am navigated to the new request form
-    When I fill in the following fields
-      | key                | value  |
-      | Article / Project  | random |
-      | Requested quantity | random |
-      | Motivation         | random |
-      | Replacement / New  | random |
-    And I click on save
-    Then I see a success message
-    And the request with all given information was created successfully in the database
     Examples:
       | username |
       | Barbara  |
@@ -99,19 +98,24 @@ Feature: section Managing Requests
   @managing_requests
   Scenario Outline: Creating a request through a budget period selecting a template article
     Given I am <username>
-    And several template categories exist
-    And several template articles in categories exist
+    And several categories exist
+    And several template articles in sub categories exist
+    And for all main categories pictures have been uploaded
     When I navigate to the requests overview page
-    And I press on the plus icon of the budget period
+    And I press on the plus icon of the current budget period
     Then I am navigated to the templates overview
     And I see the budget period
     And I see when the requesting phase of this budget period ends
     And I see when the inspection phase of this budget period ends
-    And I see all categories of all groups listed
-    When I press on a category
+    And I see all main categories, having sub categories, collapsed
+    And I see the pictures of the main categories
+    And I don't see main categories not having sub categories
+    When I press on a main category having sub categories
+    Then I see the sub categories of this main category
+    When I press on a sub category
     Then I see all template articles of this category
     When I choose a template article
-    Then I am navigated to the template request form of the specific group
+    Then I am navigated to the request form highlighting the template
     When I fill in all mandatory information
     And I click on save
     Then I see a success message
@@ -122,15 +126,16 @@ Feature: section Managing Requests
       | Roger    |
 
   @managing_requests
-  Scenario Outline: Creating a request through a budget period selecting a group
+  Scenario Outline: Creating a request through a budget period selecting a sub category
     Given I am <username>
+    And several categories exist
+    And several template articles in sub categories exist
     When I navigate to the requests overview page
-    And I select "Only show my own requests" if present
-    And I press on the plus icon of the budget period
+    And I press on the plus icon of the current budget period
     Then I am navigated to the templates overview
-    And I see all groups listed
-    When I choose a group
-    Then I am navigated to the new request form of the specific group
+    When I press on a main category having sub categories
+    When I press on the plus icon of one of its sub categories
+    Then I am navigated to the request form
     When I fill in all mandatory information
     And I click on save
     Then I see a success message
@@ -143,7 +148,7 @@ Feature: section Managing Requests
   @managing_requests
   Scenario Outline: Creating a freetext request inside the new request page
     Given I am <username>
-    And I am on the new request form of a group
+    And I am on the request form of a sub category
     When I press on the plus icon on the left sidebar
     Then a new request line is added
     When I fill in all mandatory information
@@ -156,23 +161,19 @@ Feature: section Managing Requests
       | Roger    |
 
   @managing_requests
-  Scenario: Creating a request from a group template inside the new request page as inspector
+  Scenario: Creating a request by choosing a template article inside the request form
     Given I am Barbara
-    And several template categories exist
-    And several template articles in categories exist
+    And several categories exist
+    And several template articles in sub categories exist
     And each template article contains
-      | Article nr. / Producer nr. |
+      | Article nr. or Producer nr. |
       | Supplier                   |
       | Item price                 |
-    When I navigate to the templates overview
-    And I press on a category
-    And I choose a template article
-    Then I am navigated to the template request form of the specific group
-    And the following template data are prefilled
-      | Article / Project          |
-      | Article nr. / Producer nr. |
-      | Supplier                   |
-      | Item price                 |
+    When I navigate to the requests overview page
+    And I press on the plus icon of a sub category
+    Then I am navigated to the request form
+    When I choose a template article from the sidebar
+    Then a new line containing this template article is added
     And no option is chosen yet for the field Replacement / New
     And I fill in the following fields
       | key                        | value  |
@@ -184,44 +185,20 @@ Feature: section Managing Requests
     And the request with all given information was created successfully in the database
 
   @managing_requests
-  Scenario: Creating a request from a group template inside the new request page as requester
+  Scenario Outline: Inserting an already inserted template article as Roger
     Given I am Roger
-    And several template categories exist
-    And several template articles in categories exist
-    And each template article contains
-      | Article nr. / Producer nr. |
-      | Supplier                   |
-      | Item price                 |
-    When I navigate to the templates overview
-    And I press on a category
-    And I choose a template article
-    Then I am navigated to the template request form of the specific group
-    And the following template data are displayed as read-only
-      | Article / Project          |
-      | Article nr. / Producer nr. |
-      | Supplier                   |
-      | Item price                 |
-    And no option is chosen yet for the field Replacement / New
-    And I fill in the following fields
-      | key                        | value  |
-      | Motivation                 | random |
-    And I choose the following replacement value
-      | New |
-    And I click on save
-    Then I see a success message
-    And the request with all given information was created successfully in the database
-
-  @managing_requests
-  Scenario Outline: Inserting an already inserted template article
-    Given I am <username>
     And a request containing a template article exists
     When I navigate to the requests form of myself
     And I click on the template article which has already been added to the request
     Then I am navigated to the request containing this template article
-    Examples:
-      | username |
-      | Barbara  |
-      | Roger    |
+
+  @managing_requests
+  Scenario Outline: Inserting an already inserted template article as Barbara
+    Given I am Barbara
+    And a request containing a template article exists
+    When I navigate to the requests form of myself
+    And I click on the template article which has already been added to the request
+    Then a new request line is added
 
   @managing_requests
   Scenario: Changing an inserted template article
@@ -231,18 +208,16 @@ Feature: section Managing Requests
     When I navigate to the requests form of myself
     And I fill in the following fields
       | key                        | value  |
-      | Article / Project          | random |
-      | Article nr. / Producer nr. | random |
+      | Article or Project          | random |
+      | Article nr. or Producer nr. | random |
     When I click on save
     Then I see a success message
     And the request with all given information was created successfully in the database
-    And the template id is nullified in the database
 
   @managing_requests
   Scenario Outline: Request deleted because no information entered
     Given I am <username>
-    When I navigate to the requests overview page
-    And I press on the plus icon of a group
+    When I want to create a new request
     Then I am navigated to the new request form
     When I type the first character in a field of the request form
     Then the following fields are mandatory and marked red
@@ -266,27 +241,20 @@ Feature: section Managing Requests
     Given I am <username>
     And several requests created by myself exist
     When I navigate to the requests overview page
-    And I select all groups
-    And I sort the requests by "<field>"
-    Then the data is shown in the according sort order
+    And I select all categories
+    And I sort the requests and the data is showing in the according sort order
+      | article name     |
+      | requester        |
+      | organisation     |
+      | price            |
+      | quantity         |
+      | the total amount |
+      | priority         |
+      | state            |
     Examples:
-      | username | field            |
-      | Barbara  | article name     |
-      | Barbara  | requester        |
-      | Barbara  | organisation     |
-      | Barbara  | price            |
-      | Barbara  | quantity         |
-      | Barbara  | the total amount |
-      | Barbara  | priority         |
-      | Barbara  | state            |
-      | Roger    | article name     |
-      | Roger    | requester        |
-      | Roger    | organisation     |
-      | Roger    | price            |
-      | Roger    | quantity         |
-      | Roger    | the total amount |
-      | Roger    | priority         |
-      | Roger    | state            |
+      | username |
+      | Barbara  |
+      | Roger    |
 
   @managing_requests
   Scenario Outline: Delete a Request
@@ -296,10 +264,7 @@ Feature: section Managing Requests
       | key           | value   |
       | budget period | current |
       | user          | myself  |
-    When I navigate to the requests overview page
-    And I select all budget periods
-    And I select all groups
-    And I open the request
+    When I visit the request
     And I delete the request
     Then I receive a message asking me if I am sure I want to delete the data
     When I click on choice <choice>
@@ -326,8 +291,8 @@ Feature: section Managing Requests
   Scenario Outline: Choosing an existing or non existing Model
     Given I am <username>
     And several models exist
-    When I navigate to the requests form of myself
-    When I press on the plus icon on the left sidebar
+    When I want to create a new request
+    Then I am navigated to the new request form
     When I search an existing model by typing the article name
     And I choose the article from the suggested list
     Then the model name is copied into the article name field
@@ -354,13 +319,15 @@ Feature: section Managing Requests
     And the changes are saved successfully to the database
 
   @managing_requests
-  Scenario: Moving request to another group as requester only
+  Scenario: Moving request to another category as requester only
     Given I am Roger
-    And several groups exist
+    And several categories exist
     And several requests created by myself exist
     And the current date has not yet reached the inspection start date
     When I navigate to the requests form of myself
-    And I move a request to the other group
+    And I click on the settings button for a request
+    Then I see the main categories sorted alphabetically in the dropdown
+    And I move a request to the other category
     Then I see a success message
     And the changes are saved successfully to the database
 
@@ -443,20 +410,19 @@ Feature: section Managing Requests
       | Barbara  |
       | Roger    |
 
+
   @managing_requests
-  Scenario Outline: Send an email to a group
+  Scenario Outline: Navigating to contact website
     Given I am <username>
-    And an email for a group exists
-    When I navigate to the requests form of myself
-    And I click on the email icon
-    Then the email program is opened
-    And the receiver of the email is the email of the group
-    And the subject of the email is "Frage zum Beschaffungsantrag"
-    And the group name is placed in paranthesis at the end of the subject
+    And a link to a contact site exists
+    When I navigate to the requests overview page
+    And I click on the contact link
+    Then I am navigated to the specific website
     Examples:
       | username |
       | Barbara  |
       | Roger    |
+      | Hans Ueli    |
 
   @managing_requests
   Scenario: Additional Fields shown to requester only after budget period has ended
@@ -473,7 +439,23 @@ Feature: section Managing Requests
     And for each request I see the following information
       | requested amount |
       | approved amount  |
+    But I do not see the order amount
     When I open the request
     And I see the following request information
       | approved amount    |
       | inspection comment |
+
+  # this scenario should test that the correct category is
+  # expanded upon click given that this category is displayed
+  # inside of several budget periods
+  @managing_requests
+  Scenario: Correct expansion of the category, which was clicked
+    Given I am Hans Ueli
+    And several categories exist
+    And several template articles in sub categories exist
+    And several budget periods exist
+    And I navigate to the requests overview page
+    And I select all budget periods
+    And all budget periods are visible
+    When I press on the first main category inside of the last budget period
+    Then I see the sub-categories of this main category

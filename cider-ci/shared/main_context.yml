@@ -1,0 +1,21 @@
+script_defaults:
+  template_environment_variables: true
+  timeout: 20 minutes
+
+task_defaults:
+
+  include: cider-ci/task_components/bundle_rspec_ruby.yml
+
+  environment_variables:
+    RUBY_ENGINE: ruby
+    RUBY_VERSION: 2.3.0
+    RUBY: '{{RUBY_ENGINE}}-{{RUBY_VERSION}}'
+    RAILS_ENV: test
+
+  trial_attachments:
+    screenshots:
+      include_match: tmp\/capybara\/.*\.png$
+      content_type: image/png
+    logs:
+      include_match: log\/.*\.log$
+      content_type: text/plain

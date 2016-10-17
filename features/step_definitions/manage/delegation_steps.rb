@@ -108,7 +108,7 @@ When(/^I search for a delegation$/) do
 end
 
 When(/^I hover over the delegation name$/) do
-  find('#users .list-of-lines .line', match: :prefer_exact, text: @delegation.to_s).find("[data-type='user-cell']").hover
+  find('#delegations .list-of-lines .line', match: :prefer_exact, text: @delegation.to_s).find("[data-type='user-cell']").hover
 end
 
 Then(/^the tooltip shows name and responsible person for the delegation$/) do
@@ -625,4 +625,37 @@ Then(/^I cannot place any reservations in this inventory pool$/) do
           And I submit the order
           And I see an error message
         }
+end
+
+Given(/^there exists a delegation with 'Julie' in its name$/) do
+  delegator = FactoryGirl.create(:user)
+  @delegation = \
+    FactoryGirl.create(:user,
+                       delegator_user: delegator,
+                       firstname: "#{Faker::Lorem.word} Julie #{Faker::Lorem.word}")
+  FactoryGirl.create(:access_right,
+                     role: 'customer',
+                     user: delegator,
+                     inventory_pool: @current_inventory_pool)
+  FactoryGirl.create(:access_right,
+                     user: @delegation,
+                     role: 'customer',
+                     inventory_pool: @current_inventory_pool)
+end
+
+Then(/^I see all results in the users box for users matching Julie$/) do
+  expect(page).to have_selector "#users"
+  within("#users") do
+    find(".row", text: @user.name)
+  end
+end
+
+Then(/^I see all results in delegations box for delegations matching Julie or delegations having members matching Julie$/) do
+  expect(page).to have_selector "#delegations"
+  within("#delegations") do
+    find(".row", text: @delegation.name)
+    @current_inventory_pool.users.where(id: @user.delegations.map(&:id)).each do |delegation|
+      find(".row", text: delegation.name)
+    end
+  end
 end

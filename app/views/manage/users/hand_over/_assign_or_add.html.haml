@@ -19,6 +19,10 @@
   .col4of8
     %label.row.margin-bottom-xxs{:for => "assign-or-add-input"}= _("Add/Assign")
     .row
-      %input.row.has-addone{:autocomplete => :off, :id => "assign-or-add-input", :"data-add-contract-line" => true, :name => "input", :type => :text, :placeholder => "#{_("Inventory code, model name, search term")}", :"data-barcode-scanner-target" => true}
+      #assign-or-add-input
+        -# NOTE: input will be inserted here (React!)
+        %input.row.has-addone{:autocomplete => :off, :type => :text, :placeholder => "#{_("Inventory code, model name, search term")}"}
+
+      %input{type: :hidden, data: {note: 'Only for styling…'}}
       %button.addon{:type => :submit, :title => _("Add")}
         %i.fa.fa-plus

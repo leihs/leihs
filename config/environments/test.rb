@@ -25,13 +25,6 @@ Rails.application.configure do
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = true
 
-  config.assets.digest = true
-  if ENV['CIDER_CI_TRIAL_ID'].present?
-    config.assets.compile = false
-  else
-    config.assets.compile = true
-  end
-
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
 

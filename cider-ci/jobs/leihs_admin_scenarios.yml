@@ -1,0 +1,27 @@
+jobs:
+
+  leihs_admin_scenarios:
+
+    name: 'Admin: Scenarios'
+
+    description: |
+      Run Admin engine scenarios under MRI
+
+    priority: -1
+
+    run_when:
+      branch name matches master or admin:
+        type: branch
+        include_match: '^(.*master.*|[a-z]*/admin.*)$'
+        exclude_match: '.*(no-ci|hotspot).*$'
+
+    context:
+
+      task_defaults:
+        max_trials: 3
+        include:
+          - cider-ci/task_components/database.yml
+
+      include:
+        - cider-ci/shared/main_context.yml
+        - cider-ci/tasks/leihs_admin_scenarios.yml

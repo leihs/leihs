@@ -1,0 +1,25 @@
+jobs:
+  procurement_code_checks:
+
+    name: 'Procurement: Code Checks'
+
+    description: 'Run static checks and metrics: complexity, duplication, code format'
+
+    run_when:
+      branch name matches master or procurement:
+        type: branch
+        include_match: '^(.*master.*|[a-z]*/procurement.*)$'
+        exclude_match: '.*(no-ci|hotspot).*$'
+
+    context:
+      include: cider-ci/shared/main_context.yml
+
+      tasks:
+        lint_ruby:
+          name: Lint/Stylecheck with Rubocop
+          scripts:
+            test:
+              body: |
+                set -eux
+                export PATH=~/.rubies/$RUBY/bin:$PATH
+                bundle exec rubocop engines/procurement/ -c engines/procurement/.rubocop.yml

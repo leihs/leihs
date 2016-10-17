@@ -408,6 +408,9 @@ msgstr "Löschen"
 msgid "Delete %s"
 msgstr "%s löschen"
 
+msgid "Delete line"
+msgstr "Zeile löschen"
+
 msgid "Delete Selection"
 msgstr "Auswahl löschen"
 
@@ -1136,6 +1139,9 @@ msgstr "Bestellte Artikel"
 
 msgid "Reservation"
 msgstr "Reservation"
+
+msgid "Contact"
+msgstr "Kontakt"
 
 msgid "Contact person"
 msgstr "Kontaktperson"
@@ -3137,8 +3143,8 @@ msgstr "Lieferort"
 msgid "max 255 characters"
 msgstr "Max. 255 Zeichen"
 
-msgid "Article / Project"
-msgstr "Artikel / Projekt"
+msgid "Article or Project"
+msgstr "Artikel oder Projekt"
 
 msgid "Procurement"
 msgstr "Bedarfsermittlung"
@@ -3146,14 +3152,17 @@ msgstr "Bedarfsermittlung"
 msgid "Inquiry to procurement request"
 msgstr "Frage zum Beschaffungsantrag"
 
-msgid "Article nr. / Producer nr."
-msgstr "Artikelnr. / Herstellernr."
+msgid "Article nr. or Producer nr."
+msgstr "Artikelnr. oder Herstellernr."
 
 msgid "Replacement"
 msgstr "Ersatz"
 
 msgid "Choose an article/project"
 msgstr "Artikel/Projekt wählen"
+
+msgid "Choose an article or a category"
+msgstr "Artikel oder Kategorie wählen"
 
 msgid "Request moved"
 msgstr "Antrag verschoben"
@@ -3191,14 +3200,23 @@ msgstr "Artikel für spezifische Gruppe hinzufügen"
 msgid "You have unsaved data. Would you like to delete the data?"
 msgstr "Sie haben nicht gespeicherte Daten. Möchten Sie diese löschen?"
 
-msgid "Only show my own requests"
-msgstr "Nur eigene Anträge anzeigen"
+msgid "Special filters"
+msgstr "Spezialfilter"
 
-msgid "Add article"
-msgstr "Artikel hinzufügen"
+msgid "Only my own requests"
+msgstr "Nur eigene Anträge"
 
-msgid "Create request for this group"
-msgstr "Antrag für diese Gruppe erfassen"
+msgid "Only my own categories"
+msgstr "Nur eigene Kategorien"
+
+msgid "Only categories with requests"
+msgstr "Nur Kategorien mit Anträgen"
+
+msgid "New line (Add Article or Project)"
+msgstr "Neue Linie (Artikel oder Projekt hinzufügen)"
+
+msgid "Create request for this category"
+msgstr "Antrag für diese Kategorie erfassen"
 
 msgid "Create request for another user"
 msgstr "Antrag für eine andere Person erfassen"
@@ -3221,8 +3239,8 @@ msgstr "Sie sind für diese Aktion nicht authorisiert."
 msgid "Current budget period not defined yet"
 msgstr "Es existiert keine aktuelle Budgetperiode"
 
-msgid "No groups defined yet"
-msgstr "Es ist noch keine Gruppe vorhanden"
+msgid "No categories defined yet"
+msgstr "Es ist noch keine Kategorie vorhanden"
 
 msgid "No admins defined yet"
 msgstr "Es wurde noch kein Administrator erfasst"
@@ -3239,26 +3257,53 @@ msgstr "Total aller Anträge mit Status \"Neu\""
 msgid "Total of all approved requests"
 msgstr "Total aller bewilligten Anträge"
 
-msgid "Create request by choosing a group or recommended article or project"
-msgstr "Zuerst Gruppe, Artikel oder Projekt auswählen und Antrag erstellen"
+msgid "Create request by choosing an article or project"
+msgstr "Artikel oder Projekt auswählen und Antrag erstellen"
 
 msgid "Current total of budget period"
 msgstr "Aktuelles total dieser Budgetperiode"
 
-msgid "Current total of group"
-msgstr "Aktuelles Gruppentotal"
+msgid "Current total of category"
+msgstr "Aktuelles Total der Kategorie"
 
-msgid "Limit of group for this budget period"
-msgstr "Gruppenlimite dieser Budgetperiode"
+msgid "Current total of selected requests"
+msgstr "Aktuelles Total der selektierten Anträge"
 
-msgid "% used (group limit - current group total)"
-msgstr "% verbraucht (Gruppenlimite - aktuelles Gruppentotal)"
+msgid "% used (category limit - total of selected requests)"
+msgstr "% verbraucht (Kategorielimite - Total der selektierten Anträge)"
 
-msgid "Add new article or project to category"
-msgstr "Der Kategorie einen neuen Artikel oder ein neues Projekt hinzufügen"
+msgid "Add new article to category"
+msgstr "Der Kategorie einen neuen Artikel hinzufügen"
 
 msgid "Delete category with all it's articles/projects"
 msgstr "Kategorie und alle ihre Artikel/Projekte löschen"
 
 msgid "Add new requester"
 msgstr "Neuen Antragsteller hinzufügen"
+
+msgid "Main category"
+msgstr "Hauptkategorie"
+
+msgid "Subcategory"
+msgstr "Subkategorie"
+
+msgid "Subcategories"
+msgstr "Subkategorien"
+
+msgid "Add new main category"
+msgstr "Eine neue Hauptkategorie hinzufügen"
+
+msgid "Add new subcategory"
+msgstr "Eine neue Subkategorie hinzufügen"
+
+msgid "Delete main category"
+msgstr "Hauptkategorie löschen"
+
+msgid "Delete subcategory"
+msgstr "Subkategorie löschen"
+
+msgid "Choose a suggested article or a category"
+msgstr "Vorgeschlagener Artikel oder Kategorie wählen"
+
+msgid "You do not have the responsibility to lend this item. Responsible for this item is the pool \"%s\"."
+msgstr "Sie sind nicht befugt, diesen Gegenstand auszuleihen. Verantwortlich für diesen Gegenstand ist der Gerätepark \"%s\"."

@@ -1,6 +1,6 @@
 :ruby
-  is_editable = ((@budget_period.in_requesting_phase? and (@user == current_user or @group.inspectable_by?(current_user))) or
-                 (@budget_period.in_inspection_phase? and @group.inspectable_by?(current_user)))
+  is_editable = ((@budget_period.in_requesting_phase? and (@user == current_user or @category.inspectable_by?(current_user))) or
+                 (@budget_period.in_inspection_phase? and @category.inspectable_by?(current_user)))
 
 = form_tag nil, remote: true, multipart: true, class: 'form-horizontal' do
   .panel{class: "panel-#{header_color(@budget_period)}"}
@@ -18,17 +18,26 @@
         - content_for :sidebar do
           %h4
             %i.fa.fa-plus-circle
-            = _('Add article')
-          - if @group.template_categories.exists?
-            %hr
-            = render partial: 'procurement/templates/categories', locals: {template_categories: @group.template_categories}
+            %span.h5
+              = _('New line (Add Article or Project)')
+          %hr
+          - if @category.templates.exists?
+            %h4
+              %i.fa.fa-cube
+              = _('Choose an article/project')
+            .list-group
+              - @category.templates.each do |template|
+                %a.list-group-item.show_template{href: '#', data: {template_id: template.id}}
+                  = template
+                  .label.label-custom.pull-right
+                    = money_without_cents_and_with_symbol template.price
 
       - i = 0
       - @requests.each do |request|
         = render partial: 'request', locals: {request: request}
 
       - if is_editable
-        - @group.template_categories.each do |template_category|
+        - [@category].each do |template_category|
           - template_category.templates.where.not(id: @requests.map(&:template_id)).each do |template|
             - i += 1
             = render partial: 'template', locals: {template: template, i: i}
@@ -75,6 +84,11 @@
     margin-left: -0.2em;
   }
 
+  .main_category {
+    line-height: 2.5em;
+    background-color: #e2e2e2;
+  }
+
 :coffeescript
   @zebra_rows = ->
     $('.panel-body > .row.request').css('background-color', 'white')
@@ -90,7 +104,7 @@
     el = $(".row[data-template_id='" + template_id + "']")
     el.removeClass('hidden')
     do zebra_rows
-    el.find('input[data-to_be_required]').attr('required', 'true')
+    el.find('[data-to_be_required]').attr('required', 'true')
     el.find("input[name*='requested_quantity]']").val(1).change()
     scroll_to(el)
 
@@ -113,7 +127,7 @@
       #cloned_el.insertAfter(target_el)
       #$(this).hide()
       el = $('.request[data-request_id="new_request"]')
-      #el.find('input[data-to_be_required]').attr('required', 'true')
+      #el.find('[data-to_be_required]').attr('required', 'true')
       el.find("input:radio[name*='[priority]'][value='normal']").prop('checked', 'true')
       el.removeClass('hidden').closest('form').change()
       do zebra_rows
@@ -123,7 +137,7 @@
     $('.request[data-request_id="new_request"] input:text').on 'keyup change', ->
       el = $(this).closest('.request')
       inputs = el.find('input:text')
-      required_inputs = el.find('input[data-to_be_required]')
+      required_inputs = el.find('[data-to_be_required]')
       values = inputs.map(-> $.trim($(this).val()) ).get().join('')
       if values.length
         required_inputs.attr('required', 'true')
@@ -132,7 +146,7 @@
 
     $('.request[data-request_id="new_request"] a[data-method="delete"]').on 'click', ->
       el = $(this).closest('.request')
-      el.find('input[data-to_be_required]').removeAttr('required')
+      el.find('[data-to_be_required]').removeAttr('required')
       el.find('input:not(:radio):not(:checkbox)').val('')
       el.find('input:radio, input:checkbox').prop('checked', '')
       el.addClass('hidden').closest('form').change()
@@ -149,7 +163,7 @@
 
     $("input[name*='[approved_quantity]']").on 'change', ->
       parent_el = $(this).closest('.request')
-      inspection_comment_el = parent_el.find("input[name*='[inspection_comment]']")
+      inspection_comment_el = parent_el.find("textarea[name*='[inspection_comment]']")
       order_quantity_el = parent_el.find("input[name*='[order_quantity]']")
       new_val = $(this).val()
 
@@ -267,11 +281,11 @@
         scroll_to $('form :invalid').first().closest('.request')
         false
 
-    form_data_before_chnages = $('form').serialize()
+    form_data_before_changes = $('form').serialize()
 
     $('form').on('change keyup', ->
       attachments = $("input[type='file']").map(-> $(this).val() ).get().join('')
-      if form_data_before_chnages != $('form').serialize() or attachments != ''
+      if form_data_before_changes != $('form').serialize() or attachments != ''
         $('.flash').hide()
         $("form button[type='submit']").removeAttr('disabled')
         window.onbeforeunload = -> return "#{_('You have unsaved data. Would you like to delete the data?')}"

@@ -1,0 +1,24 @@
+jobs:
+
+  hot_spot_scenarios:
+
+    name: Hot Spot Scenarios
+
+    description: |
+      Manually run hot spot scenarios under MRI
+
+    run_when:
+      branch name matches hotspot:
+        type: branch
+        include_match: '^(.*hotspot.*)$'
+        exclude_match: '.*no-ci.*$'
+
+    context:
+      task_defaults:
+        max_trials: 1
+        include:
+          - cider-ci/task_components/database.yml
+
+      include:
+        - cider-ci/shared/main_context.yml
+        - cider-ci/tasks/hot_spot_scenarios.yml

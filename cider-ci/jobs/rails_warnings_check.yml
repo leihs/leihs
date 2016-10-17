@@ -1,0 +1,31 @@
+jobs:
+
+  rails_warnings_check:
+
+    name: 'Rails warnings check'
+
+    description: |
+      Check if rails outputs something to STDERR (warnings, etc.)
+
+    run_when:
+      branch name matches master:
+        type: branch
+        include_match: '^.*master.*$'
+        exclude_match: '.*(no-ci|hotspot).*$'
+
+    context:
+
+      include:
+        - cider-ci/shared/main_context.yml
+
+      task_defaults:
+        include:
+          - cider-ci/task_components/database.yml
+
+      tasks:
+        count_stderr_lines:
+          max_trials: 1
+          name: 'Count if number of STDERR lines greater than 0'
+          scripts:
+            test:
+              body: cider-ci/bin/check_rails_warnings.rb

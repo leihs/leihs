@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -eu
 
-RAILS_ENV=test rails runner ''
+export PATH=~/.rubies/$RUBY/bin:$PATH
 
-if [ $(RAILS_ENV=test rails runner '' 2>&1 | wc -l) -gt 0 ]; then
+RAILS_ENV=test bundle exec rails runner ''
+
+if [ $(RAILS_ENV=test bundle exec rails runner '' 2>&1 | wc -l) -gt 0 ]; then
   exit 1;
 else
   exit 0;

@@ -125,6 +125,13 @@ class Reservation < ActiveRecord::Base
       self.status = :closed
     end
   end
+
+  before_destroy do
+    if [:rejected, :signed, :closed].include? status
+      raise 'A rejected, signed or closed reservation line cannot be destroyed!'
+    end
+  end
+
   ###############################################
 
   # compares two objects in order to sort them

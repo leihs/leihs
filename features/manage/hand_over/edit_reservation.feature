@@ -13,7 +13,7 @@ Feature: Edit contract line during hand over process
       And I change a contract reservations time range
      Then the time range of that line is changed
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Change the quantity of a single contract line (item line)
      When I open a hand over
       And I change a contract reservations quantity

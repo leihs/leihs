@@ -3,7 +3,8 @@ module DatasetSteps
   step 'the basic dataset is ready' do
     step 'a procurement admin exists'
     step 'the current budget period exist'
-    step 'there exists a procurement group'
+    step 'there exists a main category'
+    step 'there exists a sub category'
     step 'there exist 3 requesters'
   end
 
@@ -20,8 +21,24 @@ module DatasetSteps
     end
   end
 
-  step 'there exists a procurement group' do
-    @group = Procurement::Group.first || FactoryGirl.create(:procurement_group)
+  step 'there exists a main category' do
+    @main_category = Procurement::MainCategory.first || \
+                     FactoryGirl.create(:procurement_main_category)
+  end
+  # alias
+  step 'a main category exists' do
+    step 'there exists a main category'
+  end
+
+  step 'there exists a sub category' do
+    @category = Procurement::Category.first || \
+                FactoryGirl.create(:procurement_category)
+  end
+
+  step 'there exists a sub category for this main category' do
+    @category = @main_category.categories.first || \
+                FactoryGirl.create(:procurement_category,
+                                   main_category: @main_category)
   end
 
   step 'the current budget period exist' do

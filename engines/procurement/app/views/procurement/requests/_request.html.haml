@@ -5,20 +5,20 @@
 
     .form-group
       %label.col-xs-4.control-label
-        = _('Article / Project')
+        = _('Article or Project')
       .col-xs-8
-        - if request.editable?(current_user) and (request.template_id.nil? or request.group.inspectable_by?(current_user))
-          %input.form-control{name: "requests[#{request.id}][article_name]", placeholder: _('Article / Project'), value: request.article_name, data: {toggle: 'tooltip'}, title: request.article_name, required: true}
+        - if request.editable?(current_user) and (request.template_id.nil? or request.category.inspectable_by?(current_user))
+          %input.form-control{name: "requests[#{request.id}][article_name]", placeholder: _('Article or Project'), value: request.article_name, data: {toggle: 'tooltip'}, title: request.article_name, required: true}
           %input{type: :hidden, name: "requests[#{request.id}][model_id]", value: request.model_id}
         - else
           = request.article_name
 
     .form-group
       %label.col-xs-4.control-label
-        = _('Article nr. / Producer nr.')
+        = _('Article nr. or Producer nr.')
       .col-xs-8
-        - if request.editable?(current_user) and (request.template_id.nil? or request.group.inspectable_by?(current_user))
-          %input.form-control{name: "requests[#{request.id}][article_number]", placeholder: _('Article nr. / Producer nr.'), value: request.article_number}
+        - if request.editable?(current_user) and (request.template_id.nil? or request.category.inspectable_by?(current_user))
+          %input.form-control{name: "requests[#{request.id}][article_number]", placeholder: _('Article nr. or Producer nr.'), value: request.article_number}
         - else
           = request.article_number
 
@@ -26,7 +26,7 @@
       %label.col-xs-4.control-label
         = _('Supplier')
       .col-xs-8
-        - if request.editable?(current_user) and (request.template_id.nil? or request.group.inspectable_by?(current_user))
+        - if request.editable?(current_user) and (request.template_id.nil? or request.category.inspectable_by?(current_user))
           %input.form-control{name: "requests[#{request.id}][supplier_name]", placeholder: _('Supplier'), value: request.supplier_name}
           %input{type: :hidden, name: "requests[#{request.id}][supplier_id]", value: request.supplier_id}
         - else
@@ -56,7 +56,7 @@
         = _('Motivation')
       .col-xs-8
         - if request.editable?(current_user) and request.user_id == current_user.id
-          %input.form-control{name: "requests[#{request.id}][motivation]", value: request.motivation, placeholder: _('Motivation'), maxlength: 255, autocomplete: :off, title: _('max 255 characters'), data: {toggle: 'tooltip'}, required: true}
+          %textarea.form-control{name: "requests[#{request.id}][motivation]", placeholder: _('Motivation'), maxlength: 255, autocomplete: :off, title: _('max 255 characters'), data: {toggle: 'tooltip'}, required: true}= request.motivation
         - else
           = request.motivation
 
@@ -92,10 +92,10 @@
         = format('%s %s', _('Item price'), MoneyRails.default_currency)
         %span.small= _('incl. VAT')
       .col-xs-4
-        - if request.editable?(current_user) and (request.template_id.nil? or request.group.inspectable_by?(current_user))
+        - if request.editable?(current_user) and (request.template_id.nil? or request.category.inspectable_by?(current_user))
           %input.form-control{name: "requests[#{request.id}][price]", type: :number, min: 0, value: request.price.to_i, placeholder: format('%s %s', _('Item price'), _('incl. VAT')), autocomplete: :off}
         - else
-          .label.label-primary
+          .label.label-custom
             = money_without_cents_and_with_symbol request.price
       .col-xs-4
 
@@ -110,12 +110,12 @@
             = request.requested_quantity
       .col-xs-4
 
-    - if request.group.inspectable_or_readable_by?(current_user) or request.user_id == current_user.id
+    - if request.category.inspectable_or_readable_by?(current_user) or request.user_id == current_user.id
       .form-group
         %label.col-xs-4.control-label
           = _('Approved quantity')
         .col-xs-4
-          - if request.editable?(current_user) and request.group.inspectable_by?(current_user)
+          - if request.editable?(current_user) and request.category.inspectable_by?(current_user)
             %input.form-control{name: "requests[#{request.id}][approved_quantity]", type: :number, min: 0, value: request.approved_quantity, placeholder: _('Approved quantity'), autocomplete: :off}
           - else
             - if request.approved_quantity
@@ -125,12 +125,12 @@
                 = request.approved_quantity
         .col-xs-4
 
-    - if request.group.inspectable_or_readable_by?(current_user)
+    - if request.category.inspectable_or_readable_by?(current_user)
       .form-group
         %label.col-xs-4.control-label
           = _('Order quantity')
         .col-xs-4
-          - if request.editable?(current_user) and request.group.inspectable_by?(current_user)
+          - if request.editable?(current_user) and request.category.inspectable_by?(current_user)
             %input.form-control{name: "requests[#{request.id}][order_quantity]", type: :number, min: 0, value: request.order_quantity, placeholder: _('Order quantity'), autocomplete: :off}
           - elsif request.approved_quantity and request.order_quantity
             .label{class: label_class}
@@ -145,13 +145,13 @@
         .label.label-primary.total_price{data: {total: request.total_price(current_user)}}
           = money_without_cents_and_with_symbol request.total_price(current_user)
 
-    - if request.group.inspectable_or_readable_by? current_user or request.user_id == current_user.id
+    - if request.category.inspectable_or_readable_by? current_user or request.user_id == current_user.id
       .form-group
         %label.col-xs-4.control-label
           = _('Inspection comment')
         .col-xs-8
-          - if request.editable?(current_user) and request.group.inspectable_by?(current_user)
-            %input.form-control{name: "requests[#{request.id}][inspection_comment]", value: request.inspection_comment, placeholder: _('Inspection comment'), maxlength: 255, data: {toggle: 'tooltip'}, title: _('max 255 characters')}
+          - if request.editable?(current_user) and request.category.inspectable_by?(current_user)
+            %textarea.form-control{name: "requests[#{request.id}][inspection_comment]", placeholder: _('Inspection comment'), maxlength: 255, data: {toggle: 'tooltip'}, title: _('max 255 characters')}= request.inspection_comment
           - else
             = request.inspection_comment
 
@@ -188,25 +188,28 @@
               %i.fa.fa-gear
               %span.caret
             %ul.dropdown-menu.dropdown-menu-right
+              %li
+                %a{href: category_budget_period_user_request_path(@category, @budget_period, @user, request), data: {remote: true, method: :delete, confirm: _("Are you sure you want to delete '%s'?") % request.article_name }}
+                  %i.fa.fa-trash
+                  = _('Delete')
+              %li.divider{role: 'separator'}
               %li.dropdown-header
                 %h5
-                  = _('Move to another group')
-              - Procurement::Group.where.not(id: @group).each do |group|
-                %li
-                  %a{href: move_group_budget_period_user_request_path(@group, @budget_period, @user, request, to_group_id: group.id), data: {remote: true, method: :put}}
-                    %i.fa.fa-arrow-right
-                    = group
+                  = _('Move to another category')
+              - Procurement::Category.where.not(id: @category).group_by(&:main_category).sort_by { |k, v| k.name }.each do |k, v|
+                %li.dropdown-header
+                  %h5= k.name
+                - v.each do |category|
+                  %li
+                    %a{href: move_category_budget_period_user_request_path(@category, @budget_period, @user, request, to_category_id: category.id), data: {remote: true, method: :put}}
+                      %i.fa.fa-arrow-right
+                      = category.name
               %li.divider{role: 'separator'}
               %li.dropdown-header
                 %h5
                   = _('Move to another budget period')
               - Procurement::BudgetPeriod.future.where.not(id: @budget_period).each do |budget_period|
                 %li
-                  %a{href: move_group_budget_period_user_request_path(@group, @budget_period, @user, request, to_budget_period_id: budget_period.id), data: {remote: true, method: :put}}
+                  %a{href: move_category_budget_period_user_request_path(@category, @budget_period, @user, request, to_budget_period_id: budget_period.id), data: {remote: true, method: :put}}
                     %i.fa.fa-arrow-right
                     = budget_period
-              %li.divider{role: 'separator'}
-              %li
-                %a{href: group_budget_period_user_request_path(@group, @budget_period, @user, request), data: {remote: true, method: :delete, confirm: _("Are you sure you want to delete '%s'?") % request.article_name }}
-                  %i.fa.fa-trash
-                  = _('Delete')

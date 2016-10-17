@@ -1,22 +1,22 @@
 When /^I add a model by typing in the inventory code of an item of that model to the quick add$/ do
   @item ||= @current_inventory_pool.items.detect {|x| not x.inventory_code.blank? }
-  find('#add-input').set @item.inventory_code
+  find('#add-input input').set @item.inventory_code
   find("button[type='submit'][title='#{_("Add")}']").click
   find('.line', match: :prefer_exact, text: @item.model.name)
 end
 
 When /^I start to type the inventory code of an item$/ do
   @item = @current_inventory_pool.items.borrowable.order('RAND()').first
-  fill_in 'add-input', with: @item.inventory_code[0..3]
+  find('#add-input input').set @item.inventory_code[0..3]
 end
 
 When /^I wait until the autocompletion is loaded$/ do
-  find('#add-input')
-  find('.ui-autocomplete', match: :first)
+  find('#add-input input')
+  find('.ui-autocomplete a.row', match: :first)
 end
 
 Then /^I already see possible matches of models$/ do
-  find('#add-input').click
+  find('#add-input input').click
   find('.ui-autocomplete', match: :first, text: @item.model.name)
 end
 
@@ -36,7 +36,7 @@ When /^I start to type the name of a model( which is not yet in the contract)?$/
           else
             items.first
           end
-  fill_in 'add-input', with: @item.model.name[0..-2]
+  find('#add-input input').set @item.model.name[0..-2]
 end
 
 When /^I add a model to the acknowledge which is already existing in the selected date range by providing an inventory code$/ do
@@ -48,9 +48,9 @@ When /^I add a model to the acknowledge which is already existing in the selecte
 
   fill_in 'add-start-date', with: I18n.l(@line.start_date)
   fill_in 'add-end-date', with: I18n.l(@line.end_date)
-  fill_in 'add-input', with: @model.items.first.inventory_code
+  find('#add-input input').set @model.items.first.inventory_code
 
-  find('#add-input+button').click
+  find('#add button').click
 end
 
 Then /^the existing line quantity is not increased$/ do
@@ -81,9 +81,9 @@ Given /^I search for a model with default dates and note the current availabilit
     av.changes.keys.last > init_start_date
   end
   @new_start_date = av.changes.select{|k, v| k > init_start_date }.keys.first
-  fill_in 'add-input', with: @model.name
-  find('.ui-menu-item a', match: :prefer_exact, text: @model.name)
-  @init_aval = find('.ui-menu-item a', match: :prefer_exact, text: @model.name).find('div.col1of4:nth-child(2) > div:nth-child(1)').text
+  find('#add-input input').set @model.name
+  el = find('.ui-autocomplete .row', match: :prefer_exact, text: @model.name)
+  @init_aval = el.find('div.col1of4:nth-child(2) > div:nth-child(1)').text
 end
 
 When /^I change the start date$/ do
@@ -99,18 +99,18 @@ And /^I change the end date$/ do
 end
 
 And /^I search again for the same model$/ do
-  fill_in 'add-input', with: @model.name
+  find('#add-input input').set @model.name
 end
 
 Then (/^the model's availability has changed$/) do
-  @changed_aval = find('.ui-menu-item a', match: :prefer_exact, text: @model.name).find('div.col1of4:nth-child(2) > div:nth-child(1)').text
+  @changed_aval = find('.row a', match: :prefer_exact, text: @model.name).find('div.col1of4:nth-child(2) > div:nth-child(1)').text
   expect(@changed_aval.slice(0)).not_to eq @init_aval.slice(0)
 end
 
 When(/^I start searching some model for adding it$/) do
   @model = @current_inventory_pool.items.borrowable.order('RAND()').first.model
-  find('#add-input').set @model.name[0..-2]
-  find('#add-input').click
+  find('#add-input input').set @model.name[0..-2]
+  find('#add-input input').click
 end
 
 When(/^I leave the autocomplete$/) do
@@ -118,7 +118,7 @@ When(/^I leave the autocomplete$/) do
 end
 
 When(/^I reenter the autocomplete$/) do
-  find('#add-input').click
+  find('#add-input input').click
 end
 
 Then(/^I should still see the model in the resultlist$/) do
@@ -145,6 +145,6 @@ When(/^I enter a model name( which is not related to my current pool)?$/) do |ar
           else
             Model.order('RAND()')
           end.first
-  find('#assign-or-add-input').set model.name[0..-2]
+  find('#assign-or-add-input input').set model.name[0..-2]
 end
 

@@ -1,4 +1,5 @@
 When(/^I select all reservations$/) do
+  step 'I close the flash message'
   all('.line').each do |line|
     cb = line.find('input[type=checkbox][data-select-line]')
     cb.click unless cb.checked?
@@ -49,7 +50,7 @@ end
 
 When(/^I add an option$/) do
   @option = @current_inventory_pool.options.sample
-  find('[data-add-contract-line]').set @option.name
+  find('#assign-or-add-input input').set @option.name
   within '.ui-autocomplete' do
     find("a[title='#{@option.name}']", match: :prefer_exact, text: @option.name).click
   end
@@ -98,6 +99,7 @@ Then(/^the quantity for that option line is changed$/) do
 end
 
 When(/^I change the quantity through the edit dialog$/) do
+  step 'I close the flash message'
   find(".line[data-id='#{@option_line.id}'] button").click
   @quantity = @option_line.quantity > 1 ? 1 : rand(2..9)
   find('#booking-calendar-quantity').set @quantity

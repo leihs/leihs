@@ -19,7 +19,8 @@ unless admin
 
   dba = DatabaseAuthentication.create(:login => "admin",
                                       :password => "password",
-                                      :password_confirmation => "password")
+                                      :password_confirmation => "password",
+                                      :user_id => admin.id)
   dba.user = admin
 
   admin.access_rights.create(:role => :admin)

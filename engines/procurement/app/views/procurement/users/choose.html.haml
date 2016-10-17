@@ -18,7 +18,7 @@
     = render partial: 'procurement/budget_periods/header', locals: {budget_period: @budget_period, requests: nil}
   .list-group
     - @requester_accesses.each do |access|
-      %a.list-group-item{href: group_budget_period_user_requests_path(@group, @budget_period, access.user, request_id: 'new_request')}
+      %a.list-group-item{href: category_budget_period_user_requests_path(@category, @budget_period, access.user, request_id: 'new_request')}
         .row
           .col-xs-3
             %i.fa.fa-plus-circle

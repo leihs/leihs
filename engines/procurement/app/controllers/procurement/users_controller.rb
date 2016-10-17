@@ -45,6 +45,8 @@ module Procurement
       #   Access.requesters.create(user_id: user_id)
       # end
 
+      Procurement::Organization.cleanup
+
       existing_admin_ids = Access.admins.pluck(:user_id)
       admin_ids = (params[:admin_ids] || '').split(',').map &:to_i
       (existing_admin_ids - admin_ids).each do |user_id|
@@ -59,8 +61,8 @@ module Procurement
     end
 
     def choose
-      @group = Procurement::Group.find(params[:group_id])
-      authorize @group, :inspectable_by_user?
+      @category = Procurement::Category.find(params[:category_id])
+      authorize @category, :inspectable_by_user?
 
       @budget_period = BudgetPeriod.find(params[:budget_period_id])
 

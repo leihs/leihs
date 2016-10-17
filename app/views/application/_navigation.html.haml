@@ -1,4 +1,6 @@
-- if current_user.has_role?(:group_manager) or current_user.has_role?(:admin)
+- procurement_engine_present = ("Procurement".constantize rescue false) and Procurement::Access.some_access?(current_user)
+
+- if current_user.has_role?(:group_manager) or current_user.has_role?(:admin) or procurement_engine_present
   %li.topbar-item.max-width-full.with-icon.dropdown-holder
     .topbar-item-inner
       - case controller_path.split('/').first.to_sym
@@ -19,7 +21,7 @@
           %a.dropdown-item{href: admin.root_path}
             %i.fa.fa-wrench
             %span= _('Admin')
-      - if ("Procurement".constantize rescue false) and Procurement::Access.some_access?(current_user)
+      - if procurement_engine_present
         %li.separated-top
           %a.dropdown-item{href: procurement.root_path}
             %i.fa.fa-pie-chart

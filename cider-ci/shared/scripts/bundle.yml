@@ -1,6 +1,0 @@
-bundle:
-  exclusive-executor-resource: bundler
-  timeout: 20 Minutes
-  body: cider-ci/bin/bundle_with_cachestamp.sh
-  start-when:
-  - script: setup-ruby

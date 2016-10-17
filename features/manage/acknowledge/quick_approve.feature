@@ -14,7 +14,7 @@ Feature: Quick Approve orders
     Then this contract is approved
     And I see a link to the hand over process of that order
 
-  @javascript @personas @browser
+  @javascript @personas @browser @problematic
   Scenario: Approve anyway on daily view
     Given I navigate to the open orders
     And the checkbox "No verification required" is already checked and I can uncheck

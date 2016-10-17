@@ -30,5 +30,19 @@ module Procurement
       s
     end
 
+    def self.cleanup
+      where.not(parent_id: nil).each do |organization|
+        if organization.accesses.empty? and organization.requests.empty?
+          organization.destroy
+        end
+      end
+
+      departments.each do |department|
+        if department.children.empty?
+          department.destroy
+        end
+      end
+    end
+
   end
 end

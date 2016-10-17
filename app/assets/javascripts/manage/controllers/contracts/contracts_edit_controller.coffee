@@ -33,14 +33,42 @@ class window.App.ContractsEditController extends Spine.Controller
     App.Purpose.on "update", @renderPurpose
     App.Reservation.on "change destroy", @fetchAvailability
     App.Contract.on "refresh", @fetchAvailability
-  
+
   setupAddLine: =>
-    new App.ReservationsAddController
+    that = @
+
+    reservationsAddController = new App.ReservationsAddController
       el: @el.find("#add")
       user: @contract.user()
       status: @status
       contract: @contract
       purpose: @purpose
+      modelsPerPage: 20
+
+    onChangeCallback = (value) ->
+      console.log 'onChangeCallback'
+      that.inputValue = value
+      that.autocompleteController.setProps(isLoading: true)
+      reservationsAddController.search value, (data)->
+        that.autocompleteController.setProps(searchResults: data, isLoading: false)
+
+    # create and mount the input field:
+    props =
+      onChange: _.debounce(onChangeCallback, 300)
+      onSelect: reservationsAddController.select
+      isLoading: false
+      placeholder: _jed("Inventory code, model name, search term")
+
+    @autocompleteController =
+      new App.HandOverAutocompleteController \
+        props,
+        @el.find("#add-input")[0]
+
+    @autocompleteController._render()
+
+    window.autocompleteController = @autocompleteController
+
+    reservationsAddController.setupAutocomplete(@autocompleteController)
 
   setupLineSelection: =>
     @lineSelection = new App.LineSelectionController

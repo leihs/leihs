@@ -7,6 +7,6 @@
 
 &nbsp;
 
-.label.label-success
-  %i.fa.fa-shopping-cart{data: {toggle: 'tooltip'}, title: _('Total of all approved requests')}
+.label.label-success{data: {toggle: 'tooltip'}, title: _('Total of all approved requests')}
+  %i.fa.fa-shopping-cart
   = money_without_cents_and_with_symbol inspected_requests.map {|r| r.total_price(current_user) }.sum

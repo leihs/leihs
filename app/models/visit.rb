@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # A Visit is an event on a particular date, on which a specific
 # customer should come to pick up or return items - or from the other perspective:
 # when an inventory pool manager should hand over some items to
@@ -16,17 +18,31 @@ class Visit < ActiveRecord::Base
   self.table_name = 'reservations'
 
   default_scope do
-    select('date, reservations.inventory_pool_id, reservations.user_id, status, ' \
-           'SUM(quantity) AS quantity, ' \
-           'CONV(SUBSTRING(CAST(SHA(' \
-            "CONCAT_WS('_', date, reservations.inventory_pool_id, " \
-            'reservations.user_id, status)) AS CHAR)' \
-           ', 1, 10), 16, 10) AS id')
-    .from('(SELECT ' \
-              "IF((status = 'signed'), end_date, start_date) AS date, "\
-              'inventory_pool_id, user_id, status, quantity ' \
-            'FROM `reservations` ' \
-            "WHERE status IN ('submitted', 'approved','signed') ) AS reservations")
+    select(<<-SQL)
+      date, reservations.inventory_pool_id, reservations.user_id, status,
+      SUM(quantity) AS quantity,
+      CONV(
+        SUBSTRING(
+          CAST(
+            SHA(
+              CONCAT_WS('_',
+                        date,
+                        reservations.inventory_pool_id,
+                        reservations.user_id, status)) AS CHAR),
+          1,
+          10),
+        16,
+        10) AS id
+    SQL
+    .from(<<-SQL)
+      (SELECT IF((status = 'signed'), end_date, start_date) AS date,
+              inventory_pool_id,
+              user_id,
+              status,
+              quantity
+       FROM `reservations`
+       WHERE status IN ('submitted', 'approved','signed')) AS reservations
+    SQL
     .group('user_id, status, date, inventory_pool_id')
     .order('date')
   end

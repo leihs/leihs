@@ -139,8 +139,8 @@ When /^I scan something \(assign it using its inventory code\) and it is already
   @model = @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool).models.order('RAND()').detect do |model|
     @item = model.items.borrowable.in_stock.where(inventory_pool: @current_inventory_pool).order('RAND()').first
   end
-  find('[data-add-contract-line]').set @item.inventory_code
-  find('[data-add-contract-line] + .addon').click
+  find('#assign-or-add-input input').set @item.inventory_code
+  find('#assign-or-add button').click
   @assigned_line = find("[data-assign-item][disabled][value='#{@item.inventory_code}']")
 end
 
@@ -155,9 +155,9 @@ When /^it doesn't exist in any future contracts$/ do
   @item = @model_not_in_contract.items.borrowable.in_stock.order('RAND()').first
   find('#add-start-date').set I18n.l(Date.today+7.days)
   find('#add-end-date').set I18n.l(Date.today+8.days)
-  find('[data-add-contract-line]').set @item.inventory_code
+  find('#assign-or-add-input input').set @item.inventory_code
   @amount_lines_before = all('.line').size
-  find('[data-add-contract-line] + .addon').click
+  find('#assign-or-add button').click
 end
 
 Then /^it is added for the selected time span$/ do
@@ -428,7 +428,7 @@ end
 When(/^I enter something in the "(.*?)" field$/) do |field_label|
   case field_label
     when 'Inventory Code/Name'
-      find('[data-add-contract-line]').set ' '
+      find('#assign-or-add-input input, #assign-input').set ' '
     else
       raise
   end

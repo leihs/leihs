@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class InventoryPool < ActiveRecord::Base
   include Availability::InventoryPool
   audited
@@ -71,6 +72,12 @@ class InventoryPool < ActiveRecord::Base
       .joins(:items)
       .where(':id IN (items.owner_id, items.inventory_pool_id)', id: id)
       .uniq
+  end
+
+  #######################################################################
+
+  def owner_or_responsible_for?(item)
+    self == item.owner or self == item.inventory_pool
   end
 
   #######################################################################

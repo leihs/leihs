@@ -5,7 +5,7 @@ module Procurement
     include Csv
 
     belongs_to :budget_period
-    belongs_to :group
+    belongs_to :category
     belongs_to :organization
     belongs_to :template
     belongs_to :user      # from parent application
@@ -34,12 +34,6 @@ module Procurement
       self.order_quantity ||= approved_quantity
       self.approved_quantity ||= order_quantity
 
-      if template and (template.article_name != article_name or \
-                        (template.article_number != article_number and \
-                         not template.article_number.blank?))
-        self.template_id = nil
-      end
-
       validates_budget_period
     end
 
@@ -52,7 +46,8 @@ module Procurement
       end
     end
 
-    validates_presence_of :user, :group, :organization, :article_name, :motivation
+    validates_presence_of :user, :category, :organization,
+                          :article_name, :motivation
     validates_presence_of :inspection_comment, if: :not_completely_approved?
     validates :requested_quantity,
               presence: true,
@@ -73,17 +68,17 @@ module Procurement
       Access.requesters.find_by(user_id: user_id) and
           (
             (budget_period.in_requesting_phase? \
-              and (user_id == user.id or group.inspectable_by?(user))) \
+              and (user_id == user.id or category.inspectable_by?(user))) \
             or
-            (budget_period.in_inspection_phase? and group.inspectable_by?(user))
+            (budget_period.in_inspection_phase? and category.inspectable_by?(user))
           )
     end
 
     # NOTE keep this order for the sorting
-    STATES = [:new, :approved, :partially_approved, :denied, :in_inspection]
+    STATES = [:new, :in_inspection, :approved, :partially_approved, :denied]
 
     def state(user)
-      if budget_period.past? or group.inspectable_or_readable_by?(user)
+      if budget_period.past? or category.inspectable_or_readable_by?(user)
         if approved_quantity.nil?
           :new
         elsif approved_quantity == 0
@@ -104,7 +99,7 @@ module Procurement
 
     def total_price(current_user)
       quantity = if (not budget_period.in_requesting_phase?) \
-                      or group.inspectable_or_readable_by?(current_user)
+                      or category.inspectable_or_readable_by?(current_user)
                    order_quantity || approved_quantity || requested_quantity
                  else
                    requested_quantity

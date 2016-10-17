@@ -1,6 +1,10 @@
 # rubocop:disable Metrics/ModuleLength
 module NavigationSteps
 
+  step 'I navigate to leihs' do
+    visit main_app.root_path
+  end
+
   step 'I navigate to procurement' do
     visit procurement.root_path
   end
@@ -10,9 +14,9 @@ module NavigationSteps
     step 'I am navigated to the new request form for the requester'
   end
   # alias
-  step 'I am navigated to the new request form of the specific group' do
-    step 'I am navigated to the new request form'
-  end
+  # step 'I am navigated to the new request form of the specific group' do
+  #   step 'I am navigated to the new request form'
+  # end
 
   step 'I am navigated to the new request form for the requester' do
     # NOTE this doesn't match the query params
@@ -20,17 +24,35 @@ module NavigationSteps
 
     # NOTE instead this matches the query params
     expect(page).to have_current_path \
-      procurement.group_budget_period_user_requests_path(
-        @group,
+      procurement.category_budget_period_user_requests_path(
+        @category,
         Procurement::BudgetPeriod.current,
         @user,
         request_id: :new_request)
   end
 
+  step 'I am navigated to the request form' do
+    expect(page).to have_current_path \
+      procurement.category_budget_period_user_requests_path(
+        @category,
+        @budget_period,
+        @current_user,
+        request_id: :new_request)
+  end
+
+  step 'I am navigated to the request form highlighting the template' do
+    expect(page).to have_current_path \
+      procurement.category_budget_period_user_requests_path(
+        @category,
+        @budget_period,
+        @current_user,
+        template_id: @template)
+  end
+
   step 'I am navigated to the requester list' do
     expect(current_path).to eq \
-      procurement.choose_group_budget_period_users_path(
-        @group,
+      procurement.choose_category_budget_period_users_path(
+        @category,
         Procurement::BudgetPeriod.current)
 
     within '.panel-success .list-group' do
@@ -42,8 +64,8 @@ module NavigationSteps
 
   step 'I am navigated to the template request form of the specific group' do
     expect(page).to have_current_path \
-      procurement.group_budget_period_user_requests_path(
-        @template.template_category.group,
+      procurement.category_budget_period_user_requests_path(
+        @template.category,
         Procurement::BudgetPeriod.current,
         @current_user,
         template_id: @template.id)
@@ -56,8 +78,38 @@ module NavigationSteps
         Procurement::BudgetPeriod.current)
 
     within '.panel-success .panel-body' do
-      find('h4', text: _('Choose an article/project'))
-      find('h4', text: _('Add article for specific group'))
+      find('h4', text: _('Choose a suggested article or a category'))
+    end
+  end
+
+  step 'I am on the request form of a sub category' do
+    @category ||= Procurement::Category.first
+    visit procurement.category_budget_period_user_requests_path(
+      @category,
+      Procurement::BudgetPeriod.current,
+      @current_user)
+  end
+
+  step 'I am navigated to the users page' do
+    expect(page).to have_selector('h1', text: _('Users'))
+  end
+
+  step 'I am redirected to leihs' do
+    expect(current_path).not_to include 'procurement'
+  end
+
+  step 'I confirm the alert popup' do
+    alert = page.driver.browser.switch_to.alert
+    alert.accept
+    expect { page.driver.browser.switch_to.alert }.to \
+      raise_error Selenium::WebDriver::Error::NoSuchAlertError
+  end
+
+  step 'I do not see a link to procurement' do
+    within 'header .topbar-navigation.float-right' do
+      current_scope.click
+      expect(current_scope).to \
+        have_no_selector '.dropdown-item', text: _('Procurement')
     end
   end
 
@@ -65,14 +117,6 @@ module NavigationSteps
     visit procurement.new_user_budget_period_request_path(
       @current_user,
       Procurement::BudgetPeriod.current)
-  end
-
-  step 'I am on the new request form of a group' do
-    @group ||= Procurement::Group.first.name
-    visit procurement.group_budget_period_user_requests_path(
-      @group,
-      Procurement::BudgetPeriod.current,
-      @current_user)
   end
 
   step 'I navigate to the requests overview page' do
@@ -96,8 +140,8 @@ module NavigationSteps
            else
                User.find_by(firstname: name)
            end
-    path = procurement.group_budget_period_user_requests_path(
-      @group,
+    path = procurement.category_budget_period_user_requests_path(
+      @category,
       Procurement::BudgetPeriod.current,
       user)
     visit path
@@ -116,15 +160,15 @@ module NavigationSteps
     expect(page).to have_selector('h1', text: _('Budget periods'))
   end
 
-  step 'I navigate to the groups page' do
+  step 'I navigate to the categories (edit )page' do
     if has_no_selector? '.navbar .navbar-right', text: _('Procurement')
       visit procurement.root_path
     end
     within '.navbar' do
       click_on _('Admin')
-      click_on _('Groups')
+      click_on _('Categories')
     end
-    expect(page).to have_selector('h1', text: _('Groups'))
+    expect(page).to have_selector('h1', text: _('Categories'))
   end
 
   step 'I navigate to the organisation tree page' do
@@ -141,7 +185,7 @@ module NavigationSteps
   # step 'I navigate to the users list' do
   #   visit procurement.users_path
   # end
-  step 'I navigate to the users page' do
+  step 'I navigate to the users page:confirm' do |confirm|
     if has_no_selector? '.navbar .navbar-right', text: _('Procurement')
       visit procurement.root_path
     end
@@ -149,10 +193,11 @@ module NavigationSteps
       click_on _('Admin')
       click_on _('Users')
     end
-    expect(page).to have_selector('h1', text: _('Users'))
+    step 'I confirm the alert popup' if confirm
+    step 'I am navigated to the users page'
   end
 
-  step 'I navigate to the templates page of my group' do
+  step 'I navigate to the templates page' do
     # NOTE refresh the page
     if has_no_selector? '.navbar', text: _('Templates')
       visit procurement.root_path
@@ -160,13 +205,21 @@ module NavigationSteps
 
     within '.navbar' do
       click_on _('Templates')
-      click_on @group.name
     end
-    expect(page).to have_selector('h1', text: _('Templates'))
+
+    expect(current_path).to be == procurement.templates_path
+    expect(page).to have_selector('h3', text: _('Templates'))
   end
-  # alias
-  step 'I navigate to the templates page' do
-    step 'I navigate to the templates page of my group'
+
+  step 'I navigate to the settings page' do
+    if has_no_selector? '.navbar .navbar-right', text: _('Procurement')
+      visit procurement.root_path
+    end
+    within '.navbar' do
+      click_on _('Admin')
+      click_on _('Settings')
+    end
+    expect(page).to have_selector('h1', text: _('Settings'))
   end
 
   step 'I pick a requester' do
@@ -178,5 +231,8 @@ module NavigationSteps
     end
   end
 
+  step 'I type the procurement URL' do
+    visit procurement.root_path
+  end
 end
 # rubocop:enable Metrics/ModuleLength

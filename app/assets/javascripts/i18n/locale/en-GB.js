@@ -243,7 +243,7 @@ window.i18n.locale_data = {
          null,
          "Check-In State"
       ],
-      "Anschaffungskategorie": [
+      "Beschaffungsgruppe": [
          null,
          "Supply Category"
       ],

@@ -6,41 +6,57 @@ jobs:
     description: |
       Various superordinate quality assurance tasks
 
-    depends-on:
-    - type: job
-      job: borrow-scenarios
-      states: [passed]
-    - type: job
-      job: manage-scenarios
-      states: [passed]
-    - type: job
-      job: admin-scenarios
-      states: [passed]
-    - type: job
-      job: procurement-scenarios
-      states: [passed]
+    run_when:
+      any branch name:
+        type: branch
+        include_match: '^.*$'
+        exclude_match: '.*(no-ci|hotspot).*$'
 
-    run-on:
-    - type: branch
-      include-match: '^.*$'
-      exclude-match: '^(.*no-ci.*)$'
+    depends_on:
+      borrow_manage_code_checks:
+        type: job
+        job_key: borrow_manage_code_checks
+        states: [passed]
+      borrow_scenarios:
+        type: job
+        job_key: borrow_scenarios
+        states: [passed]
+      manage_scenarios:
+        type: job
+        job_key: manage_scenarios
+        states: [passed]
+      leihs_admin_code_checks:
+        type: job
+        job_key: leihs_admin_code_checks
+        states: [passed]
+      leihs_admin_scenarios:
+        type: job
+        job_key: leihs_admin_scenarios
+        states: [passed]
+      procurement_code_checks:
+        type: job
+        job_key: procurement_code_checks
+        states: [passed]
+      procurement_scenarios:
+        type: job
+        job_key: procurement_scenarios
+        states: [passed]
 
     context:
-      task-defaults:
-        max-auto-trials: 1
+      task_defaults:
+        max_trials: 1
         traits:
-          linux: true
-          ruby: true
+          Ruby: true
 
       tasks:
-        # increase-of-problematic-tests:
-        #   name: "Number of problematic tests did not increase"
-        #   scripts:
-        #     main:
-        #       body: "cider-ci/bin/check_problematic_scenarios.rb"
-
         git-branch-current:
           name: "git tree contains latest commit from origin/master"
           scripts:
             main:
-              body: "cider-ci/bin/check_if_branch_current"
+              body: |
+                #!/usr/bin/env bash
+                set -exu
+                git fetch --all
+                #
+                # check if your tree still contains the current commit from master
+                git rev-list --children HEAD | grep -q "$(git rev-parse origin/master)"

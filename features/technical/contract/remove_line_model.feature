@@ -20,7 +20,7 @@ Feature: Remove line
     And the amount of reservations decreases by one
 
   @personas
-  Scenario: Removal of a line for APPROVED contract should NOT be possible
+  Scenario: Removal of a line for APPROVED contract should be possible
     Given there is a "APPROVED" contract with 2 reservations
     When one tries to delete a line
     Then that line has been deleted

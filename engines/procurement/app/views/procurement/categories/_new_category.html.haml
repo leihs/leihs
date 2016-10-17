@@ -1,0 +1,52 @@
+#new_main_category.panel.panel-default
+  .panel-heading
+    .row
+      .col-xs-2
+        %span.toggler
+          %i.fa.fa-caret-right
+        %i.fa.fa-cube
+        %label.form-group
+          = succeed ':' do
+            = _('Main category')
+      .col-xs-9
+        %input.form-control{name: "main_categories[new][name]", data: {to_be_required: true}}
+      .col-xs-1.text-right{style: 'font-size: 1.6em'}
+        %i.fa.fa-minus-circle{title: _("Delete main category"), data: {toggle: 'tooltip', confirm: _("Are you sure you want to delete '%s'?") % _('main category')}}
+
+  .panel-body
+    .row
+      .col-xs-4
+        %h4= _('Image')
+        %input{type: :file, name: "main_categories[new][image]", style: "color:transparent;", onchange: "this.style.color = 'black';"}
+
+        %h4= _('Budget limits')
+        - Procurement::BudgetPeriod.order(end_date: :desc).each do |budget_period|
+          - budget_limit = Procurement::BudgetLimit.new(budget_period_id: budget_period.id)
+          = fields_for :budget_limits, budget_limit do |ff|
+            .row
+              .col-sm-4
+                %input{type: :hidden, name: "main_categories[new][budget_limits_attributes][#{budget_limit.object_id}][budget_period_id]", value: ff.object.budget_period_id}
+                = budget_period
+              .col-sm-8
+                %input.form-control{type: :number, name: "main_categories[new][budget_limits_attributes][#{budget_limit.object_id}][amount]", min: 0, step: 1, placeholder: _('Budget'), autocomplete: :off, value: ff.object.amount.to_i}
+
+      .col-xs-8.border-left
+        %h4= _('Subcategories')
+        %table.table
+          %thead
+            %tr.row
+              %th.col-xs-5= _('Name')
+              %th.col-xs-6= _('Inspectors')
+              %th.col-xs-1
+          %tbody
+            %tr.row.new_subcategory
+              %td.col-xs-5
+                %input.form-control{name: "main_categories[new][categories_attributes][new][name]", placeholder: _('Name')}
+              %td.col-xs-6
+                %input.form-control{name: "main_categories[new][categories_attributes][new][inspector_ids]", multiple: true, placeholder: _("Name of the inspector"), autocomplete: :off}
+              %td.col-xs-1.text-right
+                %i.fa.fa-minus-circle{title: _("Delete subcategory"), data: {toggle: 'tooltip'}}
+          %tfoot
+            %tr
+              %td.h3{colspan: 3}
+                %i.fa.fa-plus-circle{title: _('Add new subcategory'), data: {toggle: 'tooltip'}}

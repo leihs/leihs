@@ -9,7 +9,7 @@ module Procurement
 
     def allowed?
       request_user == user or
-        Procurement::Group.inspector_of_any_group_or_admin?(user)
+        Procurement::Category.inspector_of_any_category_or_admin?(user)
     end
   end
 end

@@ -1,0 +1,32 @@
+traits:
+  ruby-install: true
+  chruby: true
+  Bash: true
+
+scripts:
+
+  bundle-rspec-ruby:
+    exclusive_executor_resource: ruby-install_{{$RUBY}}
+    timeout: 20 Minutes
+    body: |
+      #!/usr/bin/env bash
+      set -eux
+      export PATH=~/.rubies/$RUBY/bin:$PATH
+
+      if [ ! -d ~/.rubies/$RUBY ]; then
+        ruby-install --no-install-deps $RUBY_ENGINE $RUBY_VERSION
+      fi
+
+      if [ ! -f ~/.rubies/$RUBY/bin/bundle ]; then
+        gem install bundler
+      fi
+
+      bundle install
+
+  test:
+    start_when:
+      gems are bundled:
+        script_key: bundle-rspec-ruby
+        states: [passed]
+
+

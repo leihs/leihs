@@ -1,26 +1,20 @@
-%h4
-  %i.fa.fa-cube
-  = _('Choose an article/project')
-
-.panel-group(id="accordion")
-  - template_categories.each do |category|
-    .panel.panel-info
-      .panel-heading(role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_#{category.id}")
-        = category
+.panel-group
+  - categories.each do |category|
+    .panel.panel-default
+      .panel-heading
+        = category.name
+        %a{href: category_budget_period_user_requests_path(category, @budget_period, @user, request_id: 'new_request')}
+          %i.fa.fa-plus-circle
         -#%span.badge.pull-right
           = category.templates.count
-      .list-group(id="collapse_#{category.id}" class="panel-collapse collapse")
+      .list-group
         - category.templates.each do |template|
           :ruby
-            link = if controller.action_name == 'new'
-                      group_budget_period_user_requests_path(category.group_id,
+            link = category_budget_period_user_requests_path(category,
                                                              @budget_period,
                                                              @user,
                                                              template_id: template.id)
-                   else
-                     '#'
-                   end
           %a.list-group-item.show_template{href: link, data: {template_id: template.id}}
             = template
-            .label.label-primary.pull-right
+            .label.label-custom.pull-right
               = money_without_cents_and_with_symbol template.price

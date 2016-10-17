@@ -2,15 +2,12 @@
   %input{type: :hidden, name: 'filter[sort_by]', value: @filter['sort_by']}
   %input{type: :hidden, name: 'filter[sort_dir]', value: @filter['sort_dir']}
 
-  - if procurement_requester? and procurement_inspector_or_admin?
-    .form-group
-      %b
-        %i.fa.fa-tasks
-        = _('Requests')
-      %ul
-        %label
-          %input{type: :checkbox, name: "user_id", value: current_user.id, checked: @filter['user_id'] == current_user.id}
-          .label.label-default= _('Only show my own requests')
+  .form-group
+    %b
+      %i.fa.fa-search
+      = _('Search')
+    %ul
+      %input.form-control{name: 'filter[search]', placeholder: _('Search'), value: @filter['search'], autocomplete: :off}
 
   .form-group
     %b
@@ -23,38 +20,45 @@
 
   .form-group
     %b
-      %i.fa.fa-shopping-cart
-      = _('Groups')
+      %i.fa.fa-outdent
+      = _('Categories')
     %ul
-      %select{name: 'filter[group_ids][]', multiple: true}
-        :ruby
-          my_groups, other_groups = Procurement::Group.all.partition { |group| group.inspectable_by?(current_user) }
-        - unless my_groups.blank?
-          %optgroup{label: _('My groups')}
-            - my_groups.each do |group|
-              %option{value: group.id, selected: @filter['group_ids'].map(&:to_i).include?(group.id)}= group
-          %optgroup{label: _('Other groups')}
-            - other_groups.each do |group|
-              %option{value: group.id, selected: @filter['group_ids'].map(&:to_i).include?(group.id)}= group
-        - else
-          - other_groups.each do |group|
-            %option{value: group.id, selected: @filter['group_ids'].map(&:to_i).include?(group.id)}= group
+      %select{name: 'filter[category_ids][]', multiple: true}
+        - Procurement::MainCategory.with_categories.each do |main_category|
+          %optgroup{label: main_category.name}
+            - main_category.categories.each do |category|
+              %option{value: category.id, selected: @filter['category_ids'].map(&:to_i).include?(category.id)}
+                = category.name
 
   - if procurement_inspector_or_admin?
+    .form-group
+      %b
+        %i.fa.fa-tasks
+        = _('Special filters')
+      %ul
+        - if procurement_requester?
+          %label
+            %input{type: :checkbox, name: "user_id", value: current_user.id, checked: @filter['user_id'] == current_user.id}
+            .label.label-default= _('Only my own requests')
+        - if Procurement::Category.inspector_of_any_category? current_user
+          %label
+            %input{type: :checkbox, name: "filter[inspectable_categories]", value: '1', checked: @filter['inspectable_categories'] == '1'}
+            .label.label-default= _('Only my own categories')
+        %label
+          %input{type: :checkbox, name: "filter[categories_with_requests]", value: '1', checked: @filter['categories_with_requests'] == '1'}
+          .label.label-default= _('Only categories with requests')
+
     .form-group
       %b
         %i.fa.fa-sitemap
         = _('Organisations')
       %ul
-        %select{name: 'filter[organization_id]'}
-          %option{value: ''}= _('All')
-          %optgroup{label: "----------"}
+        %select{name: 'filter[organization_ids][]', multiple: true}
           - Procurement::Organization.departments.each do |department|
-            %option{value: department.id, selected: (@filter['organization_id'].to_i == department.id)}= department
-            - department.children.each do |organization_unit|
-              %option{value: organization_unit.id, selected: (@filter['organization_id'].to_i == organization_unit.id)}
-                &nbsp;&nbsp;&nbsp;
-                = organization_unit
+            %optgroup{label: department.name}
+              - department.children.each do |organization_unit|
+                %option{value: organization_unit.id, selected: @filter['organization_ids'].map(&:to_i).include?(organization_unit.id)}
+                  = organization_unit.name
 
   .form-group
     %b
@@ -78,13 +82,6 @@
             %input{type: :checkbox, name: "filter[states][]", value: state, checked: @filter['states'].map(&:to_sym).include?(state)}
             .label{class: label_class(state)}= _(state.to_s.humanize)
 
-  .form-group
-    %b
-      %i.fa.fa-search
-      = _('Search')
-    %ul
-      %input.form-control{name: 'filter[search]', placeholder: _('Search'), value: @filter['search'], autocomplete: :off}
-
 %br
 %button.btn.btn-primary{type: :submit, name: 'format', value: 'csv', form: 'filter_panel'}
   %i.fa.fa-table
@@ -99,6 +96,7 @@
       $('#filter_target').addClass('transparency')
       currentRequest.abort() if (currentRequest)
       currentRequest = xhr
+      settings.url = settings.url.replace('&format=csv', '')
     ).on('ajax:complete', (e, data, status, xhr) ->
       $(this).removeAttr("data-remote").removeData('remote')
       $('#filter_target').html(data.responseText).removeClass('transparency')
@@ -115,15 +113,16 @@
           $(this).data('remote', true).submit()
         , 400
     ).on('change', (event)->
-      unless event.target.name == 'filter[search]'
+      if event.target.name != 'filter[search]' and event.target.name != 'filter[category_ids][]'
         $(this).data('remote', true).submit()
     ).change()
 
     $("#filter_panel select").multiselect(
-      preventInputChangeEvent: true
       includeSelectAllOption: true
+      enableClickableOptGroups: true
       selectAllText: "#{_('Select all')}"
       nonSelectedText: "#{_('None selected')}"
       allSelectedText: "#{_('All selected')}"
       nSelectedText: " #{_('selected')}"
+      onChange: -> $('form#filter_panel').data('remote', true).submit()
     )

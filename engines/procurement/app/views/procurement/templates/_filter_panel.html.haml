@@ -1,0 +1,36 @@
+#filter_panel
+  .form-group
+    %b
+      %i.fa.fa-search
+      = _('Search')
+    %ul
+      %input.form-control{name: 'search', placeholder: _('Search'), value: params[:search], autocomplete: :off}
+
+:coffeescript
+  $(document).ready ->
+    currentRequest = null
+    timeoutId = null
+    last_search_string = ''
+    $("input[name='search']").keydown((e)->
+      charCode = e.charCode || e.keyCode || e.which
+      if charCode == 13
+        return false
+      else if (charCode >= 65 and charCode <= 90) or
+        (charCode >= 48 and charCode <= 57) or
+        (charCode >= 96 and charCode <= 111) or
+         charCode == 8
+        clearTimeout(timeoutId) if timeoutId
+        timeoutId = setTimeout =>
+          search_string = $(this).val()
+          if last_search_string != search_string
+            last_search_string = search_string
+            if search_string.length
+              $('.panel-info').hide()
+              $('.panel-info:has([data-searchable*="' + search_string.toLocaleLowerCase() + '"])').show()
+              $('.panel-info:has([data-searchable*="' + search_string.toLocaleLowerCase() + '"]) .panel-body.panel-collapse').collapse('show')
+            else
+              $('.panel-info .panel-body.panel-collapse').collapse('hide')
+              $('.panel-info').show()
+        , 400
+    )
+

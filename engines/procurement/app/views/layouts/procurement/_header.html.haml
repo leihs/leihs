@@ -31,10 +31,10 @@
                     - unless Procurement::BudgetPeriod.current
                       %i.fa.fa-warning.text-danger
                 %li
-                  %a{href: groups_path}
-                    %i.fa.fa-shopping-cart
-                    = _('Groups')
-                    - unless Procurement::Group.exists?
+                  %a{href: categories_path}
+                    %i.fa.fa-outdent
+                    = _('Categories')
+                    - unless Procurement::Category.exists?
                       %i.fa.fa-warning.text-danger
                 %li
                   %a{href: users_path}
@@ -48,24 +48,27 @@
                     = _('Organisations')
                     - unless Procurement::Organization.exists?
                       %i.fa.fa-warning.text-danger
+                %li
+                  %a{href: edit_settings_path}
+                    %i.fa.fa-gear
+                    = _('Settings')
 
           %li{class: opened_menu == :request ? 'active' : nil}
             %a{href: overview_requests_path}
               %i.fa.fa-tasks
               = _('Requests')
 
-          - unless (inspectable_groups = Procurement::Group.all.select{ |group| group.inspectable_by?(current_user) }).empty?
-            %li.dropdown{class: opened_menu == :template ? 'active' : nil}
-              %a.dropdown-toggle{href: "#", data: {toggle: "dropdown"}}
+          - if Procurement::Category.inspector_of_any_category? current_user
+            %li{class: opened_menu == :template ? 'active' : nil}
+              %a{href: templates_path}
                 %i.fa.fa-cube
                 = _('Templates')
-                %i.caret
-              %ul.dropdown-menu
-                - inspectable_groups.each do |group|
-                  %li
-                    %a{href: group_templates_path(group)}
-                      %i.fa.fa-shopping-cart
-                      = group
+
+          - if setting = Procurement::Setting.find_by(key: 'contact_url')
+            %li
+              %a{href: setting.value, target: '_blank'}
+                %i.fa.fa-envelope
+                = _('Contact')
 
         %ul.nav.navbar-nav.navbar-right
           = render partial: 'layouts/procurement/navigation'

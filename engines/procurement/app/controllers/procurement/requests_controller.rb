@@ -6,15 +6,19 @@ module Procurement
     include Filter
 
     before_action do
-      if Procurement::Group.inspector_of_any_group_or_admin?(current_user)
+      if Procurement::Category.inspector_of_any_category_or_admin?(current_user)
         @user = User.not_as_delegations.find(params[:user_id]) if params[:user_id]
       else # only requester
         @user = current_user
       end
 
-      @group = Procurement::Group.find(params[:group_id]) if params[:group_id]
-      @budget_period = \
-        BudgetPeriod.find(params[:budget_period_id]) if params[:budget_period_id]
+      if params[:category_id]
+        @category = Procurement::Category.find(params[:category_id])
+      end
+
+      if params[:budget_period_id]
+        @budget_period = BudgetPeriod.find(params[:budget_period_id])
+      end
 
       unless RequestPolicy.new(current_user, request_user: @user).allowed?
         raise Pundit::NotAuthorizedError
@@ -24,7 +28,7 @@ module Procurement
     def index
       h = { budget_period_id: @budget_period }
       h[:user_id] = @user if @user
-      h[:group_id] = @group if @group
+      h[:category_id] = @category if @category
       @requests = Request.where h
 
       respond_to do |format|
@@ -55,8 +59,6 @@ module Procurement
 
     def new
       authorize @budget_period, :not_past?
-      @template_categories = TemplateCategory.all
-      @groups = Procurement::Group.all
     end
 
     def create
@@ -71,11 +73,11 @@ module Procurement
     end
 
     def move
-      @request = Request.where(user_id: @user, group_id: @group,
+      @request = Request.where(user_id: @user, category_id: @category,
                                budget_period_id: @budget_period).find(params[:id])
       h = { inspection_comment: nil, approved_quantity: nil, order_quantity: nil }
-      if params[:to_group_id]
-        h[:group] = Procurement::Group.find(params[:to_group_id])
+      if params[:to_category_id]
+        h[:category] = Procurement::Category.find(params[:to_category_id])
       elsif params[:to_budget_period_id]
         h[:budget_period] = BudgetPeriod.find(params[:to_budget_period_id])
       end
@@ -89,7 +91,7 @@ module Procurement
     end
 
     def destroy
-      request = Request.where(user_id: @user, group_id: @group,
+      request = Request.where(user_id: @user, category_id: @category,
                               budget_period_id: @budget_period).find(params[:id])
       request.destroy
       if request.destroyed?
@@ -104,7 +106,7 @@ module Procurement
 
     def create_or_update_or_destroy
       keys = Request::REQUESTER_EDIT_KEYS
-      keys += Request::INSPECTOR_KEYS if @group.inspectable_by?(current_user)
+      keys += Request::INSPECTOR_KEYS if @category.inspectable_by?(current_user)
 
       params.require(:requests).values.map do |param|
         if param[:id].blank? or @user == current_user
@@ -116,7 +118,7 @@ module Procurement
           r = update_or_destroy(param, permitted)
         else
           next if permitted[:motivation].blank?
-          r = @group.requests.create(permitted) do |x|
+          r = @category.requests.create(permitted) do |x|
             x.user = @user
             x.budget_period = @budget_period
           end

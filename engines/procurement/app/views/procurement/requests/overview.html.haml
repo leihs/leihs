@@ -5,7 +5,7 @@
   #column-titles.row
     %b.col-sm-2
       %a{href: '#', data: {sort_by: :article_name}}
-        = _('Article / Project')
+        = _('Article or Project')
         %i.fa.fa-sort
     %b.col-sm-2
       %a{href: '#', data: {sort_by: :user}}
@@ -39,6 +39,22 @@
 #filter_target
   .h3
     %i.fa.fa-circle-o-notch.spinner
+
+:scss
+  .main_category {
+    .h4 {
+      margin: 0;
+    }
+  }
+
+  .budget_limit, .big_total_price {
+    display: inline-block;
+    margin: 0.7em 0 auto;
+  }
+
+  .panel-heading .col-sm-2.h1 {
+    margin: 0;
+  }
 
 :coffeescript
   $(document).ready ->

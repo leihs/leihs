@@ -58,7 +58,7 @@ end
 
 When(/^I choose the mail function$/) do
   expect(ActionMailer::Base.deliveries.count).to eq 0
-  within('#users .line', text: @delegation) do
+  within('#delegations .line', text: @delegation) do
     find('.arrow.down').click
     @mailto_link = find('a', text: _('E-Mail'))[:href]
   end

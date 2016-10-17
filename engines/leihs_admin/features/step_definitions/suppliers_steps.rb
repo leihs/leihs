@@ -39,20 +39,23 @@ When(/^I edit an existing supplier$/) do
 end
 
 Given(/^there is a deletable supplier$/) do
-  @supplier = Supplier.order('RAND ()').detect {|b| b.can_destroy? }
+  @supplier = Supplier.all.detect {|b| b.can_destroy? }
   @supplier ||= FactoryGirl.create(:supplier)
   expect(@supplier).not_to be_nil
   expect(@supplier.can_destroy?).to be true
 end
 
 When(/^I delete a supplier$/) do
+  ############################################################
+  # NOTE: removing header and footer
+  # they are causing problems on Cider => covering the element
+  # we want to click on
+  page.execute_script %($('header').remove();)
+  page.execute_script %($('footer').remove();)
+  ############################################################
+
   within '.list-of-lines' do
     el = find('.row', text: @supplier.name)
-
-    # NOTE trick scrolling element to the screen (not hidden by header)
-    # OPTIMIZE: not working if not at least 4 previous elements
-    prev_el = el.find(:xpath, "./preceding-sibling::div[4]")
-    page.driver.browser.action.move_to(prev_el.native).perform
 
     within el do
       find('.dropdown-toggle').click

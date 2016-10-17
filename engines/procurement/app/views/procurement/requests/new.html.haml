@@ -8,16 +8,21 @@
         = render partial: 'procurement/budget_periods/phases', locals: {budget_period: @budget_period}
       .col-sm-4
 
-  .panel-body
-    .row
-      .col-sm-6
-        = render partial: 'procurement/templates/categories', locals: {template_categories: @template_categories}
+  .panel-body#accordion
+    %h4
+      %i.fa.fa-cube
+      = _('Choose a suggested article or a category')
+    - Procurement::MainCategory.with_categories.each do |main_category|
+      .panel.panel-info
+        .panel-heading.collapsed(data-toggle="collapse" href="#collapse_#{main_category.id}")
+          %h4
+            %span.toggler
+              %i.fa.fa-caret-right
+            - if main_category.image.exists?
+              %img.main_category_image{src: main_category.image.url}
+            - else
+              %i.fa.fa-outdent.main_category_image
+            = main_category.name
 
-      .col-sm-6
-        %h4
-          %i.fa.fa-shopping-cart
-          = _('Add article for specific group')
-        .list-group
-          - @groups.each do |group|
-            %a.list-group-item{href: group_budget_period_user_requests_path(group, @budget_period, @user, request_id: 'new_request')}
-              = group
+        .panel-body(id="collapse_#{main_category.id}" class="panel-collapse collapse" role="tabpanel")
+          = render partial: 'procurement/templates/categories', locals: {categories: main_category.categories}

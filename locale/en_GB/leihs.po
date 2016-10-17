@@ -145,7 +145,7 @@ msgstr "Check-In Note"
 msgid "Ankunftszustand"
 msgstr "Check-In State"
 
-msgid "Anschaffungskategorie"
+msgid "Beschaffungsgruppe"
 msgstr "Supply Category"
 
 msgid "Werkstatt-Technik"

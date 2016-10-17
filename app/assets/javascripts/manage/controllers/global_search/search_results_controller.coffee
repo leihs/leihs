@@ -5,7 +5,10 @@ class window.App.SearchResultsController extends Spine.Controller
 
   constructor: ->
     super
-    @additionalData = { accessRight: App.AccessRight, currentUserRole: App.User.current.role }
+    @additionalData =
+      accessRight: App.AccessRight
+      currentUserRole: App.User.current.role
+      currentInventoryPool: App.InventoryPool.current
     @pagination = new App.ListPaginationController {el: @list, fetch: @_fetch}
     do @reset
 

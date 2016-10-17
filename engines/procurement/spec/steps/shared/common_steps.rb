@@ -7,7 +7,7 @@ module CommonSteps
 
   step 'a request with following data exist' do |table|
     @changes = {
-      group: @group
+      category: @category
     }
     table.hashes.each do |hash|
       hash['value'] = nil if hash['value'] == 'random'
@@ -53,8 +53,10 @@ module CommonSteps
         user: user,
         budget_period: current_budget_period
       }
-      if value['group'] == 'inspected' or not @group.nil?
-        h[:group] = @group
+      if value['category'] == 'inspected' or not @category.nil?
+        h[:category] = @category || Procurement::Category.detect do |category|
+          not category.inspectable_by?(@current_user)
+        end
       end
 
       n.times do
@@ -65,6 +67,7 @@ module CommonSteps
   end
 
   step 'for each request I see the following information' do |table|
+    step 'I expand all the sub categories'
     elements = all('[data-request_id]', minimum: 1)
     expect(elements).not_to be_empty
     elements.each do |element|
@@ -83,15 +86,15 @@ module CommonSteps
           when 'price'
               find '.col-sm-1 .total_price', text: request.price.to_i
           when 'requested amount'
-              within all('.col-sm-2.quantities div', count: 3)[0] do
+              within all('.col-sm-2.quantities div')[0] do
                 expect(page).to have_content request.requested_quantity
               end
           when 'approved amount'
-              within all('.col-sm-2.quantities div', count: 3)[1] do
+              within all('.col-sm-2.quantities div')[1] do
                 expect(page).to have_content request.approved_quantity
               end
           when 'order amount'
-              within all('.col-sm-2.quantities div', count: 3)[2] do
+              within all('.col-sm-2.quantities div')[2] do
                 expect(page).to have_content request.order_quantity
               end
           when 'total amount'
@@ -137,6 +140,14 @@ module CommonSteps
     step "I choose the following #{field} value", table
   end
 
+  step 'I can not save' do
+    step 'I click on save'
+    step 'I do not see a success message'
+  end
+  step 'I can not save the request' do
+    step 'I can not save'
+  end
+
   step 'I choose the name of a receiver' do
     @receiver = User.not_as_delegations.where.not(id: @current_user).sample
 
@@ -156,7 +167,10 @@ module CommonSteps
   end
 
   step 'I click on save' do
-    click_on _('Save'), match: :first
+    within 'article .page-content-wrapper' do
+      el = all('button', text: _('Save'), minimum: 1).last
+      el.click
+    end
   end
 
   # step 'I enter the section :section' do |section|
@@ -169,19 +183,24 @@ module CommonSteps
   # end
 
   step 'I delete the following fields' do |table|
-    el1, el2 = if @template
-                 ['.panel-collapse.in',
-                  find(:xpath,
-                       "//input[@value='#{@template.article_name}']/ancestor::tr")]
-               elsif @request
-                 ['.panel-body',
-                  ".request[data-request_id='#{@request.id}']"]
-               else
-                 ['.panel-body',
-                  ".request[data-request_id='new_request']"]
-               end
+    el1 = if @template
+            find('.panel-info', text: @template.category.main_category.name)
+          else
+            find('.panel-body')
+          end
 
     within el1 do
+      find('.collapsed').click if el1.has_selector? '.collapsed'
+
+      el2 = if @template
+              find(:xpath,
+                   "//input[@value='#{@template.article_name}']/ancestor::tr")
+            elsif @request
+              ".request[data-request_id='#{@request.id}']"
+            else
+              ".request[data-request_id='new_request']"
+            end
+
       within el2 do
         table.raw.flatten.each do |value|
           case value
@@ -191,6 +210,25 @@ module CommonSteps
               fill_in _(value), with: ''
           end
         end
+      end
+    end
+  end
+
+  step 'I expand all the main categories' do
+    all('.row.main_category', minimum: 1).each do |el|
+      el.click if el.has_no_selector? 'a[aria-expanded="true"]'
+      target_id = el.find('a')['href'].gsub(/.*#/, '')
+      find ".panel-body .collapse##{target_id} .col-sm-8.h4"
+    end
+  end
+
+  step 'I expand all the sub categories' do
+    step 'page has been loaded'
+    step 'I expand all the main categories'
+    all('.panel-body .collapse .col-sm-8.h4', minimum: 1).each do |el|
+      next if el.has_no_selector? 'i.fa-caret-right'
+      if el.has_no_selector? '.toggler[aria-expanded="true"]'
+        el.find('a.toggler', match: :first).click
       end
     end
   end
@@ -227,23 +265,32 @@ module CommonSteps
 
   step 'I fill in the following fields' do |table|
     @changes ||= {}
+
+    el = if @template
+           'article .page-content-wrapper ' \
+           ".request[data-template_id='#{@template.id}']"
+         else
+           'article .page-content-wrapper'
+         end
     table.hashes.each do |hash|
-      hash['value'] = nil if hash['value'] == 'random'
-      case hash['key']
-      when 'Price'
+      within el do
+        hash['value'] = nil if hash['value'] == 'random'
+        case hash['key']
+        when 'Price'
           v = (hash['value'] || Faker::Number.number(4)).to_i
           find("input[name*='[price]']").set v
-      when /quantity/
+        when /quantity/
           v = (hash['value'] || Faker::Number.number(2)).to_i
           fill_in _(hash['key']), with: v
-      when 'Replacement / New'
+        when 'Replacement / New'
           v = hash['value'] || [0, 1].sample
           find("input[name*='[replacement]'][value='#{v}']").click
-      else
+        else
           v = hash['value'] || Faker::Lorem.sentence
           fill_in _(hash['key']), with: v
+        end
+        @changes[mapped_key(hash['key'])] = v
       end
-      @changes[mapped_key(hash['key'])] = v
 
       # NOTE trigger change event
       find('body').native.send_keys(:tab) # find('body').click
@@ -251,7 +298,7 @@ module CommonSteps
   end
 
   step 'I move a request to the future budget period' do
-    within '.request', match: :first do
+    within all('.request', minimum: 1).last do
       @request = Procurement::Request.find current_scope['data-request_id']
       link_on_dropdown(@future_budget_period.to_s).click
     end
@@ -261,49 +308,81 @@ module CommonSteps
     }
   end
 
-  step 'I move a request to the other group' do
-    within '.request', match: :first do
+  step 'I move a request to the other category' do
+    within all('.request', minimum: 1).last do
       @request = Procurement::Request.find current_scope['data-request_id']
-      groups = Procurement::Group.where.not(id: @request.group_id)
+      categories = Procurement::Category.where.not(id: @request.category_id)
 
-      @other_group = if @not_inspected_group
-                       groups.detect do |group|
-                         not group.inspectable_by?(@current_user)
-                       end
-                     else
-                       groups.first
-                     end
+      @other_category = if @not_inspected_category
+                          categories.detect do |category|
+                            not category.inspectable_by?(@current_user)
+                          end
+                        else
+                          categories.first
+                        end
 
-      link_on_dropdown(@other_group.to_s).click
+      link_on_dropdown(@other_category.name).click
     end
 
     @changes = {
-      group_id: @other_group.id
+      category_id: @other_category.id
     }
   end
 
-  step 'I move a request to the other group where I am not inspector' do
-    @not_inspected_group = true
-    step 'I move a request to the other group'
+  step 'I move a request to the other category where I am not inspector' do
+    @not_inspected_category = true
+    step 'I move a request to the other category'
   end
 
-  step 'I press on the plus icon of a group' do
-    @group ||= Procurement::Group.first.name
+  step 'I press on a main category having sub categories' do
+    @main_category = Procurement::Category.all.sample.main_category
+    find('.panel-info > .panel-heading.collapsed h4',
+         text: @main_category.name).click
+  end
+
+  step 'I press on the plus icon of a sub category' do
+    @category ||= Procurement::Category.first
+    step 'I deselect "Only categories with requests"'
+    step 'I select all categories'
+    step 'I expand all the sub categories'
     within '#filter_target' do
       within '.panel-success .panel-body' do
-        within '.row .h4', text: @group.name do
+        within '.row .h4', text: @category.name do
           find('i.fa-plus-circle').click
         end
       end
     end
   end
 
+  step 'I press on the plus icon of one of its sub categories' do
+    @category = @main_category.categories.first
+    within '.panel-info', text: @main_category.name do
+      within '.panel-default .panel-heading', text: @category.name do
+        find('i.fa-plus-circle').click
+      end
+    end
+  end
+
+  step 'I press on the plus icon of the current budget period' do
+    within '#filter_target' do
+      within '.panel-success > .panel-heading',
+             text: Procurement::BudgetPeriod.current.name do
+        find('i.fa-plus-circle').click
+      end
+    end
+  end
+
+  step 'I see the saved message' do
+    expect(page).to have_content _('Saved')
+  end
+
   step 'I :boolean a success message' do |boolean|
     if boolean
-      # expect(page).to have_content _('Saved')
-      find '.flash .alert-success', match: :first
+      Capybara.using_wait_time(8) do
+        expect(page).to have_selector '.flash .alert-success'
+      end
     else
-      expect(page).not_to have_selector '.flash .alert-success'
+      expect(page).to have_no_selector '.flash .alert-success'
     end
   end
 
@@ -311,17 +390,17 @@ module CommonSteps
     find '.flash .alert-danger', match: :first
   end
 
-  step 'I see all groups' do
+  step 'I see all main categories' do
     within '.panel-success .panel-body' do
-      Procurement::Group.all.each do |group|
-        find '.row', text: group.name
+      Procurement::MainCategory.all.each do |category|
+        find '.row', text: category.name
       end
     end
   end
   # not alias, but same implementation
-  step 'I see all groups listed' do
-    step 'I see all groups'
-  end
+  # step 'I see all main categories listed' do
+  #   step 'I see all main categories'
+  # end
 
   step 'I see the amount of requests listed' do
     within '#filter_target' do
@@ -350,21 +429,21 @@ module CommonSteps
 
   step 'I see the requested amount per budget period' do
     requests = Procurement::BudgetPeriod.current.requests
-                .where(group_id: displayed_groups)
+                .where(category_id: displayed_categories)
     requests = requests.where(user_id: @current_user) if filtered_own_requests?
     total = requests.map { |r| r.total_price(@current_user) }.sum
     find '.panel-success > .panel-heading .label-primary.big_total_price',
          text: number_with_delimiter(total.to_i)
   end
 
-  step 'I see the requested amount per group of each budget period' do
-    displayed_groups.each do |group|
+  step 'I see the requested amount per category of each budget period' do
+    displayed_categories.each do |category|
       requests = Procurement::BudgetPeriod.current.requests
-                     .where(group_id: group)
+                     .where(category_id: category)
       requests = requests.where(user_id: @current_user) if filtered_own_requests?
       total = requests.map { |r| r.total_price(@current_user) }.sum
       within '.panel-success .panel-body' do
-        within '.row', text: group.name do
+        within '.row', text: category.name do
           find '.label-primary.big_total_price',
                text: number_with_delimiter(total.to_i)
         end
@@ -396,19 +475,35 @@ module CommonSteps
 
   step 'I want to create a new request' do
     step 'I navigate to the requests overview page'
-    step 'I press on the plus icon of a group'
+    step 'I press on the plus icon of the current budget period'
+    step 'I press on a main category having sub categories'
+    step 'I press on the plus icon of one of its sub categories'
   end
 
-  step ':count groups exist' do |count|
+  step ':count main categories exist' do |count|
     n = case count
         when 'several'
             3
         else
             count.to_i
         end
-    @groups = []
+    @main_categories = []
     n.times do
-      @groups << FactoryGirl.create(:procurement_group)
+      @main_categories << FactoryGirl.create(:procurement_main_category)
+    end
+  end
+
+  step ':count sub categories exist' do |count|
+    n = case count
+        when 'several'
+            3
+        else
+            count.to_i
+        end
+    @sub_categories = []
+    n.times do
+      @sub_categories << FactoryGirl.create(:procurement_category,
+                                            main_category: @main_categories.sample)
     end
   end
 
@@ -443,7 +538,7 @@ module CommonSteps
       user: @current_user,
       budget_period: budget_period
     }
-    h[:group] = @group if @group
+    h[:category] = @category if @category
 
     n = 5
     n.times do
@@ -454,18 +549,16 @@ module CommonSteps
     expect(requests.count).to eq n
   end
 
-  step 'several template categories exist' do
-    h = {}
-    h[:group] = @group if @group
-    3.times do
-      FactoryGirl.create :procurement_template_category, h
+  step 'several categories exist' do
+    10.times do
+      FactoryGirl.create :procurement_category
     end
   end
 
-  step 'several template articles in categories exist' do
-    Procurement::TemplateCategory.all.each do |category|
+  step 'several template articles in sub categories exist' do
+    Procurement::Category.all.each do |category|
       @category = category
-      step 'the template category contains articles'
+      step 'the category contains template articles'
     end
   end
 
@@ -490,6 +583,8 @@ module CommonSteps
            ".request[data-request_id='#{@request.id}']"
          elsif has_selector? ".request[data-request_id='new_request']"
           ".request[data-request_id='new_request']"
+         elsif has_selector? '#new_main_category.panel-default'
+           '#new_main_category.panel-default'
          else
            all('form table tbody tr', minimum: 1).last
          end
@@ -517,9 +612,9 @@ module CommonSteps
                         when 'requested quantity'
                             find("input[name*='[requested_quantity]']")
                         when 'motivation'
-                            find("input[name*='[motivation]']")
+                            find("textarea[name*='[motivation]']")
                         when 'inspection comment'
-                            find("input[name*='[inspection_comment]']")
+                            find("textarea[name*='[inspection_comment]']")
                         end
       end
       expect(input_field['required']).to eq 'true' # ;-)
@@ -534,7 +629,7 @@ module CommonSteps
     if price = @changes.delete(:price)
       @changes[:price_cents] = price * 100
     end
-    expect(@group.requests.where(user_id: user).find_by(@changes)).to be
+    expect(@category.requests.where(user_id: user).find_by(@changes)).to be
   end
 
   step 'the status is set to :state' do |state|
@@ -543,10 +638,9 @@ module CommonSteps
     end
   end
 
-  step 'the template category contains articles' do
+  step 'the category contains template articles' do
     3.times do
-      FactoryGirl.create :procurement_template,
-                         template_category: @category
+      FactoryGirl.create :procurement_template, category: @category
     end
   end
 
@@ -560,9 +654,10 @@ module CommonSteps
   end
 
   def visit_request(request)
-    visit procurement.group_budget_period_user_requests_path(request.group,
-                                                             request.budget_period,
-                                                             request.user)
+    visit \
+      procurement.category_budget_period_user_requests_path(request.category,
+                                                            request.budget_period,
+                                                            request.user)
   end
 
   def travel_to_date(datetime = nil)
@@ -606,9 +701,9 @@ module CommonSteps
 
   def mapped_key(from)
     case from
-    when 'Article / Project'
+    when 'Article or Project'
         :article_name
-    when 'Article nr. / Producer nr.'
+    when 'Article nr. or Producer nr.'
         :article_number
     when 'Replacement / New'
         :replacement
@@ -619,14 +714,38 @@ module CommonSteps
     end
   end
 
+  step 'all budget periods are visible' do
+    # wait till all budget periods are visible
+    Procurement::BudgetPeriod.all.map do |budget_period|
+      find('.panel-heading .h4', text: budget_period.name)
+    end
+  end
+
+  step 'I press on the first main category inside of the last budget period' do
+    @budget_period = Procurement::BudgetPeriod.all.sort_by(&:end_date).first
+    @main_category = Procurement::MainCategory.all.sort_by(&:name).first
+    find('.panel-heading .h4', text: @budget_period.name)
+      .find(:xpath, "../../../div[@class='panel-body']")
+      .find("[href='#collapse_mc_#{@budget_period.id}_#{@main_category.id}']")
+      .click
+  end
+
+  step 'I see the sub-categories of this main category' do
+    within "#collapse_mc_#{@budget_period.id}_#{@main_category.id}" do
+      @main_category.categories.each do |c|
+        find('.row', text: c.name)
+      end
+    end
+  end
+
   def number_with_delimiter(n)
     ActionController::Base.helpers.number_with_delimiter(n)
   end
 
   private
 
-  def displayed_groups
-    Procurement::Group.where(name: all('div.row .h4', minimum: 0).map(&:text))
+  def displayed_categories
+    Procurement::Category.where(name: all('div.row .h4', minimum: 0).map(&:text))
   end
 
   def filtered_own_requests?

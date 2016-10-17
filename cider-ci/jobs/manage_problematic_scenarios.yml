@@ -1,0 +1,34 @@
+jobs:
+
+  manage_problematic_scenarios:
+
+    name: 'Manage: Problematic Scenarios'
+
+    description: |
+      Run Manage problematic scenarios under MRI
+
+    priority: -1
+
+    run_when:
+      branch name matches master or manage:
+        type: branch
+        include_match: '^(.*master.*|[a-z]*/manage.*)$'
+        exclude_match: '.*(no-ci|hotspot).*$'
+
+    depends_on:
+      manage_scenarios:
+        type: job
+        job_key: manage_scenarios
+        states: [passed]
+
+    context:
+
+      include:
+        - cider-ci/shared/main_context.yml
+        - cider-ci/tasks/manage_problematic_scenarios.yml
+
+      task_defaults:
+        load: 2
+        max_trials: 10
+        include:
+          - cider-ci/task_components/database.yml

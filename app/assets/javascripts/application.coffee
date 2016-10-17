@@ -34,6 +34,11 @@
 #= require spine/ajax
 #= require spine/relation
 #
+##### REACT
+#
+#= require react
+#= require components
+#
 ##### APP
 #
 #= require_tree ./initalizers

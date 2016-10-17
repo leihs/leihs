@@ -14,11 +14,13 @@ Feature: Exporting the data to a CSV-File
     And I export the shown information
     Then the following fields are exported
       | Budget period              |
-      | Group                      |
+      | Main category              |
+      | Subcategory                |
       | Requester                  |
-      | Organisation unit          |
-      | Article / Project          |
-      | Article nr. / Producer nr. |
+      | Department                 |
+      | Organisation               |
+      | Article or Project          |
+      | Article nr. or Producer nr. |
       | Replacement / New          |
       | Requested quantity         |
       | Approved quantity          |

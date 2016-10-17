@@ -6,6 +6,7 @@ class window.App.SearchOverviewController extends Spine.Controller
     "#items": "items"
     "#licenses": "licenses"
     "#users": "users"
+    "#delegations": "delegations"
     "#contracts": "contracts"
     "#orders": "orders"
     "#options": "options"
@@ -20,6 +21,7 @@ class window.App.SearchOverviewController extends Spine.Controller
     do @searchLicenses
     do @searchOptions
     do @searchUsers
+    do @searchDelegations
     do @searchContracts
     do @searchOrders
     new App.LatestReminderTooltipController {el: @el}
@@ -59,7 +61,15 @@ class window.App.SearchOverviewController extends Spine.Controller
     totalCount = JSON.parse(xhr.getResponseHeader("X-Pagination")).total_count
     do @removeLoading
     if records.length
-      el.find(".list-of-lines").html App.Render templatePath, records, { accessRight: App.AccessRight, currentUserRole: App.User.current.role }
+      el.find(".list-of-lines").html(
+        App.Render(
+          templatePath,
+          records,
+          currentInventoryPool: App.InventoryPool.current,
+          accessRight: App.AccessRight,
+          currentUserRole: App.User.current.role
+        )
+      )
       el.removeClass("hidden")
     if totalCount > @previewAmount
       el.find("[data-type='show-all']").removeClass("hidden").append $("<span class='badge margin-left-s'>#{totalCount}</span>")
@@ -78,6 +88,7 @@ class window.App.SearchOverviewController extends Spine.Controller
         type: "item"
         per_page: @previewAmount
         search_term: @searchTerm
+        current_inventory_pool: false
     .done (data, status, xhr)=> 
       items = (App.Item.find datum.id for datum in data)
       @fetchModels(items).done =>
@@ -113,16 +124,28 @@ class window.App.SearchOverviewController extends Spine.Controller
         ids: ids
         all: true
         paginate: false
+        current_inventory_pool: false
+
+  searchDelegations: =>
+    App.User.ajaxFetch
+      data: $.param
+        per_page: @previewAmount
+        search_term: @searchTerm
+        type: 'delegation'
+    .done (data, status, xhr)=>
+      delegations = (App.User.find datum.id for datum in data)
+      App.User.fetchDelegators delegations, =>
+        @render @delegations, "manage/views/users/search_result_line", delegations, xhr
 
   searchUsers: =>
     App.User.ajaxFetch
       data: $.param
         per_page: @previewAmount
         search_term: @searchTerm
+        type: 'user'
     .done (data, status, xhr)=>
       users = (App.User.find datum.id for datum in data)
-      App.User.fetchDelegators users, =>
-        @render @users, "manage/views/users/search_result_line", users, xhr
+      @render @users, "manage/views/users/search_result_line", users, xhr
 
   searchContracts: =>
     App.Contract.ajaxFetch

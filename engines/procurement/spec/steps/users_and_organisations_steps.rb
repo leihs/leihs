@@ -13,8 +13,22 @@ steps_for :users_and_organisations do
     expect(Procurement::Access.admin?(@current_user)).to be true
   end
 
+  step 'that requester can not submit new requests anymore' do
+    expect { FactoryGirl.create(:procurement_request, user: @user) }.to \
+      raise_error ActiveRecord::RecordInvalid
+  end
+
   step 'there does not exist any requester yet' do
     expect(Procurement::Access.requesters.count).to eq 0
+  end
+
+  step 'there exist requests for this requester' do
+    @requests = 3.times.map do
+      FactoryGirl.create(:procurement_request, user: @user)
+    end
+
+    @organization = \
+      Procurement::Access.requesters.find_by(user_id: @user).organization
   end
 
   step 'there is an empty requester line for creating a new one' do
@@ -185,6 +199,18 @@ steps_for :users_and_organisations do
       find('li', text: requester.organization.parent.name)
         .find('li', text: requester.organization.name)
         .find('li', text: requester.user.name)
+    end
+  end
+
+  step 'the existing requests keep the reference to the original requester' do
+    @requests.each do |request|
+      expect(request.reload.user).to eq @user
+    end
+  end
+
+  step 'the existing requests keep the reference to the original organisation' do
+    @requests.each do |request|
+      expect(request.reload.organization).to eq @organization
     end
   end
 

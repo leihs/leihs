@@ -48,12 +48,17 @@ end
 Given /^there is a "(SIGNED|CLOSED)" contract with reservations?$/ do |contract_type|
   status = contract_type.downcase.to_sym
 
-  @contract = @inventory_pool.reservations_bundles.where(status: status).order("RAND()").first
+  @contract = FactoryGirl.create("#{contract_type.downcase}_contract", inventory_pool: @inventory_pool)
   @no_of_lines_at_start = @contract.reservations.count
 end
 
 When /^one tries to delete a line$/ do
-  @result_of_line_removal = @contract.remove_line(@contract.reservations.last)
+  @result_of_line_removal = begin
+                              l = @contract.reservations.last.destroy
+                              l.destroyed?
+                            rescue
+                              false
+                            end
 end
 
 Then /^the amount of reservations decreases by one$/ do

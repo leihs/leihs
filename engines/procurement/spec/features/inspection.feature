@@ -6,10 +6,11 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
   @inspection
   Scenario: What to see in section "Requests" as inspector
     Given I am Barbara
-    And several requests exist for my groups
+    And several requests exist for my categories
     When I navigate to the requests overview page
     Then the current budget period is selected
-    And only my groups are selected
+    And only my categories are selected
+    And only categories having requests are selected
     And all organisations are selected
     And both priorities are selected
     And the state "In inspection" is not present
@@ -19,19 +20,22 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     And I see the headers of the columns of the overview
     And I see the amount of requests listed
     And I see the current budget period
-    And I see the requested amount per budget period
-    And I see the requested amount per group of each budget period
-    And I see the budget limits of all groups
-    And I see the total of all ordered amounts of each group
-    And I see the total of all ordered amounts of a budget period
-    And I see the percentage of budget used compared to the budget limit of my group
+    And I see the total amount of each sub category for each budget period
+    And the total amount is calculated by adding the following amounts
+      | quantity  | state              |
+      | requested | new                |
+      | order     | accepted           |
+      | order     | partially accepted |
+    And I see the total of all budget limits of the shown main categories for each budget period
+    And I see the budget limit of each main category for each budget period
+    And I see the total amount of each main category for each budget period
+    And the total amount is calculated by adding all totals of the sub category
+    And I see the percentage of budget used compared to the budget limit of the main categories
     And I see when the requesting phase of this budget period ends
     And I see when the inspection phase of this budget period ends
-    And only my groups are shown
     And for each request I see the following information
       | article name          |
       | name of the requester |
-      | department            |
       | organisation          |
       | price                 |
       | requested amount      |
@@ -56,36 +60,62 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
   @inspection
   Scenario: Using the filters as inspector
     Given I am Barbara
-    And templates for my group exist
     And following requests exist for the current budget period
-      | quantity | user   |
-      | 2        | myself |
-      | 1        | Roger  |
+      | quantity | user   | category  |
+      | 2        | myself | inspected |
+      | 1        | Roger  | inspected |
     When I navigate to the requests overview page
-    And I select "Only show my own requests"
     And I select the current budget period
-    And I select all groups
+    And I select all categories
+    And I select "Only my own requests"
+    And I select "Only my own categories"
+    And I select "Only categories with requests"
     And I select all organisations
     And I select both priorities
     And I select all states
     And I leave the search string empty
     Then the list of requests is adjusted immediately
-    And I see both my requests
+    And I see only my own requests
     And I see the amount of requests which are listed is 2
-    When I navigate to the templates page of my group
+    And only categories having requests are shown
+    When I deselect "Only my own requests"
+    Then I see all requests
+    And I see the amount of requests which are listed is 3
+    When I deselect "Only my own categories"
+    Then all categories are selected
+    When I navigate to the templates page
     And I navigate back to the request overview page
     Then the filter settings have not changed
+
+  # this scenario is a reaction to a bug:
+  # if multiple budget periods were selected, then no categories with requests were selected,
+  # although there have been some. It was working for a single budget period however.
+  @inspection
+  Scenario: Check proper display of categories with requests if multiple budget periods are selected
+    Given I am Barbara
+    And several budget periods exist
+    And following requests exist for the current budget period
+      | quantity | user   | category  |
+      | 2        | myself | inspected |
+      | 1        | Roger  | inspected |
+    When I navigate to the requests overview page
+    And I select all budget periods
+    And I select "Only categories with requests"
+    Then the list of requests is adjusted immediately
+    And only categories having requests are shown
 
   @inspection
   Scenario: Creating a request as inspector
     Given I am Barbara
     And a receiver exists
     And a point of delivery exists
-    When I want to create a new request
-    And I fill in the following fields
+    When I navigate to the requests overview page
+    And I press on the plus icon of a sub category
+    Then I am navigated to the request form
+    When I fill in the following fields
       | key                        | value  |
-      | Article / Project          | random |
-      | Article nr. / Producer nr. | random |
+      | Article or Project          | random |
+      | Article nr. or Producer nr. | random |
       | Supplier                   | random |
       | Motivation                 | random |
       | Price                      | random |
@@ -112,7 +142,7 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
   Scenario: Creating a request for another user
     Given I am Barbara
     When I navigate to the requests overview page
-    And I press on the Userplus icon of a group I am inspecting
+    And I press on the Userplus icon of a sub category I am inspecting
     Then I am navigated to the requester list
     When I pick a requester
     Then I am navigated to the new request form for the requester
@@ -133,7 +163,6 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     And I fill in the following fields
       | key               | value |
       | Approved quantity | 0     |
-  #NW: in hands on tests, the empty inspection comment field of a piartially approved request was not marked red and the browser position was not on the right place
     Then the field "inspection comment" is marked red
     And I can not save the request
     When I fill in the following fields
@@ -165,7 +194,7 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     And there is a future budget period
     And there is a budget period which has already ended
     And following requests exist for the current budget period
-      | quantity | user  | group     |
+      | quantity | user  | category  |
       | 3        | Roger | inspected |
     When I navigate to the requests form of Roger
     Then I can not move any request to the old budget period
@@ -175,15 +204,15 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     And I can not submit the data
 
   @inspection
-  Scenario: Moving request as inspector to another group
+  Scenario: Moving request as inspector to another category
     Given I am Barbara
-    And several groups exist
+    And several categories exist
     And the current budget period is in inspection phase
     And following requests exist for the current budget period
-      | quantity | user  | group     |
+      | quantity | user  | category  |
       | 3        | Roger | inspected |
     When I navigate to the requests form of Roger
-    And I move a request to the other group where I am not inspector
+    And I move a request to the other category where I am not inspector
     Then I see a success message
     And the changes are saved successfully to the database
     And the following information is deleted from the request

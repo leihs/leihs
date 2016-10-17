@@ -13,8 +13,8 @@ When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over
   @inventory_codes << @inventory_code
   line_amount_before = all('.line', minimum: 1).size
   step 'I close the flash message'
-  find('[data-add-contract-line]').set @inventory_code
-  find('[data-add-contract-line] + .addon').click
+  find('#assign-or-add-input input').set @inventory_code
+  find('#assign-or-add button').click
   find('#flash')
   find(".line input[value='#{@inventory_code}']")
   expect(line_amount_before).to be < all('.line', minimum: 1).size
@@ -33,8 +33,8 @@ When /^I add (a|an|a borrowable|an unborrowable) (item|license) to the hand over
            end.order('RAND()').first
   @model = @item.model
   @inventory_codes << @item.inventory_code
-  fill_in 'assign-or-add-input', with: @item.model.name
-  find('.ui-menu-item', text: @item.model.name).click
+  find('#assign-or-add-input input').set @item.model.name
+  find('.ui-autocomplete .submenu-scroll li', text: @item.model.name).click
   find('.line', text: @item.model.name, match: :first).find('form[data-assign-item-form] input').click
   find('.ui-menu-item', text: @item.inventory_code).click
 end
@@ -58,22 +58,23 @@ When /^I add an option to the hand over by providing an inventory code and a dat
                                          end
                       (@current_inventory_pool.options.order('RAND()') - existing_options).first
                     end.inventory_code
-  find('[data-add-contract-line]').set @inventory_code
-  find('[data-add-contract-line] + .addon').click
+  find('#assign-or-add-input input').set @inventory_code
+  find('#assign-or-add button').click
   find(".line[data-line-type='option_line'] .grey-text", text: @inventory_code)
   step 'the option is added to the hand over'
 end
 
 Then /^the (.*?) is added to the hand over$/ do |type|
-  contract = @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool)
   case type
     when 'option'
       find(".line[data-line-type='option_line'] .col1of10", match: :prefer_exact, text: @inventory_code)
       option = Option.find_by_inventory_code(@inventory_code)
       find('#flash', text: option.name)
+      contract = @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool)
       @option_line = contract.reload.option_lines.where(option_id: option).order(:created_at).last
       expect(contract.reload.options).to include option
     when 'model'
+      contract = @customer.reservations_bundles.approved.find_by(inventory_pool_id: @current_inventory_pool)
       find(".line[data-line-type='item_line'] .col4of10", match: :prefer_exact, text: @model.name)
       expect(contract.reload.models.include?(@model)).to be true
   end
@@ -113,11 +114,11 @@ When /^I type the beginning of (.*?) name to the add\/assign input field$/ do |t
       @template = @current_inventory_pool.templates.first
       @template.name
   end
-  type_into_autocomplete '[data-add-contract-line]', @target_name[0..-2]
+  type_into_autocomplete '#assign-or-add-input input', @target_name[0..-2]
 end
 
 Then /^I see a list of suggested (.*?) names$/ do |type|
-  find('[data-add-contract-line]').click
+  find('#assign-or-add-input input, #add-input input').click
   within '.ui-autocomplete' do
     find('a', match: :first)
   end
@@ -162,7 +163,7 @@ When /^I add so many reservations that I break the maximal quantity of a model$/
                     end
   @quantity_added = [quantity_to_add+1, 0].max
   @quantity_added.times do
-    type_into_autocomplete '[data-add-contract-line]', @target_name
+    type_into_autocomplete '#assign-or-add-input input, #add-input input', @target_name
     step 'I see a list of suggested model names'
     step 'I select the model from the list'
   end
@@ -177,8 +178,8 @@ Then /^I see that all reservations of that model have availability problems$/ do
 end
 
 When /^I add an item to the hand over$/ do
-  find('[data-add-contract-line]').set @item.inventory_code
-  find('[data-add-contract-line] + .addon').click
+  find('#assign-or-add-input input').set @item.inventory_code
+  find('#assign-or-add button').click
   find('#flash')
 end
 

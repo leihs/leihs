@@ -71,8 +71,8 @@ Feature: Periods and states
     When I want to create a new request
     And I fill in the following fields
       | key                        | value  |
-      | Article / Project          | random |
-      | Article nr. / Producer nr. | random |
+      | Article or Project          | random |
+      | Article nr. or Producer nr. | random |
       | Supplier                   | random |
       | Motivation                 | random |
       | Price                      | random |
@@ -83,7 +83,7 @@ Feature: Periods and states
     And the status of the request saved to the database is "New"
 
   @periods_and_states
-  Scenario: State "Inspection" - Current Date between Inspection Date and Budget Period End Date
+  Scenario: State "In inspection" - Current Date between Inspection Date and Budget Period End Date
     Given the basic dataset is ready
     And I am Roger
     And a request with following data exist
@@ -107,7 +107,7 @@ Feature: Periods and states
     Then the budget periods are sorted from 0-10 and a-z
     And for every budget period I see the total of all requested amounts with status "New"
     And for every budget period I see the total of all ordered amounts with status "Approved" or "Partially approved"
-
+    
   @periods_and_states
   Scenario Outline: State "In inspection", "Approved", "Denied" "Partially approved" for requester when budget period has ended
     Given the basic dataset is ready
@@ -147,7 +147,7 @@ Feature: Periods and states
     And I can not modify any request for the budget period which has ended
     And I can not delete any requests for the budget period which has ended
     And I can not move a request of a budget period which has ended to another budget period
-    And I can not move a request of a budget period which has ended to another procurement group
+    And I can not move a request of a budget period which has ended to another category
     Examples:
       | username  |
       | Barbara   |

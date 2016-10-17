@@ -8,10 +8,10 @@
     %i.fa.fa-warning.text-danger
     = _('Current budget period not defined yet')
 
-- unless Procurement::Group.exists?
+- unless Procurement::Category.exists?
   .alert.alert-danger
     %i.fa.fa-warning.text-danger
-    = _('No groups defined yet')
+    = _('No categories defined yet')
 
 - if Procurement::Access.requesters.empty?
   .alert.alert-danger

@@ -590,6 +590,10 @@ window.i18n.locale_data = {
          null,
          "%s löschen"
       ],
+      "Delete line": [
+         null,
+         "Zeile löschen"
+      ],
       "Delete Selection": [
          null,
          "Auswahl löschen"
@@ -1541,6 +1545,10 @@ window.i18n.locale_data = {
       "Reservation": [
          null,
          "Reservation"
+      ],
+      "Contact": [
+         null,
+         "Kontakt"
       ],
       "Contact person": [
          null,
@@ -4069,9 +4077,9 @@ window.i18n.locale_data = {
          null,
          "Max. 255 Zeichen"
       ],
-      "Article / Project": [
+      "Article or Project": [
          null,
-         "Artikel / Projekt"
+         "Artikel oder Projekt"
       ],
       "Procurement": [
          null,
@@ -4081,9 +4089,9 @@ window.i18n.locale_data = {
          null,
          "Frage zum Beschaffungsantrag"
       ],
-      "Article nr. / Producer nr.": [
+      "Article nr. or Producer nr.": [
          null,
-         "Artikelnr. / Herstellernr."
+         "Artikelnr. oder Herstellernr."
       ],
       "Replacement": [
          null,
@@ -4092,6 +4100,10 @@ window.i18n.locale_data = {
       "Choose an article/project": [
          null,
          "Artikel/Projekt wählen"
+      ],
+      "Choose an article or a category": [
+         null,
+         "Artikel oder Kategorie wählen"
       ],
       "Request moved": [
          null,
@@ -4141,17 +4153,29 @@ window.i18n.locale_data = {
          null,
          "Sie haben nicht gespeicherte Daten. Möchten Sie diese löschen?"
       ],
-      "Only show my own requests": [
+      "Special filters": [
          null,
-         "Nur eigene Anträge anzeigen"
+         "Spezialfilter"
       ],
-      "Add article": [
+      "Only my own requests": [
          null,
-         "Artikel hinzufügen"
+         "Nur eigene Anträge"
       ],
-      "Create request for this group": [
+      "Only my own categories": [
          null,
-         "Antrag für diese Gruppe erfassen"
+         "Nur eigene Kategorien"
+      ],
+      "Only categories with requests": [
+         null,
+         "Nur Kategorien mit Anträgen"
+      ],
+      "New line (Add Article or Project)": [
+         null,
+         "Neue Linie (Artikel oder Projekt hinzufügen)"
+      ],
+      "Create request for this category": [
+         null,
+         "Antrag für diese Kategorie erfassen"
       ],
       "Create request for another user": [
          null,
@@ -4181,9 +4205,9 @@ window.i18n.locale_data = {
          null,
          "Es existiert keine aktuelle Budgetperiode"
       ],
-      "No groups defined yet": [
+      "No categories defined yet": [
          null,
-         "Es ist noch keine Gruppe vorhanden"
+         "Es ist noch keine Kategorie vorhanden"
       ],
       "No admins defined yet": [
          null,
@@ -4205,29 +4229,29 @@ window.i18n.locale_data = {
          null,
          "Total aller bewilligten Anträge"
       ],
-      "Create request by choosing a group or recommended article or project": [
+      "Create request by choosing an article or project": [
          null,
-         "Zuerst Gruppe, Artikel oder Projekt auswählen und Antrag erstellen"
+         "Artikel oder Projekt auswählen und Antrag erstellen"
       ],
       "Current total of budget period": [
          null,
          "Aktuelles total dieser Budgetperiode"
       ],
-      "Current total of group": [
+      "Current total of category": [
          null,
-         "Aktuelles Gruppentotal"
+         "Aktuelles Total der Kategorie"
       ],
-      "Limit of group for this budget period": [
+      "Current total of selected requests": [
          null,
-         "Gruppenlimite dieser Budgetperiode"
+         "Aktuelles Total der selektierten Anträge"
       ],
-      "% used (group limit - current group total)": [
+      "% used (category limit - total of selected requests)": [
          null,
-         "% verbraucht (Gruppenlimite - aktuelles Gruppentotal)"
+         "% verbraucht (Kategorielimite - Total der selektierten Anträge)"
       ],
-      "Add new article or project to category": [
+      "Add new article to category": [
          null,
-         "Der Kategorie einen neuen Artikel oder ein neues Projekt hinzufügen"
+         "Der Kategorie einen neuen Artikel hinzufügen"
       ],
       "Delete category with all it's articles/projects": [
          null,
@@ -4236,6 +4260,42 @@ window.i18n.locale_data = {
       "Add new requester": [
          null,
          "Neuen Antragsteller hinzufügen"
+      ],
+      "Main category": [
+         null,
+         "Hauptkategorie"
+      ],
+      "Subcategory": [
+         null,
+         "Subkategorie"
+      ],
+      "Subcategories": [
+         null,
+         "Subkategorien"
+      ],
+      "Add new main category": [
+         null,
+         "Eine neue Hauptkategorie hinzufügen"
+      ],
+      "Add new subcategory": [
+         null,
+         "Eine neue Subkategorie hinzufügen"
+      ],
+      "Delete main category": [
+         null,
+         "Hauptkategorie löschen"
+      ],
+      "Delete subcategory": [
+         null,
+         "Subkategorie löschen"
+      ],
+      "Choose a suggested article or a category": [
+         null,
+         "Vorgeschlagener Artikel oder Kategorie wählen"
+      ],
+      "You do not have the responsibility to lend this item. Responsible for this item is the pool \"%s\".": [
+         null,
+         "Sie sind nicht befugt, diesen Gegenstand auszuleihen. Verantwortlich für diesen Gegenstand ist der Gerätepark \"%s\"."
       ]
    }
 }
