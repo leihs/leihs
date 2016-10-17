@@ -302,29 +302,29 @@ class Authenticator::LdapAuthenticationController \
   # @return [Boolean] TRUE if user is a member of the group. FALSE if user is NOT a member of the group OR exception occured
   def user_is_member_of_ldap_group(user_data, group_dn)
     begin
-      ldaphelper = LdapHelper.new
+      myLdaphelper = LdapHelper.new
       logger = LdapHelper::get_logger()
-      unless ldaphelper.configIsOk == true
+      unless myLdaphelper.configIsOk == true
         return false
       end
       
-      ldap = ldaphelper.bind
+      ldap = myLdaphelper.bind
       
       isGroupMember = false
       logger.debug("Looking for LDAP group membership in: #{group_dn}")
     
       #new method with additional features (nested groups)
-      if (isGroupMember == false) and (ldaphelper.look_in_nested_groups_for_membership == true)
+      if (isGroupMember == false) and (myLdaphelper.look_in_nested_groups_for_membership == true)
         logger.debug("Search method: nested.")
-        if (user_is_member_of_ldap_group_method_nested(user_data, group_dn, ldap, ldaphelper, logger) == true)
+        if (user_is_member_of_ldap_group_method_nested(user_data, group_dn, ldap, myLdaphelper, logger) == true)
             isGroupMember = true
         end
       end
       
       #also new. Primary group membership needs to be handled differently
-      if (isGroupMember == false) and (ldaphelper.look_for_primary_group_membership_ActiveDirectory == true)
+      if (isGroupMember == false) and (myLdaphelper.look_for_primary_group_membership_ActiveDirectory == true)
         logger.debug("Search method: primary group.")
-        if (user_is_member_of_ldap_group_method_primary(user_data, group_dn, ldap, ldaphelper, logger) == true)
+        if (user_is_member_of_ldap_group_method_primary(user_data, group_dn, ldap, myLdaphelper, logger) == true)
           isGroupMember = true
         end
       end
@@ -332,7 +332,7 @@ class Authenticator::LdapAuthenticationController \
       #Old, time-tested method
       if isGroupMember == false
         logger.debug("Search method: simple.")
-        if (user_is_member_of_ldap_group_method_simple(user_data, group_dn, ldap, ldaphelper, logger) == true)
+        if (user_is_member_of_ldap_group_method_simple(user_data, group_dn, ldap, myLdaphelper, logger) == true)
           isGroupMember = true
         end
       end
