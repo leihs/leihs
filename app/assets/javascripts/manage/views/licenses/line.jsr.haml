@@ -1,16 +1,19 @@
-.line.row.focus-hover-thin{:"data-type" => "license", :"data-id" => "{{>id}}"}
-  
+%div{:"class" => "line row focus-hover-thin{{if !~currentInventoryPool.isOwnerOrResponsibleFor(#view.data)}} grayed-out{{/if}}", :"data-type" => "license", :"data-id" => "{{>id}}"}
+
   .col1of8.line-col
     %strong {{>inventory_code}}
 
   .col3of8.line-col.text-align-left
     {{>model().name()}}
+    {{if ~currentInventoryPool.isOwnerOrResponsibleFor(#view.data) }}
     %strong.block.darkred-text {{>getProblems()}}
+    {{/if}}
 
   .col2of8.line-col.text-align-left.padding-right-s
     {{>currentLocation()}}
 
   .col2of8.line-col.line-actions.padding-right-xs
+    {{if ~currentInventoryPool.isOwnerOrResponsibleFor(#view.data) && ~accessRight.atLeastRole(~currentUserRole, "lending_manager") }}
     .multibutton
       %a.button.white{:href => "{{>url('edit')}}", :title => "{{jed 'Edit License'/}}"}
         {{jed "Edit License"/}}
@@ -22,4 +25,4 @@
             %a.dropdown-item{:href => "{{>url('copy')}}"}
               %i.fa.fa-copy
               {{jed "Copy License"/}}
-      
+    {{/if}}

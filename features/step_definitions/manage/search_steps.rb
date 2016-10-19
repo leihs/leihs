@@ -78,7 +78,7 @@ Given(/^there is a "(.*?)" item in my inventory pool$/) do |arg1|
   expect(@item).not_to be_nil
 end
 
-When(/^I search globally after this item with its inventory code$/) do
+When(/^I search globally after this (?:item|license) with its inventory code$/) do
   within '#topbar #search' do
     find('input#search_term').set @item.inventory_code
     find("button[type='submit']").click
@@ -101,11 +101,11 @@ Then(/^I see the item in the items area$/) do
   find('#items .line', text: @item.inventory_code)
 end
 
-Then(/^I hover over the list of items on the contract line$/) do
+Then(/^I hover over the list of (?:items|licenses) on the contract line$/) do
   find("#contracts .line [data-type='lines-cell']", match: :first).hover
 end
 
-Then(/^I see in the tooltip the model of this item$/) do
+Then(/^I see in the tooltip the (?:model|software) name of this (?:item|license)$/) do
   find('.tooltipster-base', text: @item.model.name)
 end
 
@@ -114,6 +114,19 @@ Given(/^there exists a closed contract with an item, for which an other inventor
     @item = c.items.find {|i| i.inventory_pool != @current_inventory_pool and i.owner != @current_inventory_pool }
   end
   expect(@contract).not_to be_nil
+end
+
+Given(/^there exists a closed contract with a license, for which an other inventory pool is responsible and owner$/) do
+  @contract = FactoryGirl.create(:closed_contract, inventory_pool: @current_inventory_pool)
+  software = FactoryGirl.create(:model_with_items, type: 'Software')
+  @item = software.items.licenses.first
+  FactoryGirl.create(:item_line,
+                     model: software,
+                     item: @item,
+                     status: :closed,
+                     contract: @contract,
+                     inventory_pool: @current_inventory_pool)
+  @contract.reload
 end
 
 Then(/^I do not see the items container$/) do
@@ -186,15 +199,15 @@ Then(/^I see all the entries matching "(.*?)" in the "(.*?)"$/) do |search_strin
   end
 end
 
-Then(/^the items container shows the item line with the following information:$/) do |table|
+Then(/^the (items|licenses) container shows the (?:item|license) line with the following information:$/) do |container_type, table|
   # table is a Cucumber::Ast::Table
-  within "#items .line[data-id='#{@item.id}']" do
+  within "##{container_type} .line[data-id='#{@item.id}']" do
     table.raw.flatten.each do |field|
       expect(page).to have_content \
         case field
         when 'Inventory Code'
           @item.inventory_code
-        when 'Model name'
+        when 'Model name', 'Software name'
           @item.model.name
         when 'Responsible inventory pool'
           @item.inventory_pool.name
@@ -203,8 +216,8 @@ Then(/^the items container shows the item line with the following information:$/
   end
 end
   #
-Then(/^I don't see the button group on the item line$/) do
-  within "#items .line[data-id='#{@item.id}']" do
+Then(/^I don't see the button group on the (item|license) line$/) do |line_type|
+  within "##{line_type.pluralize} .line[data-id='#{@item.id}']" do
     expect(page).not_to have_selector '.multibutton'
   end
 end

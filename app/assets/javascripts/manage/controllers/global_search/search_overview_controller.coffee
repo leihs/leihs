@@ -101,6 +101,7 @@ class window.App.SearchOverviewController extends Spine.Controller
         type: "license"
         per_page: @previewAmount
         search_term: @searchTerm
+        current_inventory_pool: false
     .done (data, status, xhr)=>
       licenses = (App.License.find datum.id for datum in data)
       @fetchModels(licenses).done =>

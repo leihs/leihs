@@ -23,6 +23,19 @@ Feature: Search for software
     Then all matching software licenses appear
     And all contracts containing this software product appear
 
+    @javascript @personas @browser
+    Scenario: Displaying licenses from another inventory pool in closed contracts
+      Given there exists a closed contract with a license, for which an other inventory pool is responsible and owner
+      When I search globally after this license with its inventory code
+      Then all matching software licenses appear
+      And the licenses container shows the license line with the following information:
+      | Inventory Code             |
+      | Software name              |
+      | Responsible inventory pool |
+      And I don't see the button group on the license line
+      And I hover over the list of licenses on the contract line
+      Then I see in the tooltip the software name of this license
+
   @javascript @personas @problematic
   Scenario: Finding contracts for software by searching for a borrower
     Given a software license exists

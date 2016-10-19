@@ -38,7 +38,7 @@ Feature: Search
     When I search globally after this item with its inventory code
     Then I see the item in the items container
     And I hover over the list of items on the contract line
-    Then I see in the tooltip the model of this item
+    Then I see in the tooltip the model name of this item
 
   @javascript @personas @browser
   Scenario: Displaying items from another inventory pool in closed contracts
@@ -52,7 +52,7 @@ Feature: Search
     | Responsible inventory pool |
     And I don't see the button group on the item line
     And I hover over the list of items on the contract line
-    Then I see in the tooltip the model of this item
+    Then I see in the tooltip the model name of this item
 
   @personas @javascript @browser @problematic
   Scenario Outline: Showing items' problems in global search
