@@ -17,7 +17,6 @@ db/backups/
 .DS_Store
 doc/todo.html
 public/images/graphs/*
-rerun.txt
 public/images/attachments
 public/attachments
 .jhw-cache
