@@ -664,22 +664,22 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/purpose.feature:36 DEFAULT_BROWSER=firefox
-- name: features/manage/search.feature:53
+- name: features/manage/search.feature:58
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/search.feature:53 DEFAULT_BROWSER=firefox
-- name: features/manage/software/search_for_software.feature:27
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/search.feature:58 DEFAULT_BROWSER=firefox
+- name: features/manage/software/search_for_software.feature:40
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/software/search_for_software.feature:27 DEFAULT_BROWSER=firefox
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default  --strict features/manage/software/search_for_software.feature:40 DEFAULT_BROWSER=firefox
 - name: features/manage/take_back/edit_take_back_end_date.feature:18
   scripts:
     test:
