@@ -364,7 +364,7 @@ class InventoryPool < ActiveRecord::Base
                       is_borrowable: (row['is_borrowable'] == '1' ? 1 : 0),
                       is_inventory_relevant: \
                         (row['is_inventory_relevant'] == '0' ? 0 : 1)) do |i|
-                          csv_import_helper(i)
+                          csv_import_helper(row, i)
                         end
 
           item.valid?
@@ -380,7 +380,7 @@ class InventoryPool < ActiveRecord::Base
 
   private
 
-  def csv_import_helper(i)
+  def csv_import_helper(row, i)
     unless row['serial_number'].blank?
       i.serial_number = row['serial_number']
     end
