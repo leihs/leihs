@@ -1,5 +1,7 @@
 class Manage::InventoryController < Manage::ApplicationController
 
+  BOM = "\xEF\xBB\xBF"
+
   private
 
   # NOTE overriding super controller
@@ -69,7 +71,9 @@ class Manage::InventoryController < Manage::ApplicationController
   end
 
   def csv_export
-    send_data InventoryPool.csv_export(current_inventory_pool, params),
+    content = InventoryPool.csv_export(current_inventory_pool, params)
+    content = BOM + content
+    send_data content,
               type: 'text/csv; charset=utf-8; header=present',
               disposition: "attachment; filename=#{_('Items-leihs')}.csv"
   end
