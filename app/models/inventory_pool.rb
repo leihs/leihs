@@ -336,7 +336,6 @@ class InventoryPool < ActiveRecord::Base
     csv_header = objects.flat_map(&:keys).uniq
 
     CSV.generate(col_sep: ',',
-                 row_sep: :auto,
                  quote_char: "\"",
                  force_quotes: true,
                  headers: :first_row) do |csv|
