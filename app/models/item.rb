@@ -402,7 +402,15 @@ class Item < ActiveRecord::Base
           || current_borrower.try(:unique_id),
       "#{_('Borrowed until')}" => current_reservation.try(:end_date)
     )
-    h1
+    # solve the MS excel line break problem inside of cells
+    h1.map do |k, v|
+      if v.try(:match, /(\r\n|\n)/)
+        new_value = v.try(:gsub, /(\r\n|\n)/, "\r")
+        [k, new_value]
+      else
+        [k, v]
+      end
+    end.to_h
   end
 
   ####################################################################
