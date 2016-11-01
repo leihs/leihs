@@ -24,14 +24,14 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "engines/leihs_admin/features/delegation.feature"
-- name: inventar_csv
+- name: inventory_csv
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "engines/leihs_admin/features/inventar_csv.feature"
+        DISPLAY=":$XVNC_PORT" bundle exec cucumber -p default --strict "engines/leihs_admin/features/inventory_csv.feature"
 - name: inventory_pools
   scripts:
     test:

@@ -2,9 +2,18 @@
   %a.button.white{href: "/manage/#{current_inventory_pool.id}/inventory/csv_import"}
     %i.fa.fa-table.vertical-align-middle
     = _("CSV import")
-  %a.button.white#csv-export{:href => manage_inventory_csv_export_path(current_inventory_pool), :target => "_blank"}
-    %i.fa.fa-table.vertical-align-middle
-    = _("CSV export")
+  .dropdown-holder.inline-block
+    .button.white.dropdown-toggle
+      %i.fa.fa-table.vertical-align-middle
+      = _("Export")
+      .arrow.down
+    %ul.dropdown.right
+      %li
+        %a.dropdown-item#csv-export{:href => manage_inventory_csv_export_path(current_inventory_pool), :target => "_blank"}
+          = _("CSV")
+      %li
+        %a.dropdown-item#excel-export{:href => manage_inventory_excel_export_path(current_inventory_pool), :target => "_blank"}
+          = _("Excel")
   - if lending_manager?
     .dropdown-holder.inline-block
       .button.white.dropdown-toggle

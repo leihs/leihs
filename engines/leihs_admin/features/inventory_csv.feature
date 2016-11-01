@@ -4,4 +4,5 @@ Feature: Inventory (CSV export)
   Scenario: Export of the entire inventory to a CSV file
     Given I am Gino
     And I open the list of inventory pools
-    Then I can export to a CSV file
+    Then I can export all inventory to a CSV file
+    And I can export all inventory to an Excel file

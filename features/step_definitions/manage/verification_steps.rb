@@ -5,6 +5,7 @@ end
 
 #Then(/^I can export to a csv-file$/) do
 Then(/^I can export to a CSV file$/) do
+  find('.dropdown-toggle', text: _('Export'), match: :prefer_exact).hover
   find('#csv-export')
 end
 

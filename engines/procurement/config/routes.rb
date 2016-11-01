@@ -13,7 +13,7 @@ Procurement::Engine.routes.draw do
   resources :users, only: [:index, :create] do
     resources :budget_periods, only: [] do
       resources :requests, only: :new
-      scope format: true, constraints: {format: 'csv'} do
+      scope format: true, constraints: {format: ['csv', 'xlsx']} do
         resources :requests, only: :index
       end
     end
@@ -32,7 +32,7 @@ Procurement::Engine.routes.draw do
         end
       end
     end
-    scope format: true, constraints: {format: 'csv'} do
+    scope format: true, constraints: {format: ['csv', 'xlsx']} do
       resources :budget_periods, only: [] do
         resources :requests, only: [:index]
       end

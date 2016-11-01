@@ -4,31 +4,28 @@ module Procurement
 
     included do
       def self.csv_export(requests, current_user)
-        require 'csv'
+        Export.csv_string *header_and_objects(requests, current_user)
+      end
 
+      def self.excel_export(requests, current_user)
+        Export.excel_string *header_and_objects(requests, current_user),
+                            worksheet_name: _('Requests')
+      end
+
+      def self.header_and_objects(requests, current_user)
         objects = []
         requests.each do |request|
           objects << request.csv_columns(current_user)
         end
-
-        csv_header = objects.flat_map(&:keys).uniq
-
-        CSV.generate(col_sep: ';',
-                     quote_char: "\"",
-                     force_quotes: true,
-                     headers: :first_row) do |csv|
-          csv << csv_header
-          objects.each do |object|
-            csv << csv_header.map { |h| object[h] }
-          end
-        end
+        header = objects.flat_map(&:keys).uniq
+        [header, objects]
       end
 
       # rubocop:disable Metrics/MethodLength
       def csv_columns(current_user)
         show_all = (not budget_period.in_requesting_phase?) \
                       or category.inspectable_or_readable_by?(current_user)
-        { _('Budget period') => budget_period,
+        { _('Budget period') => budget_period.to_s,
           _('Main category') => category.main_category.name,
           _('Subcategory') => category.name,
           _('Requester') => user,

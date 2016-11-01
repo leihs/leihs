@@ -69,9 +69,20 @@ class Manage::InventoryController < Manage::ApplicationController
   end
 
   def csv_export
-    send_data InventoryPool.csv_export(current_inventory_pool, params),
-              type: 'text/csv; charset=utf-8; header=present',
-              disposition: "attachment; filename=#{_('Items-leihs')}.csv"
+    send_data \
+      InventoryPool.csv_export(current_inventory_pool, params),
+      type: 'text/csv; charset=utf-8; header=present',
+      disposition: \
+        'attachment; ' \
+        "filename=#{current_inventory_pool.shortname}-#{_('Inventory')}.csv"
+  end
+
+  def excel_export
+    send_data \
+      InventoryPool.excel_export(current_inventory_pool, params),
+      type: 'application/xlsx',
+      disposition: \
+        "filename=#{current_inventory_pool.shortname}-#{_('Inventory')}.xlsx"
   end
 
   def csv_import

@@ -37,6 +37,8 @@ module Leihs
 
     config.paths["db/migrate"] << \
       Rails.root.join('engines', 'procurement', 'db', 'migrate')
+
+    config.autoload_paths << Rails.root.join('lib')
   end
 end
 

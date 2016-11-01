@@ -80,14 +80,14 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default -r engines/**/features --strict engines/leihs_admin/features/delegation.feature:4 DEFAULT_BROWSER=firefox
-- name: engines/leihs_admin/features/inventar_csv.feature:4
+- name: engines/leihs_admin/features/inventory_csv.feature:4
   scripts:
     test:
       body: |-
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
-        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default -r engines/**/features --strict engines/leihs_admin/features/inventar_csv.feature:4 DEFAULT_BROWSER=firefox
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec cucumber -p default -r engines/**/features --strict engines/leihs_admin/features/inventory_csv.feature:4 DEFAULT_BROWSER=firefox
 - name: engines/leihs_admin/features/inventory_pools.feature:9
   scripts:
     test:

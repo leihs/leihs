@@ -283,6 +283,9 @@ msgstr "CSV"
 msgid "CSV export"
 msgstr "CSV-Export"
 
+msgid "Excel export"
+msgstr "Excel-Export"
+
 msgid "Cancel"
 msgstr "Abbrechen"
 

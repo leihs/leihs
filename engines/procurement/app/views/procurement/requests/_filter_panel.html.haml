@@ -86,7 +86,11 @@
 %button.btn.btn-primary{type: :submit, name: 'format', value: 'csv', form: 'filter_panel'}
   %i.fa.fa-table
   = _('CSV export')
-
+%br
+%br
+%button.btn.btn-primary{type: :submit, name: 'format', value: 'xlsx', form: 'filter_panel'}
+  %i.fa.fa-table
+  = _('Excel export')
 
 :coffeescript
   $(document).ready ->

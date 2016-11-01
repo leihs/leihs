@@ -6,9 +6,16 @@
     %h1= yield :title
 
   .col-sm-6.text-right
-    %a#csv-export.btn.btn-default{href: admin.global_inventory_csv_export_path, target: :_blank}
-      %i.fa.fa-table
-      = "#{_("CSV export")} #{_("Inventory")}"
+    .btn-group
+      %button.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+        %i.fa.fa-table
+        = "#{_("Export")} #{_("Inventory")}"
+        %span.caret
+      %ul.dropdown-menu
+        %li
+          %a#csv-export{href: admin.global_inventory_csv_export_path, target: :_blank} CSV
+        %li
+          %a#excel-export{href: admin.global_inventory_excel_export_path, target: :_blank} Excel
 
     %a.btn.btn-default{href: admin.new_inventory_pool_path}
       %i.fa.fa-plus

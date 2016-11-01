@@ -2,7 +2,8 @@ class window.App.InventoryIndexController extends Spine.Controller
 
   elements:
     "#inventory": "list"
-    "#csv-export": "exportButton"
+    "#csv-export": "csvExportButton"
+    "#excel-export": "excelExportButton"
     "#categories": "categoriesContainer"
     "[data-filter]": "filterElement"
 
@@ -18,22 +19,24 @@ class window.App.InventoryIndexController extends Spine.Controller
     @range = new App.ListRangeController {el: @filterElement, reset: @reset}
     new App.TimeLineController {el: @el}
     new App.InventoryExpandController {el: @el}
-    @exportButton.data "href", @exportButton.attr("href")
+    [@csvExportButton, @excelExportButton].map (exportButton) ->
+      exportButton.data "href", exportButton.attr("href")
     do @reset
 
   reset: =>
     do @toggleFiltersVisibility
     @inventory = {}
     _.invoke [App.Item, App.License, App.Model, App.Software, App.Option], -> this.deleteAll()
-    do @updateExportButton
+    do @updateExportButtons
     @list.html App.Render "manage/views/lists/loading"
     @fetch 1, @list
 
-  updateExportButton: =>
+  updateExportButtons: =>
     data = @getData()
     data.type = "license" if data.software # if we are in the software list, we actually want to export the licenses
     data.search_term = @search.term() if @search.term()?.length
-    @exportButton.attr "href", URI(@exportButton.data("href")).query(data).toString()
+    [@csvExportButton, @excelExportButton].map (exportButton) ->
+      exportButton.attr "href", URI(exportButton.data("href")).query(data).toString()
 
   fetch: (page, target)=>
     @fetchInventory(page).done =>

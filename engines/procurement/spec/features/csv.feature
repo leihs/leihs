@@ -39,3 +39,9 @@ Feature: Exporting the data to a CSV-File
       | Barbara   |
       | Roger     |
       | Hans Ueli |
+
+  @csv
+  Scenario: Export data as Excel native format
+    Given I am Roger
+    When I navigate to the requests overview page
+    Then I see the excel export button

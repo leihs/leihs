@@ -53,4 +53,8 @@ steps_for :csv do
 
     expect(@csv.count).to eq requests.count
   end
+
+  step 'I see the excel export button' do
+    expect(page).to have_selector('button', text: _('Excel export'))
+  end
 end

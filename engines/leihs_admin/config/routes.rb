@@ -23,6 +23,7 @@ LeihsAdmin::Engine.routes.draw do
 
   # Export inventory of all inventory pools
   get 'inventory/csv',              :to => 'inventory#csv_export',  :as => 'global_inventory_csv_export'
+  get 'inventory/excel',            :to => 'inventory#excel_export',  :as => 'global_inventory_excel_export'
 
   # Fields
   get 'fields', to: 'fields#index'

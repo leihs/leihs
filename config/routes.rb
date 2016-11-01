@@ -172,6 +172,7 @@ Rails.application.routes.draw do
       # Inventory
       get 'inventory',                  :to => "inventory#index",       :as => "inventory"
       get 'inventory/csv',              :to => "inventory#csv_export",  :as => "inventory_csv_export"
+      get 'inventory/excel',            :to => "inventory#excel_export",  :as => "inventory_excel_export"
       get 'inventory/csv_import',       :to => "inventory#csv_import"
       post 'inventory/csv_import',      :to => "inventory#csv_import"
       get 'inventory/helper',           :to => "inventory#helper",      :as => "inventory_helper"

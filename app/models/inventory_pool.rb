@@ -281,9 +281,7 @@ class InventoryPool < ActiveRecord::Base
      :responsible_inventory_pool_id,
      :unused_models]
 
-  def self.csv_export(inventory_pool, params)
-    require 'csv'
-
+  def self.objects_for_export(inventory_pool, params)
     items = if params[:type] != 'option'
               if inventory_pool
                 Item.filter(params.clone.merge(paginate: 'false', all: 'true'),
@@ -332,17 +330,26 @@ class InventoryPool < ActiveRecord::Base
         objects << o.to_csv_array unless o.nil? # How could an item ever be nil?
       end
     end
+    objects
+  end
 
-    csv_header = objects.flat_map(&:keys).uniq
+  def self.header_for_export(objects_for_export)
+    objects_for_export.flat_map(&:keys).uniq
+  end
 
-    CSV.generate(col_sep: ';',
-                 quote_char: "\"",
-                 force_quotes: true, headers: :first_row) do |csv|
-      csv << csv_header
-      objects.each do |object|
-        csv << csv_header.map { |h| object[h] }
-      end
-    end
+  def self.csv_export(inventory_pool, params)
+    objects = objects_for_export(inventory_pool, params)
+    header = header_for_export(objects)
+
+    Export.csv_string header, objects
+  end
+
+  def self.excel_export(inventory_pool, params)
+    objects = objects_for_export(inventory_pool, params)
+    header = header_for_export(objects)
+
+    Export.excel_string header, objects,
+                        worksheet_name: _('Inventory')
   end
 
   def csv_import(inventory_pool, csv_file)

@@ -2,6 +2,7 @@ require_dependency 'procurement/application_controller'
 require_dependency 'procurement/concerns/filter'
 
 module Procurement
+  # rubocop:disable Metrics/ClassLength
   class RequestsController < ApplicationController
     include Filter
 
@@ -36,7 +37,12 @@ module Procurement
         format.csv do
           send_data Request.csv_export(@requests, current_user),
                     type: 'text/csv; charset=utf-8; header=present',
-                    disposition: 'attachment; filename=requests.csv'
+                    disposition: "attachment; filename=#{_('Requests')}.csv"
+        end
+        format.xlsx do
+          send_data Request.excel_export(@requests, current_user),
+                    type: 'application/xlsx',
+                    disposition: "filename=#{_('Requests')}.xlsx"
         end
       end
     end
@@ -52,7 +58,13 @@ module Procurement
           requests = get_requests.values.flatten
           send_data Request.csv_export(requests, current_user),
                     type: 'text/csv; charset=utf-8; header=present',
-                    disposition: 'attachment; filename=requests.csv'
+                    disposition: "attachment; filename=#{_('Requests')}.csv"
+        end
+        format.xlsx do
+          requests = get_requests.values.flatten
+          send_data Request.excel_export(requests, current_user),
+                    type: 'application/xlsx',
+                    disposition: "filename=#{_('Requests')}.xlsx"
         end
       end
     end
@@ -141,4 +153,5 @@ module Procurement
     end
 
   end
+  # rubocop:enable Metrics/ClassLength
 end

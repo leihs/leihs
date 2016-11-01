@@ -6,6 +6,7 @@ Feature: Inventory (CSV export)
     And I open the inventory
     When I view the tab "Models"
     Then I can export this items data as a CSV file
+    And I can export this items data as a Excel file
     And the file contains the same lines as are shown right now, including any filtering
     And the lines contain the following fields in order:
       | Fields                        |
@@ -63,6 +64,7 @@ Feature: Inventory (CSV export)
       | Borrowed until                |
     When I view the tab "Software"
     Then I can export this items data as a CSV file
+    And I can export this items data as a Excel file
     And the file contains the same lines as are shown right now, including any filtering
     And the lines contain the following fields in order:
       | Fields                 |
@@ -104,6 +106,7 @@ Feature: Inventory (CSV export)
       | Borrowed until         |
     When I view the tab "Options"
     Then I can export this options data as a CSV file
+    And I can export this options data as a Excel file
     And the file contains the same lines as are shown right now, including any filtering
     And the lines contain the following fields in order:
       | Fields                 |

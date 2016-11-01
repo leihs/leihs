@@ -307,24 +307,26 @@ Then(/^such a line shows only inventory code and model name of the component$/) 
   end
 end
 
-def parsed_query
-  href = find('#csv-export')[:href]
+def parsed_query(export_format)
+  find('.dropdown-toggle', text: _('Export'), match: :prefer_exact).hover
+  href = find("##{export_format}-export")[:href]
   uri = URI.parse href
-  expect(uri.path).to eq manage_inventory_csv_export_path(@current_inventory_pool)
+  expect(uri.path).to eq send("manage_inventory_#{export_format}_export_path", @current_inventory_pool)
   Rack::Utils.parse_nested_query uri.query
 end
 
-Then /^I can export this items data as a CSV file$/ do
-  expect(parsed_query['retired']).to eq 'false'
-  if [nil, '0'].include? parsed_query['in_stock']
+Then /^I can export this items data as a (CSV|Excel) file$/ do |export_format|
+  ef = export_format.downcase
+  expect(parsed_query(ef)['retired']).to eq 'false'
+  if [nil, '0'].include? parsed_query(ef)['in_stock']
     find('input#in_stock').click
   end
-  expect(parsed_query['in_stock']).to eq '1'
-  @params = ActionController::Parameters.new(parsed_query)
+  expect(parsed_query(ef)['in_stock']).to eq '1'
+  @params = ActionController::Parameters.new(parsed_query(ef))
 end
 
-Then /^I can export this options data as a CSV file$/ do
-  @params = ActionController::Parameters.new(parsed_query)
+Then /^I can export this options data as a (CSV|Excel) file$/ do |export_format|
+  @params = ActionController::Parameters.new(parsed_query(export_format.downcase))
 end
 
 Then /^the file contains the same lines as are shown right now, including any filtering$/ do
