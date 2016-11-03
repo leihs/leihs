@@ -7,7 +7,7 @@ jobs:
     description: |
       Run Manage problematic scenarios under MRI
 
-    priority: -1
+    priority: -2
 
     run_when:
       branch name matches master or manage:
