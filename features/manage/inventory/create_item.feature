@@ -178,8 +178,8 @@ Feature: Create item
     | Durch Kunde beschafft |
 
   @javascript @personas @browser
-  Scenario: Create and view attachments
-    Given I am Mike
+  Scenario: Add and remove attachments (attachments field is writable)
+    Given I am Matti
     When I create an item
     And these required fields are filled in:
     | Model           |
@@ -191,5 +191,3 @@ Feature: Create item
     And I save
     Then I am redirected to the inventory list
     And 1 attachment is saved
-    When I open the edit page for the item
-    Then I can view the attachment when klicking on the filename

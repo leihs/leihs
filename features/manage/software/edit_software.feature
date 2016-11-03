@@ -71,3 +71,13 @@ Feature: Editing software
       | Maintenance expiration |
       | License expiration     |
       | Invoice Date           |
+
+  @javascript @personas @browser
+  Scenario: View attachments (attachments field is readonly)
+    Given the attachments field is configured to be editable only by the owner
+    And exists a license that belongs to the current inventory pool but is not owned by it
+    And the license has 1 attachment
+    When I edit the license
+    Then I cannot add attachments
+    And I cannot remove attachments
+    But I can view the attachment when klicking on the filename

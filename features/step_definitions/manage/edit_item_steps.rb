@@ -134,3 +134,34 @@ end
 Then(/^there is only product name in the input field of the model$/) do
   expect(find("input[data-autocomplete_value_target='item[model_id]']").value).to eq @model.product
 end
+
+Given(/^exists an item that belongs to the current inventory pool but is not owned by it$/) do
+  @item = Item.where(inventory_pool: @current_inventory_pool).where.not(owner: @current_inventory_pool).first
+  expect(@item).to be
+end
+
+Given(/^the attachments field is configured to be editable only by the owner$/) do
+  field = Field.find_by_id('attachments')
+  field.data['permissions'] = { 'role' => 'inventory_manager', 'owner' => 'true' }
+  field.save
+end
+
+Given(/^the item has (\d+) attachment$/) do |count|
+  @attachment_filenames = []
+  count.to_i.times do
+    a = FactoryGirl.create :attachment, item: @item
+    @attachment_filenames << a.filename
+  end
+end
+
+Then(/^I cannot add attachments$/) do
+  expect(find('#attachments')).not_to have_selector('button')
+end
+
+Then(/^I cannot remove attachments$/) do
+  expect(find('#attachments')).not_to have_selector('.list-of-lines button')
+end
+
+When(/^I edit the item$/) do
+  visit manage_edit_item_path @current_inventory_pool, @item
+end

@@ -184,3 +184,13 @@ Feature: Editing an item
     When I retire the item
     And I save
     Then I see an error message that I can't retire the item because it's already handed over or assigned to a contract
+
+  @javascript @personas @browser
+  Scenario: View attachments (attachments field is readonly)
+    Given the attachments field is configured to be editable only by the owner
+    And exists an item that belongs to the current inventory pool but is not owned by it
+    And the item has 1 attachment
+    When I edit the item
+    Then I cannot add attachments
+    And I cannot remove attachments
+    But I can view the attachment when klicking on the filename

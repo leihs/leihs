@@ -35,7 +35,11 @@
 
     {{if ~field.id == 'attachments'}}
     .list-of-lines.even.padding-bottom-xxs
+      {{if ~writeable && ~field.isEditable(~itemData)}}
       {{partial 'manage/views/items/fields/writeable/partials/uploaded_attachment' ~itemData.attachments/}}
+      {{else}}
+      {{partial 'manage/views/items/fields/readonly/partials/uploaded_attachment' ~itemData.attachments/}}
+      {{/if}}
     {{/if}}
 
 :coffeescript

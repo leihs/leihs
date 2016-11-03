@@ -880,3 +880,20 @@ When(/^I search for one of these (.*)?properties( in the inventory section)?$/) 
        end
   step "I search #{s1}for one of those #{s2}properties"
 end
+
+Given(/^exists a license that belongs to the current inventory pool but is not owned by it$/) do
+  @license = Item.licenses.where(inventory_pool: @current_inventory_pool).where.not(owner: @current_inventory_pool).first
+  expect(@license).to be
+end
+
+Given(/^the license has (\d+) attachment$/) do |count|
+  @attachment_filenames = []
+  count.to_i.times do
+    a = FactoryGirl.create :attachment, item: @license
+    @attachment_filenames << a.filename
+  end
+end
+
+When(/^I edit the license$/) do
+  visit manage_edit_item_path @current_inventory_pool, @license
+end
