@@ -76,7 +76,7 @@
       %label.col-xs-4.control-label
         = format('%s / %s', _('Replacement'), _('New'))
       .col-xs-8
-        - if request.editable?(current_user) and request.user_id == current_user.id
+        - if request.editable?(current_user) and (request.user_id == current_user.id or request.category.inspectable_by?(current_user))
           %label
             %input{type: :radio, name: "requests[#{request.id}][replacement]", value: 1, checked: request.replacement}
             .label.label-default= _('Replacement')
@@ -103,7 +103,7 @@
       %label.col-xs-4.control-label
         = _('Requested quantity')
       .col-xs-4
-        - if request.editable?(current_user) and request.user_id == current_user.id
+        - if request.editable?(current_user) and (request.user_id == current_user.id or request.category.inspectable_by?(current_user))
           %input.form-control{name: "requests[#{request.id}][requested_quantity]", type: :number, min: 1, value: request.requested_quantity, placeholder: _('Requested quantity'), autocomplete: :off, required: true}
         - else
           .label.label-primary.requested_quantity
