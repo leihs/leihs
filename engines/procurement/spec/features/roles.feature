@@ -35,7 +35,6 @@ Feature: Description of roles
     And I can not modify the field of other person's request
       | motivation         |
       | priority           |
-      | requested quantity |
     And I can export the data
     And I can move requests of my own category to other budget periods
     And I can move requests of my own category to other categories

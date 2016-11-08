@@ -55,7 +55,6 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     Then the following fields are not editable
       | Motivation         |
       | Priority           |
-      | Requested quantity |
 
   @inspection
   Scenario: Using the filters as inspector
