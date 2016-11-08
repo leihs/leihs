@@ -25,7 +25,7 @@ db/structure.sql
 doc/diagrams/generated/captures.dot
 .idea/
 chrome*
-public/attachments/*
+public/**/attachments/*
 Gemfile.local*
 .vagrant/*
 .vagrant*

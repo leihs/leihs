@@ -55,8 +55,37 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     Then the following fields are not editable
       | Motivation         |
       | Priority           |
-      | Requested quantity |
 
+  @inspection
+  Scenario: Editing a request
+    Given I am Barbara
+    And a request with following data exist
+      | key                        | value      |
+      | user                       | Roger      |
+      | article or project         | MyProject  |
+      | article nr. or producer nr.| 1234       |
+      | supplier                   | Dell       |
+      | name of receiver           | Markus     |
+      | point of delivery          | ZHdK       |
+      | replacement                | Replacement|
+      | price                      | 100        |
+      | requested amount           | 1          |
+    When I navigate to the requests form of Roger
+    And I fill in the following fields
+      | key                        | value      |
+      | Article or Project         | MyProject2 |
+      | Article nr. or Producer nr.| 12345      |
+      | Supplier                   | Digitec    |
+      | Name of receiver           | Stefan     |
+      | Point of Delivery          | Toni       |
+      | Replacement / New          | New        |
+      | Price                      | 1000       |
+      | Requested quantity         | 2          |
+    When I upload a file
+    And I click on save
+    Then I see a success message
+    And the request with all given information was updated successfully in the database
+  
   @inspection
   Scenario: Using the filters as inspector
     Given I am Barbara
