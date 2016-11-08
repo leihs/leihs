@@ -56,6 +56,35 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
       | Motivation         |
       | Priority           |
 
+  Scenario: Editing a request
+    Given I am Barbara
+    And a request with following data exists
+      | key                        | value      |
+      | user                       | Roger      |
+      | Article or Project         | MyProject  |
+      | Article nr. or Producer nr.| 1234       |
+      | Supplier                   | Dell       |
+      | Name of receiver           | Markus     |
+      | Point of delivery          | ZHdK       |
+      | replacement                | Replacement|
+      | Price                      | 100        |
+      | Requested quantity         | 1          |
+    When I navigate to the requests form of Roger
+    And I enter the following information
+      | key                        | value      |
+      | Article or Project         | MyProject2 |
+      | Article nr. or Producer nr.| 12345      |
+      | Supplier                   | Digitec    |
+      | Name of receiver           | Stefan     |
+      | Point of delivery          | Toni       |
+      | replacement                | New        |
+      | Price                      | 1000       |
+      | Requested quantity         | 2          |
+    When I upload a file
+    And I click on save
+    Then I see a success message
+    And the request with all given information was updated successfully in the database
+  
   @inspection
   Scenario: Using the filters as inspector
     Given I am Barbara
