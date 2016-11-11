@@ -1,0 +1,35 @@
+.panel{class: "panel-#{header_color(budget_period)}"}
+  .panel-heading
+    .row
+      .col-sm-2.h1
+        - if budget_period.in_requesting_phase? and procurement_requester?
+          %a{href: new_user_budget_period_request_path(current_user, budget_period), title: _('Create request by choosing a group or recommended article or project'), data: {toggle: 'tooltip'}}
+            %i.fa.fa-plus-circle
+      .col-sm-2.h4
+        %span{data: {toggle: 'tooltip'}, title: _('Budget period')}
+          %i.fa.fa-calendar
+          = budget_period
+      .col-sm-5
+        = render partial: 'procurement/budget_periods/phases', locals: {budget_period: budget_period}
+      .col-sm-1
+        - if @user.nil?
+          - budget_limit_amount = grouped_categories.keys.map {|mc| mc.budget_limits.find_by(budget_period_id: budget_period.id).try(:amount) || 0 }.sum
+          .label.label-default.budget_limit{title: _('Total of limits this budget period'), data: {toggle: 'tooltip'}}
+            %i.fa.fa-pie-chart
+            = money_without_cents_and_with_symbol budget_limit_amount, false
+          %br
+        - total_price = requests.map {|r| r.total_price(current_user) }.sum
+        .label.label-primary.big_total_price{data: {toggle: 'tooltip'}, title: _('Current total of budget period')}
+          %i.fa.fa-shopping-cart
+          = money_without_cents_and_with_symbol total_price, false
+      .col-sm-2
+        - if @user.nil?
+          = render partial: 'procurement/requests/progress_radial', locals: {used: total_price, max: budget_limit_amount}
+
+  .panel-body
+    - grouped_categories.each_pair do |main_category, categories|
+      = render partial: 'procurement/requests/overview/main_category',
+               locals: { budget_period: budget_period,
+                         main_category: main_category,
+                         categories: categories,
+                         requests: requests }
