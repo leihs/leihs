@@ -42,11 +42,16 @@ module Procurement
                 organization_id: @filter['organization_ids'],
                 priority: @filter['priorities'] }
           k[:user_id] = @user if @user
+
           requests = budget_period.requests.search(@filter['search']).where(k)
 
-          h[budget_period] = sort_requests(requests.select do |r|
+          requests = requests.select do |r|
             @filter['states'].map(&:to_sym).include? r.state(current_user)
-          end, @filter['sort_by'], @filter['sort_dir'])
+          end
+
+          h[budget_period] = sort_requests(requests,
+                                           @filter['sort_by'],
+                                           @filter['sort_dir'])
         end
         h
       end
