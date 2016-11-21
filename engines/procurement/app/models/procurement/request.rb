@@ -23,7 +23,11 @@ module Procurement
                            :supplier_name, :supplier_id, :motivation, :receiver,
                            :location_name, :location_id, :template_id,
                            attachments_attributes: [:file]]
-    INSPECTOR_KEYS = [:approved_quantity, :order_quantity, :inspection_comment]
+    INSPECTOR_KEYS = [:requested_quantity,
+                      :approved_quantity,
+                      :order_quantity,
+                      :inspection_comment,
+                      :replacement]
 
     #################################################################
 

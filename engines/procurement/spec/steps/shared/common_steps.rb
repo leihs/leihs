@@ -13,28 +13,42 @@ module CommonSteps
       hash['value'] = nil if hash['value'] == 'random'
       case hash['key']
       when 'budget period'
-          @changes[:budget_period] = if hash['value'] == 'current'
-                                       Procurement::BudgetPeriod.current
-                                     else
-                                       Procurement::BudgetPeriod.all.sample
-                                     end
+        @changes[:budget_period] = if hash['value'] == 'current'
+                                     Procurement::BudgetPeriod.current
+                                   else
+                                     Procurement::BudgetPeriod.all.sample
+                                   end
       when 'user'
-          @changes[:user] = case hash['value']
-                            when 'myself'
-                                @current_user
-                            else
-                                find_or_create_user(hash['value'], true)
-                            end
+        @changes[:user] = case hash['value']
+                          when 'myself'
+                            @current_user
+                          else
+                            @user = find_or_create_user(hash['value'], true)
+                          end
       when 'requested amount'
-          @changes[:requested_quantity] = \
-            (hash['value'] || Faker::Number.number(2)).to_i
+        @changes[:requested_quantity] = \
+          (hash['value'] || Faker::Number.number(2)).to_i
       when 'approved amount'
-          @changes[:approved_quantity] = \
-            (hash['value'] || Faker::Number.number(2)).to_i
+        @changes[:approved_quantity] = \
+          (hash['value'] || Faker::Number.number(2)).to_i
       when 'inspection comment'
-          @changes[:inspection_comment] = hash['value'] || Faker::Lorem.sentence
+        @changes[:inspection_comment] = hash['value'] || Faker::Lorem.sentence
+      when 'article or project'
+        @changes[:article_name] = hash['value']
+      when 'article nr. or producer nr.'
+        @changes[:article_number] = hash['value']
+      when 'supplier'
+        @changes[:supplier_name] = hash['value']
+      when 'name of receiver'
+        @changes[:receiver] = hash['value']
+      when 'point of delivery'
+        @changes[:location_name] = hash['value']
+      when 'replacement'
+        @changes[:replacement] = (hash['value'] == 'Replacement' ? 1 : 0)
+      when 'price'
+        @changes[:price] = hash['value']
       else
-          raise
+        raise
       end
     end
     @request = FactoryGirl.create :procurement_request, @changes
@@ -283,7 +297,7 @@ module CommonSteps
           v = (hash['value'] || Faker::Number.number(2)).to_i
           fill_in _(hash['key']), with: v
         when 'Replacement / New'
-          v = hash['value'] || [0, 1].sample
+          v = (hash['value'] == 'Replacement' ? 1 : 0) || [0, 1].sample
           find("input[name*='[replacement]'][value='#{v}']").click
         else
           v = hash['value'] || Faker::Lorem.sentence
@@ -624,7 +638,7 @@ module CommonSteps
   end
 
   step 'the request with all given information ' \
-       'was created successfully in the database' do
+       'was :updated_or_created successfully in the database' do |_|
     user = @user || @current_user
     if price = @changes.delete(:price)
       @changes[:price_cents] = price * 100
@@ -702,15 +716,19 @@ module CommonSteps
   def mapped_key(from)
     case from
     when 'Article or Project'
-        :article_name
+      :article_name
     when 'Article nr. or Producer nr.'
-        :article_number
+      :article_number
     when 'Replacement / New'
-        :replacement
+      :replacement
     when 'Supplier'
-        :supplier_name
+      :supplier_name
+    when 'Name of receiver'
+      :receiver
+    when 'Point of Delivery'
+      :location_name
     else
-        from.parameterize.underscore.to_sym
+      from.parameterize.underscore.to_sym
     end
   end
 
