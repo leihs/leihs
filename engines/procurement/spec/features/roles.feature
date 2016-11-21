@@ -11,6 +11,7 @@ Feature: Description of roles
     But I can not see the field "order quantity"
     And I can not see the field "approved quantity"
     And I can not see the field "inspection comment"
+    And I can not see the field "Inspector's priority"
     And I can export the data
     And I can move requests to other budget periods
     And I can move requests to other categories
@@ -32,6 +33,7 @@ Feature: Description of roles
       | order quantity     |
       | approved quantity  |
       | inspection comment |
+      | Inspector's Priority |
     And I can not modify the field of other person's request
       | motivation         |
       | priority           |
@@ -58,6 +60,7 @@ Feature: Description of roles
         | order quantity     |
         | approved quantity  |
         | inspection comment |
+        | Inspector's Priority |
       And I can export the data
       And I can move requests of my own category to other budget periods
       And I can move requests of my own category to other categories

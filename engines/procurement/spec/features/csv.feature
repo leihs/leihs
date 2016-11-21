@@ -19,8 +19,8 @@ Feature: Exporting the data to a CSV-File
       | Requester                  |
       | Department                 |
       | Organisation               |
-      | Article or Project          |
-      | Article nr. or Producer nr. |
+      | Article or Project         |
+      | Article nr. or Producer nr.|
       | Replacement / New          |
       | Requested quantity         |
       | Approved quantity          |
@@ -28,6 +28,7 @@ Feature: Exporting the data to a CSV-File
       | Price                      |
       | Total                      |
       | Priority                   |
+      | Inspector's Priority       |
       | Motivation                 |
       | Supplier                   |
       | Inspection comment         |
@@ -37,8 +38,42 @@ Feature: Exporting the data to a CSV-File
     Examples:
       | username  |
       | Barbara   |
-      | Roger     |
       | Hans Ueli |
+
+  Scenario Outline: Export data
+    Given I am <username>
+    And following requests exist for the current budget period
+      | quantity | user    |
+      | 3        | Roger   |
+    When I navigate to the requests overview page
+    And I export the shown information
+    Then the following fields are exported
+      | Budget period              |
+      | Main category              |
+      | Subcategory                |
+      | Requester                  |
+      | Department                 |
+      | Organisation               |
+      | Article or Project         |
+      | Article nr. or Producer nr.|
+      | Replacement / New          |
+      | Requested quantity         |
+      | Price                      |
+      | Total                      |
+      | Priority                   |
+      | Motivation                 |
+      | Supplier                   |
+      | Receiver                   |
+      | Point of Delivery          |
+      | State                      |
+    And the following fields are exported when the budget period has ended
+      | Approved quantity          |
+      | Inspection comment         |
+    Examples:
+      | username  |
+      | Roger     |
+
+
 
   @csv
   Scenario: Export data as Excel native format

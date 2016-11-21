@@ -13,6 +13,7 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     And only categories having requests are selected
     And all organisations are selected
     And both priorities are selected
+    And all three Inspector's priorities are selected
     And the state "In inspection" is not present
     And all states are selected
     And the search field is empty
@@ -84,7 +85,7 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     And I click on save
     Then I see a success message
     And the request with all given information was updated successfully in the database
-  
+
   @inspection
   Scenario: Editing a request
     Given I am Barbara
@@ -114,7 +115,7 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     And I click on save
     Then I see a success message
     And the request with all given information was updated successfully in the database
-  
+
   @inspection
   Scenario: Using the filters as inspector
     Given I am Barbara
@@ -130,6 +131,7 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     And I select "Only categories with requests"
     And I select all organisations
     And I select both priorities
+    And I select all three Inspector's priorities
     And I select all states
     And I leave the search string empty
     Then the list of requests is adjusted immediately
@@ -181,13 +183,15 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
       | Approved quantity          | 3      |
     Then the "Approved quantity" is copied to the field "Order quantity"
     And I fill in the following fields
-      | key            | value |
-      | Order quantity | 2     |
+      | key            | value        |
+      | Order quantity | 2            |
     And the ordered amount and the price are multiplied and the result is shown
     When I upload a file
     And I choose the name of a receiver
     And I choose the point of delivery
     And I choose the following priority value
+      | High |
+    And I choose the following Inspector's priority value
       | High |
     And I choose the following replacement value
       | New |
@@ -195,6 +199,16 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     And I click on save
     Then I see a success message
     And the request with all given information was created successfully in the database
+
+  Scenario Outline: Inspector's Priority values
+    Given I am Barbara
+    When I want to create a new request
+    Then the Inspector's priority value "Medium" is set by default
+    And I can choose the following values
+      | Mandatory   |
+      | High        |
+      | Medium      |
+      | Low         |
 
   @inspection
   Scenario: Creating a request for another user
@@ -277,3 +291,4 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
       | Approved quantity  |
       | Order quantity     |
       | Inspection comment |
+      | Inspector's Priority |

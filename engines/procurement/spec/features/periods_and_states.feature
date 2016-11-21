@@ -107,7 +107,7 @@ Feature: Periods and states
     Then the budget periods are sorted from 0-10 and a-z
     And for every budget period I see the total of all requested amounts with status "New"
     And for every budget period I see the total of all ordered amounts with status "Approved" or "Partially approved"
-    
+
   @periods_and_states
   Scenario Outline: State "In inspection", "Approved", "Denied" "Partially approved" for requester when budget period has ended
     Given the basic dataset is ready

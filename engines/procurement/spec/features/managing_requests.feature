@@ -19,6 +19,7 @@ Feature: section Managing Requests
     And I do not see the filter "Only my own requests"
     And I do not see the filter "Only my own categories"
     And I do not see the filter "Only categories with requests"
+    And I do not see the filter "Inspector's Priority"
     And I see the headers of the columns of the overview
     And I see the amount of requests listed
     And I see the current budget period
