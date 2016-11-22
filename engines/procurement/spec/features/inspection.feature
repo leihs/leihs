@@ -272,6 +272,10 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     Then I can not move any request to the old budget period
     When I move a request to the future budget period
     Then I see a success message
+    And all existing data except for the following is kept
+      | order quantity    |
+      | approved quantity |
+    And the value of the field Inspector's Priority is set to the default value
     And the changes are saved successfully to the database
     And I can not submit the data
 
@@ -291,4 +295,4 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
       | Approved quantity  |
       | Order quantity     |
       | Inspection comment |
-      | Inspector's Priority |
+    And the value of the field Inspector's Priority is set to the default value
