@@ -3170,11 +3170,20 @@ msgstr "Artikel oder Kategorie wählen"
 msgid "Request moved"
 msgstr "Antrag verschoben"
 
+msgid "Mandatory"
+msgstr "Zwingend"
+
 msgid "High"
 msgstr "Hoch"
 
 msgid "Normal"
 msgstr "Normal"
+
+msgid "Medium"
+msgstr "Medium"
+
+msgid "Low"
+msgstr "Tief"
 
 msgid "Are you sure you want to delete '%s'?"
 msgstr "Sind Sie sicher, dass Sie '%s' löschen möchten?"

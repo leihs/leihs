@@ -19,6 +19,7 @@ module Procurement
         end
         @filter['organization_ids'] ||= Procurement::Organization.ids
         @filter['priorities'] ||= ['high', 'normal']
+        @filter['inspector_priorities'] ||= %w(mandatory high medium low)
         @filter['states'] ||= Procurement::Request::STATES
 
         @filter['sort_by'] = 'state' if @filter['sort_by'].blank?
@@ -40,7 +41,8 @@ module Procurement
 
           k = { category_id: @categories,
                 organization_id: @filter['organization_ids'],
-                priority: @filter['priorities'] }
+                priority: @filter['priorities'],
+                inspector_priority: @filter['inspector_priorities'] }
           k[:user_id] = @user if @user
           requests = budget_period.requests.search(@filter['search']).where(k)
 
@@ -76,6 +78,7 @@ module Procurement
         @filter['organization_ids'].delete('multiselect-all')
 
         @filter['priorities'] ||= []
+        @filter['inspector_priorities'] ||= []
         @filter['states'] ||= []
         session[:requests_filter] = @filter
       end

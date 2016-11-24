@@ -74,6 +74,18 @@
 
     .form-group
       %label.col-xs-4.control-label
+        = "#{_('Inspectors')} #{_('Priority')}"
+      .col-xs-8
+        - if request.editable?(current_user) and request.category.inspectable_by?(current_user)
+          - ['Mandatory', 'High', 'Medium', 'Low'].each do |inspector_priority|
+            %label
+              %input{type: :radio, name: "requests[#{request.id}][inspector_priority]", value: inspector_priority.downcase, checked: request.inspector_priority == inspector_priority.downcase}
+              .label.label-default= _(inspector_priority)
+        - else
+          .label.label-default= _(request.inspector_priority.capitalize)
+
+    .form-group
+      %label.col-xs-4.control-label
         = format('%s / %s', _('Replacement'), _('New'))
       .col-xs-8
         - if request.editable?(current_user) and (request.user_id == current_user.id or request.category.inspectable_by?(current_user))

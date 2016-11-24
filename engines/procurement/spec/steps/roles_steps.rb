@@ -103,7 +103,7 @@ steps_for :roles do
         when 'priority'
           expect(page).to have_no_selector \
             "[name='requests[#{@request.id}][priority]']"
-          within '.form-group', text: _('Priority') do
+          within '.form-group', text: _('Priority'), match: :prefer_exact do
             find '.col-xs-8', text: _(@request.priority.capitalize)
           end
         when 'requested quantity'

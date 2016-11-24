@@ -27,6 +27,7 @@ module Procurement
                       :approved_quantity,
                       :order_quantity,
                       :inspection_comment,
+                      :inspector_priority,
                       :replacement]
 
     #################################################################

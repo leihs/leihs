@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005103353) do
+ActiveRecord::Schema.define(version: 90000000000014) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "user_id",           limit: 4,     null: false
     t.integer  "inventory_pool_id", limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.date     "suspended_until"
-    t.text     "suspended_reason",  limit: 65535
     t.date     "deleted_at"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.text     "suspended_reason",  limit: 65535
     t.string   "role",              limit: 17,    null: false
   end
 
@@ -105,9 +105,9 @@ ActiveRecord::Schema.define(version: 20161005103353) do
   end
 
   create_table "contracts", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.text     "note",       limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
   end
 
   create_table "database_authentications", force: :cascade do |t|
@@ -115,11 +115,11 @@ ActiveRecord::Schema.define(version: 20161005103353) do
     t.string   "crypted_password", limit: 40
     t.string   "salt",             limit: 40
     t.integer  "user_id",          limit: 4,   null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "database_authentications", ["user_id"], name: "fk_rails_85650bffa9", using: :btree
+  add_index "database_authentications", ["user_id"], name: "database_authentications_user_id_fk", using: :btree
 
   create_table "delegations_users", id: false, force: :cascade do |t|
     t.integer "delegation_id", limit: 4
@@ -140,9 +140,9 @@ ActiveRecord::Schema.define(version: 20161005103353) do
   create_table "groups", force: :cascade do |t|
     t.string   "name",                     limit: 255,                 null: false
     t.integer  "inventory_pool_id",        limit: 4,                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "is_verification_required",             default: false
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
   end
 
   add_index "groups", ["inventory_pool_id"], name: "index_groups_on_inventory_pool_id", using: :btree
@@ -172,8 +172,6 @@ ActiveRecord::Schema.define(version: 20161005103353) do
   add_index "holidays", ["start_date", "end_date"], name: "index_holidays_on_start_date_and_end_date", using: :btree
 
   create_table "images", force: :cascade do |t|
-    t.integer "target_id",    limit: 4
-    t.string  "target_type",  limit: 255
     t.boolean "is_main",                  default: false
     t.string  "content_type", limit: 255
     t.string  "filename",     limit: 255
@@ -182,6 +180,8 @@ ActiveRecord::Schema.define(version: 20161005103353) do
     t.integer "width",        limit: 4
     t.integer "parent_id",    limit: 4
     t.string  "thumbnail",    limit: 255
+    t.integer "target_id",    limit: 4
+    t.string  "target_type",  limit: 255
   end
 
   add_index "images", ["target_id", "target_type"], name: "index_images_on_target_id_and_target_type", using: :btree
@@ -206,7 +206,7 @@ ActiveRecord::Schema.define(version: 20161005103353) do
     t.boolean "required_purpose",                          default: true
   end
 
-  add_index "inventory_pools", ["address_id"], name: "fk_rails_6a55965722", using: :btree
+  add_index "inventory_pools", ["address_id"], name: "inventory_pools_address_id_fk", using: :btree
   add_index "inventory_pools", ["name"], name: "index_inventory_pools_on_name", unique: true, using: :btree
 
   create_table "inventory_pools_model_groups", id: false, force: :cascade do |t|
@@ -224,7 +224,6 @@ ActiveRecord::Schema.define(version: 20161005103353) do
     t.integer  "location_id",           limit: 4
     t.integer  "supplier_id",           limit: 4
     t.integer  "owner_id",              limit: 4,                                             null: false
-    t.integer  "inventory_pool_id",     limit: 4,                                             null: false
     t.integer  "parent_id",             limit: 4
     t.string   "invoice_number",        limit: 255
     t.date     "invoice_date"
@@ -235,8 +234,10 @@ ActiveRecord::Schema.define(version: 20161005103353) do
     t.boolean  "is_broken",                                                   default: false
     t.boolean  "is_incomplete",                                               default: false
     t.boolean  "is_borrowable",                                               default: false
-    t.text     "status_note",           limit: 65535
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "needs_permission",                                            default: false
+    t.integer  "inventory_pool_id",     limit: 4,                                             null: false
     t.boolean  "is_inventory_relevant",                                       default: false
     t.string   "responsible",           limit: 255
     t.string   "insurance_number",      limit: 255
@@ -244,8 +245,7 @@ ActiveRecord::Schema.define(version: 20161005103353) do
     t.text     "name",                  limit: 65535
     t.string   "user_name",             limit: 255
     t.text     "properties",            limit: 65535
-    t.datetime "created_at",                                                                  null: false
-    t.datetime "updated_at",                                                                  null: false
+    t.text     "status_note",           limit: 65535
   end
 
   add_index "items", ["inventory_code"], name: "index_items_on_inventory_code", unique: true, using: :btree
@@ -258,7 +258,7 @@ ActiveRecord::Schema.define(version: 20161005103353) do
   add_index "items", ["owner_id"], name: "index_items_on_owner_id", using: :btree
   add_index "items", ["parent_id", "retired"], name: "index_items_on_parent_id_and_retired", using: :btree
   add_index "items", ["retired"], name: "index_items_on_retired", using: :btree
-  add_index "items", ["supplier_id"], name: "fk_rails_538506beaf", using: :btree
+  add_index "items", ["supplier_id"], name: "items_supplier_id_fk", using: :btree
 
   create_table "languages", force: :cascade do |t|
     t.string  "name",        limit: 255
@@ -301,11 +301,20 @@ ActiveRecord::Schema.define(version: 20161005103353) do
   create_table "model_groups", force: :cascade do |t|
     t.string   "type",       limit: 255
     t.string   "name",       limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "model_groups", ["type"], name: "index_model_groups_on_type", using: :btree
+
+  create_table "model_groups_parents_backup", id: false, force: :cascade do |t|
+    t.integer "model_group_id", limit: 4
+    t.integer "parent_id",      limit: 4
+    t.string  "label",          limit: 255
+  end
+
+  add_index "model_groups_parents_backup", ["model_group_id"], name: "index_model_groups_parents_on_model_group_id", using: :btree
+  add_index "model_groups_parents_backup", ["parent_id"], name: "index_model_groups_parents_on_parent_id", using: :btree
 
   create_table "model_links", force: :cascade do |t|
     t.integer "model_group_id", limit: 4,             null: false
@@ -317,9 +326,9 @@ ActiveRecord::Schema.define(version: 20161005103353) do
   add_index "model_links", ["model_id", "model_group_id"], name: "index_model_links_on_model_id_and_model_group_id", using: :btree
 
   create_table "models", force: :cascade do |t|
-    t.string   "type",                 limit: 255,                           default: "Model", null: false
+    t.string   "type",                 limit: 255
     t.string   "manufacturer",         limit: 255
-    t.string   "product",              limit: 255,                                             null: false
+    t.string   "product",              limit: 255,                                           null: false
     t.string   "version",              limit: 255
     t.text     "description",          limit: 65535
     t.text     "internal_description", limit: 65535
@@ -327,10 +336,10 @@ ActiveRecord::Schema.define(version: 20161005103353) do
     t.decimal  "rental_price",                       precision: 8, scale: 2
     t.integer  "maintenance_period",   limit: 4,                             default: 0
     t.boolean  "is_package",                                                 default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.text     "technical_detail",     limit: 65535
     t.text     "hand_over_note",       limit: 65535
-    t.datetime "created_at",                                                                   null: false
-    t.datetime "updated_at",                                                                   null: false
   end
 
   add_index "models", ["is_package"], name: "index_models_on_is_package", using: :btree
@@ -346,8 +355,8 @@ ActiveRecord::Schema.define(version: 20161005103353) do
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
-    t.string   "title",      limit: 255, default: ""
-    t.datetime "created_at",                          null: false
+    t.string   "title",      limit: 255
+    t.datetime "created_at",             null: false
   end
 
   add_index "notifications", ["created_at", "user_id"], name: "index_notifications_on_created_at_and_user_id", using: :btree
@@ -375,8 +384,8 @@ ActiveRecord::Schema.define(version: 20161005103353) do
     t.integer "quantity",          limit: 4, null: false
   end
 
-  add_index "partitions", ["group_id"], name: "fk_rails_44495fc6cf", using: :btree
-  add_index "partitions", ["inventory_pool_id"], name: "fk_rails_b10a540212", using: :btree
+  add_index "partitions", ["group_id"], name: "partitions_group_id_fk", using: :btree
+  add_index "partitions", ["inventory_pool_id"], name: "partitions_inventory_pool_id_fk", using: :btree
   add_index "partitions", ["model_id", "inventory_pool_id", "group_id"], name: "index_partitions_on_model_id_and_inventory_pool_id_and_group_id", unique: true, using: :btree
 
   create_table "procurement_accesses", force: :cascade do |t|
@@ -476,6 +485,7 @@ ActiveRecord::Schema.define(version: 20161005103353) do
     t.string   "motivation",         limit: 255
     t.string   "inspection_comment", limit: 255
     t.datetime "created_at",                                        null: false
+    t.string   "inspector_priority", limit: 9,   default: "medium", null: false
   end
 
   add_index "procurement_requests", ["budget_period_id"], name: "fk_rails_b6213e1ee9", using: :btree
@@ -523,72 +533,70 @@ ActiveRecord::Schema.define(version: 20161005103353) do
 
   create_table "reservations", force: :cascade do |t|
     t.integer  "contract_id",            limit: 4
-    t.integer  "inventory_pool_id",      limit: 4,                        null: false
-    t.integer  "user_id",                limit: 4,                        null: false
-    t.integer  "delegated_user_id",      limit: 4
-    t.integer  "handed_over_by_user_id", limit: 4
-    t.string   "type",                   limit: 255, default: "ItemLine", null: false
     t.integer  "item_id",                limit: 4
     t.integer  "model_id",               limit: 4
     t.integer  "quantity",               limit: 4,   default: 1
     t.date     "start_date"
     t.date     "end_date"
     t.date     "returned_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "option_id",              limit: 4
+    t.string   "type",                   limit: 255
     t.integer  "purpose_id",             limit: 4
     t.integer  "returned_to_user_id",    limit: 4
-    t.datetime "created_at",                                              null: false
-    t.datetime "updated_at",                                              null: false
-    t.string   "status",                 limit: 11,                       null: false
+    t.integer  "inventory_pool_id",      limit: 4,               null: false
+    t.integer  "user_id",                limit: 4,               null: false
+    t.integer  "delegated_user_id",      limit: 4
+    t.integer  "handed_over_by_user_id", limit: 4
+    t.string   "status",                 limit: 11,              null: false
   end
 
-  add_index "reservations", ["contract_id"], name: "index_reservations_on_contract_id", using: :btree
-  add_index "reservations", ["delegated_user_id"], name: "fk_rails_6f10314351", using: :btree
-  add_index "reservations", ["end_date"], name: "index_reservations_on_end_date", using: :btree
-  add_index "reservations", ["handed_over_by_user_id"], name: "fk_rails_3cc4562273", using: :btree
-  add_index "reservations", ["inventory_pool_id"], name: "fk_rails_151794e412", using: :btree
-  add_index "reservations", ["item_id"], name: "index_reservations_on_item_id", using: :btree
-  add_index "reservations", ["model_id"], name: "index_reservations_on_model_id", using: :btree
-  add_index "reservations", ["option_id"], name: "index_reservations_on_option_id", using: :btree
-  add_index "reservations", ["purpose_id"], name: "fk_rails_1391c89ed4", using: :btree
-  add_index "reservations", ["returned_date", "contract_id"], name: "index_reservations_on_returned_date_and_contract_id", using: :btree
-  add_index "reservations", ["returned_to_user_id"], name: "fk_rails_5cc2043d96", using: :btree
-  add_index "reservations", ["start_date"], name: "index_reservations_on_start_date", using: :btree
+  add_index "reservations", ["contract_id"], name: "index_contract_lines_on_contract_id", using: :btree
+  add_index "reservations", ["delegated_user_id"], name: "reservations_delegated_user_id_fk", using: :btree
+  add_index "reservations", ["end_date"], name: "index_contract_lines_on_end_date", using: :btree
+  add_index "reservations", ["handed_over_by_user_id"], name: "reservations_handed_over_by_user_id_fk", using: :btree
+  add_index "reservations", ["inventory_pool_id"], name: "reservations_inventory_pool_id_fk", using: :btree
+  add_index "reservations", ["item_id"], name: "index_contract_lines_on_item_id", using: :btree
+  add_index "reservations", ["model_id"], name: "index_contract_lines_on_model_id", using: :btree
+  add_index "reservations", ["option_id"], name: "index_contract_lines_on_option_id", using: :btree
+  add_index "reservations", ["purpose_id"], name: "contract_lines_purpose_id_fk", using: :btree
+  add_index "reservations", ["returned_date", "contract_id"], name: "index_contract_lines_on_returned_date_and_contract_id", using: :btree
+  add_index "reservations", ["returned_to_user_id"], name: "contract_lines_returned_to_user_id_fk", using: :btree
+  add_index "reservations", ["start_date"], name: "index_contract_lines_on_start_date", using: :btree
   add_index "reservations", ["status"], name: "index_reservations_on_status", using: :btree
-  add_index "reservations", ["type", "contract_id"], name: "index_reservations_on_type_and_contract_id", using: :btree
-  add_index "reservations", ["user_id"], name: "fk_rails_48a92fce51", using: :btree
+  add_index "reservations", ["type", "contract_id"], name: "index_contract_lines_on_type_and_contract_id", using: :btree
+  add_index "reservations", ["user_id"], name: "reservations_user_id_fk", using: :btree
 
   create_table "settings", force: :cascade do |t|
     t.string  "smtp_address",                   limit: 255
     t.integer "smtp_port",                      limit: 4
     t.string  "smtp_domain",                    limit: 255
-    t.string  "local_currency_string",          limit: 255,                    null: false
+    t.string  "local_currency_string",          limit: 255,                   null: false
     t.text    "contract_terms",                 limit: 65535
     t.text    "contract_lending_party_string",  limit: 65535
-    t.string  "email_signature",                limit: 255,                    null: false
-    t.string  "default_email",                  limit: 255,                    null: false
+    t.string  "email_signature",                limit: 255,                   null: false
+    t.string  "default_email",                  limit: 255,                   null: false
     t.boolean "deliver_order_notifications"
     t.string  "user_image_url",                 limit: 255
-    t.string  "ldap_config",                    limit: 255
     t.string  "logo_url",                       limit: 255
     t.string  "mail_delivery_method",           limit: 255
     t.string  "smtp_username",                  limit: 255
     t.string  "smtp_password",                  limit: 255
-    t.boolean "smtp_enable_starttls_auto",                    default: false,  null: false
-    t.string  "smtp_openssl_verify_mode",       limit: 255,   default: "none", null: false
-    t.string  "time_zone",                      limit: 255,   default: "Bern", null: false
-    t.boolean "disable_manage_section",                       default: false,  null: false
+    t.boolean "smtp_enable_starttls_auto",                    default: false, null: false
+    t.string  "smtp_openssl_verify_mode",       limit: 255
+    t.string  "time_zone",                      limit: 255
+    t.boolean "disable_manage_section",                       default: false, null: false
     t.text    "disable_manage_section_message", limit: 65535
-    t.boolean "disable_borrow_section",                       default: false,  null: false
+    t.boolean "disable_borrow_section",                       default: false, null: false
     t.text    "disable_borrow_section_message", limit: 65535
-    t.text    "text",                           limit: 65535
-    t.integer "timeout_minutes",                limit: 4,     default: 30,     null: false
+    t.integer "timeout_minutes",                limit: 4,     default: 30,    null: false
   end
 
   create_table "suppliers", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "suppliers", ["name"], name: "index_suppliers_on_name", unique: true, using: :btree
@@ -601,6 +609,8 @@ ActiveRecord::Schema.define(version: 20161005103353) do
     t.integer  "authentication_system_id", limit: 4,     default: 1
     t.string   "unique_id",                limit: 255
     t.string   "email",                    limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "badge_id",                 limit: 255
     t.string   "address",                  limit: 255
     t.string   "city",                     limit: 255
@@ -610,13 +620,11 @@ ActiveRecord::Schema.define(version: 20161005103353) do
     t.text     "extended_info",            limit: 65535
     t.string   "settings",                 limit: 1024
     t.integer  "delegator_user_id",        limit: 4
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
   end
 
   add_index "users", ["authentication_system_id"], name: "index_users_on_authentication_system_id", using: :btree
-  add_index "users", ["delegator_user_id"], name: "fk_rails_cc67a09e58", using: :btree
-  add_index "users", ["language_id"], name: "fk_rails_45f4f12508", using: :btree
+  add_index "users", ["delegator_user_id"], name: "users_delegator_user_id_fk", using: :btree
+  add_index "users", ["language_id"], name: "users_language_id_fk", using: :btree
 
   create_table "workdays", force: :cascade do |t|
     t.integer "inventory_pool_id",        limit: 4
@@ -633,41 +641,41 @@ ActiveRecord::Schema.define(version: 20161005103353) do
 
   add_index "workdays", ["inventory_pool_id"], name: "index_workdays_on_inventory_pool_id", using: :btree
 
-  add_foreign_key "access_rights", "inventory_pools", on_delete: :cascade
-  add_foreign_key "access_rights", "users"
-  add_foreign_key "accessories", "models", on_delete: :cascade
-  add_foreign_key "accessories_inventory_pools", "accessories"
-  add_foreign_key "accessories_inventory_pools", "inventory_pools"
+  add_foreign_key "access_rights", "inventory_pools", name: "access_rights_inventory_pool_id_fk", on_delete: :cascade
+  add_foreign_key "access_rights", "users", name: "access_rights_user_id_fk"
+  add_foreign_key "accessories", "models", name: "accessories_model_id_fk", on_delete: :cascade
+  add_foreign_key "accessories_inventory_pools", "accessories", name: "accessories_inventory_pools_accessory_id_fk"
+  add_foreign_key "accessories_inventory_pools", "inventory_pools", name: "accessories_inventory_pools_inventory_pool_id_fk"
   add_foreign_key "attachments", "items", name: "attachments_item_id_fk", on_delete: :cascade
-  add_foreign_key "attachments", "models", on_delete: :cascade
-  add_foreign_key "database_authentications", "users", on_delete: :cascade
-  add_foreign_key "delegations_users", "users"
-  add_foreign_key "delegations_users", "users", column: "delegation_id"
-  add_foreign_key "groups", "inventory_pools"
-  add_foreign_key "groups_users", "groups"
-  add_foreign_key "groups_users", "users"
-  add_foreign_key "holidays", "inventory_pools", on_delete: :cascade
-  add_foreign_key "inventory_pools", "addresses"
-  add_foreign_key "inventory_pools_model_groups", "inventory_pools"
-  add_foreign_key "inventory_pools_model_groups", "model_groups"
-  add_foreign_key "items", "inventory_pools"
-  add_foreign_key "items", "inventory_pools", column: "owner_id"
-  add_foreign_key "items", "items", column: "parent_id", on_delete: :nullify
-  add_foreign_key "items", "locations"
-  add_foreign_key "items", "models"
-  add_foreign_key "items", "suppliers"
-  add_foreign_key "locations", "buildings"
-  add_foreign_key "model_group_links", "model_groups", column: "ancestor_id", on_delete: :cascade
-  add_foreign_key "model_group_links", "model_groups", column: "descendant_id", on_delete: :cascade
-  add_foreign_key "model_links", "model_groups", on_delete: :cascade
-  add_foreign_key "model_links", "models", on_delete: :cascade
-  add_foreign_key "models_compatibles", "models"
-  add_foreign_key "models_compatibles", "models", column: "compatible_id"
-  add_foreign_key "notifications", "users", on_delete: :cascade
-  add_foreign_key "options", "inventory_pools"
-  add_foreign_key "partitions", "groups"
-  add_foreign_key "partitions", "inventory_pools"
-  add_foreign_key "partitions", "models", on_delete: :cascade
+  add_foreign_key "attachments", "models", name: "attachments_model_id_fk", on_delete: :cascade
+  add_foreign_key "database_authentications", "users", name: "database_authentications_user_id_fk", on_delete: :cascade
+  add_foreign_key "delegations_users", "users", column: "delegation_id", name: "delegations_users_delegation_id_fk"
+  add_foreign_key "delegations_users", "users", name: "delegations_users_user_id_fk"
+  add_foreign_key "groups", "inventory_pools", name: "groups_inventory_pool_id_fk"
+  add_foreign_key "groups_users", "groups", name: "groups_users_group_id_fk"
+  add_foreign_key "groups_users", "users", name: "groups_users_user_id_fk"
+  add_foreign_key "holidays", "inventory_pools", name: "holidays_inventory_pool_id_fk", on_delete: :cascade
+  add_foreign_key "inventory_pools", "addresses", name: "inventory_pools_address_id_fk"
+  add_foreign_key "inventory_pools_model_groups", "inventory_pools", name: "inventory_pools_model_groups_inventory_pool_id_fk"
+  add_foreign_key "inventory_pools_model_groups", "model_groups", name: "inventory_pools_model_groups_model_group_id_fk"
+  add_foreign_key "items", "inventory_pools", column: "owner_id", name: "items_owner_id_fk"
+  add_foreign_key "items", "inventory_pools", name: "items_inventory_pool_id_fk"
+  add_foreign_key "items", "items", column: "parent_id", name: "items_parent_id_fk", on_delete: :nullify
+  add_foreign_key "items", "locations", name: "items_location_id_fk"
+  add_foreign_key "items", "models", name: "items_model_id_fk"
+  add_foreign_key "items", "suppliers", name: "items_supplier_id_fk"
+  add_foreign_key "locations", "buildings", name: "locations_building_id_fk"
+  add_foreign_key "model_group_links", "model_groups", column: "ancestor_id", name: "model_group_links_ancestor_id_fk", on_delete: :cascade
+  add_foreign_key "model_group_links", "model_groups", column: "descendant_id", name: "model_group_links_descendant_id_fk", on_delete: :cascade
+  add_foreign_key "model_links", "model_groups", name: "model_links_model_group_id_fk", on_delete: :cascade
+  add_foreign_key "model_links", "models", name: "model_links_model_id_fk", on_delete: :cascade
+  add_foreign_key "models_compatibles", "models", column: "compatible_id", name: "models_compatibles_compatible_id_fk"
+  add_foreign_key "models_compatibles", "models", name: "models_compatibles_model_id_fk"
+  add_foreign_key "notifications", "users", name: "notifications_user_id_fk", on_delete: :cascade
+  add_foreign_key "options", "inventory_pools", name: "options_inventory_pool_id_fk"
+  add_foreign_key "partitions", "groups", name: "partitions_group_id_fk"
+  add_foreign_key "partitions", "inventory_pools", name: "partitions_inventory_pool_id_fk"
+  add_foreign_key "partitions", "models", name: "partitions_model_id_fk", on_delete: :cascade
   add_foreign_key "procurement_accesses", "procurement_organizations", column: "organization_id"
   add_foreign_key "procurement_accesses", "users"
   add_foreign_key "procurement_attachments", "procurement_requests", column: "request_id"
@@ -687,19 +695,19 @@ ActiveRecord::Schema.define(version: 20161005103353) do
   add_foreign_key "procurement_templates", "models"
   add_foreign_key "procurement_templates", "procurement_categories", column: "category_id"
   add_foreign_key "procurement_templates", "suppliers"
-  add_foreign_key "properties", "models", on_delete: :cascade
-  add_foreign_key "reservations", "contracts", on_delete: :cascade
-  add_foreign_key "reservations", "inventory_pools"
-  add_foreign_key "reservations", "items"
-  add_foreign_key "reservations", "models"
-  add_foreign_key "reservations", "options"
-  add_foreign_key "reservations", "purposes"
-  add_foreign_key "reservations", "users"
-  add_foreign_key "reservations", "users", column: "delegated_user_id"
-  add_foreign_key "reservations", "users", column: "handed_over_by_user_id"
-  add_foreign_key "reservations", "users", column: "returned_to_user_id"
-  add_foreign_key "users", "authentication_systems"
-  add_foreign_key "users", "languages"
-  add_foreign_key "users", "users", column: "delegator_user_id"
-  add_foreign_key "workdays", "inventory_pools", on_delete: :cascade
+  add_foreign_key "properties", "models", name: "properties_model_id_fk", on_delete: :cascade
+  add_foreign_key "reservations", "contracts", name: "contract_lines_contract_id_fk", on_delete: :cascade
+  add_foreign_key "reservations", "inventory_pools", name: "reservations_inventory_pool_id_fk"
+  add_foreign_key "reservations", "items", name: "contract_lines_item_id_fk"
+  add_foreign_key "reservations", "models", name: "contract_lines_model_id_fk"
+  add_foreign_key "reservations", "options", name: "contract_lines_option_id_fk"
+  add_foreign_key "reservations", "purposes", name: "contract_lines_purpose_id_fk"
+  add_foreign_key "reservations", "users", column: "delegated_user_id", name: "reservations_delegated_user_id_fk"
+  add_foreign_key "reservations", "users", column: "handed_over_by_user_id", name: "reservations_handed_over_by_user_id_fk"
+  add_foreign_key "reservations", "users", column: "returned_to_user_id", name: "contract_lines_returned_to_user_id_fk"
+  add_foreign_key "reservations", "users", name: "reservations_user_id_fk"
+  add_foreign_key "users", "authentication_systems", name: "users_authentication_system_id_fk"
+  add_foreign_key "users", "languages", name: "users_language_id_fk"
+  add_foreign_key "users", "users", column: "delegator_user_id", name: "users_delegator_user_id_fk"
+  add_foreign_key "workdays", "inventory_pools", name: "workdays_inventory_pool_id_fk", on_delete: :cascade
 end

@@ -41,6 +41,15 @@
           %label
             %input{type: :radio, name: "requests[new_#{i}][priority]", value: priority.downcase}
             .label.label-default= _(priority)
+    - if @category.inspectable_by? current_user
+      .form-group
+        %label.col-xs-4.control-label
+          = "#{_('Inspectors')} #{_('Priority')}"
+        .col-xs-8
+          - ['Mandatory', 'High', 'Medium', 'Low'].each do |inspector_priority|
+            %label
+              %input{type: :radio, name: "requests[new_#{i}][inspector_priority]", value: inspector_priority.downcase, checked: (:checked if inspector_priority.downcase == 'medium')}
+              .label.label-default= _(inspector_priority)
     .form-group
       %label.col-xs-4.control-label
         = format('%s / %s', _('Replacement'), _('New'))

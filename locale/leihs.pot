@@ -3073,10 +3073,19 @@ msgstr ""
 msgid "Request moved"
 msgstr ""
 
+msgid "Mandatory"
+msgstr ""
+
 msgid "High"
 msgstr ""
 
 msgid "Normal"
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "Low"
 msgstr ""
 
 msgid "Are you sure you want to delete '%s'?"

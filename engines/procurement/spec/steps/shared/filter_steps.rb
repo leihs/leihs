@@ -29,7 +29,9 @@ module FilterSteps
   end
 
   step 'both priorities are selected' do
-    within '#filter_panel .form-group', text: _('Priority') do
+    within('#filter_panel .form-group',
+           text: _('Priority'),
+           match: :prefer_exact) do
       ['high', 'normal'].each do |priority|
         expect(find "input[value='#{priority}']").to be_selected
       end
@@ -105,7 +107,9 @@ module FilterSteps
 
   step 'I select both priorities' do
     @filter ||= get_filter
-    within '#filter_panel .form-group', text: _('Priority') do
+    within('#filter_panel .form-group',
+           text: _('Priority'),
+           match: :prefer_exact) do
       @filter[:priorities] = all(:checkbox, count: 2).map do |x|
         x.set true
         x[:value]
@@ -118,7 +122,9 @@ module FilterSteps
     if [true, false].sample
       step 'I select both priorities'
     else
-      within '#filter_panel .form-group', text: _('Priority') do
+      within('#filter_panel .form-group',
+             text: _('Priority'),
+             match: :prefer_exact) do
         @filter[:priorities] = [find(:checkbox, match: :first)].map do |x|
           x.set true
           x[:value]
