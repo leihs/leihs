@@ -221,7 +221,7 @@ steps_for :inspection do
 
   step 'the following fields are not editable' do |table|
     table.raw.flatten.each do |value|
-      within '.form-group', text: _(value) do
+      within '.form-group', text: _(value), match: :prefer_exact do
         case value
         when 'Motivation'
           expect(page).to have_no_selector \
