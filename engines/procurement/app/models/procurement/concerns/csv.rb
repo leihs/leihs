@@ -41,6 +41,7 @@ module Procurement
           format('%s %s', _('Total'), _('incl. VAT')) => total_price(current_user),
           _('State') => _(state(current_user).to_s.humanize),
           _('Priority') => priority,
+          _("#{_('Inspectors')} #{_('Priority')}") => inspector_priority,
           format('%s / %s', _('Replacement'), _('New')) => \
                                   replacement ? _('Replacement') : _('New'),
           _('Receiver') => receiver,
