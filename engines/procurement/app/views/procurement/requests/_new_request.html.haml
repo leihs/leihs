@@ -44,7 +44,7 @@
     - if @category.inspectable_by? current_user
       .form-group
         %label.col-xs-4.control-label
-          = "#{_('Inspectors')} #{_('Priority')}"
+          = _("Inspector's priority")
         .col-xs-8
           - ['Mandatory', 'High', 'Medium', 'Low'].each do |inspector_priority|
             %label

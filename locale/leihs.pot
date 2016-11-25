@@ -2992,6 +2992,9 @@ msgstr ""
 msgid "Priority"
 msgstr ""
 
+msgid "Inspector's priority"
+msgstr ""
+
 msgid "Name of receiver"
 msgstr ""
 

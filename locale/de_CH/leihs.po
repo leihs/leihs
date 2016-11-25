@@ -3089,6 +3089,9 @@ msgstr "Startdatum der Prüfphase"
 msgid "Priority"
 msgstr "Priorität"
 
+msgid "Inspector's priority"
+msgstr "Priorität des Prüfers"
+
 msgid "Name of receiver"
 msgstr "Name des Empfängers"
 
@@ -3180,7 +3183,7 @@ msgid "Normal"
 msgstr "Normal"
 
 msgid "Medium"
-msgstr "Medium"
+msgstr "Mittel"
 
 msgid "Low"
 msgstr "Tief"
