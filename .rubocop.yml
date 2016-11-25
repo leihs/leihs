@@ -28,6 +28,10 @@ Lint/AssignmentInCondition:
 Lint/DeprecatedClassMethods:
   Enabled: false
 
+Lint/Eval:
+  Exclude:
+    - 'lib/leihs/dbio.rb'
+
 Lint/ParenthesesAsGroupedExpression:
   Enabled: false
 
