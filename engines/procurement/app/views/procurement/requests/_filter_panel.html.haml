@@ -83,16 +83,6 @@
 
   .form-group
     %b
-      %i.fa.fa-sort-amount-asc
-      = "#{_('Inspectors')} #{_('Priority')}"
-    %ul
-      - ['Mandatory', 'High', 'Medium', 'Low'].each do |inspector_priority|
-        %label
-          %input{type: :checkbox, name: "filter[inspector_priorities][]", value: inspector_priority.downcase, checked: @filter['inspector_priorities'].include?(inspector_priority.downcase)}
-          .label.label-default= _(inspector_priority)
-
-  .form-group
-    %b
       %i.fa.fa-code-fork
       = _('State of Request')
     %ul
