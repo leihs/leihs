@@ -28,7 +28,7 @@ Feature: Exporting the data to a CSV-File
       | Price                      |
       | Total                      |
       | Priority                   |
-      | Inspector's Priority       |
+      | Inspector's priority       |
       | Motivation                 |
       | Supplier                   |
       | Inspection comment         |

@@ -46,8 +46,6 @@ steps_for :csv do
                                    format('%s %s', _('Price'), _('incl. VAT'))
                                  when 'Total'
                                    format('%s %s', _('Total'), _('incl. VAT'))
-                                 when "Inspector's Priority"
-                                   format('%s %s', _('Inspectors'), _('Priority'))
                                  else
                                     _(value)
                                  end

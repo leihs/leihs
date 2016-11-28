@@ -13,7 +13,7 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     And only categories having requests are selected
     And all organisations are selected
     And both priorities are selected
-    And all three Inspector's priorities are selected
+    And all inspector's priorities are selected
     And the state "In inspection" is not present
     And all states are selected
     And the search field is empty
@@ -57,28 +57,29 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
       | Motivation         |
       | Priority           |
 
+  @inspection
   Scenario: Editing a request
     Given I am Barbara
-    And a request with following data exists
+    And a request with following data exist
       | key                        | value      |
       | user                       | Roger      |
-      | Article or Project         | MyProject  |
-      | Article nr. or Producer nr.| 1234       |
-      | Supplier                   | Dell       |
-      | Name of receiver           | Markus     |
-      | Point of delivery          | ZHdK       |
+      | article or project         | MyProject  |
+      | article nr. or producer nr.| 1234       |
+      | supplier                   | Dell       |
+      | name of receiver           | Markus     |
+      | point of delivery          | ZHdK       |
       | replacement                | Replacement|
-      | Price                      | 100        |
-      | Requested quantity         | 1          |
+      | price                      | 100        |
+      | requested amount           | 1          |
     When I navigate to the requests form of Roger
-    And I enter the following information
+    And I fill in the following fields
       | key                        | value      |
       | Article or Project         | MyProject2 |
       | Article nr. or Producer nr.| 12345      |
       | Supplier                   | Digitec    |
       | Name of receiver           | Stefan     |
-      | Point of delivery          | Toni       |
-      | replacement                | New        |
+      | Point of Delivery          | Toni       |
+      | Replacement / New          | New        |
       | Price                      | 1000       |
       | Requested quantity         | 2          |
     When I upload a file
@@ -131,7 +132,7 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     And I select "Only categories with requests"
     And I select all organisations
     And I select both priorities
-    And I select all three Inspector's priorities
+    And I select all inspector's priorities
     And I select all states
     And I leave the search string empty
     Then the list of requests is adjusted immediately
@@ -191,7 +192,7 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
     And I choose the point of delivery
     And I choose the following priority value
       | High |
-    And I choose the following Inspector's priority value
+    And I choose the following inspector's priority value
       | High |
     And I choose the following replacement value
       | New |
