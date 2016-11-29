@@ -142,7 +142,7 @@ module CommonSteps
               else
                 raise
               end
-      within '.form-group', text: label do
+      within '.form-group', text: label, match: :prefer_exact do
         table.raw.flatten.each do |value|
           choose _(value)
         end

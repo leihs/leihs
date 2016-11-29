@@ -3089,6 +3089,9 @@ msgstr "Startdatum der Prüfphase"
 msgid "Priority"
 msgstr "Priorität"
 
+msgid "Inspector's priority"
+msgstr "Priorität des Prüfers"
+
 msgid "Name of receiver"
 msgstr "Name des Empfängers"
 
@@ -3170,11 +3173,20 @@ msgstr "Artikel oder Kategorie wählen"
 msgid "Request moved"
 msgstr "Antrag verschoben"
 
+msgid "Mandatory"
+msgstr "Zwingend"
+
 msgid "High"
 msgstr "Hoch"
 
 msgid "Normal"
 msgstr "Normal"
+
+msgid "Medium"
+msgstr "Mittel"
+
+msgid "Low"
+msgstr "Tief"
 
 msgid "Are you sure you want to delete '%s'?"
 msgstr "Sind Sie sicher, dass Sie '%s' löschen möchten?"

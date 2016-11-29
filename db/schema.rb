@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005103353) do
+ActiveRecord::Schema.define(version: 20161123105950) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "user_id",           limit: 4,     null: false
@@ -476,6 +476,7 @@ ActiveRecord::Schema.define(version: 20161005103353) do
     t.string   "motivation",         limit: 255
     t.string   "inspection_comment", limit: 255
     t.datetime "created_at",                                        null: false
+    t.string   "inspector_priority", limit: 9,   default: "medium", null: false
   end
 
   add_index "procurement_requests", ["budget_period_id"], name: "fk_rails_b6213e1ee9", using: :btree

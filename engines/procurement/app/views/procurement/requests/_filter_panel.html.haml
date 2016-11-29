@@ -70,6 +70,17 @@
           %input{type: :checkbox, name: "filter[priorities][]", value: priority.downcase, checked: @filter['priorities'].include?(priority.downcase)}
           .label.label-default= _(priority)
 
+  - if procurement_inspector_or_admin?
+    .form-group
+      %b
+        %i.fa.fa-sort-amount-asc
+        = _("Inspector's priority")
+      %ul
+        - ['Mandatory', 'High', 'Medium', 'Low'].each do |inspector_priority|
+          %label
+            %input{type: :checkbox, name: "filter[inspector_priorities][]", value: inspector_priority.downcase, checked: @filter['inspector_priorities'].include?(inspector_priority.downcase)}
+            .label.label-default= _(inspector_priority)
+
   .form-group
     %b
       %i.fa.fa-code-fork

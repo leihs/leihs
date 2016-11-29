@@ -19,12 +19,14 @@ module Procurement
         end
         @filter['organization_ids'] ||= Procurement::Organization.ids
         @filter['priorities'] ||= ['high', 'normal']
+        @filter['inspector_priorities'] ||= %w(mandatory high medium low)
         @filter['states'] ||= Procurement::Request::STATES
 
         @filter['sort_by'] = 'state' if @filter['sort_by'].blank?
         @filter['sort_dir'] = 'asc' if @filter['sort_dir'].blank?
       end
 
+      # rubocop:disable Metrics/MethodLength
       def get_requests
         fallback_filters
 
@@ -40,19 +42,27 @@ module Procurement
 
           k = { category_id: @categories,
                 organization_id: @filter['organization_ids'],
-                priority: @filter['priorities'] }
+                priority: @filter['priorities'],
+                inspector_priority: @filter['inspector_priorities'] }
           k[:user_id] = @user if @user
+
           requests = budget_period.requests.search(@filter['search']).where(k)
 
-          h[budget_period] = sort_requests(requests.select do |r|
+          requests = requests.select do |r|
             @filter['states'].map(&:to_sym).include? r.state(current_user)
-          end, @filter['sort_by'], @filter['sort_dir'])
+          end
+
+          h[budget_period] = sort_requests(requests,
+                                           @filter['sort_by'],
+                                           @filter['sort_dir'])
         end
         h
       end
+      # rubocop:enable Metrics/MethodLength
 
       private
 
+      # rubocop:disable Metrics/MethodLength
       def fallback_filters
         @filter = params[:filter]
 
@@ -76,9 +86,15 @@ module Procurement
         @filter['organization_ids'].delete('multiselect-all')
 
         @filter['priorities'] ||= []
+        if procurement_inspector_or_admin?
+          @filter['inspector_priorities'] ||= []
+        else
+          @filter['inspector_priorities'] ||= %w(mandatory high medium low)
+        end
         @filter['states'] ||= []
         session[:requests_filter] = @filter
       end
+      # rubocop:enable Metrics/MethodLength
 
       def sort_requests(requests, sort_by, sort_dir)
         r = requests.sort do |a, b|

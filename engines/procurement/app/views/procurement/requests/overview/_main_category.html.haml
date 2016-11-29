@@ -1,0 +1,30 @@
+.row.main_category
+  %a.col-sm-9.h4.toggler{data: {toggle: 'collapse'}, href: "#collapse_mc_#{budget_period.id}_#{main_category.id}"}
+    %span.h3.text-center
+      %i.fa.fa-caret-right
+    - if main_category.image.exists?
+      %img.main_category_image{src: main_category.image.url}
+    - else
+      %i.fa.fa-outdent.main_category_image{style: 'font-size: 30px'}
+    = main_category.name
+  .col-sm-1
+    - total_price = requests.select{|r| main_category.category_ids.include? r.category_id }.map {|r| r.total_price(current_user) }.sum
+    - if @user.nil?
+      - budget_limit_amount = main_category.budget_limits.find_by(budget_period_id: budget_period.id).try(:amount)
+      .label.label-default.budget_limit{title: _('Limit of category for this budget period'), data: {toggle: 'tooltip'}}
+        %i.fa.fa-pie-chart
+        = money_without_cents_and_with_symbol budget_limit_amount, false
+      %br
+    .label.label-primary.big_total_price{title: _('Current total of category'), data: {toggle: 'tooltip'}}
+      %i.fa.fa-shopping-cart
+      = money_without_cents_and_with_symbol total_price, false
+  .col-sm-2
+    - if @user.nil?
+      = render partial: 'procurement/requests/progress_radial', locals: {used: total_price, max: budget_limit_amount}
+
+.collapse{id: "collapse_mc_#{budget_period.id}_#{main_category.id}"}
+  - categories.each do |category|
+    = render partial: 'procurement/requests/overview/category',
+             locals: { requests: requests,
+                       category: category,
+                       budget_period: budget_period }
