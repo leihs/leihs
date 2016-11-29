@@ -19,7 +19,7 @@ steps_for :csv do
     end
   end
 
-  step 'the following fields are exported' do |table|
+  step 'only the following fields are exported' do |table|
     # NOTE not really downloading the file,
     # but invoking directly the model class method
 
@@ -37,6 +37,8 @@ steps_for :csv do
                      force_quotes: true,
                      headers: :first_row
     headers = @csv.headers
+
+    expect(headers.count).to be == table.raw.flatten.count
 
     table.raw.flatten.each do |value|
       expect(headers).to include case value
