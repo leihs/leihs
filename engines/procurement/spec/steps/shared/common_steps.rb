@@ -1,16 +1,16 @@
 # rubocop:disable Metrics/ModuleLength
 placeholder :field_placeholder do
   match /.+/ do |field|
-    label = case field
-            when 'priority'
-              _('Priority')
-            when "inspector's priority"
-              _("Inspector's priority")
-            when 'replacement'
-              format('%s / %s', _('Replacement'), _('New'))
-            else
-              raise
-            end
+    case field
+    when 'priority'
+      _('Priority')
+    when "inspector's priority"
+      _("Inspector's priority")
+    when 'replacement'
+      format('%s / %s', _('Replacement'), _('New'))
+    else
+      raise
+    end
   end
 end
 

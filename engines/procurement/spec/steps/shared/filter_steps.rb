@@ -24,7 +24,7 @@ module FilterSteps
     within('#filter_panel .form-group',
            text: _("Inspector's priority"),
            match: :prefer_exact) do
-      ['mandatory', 'high', 'medium', 'low'].each do |priority|
+      %w(mandatory high medium low).each do |priority|
         expect(find "input[value='#{priority}']").to be_selected
       end
     end
