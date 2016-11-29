@@ -28,7 +28,7 @@ Feature: Exporting the data to a CSV-File
       | Price                      |
       | Total                      |
       | Priority                   |
-      | Inspector's Priority       |
+      | Inspector's priority       |
       | Motivation                 |
       | Supplier                   |
       | Inspection comment         |
@@ -40,6 +40,7 @@ Feature: Exporting the data to a CSV-File
       | Barbara   |
       | Hans Ueli |
 
+  @csv
   Scenario Outline: Export data
     Given I am <username>
     And following requests exist for the current budget period
@@ -72,8 +73,6 @@ Feature: Exporting the data to a CSV-File
     Examples:
       | username  |
       | Roger     |
-
-
 
   @csv
   Scenario: Export data as Excel native format

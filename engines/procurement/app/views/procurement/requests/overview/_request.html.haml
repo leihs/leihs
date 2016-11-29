@@ -1,0 +1,43 @@
+%a.list-group-item.row{href: category_budget_period_user_requests_path(request.category, request.budget_period, request.user, request_id: request.id), data: {request_id: request.id}}
+  .col-sm-2
+    = request.article_name
+  .col-sm-2
+    = request.user
+  .col-sm-2
+    = request.organization.parent
+    %br
+    = request.organization
+  .col-sm-1
+    .label.label-custom.total_price
+      %i.fa.fa-tag
+      = money_without_cents_and_with_symbol request.price, false
+  .col-sm-2.quantities
+    :ruby
+      state, label_class = state_label(request)
+    .label{class: label_class, data: {toggle: 'tooltip'}, title: _('Requested quantity')}
+      = request.requested_quantity
+      %i.fa.fa-question
+    .label{class: label_class, data: {toggle: 'tooltip'}, title: _('Approved quantity')}
+      - if request.approved_quantity
+        = request.approved_quantity
+        %i.fa.fa-check
+      - else
+        &nbsp;
+    - if procurement_inspector_or_admin?
+      .label{class: label_class, data: {toggle: 'tooltip'}, title: _('Order quantity')}
+        - if request.order_quantity
+          = request.order_quantity
+          %i.fa.fa-shopping-cart
+        - else
+          &nbsp;
+  .col-sm-1
+    .label.label-primary.total_price
+      %i.fa.fa-shopping-cart
+      = money_without_cents_and_with_symbol request.total_price(current_user), false
+  .col-sm-1
+    .label.label-default= _(request.priority.capitalize)
+  .col-sm-1
+    :ruby
+      state, label_class = state_label(request)
+    .label{class: label_class}
+      = _(state.to_s.humanize)

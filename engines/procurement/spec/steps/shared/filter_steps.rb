@@ -20,6 +20,16 @@ module FilterSteps
     end
   end
 
+  step "all inspector's priorities are selected" do
+    within('#filter_panel .form-group',
+           text: _("Inspector's priority"),
+           match: :prefer_exact) do
+      ['mandatory', 'high', 'medium', 'low'].each do |priority|
+        expect(find "input[value='#{priority}']").to be_selected
+      end
+    end
+  end
+
   step 'all states are selected' do
     within '#filter_panel .form-group', text: _('State of Request') do
       all('input[name="filter[states][]"]', minimum: 4).each do |cb|
@@ -29,7 +39,9 @@ module FilterSteps
   end
 
   step 'both priorities are selected' do
-    within '#filter_panel .form-group', text: _('Priority') do
+    within('#filter_panel .form-group',
+           text: _('Priority'),
+           match: :prefer_exact) do
       ['high', 'normal'].each do |priority|
         expect(find "input[value='#{priority}']").to be_selected
       end
@@ -72,40 +84,48 @@ module FilterSteps
   step 'I select all :string_with_spaces' do |string_with_spaces|
     text = case string_with_spaces
            when 'categories'
-               _('Categories')
+             _('Categories')
            when 'budget periods'
-               _('Budget periods')
+             _('Budget periods')
            when 'organisations'
-               _('Organisations')
+             _('Organisations')
            when 'states'
-               _('State of Request')
+             _('State of Request')
+           when 'states'
+             _('State of Request')
+           when "inspector's priorities"
+             _("Inspector's priority")
            else
-               raise
+             raise
            end
     within '#filter_panel .form-group', text: text, match: :prefer_exact do
       case string_with_spaces
       when 'states'
-          all(:checkbox, minimum: 4).each { |x| x.set true }
+        all(:checkbox, minimum: 4).each { |x| x.set true }
+      when "inspector's priorities"
+        all(:checkbox, minimum: 4).each { |x| x.set true }
       else
-          within '.btn-group' do
-            find('button.multiselect').click # NOTE open the dropdown
-            expect(current_scope[:class]).to include 'open'
+        within '.btn-group' do
+          find('button.multiselect').click # NOTE open the dropdown
+          expect(current_scope[:class]).to include 'open'
 
-            within '.dropdown-menu' do
-              check _('Select all')
-            end
-
-            # NOTE close the dropdown
-            find("button.multiselect[aria-expanded='true']").click
-            expect(current_scope[:class]).not_to include 'open'
+          within '.dropdown-menu' do
+            check _('Select all')
           end
+
+          # NOTE close the dropdown
+          find("button.multiselect[aria-expanded='true']").click
+          expect(current_scope[:class]).not_to include 'open'
+        end
       end
     end
   end
 
   step 'I select both priorities' do
     @filter ||= get_filter
-    within '#filter_panel .form-group', text: _('Priority') do
+    within('#filter_panel .form-group',
+           text: _('Priority'),
+           match: :prefer_exact) do
       @filter[:priorities] = all(:checkbox, count: 2).map do |x|
         x.set true
         x[:value]
@@ -118,7 +138,9 @@ module FilterSteps
     if [true, false].sample
       step 'I select both priorities'
     else
-      within '#filter_panel .form-group', text: _('Priority') do
+      within('#filter_panel .form-group',
+             text: _('Priority'),
+             match: :prefer_exact) do
         @filter[:priorities] = [find(:checkbox, match: :first)].map do |x|
           x.set true
           x[:value]

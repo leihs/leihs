@@ -87,14 +87,24 @@ module Procurement
     def move
       @request = Request.where(user_id: @user, category_id: @category,
                                budget_period_id: @budget_period).find(params[:id])
-      h = { inspection_comment: nil, approved_quantity: nil, order_quantity: nil }
+
       if params[:to_category_id]
-        h[:category] = Procurement::Category.find(params[:to_category_id])
+        @request.category = Procurement::Category.find(params[:to_category_id])
       elsif params[:to_budget_period_id]
-        h[:budget_period] = BudgetPeriod.find(params[:to_budget_period_id])
+        @request.budget_period = BudgetPeriod.find(params[:to_budget_period_id])
       end
 
-      if @request.update_attributes h
+      # not to be moved
+      @request.approved_quantity = nil
+      @request.order_quantity = nil
+
+      # reset to default value if moved to a category
+      # not inspectable by current user
+      unless @request.category.inspectable_by?(current_user)
+        @request.inspector_priority = :medium
+      end
+
+      if @request.save
         render partial: 'layouts/procurement/flash',
                locals: { flash: { success: _('Request moved') } }
       else

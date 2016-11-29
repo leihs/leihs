@@ -1,0 +1,26 @@
+- category_requests = requests.select{|r| category.id == r.category_id }
+.row{style: 'line-height: 2.5em; background-color: #f5f5f5;'}
+  .col-sm-1
+  .col-sm-8.h4
+    %span{style: 'width: 1em; display: inline-block;'}
+      - unless category_requests.empty?
+        %a.h3.text-center.toggler{data: {toggle: 'collapse'}, href: "#collapse_#{budget_period.id}_#{category.id}"}
+          %i.fa.fa-caret-right
+    %a.toggler{style: 'font-size: 0.85em', data: {toggle: 'collapse'}, href: "#collapse_#{budget_period.id}_#{category.id}"}
+      = category.name
+    - unless budget_period.past?
+      - if procurement_requester? and (budget_period.in_requesting_phase? or category.inspectable_by? current_user)
+        %a{href: category_budget_period_user_requests_path(category, budget_period, current_user, request_id: 'new_request'), title: _('Create request for this category'), data: {toggle: 'tooltip'}}
+          %i.fa.fa-plus-circle
+      - if category.inspectable_by? current_user
+        %a{href: choose_category_budget_period_users_path(category, budget_period), title: _('Create request for another user'), data: {toggle: 'tooltip'}}
+          %i.fa.fa-user-plus
+  .col-sm-1
+    - total_price = category_requests.map {|r| r.total_price(current_user) }.sum
+    .label.label-primary.big_total_price{title: _('Current total of category'), data: {toggle: 'tooltip'}}
+      %i.fa.fa-shopping-cart
+      = money_without_cents_and_with_symbol total_price, false
+  .col-sm-2
+.collapse{id: "collapse_#{budget_period.id}_#{category.id}"}
+  - category_requests.each do |request|
+    = render partial: 'procurement/requests/overview/request', locals: { request: request, category: category }

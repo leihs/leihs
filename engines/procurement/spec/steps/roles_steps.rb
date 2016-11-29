@@ -67,6 +67,12 @@ steps_for :roles do
     expect(page).to have_no_selector "input[name*='inspection_comment']"
   end
 
+  step 'I can not see the field "inspector\'s priority"' do
+    prepare_request
+    go_to_request
+    expect(page).to have_no_selector "input[name*='inspection_priority']"
+  end
+
   step 'I :boolean modify the field of other person\'s request' do |boolean, table|
     table.raw.flatten.each do |field|
       requester = FactoryGirl.create(:user)
@@ -87,6 +93,8 @@ steps_for :roles do
         when 'inspection comment'
           find("[name='requests[#{@request.id}][inspection_comment]']")
               .set Faker::Lorem.word
+        when "inspector's priority"
+          all("[name='requests[#{@request.id}][inspector_priority]']").first.click
         end
 
         step 'I click on save'
@@ -103,7 +111,7 @@ steps_for :roles do
         when 'priority'
           expect(page).to have_no_selector \
             "[name='requests[#{@request.id}][priority]']"
-          within '.form-group', text: _('Priority') do
+          within '.form-group', text: _('Priority'), match: :prefer_exact do
             find '.col-xs-8', text: _(@request.priority.capitalize)
           end
         when 'requested quantity'
