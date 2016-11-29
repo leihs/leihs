@@ -12,7 +12,7 @@ Feature: Exporting the data to a CSV-File
       | 3        | Roger   |
     When I navigate to the requests overview page
     And I export the shown information
-    Then only the following fields are exported
+    Then the following fields are exported
       | Budget period              |
       | Main category              |
       | Subcategory                |
@@ -43,12 +43,12 @@ Feature: Exporting the data to a CSV-File
   @csv
   Scenario: Export data for requesters
     Given I am Roger
-    And following requests exist for the current budget period
+    And following requests with all values filled in exist for the current budget period
       | quantity | user    |
       | 3        | Roger   |
     When I navigate to the requests overview page
     And I export the shown information
-    Then only the following fields are exported
+    Then the following fields are exported
       | Budget period              |
       | Main category              |
       | Subcategory                |
@@ -67,7 +67,12 @@ Feature: Exporting the data to a CSV-File
       | Receiver                   |
       | Point of Delivery          |
       | State                      |
-    And the following fields are exported when the budget period has ended
+    And the values for the following fields are not exported
+      | Approved quantity          |
+      | Order quantity             |
+      | Inspector's priority       |
+      | Inspection comment         |
+    But the values for the following fields are exported when the budget period has ended
       | Approved quantity          |
       | Inspection comment         |
 
