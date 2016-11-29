@@ -4,7 +4,7 @@ Feature: Exporting the data to a CSV-File
     Given the basic dataset is ready
 
   @csv
-  Scenario Outline: Export data
+  Scenario Outline: Export data for inspectors and admins
     Given I am <username>
     And following requests exist for the current budget period
       | quantity | user    |
@@ -41,7 +41,7 @@ Feature: Exporting the data to a CSV-File
       | Hans Ueli |
 
   @csv
-  Scenario Outline: Export data
+  Scenario Outline: Export data for Requesters
     Given I am <username>
     And following requests exist for the current budget period
       | quantity | user    |
