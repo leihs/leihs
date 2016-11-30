@@ -62,6 +62,7 @@ module Procurement
       end
       # rubocop:enable Metrics/MethodLength
 
+      # rubocop:disable Metrics/CyclomaticComplexity
       def authorize_value(column, value, current_user)
         value if \
           case column
@@ -79,6 +80,7 @@ module Procurement
               category.inspectable_or_readable_by?(current_user)
           end
       end
+      # rubocop:enable Metrics/CyclomaticComplexity
 
     end
 
