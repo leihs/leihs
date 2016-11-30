@@ -80,26 +80,22 @@ steps_for :csv do
 
   step 'following requests with all values filled in ' \
        'exist for the current budget period' do |table|
+    Procurement::Request.destroy_all
+
     current_budget_period = Procurement::BudgetPeriod.current
     table.hashes.each do |value|
       n = value['quantity'].to_i
       user = case value['user']
              when 'myself' then @current_user
              else
-                 find_or_create_user(value['user'], true)
+               find_or_create_user(value['user'], true)
              end
       h = {
         user: user,
         budget_period: current_budget_period
       }
-      if value['category'] == 'inspected' or not @category.nil?
-        h[:category] = @category || Procurement::Category.detect do |category|
-          not category.inspectable_by?(@current_user)
-        end
-      end
-
       n.times do
-        FactoryGirl.create :procurement_request, h
+        FactoryGirl.create :procurement_request, :full, h
       end
       expect(current_budget_period.requests.where(user_id: user).count).to eq n
     end

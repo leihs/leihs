@@ -72,8 +72,40 @@ Feature: Exporting the data to a CSV-File
       | Order quantity             |
       | Inspector's priority       |
       | Inspection comment         |
-    But the values for the following fields are exported when the budget period has ended
+
+  @csv
+  Scenario: Export data for requesters for past budget period
+    Given I am Roger
+    And following requests with all values filled in exist for the current budget period
+      | quantity | user    |
+      | 3        | Roger   |
+    When I navigate to the requests overview page
+    And I export the shown information
+    Then the following fields are exported
+      | Budget period              |
+      | Main category              |
+      | Subcategory                |
+      | Requester                  |
+      | Department                 |
+      | Organisation               |
+      | Article or Project         |
+      | Article nr. or Producer nr.|
+      | Replacement / New          |
+      | Requested quantity         |
+      | Price                      |
+      | Total                      |
+      | Priority                   |
+      | Motivation                 |
+      | Supplier                   |
+      | Receiver                   |
+      | Point of Delivery          |
+      | State                      |
       | Approved quantity          |
+      | Inspection comment         |
+    And the values for the following fields are not exported
+      | Approved quantity          |
+      | Order quantity             |
+      | Inspector's priority       |
       | Inspection comment         |
 
   @csv
