@@ -20,9 +20,6 @@ include:
   - cider-ci/jobs/procurement_scenarios.yml
   - cider-ci/jobs/procurement_code_checks.yml
 
-  # always runs
-  - cider-ci/jobs/rails_warnings_check.yml
-
   # always runs, but depends on other jobs
   - cider-ci/jobs/meta.yml
   - cider-ci/jobs/good_to_merge.yml
