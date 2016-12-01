@@ -25,13 +25,13 @@ steps_for :csv do
 
     step 'I expand all the sub categories'
 
-    client_ids = all('[data-request_id]', minimum: 1).map do |el|
+    @request_ids = all('[data-request_id]', minimum: 1).map do |el|
       el['data-request_id'].to_i
     end
-    requests = Procurement::Request.find client_ids
+    @csv_requests = Procurement::Request.find @request_ids
 
     require 'csv'
-    @csv = CSV.parse Procurement::Request.csv_export(requests, @current_user),
+    @csv = CSV.parse Procurement::Request.csv_export(@csv_requests, @current_user),
                      col_sep: ';',
                      quote_char: "\"",
                      force_quotes: true,
@@ -51,7 +51,56 @@ steps_for :csv do
                                  end
     end
 
-    expect(@csv.count).to eq requests.count
+    expect(@csv.count).to eq @csv_requests.count
+  end
+
+  step 'the values for the following fields are not exported' do |table|
+    table.raw.flatten.each do |column|
+      @csv.map(&:to_h).each do |h|
+        expect(h[_(column)]).to be_blank
+      end
+    end
+  end
+
+  step 'the values for the following fields are exported ' \
+       'when the budget period has ended' do |table|
+    @csv_requests.each do |request|
+      request.budget_period.update_attributes(
+        inspection_start_date: Date.yesterday - 1,
+        end_date: Date.yesterday
+      )
+    end
+
+    table.raw.flatten.each do |column|
+      @csv.map(&:to_h).each do |h|
+        expect(h[_(column)]).not_to be_blank
+      end
+    end
+  end
+
+  step 'all the existing requests are removed from the database' do
+    Procurement::Request.destroy_all
+  end
+
+  step 'following requests with all values filled in ' \
+       'exist for the current budget period' do |table|
+    current_budget_period = Procurement::BudgetPeriod.current
+    table.hashes.each do |value|
+      n = value['quantity'].to_i
+      user = case value['user']
+             when 'myself' then @current_user
+             else
+               find_or_create_user(value['user'], true)
+             end
+      h = {
+        user: user,
+        budget_period: current_budget_period
+      }
+      n.times do
+        FactoryGirl.create :procurement_request, :full, h
+      end
+      expect(current_budget_period.requests.where(user_id: user).count).to eq n
+    end
   end
 
   step 'I see the excel export button' do
