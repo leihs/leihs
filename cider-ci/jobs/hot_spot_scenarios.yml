@@ -10,8 +10,8 @@ jobs:
     run_when:
       branch name matches hotspot:
         type: branch
-        include_match: '^(.*hotspot.*)$'
-        exclude_match: '.*no-ci.*$'
+        include_match: '^.*hotspot.*$'
+        exclude_match: '^.*no-ci.*$'
 
     context:
       task_defaults:

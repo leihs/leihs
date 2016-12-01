@@ -12,8 +12,8 @@ jobs:
     run_when:
       branch name matches master or admin:
         type: branch
-        include_match: '^(.*master.*|[a-z]*/admin.*)$'
-        exclude_match: '.*(no-ci|hotspot).*$'
+        include_match: '^.*(master|admin).*$'
+        exclude_match: '^.*(no-ci|hotspot).*$'
 
     context:
 
