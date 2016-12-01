@@ -78,10 +78,12 @@ steps_for :csv do
     end
   end
 
+  step 'all the existing requests are removed from the database' do
+    Procurement::Request.destroy_all
+  end
+
   step 'following requests with all values filled in ' \
        'exist for the current budget period' do |table|
-    Procurement::Request.destroy_all
-
     current_budget_period = Procurement::BudgetPeriod.current
     table.hashes.each do |value|
       n = value['quantity'].to_i

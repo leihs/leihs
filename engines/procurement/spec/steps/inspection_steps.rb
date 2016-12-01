@@ -244,13 +244,15 @@ steps_for :inspection do
     table.raw.flatten.each do |value|
       case value
       when 'Approved quantity'
-          expect(@request.approved_quantity).to be_nil
+        expect(@request.approved_quantity).to be_nil
       when 'Order quantity'
-          expect(@request.order_quantity).to be_nil
+        expect(@request.order_quantity).to be_nil
       when 'Inspection comment'
-          expect(@request.inspection_comment).to be_nil
+        expect(@request.inspection_comment).to be_nil
+      when "Inspector's priority"
+        expect(@request.inspector_priority).to be == 'medium'
       else
-          raise
+        raise
       end
     end
   end

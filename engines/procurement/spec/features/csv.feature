@@ -6,6 +6,7 @@ Feature: Exporting the data to a CSV-File
   @csv
   Scenario Outline: Export data for inspectors and admins
     Given I am <username>
+    And all the existing requests are removed from the database
     And following requests exist for the current budget period
       | quantity | user    |
       | 2        | Barbara |
@@ -43,6 +44,7 @@ Feature: Exporting the data to a CSV-File
   @csv
   Scenario: Export data for requesters
     Given I am Roger
+    And all the existing requests are removed from the database
     And following requests with all values filled in exist for the current budget period
       | quantity | user    |
       | 3        | Roger   |
@@ -76,6 +78,7 @@ Feature: Exporting the data to a CSV-File
   @csv
   Scenario: Export data for requesters for past budget period
     Given I am Roger
+    And all the existing requests are removed from the database
     And following requests with all values filled in exist for the current budget period
       | quantity | user    |
       | 3        | Roger   |

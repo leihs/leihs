@@ -292,4 +292,4 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
       | Approved quantity  |
       | Order quantity     |
       | Inspection comment |
-      | Inspector's Priority |
+      | Inspector's priority |
