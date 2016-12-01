@@ -296,8 +296,4 @@ Feature: Inspection (state-behaviour described in seperate feature-file)
       | Approved quantity  |
       | Order quantity     |
       | Inspection comment |
-<<<<<<< HEAD
-    And the value of the field Inspector's Priority is set to the default value
-=======
-      | Inspector's priority |
->>>>>>> nw/procurement_new_field_#134694633
+    And the value of the field inspector's priority is set to the default value

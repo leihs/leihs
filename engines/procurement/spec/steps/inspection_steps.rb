@@ -305,4 +305,8 @@ steps_for :inspection do
         end_date: current_budget_period.inspection_start_date - 1.month
   end
 
+  step "the value of the field inspector's priority is set to the default value" do
+    expect(@request.reload.inspector_priority).to be == 'medium'
+  end
+
 end
