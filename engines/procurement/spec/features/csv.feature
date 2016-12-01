@@ -4,8 +4,9 @@ Feature: Exporting the data to a CSV-File
     Given the basic dataset is ready
 
   @csv
-  Scenario Outline: Export data
+  Scenario Outline: Export data for inspectors and admins
     Given I am <username>
+    And all the existing requests are removed from the database
     And following requests exist for the current budget period
       | quantity | user    |
       | 2        | Barbara |
@@ -19,8 +20,8 @@ Feature: Exporting the data to a CSV-File
       | Requester                  |
       | Department                 |
       | Organisation               |
-      | Article or Project          |
-      | Article nr. or Producer nr. |
+      | Article or Project         |
+      | Article nr. or Producer nr.|
       | Replacement / New          |
       | Requested quantity         |
       | Approved quantity          |
@@ -28,6 +29,7 @@ Feature: Exporting the data to a CSV-File
       | Price                      |
       | Total                      |
       | Priority                   |
+      | Inspector's priority       |
       | Motivation                 |
       | Supplier                   |
       | Inspection comment         |
@@ -37,8 +39,77 @@ Feature: Exporting the data to a CSV-File
     Examples:
       | username  |
       | Barbara   |
-      | Roger     |
       | Hans Ueli |
+
+  @csv
+  Scenario: Export data for requesters
+    Given I am Roger
+    And all the existing requests are removed from the database
+    And following requests with all values filled in exist for the current budget period
+      | quantity | user    |
+      | 3        | Roger   |
+    When I navigate to the requests overview page
+    And I export the shown information
+    Then the following fields are exported
+      | Budget period              |
+      | Main category              |
+      | Subcategory                |
+      | Requester                  |
+      | Department                 |
+      | Organisation               |
+      | Article or Project         |
+      | Article nr. or Producer nr.|
+      | Replacement / New          |
+      | Requested quantity         |
+      | Price                      |
+      | Total                      |
+      | Priority                   |
+      | Motivation                 |
+      | Supplier                   |
+      | Receiver                   |
+      | Point of Delivery          |
+      | State                      |
+    And the values for the following fields are not exported
+      | Approved quantity          |
+      | Order quantity             |
+      | Inspector's priority       |
+      | Inspection comment         |
+
+  @csv
+  Scenario: Export data for requesters for past budget period
+    Given I am Roger
+    And all the existing requests are removed from the database
+    And following requests with all values filled in exist for the current budget period
+      | quantity | user    |
+      | 3        | Roger   |
+    When I navigate to the requests overview page
+    And I export the shown information
+    Then the following fields are exported
+      | Budget period              |
+      | Main category              |
+      | Subcategory                |
+      | Requester                  |
+      | Department                 |
+      | Organisation               |
+      | Article or Project         |
+      | Article nr. or Producer nr.|
+      | Replacement / New          |
+      | Requested quantity         |
+      | Price                      |
+      | Total                      |
+      | Priority                   |
+      | Motivation                 |
+      | Supplier                   |
+      | Receiver                   |
+      | Point of Delivery          |
+      | State                      |
+      | Approved quantity          |
+      | Inspection comment         |
+    And the values for the following fields are not exported
+      | Approved quantity          |
+      | Order quantity             |
+      | Inspector's priority       |
+      | Inspection comment         |
 
   @csv
   Scenario: Export data as Excel native format

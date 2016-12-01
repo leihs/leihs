@@ -1,4 +1,19 @@
 # rubocop:disable Metrics/ModuleLength
+placeholder :field_placeholder do
+  match /.+/ do |field|
+    case field
+    when 'priority'
+      _('Priority')
+    when "inspector's priority"
+      _("Inspector's priority")
+    when 'replacement'
+      format('%s / %s', _('Replacement'), _('New'))
+    else
+      raise
+    end
+  end
+end
+
 module CommonSteps
 
   step 'a receiver exists' do
@@ -127,21 +142,13 @@ module CommonSteps
     end
   end
 
-  step 'I choose the following :field value' do |field, table|
+  step 'I choose the following :field_placeholder value' do |label, table|
     el = if @template
            ".request[data-template_id='#{@template.id}']"
          else
            '.request[data-request_id="new_request"]'
          end
     within el do
-      label = case field
-              when 'priority'
-                _('Priority')
-              when 'replacement'
-                format('%s / %s', _('Replacement'), _('New'))
-              else
-                raise
-              end
       within '.form-group', text: label, match: :prefer_exact do
         table.raw.flatten.each do |value|
           choose _(value)
@@ -540,8 +547,8 @@ module CommonSteps
         FactoryGirl.create(
           :procurement_budget_period,
           name: current_year + num,
-          inspection_start_date: Date.new(current_year + num, 1, 1),
-          end_date: Date.new(current_year + num, 1, 2)
+          inspection_start_date: Date.new(current_year + num, 1, rand(1..30)),
+          end_date: Date.new(current_year + num, 2, 1)
         )
     end
   end

@@ -31,5 +31,37 @@ FactoryGirl.define do
       end
     end
 
+    trait :full do
+      organization do
+        Procurement::Organization.first ||
+          FactoryGirl.create(:procurement_organization, :with_parent)
+      end
+
+      model do
+        Model.first || FactoryGirl.create(:model)
+      end
+
+      supplier do
+        Supplier.first || FactoryGirl.create(:supplier)
+      end
+
+      location do
+        Location.first || FactoryGirl.create(:location)
+      end
+
+      template do
+        Procurement::Template.first || FactoryGirl.create(:procurement_template)
+      end
+      approved_quantity 5
+      order_quantity 5
+      price_currency 'CHF'
+      replacement false
+      supplier_name Faker::Company.name
+      receiver Faker::Name.name
+      location_name Faker::Address.street_name
+      inspection_comment Faker::Lorem.sentence
+      inspector_priority :medium
+    end
+
   end
 end
