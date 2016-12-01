@@ -547,8 +547,8 @@ module CommonSteps
         FactoryGirl.create(
           :procurement_budget_period,
           name: current_year + num,
-          inspection_start_date: Date.new(current_year + num, 1, 1),
-          end_date: Date.new(current_year + num, 1, 2)
+          inspection_start_date: Date.new(current_year + num, 1, rand(1..30)),
+          end_date: Date.new(current_year + num, 2, 1)
         )
     end
   end
