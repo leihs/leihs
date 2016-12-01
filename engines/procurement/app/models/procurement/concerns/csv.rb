@@ -81,6 +81,11 @@ module Procurement
               budget_period.past? or
               Procurement::Category.inspector_of_any_category?(current_user) or
               Procurement::Access.admin?(current_user)
+          when _("Inspector's priority")
+            budget_period.in_inspection_phase? or
+              budget_period.past? or
+              Procurement::Category.inspector_of_any_category?(current_user) or
+              Procurement::Access.admin?(current_user)
           end
       end
       # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
