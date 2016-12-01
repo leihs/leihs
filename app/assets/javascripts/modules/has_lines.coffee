@@ -29,10 +29,12 @@ App.Modules.HasLines =
       reservations = if mergeModels then App.Modules.HasLines.mergeLinesByModel(value) else value
 
       # sort reservations by model name and id
-      reservations.sort (r1, r2) ->
-        v1 = "#{r1.model().name()} #{r1.id}"
-        v2 = "#{r2.model().name()} #{r2.id}"
-        if v1 < v2 then -1 else 1
+      reservations = _.sortBy reservations, (r)-> r.model().name()
+      groupedReservations = _.groupBy reservations, (r) -> r.model().name()
+      groupedReservations = \
+        _.mapObject(groupedReservations,
+                    (reservations, _) -> reservations.sort((r1, r2) -> r1.id - r2.id))
+      reservations = _.flatten _.values(groupedReservations)
 
       result.push {start_date: key_obj.start_date, end_date: key_obj.end_date, reservations: reservations}
     result.sort (a,b)->

@@ -354,7 +354,7 @@ class Manage::ReservationsController < Manage::ApplicationController
           contract
             .reservations
             .where(model_id: model.id, item_id: nil)
-            .order(:id)
+            .order(:start_date)
             .first
       end
       # add new line
