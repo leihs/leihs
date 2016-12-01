@@ -11,7 +11,7 @@ jobs:
       branch name matches master:
         type: branch
         include_match: '^.*master.*$'
-        exclude_match: '.*(no-ci|hotspot).*$'
+        exclude_match: '^.*(no-ci|hotspot).*$'
 
     context:
 

@@ -8,8 +8,8 @@ jobs:
     run_when:
       branch name matches master or procurement:
         type: branch
-        include_match: '^(.*master.*|[a-z]*/procurement.*)$'
-        exclude_match: '.*(no-ci|hotspot).*$'
+        include_match: '^.*(master|procurement).*$'
+        exclude_match: '^.*(no-ci|hotspot).*$'
 
     context:
       include: cider-ci/shared/main_context.yml

@@ -12,8 +12,8 @@ jobs:
     run_when:
       branch name matches master or manage:
         type: branch
-        include_match: '^(.*master.*|[a-z]*/manage.*)$'
-        exclude_match: '.*(no-ci|hotspot).*$'
+        include_match: '^.*(master|manage).*$'
+        exclude_match: '^.*(no-ci|hotspot).*$'
 
     depends_on:
       manage_scenarios:

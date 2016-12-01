@@ -10,7 +10,7 @@ jobs:
       any branch name:
         type: branch
         include_match: '^.*$'
-        exclude_match: '.*(no-ci|hotspot).*$'
+        exclude_match: '^.*(no-ci|hotspot).*$'
 
     depends_on:
       borrow_manage_code_checks:

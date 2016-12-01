@@ -12,8 +12,8 @@ jobs:
     run_when:
       branch name matches master or borrow:
         type: branch
-        include_match: '^(.*master.*|[a-z]*/borrow.*)$'
-        exclude_match: '.*(no-ci|hotspot).*$'
+        include_match: '^.*(master|borrow).*$'
+        exclude_match: '^.*(no-ci|hotspot).*$'
 
     depends_on:
       borrow_scenarios:
