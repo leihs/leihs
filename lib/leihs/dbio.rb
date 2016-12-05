@@ -24,7 +24,8 @@ module Leihs
         end.to_h
       end
 
-      def export(filename = Rails.root.join('tmp', 'db_data.yml'))
+      def export(filename = nil)
+        filename ||= Rails.root.join('tmp', 'db_data.yml')
         ::IO.write filename, data.to_yaml
       end
     end
