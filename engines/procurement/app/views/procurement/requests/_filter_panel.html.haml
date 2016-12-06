@@ -30,7 +30,7 @@
               %option{value: category.id, selected: @filter['category_ids'].map(&:to_i).include?(category.id)}
                 = category.name
 
-  - if procurement_inspector_or_admin?
+  - if procurement_inspector? or procurement_admin?
     .form-group
       %b
         %i.fa.fa-tasks
@@ -70,7 +70,7 @@
           %input{type: :checkbox, name: "filter[priorities][]", value: priority.downcase, checked: @filter['priorities'].include?(priority.downcase)}
           .label.label-default= _(priority)
 
-  - if procurement_inspector_or_admin?
+  - if procurement_inspector? or procurement_admin?
     .form-group
       %b
         %i.fa.fa-sort-amount-asc
@@ -87,7 +87,7 @@
       = _('State of Request')
     %ul
       - Procurement::Request::STATES.each do |state|
-        - next if state == :in_inspection and procurement_inspector_or_admin?
+        - next if state == :in_inspection and (procurement_inspector? or procurement_admin?)
         %li
           %label
             %input{type: :checkbox, name: "filter[states][]", value: state, checked: @filter['states'].map(&:to_sym).include?(state)}

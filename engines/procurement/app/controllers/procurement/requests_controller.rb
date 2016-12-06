@@ -7,7 +7,7 @@ module Procurement
     include Filter
 
     before_action do
-      if Procurement::Category.inspector_of_any_category_or_admin?(current_user)
+      if procurement_inspector? or procurement_admin?
         @user = User.not_as_delegations.find(params[:user_id]) if params[:user_id]
       else # only requester
         @user = current_user

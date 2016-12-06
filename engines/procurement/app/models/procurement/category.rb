@@ -62,16 +62,13 @@ module Procurement
     end
 
     def inspectable_or_readable_by?(user)
-      Procurement::Category.inspector_of_any_category_or_admin?(user)
+      Procurement::Category.inspector_of_any_category?(user) \
+        or Procurement::Access.admin?(user)
     end
 
     class << self
       def inspector_of_any_category?(user)
         Procurement::CategoryInspector.where(user_id: user).exists?
-      end
-
-      def inspector_of_any_category_or_admin?(user)
-        inspector_of_any_category?(user) or Procurement::Access.admin?(user)
       end
     end
 

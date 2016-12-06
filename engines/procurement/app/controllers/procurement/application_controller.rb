@@ -3,7 +3,9 @@ module Procurement
     include MainHelpers
     include Pundit
 
-    helper_method :procurement_requester?, :procurement_inspector_or_admin?
+    helper_method :procurement_requester?
+    helper_method :procurement_inspector?
+    helper_method :procurement_admin?
 
     before_action do
       authorize 'procurement/application'.to_sym, :authenticated?
@@ -63,8 +65,12 @@ module Procurement
       ApplicationPolicy.new(current_user).procurement_requester?
     end
 
-    def procurement_inspector_or_admin?
-      ApplicationPolicy.new(current_user).procurement_inspector_or_admin?
+    def procurement_inspector?
+      ApplicationPolicy.new(current_user).procurement_inspector?
+    end
+
+    def procurement_admin?
+      ApplicationPolicy.new(current_user).procurement_admin?
     end
 
   end

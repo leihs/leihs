@@ -23,7 +23,7 @@
         %i.fa.fa-check
       - else
         &nbsp;
-    - if procurement_inspector_or_admin?
+    - if procurement_inspector? or procurement_admin?
       .label{class: label_class, data: {toggle: 'tooltip'}, title: _('Order quantity')}
         - if request.order_quantity
           = request.order_quantity

@@ -8,8 +8,9 @@ module Procurement
     end
 
     def allowed?
-      request_user == user or
-        Procurement::Category.inspector_of_any_category_or_admin?(user)
+      request_user == user \
+        or Procurement::Category.inspector_of_any_category?(user) \
+        or Procurement::Access.admin?(user)
     end
   end
 end

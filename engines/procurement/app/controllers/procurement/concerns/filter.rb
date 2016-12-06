@@ -68,7 +68,7 @@ module Procurement
 
         @filter['user_id'] = @user.id if @user
 
-        unless procurement_inspector_or_admin?
+        unless (procurement_inspector? or procurement_admin?)
           @filter['categories_with_requests'] ||= '1'
         end
 
@@ -78,7 +78,7 @@ module Procurement
         @filter['category_ids'] ||= []
         @filter['category_ids'].delete('multiselect-all')
 
-        if procurement_inspector_or_admin?
+        if procurement_inspector? or procurement_admin?
           @filter['organization_ids'] ||= []
         else
           @filter['organization_ids'] = Procurement::Organization.ids
@@ -86,7 +86,7 @@ module Procurement
         @filter['organization_ids'].delete('multiselect-all')
 
         @filter['priorities'] ||= []
-        if procurement_inspector_or_admin?
+        if procurement_inspector? or procurement_admin?
           @filter['inspector_priorities'] ||= []
         else
           @filter['inspector_priorities'] ||= %w(mandatory high medium low)
