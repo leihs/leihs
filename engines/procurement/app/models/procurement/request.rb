@@ -82,8 +82,11 @@ module Procurement
     # NOTE keep this order for the sorting
     STATES = [:new, :in_inspection, :approved, :partially_approved, :denied]
 
+    # rubocop:disable Metrics/PerceivedComplexity
     def state(user)
-      if budget_period.past? or category.inspectable_or_readable_by?(user)
+      if budget_period.past? or
+          Procurement::Category.inspector_of_any_category?(user) or
+          Procurement::Access.admin?(user)
         if approved_quantity.nil?
           :new
         elsif approved_quantity == 0
@@ -101,14 +104,17 @@ module Procurement
         :new
       end
     end
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def total_price(current_user)
-      quantity = if (not budget_period.in_requesting_phase?) \
-                      or category.inspectable_or_readable_by?(current_user)
-                   order_quantity || approved_quantity || requested_quantity
-                 else
-                   requested_quantity
-                 end
+      quantity = \
+        if (not budget_period.in_requesting_phase?) or
+          Procurement::Category.inspector_of_any_category?(current_user) or
+          Procurement::Access.admin?(current_user)
+          order_quantity || approved_quantity || requested_quantity
+        else
+          requested_quantity
+        end
       price * quantity
     end
 

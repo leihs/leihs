@@ -122,7 +122,7 @@
             = request.requested_quantity
       .col-xs-4
 
-    - if request.category.inspectable_or_readable_by?(current_user) or request.user_id == current_user.id
+    - if procurement_inspector? or procurement_admin? or request.user_id == current_user.id
       .form-group
         %label.col-xs-4.control-label
           = _('Approved quantity')
@@ -137,7 +137,7 @@
                 = request.approved_quantity
         .col-xs-4
 
-    - if request.category.inspectable_or_readable_by?(current_user)
+    - if procurement_inspector? or procurement_admin?
       .form-group
         %label.col-xs-4.control-label
           = _('Order quantity')
@@ -157,7 +157,7 @@
         .label.label-primary.total_price{data: {total: request.total_price(current_user)}}
           = money_without_cents_and_with_symbol request.total_price(current_user)
 
-    - if request.category.inspectable_or_readable_by? current_user or request.user_id == current_user.id
+    - if procurement_inspector? or procurement_admin? or request.user_id == current_user.id
       .form-group
         %label.col-xs-4.control-label
           = _('Inspection comment')
