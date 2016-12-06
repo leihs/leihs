@@ -69,11 +69,15 @@ module Procurement
 
     #################################################################
 
+    def requested_by?(u)
+      user == u
+    end
+
     def editable?(user)
       Access.requesters.find_by(user_id: user_id) and
           (
             (budget_period.in_requesting_phase? \
-              and (user_id == user.id or category.inspectable_by?(user))) \
+              and (requested_by?(user) or category.inspectable_by?(user))) \
             or
             (budget_period.in_inspection_phase? and category.inspectable_by?(user))
           )

@@ -55,7 +55,7 @@
       %label.col-xs-4.control-label
         = _('Motivation')
       .col-xs-8
-        - if request.editable?(current_user) and request.user_id == current_user.id
+        - if request.editable?(current_user) and request.requested_by?(current_user)
           %textarea.form-control{name: "requests[#{request.id}][motivation]", placeholder: _('Motivation'), maxlength: 255, autocomplete: :off, title: _('max 255 characters'), data: {toggle: 'tooltip'}, required: true}= request.motivation
         - else
           = request.motivation
@@ -64,7 +64,7 @@
       %label.col-xs-4.control-label
         = _('Priority')
       .col-xs-8
-        - if request.editable?(current_user) and request.user_id == current_user.id
+        - if request.editable?(current_user) and request.requested_by?(current_user)
           - ['High', 'Normal'].each do |priority|
             %label
               %input{type: :radio, name: "requests[#{request.id}][priority]", value: priority.downcase, checked: request.priority == priority.downcase}
@@ -89,7 +89,7 @@
       %label.col-xs-4.control-label
         = format('%s / %s', _('Replacement'), _('New'))
       .col-xs-8
-        - if request.editable?(current_user) and (request.user_id == current_user.id or request.category.inspectable_by?(current_user))
+        - if request.editable?(current_user) and (request.requested_by?(current_user) or request.category.inspectable_by?(current_user))
           %label
             %input{type: :radio, name: "requests[#{request.id}][replacement]", value: 1, checked: request.replacement}
             .label.label-default= _('Replacement')
@@ -116,14 +116,14 @@
       %label.col-xs-4.control-label
         = _('Requested quantity')
       .col-xs-4
-        - if request.editable?(current_user) and (request.user_id == current_user.id or request.category.inspectable_by?(current_user))
+        - if request.editable?(current_user) and (request.requested_by?(current_user) or request.category.inspectable_by?(current_user))
           %input.form-control{name: "requests[#{request.id}][requested_quantity]", type: :number, min: 1, value: request.requested_quantity, placeholder: _('Requested quantity'), autocomplete: :off, required: true}
         - else
           .label.label-primary.requested_quantity
             = request.requested_quantity
       .col-xs-4
 
-    - if procurement_admin? or procurement_inspector? or request.user_id == current_user.id
+    - if procurement_admin? or procurement_inspector? or request.requested_by?(current_user)
       .form-group
         %label.col-xs-4.control-label
           = _('Approved quantity')
@@ -131,7 +131,7 @@
           - if request.category.inspectable_by?(current_user)
             %input.form-control{name: "requests[#{request.id}][approved_quantity]", type: :number, min: 0, value: request.approved_quantity, placeholder: _('Approved quantity'), autocomplete: :off}
           - elsif request.approved_quantity
-            - if procurement_admin? or procurement_inspector? or (request.user_id == current_user.id and request.budget_period.past?)
+            - if procurement_admin? or procurement_inspector? or (request.requested_by?(current_user) and request.budget_period.past?)
               :ruby
                 state, label_class = state_label(request)
               .label{class: label_class}
@@ -158,14 +158,14 @@
         .label.label-primary.total_price{data: {total: request.total_price(current_user)}}
           = money_without_cents_and_with_symbol request.total_price(current_user)
 
-    - if procurement_admin? or procurement_inspector? or request.user_id == current_user.id
+    - if procurement_admin? or procurement_inspector? or request.requested_by?(current_user)
       .form-group
         %label.col-xs-4.control-label
           = _('Inspection comment')
         .col-xs-8
           - if request.category.inspectable_by?(current_user)
             %textarea.form-control{name: "requests[#{request.id}][inspection_comment]", placeholder: _('Inspection comment'), maxlength: 255, data: {toggle: 'tooltip'}, title: _('max 255 characters')}= request.inspection_comment
-          - elsif procurement_admin? or procurement_inspector? or (request.user_id == current_user.id and request.budget_period.past?)
+          - elsif procurement_admin? or procurement_inspector? or (request.requested_by?(current_user) and request.budget_period.past?)
             = request.inspection_comment
 
     .form-group.attachments
