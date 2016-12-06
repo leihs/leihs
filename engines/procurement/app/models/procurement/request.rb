@@ -75,12 +75,10 @@ module Procurement
 
     def editable?(user)
       Access.requesters.find_by(user_id: user_id) and
-          (
-            (budget_period.in_requesting_phase? \
-              and (requested_by?(user) or category.inspectable_by?(user))) \
-            or
-            (budget_period.in_inspection_phase? and category.inspectable_by?(user))
-          )
+        (
+         (category.inspectable_by?(user) and not budget_period.past?) or
+         (requested_by?(user) and budget_period.in_requesting_phase?)
+        )
     end
 
     # NOTE keep this order for the sorting
