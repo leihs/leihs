@@ -63,6 +63,7 @@ Feature: Periods and states
     When I have not saved the data yet
     Then I can delete the line
 
+#ticket visibility different scenarios
   @periods_and_states
   Scenario: State "New" - Request Date before Inspection Date
     Given the basic dataset is ready
@@ -82,6 +83,7 @@ Feature: Periods and states
     Then I see a success message
     And the status of the request saved to the database is "New"
 
+#ticket visibility different scenarios
   @periods_and_states
   Scenario: State "In inspection" - Current Date between Inspection Date and Budget Period End Date
     Given the basic dataset is ready
@@ -108,6 +110,7 @@ Feature: Periods and states
     And for every budget period I see the total of all requested amounts with status "New"
     And for every budget period I see the total of all ordered amounts with status "Approved" or "Partially approved"
 
+#ticket visibility different scenarios
   @periods_and_states
   Scenario Outline: State "In inspection", "Approved", "Denied" "Partially approved" for requester when budget period has ended
     Given the basic dataset is ready
@@ -123,11 +126,13 @@ Feature: Periods and states
       | smaller than the requested quantity, not equal 0 | Partially approved |
       | equal 0                                          | Denied             |
 
+#ticket visibility different scenarios
   @periods_and_states
   Scenario Outline: State "New", "Approved", "Denied" "Partially approved" for inspector
     Given the basic dataset is ready
     And I am Barbara
     And a request exists
+    And it doesn't matter in which phase of the budget period we are in
     When the approved quantity is <quantity>
     Then I see the state "<state>"
     Examples:
@@ -137,6 +142,7 @@ Feature: Periods and states
       | smaller than the requested quantity, not equal 0 | Partially approved |
       | equal 0                                          | Denied             |
 
+#ticket visibility different scenarios
   @periods_and_states
   Scenario Outline: No Modification or Deletion after Budget End Period date
     Given the basic dataset is ready
@@ -153,3 +159,40 @@ Feature: Periods and states
       | Barbara   |
       | Hans Ueli |
       | Roger     |
+
+
+  Scenario Outline: visibility of labels, values and states in phase current date is before the inspection date
+    Given I am roger
+    And a request created by myself exists
+    When the current date is before the inspection date
+    Then the following labels and values are not shown
+      | inspector's priority |
+      | order amount         |
+    And the following labels are shown but without values
+      | inspection comment |
+      | approved amount    |
+    And the state of the requests is "new"
+
+  Scenario Outline: visibility of labels, values and states in phase between inspection date and end of budget period
+    Given I am roger
+    And a request created by myself exists
+    When the current date is between the inspection date and the budget period end date
+    Then the following labels and values are not shown
+      | inspector's priority |
+      | order amount         |
+    And the following labels are shown but without values
+      | inspection comment |
+      | approved amount    |
+    And the state of the requests is "in inspection" or "new"
+
+  Scenario Outline: visibility of labels, values and states in phase after budget period has ended
+    Given I am roger
+    And a request created by myself exists
+    When the budget period has ended
+    Then the following labels and values are not shown
+      | inspector's priority |
+      | order amount         |
+    And the following labels and values are shown
+      | inspection comment |
+      | approved amount    |
+    And accoring to the approved amount the state of the requests is either "new", "approved", "denied" "partially approved"
