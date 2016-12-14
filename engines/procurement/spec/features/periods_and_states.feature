@@ -127,16 +127,16 @@ Feature: Periods and states
   Scenario Outline: State "New", "Approved", "Denied" "Partially approved" for inspector
     Given the basic dataset is ready
     And I am Barbara
-    And a request exists
-    And it doesn't matter in which phase of the budget period we are in
+    And a request exists and is in the <phase> phase of the budget period
+    # And it doesn't matter in which phase of the budget period we are in
     When the approved quantity is <quantity>
     Then I see the state "<state>"
     Examples:
-      | quantity                                         | state              |
-      | empty                                            | New                |
-      | equal to the requested quantity                  | Approved           |
-      | smaller than the requested quantity, not equal 0 | Partially approved |
-      | equal 0                                          | Denied             |
+      | quantity                                         | state              | phase      |
+      | empty                                            | New                | requesting |
+      | equal to the requested quantity                  | Approved           | inspecting |
+      | smaller than the requested quantity, not equal 0 | Partially approved | past       |
+      | equal 0                                          | Denied             | past       |
 
   @periods_and_states
   Scenario Outline: No Modification or Deletion after Budget End Period date

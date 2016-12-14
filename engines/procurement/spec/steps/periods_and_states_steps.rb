@@ -373,6 +373,30 @@ steps_for :periods_and_states do
     expect(Procurement::BudgetPeriod.find_by_id(@budget_period.id)).not_to be
   end
 
+  step 'a request exists and is in the :phase phase of the budget period' do |phase|
+    case phase
+    when 'requesting'
+      @request = \
+        FactoryGirl.create \
+          :procurement_request,
+          budget_period: FactoryGirl.create(:procurement_budget_period,
+                                            inspection_start_date: Date.tomorrow,
+                                            end_date: Date.today + 1.week)
+    when 'inspecting'
+      @request = \
+        FactoryGirl.create \
+          :procurement_request,
+          budget_period: FactoryGirl.create(:procurement_budget_period,
+                                            inspection_start_date: Date.yesterday,
+                                            end_date: Date.today + 1.week)
+    when 'past'
+      @request = FactoryGirl.create(:procurement_request)
+      @request.budget_period.update_attributes \
+        inspection_start_date: Date.today - 1.week,
+        end_date: Date.yesterday
+    end
+  end
+
   private
 
   def find_budget_period_line_by_name(name)
