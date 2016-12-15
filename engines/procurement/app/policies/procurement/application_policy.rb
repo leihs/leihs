@@ -34,13 +34,18 @@ module Procurement
       Access.requesters.where(user_id: user).exists?
     end
 
-    def procurement_inspector_or_admin?
-      Procurement::Category.inspector_of_any_category_or_admin?(user)
+    def procurement_inspector?
+      Procurement::Category.inspector_of_any_category?(user)
+    end
+
+    def procurement_admin?
+      Procurement::Access.admin?(user)
     end
 
     def procurement_any_access?
       procurement_requester? \
-        or procurement_inspector_or_admin? \
+        or procurement_inspector? \
+        or procurement_admin? \
         or procurement_or_leihs_admin?
     end
 

@@ -127,15 +127,15 @@ Feature: Periods and states
   Scenario Outline: State "New", "Approved", "Denied" "Partially approved" for inspector
     Given the basic dataset is ready
     And I am Barbara
-    And a request exists
-    When the approved quantity is <quantity>
+    And a request with the approved quantity <quantity> exists
+    And the request's budget period is in the <phase> phase
     Then I see the state "<state>"
     Examples:
-      | quantity                                         | state              |
-      | empty                                            | New                |
-      | equal to the requested quantity                  | Approved           |
-      | smaller than the requested quantity, not equal 0 | Partially approved |
-      | equal 0                                          | Denied             |
+      | quantity                                         | state              | phase      |
+      | empty                                            | New                | requesting |
+      | equal to the requested quantity                  | Approved           | inspecting |
+      | smaller than the requested quantity, not equal 0 | Partially approved | past       |
+      | equal 0                                          | Denied             | past       |
 
   @periods_and_states
   Scenario Outline: No Modification or Deletion after Budget End Period date
@@ -153,3 +153,42 @@ Feature: Periods and states
       | Barbara   |
       | Hans Ueli |
       | Roger     |
+
+  @periods_and_states
+  Scenario Outline: visibility of labels, values and states in phase current date is before the inspection date
+    Given I am Roger
+    And a request created by myself exists
+    When the current date is before the inspection date
+    Then the following labels and values are not shown
+      | inspector's priority |
+      | order amount         |
+    And the following labels are shown but without values
+      | inspection comment |
+      | approved amount    |
+    And the state of the requests is "new"
+
+  @periods_and_states
+  Scenario Outline: visibility of labels, values and states in phase between inspection date and end of budget period
+    Given I am Roger
+    And a request created by myself exists
+    When the current date is between the inspection date and the budget period end date
+    Then the following labels and values are not shown
+      | inspector's priority |
+      | order amount         |
+    And the following labels are shown but without values
+      | inspection comment |
+      | approved amount    |
+    And the state of the requests is "in inspection" or "new"
+
+  @periods_and_states
+  Scenario Outline: visibility of labels, values and states in phase after budget period has ended
+    Given I am Roger
+    And a request created by myself exists
+    When the budget period has ended
+    Then the following labels and values are not shown
+      | inspector's priority |
+      | order amount         |
+    And the following labels and values are shown
+      | inspection comment |
+      | approved amount    |
+    And accoring to the approved amount the state of the requests is either "new", "approved", "denied" "partially approved"

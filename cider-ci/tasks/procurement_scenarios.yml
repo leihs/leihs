@@ -520,6 +520,30 @@ tasks:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:141
+- name: engines/procurement/spec/features/periods_and_states.feature:158
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:158
+- name: engines/procurement/spec/features/periods_and_states.feature:171
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:171
+- name: engines/procurement/spec/features/periods_and_states.feature:184
+  scripts:
+    test:
+      body: |-
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log --server-args='-screen 0 1920x1080x24' bundle exec rspec engines/procurement/spec/features/periods_and_states.feature:184
 - name: engines/procurement/spec/features/roles.feature:4
   scripts:
     test:

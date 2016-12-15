@@ -40,15 +40,6 @@
   .col-xs-2.text-right
     - if requests
       - total_price = requests.map {|r| r.total_price(current_user) }.sum
-      -#old#- if @user.nil? and @group and @group.inspectable_or_readable_by?(current_user)
-        - budget_limit_amount = @group.budget_limits.find_by(budget_period_id: budget_period.id).try(:amount)
-
-        = render partial: 'procurement/requests/progress_radial', locals: {used: total_price, max: budget_limit_amount}
-
-        .label.label-default.budget_limit
-          %i.fa.fa-pie-chart
-          = money_without_cents_and_with_symbol budget_limit_amount
-        %br
 
       .label.label-primary.big_total_price{title: _('Current total of category'), data: {toggle: 'tooltip'}}
         %i.fa.fa-shopping-cart

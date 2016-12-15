@@ -62,25 +62,28 @@ module Procurement
       end
       # rubocop:enable Metrics/MethodLength
 
-      # rubocop:disable Metrics/CyclomaticComplexity
+      # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
       def authorize_value(column, value, current_user)
         value if \
           case column
           when _('Approved quantity')
             budget_period.in_inspection_phase? or
               budget_period.past? or
-              category.inspectable_or_readable_by?(current_user)
+              Procurement::Category.inspector_of_any_category?(current_user) or
+              Procurement::Access.admin?(current_user)
           when _('Order quantity')
             budget_period.in_inspection_phase? or
               budget_period.past? or
-              category.inspectable_or_readable_by?(current_user)
+              Procurement::Category.inspector_of_any_category?(current_user) or
+              Procurement::Access.admin?(current_user)
           when _('Inspection comment')
             budget_period.in_inspection_phase? or
               budget_period.past? or
-              category.inspectable_or_readable_by?(current_user)
+              Procurement::Category.inspector_of_any_category?(current_user) or
+              Procurement::Access.admin?(current_user)
           end
       end
-      # rubocop:enable Metrics/CyclomaticComplexity
+      # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 
     end
 

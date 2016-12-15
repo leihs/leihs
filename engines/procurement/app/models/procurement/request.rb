@@ -69,21 +69,26 @@ module Procurement
 
     #################################################################
 
+    def requested_by?(u)
+      user == u
+    end
+
     def editable?(user)
       Access.requesters.find_by(user_id: user_id) and
-          (
-            (budget_period.in_requesting_phase? \
-              and (user_id == user.id or category.inspectable_by?(user))) \
-            or
-            (budget_period.in_inspection_phase? and category.inspectable_by?(user))
-          )
+        (
+         (category.inspectable_by?(user) and not budget_period.past?) or
+         (requested_by?(user) and budget_period.in_requesting_phase?)
+        )
     end
 
     # NOTE keep this order for the sorting
     STATES = [:new, :in_inspection, :approved, :partially_approved, :denied]
 
+    # rubocop:disable Metrics/PerceivedComplexity
     def state(user)
-      if budget_period.past? or category.inspectable_or_readable_by?(user)
+      if budget_period.past? or
+          Procurement::Category.inspector_of_any_category?(user) or
+          Procurement::Access.admin?(user)
         if approved_quantity.nil?
           :new
         elsif approved_quantity == 0
@@ -101,14 +106,17 @@ module Procurement
         :new
       end
     end
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def total_price(current_user)
-      quantity = if (not budget_period.in_requesting_phase?) \
-                      or category.inspectable_or_readable_by?(current_user)
-                   order_quantity || approved_quantity || requested_quantity
-                 else
-                   requested_quantity
-                 end
+      quantity = \
+        if (not budget_period.in_requesting_phase?) or
+          Procurement::Category.inspector_of_any_category?(current_user) or
+          Procurement::Access.admin?(current_user)
+          order_quantity || approved_quantity || requested_quantity
+        else
+          requested_quantity
+        end
       price * quantity
     end
 
