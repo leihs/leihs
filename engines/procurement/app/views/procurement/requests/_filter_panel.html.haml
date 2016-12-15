@@ -112,6 +112,7 @@
       currentRequest.abort() if (currentRequest)
       currentRequest = xhr
       settings.url = settings.url.replace('&format=csv', '')
+      settings.url = settings.url.replace('&format=xlsx', '')
     ).on('ajax:complete', (e, data, status, xhr) ->
       $(this).removeAttr("data-remote").removeData('remote')
       $('#filter_target').html(data.responseText).removeClass('transparency')

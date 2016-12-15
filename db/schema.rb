@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161123105950) do
+ActiveRecord::Schema.define(version: 20161208140156) do
 
   create_table "access_rights", force: :cascade do |t|
     t.integer  "user_id",           limit: 4,     null: false
@@ -78,8 +78,8 @@ ActiveRecord::Schema.define(version: 20161123105950) do
     t.string   "user_type",       limit: 255
     t.string   "username",        limit: 255
     t.string   "action",          limit: 255
-    t.text     "audited_changes", limit: 65535
-    t.integer  "version",         limit: 4,     default: 0
+    t.text     "audited_changes", limit: 16777215
+    t.integer  "version",         limit: 4,        default: 0
     t.string   "comment",         limit: 255
     t.string   "remote_address",  limit: 255
     t.string   "request_uuid",    limit: 255
