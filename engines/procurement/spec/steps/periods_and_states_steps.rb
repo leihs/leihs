@@ -314,7 +314,8 @@ steps_for :periods_and_states do
     expect(@budget_period.reload.end_date).to eq @old_end_date
   end
 
-  step 'a request with the approved quantity :string_with_spaces exists' do |string_with_spaces|
+  step 'a request with the approved quantity :string_with_spaces exists' \
+    do |string_with_spaces|
     @request = FactoryGirl.create(:procurement_request)
     step "the approved quantity is #{string_with_spaces}"
   end
