@@ -44,10 +44,10 @@ module Procurement
           format('%s %s', _('Price'), _('incl. VAT')) => price,
           format('%s %s', _('Total'), _('incl. VAT')) => total_price(current_user),
           _('State') => _(state(current_user).to_s.humanize),
-          _('Priority') => priority,
+          _('Priority') => _(priority.humanize),
           _("Inspector's priority") => \
             authorize_value(_("Inspector's priority"),
-                            inspector_priority,
+                            _(inspector_priority.humanize),
                             current_user),
           format('%s / %s', _('Replacement'), _('New')) => \
                                   replacement ? _('Replacement') : _('New'),
@@ -67,20 +67,19 @@ module Procurement
         value if \
           case column
           when _('Approved quantity')
-            budget_period.in_inspection_phase? or
-              budget_period.past? or
+            Procurement::Access.admin?(current_user) or
               Procurement::Category.inspector_of_any_category?(current_user) or
-              Procurement::Access.admin?(current_user)
-          when _('Order quantity')
-            budget_period.in_inspection_phase? or
-              budget_period.past? or
-              Procurement::Category.inspector_of_any_category?(current_user) or
-              Procurement::Access.admin?(current_user)
+              (requested_by?(current_user) and budget_period.past?)
           when _('Inspection comment')
-            budget_period.in_inspection_phase? or
-              budget_period.past? or
+            Procurement::Access.admin?(current_user) or
               Procurement::Category.inspector_of_any_category?(current_user) or
-              Procurement::Access.admin?(current_user)
+              (requested_by?(current_user) and budget_period.past?)
+          when _('Order quantity')
+            Procurement::Access.admin?(current_user) or
+              Procurement::Category.inspector_of_any_category?(current_user)
+          when _("Inspector's priority")
+            Procurement::Access.admin?(current_user) or
+              Procurement::Category.inspector_of_any_category?(current_user)
           end
       end
       # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
