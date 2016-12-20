@@ -128,7 +128,7 @@
         %label.col-xs-4.control-label
           = _('Approved quantity')
         .col-xs-4
-          - if request.category.inspectable_by?(current_user)
+          - if not request.budget_period.past? and request.category.inspectable_by?(current_user)
             %input.form-control{name: "requests[#{request.id}][approved_quantity]", type: :number, min: 0, value: request.approved_quantity, placeholder: _('Approved quantity'), autocomplete: :off}
           - elsif request.approved_quantity
             - if procurement_admin? or procurement_inspector? or (request.requested_by?(current_user) and request.budget_period.past?)
@@ -163,7 +163,7 @@
         %label.col-xs-4.control-label
           = _('Inspection comment')
         .col-xs-8
-          - if request.category.inspectable_by?(current_user)
+          - if not request.budget_period.past? and request.category.inspectable_by?(current_user)
             %textarea.form-control{name: "requests[#{request.id}][inspection_comment]", placeholder: _('Inspection comment'), maxlength: 255, data: {toggle: 'tooltip'}, title: _('max 255 characters')}= request.inspection_comment
           - elsif procurement_admin? or procurement_inspector? or (request.requested_by?(current_user) and request.budget_period.past?)
             = request.inspection_comment

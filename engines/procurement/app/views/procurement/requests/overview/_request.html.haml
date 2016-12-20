@@ -18,7 +18,7 @@
       = request.requested_quantity
       %i.fa.fa-question
     .label{class: label_class, data: {toggle: 'tooltip'}, title: _('Approved quantity')}
-      - if request.approved_quantity
+      - if request.approved_quantity and (procurement_admin? or procurement_inspector? or (request.requested_by?(current_user) and request.budget_period.past?))
         = request.approved_quantity
         %i.fa.fa-check
       - else
