@@ -76,6 +76,8 @@ Feature: Model
   Scenario: Add compatible models
     When I edit a model that exists and is in use
     And I use the autocomplete field to add a compatible model
+    Then the autocomplete field only shows models with items which are not retired
+    When I pick a compatible model
     And I save
     Then a compatible model has been added to the model I am editing
 
