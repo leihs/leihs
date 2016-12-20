@@ -28,20 +28,10 @@ Feature: Model properties
   And I save the model
   Then the properties for the changed model are saved in the order they were given
 
-  Scenario: mandatory data not entered
+  Scenario: mandatory data not entered - don't create model
   Given I create a model and fill in all required fields
   When I add a property
   And I do not fill out the key and the value
   And I save
   Then I get an error message
-  And the fields key and value are marked red
-  When I fill out the key
-  But I leave the value empty
-  And I save
-  Then I get an error message
-  And the field value is marked red
-  When I fill out the value
-  And I delete the key
-  And I save
-  Then I get an error message
-  And the field key is marked red
+  And the model has not been created
