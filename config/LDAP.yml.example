@@ -1,13 +1,27 @@
+# encoding: utf-8
+# This file should be saved in UTF-8 format, as to be able to have umlauts (ä,ö,ü) inside group/usernames below
+# Please read the leihs LDAP guide on github for detailed explanations of these parameters.
 production:
-  host: hostname
+  host: ldapserver.example.org
   port: 636
+  #simple_tls or none
   encryption: simple_tls
-  log_file: log/ldap_server.log
-  log_level: warn
-  master_bind_dn: CN=blah,OU=diblah,DC=example,DC=org
+  #log_file: log/ldap_server.log
+  #log_level: warn
+  master_bind_dn: CN=LeihsEnumUser,OU=NonHuman,OU=users,DC=example,DC=org
   master_bind_pw: 12345
-  base_dn: OU=user,DC=example,DC=org
-  admin_dn: CN=admin,DC=example,DC=org
-  unique_id_field: uid
-  log_file: log/ldap_server.log
-  search_field: samaccountname
+  base_dn: OU=users,DC=example,DC=org
+  unique_id_field: userPrincipalName
+  search_field: sAMAccountName
+
+  #Default: false
+  look_in_nested_groups_for_membership: true
+
+  #Default: false
+  look_for_primary_group_membership_ActiveDirectory: true
+
+  #Optional. Can be left blank to accept all LDAP users.
+  normal_users_dn: CN=ACL_Leihs_Login_NormalUsers,OU=Permissions,OU=Groups,DC=example,DC=org
+  
+  #Users may be member of normal_users_dn and this at the same time
+  admin_dn: CN=ACL_Leihs_Login_Admins,OU=Permissions,OU=Groups,DC=example,DC=org
