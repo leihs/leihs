@@ -1,0 +1,12 @@
+[submodule "legacy"]
+	path = legacy
+	url = https://github.com/leihs/leihs_legacy
+[submodule "database"]
+	path = database
+	url = https://github.com/leihs/leihs_database
+[submodule "deploy"]
+	path = deploy
+	url = https://github.com/leihs/leihs_deploy
+[submodule "system"]
+	path = system
+	url = https://github.com/leihs/leihs_system
