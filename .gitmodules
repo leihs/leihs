@@ -13,3 +13,6 @@
 [submodule "zhdk-inventory"]
 	path = zhdk-inventory
 	url = https://github.com/leihs/leihs_zhdk-inventory.git
+[submodule "documentation"]
+	path = documentation
+	url = git@github.com:leihs/leihs_documentation.git
