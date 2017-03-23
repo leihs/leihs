@@ -124,6 +124,12 @@ jobs:
   import-v3-to-v4-via-ci:
     name: Import data v3 to v4 prod via CI
     priority: 1
+    run_when:
+      'nightly':
+        type: cron
+        value: '39 20 * * *'
+        branch_include_match: ^ts_v4$
+        rerun: true
     context:
       include:
         - path: cider-ci/shared/main_context.yml
