@@ -127,7 +127,7 @@ jobs:
     run_when:
       'nightly':
         type: cron
-        value: '45 17 * * *'
+        value: '45 16 * * *'
         branch_include_match: ^v4$
         rerun: true
     context:
