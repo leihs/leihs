@@ -120,7 +120,6 @@ jobs:
                   --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
                   -i ../zhdk-inventory/prod-hosts
 
-
   import-v3-to-v4-via-ci:
     name: Import data v3 to v4 prod via CI
     priority: 1
@@ -175,7 +174,7 @@ jobs:
                   script_key: unpack-images
                 database created:
                   script_key: create-database
-              timeout: 5 hours
+              timeout: 6 hours
               body: |
                 set -euxo
                 if [ -d legacy ]; then cd legacy; fi
