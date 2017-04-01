@@ -30,7 +30,11 @@ jobs:
 
   deploy-to-prod:
     name: Deploy to leihs-v4-prod.zhdk.ch
-    priority: 2
+    priority: 1
+    depends_on:
+      'we can only deploy from v4 HEAD':
+        type: branch
+        include_match: ^v4$
     context:
       tasks:
         deploy:
@@ -43,7 +47,7 @@ jobs:
             g2016: true
           scripts:
             deploy:
-              timeout: 7 Hours
+              timeout: 1 Hour
               body: |
                 set -euxo
                 cd deploy
@@ -51,54 +55,13 @@ jobs:
                   --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
                   -i ../zhdk-inventory/prod-hosts
 
-  fetch-v3-data:
-    name: Fetch v3 data
-    priority: 2
-    context:
-      tasks:
-        fetch:
-          git_options:
-            submodules:
-              include_match: ^.*$
-          exclusive_global_resources:
-            "leihs.zhdk.ch": true
-          traits:
-            ci-g2016-03: true
-          scripts:
-            fetch:
-              timeout: 3 Hours
-              body: |
-                set -euxo
-                cd deploy
-                ansible-playbook fetch-v3-data_play.yml \
-                  --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
-                  -i ../zhdk-inventory/prod-hosts
-            copy_to_tmp:
-              start_when:
-                fetched:
-                  script_key: fetch
-              body: |
-                set -euxo
-                rm -rf /tmp/leihs-v3-data
-                mkdir -p /tmp/leihs-v3-data
-                mv deploy/tmp/v3/* /tmp/leihs-v3-data/
-
-  import-v3-data:
-    name: Import v3 data into v4 db
-    include:
-      - path: cider-ci/jobs/import-production-db-test.yml
-        submodule: [legacy]
-    context:
-      tasks:
-        test-import:
-          git_options:
-            submodules:
-              include_match: ^.*$
-
-
   import-v3-to-v4:
     name: Import data v3 to v4 prod
     priority: 2
+    depends_on:
+      'only enable this when branch matches':
+        type: branch
+        include_match: ^import-v3-to-v4$
     context:
       tasks:
         import:
@@ -121,6 +84,10 @@ jobs:
                   -i ../zhdk-inventory/prod-hosts
 
   import-v3-to-v4-via-ci:
+    depends_on:
+      'only enable this when branch matches':
+        type: branch
+        include_match: ^import-v3-to-v4-via-ci$
     name: Import data v3 to v4 prod via CI
     priority: 1
     run_when:
