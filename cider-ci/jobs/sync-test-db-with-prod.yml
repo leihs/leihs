@@ -1,10 +1,6 @@
 jobs:
   sync-test-db-with-prod:
     name: Sync test DB with prod
-    run_when:
-      on v4 branch:
-        type: branch
-        include_match: ^v4$
     priority: 2
     context:
       tasks:
