@@ -1,0 +1,29 @@
+jobs:
+  deploy-to-prod:
+    name: Deploy to leihs-v4-prod.zhdk.ch
+    priority: 1
+    depends_on:
+      'we can only deploy from v4 HEAD':
+        type: branch
+        include_match: ^v4$
+    context:
+      tasks:
+        deploy:
+          git_options:
+            submodules:
+              include_match: ^.*$
+          exclusive_global_resources:
+            "leihs-v4-prod.zhdk.ch": true
+          traits:
+            g2016: true
+          scripts:
+            deploy:
+              timeout: 1 Hour
+              body: |
+                set -euxo
+                cd deploy
+                ansible-playbook deploy_play.yml \
+                  --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
+                  -i ../zhdk-inventory/prod-hosts
+
+

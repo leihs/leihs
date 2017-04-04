@@ -1,0 +1,30 @@
+jobs:
+  import-v3-to-v4:
+    name: Import data v3 to v4 prod
+    priority: 2
+    depends_on:
+      'only enable this when branch matches':
+        type: branch
+        include_match: ^import-v3-to-v4$
+    context:
+      tasks:
+        import:
+          git_options:
+            submodules:
+              include_match: ^.*$
+          exclusive_global_resources:
+            "leihs-v4-prod.zhdk.ch": true
+            "leihs.zhdk.ch": true
+          traits:
+            g2016: true
+          scripts:
+            deploy:
+              timeout: 7 Hours
+              body: |
+                set -eux
+                cd deploy
+                ansible-playbook import-v3-into-v4_play.yml \
+                  --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
+                  -i ../zhdk-inventory/prod-hosts
+
+

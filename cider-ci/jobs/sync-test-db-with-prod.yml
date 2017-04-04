@@ -1,0 +1,39 @@
+jobs:
+  sync-test-db-with-prod:
+    name: Sync test DB with prod
+    run_when:
+      on v4 branch:
+        type: branch
+        include_match: ^v4$
+    priority: 2
+    context:
+      tasks:
+        sync:
+          git_options:
+            submodules:
+              include_match: ^.*$
+          exclusive_global_resources:
+            "leihs-v4-test.zhdk.ch": true
+          traits:
+            g2016: true
+          scripts:
+            fetch:
+              body: |
+                set -euxo
+                cd deploy
+                ansible-playbook fetch-latest-dump_play.yml \
+                  --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
+                  -i ../zhdk-inventory/prod-hosts
+            restore-dump:
+              timeout: 1 Hours
+              start_when:
+                fetch passed:
+                  script_key: fetch
+                  states: [passed]
+              body: |
+                set -eux
+                cd deploy
+                ansible-playbook db-restore_play.yml \
+                  --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
+                  -i ../zhdk-inventory/test-hosts
+
