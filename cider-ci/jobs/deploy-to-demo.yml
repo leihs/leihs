@@ -1,0 +1,32 @@
+jobs:
+  deploy-to-demo:
+    name: Deploy to leihs-v4-demo.zhdk.ch
+    run_when:
+      on v4 branch:
+        type: branch
+        include_match: ^v4$
+      nightly:
+        type: cron
+        value: '0 3 * * *'
+        branch_include_match: ^mk_v4.*$
+        rerun: true
+    priority: 2
+    context:
+      tasks:
+        deploy:
+          git_options:
+            submodules:
+              include_match: ^.*$
+          exclusive_global_resources:
+            "leihs-v4-demo.zhdk.ch": true
+          traits:
+            g2016: true
+          scripts:
+            deploy:
+              timeout: 30 Minutes
+              body: |
+                set -eux
+                cd deploy
+                ansible-playbook demo-deploy_play.yml \
+                  --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
+                  -i ../zhdk-inventory/demo-hosts
