@@ -1,0 +1,58 @@
+jobs:
+
+  good-to-merge:
+
+    name: Good To Merge
+
+    description: |
+      This job depends on all other tests and checks
+      and it will pass if and only if all dependencies have passed.
+      Status of this job is **used by github's "branch protection"**!
+
+    depends_on:
+      deploy to demo was successful:
+        type: job
+        job_key: deploy-to-demo
+        states: [passed]
+      deploy to test was successful:
+        type: job
+        job_key: deploy-to-test
+        states: [passed]
+      meta checks have passed:
+        type: job
+        job_key: meta
+        states: [passed]
+      legacy submodule have passed:
+        type: job
+        job_key: good_to_merge
+        submodule: ['legacy']
+        states: [passed]
+
+    run_when:
+      deploy to demo was successful:
+        type: job
+        job_key: deploy-to-demo
+        states: [passed]
+      deploy to test was successful:
+        type: job
+        job_key: deploy-to-test
+        states: [passed]
+      meta checks have passed:
+        type: job
+        job_key: meta
+        states: [passed]
+      legacy submodule have passed:
+        type: job
+        job_key: good_to_merge
+        submodule: ['legacy']
+        states: [passed]
+
+    context:
+      task_defaults:
+        max_trials: 1
+      tasks:
+        all relevant tests have passed:
+          name: "All relevant tests have passed, thus good to merge"
+          scripts:
+            main:
+              body: echo 'All relevant tests have passed' ; exit 0

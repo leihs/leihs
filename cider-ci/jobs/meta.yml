@@ -1,0 +1,31 @@
+jobs:
+
+  meta:
+
+    name: Meta
+    description: |
+      Various superordinate quality assurance tasks
+
+    run_when:
+      always:
+        type: branch
+        include_match: ^.*$
+
+    context:
+      task_defaults:
+        max_trials: 1
+        traits:
+          Ruby: true
+
+      tasks:
+        git-branch-current:
+          name: "git tree contains latest commit from origin/master"
+          scripts:
+            main:
+              body: |
+                #!/usr/bin/env bash
+                set -exu
+                git fetch --all
+                #
+                # check if your tree still contains the current commit from master
+                git rev-list --children HEAD | grep -q "$(git rev-parse origin/v4)"

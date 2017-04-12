@@ -1,10 +1,6 @@
 jobs:
   deploy-to-test:
     name: Deploy to leihs-v4-test.zhdk.ch
-    run_when:
-      on v4 branch:
-        type: branch
-        include_match: ^v4$
     priority: 2
     context:
       tasks:
