@@ -2,6 +2,7 @@ include:
   - cider-ci/jobs/deploy-to-prod.yml
   - cider-ci/jobs/deploy-to-test.yml
   - cider-ci/jobs/deploy-to-demo.yml
+  - cider-ci/jobs/deploy-to-container.yml
   - cider-ci/jobs/import-v3-to-v4.yml
   - cider-ci/jobs/import-v3-to-v4-via-ci.yml
   - cider-ci/jobs/sync-test-db-with-prod.yml
