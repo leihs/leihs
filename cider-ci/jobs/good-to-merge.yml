@@ -16,7 +16,7 @@ jobs:
         states: [passed]
       deploy to test was successful:
         type: job
-        job_key: deploy-to-test
+        job_key: deploy-to-container
         states: [passed]
       meta checks have passed:
         type: job
@@ -35,7 +35,7 @@ jobs:
         states: [passed]
       deploy to test was successful:
         type: job
-        job_key: deploy-to-test
+        job_key: deploy-to-container
         states: [passed]
       meta checks have passed:
         type: job
