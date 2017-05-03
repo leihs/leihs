@@ -19,7 +19,7 @@ jobs:
 
       tasks:
         git-branch-current:
-          name: "git tree contains latest commit from origin/master"
+          name: "git tree contains latest commit from origin/v4"
           scripts:
             main:
               body: |
