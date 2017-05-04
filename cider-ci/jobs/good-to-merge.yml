@@ -14,9 +14,9 @@ jobs:
         type: job
         job_key: deploy-to-demo
         states: [passed]
-      deploy to test was successful:
+      deploy to container was successful:
         type: job
-        job_key: deploy-to-container
+        job_key: test-container-deploy
         states: [passed]
       meta checks have passed:
         type: job
@@ -33,9 +33,9 @@ jobs:
         type: job
         job_key: deploy-to-demo
         states: [passed]
-      deploy to test was successful:
+      deploy to container was successful:
         type: job
-        job_key: deploy-to-container
+        job_key: test-container-deploy
         states: [passed]
       meta checks have passed:
         type: job
