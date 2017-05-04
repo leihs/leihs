@@ -29,3 +29,10 @@ jobs:
                 #
                 # check if your tree still contains the current commit from master
                 git rev-list --children HEAD | grep -q "$(git rev-parse origin/v4)"
+
+        git-submodules-merged:
+          name: "git submodules are all merged to origin/master"
+          scripts:
+            test:
+              body:
+                read_and_replace_with: cider-ci/bin/check-git-submodules-are-merged

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -eu
+
+# checks if the commits referenced by submodules are included in their 'master'
+
+# make sure all submodules are checked out
+# WARNING: test is false-positive without this:
+git fetch --all 1>&2 # print stdout to stderr
+git submodule update --init --recursive 1>&2
+
+git submodule foreach --recursive \
+  'git fetch --all > /dev/null && git rev-list origin/master -- | grep -q "^$(git rev-parse HEAD)$"'
+
+echo "OK"
