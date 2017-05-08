@@ -14,14 +14,14 @@ jobs:
         rerun: true
     context:
       include:
-        - path: cider-ci/shared/main_context.yml
+        - path: cider-ci/shared/main-context.yml
           submodule: [legacy]
       tasks:
         import:
           include:
-            - path: cider-ci/task_components/database.yml
+            - path: cider-ci/task-components/database.yml
               submodule: [legacy]
-            - path: cider-ci/task_components/bundle_rspec_ruby.yml
+            - path: cider-ci/task-components/bundle-rspec-ruby.yml
               submodule: [legacy]
           git_options:
             submodules:

@@ -31,5 +31,5 @@ jobs:
                 git rev-list --children HEAD | grep -q "$(git rev-parse origin/v4)"
 
       include:
-        - path: cider-ci/context_components/merged_submodules_check.yml
+        - path: cider-ci/context-components/merged-submodules-check.yml
           submodule: [legacy]

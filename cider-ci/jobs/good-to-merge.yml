@@ -24,7 +24,7 @@ jobs:
         states: [passed]
       legacy submodule have passed:
         type: job
-        job_key: good_to_merge
+        job_key: good-to-merge
         submodule: ['legacy']
         states: [passed]
 
@@ -43,7 +43,7 @@ jobs:
         states: [passed]
       legacy submodule have passed:
         type: job
-        job_key: good_to_merge
+        job_key: good-to-merge
         submodule: ['legacy']
         states: [passed]
 
