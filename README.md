@@ -24,6 +24,10 @@ All the important information is to be found [here](https://github.com/leihs/lei
 
 All present and past issues are tracked, discussed and dealt with [here](https://github.com/leihs/leihs/issues).
 
+# Browsers
+
+Firefox, Chrome and Safari are the only supported browsers.
+
 # Support
 
 If you are having troubles with the deployment, setting up the development environment or encounter bugs, please **first take a look at our existing [issue list](https://github.com/leihs/leihs/issues)**. If you can't find an answer to your problem or question, then kindly make a new issue. We will occasionally take a look at it, while we don't guarantee any particular response time from our side.
