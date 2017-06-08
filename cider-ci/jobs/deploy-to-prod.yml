@@ -3,9 +3,9 @@ jobs:
     name: Deploy to leihs-v4-prod.zhdk.ch
     priority: 1
     depends_on:
-      'we can only deploy from v4 HEAD':
+      'we can only deploy from master HEAD':
         type: branch
-        include_match: ^v4$
+        include_match: ^master$
     context:
       tasks:
         deploy:

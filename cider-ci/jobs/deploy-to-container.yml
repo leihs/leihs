@@ -4,7 +4,7 @@ jobs:
     run_when:
       'prototype for now':
         type: branch
-        include_match: '^.*v4.*$'
+        include_match: '^.*master.*$'
     context:
       include:
         - path: container-test/cider-ci/context.yml

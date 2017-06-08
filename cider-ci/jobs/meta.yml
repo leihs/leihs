@@ -19,7 +19,7 @@ jobs:
 
       tasks:
         git-branch-current:
-          name: "git tree contains latest commit from origin/v4"
+          name: "git tree contains latest commit from origin/master"
           scripts:
             main:
               body: |
@@ -28,7 +28,7 @@ jobs:
                 git fetch --all
                 #
                 # check if your tree still contains the current commit from master
-                git rev-list --children HEAD | grep -q "$(git rev-parse origin/v4)"
+                git rev-list --children HEAD | grep -q "$(git rev-parse origin/master)"
 
       include:
         - path: cider-ci/context-components/merged-submodules-check.yml

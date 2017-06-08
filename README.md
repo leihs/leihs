@@ -1,6 +1,6 @@
-# leihs v4
+# leihs
 
-This is the top level project for leihs version 4.
+This is the top level project for leihs (version 4).
 
 # leihs -- the equipment booking and inventory management system
 
