@@ -16,6 +16,10 @@ The demo installation is located at http://demo.leihs.zhdk.ch.
 
 For login details see [here](https://github.com/leihs/leihs/wiki#live-demo). For the description of the roles tight to the specific login users see [here](Roles.md).
 
+# Features
+
+An up-to-date, human-readable specification of all our scenarios is to be found [here](https://relishapp.com/leihs/).
+
 # Wiki
 
 All the important information is to be found [here](https://github.com/leihs/leihs/wiki).
