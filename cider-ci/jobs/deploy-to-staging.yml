@@ -1,0 +1,23 @@
+jobs:
+  deploy-to-staging:
+    name: Deploy to zhdk-leihs-staging.ruby.zhdk.ch
+    priority: 2
+    context:
+      tasks:
+        deploy:
+          git_options:
+            submodules:
+              include_match: ^.*$
+          exclusive_global_resources:
+            "zhdk-leihs-staging.ruby.zhdk.ch": true
+          traits:
+            g2016: true
+          scripts:
+            deploy:
+              body: |
+                set -eux
+                cd deploy
+                export ANSIBLE_HOST_KEY_CHECKING=False
+                ansible-playbook deploy_play.yml \
+                  --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
+                  -i ../zhdk-inventory/staging-hosts --limit zhdk-leihs-staging
