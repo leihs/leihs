@@ -14,6 +14,10 @@ jobs:
         type: job
         job_key: deploy-to-demo
         states: [passed]
+      deploy to test was successful:
+        type: job
+        job_key: deploy-to-test
+        states: [passed]
       deploy to container was successful:
         type: job
         job_key: test-container-deploy
@@ -32,6 +36,10 @@ jobs:
       deploy to demo was successful:
         type: job
         job_key: deploy-to-demo
+        states: [passed]
+      deploy to test was successful:
+        type: job
+        job_key: deploy-to-test
         states: [passed]
       deploy to container was successful:
         type: job

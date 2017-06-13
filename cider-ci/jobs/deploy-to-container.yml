@@ -2,9 +2,9 @@ jobs:
   test-container-deploy:
     name: Test Deploy to a Container
     run_when:
-      'prototype for now':
+      'on personal integration branch':
         type: branch
-        include_match: '^.*master.*$'
+        include_match: ^[a-z]{2}_master$
         exclude_match: '^.*no-ci.*$'
     context:
       include:

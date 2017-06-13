@@ -2,6 +2,16 @@ jobs:
   deploy-to-test:
     name: Deploy to leihs-v4-test.zhdk.ch
     priority: 2
+    run_when:
+      nightly:
+        type: cron
+        value: '0 2 * * *'
+        branch_include_match: ^master$
+        rerun: true
+      'on personal integration branch':
+        type: branch
+        include_match: ^[a-z]{2}_master$
+        exclude_match: '^.*no-ci.*$'
     context:
       tasks:
         deploy:

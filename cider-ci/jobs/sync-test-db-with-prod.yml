@@ -2,6 +2,12 @@ jobs:
   sync-test-db-with-prod:
     name: Sync test DB with prod
     priority: 2
+    run_when:
+      nightly:
+        type: cron
+        value: '0 3 * * *'
+        branch_include_match: ^master$
+        rerun: true
     context:
       tasks:
         sync:
