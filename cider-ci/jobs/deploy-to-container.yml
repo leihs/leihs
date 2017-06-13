@@ -5,6 +5,7 @@ jobs:
       'prototype for now':
         type: branch
         include_match: '^.*master.*$'
+        exclude_match: '^.*no-ci.*$'
     context:
       include:
         - path: container-test/cider-ci/context.yml

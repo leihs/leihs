@@ -10,6 +10,7 @@ jobs:
       'on personal integration branch':
         type: branch
         include_match: ^[a-z]{2}_master$
+        exclude_match: '^.*no-ci.*$'
     priority: 2
     context:
       tasks:

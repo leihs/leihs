@@ -10,6 +10,7 @@ jobs:
       always:
         type: branch
         include_match: ^.*$
+        exclude_match: '^.*no-ci.*$'
 
     context:
       task_defaults:
