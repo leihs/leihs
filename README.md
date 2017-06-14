@@ -60,6 +60,8 @@ leihs is in use at several universities and organizations:
 
 Not maintained anymore, but you can maybe find some useful information [there](https://blog.zhdk.ch/leihs).
 
-# License
+## Copyright and license
 
-leihs is [Free Software](http://www.gnu.org/philosophy/free-sw.html), licensed under the [GNU General Public License (GPL) version 3.0](http://www.gnu.org/licenses/gpl-3.0.txt).
+leihs is (C) [Zürcher Hochschule der Künste (Zurich University of the Arts)](http://www.zhdk.ch)
+
+leihs is [Free Software](http://www.gnu.org/philosophy/free-sw.html) under the [GNU General Public License (GPL) v3](http://www.gnu.org/licenses/gpl-3.0.txt), see the included LICENSE file for license details.
