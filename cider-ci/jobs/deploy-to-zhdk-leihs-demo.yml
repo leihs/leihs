@@ -1,6 +1,6 @@
 jobs:
-  deploy-to-demo:
-    name: Deploy to leihs-v4-demo.zhdk.ch
+  deploy-to-zhdk-leihs-demo:
+    name: Deploy to zhdk-leihs-demo.ruby.zhdk.ch
     run_when:
       nightly:
         type: cron
@@ -19,7 +19,7 @@ jobs:
             submodules:
               include_match: ^.*$
           exclusive_global_resources:
-            "leihs-v4-demo.zhdk.ch": true
+            "zhdk-leihs-demo.ruby.zhdk.ch": true
           traits:
             g2016: true
           scripts:
@@ -28,6 +28,7 @@ jobs:
               body: |
                 set -eux
                 cd deploy
+                export ANSIBLE_HOST_KEY_CHECKING=False
                 ansible-playbook demo-deploy_play.yml \
                   --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
                   -i ../zhdk-inventory/demo-hosts

@@ -1,7 +1,17 @@
 jobs:
-  deploy-to-ffzh-staging:
-    name: Deploy to ffzh-leihs-staging.ruby.zhdk.ch
+  deploy-to-zhdk-leihs-test:
+    name: Deploy to zhdk-leihs-test.ruby.zhdk.ch
     priority: 2
+    run_when:
+      nightly:
+        type: cron
+        value: '0 2 * * *'
+        branch_include_match: ^master$
+        rerun: true
+      'on personal integration branch':
+        type: branch
+        include_match: ^[a-z]{2}_master$
+        exclude_match: '^.*no-ci.*$'
     context:
       tasks:
         deploy:
@@ -9,7 +19,7 @@ jobs:
             submodules:
               include_match: ^.*$
           exclusive_global_resources:
-            "ffzh-leihs-staging.ruby.zhdk.ch": true
+            "zhdk-leihs-test.ruby.zhdk.ch": true
           traits:
             g2016: true
           scripts:
@@ -20,4 +30,4 @@ jobs:
                 export ANSIBLE_HOST_KEY_CHECKING=False
                 ansible-playbook deploy_play.yml \
                   --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
-                  -i ../zhdk-inventory/staging-hosts --limit ffzh-leihs-staging
+                  -i ../zhdk-inventory/test-hosts
