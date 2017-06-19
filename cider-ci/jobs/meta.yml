@@ -31,6 +31,19 @@ jobs:
                 # check if your tree still contains the current commit from master
                 git rev-list --children HEAD | grep -q "$(git rev-parse origin/master)"
 
+        database-submodule-consistency:
+          name: "database and legacy/database point to the same commit"
+          scripts:
+            main:
+              body: |
+                #!/usr/bin/env bash
+                set -exu
+                git fetch --all
+                git submodule update --init --recursive
+                sha1=$(git submodule status database | cut -f 2 -d ' ')
+                sha2=$(git submodule status --recursive | grep legacy/database | cut -f 2 -d ' ')
+                test $sha1 == $sha2
+
       include:
         - path: cider-ci/context-components/merged-submodules-check.yml
           submodule: [legacy]
