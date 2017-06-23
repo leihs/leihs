@@ -1,5 +1,5 @@
 include:
-  - cider-ci/jobs/deploy-to-prod.yml
+  - cider-ci/jobs/deploy-to-zhdk-leihs-prod.yml
   - cider-ci/jobs/deploy-to-zhdk-leihs-staging.yml
   - cider-ci/jobs/deploy-to-zhdk-leihs-test.yml
   - cider-ci/jobs/deploy-to-zhdk-leihs-demo.yml

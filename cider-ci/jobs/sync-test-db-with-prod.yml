@@ -15,7 +15,7 @@ jobs:
             submodules:
               include_match: ^.*$
           exclusive_global_resources:
-            "leihs-v4-test.zhdk.ch": true
+            "zhdk-leihs-test.ruby.zhdk.ch": true
           traits:
             g2016: true
           scripts:
@@ -23,6 +23,7 @@ jobs:
               body: |
                 set -euxo
                 cd deploy
+                export ANSIBLE_HOST_KEY_CHECKING=False
                 ansible-playbook fetch-latest-dump_play.yml \
                   --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
                   -i ../zhdk-inventory/prod-hosts
@@ -35,7 +36,7 @@ jobs:
               body: |
                 set -eux
                 cd deploy
+                export ANSIBLE_HOST_KEY_CHECKING=False
                 ansible-playbook db-restore_play.yml \
                   --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
                   -i ../zhdk-inventory/test-hosts
-

@@ -31,7 +31,7 @@ jobs:
           traits:
             g2016: true
           exclusive_global_resources:
-            "leihs-v4-prod.zhdk.ch": true
+            "zhdk-leihs-prod.ruby.zhdk.ch": true
           scripts:
             test:
               body: exit 0

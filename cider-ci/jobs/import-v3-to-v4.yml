@@ -13,7 +13,7 @@ jobs:
             submodules:
               include_match: ^.*$
           exclusive_global_resources:
-            "leihs-v4-prod.zhdk.ch": true
+            "zhdk-leihs-prod.ruby.zhdk.ch": true
             "leihs.zhdk.ch": true
           traits:
             g2016: true
