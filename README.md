@@ -8,7 +8,7 @@ leihs is a system with which universities or other organizations can **manage, b
 
 # Live demo
 
-You can try out a live installation of leihs (the address is below). It's always pointing to the latest stable development release. If the demo happens to be down, please contact Nadja at nadja.weisskopf@zhdk.ch.
+You can try out a live installation of leihs (the address is below). It's always pointing to the latest stable development release. If the demo happens to be down, please make an issue.
 
 Demo data is deleted and reset every 24 hours.
 
@@ -54,7 +54,7 @@ leihs is in use at several universities and organizations:
  * [Middle Tennessee State University](http://www.mtsu.edu), Tennessee, USA
  * Fachhochschule Vorarlberg, Austria
  * [Konstfack Stockholm](http://www.konstfack.se), Sweden
- * Your university? Send a note to [Nadja Weisskopf](mailto:nadja.weisskopf@zhdk.ch) if you would like to be listed here
+ * Your university? Please make an issue if you would like to be listed here.
 
 # leihs Blog
 
