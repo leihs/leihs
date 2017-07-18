@@ -11,4 +11,11 @@ jobs:
         - path: container-test/cider-ci/context.yml
           submodule: [deploy]
 
-
+      task:
+        scripts:
+          debug-ci:
+            body: touch _cider-ci_keep
+          deploy-to-container:
+            start_when: {debug-ci: {script_key: debug-ci}}
+          destroy-container: # skip it
+            body: 'true'
