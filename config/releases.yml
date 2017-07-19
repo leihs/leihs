@@ -4,6 +4,19 @@ releases:
 
 - version_major: 4
   version_minor: 3
+  version_patch: 1
+  version_pre: 'RC.1'
+  description: |
+
+    ### Frontend Bug Fixes
+
+    - Fix: BarcodeScanner: don't operate on focused inputs
+    - Fix: upgrade tooltipster jquery plugin
+
+### HISTORY  ######################################################################
+
+- version_major: 4
+  version_minor: 3
   version_patch: 0
   version_pre: null
   description: |
@@ -11,8 +24,6 @@ releases:
     - Feature: deactive pools (resolves #223)
     - Fix: Forbid first admin user if already exists
     - Fix: Inventory search in location's room (resolves #221)
-
-### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 2
