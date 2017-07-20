@@ -12,11 +12,11 @@ jobs:
     depends_on:
       deploy to demo was successful:
         type: job
-        job_key: deploy-to-demo
+        job_key: deploy-to-zhdk-leihs-demo
         states: [passed]
       deploy to test was successful:
         type: job
-        job_key: deploy-to-test
+        job_key: deploy-to-zhdk-leihs-test
         states: [passed]
       deploy to container was successful:
         type: job
