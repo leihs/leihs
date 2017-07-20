@@ -19,6 +19,7 @@ jobs:
             g2016: true
           scripts:
             deploy:
+              timeout: 10 Minutes
               body: |
                 set -eux
                 cd deploy
