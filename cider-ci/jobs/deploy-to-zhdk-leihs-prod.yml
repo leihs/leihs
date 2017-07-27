@@ -3,9 +3,9 @@ jobs:
     include: cider-ci/task-components/deploy-defaults.yml
     name: DEPLOY TO PRODUCTION
     depends_on:
-      'we can only deploy from master HEAD':
+      "designated deploy branch":
         type: branch
-        include_match: ^master$
+        include_match: ^zhdk/deploy$
     context:
       tasks:
         deploy:
