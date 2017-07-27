@@ -9,6 +9,7 @@ jobs:
             "ffzh-leihs-staging.ruby.zhdk.ch": true
           scripts:
             deploy:
+              timeout: 1 Hour
               body: |
                 set -eux
                 cd deploy

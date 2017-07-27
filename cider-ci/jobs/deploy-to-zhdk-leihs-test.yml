@@ -15,7 +15,7 @@ jobs:
             "zhdk-leihs-test.ruby.zhdk.ch": true
           scripts:
             deploy:
-              timeout: 10 Minutes
+              timeout: 1 Hour
               body: |
                 set -eux
                 cd deploy
