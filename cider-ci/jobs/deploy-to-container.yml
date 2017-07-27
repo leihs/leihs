@@ -10,5 +10,3 @@ jobs:
       include:
         - path: container-test/cider-ci/context.yml
           submodule: [deploy]
-
-

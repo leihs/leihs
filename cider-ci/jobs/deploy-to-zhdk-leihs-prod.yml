@@ -1,7 +1,7 @@
 jobs:
   deploy-to-zhdk-leihs-prod:
+    include: cider-ci/task-components/deploy-defaults.yml
     name: DEPLOY TO PRODUCTION
-    priority: 1
     depends_on:
       'we can only deploy from master HEAD':
         type: branch
@@ -9,13 +9,8 @@ jobs:
     context:
       tasks:
         deploy:
-          git_options:
-            submodules:
-              include_match: ^.*$
           exclusive_global_resources:
             "zhdk-leihs-prod.ruby.zhdk.ch": true
-          traits:
-            g2016: true
           scripts:
             deploy:
               timeout: 1 Hour
@@ -26,5 +21,3 @@ jobs:
                 ansible-playbook deploy_play.yml \
                   --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
                   -i ../zhdk-inventory/prod-hosts
-
-

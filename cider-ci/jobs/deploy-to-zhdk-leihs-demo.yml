@@ -1,5 +1,6 @@
 jobs:
   deploy-to-zhdk-leihs-demo:
+    include: cider-ci/task-components/deploy-defaults.yml
     name: Deploy to zhdk-leihs-demo.ruby.zhdk.ch
     run_when:
       nightly:
@@ -11,17 +12,11 @@ jobs:
         type: branch
         include_match: ^[a-z]{2}_master$
         exclude_match: '^.*no-ci.*$'
-    priority: 2
     context:
       tasks:
         deploy:
-          git_options:
-            submodules:
-              include_match: ^.*$
           exclusive_global_resources:
             "zhdk-leihs-demo.ruby.zhdk.ch": true
-          traits:
-            g2016: true
           scripts:
             deploy:
               timeout: 30 Minutes

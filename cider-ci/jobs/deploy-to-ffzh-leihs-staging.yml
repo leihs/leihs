@@ -1,17 +1,12 @@
 jobs:
   deploy-to-ffzh-leihs-staging:
+    include: cider-ci/task-components/deploy-defaults.yml
     name: Deploy to ffzh-leihs-staging.ruby.zhdk.ch
-    priority: 2
     context:
       tasks:
         deploy:
-          git_options:
-            submodules:
-              include_match: ^.*$
           exclusive_global_resources:
             "ffzh-leihs-staging.ruby.zhdk.ch": true
-          traits:
-            g2016: true
           scripts:
             deploy:
               body: |

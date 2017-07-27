@@ -1,7 +1,8 @@
 jobs:
   deploy-to-zhdk-leihs-test:
+    include: cider-ci/task-components/deploy-defaults.yml
     name: Deploy to zhdk-leihs-test.ruby.zhdk.ch
-    priority: 2
+    context:
     run_when:
       'on personal integration branch':
         type: branch
@@ -10,13 +11,8 @@ jobs:
     context:
       tasks:
         deploy:
-          git_options:
-            submodules:
-              include_match: ^.*$
           exclusive_global_resources:
             "zhdk-leihs-test.ruby.zhdk.ch": true
-          traits:
-            g2016: true
           scripts:
             deploy:
               timeout: 10 Minutes

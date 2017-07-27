@@ -1,17 +1,12 @@
 jobs:
   deploy-to-staging:
+    include: cider-ci/task-components/deploy-defaults.yml
     name: Deploy to zhdk-leihs-staging.ruby.zhdk.ch
-    priority: 2
     context:
       tasks:
         deploy:
-          git_options:
-            submodules:
-              include_match: ^.*$
           exclusive_global_resources:
             "zhdk-leihs-staging.ruby.zhdk.ch": true
-          traits:
-            g2016: true
           scripts:
             deploy:
               body: |

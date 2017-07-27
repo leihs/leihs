@@ -1,0 +1,13 @@
+priority: 2
+
+context:
+  tasks:
+    deploy:
+      git_options:
+        submodules:
+          include_match: ^.*$
+      traits:
+        g2016: true
+      scripts:
+        deploy:
+          timeout: 20 minutes
