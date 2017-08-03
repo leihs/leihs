@@ -54,6 +54,7 @@ leihs is in use at several universities and organizations:
  * [Middle Tennessee State University](http://www.mtsu.edu), Tennessee, USA
  * Fachhochschule Vorarlberg, Austria
  * [Konstfack Stockholm](http://www.konstfack.se), Sweden
+ * [School of Business and Engineering Vaud HEIG-VD](https://heig-vd.ch), Yverdon-les-Bains, Switzerland
  * Your university? Please make an issue if you would like to be listed here.
 
 # leihs Blog
