@@ -4,6 +4,13 @@ releases:
 
 - version_major: 4
   version_minor: 4
+  version_patch: 1
+  version_pre: RC.1
+
+### CURRENT #######################################################################
+
+- version_major: 4
+  version_minor: 4
   version_patch: 0
   version_pre: null
   description: |
