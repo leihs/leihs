@@ -4,6 +4,15 @@ releases:
 
 - version_major: 4
   version_minor: 4
+  version_patch: 1
+  version_pre: null
+  description: |
+    - Fix: Show item's location in hand over assign dropdown
+
+### CURRENT #######################################################################
+
+- version_major: 4
+  version_minor: 4
   version_patch: 0
   version_pre: null
   description: |
