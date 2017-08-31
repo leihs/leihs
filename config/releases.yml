@@ -3,13 +3,18 @@ releases:
 ### CURRENT #######################################################################
 
 - version_major: 4
+  version_minor: 5
+  version_patch: 0
+  version_pre: RC.2
+
+### HISTORY  ######################################################################
+
+- version_major: 4
   version_minor: 4
   version_patch: 1
   version_pre: null
   description: |
     - Fix: Show item's location in hand over assign dropdown
-
-### CURRENT #######################################################################
 
 - version_major: 4
   version_minor: 4
@@ -25,8 +30,6 @@ releases:
     - Feature: Change contracts sorting in global search (resolves #242)
     - Documentation: Add owner_id & inventory_pool_id to items
     - Feature: New entity: Rooms (resolves #228)
-
-### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 3
