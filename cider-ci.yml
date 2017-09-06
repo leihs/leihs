@@ -7,7 +7,5 @@ include:
   - cider-ci/jobs/deploy-to-ffzh-leihs-staging.yml
   - cider-ci/jobs/import-v3-to-v4.yml
   - cider-ci/jobs/import-v3-to-v4-via-ci.yml
-  - cider-ci/jobs/sync-test-db-with-prod.yml
-  - cider-ci/jobs/sync-staging-db-with-prod.yml
   - cider-ci/jobs/meta.yml
   - cider-ci/jobs/good-to-merge.yml

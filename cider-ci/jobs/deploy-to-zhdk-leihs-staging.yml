@@ -2,18 +2,14 @@ jobs:
   deploy-to-staging:
     include: cider-ci/task-components/deploy-defaults.yml
     name: Deploy to zhdk-leihs-staging.ruby.zhdk.ch
+
     context:
+      task_defaults:
+        exclusive_global_resources:
+          "zhdk-leihs-staging.ruby.zhdk.ch": true
+        environment_variables:
+          DEPLOY_TARGET_INVENTORY: 'staging-hosts --limit zhdk-leihs-staging'
+
       tasks:
         deploy:
-          exclusive_global_resources:
-            "zhdk-leihs-staging.ruby.zhdk.ch": true
-          scripts:
-            deploy:
-              timeout: 1 Hour
-              body: |
-                set -eux
-                cd deploy
-                export ANSIBLE_HOST_KEY_CHECKING=False
-                ansible-playbook deploy_play.yml \
-                  --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
-                  -i ../zhdk-inventory/staging-hosts --limit zhdk-leihs-staging
+          include: cider-ci/task-components/zhdk-test-deploy.yml

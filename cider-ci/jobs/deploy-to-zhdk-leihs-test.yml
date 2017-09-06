@@ -2,24 +2,20 @@ jobs:
   deploy-to-zhdk-leihs-test:
     include: cider-ci/task-components/deploy-defaults.yml
     name: Deploy to zhdk-leihs-test.ruby.zhdk.ch
-    context:
     run_when:
       'on personal integration branch':
         type: branch
         include_match: ^[a-z]+_(next|master)$
         exclude_match: '^.*no-ci.*$'
+
     context:
+
+      task_defaults:
+        exclusive_global_resources:
+          "zhdk-leihs-test.ruby.zhdk.ch": true
+        environment_variables:
+          DEPLOY_TARGET_INVENTORY: test-hosts
+
       tasks:
         deploy:
-          exclusive_global_resources:
-            "zhdk-leihs-test.ruby.zhdk.ch": true
-          scripts:
-            deploy:
-              timeout: 1 Hour
-              body: |
-                set -eux
-                cd deploy
-                export ANSIBLE_HOST_KEY_CHECKING=False
-                ansible-playbook deploy_play.yml \
-                  --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
-                  -i ../zhdk-inventory/test-hosts
+          include: cider-ci/task-components/zhdk-test-deploy.yml
