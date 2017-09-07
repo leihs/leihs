@@ -5,7 +5,13 @@ releases:
 - version_major: 4
   version_minor: 5
   version_patch: 1
-  version_pre: RC.2
+  version_pre: null
+  description: |
+    - Fix: Item.properties default hash
+    - Fix: serialize User.settings
+    - Fix: store -> serialize in item.rb
+    - Fix: destroy in accept nested attributes
+    - Fix: create fields rake task: inactive fields
 
 ### HISTORY  ######################################################################
 
