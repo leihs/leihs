@@ -10,7 +10,7 @@ scripts:
         -i ../zhdk-inventory/prod-hosts
 
   restore-dump:
-    timeout: 1 Hours
+    timeout: 10 Minutes
     start_when:
       fetch passed:
         script_key: fetch-dump
@@ -24,7 +24,7 @@ scripts:
         -i ../zhdk-inventory/${DEPLOY_TARGET_INVENTORY}
 
   deploy:
-    timeout: 1 Hour
+    timeout: 6 Hours
     start_when:
       data from prod was synced: {script_key: restore-dump, states: [passed]}
     body: |
