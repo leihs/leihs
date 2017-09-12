@@ -17,6 +17,8 @@ jobs:
         deploy:
           exclusive_global_resources:
             "zhdk-leihs-demo.ruby.zhdk.ch": true
+          environment_variables:
+            DEPLOY_TARGET_INVENTORY: demo-hosts
           scripts:
             deploy:
               timeout: 30 Minutes
@@ -26,4 +28,4 @@ jobs:
                 export ANSIBLE_HOST_KEY_CHECKING=False
                 ansible-playbook demo-deploy_play.yml \
                   --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
-                  -i ../zhdk-inventory/demo-hosts
+                  -i ../zhdk-inventory/${DEPLOY_TARGET_INVENTORY}

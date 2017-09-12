@@ -1,11 +1,3 @@
-
-git_options:
-  submodules:
-    include_match: ^.*$
-
-traits:
-  g2016: true
-
 scripts:
 
   fetch-dump:
@@ -41,4 +33,4 @@ scripts:
       export ANSIBLE_HOST_KEY_CHECKING=False
       ansible-playbook deploy_play.yml \
         --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
-        -i ../zhdk-inventory/test-hosts
+        -i ../zhdk-inventory/${DEPLOY_TARGET_INVENTORY}

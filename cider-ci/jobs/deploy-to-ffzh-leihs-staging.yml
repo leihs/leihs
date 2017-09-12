@@ -7,6 +7,8 @@ jobs:
         deploy:
           exclusive_global_resources:
             "ffzh-leihs-staging.ruby.zhdk.ch": true
+          environment_variables:
+            DEPLOY_TARGET_INVENTORY: 'staging-hosts --limit ffzh-leihs-staging'
           scripts:
             deploy:
               timeout: 1 Hour
@@ -16,4 +18,4 @@ jobs:
                 export ANSIBLE_HOST_KEY_CHECKING=False
                 ansible-playbook deploy_play.yml \
                   --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
-                  -i ../zhdk-inventory/staging-hosts --limit ffzh-leihs-staging
+                  -i ../zhdk-inventory/${DEPLOY_TARGET_INVENTORY}
