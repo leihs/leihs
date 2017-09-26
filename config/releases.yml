@@ -3,6 +3,27 @@ releases:
 ### CURRENT #######################################################################
 
 - version_major: 4
+  version_minor: 6
+  version_patch: 0
+  version_pre: 'RC.1'
+  description: |
+    -  Feature: inventory: add license version field
+    -  Feature: inventory: expert search
+    -  Feature: procurement: accounting type fields
+    -  Feature: procurement: inline edit request lines in overview
+    -  Feature: procurement: inspection comments templates
+    -  Fix: Calendar and csv import translations
+    -  Fix: don't crash on inactive dynamic fields
+    -  Fix: inventory: enable quantity allocations for every license type
+    -  Fix: inventory: don't show "Undefined" types
+    -  Fix: inventory: don't show location for item-licenses
+    -  Fix: inventory: image upload restrictions error
+    -  Fix: inventory: select image button for create item
+    -  Fix: lending: for order lines replace buttons dropdown with rejected label after rejection
+
+### HISTORY  ######################################################################
+
+- version_major: 4
   version_minor: 5
   version_patch: 1
   version_pre: null
@@ -12,8 +33,6 @@ releases:
     - Fix: store -> serialize in item.rb
     - Fix: destroy in accept nested attributes
     - Fix: create fields rake task: inactive fields
-
-### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 5
