@@ -1,12 +1,20 @@
 jobs:
   test-container-deploy:
-    name: Test Deploy to a Container
+    name: Test Deploy to Container
     run_when:
       'on personal integration branch':
         type: branch
         include_match: ^([a-z]+_)?(next|master)$
         exclude_match: '^.*no-ci.*$'
     context:
-      include:
-        - path: container-test/cider-ci/context.yml
-          submodule: [deploy]
+      tasks:
+
+        ubuntu-lts:
+          name: Ubuntu 16.04 LTS
+          environment_variables: { CONTAINER_IMAGE: 'ubuntu:16.04' }
+          include: [{path: container-test/cider-ci/context.yml, submodule: [deploy]}]
+
+        debian-stretch:
+          name: Debian 9 (stretch)
+          environment_variables: { CONTAINER_IMAGE: 'images:debian/stretch/amd64' }
+          include: [{path: container-test/cider-ci/context.yml, submodule: [deploy]}]
