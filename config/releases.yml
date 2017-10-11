@@ -5,7 +5,7 @@ releases:
 - version_major: 4
   version_minor: 6
   version_patch: 0
-  version_pre: 'RC.4'
+  version_pre: null
   description: |
     - Feature: inventory: add license version field
     - Feature: inventory: expert search
