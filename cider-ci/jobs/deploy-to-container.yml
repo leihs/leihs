@@ -4,7 +4,7 @@ jobs:
     run_when:
       'on personal integration branch':
         type: branch
-        include_match: ^([a-z]+_)?(next|master)$
+        include_match: ^([a-z]+(_|\/))?(next|master)$
         exclude_match: '^.*no-ci.*$'
     context:
       tasks:
