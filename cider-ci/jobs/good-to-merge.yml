@@ -64,3 +64,7 @@ jobs:
           scripts:
             main:
               body: echo 'All relevant tests have passed' ; exit 0
+
+        include:
+          - path: cider-ci/context-components/merged-submodules-check.yml
+            submodule: [legacy]

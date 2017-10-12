@@ -43,7 +43,3 @@ jobs:
                 sha1=$(git submodule status database | cut -f 2 -d ' ')
                 sha2=$(git submodule status --recursive | grep legacy/database | cut -f 2 -d ' ')
                 test $sha1 == $sha2
-
-      include:
-        - path: cider-ci/context-components/merged-submodules-check.yml
-          submodule: [legacy]
