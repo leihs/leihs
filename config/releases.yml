@@ -3,6 +3,13 @@ releases:
 ### CURRENT #######################################################################
 
 - version_major: 4
+  version_minor: 7
+  version_patch: 0
+  version_pre: RC.1
+
+### HISTORY  ######################################################################
+
+- version_major: 4
   version_minor: 6
   version_patch: 0
   version_pre: null
@@ -23,8 +30,6 @@ releases:
     - Fix: lending: for order lines replace buttons dropdown with rejected label after rejection
     - Locale: Add French translation
     - Deploy: Support Debian 9 "stretch"
-
-### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 5
