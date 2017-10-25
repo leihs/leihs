@@ -2,12 +2,6 @@ jobs:
   deploy-to-zhdk-leihs-test:
     include: cider-ci/task-components/deploy-defaults.yml
     name: Deploy to zhdk-leihs-test.ruby.zhdk.ch
-    run_when:
-      'on personal integration branch':
-        type: branch
-        include_match: ^([a-z]+_)?(master)$
-        exclude_match: '^.*no-ci.*$'
-
     context:
 
       task_defaults:
