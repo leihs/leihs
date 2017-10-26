@@ -6,11 +6,11 @@ jobs:
       nightly:
         type: cron
         value: '0 3 * * *'
-        branch_include_match: ^(next|master)$
+        branch_include_match: ^(master)$
         rerun: true
       'on personal integration branch':
         type: branch
-        include_match: ^([a-z]+_)?(next|master)$
+        include_match: ^([a-z]+_)?(master)$
         exclude_match: '^.*no-ci.*$'
     context:
       tasks:
