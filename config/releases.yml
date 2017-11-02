@@ -5,7 +5,7 @@ releases:
 - version_major: 4
   version_minor: 7
   version_patch: 1
-  version_pre: RC.1
+  version_pre: RC.2
 
 ### HISTORY  ######################################################################
 
