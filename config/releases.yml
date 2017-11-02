@@ -4,6 +4,13 @@ releases:
 
 - version_major: 4
   version_minor: 7
+  version_patch: 1
+  version_pre: RC.1
+
+### HISTORY  ######################################################################
+
+- version_major: 4
+  version_minor: 7
   version_patch: 0
   version_pre: null
   description: |
@@ -14,8 +21,6 @@ releases:
     - Fix: Inventory: edit Options, set inventory code as required
     - Technical: Orders & contracts refactoring
     - Locale: Admin inventory pool 18n
-
-### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 6
