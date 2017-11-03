@@ -4,14 +4,19 @@ releases:
 
 - version_major: 4
   version_minor: 7
+  version_patch: 2
+  version_pre: RC.2
+
+### HISTORY  ######################################################################
+
+- version_major: 4
+  version_minor: 7
   version_patch: 1
   version_pre: null
   description: |
     - Fix: Button label for order line and group manager
     - Fix: Filter for verification required and order list
     - Fix: Reject button for orders with many items
-
-### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 7
