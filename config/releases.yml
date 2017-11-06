@@ -4,12 +4,19 @@ releases:
 
 - version_major: 4
   version_minor: 7
+  version_patch: 3
+  version_pre: RC.1
+  # description: |
+  #   - Fix: Fix closed reservations contract state
+
+### HISTORY  ######################################################################
+
+- version_major: 4
+  version_minor: 7
   version_patch: 2
   version_pre: null
   description: |
     - Fix: Redundant contracts in the list
-
-### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 7
