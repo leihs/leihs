@@ -5,9 +5,9 @@ releases:
 - version_major: 4
   version_minor: 7
   version_patch: 3
-  version_pre: RC.1
-  # description: |
-  #   - Fix: Fix closed reservations contract state
+  version_pre: null
+  description: |
+    - Fix: Fix closed reservations contract state
 
 ### HISTORY  ######################################################################
 
