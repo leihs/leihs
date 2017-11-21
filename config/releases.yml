@@ -3,6 +3,37 @@ releases:
 ### CURRENT #######################################################################
 
 - version_major: 4
+  version_minor: 9
+  version_patch: 0
+  version_pre: 'RC.1'
+  description: |
+
+    database 37f691060..648007f5c:
+      > Revert "Change user_name field to usage"
+      > Change user_name field to usage
+
+    legacy 039f234d2..54a9f96c4:
+      > ci: fix meta check
+      > Revert "Change user_name field to usage"
+      > fix: add missing key to en_GB for attachment error
+      > feature: add reactified categories filter to inventory list
+      > feat: manage: search contracts by 'compact_id'
+      > feature: reactify edit item
+      > feature: reactify inventory list
+      > ci: check-precompiled-assets
+      > Display purpose on take back line
+      > fix: lending: 'swap user' form submission in Safari
+      > Change user_name field to usage
+      > cider-ci: meta check for demo dump migration
+      > fix: edit order link from failed approval modal
+
+    zhdk-inventory dc188cd3e..48e15eed2:
+      > configure db backups on staging
+
+
+### HISTORY  ######################################################################
+
+- version_major: 4
   version_minor: 8
   version_patch: 0
   version_pre: null
@@ -27,9 +58,6 @@ releases:
     - constraints for orders state and reject reason
     - add reject reason to orders
     - Remove purpose_id from orders
-
-
-### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 7
