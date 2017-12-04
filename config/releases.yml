@@ -5,7 +5,7 @@ releases:
 - version_major: 4
   version_minor: 9
   version_patch: 0
-  version_pre: 'RC.6'
+  version_pre: 'RC.7'
   description: |
 
     database 37f691060..648007f5c:
