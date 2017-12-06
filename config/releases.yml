@@ -3,6 +3,78 @@ releases:
 ### CURRENT #######################################################################
 
 - version_major: 4
+  version_minor: 10
+  version_patch: 0
+  version_pre: 'RC.1'
+  description: |
+
+    git commits:
+
+    ```
+    database 37f691060..6867dc0e0:
+      > Rename partitions and groups to entitlement...
+      > feature: disable field supply category
+      > Revert "Change user_name field to usage"
+      > Change user_name field to usage
+
+    deploy c507d6a8c..1ee7fe03d:
+      > add role 'nodejs'
+      > don't configure dev db in prod
+      > remove 'ansible' role
+
+    legacy 039f234d2..91ec91e2c:
+      > Merge branch 'release'
+      > fix: always show field inventory_code independent of role
+      > fix: inspection label backend rendering for take back
+      > fix: i18n item saved
+      > fix: manage/take_back: include Software & Licences
+      > chore: remove rubocop from engine
+      > bundle: update rubocop
+      > bundle: use git version of 'axlsx'
+      > fix: model availability doesn't count retired items
+      > feature: rooms diff
+      > ci: meta check cross-platform zip diffing
+      > csrf?
+      > add rails/webpacker
+      > ci: don't auto-run good-to-merge
+      > chore: config quiet assets in dev
+      > spec: pending spec for Contract.filter counts
+      > fix: don't change settings in initializer
+      > fix: show existing delegation contact user in swap user dialog
+      > fix: use return urls for cancel of edit model etc
+      > fix: i18n for some create item buttons
+      > fix: order list order by created at and group by user
+      > fix: reactify swap users
+      > Rename partition (and relateted entities) to entitlement
+      > fix: remove suppliers and buildings tabs from manage section
+      > feature: dont allow to create supppliers on create and edit item forms
+      > feature: disable field supply category
+      > ci: fix meta check
+      > Revert "Change user_name field to usage"
+      > fix: add missing key to en_GB for attachment error
+      > feature: add reactified categories filter to inventory list
+      > feat: manage: search contracts by 'compact_id'
+      > feature: reactify edit item
+      > feature: reactify inventory list
+      > ci: check-precompiled-assets
+      > Display purpose on take back line
+      > fix: lending: 'swap user' form submission in Safari
+      > Change user_name field to usage
+      > cider-ci: meta check for demo dump migration
+      > fix: edit order link from failed approval modal
+
+    zhdk-inventory dc188cd3e..2f9f099eb:
+      > Revert "enable send_mail on test and staging hosts"
+      > enable send_mail on test and staging hosts
+      > cleanup, remove v3 hosts
+      > configure less db backups on staging
+      > configure db backups on staging
+    ```
+
+
+### HISTORY  ######################################################################
+
+- version_major: 4
   version_minor: 9
   version_patch: 0
   version_pre: null
@@ -21,9 +93,6 @@ releases:
     - fix: 'swap user' form submission in Safari
     - fix: load package models in chunks to prevent too long urls
     - fix: validation of empty select
-
-
-### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 8
