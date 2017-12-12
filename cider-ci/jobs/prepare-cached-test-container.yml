@@ -1,0 +1,38 @@
+include: cider-ci/task-components/container-deploy.yml
+
+name: 📦 Prepare Cache for Container Test
+description: |
+  Runs every morning on all executors to prepare cached container images.
+  No need to run manually, but can be triggered to purge the cache.
+
+run_when:
+  nightly at 5am UTC:
+    type: cron
+    value: '0 5 * * *'
+    branch_include_match: ^master$
+    rerun: true
+
+
+context:
+  task_defaults:
+    # force it to run on all machines separatly:
+    priority: 100
+    eager_trials: 8 # greater or equal as number of executors
+    max_trials: 8 # must be greater or equal `eager_trials`
+    dispatch_storm_delay_duration: '1 minute'
+
+    scripts:
+      # interpolate script: empty cache before running
+      empty-image-cache:
+        start_when:
+          bundled:
+            script_key: bundle
+        body: |
+          #!/usr/bin/env bash
+          set -eux
+          source deploy/container-test/bin/shared-container-cache.sh
+          rm -rf "${IMAGE_CACHE_DIR}/${LXC_CACHED_BASE_IMAGE}"*
+
+      create-container:
+        start_when:
+          cached images are removed: { script_key: empty-image-cache }

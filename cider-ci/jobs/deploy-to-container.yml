@@ -1,40 +1,9 @@
-jobs:
-  test-container-deploy:
-    name: Test Deploy to Container
-    run_when:
-      'on personal integration branch':
-        type: branch
-        include_match: ^([a-z]+(_|\/))?(master)$
-        exclude_match: '^.*no-ci.*$'
-    context:
-      tasks:
+include: cider-ci/task-components/container-deploy.yml
 
-        ubuntu-lts:
-          name: Ubuntu 16.04 LTS
-          environment_variables: { CONTAINER_IMAGE: 'ubuntu:16.04' }
-          include: [{path: container-test/cider-ci/context.yml, submodule: [deploy]}]
+name: Test Deploy to Container
 
-        debian-stretch:
-          name: Debian 9 (stretch)
-          environment_variables: { CONTAINER_IMAGE: 'images:debian/stretch/amd64' }
-          include: [{path: container-test/cider-ci/context.yml, submodule: [deploy]}]
-
-          scripts:
-
-            prepare-container:
-              start_when:
-                container has been configured:
-                  script_key: configure-container
-
-            configure-container:
-              start_when:
-                container has been created:
-                  script_key: create-container
-              timeout: 1 Minute
-              body: |
-                #!/usr/bin/env bash
-                set -eux
-
-                lxc file push \
-                  ${CIDER_CI_WORKING_DIR}/deploy/container-test/debian-apt-sources.txt \
-                  ${CONTAINER_NAME}/etc/apt/sources.list
+run_when:
+  always:
+    type: branch
+    include_match: ^.*$
+    exclude_match: '^.*no-ci.*$'
