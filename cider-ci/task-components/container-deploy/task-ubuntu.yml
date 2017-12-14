@@ -1,0 +1,5 @@
+# name: Ubuntu 16.04 LTS
+environment_variables:
+  LXC_BASE_IMAGE: 'ubuntu:16.04'
+  LXC_CACHED_BASE_IMAGE: 'leihs-ubuntu-lts'
+include: [{path: container-test/cider-ci/context.yml, submodule: [deploy]}]

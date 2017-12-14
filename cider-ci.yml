@@ -9,9 +9,5 @@ include:
   - cider-ci/jobs/import-v3-to-v4.yml
   - cider-ci/jobs/import-v3-to-v4-via-ci.yml
   - cider-ci/jobs/meta.yml
-
-jobs:
-  test-container-deploy:
-    include: [cider-ci/jobs/deploy-to-container.yml]
-  prepare-cached-test-container:
-    include: [cider-ci/jobs/prepare-cached-test-container.yml]
+  - cider-ci/jobs/deploy-to-container.yml
+  - cider-ci/jobs/prepare-cached-test-container.yml

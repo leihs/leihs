@@ -1,38 +1,97 @@
-include: cider-ci/task-components/container-deploy.yml
+jobs:
+  prepare-cached-test-container:
+    include: cider-ci/task-components/container-deploy.yml
 
-name: 📦 Prepare Cache for Container Test
-description: |
-  Runs every morning on all executors to prepare cached container images.
-  No need to run manually, but can be triggered to purge the cache.
+    name: 📦 Prepare Cache for Container Test
+    description: |
+      Runs every morning on all executors to prepare cached container images.
+      No need to run manually, but can be triggered to purge the cache.
 
-run_when:
-  nightly at 5am UTC:
-    type: cron
-    value: '0 5 * * *'
-    branch_include_match: ^master$
-    rerun: true
+    run_when:
+      nightly at 5am UTC:
+        type: cron
+        value: '0 5 * * *'
+        branch_include_match: ^master$
+        rerun: true
 
+    context:
+      script_defaults:
+        # run only 1 job per machine (per type) by setting a lock on all scripts
+        exclusive_executor_resource: 'lxc_image_caching_{{LXC_IMAGE_CACHE_NAME}}_{{LXC_CACHED_BASE_IMAGE}}'
+      task_defaults:
+        # for cache preparation, allow retries:
+        max_trials: 3
+        scripts:
+          # interpolate script: empty cache before running
+          empty-image-cache:
+            start_when:
+              bundled:
+                script_key: bundle
+            body: |
+              #!/usr/bin/env bash
+              set -eux
+              source deploy/container-test/bin/shared-container-cache.sh
+              rm -rf "${IMAGE_CACHE_DIR}/${LXC_CACHED_BASE_IMAGE}"*
+          create-container:
+            start_when:
+              cached images are removed: { script_key: empty-image-cache }
 
-context:
-  task_defaults:
-    # force it to run on all machines separatly:
-    priority: 100
-    eager_trials: 8 # greater or equal as number of executors
-    max_trials: 8 # must be greater or equal `eager_trials`
-    dispatch_storm_delay_duration: '1 minute'
+      tasks:
+        # separate tasks for each executor:
 
-    scripts:
-      # interpolate script: empty cache before running
-      empty-image-cache:
-        start_when:
-          bundled:
-            script_key: bundle
-        body: |
-          #!/usr/bin/env bash
-          set -eux
-          source deploy/container-test/bin/shared-container-cache.sh
-          rm -rf "${IMAGE_CACHE_DIR}/${LXC_CACHED_BASE_IMAGE}"*
+        debian-stretch_-_ci-g2016-01:
+          traits: { ci-g2016-01: yes }
+          include: cider-ci/task-components/container-deploy/task-debian.yml
+        ubuntu-lts_-_ci-g2016-01:
+          traits: { ci-g2016-01: yes }
+          include: cider-ci/task-components/container-deploy/task-ubuntu.yml
 
-      create-container:
-        start_when:
-          cached images are removed: { script_key: empty-image-cache }
+        debian-stretch_-_ci-g2016-02:
+          traits: { ci-g2016-02: yes }
+          include: cider-ci/task-components/container-deploy/task-debian.yml
+        ubuntu-lts_-_ci-g2016-02:
+          traits: { ci-g2016-02: yes }
+          include: cider-ci/task-components/container-deploy/task-ubuntu.yml
+
+        debian-stretch_-_ci-g2016-03:
+          traits: { ci-g2016-03: yes }
+          include: cider-ci/task-components/container-deploy/task-debian.yml
+        ubuntu-lts_-_ci-g2016-03:
+          traits: { ci-g2016-03: yes }
+          include: cider-ci/task-components/container-deploy/task-ubuntu.yml
+
+        debian-stretch_-_ci-g2016-04:
+          traits: { ci-g2016-04: yes }
+          include: cider-ci/task-components/container-deploy/task-debian.yml
+        ubuntu-lts_-_ci-g2016-04:
+          traits: { ci-g2016-04: yes }
+          include: cider-ci/task-components/container-deploy/task-ubuntu.yml
+
+        debian-stretch_-_ci-g2016-05:
+          traits: { ci-g2016-05: yes }
+          include: cider-ci/task-components/container-deploy/task-debian.yml
+        ubuntu-lts_-_ci-g2016-05:
+          traits: { ci-g2016-05: yes }
+          include: cider-ci/task-components/container-deploy/task-ubuntu.yml
+
+        debian-stretch_-_ci-g2016-06:
+          traits: { ci-g2016-06: yes }
+          include: cider-ci/task-components/container-deploy/task-debian.yml
+        ubuntu-lts_-_ci-g2016-06:
+          traits: { ci-g2016-06: yes }
+          include: cider-ci/task-components/container-deploy/task-ubuntu.yml
+
+        # DISABLED: executor is missing
+        # debian-stretch_-_ci-g2016-07:
+        #   traits: { ci-g2016-07: yes }
+        #   include: cider-ci/task-components/container-deploy/task-debian.yml
+        # ubuntu-lts_-_ci-g2016-07:
+        #   traits: { ci-g2016-07: yes }
+        #   include: cider-ci/task-components/container-deploy/task-ubuntu.yml
+
+        debian-stretch_-_ci-g2016-08:
+          traits: { ci-g2016-08: yes }
+          include: cider-ci/task-components/container-deploy/task-debian.yml
+        ubuntu-lts_-_ci-g2016-08:
+          traits: { ci-g2016-08: yes }
+          include: cider-ci/task-components/container-deploy/task-ubuntu.yml

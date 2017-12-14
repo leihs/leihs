@@ -1,9 +1,21 @@
-include: cider-ci/task-components/container-deploy.yml
+jobs:
+  test-container-deploy:
+    include: cider-ci/task-components/container-deploy.yml
 
-name: Test Deploy to Container
+    name: Test Deploy to Container
 
-run_when:
-  always:
-    type: branch
-    include_match: ^.*$
-    exclude_match: '^.*no-ci.*$'
+    run_when:
+      always:
+        type: branch
+        include_match: ^.*$
+        exclude_match: '^.*no-ci.*$'
+
+    context:
+      tasks:
+        debian-stretch:
+          name: Debian 9 (stretch)
+          include: cider-ci/task-components/container-deploy/task-debian.yml
+
+        ubuntu-lts:
+          name: Ubuntu 16.04 LTS
+          include: cider-ci/task-components/container-deploy/task-ubuntu.yml
