@@ -1,0 +1,20 @@
+- feat: logo link in footers, admin-configurable
+
+- fix: negative general quantity for borrow calendar
+- fix: admin: form labels in settings
+- fix: correct error msg. in hand over
+
+
+- fix: improve form handling
+
+
+- fix: on inventory list show problems for license lines too
+- fix: show all contracts button in global search
+- fix: show contracts from deactivated pools
+- fix: Show retired label and inactive pool on item line in global search
+- refactor: user-session (in DB)
+
+
+---
+
+rename logo_link documentation_link -> make it small text field
