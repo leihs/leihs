@@ -2,16 +2,32 @@ releases:
 
 ### NEXT ########################################################################
 
+# - version_major: 4
+#   version_minor: 13
+#   version_patch: 0
+#   version_pre: 'dev'
+#   description: |
+#
+#     **UNRELEASED**
+
+### STABLE ########################################################################
+
 - version_major: 4
   version_minor: 12
   version_patch: 0
-  version_pre: 'dev'
+  version_pre: 'RC.1'
   description: |
 
-    **UNRELEASED**
+    - feature: show thumbnail on edit item if attachment is of content type image
+    - fix: contracts search must consider contracts purpose too not only orders purpose
+    - fix: do not show inactive pools on borrow inventory pools
+    - fix: inventory: upload attachments when creating model
+    - fix: linkify inventory pool descriptions for borrow
+    - fix: model validation of product name and version
+    - fix: pools list in borrow section should list pools with borrowable items or contracts
+    - fix: text resources for model product and version errors
 
-
-### STABLE ########################################################################
+### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 11
@@ -34,9 +50,6 @@ releases:
     - fix: show contracts from deactivated pools
     - fix: Show retired label and inactive pool on item line in global search
     - refactor: user-session (in DB)
-
-
-### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 10
