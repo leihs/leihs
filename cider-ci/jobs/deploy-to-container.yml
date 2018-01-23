@@ -11,11 +11,16 @@ jobs:
         exclude_match: '^.*no-ci.*$'
 
     context:
+
+      # TMP: only run on `02` (the others aren't fixed yet)
+      task_defaults:
+        traits: { ci-g2016-02: yes }
+        
       tasks:
         debian-stretch:
           name: Debian 9 (stretch)
           include: cider-ci/task-components/container-deploy/task-debian.yml
 
-        # ubuntu-lts:
-        #   name: Ubuntu 16.04 LTS
-        #   include: cider-ci/task-components/container-deploy/task-ubuntu.yml
+        ubuntu-lts:
+          name: Ubuntu 16.04 LTS
+          include: cider-ci/task-components/container-deploy/task-ubuntu.yml

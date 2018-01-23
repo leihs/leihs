@@ -38,10 +38,11 @@ jobs:
 
       tasks:
         # separate tasks for each executor:
+        # TMP: only run on `02` (the others aren't fixed yet)
 
-        debian-stretch_-_ci-g2016-01:
-          traits: { ci-g2016-01: yes }
-          include: cider-ci/task-components/container-deploy/task-debian.yml
+        # debian-stretch_-_ci-g2016-01:
+        #   traits: { ci-g2016-01: yes }
+        #   include: cider-ci/task-components/container-deploy/task-debian.yml
         # ubuntu-lts_-_ci-g2016-01:
         #   traits: { ci-g2016-01: yes }
         #   include: cider-ci/task-components/container-deploy/task-ubuntu.yml
@@ -49,48 +50,48 @@ jobs:
         debian-stretch_-_ci-g2016-02:
           traits: { ci-g2016-02: yes }
           include: cider-ci/task-components/container-deploy/task-debian.yml
-        # ubuntu-lts_-_ci-g2016-02:
-        #   traits: { ci-g2016-02: yes }
-        #   include: cider-ci/task-components/container-deploy/task-ubuntu.yml
+        ubuntu-lts_-_ci-g2016-02:
+          traits: { ci-g2016-02: yes }
+          include: cider-ci/task-components/container-deploy/task-ubuntu.yml
 
-        debian-stretch_-_ci-g2016-03:
-          traits: { ci-g2016-03: yes }
-          include: cider-ci/task-components/container-deploy/task-debian.yml
+        # debian-stretch_-_ci-g2016-03:
+        #   traits: { ci-g2016-03: yes }
+        #   include: cider-ci/task-components/container-deploy/task-debian.yml
         # ubuntu-lts_-_ci-g2016-03:
         #   traits: { ci-g2016-03: yes }
         #   include: cider-ci/task-components/container-deploy/task-ubuntu.yml
-
-        debian-stretch_-_ci-g2016-04:
-          traits: { ci-g2016-04: yes }
-          include: cider-ci/task-components/container-deploy/task-debian.yml
+        #
+        # debian-stretch_-_ci-g2016-04:
+        #   traits: { ci-g2016-04: yes }
+        #   include: cider-ci/task-components/container-deploy/task-debian.yml
         # ubuntu-lts_-_ci-g2016-04:
         #   traits: { ci-g2016-04: yes }
         #   include: cider-ci/task-components/container-deploy/task-ubuntu.yml
-
-        debian-stretch_-_ci-g2016-05:
-          traits: { ci-g2016-05: yes }
-          include: cider-ci/task-components/container-deploy/task-debian.yml
+        #
+        # debian-stretch_-_ci-g2016-05:
+        #   traits: { ci-g2016-05: yes }
+        #   include: cider-ci/task-components/container-deploy/task-debian.yml
         # ubuntu-lts_-_ci-g2016-05:
         #   traits: { ci-g2016-05: yes }
         #   include: cider-ci/task-components/container-deploy/task-ubuntu.yml
-
-        debian-stretch_-_ci-g2016-06:
-          traits: { ci-g2016-06: yes }
-          include: cider-ci/task-components/container-deploy/task-debian.yml
+        #
+        # debian-stretch_-_ci-g2016-06:
+        #   traits: { ci-g2016-06: yes }
+        #   include: cider-ci/task-components/container-deploy/task-debian.yml
         # ubuntu-lts_-_ci-g2016-06:
         #   traits: { ci-g2016-06: yes }
         #   include: cider-ci/task-components/container-deploy/task-ubuntu.yml
-
-        debian-stretch_-_ci-g2016-07:
-          traits: { ci-g2016-07: yes }
-          include: cider-ci/task-components/container-deploy/task-debian.yml
+        #
+        # debian-stretch_-_ci-g2016-07:
+        #   traits: { ci-g2016-07: yes }
+        #   include: cider-ci/task-components/container-deploy/task-debian.yml
         # ubuntu-lts_-_ci-g2016-07:
         #   traits: { ci-g2016-07: yes }
         #   include: cider-ci/task-components/container-deploy/task-ubuntu.yml
-
-        debian-stretch_-_ci-g2016-08:
-          traits: { ci-g2016-08: yes }
-          include: cider-ci/task-components/container-deploy/task-debian.yml
+        #
+        # debian-stretch_-_ci-g2016-08:
+        #   traits: { ci-g2016-08: yes }
+        #   include: cider-ci/task-components/container-deploy/task-debian.yml
         # ubuntu-lts_-_ci-g2016-08:
         #   traits: { ci-g2016-08: yes }
         #   include: cider-ci/task-components/container-deploy/task-ubuntu.yml
