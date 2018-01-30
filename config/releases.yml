@@ -1,21 +1,11 @@
 releases:
 
-### NEXT ########################################################################
-
-# - version_major: 4
-#   version_minor: 13
-#   version_patch: 0
-#   version_pre: 'dev'
-#   description: |
-#
-#     **UNRELEASED**
-
-### STABLE ########################################################################
+### CURRENT #######################################################################
 
 - version_major: 4
   version_minor: 12
   version_patch: 0
-  version_pre: 'RC.1'
+  version_pre: null
   description: |
 
     - feature: show thumbnail on edit item if attachment is of content type image
