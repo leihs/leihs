@@ -6,3 +6,15 @@ context:
     environment_variables:
       LXC_IMAGE_CACHE_NAME: 'leihs'
       LXC_IMAGE_CACHE_KEY_CMD: 'echo "$(date -uI)_$(cd deploy && git log -n1 --format=%t)"'
+
+    scripts:
+      show-log-if-failed:
+        ignore_state: yes
+        ignore_abort: yes
+        start_when:
+          deploy has failed:
+            script_key: deploy-to-container
+            states: [failed]
+        body: |
+          #!/usr/bin/env bash
+          lxc exec ${CONTAINER_NAME} -- /bin/bash -c "journalctl -xe"
