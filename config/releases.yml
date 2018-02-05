@@ -2,17 +2,37 @@ releases:
 
 ### NEXT ########################################################################
 
+# - version_major: 4
+#   version_minor: 14
+#   version_patch: 0
+#   version_pre: 'dev'
+#   description: |
+#
+#     **UNRELEASED**
+#
+#     see <https://github.com/leihs/leihs/compare/master...release>
+
+### STABLE ########################################################################
+
 - version_major: 4
   version_minor: 13
   version_patch: 0
-  version_pre: 'dev'
+  version_pre: 'RC.1'
   description: |
 
-    **UNRELEASED**
+    - feat: admin: suppliers: add note, UI improvements
+    - fix: create model validation message for product and version
+    - fix: do not show categories on inventory list if options are selected
+    - fix: expert search text resources i18n
+    - fix: i18n plural 'Day'
+    - fix: license saved message
+    - fix: procurement: enhance category/template list UX
+    - fix: procurement: validate whole numbers in forms
+    - fix: remove filter visibility dependencies in inventory list and show all models after create new model
+    - fix: remove paperclip from migrations
+    - fix: remove paperclip from migrations #2
 
-    see <https://github.com/leihs/leihs/compare/master...release>
-
-### STABLE ########################################################################
+### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 12
@@ -28,8 +48,6 @@ releases:
     - fix: model validation of product name and version
     - fix: pools list in borrow section should list pools with borrowable items or contracts
     - fix: text resources for model product and version errors
-
-### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 11
