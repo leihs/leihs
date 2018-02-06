@@ -17,7 +17,7 @@ releases:
 - version_major: 4
   version_minor: 13
   version_patch: 0
-  version_pre: 'RC.1'
+  version_pre: 'RC.2'
   description: |
 
     - feat: admin: suppliers: add note, UI improvements
