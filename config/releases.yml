@@ -5,10 +5,11 @@ releases:
 - version_major: 4
   version_minor: 14
   version_patch: 0
-  version_pre: RC.1
+  version_pre: RC.2
   description: |
 
     - feat: verification filter for visits list
+    - fix: rewritten booking calendar in 'borrow' section
     - fix: do not use category filter on inventory list for options tab
     - fix: when creating Models, dont save if errors
     - chore: refactor and improve borrow booking calendar
