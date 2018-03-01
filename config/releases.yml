@@ -1,11 +1,11 @@
 releases:
 
-### NEXT ########################################################################
+### STABLE ########################################################################
 
 - version_major: 4
   version_minor: 14
   version_patch: 0
-  version_pre: RC.3
+  version_pre: null
   description: |
 
     - feat: verification filter for visits list
@@ -16,7 +16,7 @@ releases:
     - chore: container-test: handle missing image alias
     - chore: remove settings singleton
 
-### STABLE ########################################################################
+### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 13
@@ -36,8 +36,6 @@ releases:
     - fix: remove filter visibility dependencies in inventory list and show all models after create new model
     - fix: remove paperclip from migrations
     - fix: remove paperclip from migrations #2
-
-### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 12
