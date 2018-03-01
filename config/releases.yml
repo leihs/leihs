@@ -4,6 +4,16 @@ releases:
 
 - version_major: 4
   version_minor: 14
+  version_patch: 1
+  version_pre: RC.1
+  description: |
+
+    - fix: borrow pools index and calendar on models show
+
+### HISTORY #######################################################################
+
+- version_major: 4
+  version_minor: 14
   version_patch: 0
   version_pre: null
   description: |
@@ -15,8 +25,6 @@ releases:
     - chore: refactor and improve borrow booking calendar
     - chore: container-test: handle missing image alias
     - chore: remove settings singleton
-
-### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 13
