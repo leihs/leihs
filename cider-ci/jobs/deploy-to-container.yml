@@ -12,10 +12,9 @@ jobs:
 
     context:
 
-      # TMP: only run on `02` (the others aren't fixed yet)
       task_defaults:
-        traits: { ci-g2016-02: yes }
-        
+        traits: { lxd-on-zfs: yes }
+
       tasks:
         debian-stretch:
           name: Debian 9 (stretch)
