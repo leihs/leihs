@@ -1,18 +1,30 @@
 releases:
 
-### NEXT ########################################################################
+### STABLE ########################################################################
+
+- version_major: 4
+  version_minor: 14
+  version_patch: 1
+  version_pre: null
+  description: |
+
+    - fix: borrow pools index and calendar on models show
+
+### HISTORY #######################################################################
 
 - version_major: 4
   version_minor: 14
   version_patch: 0
-  version_pre: 'dev'
+  version_pre: null
   description: |
 
-    **UNRELEASED**
-
-    see <https://github.com/leihs/leihs/compare/master...release>
-
-### STABLE ########################################################################
+    - feat: verification filter for visits list
+    - fix: rewritten booking calendar in 'borrow' section
+    - fix: do not use category filter on inventory list for options tab
+    - fix: when creating Models, dont save if errors
+    - chore: refactor and improve borrow booking calendar
+    - chore: container-test: handle missing image alias
+    - chore: remove settings singleton
 
 - version_major: 4
   version_minor: 13
@@ -32,8 +44,6 @@ releases:
     - fix: remove filter visibility dependencies in inventory list and show all models after create new model
     - fix: remove paperclip from migrations
     - fix: remove paperclip from migrations #2
-
-### HISTORY  ######################################################################
 
 - version_major: 4
   version_minor: 12
