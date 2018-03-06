@@ -1,5 +1,17 @@
 releases:
 
+### NEXT ########################################################################
+
+- version_major: 4
+  version_minor: 16
+  version_patch: 0
+  version_pre: 'dev'
+  description: |
+
+    **UNRELEASED**
+
+    see <https://github.com/leihs/leihs/compare/master...stable>
+
 ### STABLE ########################################################################
 
 - version_major: 4

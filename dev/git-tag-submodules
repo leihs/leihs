@@ -1,0 +1,11 @@
+#!/bin/sh -exu
+
+TAG=$1
+
+git checkout $TAG \
+  && git submodule update --init --recursive \
+  && git submodule foreach --recursive "\
+    git tag --sign -m "leihs-$TAG" leihs-$TAG HEAD \
+    && git push origin --tags \
+    || exit 0 \
+  "

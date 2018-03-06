@@ -1,0 +1,14 @@
+#!/bin/sh -eu
+
+COMMIT_REF="$1"
+
+git fetch --quiet origin
+
+git submodule foreach --quiet '\
+  cd "$toplevel" \
+  && git diff "origin/release...${COMMIT_REF}" --submodule=log -- "$path" \
+     | sed -e "s/Submodule //" \
+     | grep -s "." \
+     && echo "" \
+  ; cd "$OLDPWD"\
+'
