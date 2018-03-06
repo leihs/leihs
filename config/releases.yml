@@ -4,13 +4,21 @@ releases:
 
 - version_major: 4
   version_minor: 14
+  version_patch: 2
+  version_pre: null
+  description: |
+
+    - feat: new Timeline
+
+### HISTORY #######################################################################
+
+- version_major: 4
+  version_minor: 14
   version_patch: 1
   version_pre: null
   description: |
 
     - fix: borrow pools index and calendar on models show
-
-### HISTORY #######################################################################
 
 - version_major: 4
   version_minor: 14
