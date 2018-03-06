@@ -16,3 +16,6 @@
 [submodule "documentation"]
 	path = documentation
   url = https://github.com/leihs/leihs_documentation
+[submodule "admin"]
+	path = admin
+	url = https://github.com/leihs/leihs-admin.git

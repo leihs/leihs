@@ -16,8 +16,18 @@ context:
 
       scripts:
 
+        unlock:
+          body: |
+            set -euxo
+            cd zhdk-inventory
+            git crypt unlock
+
         deploy:
           timeout: 20 minutes
+          start_when:
+            unlock_passed:
+              script_key: unlock
+              states: [passed]
 
         attach-server-log:
           ignore_state: yes

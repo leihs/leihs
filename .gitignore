@@ -1,3 +1,4 @@
 /config/*
 !/config/releases.yml
 /tmp
+/integration
