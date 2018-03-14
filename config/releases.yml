@@ -5,7 +5,7 @@ releases:
 - version_major: 4
   version_minor: 15
   version_patch: 0
-  version_pre: 'RC.3'
+  version_pre: 'RC.4'
   description: |
 
     - feat: react booking calendar in borrow everywhere
@@ -22,6 +22,7 @@ releases:
     - fix: room diff outputs not the items with unknown rooms but unly the unknown rooms
     - fix: make some settings readonly
     - fix: dont allow to deactivate required fields in field editor for static fields
+    - fix: hiding fields in create item was not working anymore
     - translation: delete model error message
     - chore: remove paperclip from migrations #3
     - chore: remove inventory_pool_id from entitlements
