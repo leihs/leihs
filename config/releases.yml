@@ -1,11 +1,11 @@
 releases:
 
-### NEXT ########################################################################
+### STABLE ######################################################################
 
 - version_major: 4
   version_minor: 16
   version_patch: 0
-  version_pre: RC.3
+  version_pre: null
   description: |
 
     - feat: simplify borrow inventory pools list
@@ -20,7 +20,7 @@ releases:
     - fix: borrow: templates order form
     - chore: refactor and improve performance
 
-### STABLE ########################################################################
+### HISTORY #######################################################################
 
 - version_major: 4
   version_minor: 15
@@ -46,8 +46,6 @@ releases:
     - translation: delete model error message
     - chore: remove paperclip from migrations #3
     - chore: remove inventory_pool_id from entitlements
-
-### HISTORY #######################################################################
 
 - version_major: 4
   version_minor: 14
