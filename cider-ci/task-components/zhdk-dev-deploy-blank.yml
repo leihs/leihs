@@ -1,0 +1,7 @@
+include: cider-ci/task-components/deploy-defaults.yml
+context:
+  tasks:
+    deploy:
+      scripts:
+        deploy:
+          include: cider-ci/task-components/zhdk-test-deploy-script.yml

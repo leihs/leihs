@@ -1,38 +1,79 @@
 jobs:
 
-  MFA:
-    name: ⚒ Dev-Deploy to mfa.ruby.zhdk.ch
-    include: cider-ci/task-components/zhdk-dev-deploy.yml
+###
+
+  MFA-prod:
+    name: ⚒ Dev-Deploy [PROD-DATA] to mfa.ruby.zhdk.ch
+    include: cider-ci/task-components/zhdk-dev-deploy-with-prod-data.yml
     context:
       task_defaults:
         exclusive_global_resources: { mfa.ruby.zhdk.ch: true }
         environment_variables:
           DEPLOY_TARGET_INVENTORY: 'developer-hosts --limit mfa'
 
+  MFA-blank:
+    name: ⚒ Dev-Deploy [BLANK] to mfa.ruby.zhdk.ch
+    include: cider-ci/task-components/zhdk-dev-deploy-blank.yml
+    context:
+      task_defaults:
+        exclusive_global_resources: { mfa.ruby.zhdk.ch: true }
+        environment_variables:
+          DEPLOY_TARGET_INVENTORY: 'developer-hosts --limit mfa'
 
-  NIMAAI:
-    name: ⚒ Dev-Deploy to nimaai.ruby.zhdk.ch
-    include: cider-ci/task-components/zhdk-dev-deploy.yml
+###
+
+  NIMAAI-prod:
+    name: ⚒ Dev-Deploy [PROD-DATA] to nimaai.ruby.zhdk.ch
+    include: cider-ci/task-components/zhdk-dev-deploy-with-prod-data.yml
     context:
       task_defaults:
         exclusive_global_resources: { nimaai.ruby.zhdk.ch: true }
         environment_variables:
           DEPLOY_TARGET_INVENTORY: 'developer-hosts --limit nimaai'
 
+  NIMAAI-blank:
+    name: ⚒ Dev-Deploy [BLANK] to nimaai.ruby.zhdk.ch
+    include: cider-ci/task-components/zhdk-dev-deploy-blank.yml
+    context:
+      task_defaults:
+        exclusive_global_resources: { nimaai.ruby.zhdk.ch: true }
+        environment_variables:
+          DEPLOY_TARGET_INVENTORY: 'developer-hosts --limit nimaai'
 
-  PHIKU:
-    name: ⚒ Dev-Deploy to phiku.ruby.zhdk.ch
-    include: cider-ci/task-components/zhdk-dev-deploy.yml
+###
+
+  PHIKU-prod:
+    name: ⚒ Dev-Deploy [PROD-DATA] to phiku.ruby.zhdk.ch
+    include: cider-ci/task-components/zhdk-dev-deploy-with-prod-data.yml
     context:
       task_defaults:
         exclusive_global_resources: { phiku.ruby.zhdk.ch: true }
         environment_variables:
           DEPLOY_TARGET_INVENTORY: 'developer-hosts --limit phiku'
 
+  PHIKU-blank:
+    name: ⚒ Dev-Deploy [BLANK] to phiku.ruby.zhdk.ch
+    include: cider-ci/task-components/zhdk-dev-deploy-blank.yml
+    context:
+      task_defaults:
+        exclusive_global_resources: { phiku.ruby.zhdk.ch: true }
+        environment_variables:
+          DEPLOY_TARGET_INVENTORY: 'developer-hosts --limit phiku'
 
-  TOM:
-    name: ⚒ Dev-Deploy to tom.ruby.zhdk.ch
-    include: cider-ci/task-components/zhdk-dev-deploy.yml
+###
+
+  TOM-prod:
+    name: ⚒ Dev-Deploy [PROD-DATA] to tom.ruby.zhdk.ch
+    include: cider-ci/task-components/zhdk-dev-deploy-with-prod-data.yml
+    context:
+      task_defaults:
+        exclusive_global_resources: { tom.ruby.zhdk.ch: true }
+        environment_variables:
+          DEPLOY_TARGET_INVENTORY: 'developer-hosts --limit tom'
+
+  TOM-blank:
+    name: ⚒ Dev-Deploy [BLANK] to tom.ruby.zhdk.ch
+    include: cider-ci/task-components/zhdk-dev-deploy-blank.yml
     context:
       task_defaults:
         exclusive_global_resources: { tom.ruby.zhdk.ch: true }
