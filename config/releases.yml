@@ -3,6 +3,18 @@ releases:
 ### STABLE ######################################################################
 
 - version_major: 4
+  version_minor: 18
+  version_patch: 0
+  version_pre: RC.1
+  description: |
+
+    - feature: enable and disable fields per inventory pool
+    - feature: quick inventory export in admin
+    - fix: sort pools alphabetically for borrow
+
+### HISTORY #####################################################################
+
+- version_major: 4
   version_minor: 17
   version_patch: 0
   version_pre: null
@@ -18,8 +30,6 @@ releases:
     - translation: translate errors in borrow
     - translation: booking calendar translation
     - fix: show timeline in new tab for edit order
-
-### HISTORY #######################################################################
 
 - version_major: 4
   version_minor: 16
