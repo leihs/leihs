@@ -3,6 +3,18 @@ releases:
 ### STABLE ######################################################################
 
 - version_major: 4
+  version_minor: 18
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    - feature: enable and disable fields per inventory pool
+    - feature: quick inventory export in admin
+    - fix: sort pools alphabetically for borrow
+
+### HISTORY #####################################################################
+
+- version_major: 4
   version_minor: 17
   version_patch: 0
   version_pre: null
