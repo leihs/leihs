@@ -3,6 +3,21 @@ releases:
 ### STABLE ######################################################################
 
 - version_major: 4
+  version_minor: 19
+  version_patch: 0
+  version_pre: RC.1
+  description: |
+
+    - feature: inventory helper in react
+    - fix: labels and titles for create package
+    - fix: create model i18n
+    - fix: for manage fields in inventory pool show status and target type
+    - fix: add more columns to admin quick export
+    - chore: create model in react
+
+### HISTORY #####################################################################
+
+- version_major: 4
   version_minor: 18
   version_patch: 0
   version_pre: null
@@ -11,8 +26,6 @@ releases:
     - feature: enable and disable fields per inventory pool
     - feature: quick inventory export in admin
     - fix: sort pools alphabetically for borrow
-
-### HISTORY #####################################################################
 
 - version_major: 4
   version_minor: 17
