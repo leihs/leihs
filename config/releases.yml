@@ -5,7 +5,7 @@ releases:
 - version_major: 4
   version_minor: 19
   version_patch: 0
-  version_pre: RC.4
+  version_pre: RC.5
   description: |
 
     - feature: better information for entitlements conflicts
@@ -17,6 +17,7 @@ releases:
     - chore: create model in react
     - fix: remove deactivation of form fields per user
     - feature: refactor package ui
+    - fix: add item properties as columns to quick export
 
 ### HISTORY #####################################################################
 
