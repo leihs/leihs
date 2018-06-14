@@ -5,7 +5,7 @@ releases:
 - version_major: 4
   version_minor: 19
   version_patch: 0
-  version_pre: RC.5
+  version_pre: RC.6
   description: |
 
     - feature: better information for entitlements conflicts
