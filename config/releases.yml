@@ -4,6 +4,16 @@ releases:
 
 - version_major: 4
   version_minor: 19
+  version_patch: 1
+  version_pre: RC.1
+  description: |
+
+    - fix: quick fix for prod to not loose package children in inventory helper
+
+### HISTORY #####################################################################
+
+- version_major: 4
+  version_minor: 19
   version_patch: 0
   version_pre: null
   description: |
@@ -18,8 +28,6 @@ releases:
     - fix: remove deactivation of form fields per user
     - feature: refactor package ui
     - fix: add item properties as columns to quick export
-
-### HISTORY #####################################################################
 
 - version_major: 4
   version_minor: 18
