@@ -1,6 +1,11 @@
 priority: 2
 
 context:
+  task_defaults:
+    environment_variables:
+      # TMP: we want 'yaml' but executors' ansible is too old
+      ANSIBLE_STDOUT_CALLBACK: debug
+
   tasks:
     deploy:
       git_options:

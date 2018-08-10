@@ -6,6 +6,8 @@ context:
     environment_variables:
       LXC_IMAGE_CACHE_NAME: 'leihs'
       LXC_IMAGE_CACHE_KEY_CMD: 'echo "$(date -uI)_$(cd deploy && git log -n1 --format=%t)"'
+      # TMP: cant set in ansible.cfg because regular executors' ansible is too old
+      ANSIBLE_STDOUT_CALLBACK: yaml
 
     scripts:
       show-log-if-failed:
