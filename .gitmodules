@@ -19,3 +19,6 @@
 [submodule "admin"]
 	path = admin
 	url = https://github.com/leihs/leihs-admin.git
+[submodule "procure"]
+	path = procure
+	url = https://github.com/leihs/leihs-procure
