@@ -32,14 +32,25 @@ jobs:
                 git rev-list --children HEAD | grep -q "$(git rev-parse origin/master)"
 
         database-submodule-consistency:
-          name: "database and legacy/database point to the same commit"
+          name: "database in toplevel and submodules all point to the same commit"
           scripts:
             main:
               body: |
                 #!/usr/bin/env bash
                 set -exu
-                git fetch --all
-                git submodule update --init --recursive
-                sha1=$(git submodule status database | cut -f 2 -d ' ')
-                sha2=$(git submodule status --recursive | grep legacy/database | cut -f 2 -d ' ')
-                test $sha1 == $sha2
+                git fetch --all --quiet
+                git submodule update --quiet --init --recursive
+
+                v_top=$(git submodule status database | cut -f 2 -d ' ')
+                v_legacy=$(git submodule status --recursive | grep legacy/database | cut -f 2 -d ' ')
+                v_admin=$(git submodule status --recursive | grep admin/database | cut -f 2 -d ' ')
+                v_procure=$(git submodule status --recursive | grep procure/server/database | cut -f 2 -d ' ')
+
+                echo "toplevel: ${v_top}"
+                echo "legacy:   ${v_legacy}"
+                echo "admin:    ${v_admin}"
+                echo "procure:  ${v_procure}"
+
+                test $v_legacy == $v_top
+                test $v_admin == $v_top
+                test $v_procure == $v_top
