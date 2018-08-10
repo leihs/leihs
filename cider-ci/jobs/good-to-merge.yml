@@ -2,22 +2,30 @@ jobs:
 
   good-to-merge:
 
-    name: Good To Merge
+    name: ⚑ Good To Merge
 
     description: |
+
+      ⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡
+
+      # VERSION 5 🆕✌️5️⃣ ###############################################
+
+      ⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡
+
       This job depends on all other tests and checks
       and it will pass if and only if all dependencies have passed.
       Status of this job is **used by github's "branch protection"**!
 
-    depends_on:
-      deploy to demo was successful:
-        type: job
-        job_key: deploy-to-zhdk-leihs-demo
-        states: [passed]
-      deploy to test was successful:
-        type: job
-        job_key: deploy-to-zhdk-leihs-test
-        states: [passed]
+    # TMP: disable some jobs while working on v5
+    depends_on: &GOOD_TO_MERGE_DEPENDENTS
+      # deploy to demo was successful:
+      #   type: job
+      #   job_key: deploy-to-zhdk-leihs-demo
+      #   states: [passed]
+      # deploy to test was successful:
+      #   type: job
+      #   job_key: deploy-to-zhdk-leihs-test
+      #   states: [passed]
       deploy to container was successful:
         type: job
         job_key: test-container-deploy
@@ -31,30 +39,22 @@ jobs:
         job_key: good-to-merge
         submodule: ['legacy']
         states: [passed]
-
-    run_when:
-      deploy to demo was successful:
-        type: job
-        job_key: deploy-to-demo
-        states: [passed]
-      deploy to test was successful:
-        type: job
-        job_key: deploy-to-test
-        states: [passed]
-      deploy to container was successful:
-        type: job
-        job_key: test-container-deploy
-        states: [passed]
-      meta checks have passed:
-        type: job
-        job_key: meta
-        states: [passed]
-      legacy submodule have passed:
+      # NEW IN v5
+      admin submodule have passed:
         type: job
         job_key: good-to-merge
-        submodule: ['legacy']
+        submodule: ['admin']
+        states: [passed]
+      procure submodule have passed:
+        type: job
+        job_key: good-to-merge
+        submodule: ['procure']
         states: [passed]
 
+    run_when: *GOOD_TO_MERGE_DEPENDENTS
+
+    priority: 999 # "empty" job = high priority
+    
     context:
       task_defaults:
         max_trials: 1
