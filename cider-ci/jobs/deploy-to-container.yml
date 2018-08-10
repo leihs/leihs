@@ -19,14 +19,15 @@ jobs:
       tasks:
         debian-stretch:
           name: Debian 9 (stretch)
-          include: cider-ci/task-components/container-deploy/task-debian.yml
+          include: cider-ci/task-components/container-deploy/task-debian-9.yml
           scripts:
             cache-container:
               ignore_state: yes
 
-        ubuntu-lts:
-          name: Ubuntu 16.04 LTS
-          include: cider-ci/task-components/container-deploy/task-ubuntu.yml
-          scripts:
-            cache-container:
-              ignore_state: yes
+        # # TMP: ignore, not ported yet. Needs Java 10 and possibly more
+        # ubuntu-lts:
+        #   name: Ubuntu 18.04 LTS
+        #   include: cider-ci/task-components/container-deploy/task-ubuntu-1804.yml
+        #   scripts:
+        #     cache-container:
+        #       ignore_state: yes
