@@ -5,14 +5,21 @@ releases:
 - version_major: 4
   version_minor: 19
   version_patch: 2
-  version_pre: RC.2
+  version_pre: null
   description: |
 
     - fix: show textarea for model description and make all of them resizable
     - fix: missing new for software constructor
-    - fix: quick fix for prod to not loose package children in inventory helper
 
 ### HISTORY #####################################################################
+
+- version_major: 4
+  version_minor: 19
+  version_patch: 1
+  version_pre: null
+  description: |
+
+    - fix: quick fix for prod to not loose package children in inventory helper
 
 - version_major: 4
   version_minor: 19
