@@ -17,7 +17,7 @@ context:
       scripts:
 
         deploy:
-          timeout: 20 minutes
+          timeout: 30 minutes
 
         attach-server-log:
           ignore_state: yes
