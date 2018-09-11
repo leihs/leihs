@@ -9,11 +9,7 @@ jobs:
       and it will pass if and only if all dependencies have passed.
       Status of this job is **used by github's "branch protection"**!
 
-    depends_on:
-      deploy to demo was successful:
-        type: job
-        job_key: deploy-to-zhdk-leihs-demo
-        states: [passed]
+    depends_on: &GOOD_TO_MERGE_DEPENDENCIES
       deploy to test was successful:
         type: job
         job_key: deploy-to-zhdk-leihs-test
@@ -32,28 +28,7 @@ jobs:
         submodule: ['legacy']
         states: [passed]
 
-    run_when:
-      deploy to demo was successful:
-        type: job
-        job_key: deploy-to-demo
-        states: [passed]
-      deploy to test was successful:
-        type: job
-        job_key: deploy-to-test
-        states: [passed]
-      deploy to container was successful:
-        type: job
-        job_key: test-container-deploy
-        states: [passed]
-      meta checks have passed:
-        type: job
-        job_key: meta
-        states: [passed]
-      legacy submodule have passed:
-        type: job
-        job_key: good-to-merge
-        submodule: ['legacy']
-        states: [passed]
+    run_when: *GOOD_TO_MERGE_DEPENDENCIES
 
     context:
       task_defaults:
