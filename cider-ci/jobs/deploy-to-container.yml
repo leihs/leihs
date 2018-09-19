@@ -15,11 +15,18 @@ jobs:
       task_defaults:
         traits: { lxd-on-zfs: yes }
 
+
       tasks:
         debian-stretch:
           name: Debian 9 (stretch)
           include: cider-ci/task-components/container-deploy/task-debian.yml
+          scripts:
+            cache-container:
+              ignore_state: yes
 
         ubuntu-lts:
           name: Ubuntu 16.04 LTS
           include: cider-ci/task-components/container-deploy/task-ubuntu.yml
+          scripts:
+            cache-container:
+              ignore_state: yes

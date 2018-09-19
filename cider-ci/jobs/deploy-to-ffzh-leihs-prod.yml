@@ -1,0 +1,28 @@
+jobs:
+  deploy-to-ffzh-leihs-prod:
+    include: cider-ci/task-components/deploy-defaults.yml
+    name: 'DEPLOY TO PRODUCTION [ffzh.leihs.zhdk.ch]'
+
+    # TODO: enable constraint
+    # depends_on:
+    #   "designated deploy branch":
+    #     type: branch
+    #     include_match: ^zhdk/deploy$
+
+    context:
+      tasks:
+        deploy:
+          exclusive_global_resources:
+            "ffzh-leihs-prod.ruby.zhdk.ch": true
+          environment_variables:
+            DEPLOY_TARGET_INVENTORY: 'saas-prod-hosts --limit ffzh-leihs-prod'
+          scripts:
+            deploy:
+              timeout: 1 Hour
+              body: |
+                set -euxo
+                cd deploy
+                export ANSIBLE_HOST_KEY_CHECKING=False
+                ansible-playbook deploy_play.yml \
+                  --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
+                  -i ../zhdk-inventory/${DEPLOY_TARGET_INVENTORY}

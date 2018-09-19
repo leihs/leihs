@@ -31,7 +31,7 @@ jobs:
               #!/usr/bin/env bash
               set -eux
               source deploy/container-test/bin/shared-container-cache.sh
-              find "${IMAGE_CACHE_DIR}/${LXC_CACHED_BASE_IMAGE}*" -ctime +1 | xargs rm || true
+              find "${IMAGE_CACHE_DIR}" -type f -ctime +1 | xargs rm || true
           create-container:
             start_when:
               cached images are cleaned up: { script_key: cleanup-image-cache }

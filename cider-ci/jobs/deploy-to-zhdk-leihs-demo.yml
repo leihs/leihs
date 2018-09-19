@@ -2,11 +2,12 @@ jobs:
   deploy-to-zhdk-leihs-demo:
     include: cider-ci/task-components/deploy-defaults.yml
     name: Deploy to zhdk-leihs-demo.ruby.zhdk.ch
+
     run_when:
       nightly:
         type: cron
         value: '0 3 * * *'
-        branch_include_match: ^master$
+        branch_include_match: ^stable$
         rerun: true
 
     context:
