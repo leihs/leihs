@@ -5,7 +5,7 @@ releases:
 - version_major: 4
   version_minor: 19
   version_patch: 3
-  version_pre: 'RC.1'
+  version_pre: null
   description: |
 
     - fix: redirect to root when not logged into procurement
