@@ -22,3 +22,9 @@
 [submodule "procure"]
 	path = procure
 	url = https://github.com/leihs/leihs-procure
+[submodule "my"]
+	path = my
+	url = https://github.com/leihs/leihs-my
+[submodule "integration-tests"]
+	path = integration-tests
+	url = https://github.com/leihs/leihs-integration-tests.git
