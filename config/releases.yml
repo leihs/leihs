@@ -4,13 +4,21 @@ releases:
 
 - version_major: 4
   version_minor: 19
+  version_patch: 5
+  version_pre: null
+  description: |
+
+    - fix: orders index for hand over via post
+
+### HISTORY #####################################################################
+
+- version_major: 4
+  version_minor: 19
   version_patch: 4
   version_pre: null
   description: |
 
     - fix: mail templates migration for empty database
-
-### HISTORY #####################################################################
 
 - version_major: 4
   version_minor: 19
