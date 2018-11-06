@@ -23,6 +23,10 @@ jobs:
           scripts:
             cache-container:
               ignore_state: yes
+            # TMP debug
+            destroy-container:
+              body: echo NOPE
+
 
         # # TMP: ignore, not ported yet. Needs Java 10 and possibly more
         # ubuntu-lts:
