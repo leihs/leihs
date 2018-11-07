@@ -13,8 +13,9 @@ jobs:
     context:
 
       task_defaults:
-        traits: { lxd-on-zfs: yes }
-
+        traits:
+          lxd-on-zfs: yes
+          ci-g2016-07: yes # TMP force run on lucky executor 🍀
 
       tasks:
         debian-stretch:
@@ -23,9 +24,6 @@ jobs:
           scripts:
             cache-container:
               ignore_state: yes
-            # TMP debug
-            destroy-container:
-              body: echo NOPE
 
 
         # # TMP: ignore, not ported yet. Needs Java 10 and possibly more
