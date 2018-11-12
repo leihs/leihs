@@ -73,6 +73,7 @@ jobs:
           name: "Git submodules are all merged to origin/v5/master"
           scripts:
             test:
+              timeout: 6 Minutes
               body: |
                 #!/usr/bin/env bash
                 set -eu
