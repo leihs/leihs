@@ -7,9 +7,6 @@
 [submodule "deploy"]
 	path = deploy
 	url = https://github.com/leihs/leihs_deploy
-[submodule "system"]
-	path = system
-	url = https://github.com/leihs/leihs_system
 [submodule "zhdk-inventory"]
 	path = zhdk-inventory
 	url = https://github.com/leihs/leihs_zhdk-inventory
