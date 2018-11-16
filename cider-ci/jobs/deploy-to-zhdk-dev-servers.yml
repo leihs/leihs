@@ -3,7 +3,7 @@ jobs:
 ###
 
   MFA-prod:
-    name: ⚒ Dev-Deploy [PROD-DATA] to mfa.ruby.zhdk.ch
+    name: ⚒ Dev-Deploy + restore PROD-DATA! to mfa.ruby.zhdk.ch
     include: cider-ci/task-components/zhdk-dev-deploy-with-prod-data.yml
     context:
       task_defaults:
@@ -12,7 +12,7 @@ jobs:
           DEPLOY_TARGET_INVENTORY: 'developer-hosts --limit mfa'
 
   MFA-blank:
-    name: ⚒ Dev-Deploy [BLANK] to mfa.ruby.zhdk.ch
+    name: ⚒ Dev-Deploy to mfa.ruby.zhdk.ch
     include: cider-ci/task-components/zhdk-dev-deploy-blank.yml
     context:
       task_defaults:
@@ -23,7 +23,7 @@ jobs:
 ###
 
   NIMAAI-prod:
-    name: ⚒ Dev-Deploy [PROD-DATA] to nimaai.ruby.zhdk.ch
+    name: ⚒ Dev-Deploy + restore PROD-DATA! to nimaai.ruby.zhdk.ch
     include: cider-ci/task-components/zhdk-dev-deploy-with-prod-data.yml
     context:
       task_defaults:
@@ -32,7 +32,7 @@ jobs:
           DEPLOY_TARGET_INVENTORY: 'developer-hosts --limit nimaai'
 
   NIMAAI-blank:
-    name: ⚒ Dev-Deploy [BLANK] to nimaai.ruby.zhdk.ch
+    name: ⚒ Dev-Deploy to nimaai.ruby.zhdk.ch
     include: cider-ci/task-components/zhdk-dev-deploy-blank.yml
     context:
       task_defaults:
@@ -43,7 +43,7 @@ jobs:
 ###
 
   PHIKU-prod:
-    name: ⚒ Dev-Deploy [PROD-DATA] to phiku.ruby.zhdk.ch
+    name: ⚒ Dev-Deploy + restore PROD-DATA! to phiku.ruby.zhdk.ch
     include: cider-ci/task-components/zhdk-dev-deploy-with-prod-data.yml
     context:
       task_defaults:
@@ -52,7 +52,7 @@ jobs:
           DEPLOY_TARGET_INVENTORY: 'developer-hosts --limit phiku'
 
   PHIKU-blank:
-    name: ⚒ Dev-Deploy [BLANK] to phiku.ruby.zhdk.ch
+    name: ⚒ Dev-Deploy to phiku.ruby.zhdk.ch
     include: cider-ci/task-components/zhdk-dev-deploy-blank.yml
     context:
       task_defaults:
@@ -63,7 +63,7 @@ jobs:
 ###
 
   TOM-prod:
-    name: ⚒ Dev-Deploy [PROD-DATA] to tom.ruby.zhdk.ch
+    name: ⚒ Dev-Deploy + restore PROD-DATA! to tom.ruby.zhdk.ch
     include: cider-ci/task-components/zhdk-dev-deploy-with-prod-data.yml
     context:
       task_defaults:
@@ -72,7 +72,7 @@ jobs:
           DEPLOY_TARGET_INVENTORY: 'developer-hosts --limit tom'
 
   TOM-blank:
-    name: ⚒ Dev-Deploy [BLANK] to tom.ruby.zhdk.ch
+    name: ⚒ Dev-Deploy to tom.ruby.zhdk.ch
     include: cider-ci/task-components/zhdk-dev-deploy-blank.yml
     context:
       task_defaults:
@@ -83,7 +83,7 @@ jobs:
 ###
 
   v5-new-prod:
-    name: ⚒ Dev-Deploy [PROD-DATA] to zhdk-leihs-prod-v5.ruby.zhdk.ch
+    name: ⚒ Dev-Deploy + restore PROD-DATA! to zhdk-leihs-prod-v5.ruby.zhdk.ch
     include: cider-ci/task-components/zhdk-dev-deploy-with-prod-data.yml
     context:
       task_defaults:
@@ -93,7 +93,7 @@ jobs:
           ANSIBLE_SSH_ARGS: '-i ~/.ssh/zhdk_ci_executor_rsa -o "UserKnownHostsFile ../zhdk-inventory/hosts-known-ssh-pubkeys"'
 
   v5-new-blank:
-    name: ⚒ Dev-Deploy [BLANK] to zhdk-leihs-prod-v5.ruby.zhdk.ch
+    name: ⚒ Dev-Deploy to zhdk-leihs-prod-v5.ruby.zhdk.ch
     include: cider-ci/task-components/zhdk-dev-deploy-blank.yml
     context:
       task_defaults:

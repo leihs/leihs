@@ -5,27 +5,11 @@ jobs:
     name: ⚑ Good To Merge
 
     description: |
-
-      ⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡
-
-      # VERSION 5 🆕✌️5️⃣ ###############################################
-
-      ⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡
-
       This job depends on all other tests and checks
       and it will pass if and only if all dependencies have passed.
       Status of this job is **used by github's "branch protection"**!
 
-    # TMP: disable some jobs while working on v5
     depends_on: &GOOD_TO_MERGE_DEPENDENTS
-      # deploy to demo was successful:
-      #   type: job
-      #   job_key: deploy-to-zhdk-leihs-demo
-      #   states: [passed]
-      # deploy to test was successful:
-      #   type: job
-      #   job_key: deploy-to-zhdk-leihs-test
-      #   states: [passed]
       deploy to container was successful:
         type: job
         job_key: test-container-deploy
@@ -39,7 +23,6 @@ jobs:
         job_key: good-to-merge
         submodule: ['legacy']
         states: [passed]
-      # NEW IN v5
       admin submodule have passed:
         type: job
         job_key: good-to-merge
@@ -65,29 +48,6 @@ jobs:
             main:
               body: echo 'All relevant tests have passed' ; exit 0
 
-        # TMP: dont include from legacy for now, slightly modified for v5/master
-        # include:
-        #   - path: cider-ci/context-components/merged-submodules-check.yml
-        #     submodule: [legacy]
-        git-submodules-merged:
-          name: "Git submodules are all merged to origin/v5/master"
-          scripts:
-            test:
-              timeout: 6 Minutes
-              body: |
-                #!/usr/bin/env bash
-                set -eu
-
-                # checks if the commits referenced by submodules are included in their 'v5/master'
-
-                # make sure all submodules are checked out
-                # WARNING: test is false-positive without this:
-                git fetch --all 1>&2 # print stdout to stderr
-                git submodule update --init --recursive 1>&2
-
-                git submodule foreach --recursive \
-                  'git remote get-url origin | grep -vq 'github.com/leihs' && exit 0 || \
-                   git fetch --all > /dev/null && git rev-list origin/v5/master -- | \
-                   grep -q "^$(git rev-parse HEAD)$"'
-
-                echo "OK"
+        include:
+          - path: cider-ci/context-components/merged-submodules-check.yml
+            submodule: [legacy]
