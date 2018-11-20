@@ -7,7 +7,7 @@ scripts:
       export ANSIBLE_HOST_KEY_CHECKING=False
       ansible-playbook fetch-latest-dump_play.yml \
         --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
-        -i ../zhdk-inventory/prod-hosts
+        -i ../zhdk-inventory/prod-hosts-v5
 
   restore-dump:
     timeout: 10 Minutes
