@@ -16,7 +16,8 @@ releases:
 
     - Fixed login using password of certain formats
     - Fixed the post-login redirection which did not succeed for some users
-    - Improved rendering process to be more resiliant
+    - Improved rendering process to be more resilient
+    - Fix broken display of delegation name in global search
 
 ### HISTORY #####################################################################
 
