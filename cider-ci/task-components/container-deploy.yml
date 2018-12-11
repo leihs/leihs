@@ -3,6 +3,7 @@ context:
   task_defaults:
     traits:
       g2016: yes
+      ci-g2016-01: yes # TEMP
 
     # NOTE: while unstable, try 12 times but only 1 at a time
     max_trials: 12
