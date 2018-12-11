@@ -10,3 +10,4 @@ include:
   - cider-ci/jobs/meta.yml
   - cider-ci/jobs/deploy-to-container.yml
   - cider-ci/jobs/prepare-cached-test-container.yml
+  - cider-ci/jobs/integration-tests.yml

@@ -1,0 +1,23 @@
+jobs:
+   integration-tests:
+    name: Integration Tests
+
+    # TEMP
+    priority: 1337
+
+    run_when: &DEFAULT_TRIGGERS
+      any branch matches:
+        type: branch
+        include_match: ^.+$
+        exclude_match: ^.*(no-ci|hotspot).*$
+
+    context:
+      task_defaults:
+        traits: { ci-g2016-01: yes } # TEMP
+      script_defaults:
+        exclusive_executor_resource: 'leihs_integration_vagrant' # TEMP
+
+
+      include:
+        - path: cider-ci/integration-tests.yml
+          submodule: [integration-tests]
