@@ -3,12 +3,12 @@ jobs:
     include: cider-ci/task-components/deploy-defaults.yml
     name: Deploy to ffzh-leihs-staging.ruby.zhdk.ch
 
-    run_when:
-      nightly:
-        type: cron
-        value: '0 3 * * *'
-        branch_include_match: ^release$
-        rerun: false
+    # run_when:
+    #   nightly:
+    #     type: cron
+    #     value: '0 3 * * *'
+    #     branch_include_match: ^release$
+    #     rerun: false
 
     context:
       tasks:

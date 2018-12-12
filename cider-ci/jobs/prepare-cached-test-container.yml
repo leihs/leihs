@@ -11,7 +11,7 @@ jobs:
       nightly at 5am UTC:
         type: cron
         value: '0 5 * * *'
-        branch_include_match: ^master|next|release$
+        branch_include_match: ^master$
         rerun: true
 
     context:
@@ -38,14 +38,13 @@ jobs:
 
       tasks:
         # separate tasks for each executor:
-        # TMP: DONT run on `01` and `04` (those aren't fixed yet)
 
-        # debian-stretch_-_ci-g2016-01:
-        #   traits: { ci-g2016-01: yes }
-        #   include: cider-ci/task-components/container-deploy/task-debian-9.yml
-        # ubuntu-lts_-_ci-g2016-01:
-        #   traits: { ci-g2016-01: yes }
-        #   include: cider-ci/task-components/container-deploy/task-ubuntu-1804.yml
+        debian-stretch_-_ci-g2016-01:
+          traits: { ci-g2016-01: yes }
+          include: cider-ci/task-components/container-deploy/task-debian-9.yml
+        ubuntu-lts_-_ci-g2016-01:
+          traits: { ci-g2016-01: yes }
+          include: cider-ci/task-components/container-deploy/task-ubuntu-1804.yml
 
         debian-stretch_-_ci-g2016-02:
           traits: { ci-g2016-02: yes }
@@ -61,12 +60,12 @@ jobs:
           traits: { ci-g2016-03: yes }
           include: cider-ci/task-components/container-deploy/task-ubuntu-1804.yml
 
-        # debian-stretch_-_ci-g2016-04:
-        #   traits: { ci-g2016-04: yes }
-        #   include: cider-ci/task-components/container-deploy/task-debian-9.yml
-        # ubuntu-lts_-_ci-g2016-04:
-        #   traits: { ci-g2016-04: yes }
-        #   include: cider-ci/task-components/container-deploy/task-ubuntu-1804.yml
+        debian-stretch_-_ci-g2016-04:
+          traits: { ci-g2016-04: yes }
+          include: cider-ci/task-components/container-deploy/task-debian-9.yml
+        ubuntu-lts_-_ci-g2016-04:
+          traits: { ci-g2016-04: yes }
+          include: cider-ci/task-components/container-deploy/task-ubuntu-1804.yml
 
         debian-stretch_-_ci-g2016-05:
           traits: { ci-g2016-05: yes }
