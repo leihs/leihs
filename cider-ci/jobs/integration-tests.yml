@@ -10,7 +10,9 @@ jobs:
 
     context:
       task_defaults:
-        traits: { ci-g2016-01: yes } # TEMP
+        traits:
+          vagrant: yes
+          virtualbox: yes
 
       include:
         - path: cider-ci/integration-tests.yml
