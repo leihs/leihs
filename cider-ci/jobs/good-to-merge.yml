@@ -1,7 +1,5 @@
 jobs:
-
   good-to-merge:
-
     name: ⚑ Good To Merge
 
     description: |
@@ -14,11 +12,10 @@ jobs:
         type: job
         job_key: test-container-deploy
         states: [passed]
-      # TODO: 
-      # integration tests were successful:
-      #   type: job
-      #   job_key: integration-tests
-      #   states: [passed]
+      integration tests were successful:
+        type: job
+        job_key: integration-tests
+        states: [passed]
       meta checks have passed:
         type: job
         job_key: meta
