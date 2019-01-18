@@ -1,5 +1,5 @@
 jobs:
-   integration-tests:
+  integration-tests:
     name: Integration Tests
 
     run_when: &DEFAULT_TRIGGERS
@@ -13,6 +13,7 @@ jobs:
         traits:
           vagrant: yes
           virtualbox: yes
+          ci-g2018-02: yes # TMP!
 
       include:
         - path: cider-ci/integration-tests.yml

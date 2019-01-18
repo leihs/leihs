@@ -4,6 +4,25 @@ releases:
 
 - version_major: 5
   version_minor: 0
+  version_patch: 1
+  version_pre: null
+  description: |
+
+    **We recommend existing instances to wait for v5.1 to upgrade their system** (First time installations can use V5.0)
+
+    See v5.0.0 for list of breaking changes.
+
+    *Fixes*
+
+    - Fixed login using password of certain formats
+    - Fixed the post-login redirection which did not succeed for some users
+    - Fixed broken display of delegation name in global search
+    - Improved rendering process to be more resilient
+
+### HISTORY #####################################################################
+
+- version_major: 5
+  version_minor: 0
   version_patch: 0
   version_pre: null
   description: |
@@ -15,7 +34,7 @@ releases:
     - Modernised internal password hashing - existing passwords are not valid anymore. Managers or Admins need to enter a new password for them.
 
     *Rewrite of authentication*
-    
+
      - Possibility to manage Authentication-Systems in Admin section
      - New sign-in UI for internal and external accounts
      - Sign-in via email address or login (username)
@@ -23,12 +42,12 @@ releases:
      - The existing LDAP-adapter concept has been replaced by a general leihs authentication-API (Example code available)
 
     *User accounts*
-    
+
     - No fields are mandatory anymore
     - Possibility to create api-tokens for users
 
     *Admin*
-    
+
     - New Admin-application
     - New API to sync users and groups from an external system
     - New entity “groups”
@@ -36,11 +55,62 @@ releases:
     - Replaced: Manage Delegations Rewrite and redesign of the delegations page in Admin section
 
     *Procurement*
-    
+
     - Rewrite of the Procurement app (German only at the moment)
     - Can be used on mobile devices
     - New role “Viewer” - only views requests
-### HISTORY #####################################################################
+
+- version_major: 4
+  version_minor: 19
+  version_patch: 5
+  version_pre: null
+  description: |
+    - fix: orders index for hand over via post
+
+- version_major: 4
+  version_minor: 19
+  version_patch: 4
+  version_pre: null
+  description: |
+    - fix: mail templates migration for empty database
+
+- version_major: 4
+  version_minor: 19
+  version_patch: 3
+  version_pre: null
+  description: |
+    - fix: redirect to root when not logged into procurement
+
+- version_major: 4
+  version_minor: 19
+  version_patch: 2
+  version_pre: null
+  description: |
+    - fix: show textarea for model description and make all of them resizable
+    - fix: missing new for software constructor
+
+- version_major: 4
+  version_minor: 19
+  version_patch: 1
+  version_pre: null
+  description: |
+    - fix: quick fix for prod to not loose package children in inventory helper
+
+- version_major: 4
+  version_minor: 19
+  version_patch: 0
+  version_pre: null
+  description: |
+    - feature: better information for entitlements conflicts
+    - feature: inventory helper in react
+    - fix: labels and titles for create package
+    - fix: create model i18n
+    - fix: for manage fields in inventory pool show status and target type
+    - fix: add more columns to admin quick export
+    - chore: create model in react
+    - fix: remove deactivation of form fields per user
+    - feature: refactor package ui
+    - fix: add item properties as columns to quick export
 
 - version_major: 4
   version_minor: 18
