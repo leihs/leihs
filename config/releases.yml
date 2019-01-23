@@ -4,6 +4,31 @@ releases:
 
 - version_major: 5
   version_minor: 0
+  version_patch: 2
+  version_pre: RC.1
+  description: |
+
+    - feat: support AAI/Switch authentication systems
+    - feat: show quantity in borrow returns
+    - fix: release info on the login page
+    - fix: autocomplete for adding items to a package
+    - fix: sign in: autoFocus the user input field
+    - fix: navbar: don't show sub app if only one app
+    - fix: sign-in: dont autocapitalize username (on mobile)
+    - fix: redirects
+    - fix: procure: handle if settings are empty
+    - fix: procure: presence of 0 for quantities 
+    - fix: procure: wrong sums for requester
+    - deploy: add caching for build artefacts
+    - deploy: db restore vacuum analyze
+    - deploy: fix missing services for stop task
+    - deploy: fix: add missing secret to legacy cron job
+    - deploy: add `SyslogIdentifier` for all systemd services
+
+### HISTORY #####################################################################
+
+- version_major: 5
+  version_minor: 0
   version_patch: 1
   version_pre: null
   description: |
@@ -18,8 +43,6 @@ releases:
     - Fixed the post-login redirection which did not succeed for some users
     - Fixed broken display of delegation name in global search
     - Improved rendering process to be more resilient
-
-### HISTORY #####################################################################
 
 - version_major: 5
   version_minor: 0
