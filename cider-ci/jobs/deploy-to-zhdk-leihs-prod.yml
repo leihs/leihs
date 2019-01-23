@@ -9,10 +9,9 @@ jobs:
     context:
       tasks:
         deploy:
-          exclusive_global_resources:
-            "zhdk-leihs-prod.ruby.zhdk.ch": true
+          exclusive_global_resources: { zhdk-leihs-prod-v5.ruby.zhdk.ch: true }
           environment_variables:
-            DEPLOY_TARGET_INVENTORY: prod-hosts
+            DEPLOY_TARGET_INVENTORY: 'prod-hosts-v5'
           scripts:
             deploy:
               timeout: 1 Hour

@@ -2,6 +2,7 @@
 environment_variables:
   LXC_BASE_IMAGE: 'images:debian/stretch/amd64'
   LXC_CACHED_BASE_IMAGE: 'leihs-debian9'
+  APT_SOURCES_FILE: 'deploy/container-test/files/debian-apt-sources.txt'
 include: [{path: container-test/cider-ci/context.yml, submodule: [deploy]}]
 
 scripts:
@@ -17,9 +18,6 @@ scripts:
         script_key: create-container
     timeout: 1 Minute
     body: |
-      #!/usr/bin/env bash
-      set -eux
-
       lxc file push \
-        ${CIDER_CI_WORKING_DIR}/deploy/container-test/debian-apt-sources.txt \
+        ${CIDER_CI_WORKING_DIR}/${APT_SOURCES_FILE} \
         ${CONTAINER_NAME}/etc/apt/sources.list

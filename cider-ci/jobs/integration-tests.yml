@@ -1,0 +1,20 @@
+jobs:
+  integration-tests:
+    name: Integration Tests
+
+    run_when: &DEFAULT_TRIGGERS
+      any branch matches:
+        type: branch
+        include_match: ^.+$
+        exclude_match: ^.*(no-ci|hotspot).*$
+
+    context:
+      task_defaults:
+        traits:
+          vagrant: yes
+          virtualbox: yes
+          ci-g2018-02: yes # TMP!
+
+      include:
+        - path: cider-ci/integration-tests.yml
+          submodule: [integration-tests]

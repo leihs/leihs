@@ -20,7 +20,7 @@ jobs:
 
       tasks:
         database-submodule-consistency:
-          name: "database in toplevel and submodules all point to the same commit"
+          name: "database/leihs-ui in toplevel and submodules all point to the same commit"
           scripts:
             main:
               body: |
@@ -29,16 +29,30 @@ jobs:
                 git fetch --all --quiet
                 git submodule update --quiet --init --recursive
 
-                v_top=$(git submodule status database | cut -f 2 -d ' ')
-                v_legacy=$(git submodule status --recursive | grep legacy/database | cut -f 2 -d ' ')
-                v_admin=$(git submodule status --recursive | grep admin/database | cut -f 2 -d ' ')
-                v_procure=$(git submodule status --recursive | grep procure/server/database | cut -f 2 -d ' ')
+                # DATABASE
+                v_db_top=$(git submodule status database | cut -f 2 -d ' ')
+                v_db_legacy=$(git submodule status --recursive | grep legacy/database | cut -f 2 -d ' ')
+                v_db_admin=$(git submodule status --recursive | grep admin/database | cut -f 2 -d ' ')
+                v_db_procure=$(git submodule status --recursive | grep procure/server/database | cut -f 2 -d ' ')
 
-                echo "toplevel: ${v_top}"
-                echo "legacy:   ${v_legacy}"
-                echo "admin:    ${v_admin}"
-                echo "procure:  ${v_procure}"
+                echo "database | toplevel: ${v_db_top}"
+                echo "database | legacy:   ${v_db_legacy}"
+                echo "database | admin:    ${v_db_admin}"
+                echo "database | procure:  ${v_db_procure}"
 
-                test $v_legacy == $v_top
-                test $v_admin == $v_top
-                test $v_procure == $v_top
+                # LEIHS-UI
+                v_ui_my=$(git submodule status --recursive | grep my/leihs-ui | cut -f 2 -d ' ')
+                v_ui_admin=$(git submodule status --recursive | grep admin/leihs-ui | cut -f 2 -d ' ')
+                v_ui_procure=$(git submodule status --recursive | grep procure/client/leihs-ui | cut -f 2 -d ' ')
+
+                echo "leihs-ui | my:       ${v_ui_my}"
+                echo "leihs-ui | admin:    ${v_ui_admin}"
+                echo "leihs-ui | procure:  ${v_ui_procure}"
+
+                # TESTS (FAIL-FIRST)
+                test $v_db_legacy == $v_db_top
+                test $v_db_admin == $v_db_top
+                test $v_db_procure == $v_db_top
+
+                test $v_ui_admin == $v_ui_my
+                test $v_ui_procure == $v_ui_my

@@ -79,25 +79,3 @@ jobs:
         exclusive_global_resources: { tom.ruby.zhdk.ch: true }
         environment_variables:
           DEPLOY_TARGET_INVENTORY: 'developer-hosts --limit tom'
-
-###
-
-  v5-new-prod:
-    name: ⚒ Dev-Deploy + restore PROD-DATA! to zhdk-leihs-prod-v5.ruby.zhdk.ch
-    include: cider-ci/task-components/zhdk-dev-deploy-with-prod-data.yml
-    context:
-      task_defaults:
-        exclusive_global_resources: { zhdk-leihs-prod-v5.ruby.zhdk.ch: true }
-        environment_variables:
-          DEPLOY_TARGET_INVENTORY: 'prod-hosts-v5'
-          ANSIBLE_SSH_ARGS: '-i ~/.ssh/zhdk_ci_executor_rsa -o "UserKnownHostsFile ../zhdk-inventory/hosts-known-ssh-pubkeys"'
-
-  v5-new-blank:
-    name: ⚒ Dev-Deploy to zhdk-leihs-prod-v5.ruby.zhdk.ch
-    include: cider-ci/task-components/zhdk-dev-deploy-blank.yml
-    context:
-      task_defaults:
-        exclusive_global_resources: { zhdk-leihs-prod-v5.ruby.zhdk.ch: true }
-        environment_variables:
-          DEPLOY_TARGET_INVENTORY: 'prod-hosts-v5'
-          ANSIBLE_SSH_ARGS: '-i ~/.ssh/zhdk_ci_executor_rsa -o "UserKnownHostsFile ../zhdk-inventory/hosts-known-ssh-pubkeys"'
