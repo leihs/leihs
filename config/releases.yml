@@ -5,6 +5,15 @@ releases:
 - version_major: 5
   version_minor: 0
   version_patch: 2
+  version_pre: RC.2
+  description: |
+
+    - fix: my: show user name as in admin
+    - translations: admin statistics
+
+- version_major: 5
+  version_minor: 0
+  version_patch: 2
   version_pre: RC.1
   description: |
 
@@ -19,6 +28,8 @@ releases:
     - fix: procure: handle if settings are empty
     - fix: procure: presence of 0 for quantities 
     - fix: procure: wrong sums for requester
+    - fix: my: show user name as in admin
+    - translations: admin statistics
     - deploy: add caching for build artefacts
     - deploy: db restore vacuum analyze
     - deploy: fix missing services for stop task
