@@ -5,7 +5,7 @@ scripts:
       set -euxo
       cd deploy
       export ANSIBLE_HOST_KEY_CHECKING=False
-      ansible-playbook fetch-latest-dump_play.yml \
+      bin/ansible-playbook fetch-latest-dump_play.yml \
         --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
         -i ../zhdk-inventory/prod-hosts-v5
 
@@ -19,7 +19,7 @@ scripts:
       set -eux
       cd deploy
       export ANSIBLE_HOST_KEY_CHECKING=False
-      ansible-playbook db-restore-only_play.yml \
+      bin/ansible-playbook db-restore-only_play.yml \
         --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
         -i ../zhdk-inventory/${DEPLOY_TARGET_INVENTORY}
 

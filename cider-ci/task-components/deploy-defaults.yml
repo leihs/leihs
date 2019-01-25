@@ -43,7 +43,7 @@ context:
             set -eux
             cd deploy
             export ANSIBLE_HOST_KEY_CHECKING=False
-            ansible-playbook get-server-log_play.yml \
+            bin/ansible-playbook get-server-log_play.yml \
               --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
               -i ../zhdk-inventory/${DEPLOY_TARGET_INVENTORY}
 
