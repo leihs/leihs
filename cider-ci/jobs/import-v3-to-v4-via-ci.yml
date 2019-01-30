@@ -40,7 +40,7 @@ jobs:
               body: |
                 set -euxo
                 cd deploy
-                ansible-playbook fetch-v3-data_play.yml \
+                bin/ansible-playbook fetch-v3-data_play.yml \
                   --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
                   -i ../zhdk-inventory/prod-hosts
             unpack-images:
@@ -87,7 +87,7 @@ jobs:
               body: |
                 set -euxo
                 cd deploy
-                ansible-playbook db-restore_play.yml \
+                bin/ansible-playbook db-restore_play.yml \
                   --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
                   -e database_dump_restore_file_path=${CIDER_CI_WORKING_DIR}/db.pgbin \
                   -i ../zhdk-inventory/prod-hosts
