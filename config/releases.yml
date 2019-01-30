@@ -5,6 +5,17 @@ releases:
 - version_major: 5
   version_minor: 0
   version_patch: 2
+  version_pre: RC.3
+  description: |
+
+    - feat: sort items by inventory code in inventory
+    - fix: mail templates migration for empty database
+
+### HISTORY #####################################################################
+
+- version_major: 5
+  version_minor: 0
+  version_patch: 2
   version_pre: RC.2
   description: |
 
@@ -35,8 +46,6 @@ releases:
     - deploy: fix missing services for stop task
     - deploy: fix: add missing secret to legacy cron job
     - deploy: add `SyslogIdentifier` for all systemd services
-
-### HISTORY #####################################################################
 
 - version_major: 5
   version_minor: 0
