@@ -5,13 +5,23 @@ releases:
 - version_major: 5
   version_minor: 0
   version_patch: 2
+  version_pre: RC.4
+  description: |
+
+    - fix: manage: create inventory search field only searches when term is given
+    - fix: procurement: fix request creation
+    - deploy: fix monit stop/start
+
+### HISTORY #####################################################################
+
+- version_major: 5
+  version_minor: 0
+  version_patch: 2
   version_pre: RC.3
   description: |
 
     - feat: sort items by inventory code in inventory
     - fix: mail templates migration for empty database
-
-### HISTORY #####################################################################
 
 - version_major: 5
   version_minor: 0
