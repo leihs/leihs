@@ -5,41 +5,16 @@ releases:
 - version_major: 5
   version_minor: 0
   version_patch: 2
-  version_pre: RC.4
-  description: |
-
-    - fix: manage: create inventory search field only searches when term is given
-    - fix: procurement: fix request creation
-    - deploy: fix monit stop/start
-
-### HISTORY #####################################################################
-
-- version_major: 5
-  version_minor: 0
-  version_patch: 2
-  version_pre: RC.3
+  version_pre: null
   description: |
 
     - feat: sort items by inventory code in inventory
-    - fix: mail templates migration for empty database
-
-- version_major: 5
-  version_minor: 0
-  version_patch: 2
-  version_pre: RC.2
-  description: |
-
-    - fix: my: show user name as in admin
-    - translations: admin statistics
-
-- version_major: 5
-  version_minor: 0
-  version_patch: 2
-  version_pre: RC.1
-  description: |
-
     - feat: support AAI/Switch authentication systems
     - feat: show quantity in borrow returns
+    - fix: manage: create inventory search field only searches when term is given
+    - fix: procurement: fix request creation
+    - fix: mail templates migration for empty database
+    - fix: my: show user name as in admin
     - fix: release info on the login page
     - fix: autocomplete for adding items to a package
     - fix: sign in: autoFocus the user input field
@@ -51,11 +26,15 @@ releases:
     - fix: procure: wrong sums for requester
     - fix: my: show user name as in admin
     - translations: admin statistics
+    - translations: admin statistics
+    - deploy: fix monit stop/start
     - deploy: add caching for build artefacts
     - deploy: db restore vacuum analyze
     - deploy: fix missing services for stop task
     - deploy: fix: add missing secret to legacy cron job
     - deploy: add `SyslogIdentifier` for all systemd services
+
+### HISTORY #####################################################################
 
 - version_major: 5
   version_minor: 0
