@@ -5,14 +5,23 @@ releases:
 - version_major: 5
   version_minor: 0
   version_patch: 2
+  version_pre: RC.5
+  description: |
+
+    - fix: manage: inconsistent delegated user for an order
+    - fix: inventory: barcode scanner support for edit package > add item input
+
+### HISTORY #####################################################################
+
+- version_major: 5
+  version_minor: 0
+  version_patch: 2
   version_pre: RC.4
   description: |
 
     - fix: manage: create inventory search field only searches when term is given
     - fix: procurement: fix request creation
     - deploy: fix monit stop/start
-
-### HISTORY #####################################################################
 
 - version_major: 5
   version_minor: 0
@@ -47,7 +56,7 @@ releases:
     - fix: sign-in: dont autocapitalize username (on mobile)
     - fix: redirects
     - fix: procure: handle if settings are empty
-    - fix: procure: presence of 0 for quantities 
+    - fix: procure: presence of 0 for quantities
     - fix: procure: wrong sums for requester
     - fix: my: show user name as in admin
     - translations: admin statistics
