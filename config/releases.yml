@@ -5,66 +5,41 @@ releases:
 - version_major: 5
   version_minor: 0
   version_patch: 2
-  version_pre: RC.5
+  version_pre: null
   description: |
 
-    - fix: manage: inconsistent delegated user for an order
-    - fix: inventory: barcode scanner support for edit package > add item input
+    **We recommend existing instances to wait for v5.1 to upgrade their system** (First time installations can use V5.0)
 
-### HISTORY #####################################################################
+    See v5.0.0 for list of breaking changes.
 
-- version_major: 5
-  version_minor: 0
-  version_patch: 2
-  version_pre: RC.4
-  description: |
-
-    - fix: manage: create inventory search field only searches when term is given
-    - fix: procurement: fix request creation
-    - deploy: fix monit stop/start
-
-- version_major: 5
-  version_minor: 0
-  version_patch: 2
-  version_pre: RC.3
-  description: |
-
-    - feat: sort items by inventory code in inventory
-    - fix: mail templates migration for empty database
-
-- version_major: 5
-  version_minor: 0
-  version_patch: 2
-  version_pre: RC.2
-  description: |
-
-    - fix: my: show user name as in admin
-    - translations: admin statistics
-
-- version_major: 5
-  version_minor: 0
-  version_patch: 2
-  version_pre: RC.1
-  description: |
-
-    - feat: support AAI/Switch authentication systems
     - feat: show quantity in borrow returns
-    - fix: release info on the login page
+    - feat: sort items by inventory code in inventory
+    - feat: support AAI/Switch authentication systems
     - fix: autocomplete for adding items to a package
-    - fix: sign in: autoFocus the user input field
+    - fix: inventory: barcode scanner support for edit package > add item input
+    - fix: mail templates migration for empty database
+    - fix: manage: create inventory search field only searches when term is given
+    - fix: manage: inconsistent delegated user for an order
+    - fix: my: show user name as in admin
     - fix: navbar: don't show sub app if only one app
-    - fix: sign-in: dont autocapitalize username (on mobile)
-    - fix: redirects
     - fix: procure: handle if settings are empty
     - fix: procure: presence of 0 for quantities
     - fix: procure: wrong sums for requester
-    - fix: my: show user name as in admin
+    - fix: procurement: fix request creation
+    - fix: redirects
+    - fix: release info on the login page
+    - fix: sign in: autoFocus the user input field
+    - fix: sign-in: dont autocapitalize username (on mobile)
     - translations: admin statistics
+    - deploy: add `SyslogIdentifier` for all systemd services
     - deploy: add caching for build artefacts
     - deploy: db restore vacuum analyze
     - deploy: fix missing services for stop task
+    - deploy: fix monit stop/start
     - deploy: fix: add missing secret to legacy cron job
-    - deploy: add `SyslogIdentifier` for all systemd services
+
+
+### HISTORY #####################################################################
 
 - version_major: 5
   version_minor: 0
