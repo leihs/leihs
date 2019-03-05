@@ -10,10 +10,7 @@ jobs:
 
     context:
       task_defaults:
-        traits:
-          vagrant: yes
-          virtualbox: yes
-          ci-g2018-02: yes # TMP!
+        max_trials: 24 # is flacky :(
 
       include:
         - path: cider-ci/integration-tests.yml
