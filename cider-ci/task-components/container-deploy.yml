@@ -1,11 +1,9 @@
 context:
 
   task_defaults:
-    traits:
-      g2016: yes
 
     # NOTE: while unstable, try 12 times but only 1 at a time
-    max_trials: 12
+    max_trials: 3
     eager_trials: 1
 
     environment_variables:

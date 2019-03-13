@@ -12,10 +12,6 @@ jobs:
 
     context:
 
-      task_defaults:
-        traits:
-          lxd-on-zfs: yes
-
       tasks:
         debian-stretch:
           name: Debian 9 (stretch)
