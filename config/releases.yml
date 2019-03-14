@@ -5,32 +5,17 @@ releases:
 - version_major: 5
   version_minor: 0
   version_patch: 3
-  version_pre: RC.3
+  version_pre: null
   description: |
 
     **We recommend existing instances to wait for v5.1 to upgrade their system** (First time installations can use V5.0)
 
     See v5.0.0 for list of breaking changes.
 
-    - translation: legacy: error message delegation member
-
-- version_major: 5
-  version_minor: 0
-  version_patch: 3
-  version_pre: RC.2
-  description: |
-
-    - fix: mails and users with no language
-
-- version_major: 5
-  version_minor: 0
-  version_patch: 3
-  version_pre: RC.1
-  description: |
-
     - feat: Database audits clean-up
     - feat: procure: upload new category image
     - feat: locale handling, translate home and sign-in
+    - fix: mails and users with no language
     - fix: Extend api-tokens with system-admin scopes
     - fix: procure: RequestForm supplier_name field
     - fix: legacy: removal of a member of delegation with open reservations
