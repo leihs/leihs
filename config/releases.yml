@@ -5,23 +5,14 @@ releases:
 - version_major: 5
   version_minor: 0
   version_patch: 4
-  version_pre: RC.2
+  version_pre: null
   description: |
 
     **We recommend existing instances to wait for v5.1 to upgrade their system** (First time installations can use V5.0)
 
     See v5.0.0 for list of breaking changes.
 
-    - revert: feat: sort by inventory code in assign item
-
-- version_major: 5
-  version_minor: 0
-  version_patch: 4
-  version_pre: RC.1
-  description: |
-
     - feat: legacy: maximum reservation time
-    - feat: manage: sort by inventory code in assign item
     - feat: procure: improve filter UX
     - fix: non-deterministic group allocation in availability
     - fix: legacy: mails and users with no language
