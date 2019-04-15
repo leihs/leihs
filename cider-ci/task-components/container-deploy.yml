@@ -2,15 +2,8 @@ context:
 
   task_defaults:
 
-    # NOTE: while unstable, try 12 times but only 1 at a time
     max_trials: 3
     eager_trials: 1
-
-    environment_variables:
-      LXC_IMAGE_CACHE_NAME: 'leihs'
-      LXC_IMAGE_CACHE_KEY_CMD: 'echo "$(date -uI)_$(cd deploy && git log -n1 --format=%t)"'
-      # TMP: cant set in ansible.cfg because regular executors' ansible is too old
-      ANSIBLE_STDOUT_CALLBACK: yaml
 
     scripts:
       show-log-if-failed:

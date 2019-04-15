@@ -16,30 +16,7 @@ jobs:
         debian-stretch:
           name: Debian 9 (stretch)
           include: cider-ci/task-components/container-deploy/task-debian-9.yml
-          scripts:
-            cache-container:
-              ignore_state: yes
 
         ubuntu-lts:
           name: Ubuntu 18.04 LTS
           include: cider-ci/task-components/container-deploy/task-ubuntu-1804.yml
-          scripts:
-            cache-container:
-              ignore_state: yes
-
-        # # # TODO: demo data
-        # debian-stretch-with-demo-data:
-        #   name: Debian 9 (stretch) w/ Demo-Data
-        #   include: cider-ci/task-components/container-deploy/task-debian-9.yml
-        #   task_defaults:
-        #     environment_variables:
-        #       LEIHS_RESTORE_DATA_DUMP: legacy/features/personas/demo.pgbin
-        #       scripts:
-        #         cache-container:
-        #           ignore_state: yes
-        #           test-db-contents:
-        #             body: curl localhost:80 | grep 'Demo Data' # TODO
-        #             start_when:
-        #               basic test OK:
-        #                 script_key: test
-        #                 states: [passed]
