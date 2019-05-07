@@ -1,7 +1,10 @@
-script_defaults: 
+script_defaults:
   timeout: 5 Minutes
 
 task_defaults:
+
+  traits:
+    S3-Cache: true # FIXME: why is this needed? or: why is `..mail/cider-ci/uberjar_task-component.yml` not working?
 
   load: 3
 
@@ -27,6 +30,12 @@ task_defaults:
     LEIHS_PROCURE_CLIENT_HTTP_PORT:
       min: 3000
       max: 3999
+    LEIHS_MAIL_FAKE_SMTP_SERVER_PORT:
+      min: 4000
+      max: 4999
+    LEIHS_MAIL_FAKE_SMTP_SERVER_POP3_PORT:
+      min: 4000
+      max: 4999
 
   environment_variables:
     DATABASE_NAME: leihs_{{CIDER_CI_TRIAL_ID}}
@@ -41,6 +50,11 @@ task_defaults:
     LEIHS_MY_HTTP_BASE_URL: http://localhost:{{LEIHS_MY_HTTP_PORT}}
     LEIHS_PROCURE_DIR: "{{LEIHS_ROOT_DIR}}/procure"
     LEIHS_PROCURE_HTTP_BASE_URL: http://localhost:{{LEIHS_PROCURE_HTTP_PORT}}
+    LEIHS_MAIL_DIR: "{{LEIHS_ROOT_DIR}}/mail"
+    LEIHS_MAIL_RETRY_FREQUENCY_IN_SECONDS: '1'
+    LEIHS_MAIL_SEND_FREQUENCY_IN_SECONDS: '1'
+    LEIHS_MAIL_SMTP_ADDRESS: localhost
+    LEIHS_MAIL_SMTP_PORT: "{{LEIHS_MAIL_FAKE_SMTP_SERVER_PORT}}"
     LEIHS_ROOT_DIR: "{{CIDER_CI_WORKING_DIR}}"
     LEIHS_SECRET: '{{CIDER_CI_TRIAL_ID}}'
     RUBY: '{{RUBY_ENGINE}}-{{RUBY_VERSION}}'
@@ -57,6 +71,8 @@ task_defaults:
     build-done:
       body: exit 0
       start_when:
+        mail uberjar ready:
+          script_key: build-mail-uberjar
         my uberjar ready:
           script_key: build-my-uberjar
         admin uberjar ready:
@@ -66,23 +82,31 @@ task_defaults:
         legacy bundled:
           script_key: legacy-bundle-rspec-ruby
     run-reverse-proxy:
-      start_when: 
+      start_when:
+        build done:
+          script_key: build-done
+    run-mail-server:
+      start_when:
+        build done:
+          script_key: build-done
+    run-mail-server:
+      start_when:
         build done:
           script_key: build-done
     run-my-service:
-      start_when: 
+      start_when:
         build done:
           script_key: build-done
     run-admin-service:
-      start_when: 
+      start_when:
         build done:
           script_key: build-done
     run-procure-service:
-      start_when: 
+      start_when:
         build done:
           script_key: build-done
     run-legacy-service:
-      start_when: 
+      start_when:
         build done:
           script_key: build-done
 
@@ -98,6 +122,10 @@ task_defaults:
     - path: cider-ci/service_task-component.yml
       submodule: [procure]
     - path: cider-ci/uberjar_task-component.yml
+      submodule: [mail]
+    - path: cider-ci/server_task-component.yml
+      submodule: [mail]
+    - path: cider-ci/uberjar_task-component.yml
       submodule: [my]
     - path: cider-ci/service_task-component.yml
       submodule: [my]
@@ -108,6 +136,8 @@ task_defaults:
     - path: cider-ci/database_task-component.yml
       submodule: [database]
     - path: cider-ci/task-components/reverse-proxy.yml
+      submodule: [integration-tests]
+    - path: cider-ci/task-components/fake-smtp.yml
       submodule: [integration-tests]
     - path: cider-ci/task-components/ruby-bundle.yml
       submodule: [integration-tests]
