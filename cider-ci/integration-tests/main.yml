@@ -3,9 +3,6 @@ script_defaults:
 
 task_defaults:
 
-  traits: 
-    ci-g2018-02: true
-
   load: 3
 
   ports:
