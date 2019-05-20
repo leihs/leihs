@@ -10,8 +10,7 @@ jobs:
 
     context:
       task_defaults:
-        max_trials: 24 # is flacky :(
+        max_trials: 2
 
       include:
-        - path: cider-ci/integration-tests.yml
-          submodule: [integration-tests]
+        - path: cider-ci/integration-tests/main.yml

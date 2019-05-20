@@ -1,7 +1,6 @@
 # name: Debian 9 (stretch)
 environment_variables:
   LXC_BASE_IMAGE: 'images:debian/stretch/amd64'
-  LXC_CACHED_BASE_IMAGE: 'leihs-debian9'
   APT_SOURCES_FILE: 'deploy/container-test/files/debian-apt-sources.txt'
 include: [{path: container-test/cider-ci/context.yml, submodule: [deploy]}]
 
