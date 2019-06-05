@@ -25,3 +25,6 @@
 [submodule "integration-tests"]
 	path = integration-tests
 	url = https://github.com/leihs/leihs-integration-tests.git
+[submodule "mail"]
+	path = mail
+        url = https://github.com/leihs/leihs-mail.git
