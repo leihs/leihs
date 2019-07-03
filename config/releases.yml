@@ -3,14 +3,62 @@ releases:
 ### STABLE ######################################################################
 
 - version_major: 5
+  version_minor: 1
+  version_patch: 0
+  version_pre: RC.2
+  description: |
+
+    - bug: legacy: missing validation for reservation advance days
+    - feat: password reset via email
+    - feat: Support ext auth sign-out callback
+    - feat: admin: archiving audits
+    - feat: my: sign-in-ui: only show password input if usable
+    - feat: legacy: Revert "make some settings readonly"
+    - chore: deploy: demo: reset dump playbook
+    - feat: Audits: new tables, stored procs, triggers, enabled for new admin scope, no UI yet
+
+### HISTORY #####################################################################
+
+- version_major: 5
+  version_minor: 0
+  version_patch: 4
+  version_pre: null
+  description: |
+
+    - feat: legacy: maximum reservation time
+    - feat: procure: improve filter UX
+    - fix: non-deterministic group allocation in availability
+    - fix: legacy: mails and users with no language
+    - fix: legacy: find and load also empty attachments
+    - fix: legacy: migrate attachments add constraints
+    - fix: procure: fix filter when loosing inspector rights
+    - deploy: chore: remove duplicated config
+    - documentation: availability
+
+- version_major: 5
+  version_minor: 0
+  version_patch: 3
+  version_pre: null
+  description: |
+
+    - feat: Database audits clean-up
+    - feat: procure: upload new category image
+    - feat: locale handling, translate home and sign-in
+    - fix: mails and users with no language
+    - fix: Extend api-tokens with system-admin scopes
+    - fix: procure: RequestForm supplier_name field
+    - fix: legacy: removal of a member of delegation with open reservations
+    - fix: legacy: fix: inconsistent delegated user for an order
+    - chore: Set up caching via apache for /my and /admin
+    - deploy: enable configuring languages
+
+### HISTORY #####################################################################
+
+- version_major: 5
   version_minor: 0
   version_patch: 2
   version_pre: null
   description: |
-
-    **We recommend existing instances to wait for v5.1 to upgrade their system** (First time installations can use V5.0)
-
-    See v5.0.0 for list of breaking changes.
 
     - feat: show quantity in borrow returns
     - feat: sort items by inventory code in inventory
