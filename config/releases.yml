@@ -9,11 +9,13 @@ releases:
   description: |
 
     - bug: legacy: missing validation for reservation advance days
+    - feat: Audits: new tables, stored procs, triggers, enabled for new admin scope, no UI yet
     - feat: password reset via email
     - feat: Support ext auth sign-out callback
     - feat: admin: archiving audits
     - feat: my: sign-in-ui: only show password input if usable
     - feat: legacy: Revert "make some settings readonly"
+    - feat: inventory: csv export: add Delegation user info if borrowed
     - chore: deploy: demo: reset dump playbook
 
 ### HISTORY #####################################################################
