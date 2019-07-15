@@ -5,7 +5,7 @@ releases:
 - version_major: 5
   version_minor: 1
   version_patch: 0
-  version_pre: RC.1
+  version_pre: RC.2
   description: |
 
     - bug: legacy: missing validation for reservation advance days
@@ -17,6 +17,8 @@ releases:
     - feat: legacy: Revert "make some settings readonly"
     - feat: inventory: csv export: add Delegation user info if borrowed
     - chore: deploy: demo: reset dump playbook
+    - chore: deploy: Improve systemd service definitions
+    - chore: deploy: Replace http shutdown with pid shutdown
 
 ### HISTORY #####################################################################
 
