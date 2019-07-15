@@ -36,9 +36,7 @@ Firefox, Chrome and Safari are the only supported browsers.
 
 If you are having troubles with the deployment, setting up the development environment or encounter bugs, please first take a look at our existing [issue list](https://github.com/leihs/leihs/issues). If you can't find an answer to your problem or question, then kindly make a new issue. We will occasionally take a look at it, while we don't guarantee any particular response time from our side.
 
-In case of our inability to support you, we encourage you or your organisation to either consider our SaaS (Software-as-a-Service) offer or find a suitable partner to support you. We at ZHdK do not feel obliged in any way to offer any kind of free support. We may or may not answer to your concerns depending on our load and other factors.
-
-For more information about the conditions of our SaaS offer, please send an email to service.itz(at)zhdk.ch.
+In case of our inability to support you, we encourage you or your organisation to find a suitable partner to support you. We at ZHdK do not feel obliged in any way to offer any kind of support. We may or may not answer to your concerns depending on our load and other factors.
 
 # References (Who uses leihs?)
 
