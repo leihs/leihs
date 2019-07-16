@@ -5,10 +5,12 @@ releases:
 - version_major: 5
   version_minor: 1
   version_patch: 0
-  version_pre: RC.2
+  version_pre: RC.3
   description: |
 
     - bug: legacy: missing validation for reservation advance days
+    - bug: legacy: label for audits options
+    - bug: global navbar issues
     - feat: Audits: new tables, stored procs, triggers, enabled for new admin scope, no UI yet
     - feat: password reset via email
     - feat: Support ext auth sign-out callback
