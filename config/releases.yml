@@ -5,7 +5,7 @@ releases:
 - version_major: 5
   version_minor: 1
   version_patch: 0
-  version_pre: RC.5
+  version_pre: null
   description: |
 
     - bug: legacy: missing validation for reservation advance days
