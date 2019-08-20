@@ -2,14 +2,6 @@ jobs:
   deploy-to-ffzh-leihs-staging:
     include: cider-ci/task-components/deploy-defaults.yml
     name: Deploy to ffzh-leihs-staging.ruby.zhdk.ch
-
-    # run_when:
-    #   nightly:
-    #     type: cron
-    #     value: '0 3 * * *'
-    #     branch_include_match: ^release$
-    #     rerun: false
-
     context:
       tasks:
         deploy:
@@ -18,8 +10,32 @@ jobs:
           environment_variables:
             DEPLOY_TARGET_INVENTORY: 'staging-hosts --limit ffzh-leihs-staging'
           scripts:
+            fetch-dump:
+              body: |
+                set -euxo
+                cd deploy
+                export ANSIBLE_HOST_KEY_CHECKING=False
+                bin/ansible-playbook fetch-latest-dump_play.yml \
+                  --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
+                  -i ../zhdk-inventory/saas-prod-hosts \
+                  -l ffzh-leihs-prod
+            restore-dump:
+              timeout: 15 Minutes
+              start_when:
+                fetch passed:
+                  script_key: fetch-dump
+                  states: [passed]
+              body: |
+                set -eux
+                cd deploy
+                export ANSIBLE_HOST_KEY_CHECKING=False
+                bin/ansible-playbook db-restore-only_play.yml \
+                  --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
+                  -i ../zhdk-inventory/${DEPLOY_TARGET_INVENTORY}
             deploy:
-              timeout: 1 Hour
+              timeout: 6 Hours
+              start_when:
+                data from prod was synced: {script_key: restore-dump, states: [passed]}
               body: |
                 set -eux
                 cd deploy
