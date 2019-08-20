@@ -8,12 +8,10 @@ jobs:
       always:
         type: branch
         include_match: ^.*$
-        exclude_match: '^.*no-ci.*$'
+        exclude_match: "^.*no-ci.*$"
 
     context:
-
       tasks:
-
         debian-buster:
           name: Debian 10 (buster)
           include: cider-ci/task-components/container-deploy/task-debian-10.yml
@@ -25,3 +23,10 @@ jobs:
         ubuntu-lts:
           name: Ubuntu 18.04 LTS
           include: cider-ci/task-components/container-deploy/task-ubuntu-1804.yml
+
+        # NOTE: while new borrow is optional, make sure it works
+        debian-buster-with-new-borrow:
+          name: Debian 10 (buster) [WITH NEW BORROW]
+          include: cider-ci/task-components/container-deploy/task-debian-10.yml
+          environment_variables:
+            DEPLOY_NEW_BORROW: "true"
