@@ -4,6 +4,20 @@ releases:
 
 - version_major: 5
   version_minor: 1
+  version_patch: 1
+  version_pre: RC.1
+  description: |
+
+    - bug: legacy: fix approvable vs. submittable reservation
+    - feat: Admin: access user/img_digest from the frontend
+    - deploy: Support Debian Buster; add container test
+    - deploy: ffzh: upgrade to 5.1 fixes
+    - chore: Container tests: increase prepare timeout
+
+### HISTORY #####################################################################
+
+- version_major: 5
+  version_minor: 1
   version_patch: 0
   version_pre: null
   description: |
@@ -22,8 +36,6 @@ releases:
     - chore: deploy: demo: reset dump playbook
     - chore: deploy: Improve systemd service definitions
     - chore: deploy: Replace http shutdown with pid shutdown
-
-### HISTORY #####################################################################
 
 - version_major: 5
   version_minor: 0
