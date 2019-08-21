@@ -13,6 +13,11 @@ jobs:
     context:
 
       tasks:
+
+        debian-buster:
+          name: Debian 10 (buster)
+          include: cider-ci/task-components/container-deploy/task-debian-10.yml
+
         debian-stretch:
           name: Debian 9 (stretch)
           include: cider-ci/task-components/container-deploy/task-debian-9.yml
