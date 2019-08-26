@@ -4,6 +4,17 @@ releases:
 
 - version_major: 5
   version_minor: 1
+  version_patch: 2
+  version_pre: null
+  description: |
+
+    - bug: admin: bugfixes
+    - deploy: enable mails on ffzh-staging
+
+### HISTORY #####################################################################
+
+- version_major: 5
+  version_minor: 1
   version_patch: 1
   version_pre: null
   description: |
@@ -13,8 +24,6 @@ releases:
     - deploy: Support Debian Buster; add container test
     - deploy: ffzh: upgrade to 5.1 fixes
     - chore: Container tests: increase prepare timeout
-
-### HISTORY #####################################################################
 
 - version_major: 5
   version_minor: 1
