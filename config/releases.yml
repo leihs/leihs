@@ -1,23 +1,56 @@
 releases:
 
+- version_major: 5
+  version_minor: 2
+  version_patch: 0
+  version_pre: dev
+  description: null
+
 ### STABLE ######################################################################
 
 - version_major: 5
   version_minor: 1
+  version_patch: 2
+  version_pre: null
+  description: |
+
+    - bug: admin: bugfixes
+    - deploy: enable mails on ffzh-staging
+
+### HISTORY #####################################################################
+
+- version_major: 5
+  version_minor: 1
+  version_patch: 1
+  version_pre: null
+  description: |
+
+    - bug: legacy: fix approvable vs. submittable reservation
+    - feat: Admin: access user/img_digest from the frontend
+    - deploy: Support Debian Buster; add container test
+    - deploy: ffzh: upgrade to 5.1 fixes
+    - chore: Container tests: increase prepare timeout
+
+- version_major: 5
+  version_minor: 1
   version_patch: 0
-  version_pre: RC.2
+  version_pre: null
   description: |
 
     - bug: legacy: missing validation for reservation advance days
+    - bug: legacy: label for audits options
+    - bug: global navbar issues
+    - feat: Audits: new tables, stored procs, triggers, enabled for new admin scope, no UI yet
     - feat: password reset via email
     - feat: Support ext auth sign-out callback
     - feat: admin: archiving audits
     - feat: my: sign-in-ui: only show password input if usable
     - feat: legacy: Revert "make some settings readonly"
+    - feat: inventory: csv export: add Delegation user info if borrowed
+    - feat: legacy: change attachments field permissions
     - chore: deploy: demo: reset dump playbook
-    - feat: Audits: new tables, stored procs, triggers, enabled for new admin scope, no UI yet
-
-### HISTORY #####################################################################
+    - chore: deploy: Improve systemd service definitions
+    - chore: deploy: Replace http shutdown with pid shutdown
 
 - version_major: 5
   version_minor: 0
