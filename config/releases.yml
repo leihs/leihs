@@ -1,10 +1,12 @@
 releases:
 
 - version_major: 5
-  version_minor: 2
-  version_patch: 0
-  version_pre: dev
-  description: null
+  version_minor: 1
+  version_patch: 3
+  version_pre: RC.1
+  description: |
+    - chore: Convert extended_info to json(b), expose it via admin API and UI
+    - deploy: fixes for demo host
 
 ### STABLE ######################################################################
 
