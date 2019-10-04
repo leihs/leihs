@@ -1,5 +1,11 @@
 releases:
 
+- version_major: 5
+  version_minor: 2
+  version_patch: 0
+  version_pre: dev
+  description: null
+
 ### STABLE ######################################################################
 
 - version_major: 5
