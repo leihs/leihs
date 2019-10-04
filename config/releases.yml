@@ -1,14 +1,16 @@
 releases:
 
+### STABLE ######################################################################
+
 - version_major: 5
   version_minor: 1
   version_patch: 3
-  version_pre: RC.1
+  version_pre: null
   description: |
     - chore: Convert extended_info to json(b), expose it via admin API and UI
     - deploy: fixes for demo host
 
-### STABLE ######################################################################
+### HISTORY #####################################################################
 
 - version_major: 5
   version_minor: 1
@@ -18,8 +20,6 @@ releases:
 
     - bug: admin: bugfixes
     - deploy: enable mails on ffzh-staging
-
-### HISTORY #####################################################################
 
 - version_major: 5
   version_minor: 1
