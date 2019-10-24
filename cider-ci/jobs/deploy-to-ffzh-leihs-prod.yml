@@ -1,7 +1,7 @@
 jobs:
-  deploy-to-zhdk-leihs-prod:
+  deploy-to-ffzh-leihs-prod:
     include: cider-ci/task-components/deploy-defaults.yml
-    name: Deploy to ZHdK production
+    name: Deploy to FFZH production
     depends_on:
       "designated deploy branch":
         type: branch
@@ -9,9 +9,9 @@ jobs:
     context:
       tasks:
         deploy:
-          exclusive_global_resources: { zhdk-leihs-prod-v5.ruby.zhdk.ch: true }
+          exclusive_global_resources: { ffzh-leihs-prod.ruby.zhdk.ch: true }
           environment_variables:
-            DEPLOY_TARGET_INVENTORY: "prod-hosts-v5"
+            DEPLOY_TARGET_INVENTORY: "ffzh-prod-hosts"
           scripts:
             deploy:
               timeout: 1 Hour

@@ -23,6 +23,25 @@ releases:
 
 - version_major: 5
   version_minor: 1
+  version_patch: 4
+  version_pre: null
+  description: |
+
+    - fix: Admin: Extend delete and transfer to include more fkeys
+
+### HISTORY #####################################################################
+
+- version_major: 5
+  version_minor: 1
+  version_patch: 3
+  version_pre: null
+  description: |
+
+    - chore: Convert extended_info to json(b), expose it via admin API and UI
+    - deploy: fixes for demo host
+
+- version_major: 5
+  version_minor: 1
   version_patch: 2
   version_pre: null
   description: |
