@@ -1,6 +1,13 @@
 releases:
 
-### STABLE ######################################################################
+- version_major: 5
+  version_minor: 1
+  version_patch: 5
+  version_pre: null
+  description: |
+
+    - mail: support smtp auth
+    - inventory/deploy: add ffzh-prod
 
 - version_major: 5
   version_minor: 1
@@ -9,8 +16,6 @@ releases:
   description: |
 
     - fix: Admin: Extend delete and transfer to include more fkeys
-
-### HISTORY #####################################################################
 
 - version_major: 5
   version_minor: 1
