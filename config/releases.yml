@@ -2,6 +2,18 @@ releases:
 
 - version_major: 5
   version_minor: 1
+  version_patch: 6
+  version_pre: null
+  description: |
+
+    - fix: legacy: deal with reservation_advance_days nil
+    - fix: legacy: better error message & audits for assigned items
+    - fix: my: password reset email case insensitive
+    - deploy: Generalize CI deploy, template settings
+    - deploy: export secret in execute script play
+
+- version_major: 5
+  version_minor: 1
   version_patch: 5
   version_pre: null
   description: |
@@ -33,8 +45,6 @@ releases:
   description: |
 
     - fix: Admin: Extend delete and transfer to include more fkeys
-
-### HISTORY #####################################################################
 
 - version_major: 5
   version_minor: 1
@@ -120,8 +130,6 @@ releases:
     - chore: Set up caching via apache for /my and /admin
     - deploy: enable configuring languages
 
-### HISTORY #####################################################################
-
 - version_major: 5
   version_minor: 0
   version_patch: 2
@@ -153,9 +161,6 @@ releases:
     - deploy: fix missing services for stop task
     - deploy: fix monit stop/start
     - deploy: fix: add missing secret to legacy cron job
-
-
-### HISTORY #####################################################################
 
 - version_major: 5
   version_minor: 0
@@ -291,8 +296,6 @@ releases:
     - translation: translate errors in borrow
     - translation: booking calendar translation
     - fix: show timeline in new tab for edit order
-
-### HISTORY #######################################################################
 
 - version_major: 4
   version_minor: 16
