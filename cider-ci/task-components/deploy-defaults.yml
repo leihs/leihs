@@ -3,8 +3,10 @@ priority: 2
 context:
   task_defaults:
     environment_variables:
-      # TMP: we want 'yaml' but executors' ansible is too old
-      ANSIBLE_STDOUT_CALLBACK: debug
+      ANSIBLE_STDOUT_CALLBACK: yaml
+      LEIHS_DIR: '{{CIDER_CI_WORKING_DIR}}'
+      DEPLOY_DIR: '{{LEIHS_DIR}}/deploy'
+      INVENTORY_DIR: '{{CIDER_CI_WORKING_DIR}}/zhdk-inventory'
 
   tasks:
     deploy:
@@ -24,7 +26,7 @@ context:
         unlock:
           body: |
             set -euxo
-            cd zhdk-inventory
+            cd ${INVENTORY_DIR}
             git crypt unlock
 
         deploy:
@@ -45,7 +47,7 @@ context:
             export ANSIBLE_HOST_KEY_CHECKING=False
             bin/ansible-playbook get-server-log_play.yml \
               --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
-              -i ../zhdk-inventory/${DEPLOY_TARGET_INVENTORY}
+              -i ${INVENTORY_DIR}/${DEPLOY_TARGET_INVENTORY}
 
             echo ''; echo ''; echo '';
             echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
