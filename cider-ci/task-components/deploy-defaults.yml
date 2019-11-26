@@ -16,6 +16,8 @@ context:
       traits:
         g2016: true
 
+      max_trials: 1
+
       trial_attachments:
         server_log:
           include_match: '.*server_log.*'
