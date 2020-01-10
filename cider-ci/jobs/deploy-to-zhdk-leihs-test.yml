@@ -2,8 +2,18 @@ jobs:
   deploy-to-zhdk-leihs-test:
     include: cider-ci/task-components/deploy-defaults.yml
     name: Deploy to zhdk-leihs-test.ruby.zhdk.ch
-    context:
 
+    run_when: &RUN_ON_MASTER_AND_DO_NIGHTLY_RESET
+      "master branch":
+        type: branch
+        include_match: ^master$
+      "deploy at 4:30 UTC":
+        type: cron
+        value: "30 4 * * *"
+        branch_include_match: ^master$
+        rerun: true
+
+    context:
       task_defaults:
         exclusive_global_resources:
           "zhdk-leihs-test.ruby.zhdk.ch": true
