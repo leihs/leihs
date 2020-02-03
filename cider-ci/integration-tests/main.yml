@@ -15,7 +15,7 @@ task_defaults:
     LEIHS_ADMIN_HTTP_PORT:
       min: 3000
       max: 3999
-    LEIHS_PROCURE_HTTP_PORT:
+    LEIHS_BORROW_HTTP_PORT:
       min: 3000
       max: 3999
     LEIHS_LEGACY_HTTP_PORT:
@@ -43,9 +43,13 @@ task_defaults:
     LEIHS_ADMIN_HTTP_BASE_URL: http://localhost:{{LEIHS_ADMIN_HTTP_PORT}}
     LEIHS_DATABASE_DIR: "{{LEIHS_ROOT_DIR}}/database"
     LEIHS_DATABASE_URL: "jdbc:postgresql://localhost/{{DATABASE_NAME}}?max-pool-size=5"
+    LEIHS_DEPLOY_NEW_BORROW_APP: "yes"
+    LEIHS_BORROW_DIR: "{{LEIHS_ROOT_DIR}}/borrow"
+    LEIHS_BORROW_HTTP_BASE_URL: http://localhost:{{LEIHS_BORROW_HTTP_PORT}}
     LEIHS_HTTP_BASE_URL: "http://localhost:{{LEIHS_HTTP_PORT}}"
     LEIHS_INTEGRATION_TESTS_DIR: "{{LEIHS_ROOT_DIR}}/integration-tests"
     LEIHS_LEGACY_DIR: "{{LEIHS_ROOT_DIR}}/legacy"
+    LEIHS_LEGACY_HTTP_BASE_URL: "http://localhost:{{LEIHS_LEGACY_HTTP_PORT}}"
     LEIHS_MY_DIR: "{{LEIHS_ROOT_DIR}}/my"
     LEIHS_MY_HTTP_BASE_URL: http://localhost:{{LEIHS_MY_HTTP_PORT}}
     LEIHS_PROCURE_DIR: "{{LEIHS_ROOT_DIR}}/procure"
@@ -77,6 +81,8 @@ task_defaults:
           script_key: build-my-uberjar
         admin uberjar ready:
           script_key: build-admin-uberjar
+        borrow uberjar ready:
+          script_key: build-borrow-uberjar
         procure uberjar ready:
           script_key: build-procure-uberjar
         legacy bundled:
@@ -101,6 +107,10 @@ task_defaults:
       start_when:
         build done:
           script_key: build-done
+    run-borrow-service:
+      start_when:
+        build done:
+          script_key: build-done
     run-procure-service:
       start_when:
         build done:
@@ -117,6 +127,10 @@ task_defaults:
       submodule: [admin]
     - path: cider-ci/service_task-component.yml
       submodule: [admin]
+    - path: cider-ci/uberjar_task-component.yml
+      submodule: [borrow]
+    - path: cider-ci/service_task-component.yml
+      submodule: [borrow]
     - path: cider-ci/uberjar_task-component.yml
       submodule: [procure]
     - path: cider-ci/service_task-component.yml
