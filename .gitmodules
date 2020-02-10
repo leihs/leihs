@@ -28,3 +28,6 @@
 [submodule "mail"]
 	path = mail
         url = https://github.com/leihs/leihs-mail.git
+[submodule "borrow"]
+	path = borrow
+	url = https://github.com/leihs/leihs-borrow.git

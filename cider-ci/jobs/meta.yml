@@ -1,7 +1,5 @@
 jobs:
-
   meta:
-
     name: Meta
     description: |
       Various superordinate quality assurance tasks
@@ -10,7 +8,7 @@ jobs:
       always:
         type: branch
         include_match: ^.*$
-        exclude_match: '^.*no-ci.*$'
+        exclude_match: "^.*no-ci.*$"
 
     context:
       task_defaults:
@@ -33,26 +31,38 @@ jobs:
                 v_db_top=$(git submodule status database | cut -f 2 -d ' ')
                 v_db_legacy=$(git submodule status --recursive | grep legacy/database | cut -f 2 -d ' ')
                 v_db_admin=$(git submodule status --recursive | grep admin/database | cut -f 2 -d ' ')
+                v_db_borrow=$(git submodule status --recursive | grep borrow/database | cut -f 2 -d ' ')
+                v_db_mail=$(git submodule status --recursive | grep mail/database | cut -f 2 -d ' ')
+                v_db_my=$(git submodule status --recursive | grep my/database | cut -f 2 -d ' ')
                 v_db_procure=$(git submodule status --recursive | grep procure/server/database | cut -f 2 -d ' ')
 
                 echo "database | toplevel: ${v_db_top}"
                 echo "database | legacy:   ${v_db_legacy}"
                 echo "database | admin:    ${v_db_admin}"
+                echo "database | borrow:   ${v_db_borrow}"
+                echo "database | mail:     ${v_db_mail}"
+                echo "database | my:       ${v_db_my}"
                 echo "database | procure:  ${v_db_procure}"
 
                 # LEIHS-UI
                 v_ui_my=$(git submodule status --recursive | grep my/leihs-ui | cut -f 2 -d ' ')
                 v_ui_admin=$(git submodule status --recursive | grep admin/leihs-ui | cut -f 2 -d ' ')
+                v_ui_borrow=$(git submodule status --recursive | grep borrow/leihs-ui | cut -f 2 -d ' ')
+                v_ui_my=$(git submodule status --recursive | grep my/leihs-ui | cut -f 2 -d ' ')
                 v_ui_procure=$(git submodule status --recursive | grep procure/client/leihs-ui | cut -f 2 -d ' ')
 
                 echo "leihs-ui | my:       ${v_ui_my}"
                 echo "leihs-ui | admin:    ${v_ui_admin}"
+                echo "leihs-ui | borrow:   ${v_ui_borrow}"
+                echo "leihs-ui | my:       ${v_ui_my}"
                 echo "leihs-ui | procure:  ${v_ui_procure}"
 
                 # TESTS (FAIL-FIRST)
                 test $v_db_legacy == $v_db_top
                 test $v_db_admin == $v_db_top
                 test $v_db_procure == $v_db_top
+                test $v_db_borrow == $v_db_top
 
                 test $v_ui_admin == $v_ui_my
                 test $v_ui_procure == $v_ui_my
+                test $v_ui_borrow == $v_ui_my
