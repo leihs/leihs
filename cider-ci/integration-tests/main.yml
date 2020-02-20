@@ -36,6 +36,9 @@ task_defaults:
     LEIHS_MAIL_FAKE_SMTP_SERVER_POP3_PORT:
       min: 4000
       max: 4999
+    TEST_AUTH_SYSTEM_PORT:
+      min: 4000
+      max: 4999
 
   environment_variables:
     DATABASE_NAME: leihs_{{CIDER_CI_TRIAL_ID}}
@@ -119,7 +122,10 @@ task_defaults:
       start_when:
         build done:
           script_key: build-done
-
+    run-test-auth-system:
+      start_when:
+        build done:
+          script_key: build-done
 
   include:
     - path: cider-ci/task-components/legacy-service.yml
@@ -157,8 +163,8 @@ task_defaults:
       submodule: [integration-tests]
     - path: cider-ci/task-components/run-test.yml
       submodule: [integration-tests]
-
-
+    - path: cider-ci/task-components/test-auth-system.yml
+      submodule: [integration-tests]
 
   git_options:
     submodules:
