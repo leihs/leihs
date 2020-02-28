@@ -1,0 +1,102 @@
+#!/usr/bin/env ruby
+
+require 'pry'
+require 'pathname'
+require 'optparse'
+require 'active_support'
+require 'active_support/core_ext/hash'
+
+@SCRIPT = Pathname.new(__FILE__).expand_path
+@SCRIPTDIR = @SCRIPT.dirname
+@LEIHS_ROOT_DIR = @SCRIPTDIR + ".."
+
+
+SUBS = [
+	["admin", "database"],
+  ["borrow", "database"],
+  ["legacy", "database"],
+  ["mail", "database"],
+  ["my", "database"],
+  ["procure", "server/database"],
+  [".", "database"]
+]
+
+@opts = {"super-ref": "origin/master"}.with_indifferent_access
+
+OptionParser.new do |parser|
+
+	parser.banner = "leihs-update-and-commit-database-submodules resets super project to SUPER-REF and commits all database submodules relative to that"
+
+	parser.on("-c", "--commit-id COMMIT-ID", "COMMIT-ID to set database modules to")
+  parser.on("-s", "--super-ref SUPER-REF", "set the leihs super project to SUPER-REF, default #{@opts['super-ref']}")
+	parser.on("-m", "--commit-message COMMIT-MESSAGE", "the COMMIT-MESSAGE used in the super and ervery service ")
+  parser.on("-b", "--branch-name BRANCH-NAME", "set local BRANCH-NAME and also push it")
+
+	parser.on("-h", "--help", "Print help") do
+		puts parser
+		exit 0
+	end
+
+end.parse!(into: @opts)
+
+raise "COMMIT-ID is required" unless @opts["commit-id"].present?
+raise "COMMIT-MESSAGE is required" unless @opts["commit-message"].present?
+raise "BRANCH-NAME is required" unless @opts["branch-name"].present?
+
+puts @opts
+
+
+puts @SCRIPT, @SCRIPTDIR, @LEIHS_ROOT_DIR
+
+def exec_shell_command cmd
+  puts '#######################################################################'
+  puts "# in #{Dir.pwd}"
+  puts "# #{cmd}"
+  system(cmd, exception: true)
+  puts '#######################################################################'
+  puts "\n\n"
+end
+
+Dir.chdir @LEIHS_ROOT_DIR do
+
+  exec_shell_command "git fetch --all --recurse-submodules"
+	exec_shell_command "git checkout --force #{@opts['super-ref']}"
+	exec_shell_command "git submodule update --init --recursive --force"
+
+	SUBS.each do |submodule, db_path|
+		Dir.chdir submodule do
+			Dir.chdir db_path do
+        exec_shell_command "git reset --hard #{@opts['commit-id']}"
+			end
+      exec_shell_command "git add #{db_path}"
+
+      case submodule
+      when "legacy"
+        exec_shell_command './bin/migrate-and-dump-demo'
+        exec_shell_command './bin/migrate-and-dump-personas'
+        exec_shell_command 'git add features/personas/demo.pgbin  features/personas/personas.pgbin'
+      end
+
+      if submodule != '.'
+        exec_shell_command "git commit -m #{Shellwords.escape(@opts['commit-message'])}"
+      end
+
+		end
+    if submodule != '.'
+      exec_shell_command "git add #{submodule}"
+    else
+      exec_shell_command "git add database"
+    end
+	end
+
+  exec_shell_command "git commit -m #{Shellwords.escape(@opts['commit-message'])}"
+
+  # set branches and push
+  escaped_branch_name = Shellwords.escape(@opts['branch-name'])
+  SUBS.each do |submodule, db_path|
+    Dir.chdir submodule do
+      exec_shell_command "git switch -C #{escaped_branch_name}"
+      exec_shell_command "git push -f -u origin #{escaped_branch_name}:#{escaped_branch_name}"
+    end
+  end
+end
