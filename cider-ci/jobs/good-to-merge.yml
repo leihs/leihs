@@ -8,32 +8,47 @@ jobs:
       Status of this job is **used by github's "branch protection"**!
 
     depends_on: &GOOD_TO_MERGE_DEPENDENTS
-      deploy to container was successful:
-        type: job
-        job_key: test-container-deploy
-        states: [passed]
-      # integration tests were successful:
+      # deploy to container was successful:
       #   type: job
-      #   job_key: integration-tests
+      #   job_key: test-container-deploy
       #   states: [passed]
+      integration tests were successful:
+        type: job
+        job_key: integration-tests
+        states: [passed]
       meta checks have passed:
         type: job
         job_key: meta
         states: [passed]
-      legacy submodule have passed:
+      legacy submodule has passed:
         type: job
         job_key: good-to-merge
         submodule: ['legacy']
         states: [passed]
-      admin submodule have passed:
+      admin submodule has passed:
         type: job
         job_key: good-to-merge
         submodule: ['admin']
         states: [passed]
-      procure submodule have passed:
+      procure submodule has passed:
         type: job
         job_key: good-to-merge
         submodule: ['procure']
+        states: [passed]
+      my submodule has passed:
+        type: job
+        job_key: good-to-merge
+        submodule: ['my']
+        states: [passed]
+      borrow submodule has passed:
+        type: job
+        job_key: good-to-merge
+        submodule: ['borrow']
+        states: [passed]
+      mail submodule has passed:
+        type: job
+        job_key: good-to-merge
+        submodule: ['mail']
         states: [passed]
 
     run_when: *GOOD_TO_MERGE_DEPENDENTS
