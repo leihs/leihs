@@ -78,7 +78,7 @@ Dir.chdir @LEIHS_ROOT_DIR do
       end
 
       if submodule != '.'
-        exec_shell_command "git commit -m #{Shellwords.escape(@opts['commit-message'])}"
+        exec_shell_command "git commit --allow-empty -m #{Shellwords.escape(@opts['commit-message'])}"
       end
 
 		end
