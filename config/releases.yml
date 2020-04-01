@@ -2,6 +2,14 @@ releases:
 
 - version_major: 5
   version_minor: 1
+  version_patch: 9
+  version_pre: null
+  description: |
+
+    - fix: ruby security 2.6.6
+
+- version_major: 5
+  version_minor: 1
   version_patch: 8
   version_pre: null
   description: |
