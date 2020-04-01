@@ -10,7 +10,7 @@ scripts:
         -i ../zhdk-inventory/prod-hosts-v5
 
   restore-dump:
-    timeout: 15 Minutes
+    timeout: 30 Minutes
     start_when:
       fetch passed:
         script_key: fetch-dump
