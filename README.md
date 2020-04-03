@@ -54,6 +54,7 @@ leihs is in use at several universities and organizations:
  * [Konstfack Stockholm](http://www.konstfack.se), Sweden
  * [School of Business and Engineering Vaud HEIG-VD](https://heig-vd.ch), Yverdon-les-Bains, Switzerland
  * [Fachhochschule Kärnten](https://www.fh-kaernten.at/), Austria
+ * [Staatliche Hochschule für Musik, Trossingen](http://mh-trossingen.de), Trossingen, Germany
  * Your university? Please make an issue if you would like to be listed here.
 
 # leihs Blog

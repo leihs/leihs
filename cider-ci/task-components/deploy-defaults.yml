@@ -14,7 +14,7 @@ context:
         submodules:
           include_match: ^.*$
       traits:
-        g2016: true
+        g2018: true
 
       max_trials: 1
 
@@ -32,7 +32,7 @@ context:
             git crypt unlock
 
         deploy:
-          timeout: 20 minutes
+          timeout: 40 minutes
           start_when:
             unlock_passed:
               script_key: unlock
