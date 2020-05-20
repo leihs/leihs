@@ -1,6 +1,17 @@
 releases:
 
 - version_major: 5
+  version_minor: 2
+  version_patch: 0
+  version_pre: RC.1
+  description: |
+
+    - feat: admin & legacy: expand roles system to groups
+    - fix: legacy: allow take back for user without access
+    - borrow: further implementation
+    - database: pool workday constraint
+
+- version_major: 5
   version_minor: 1
   version_patch: 10
   version_pre: null
