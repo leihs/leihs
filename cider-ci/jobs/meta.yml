@@ -18,7 +18,7 @@ jobs:
 
       tasks:
         database-submodule-consistency:
-          name: "database/leihs-ui in toplevel and submodules all point to the same commit"
+          name: "database in toplevel and submodules all point to the same commit"
           scripts:
             main:
               body: |
@@ -27,7 +27,6 @@ jobs:
                 git fetch --all --quiet
                 git submodule update --quiet --init --recursive
 
-                # DATABASE
                 v_db_top=$(git submodule status database | cut -f 2 -d ' ')
                 v_db_legacy=$(git submodule status --recursive | grep legacy/database | cut -f 2 -d ' ')
                 v_db_admin=$(git submodule status --recursive | grep admin/database | cut -f 2 -d ' ')
@@ -44,25 +43,64 @@ jobs:
                 echo "database | my:       ${v_db_my}"
                 echo "database | procure:  ${v_db_procure}"
 
+                # TESTS (FAIL-FIRST)
+                test $v_db_legacy == $v_db_top
+                test $v_db_admin == $v_db_top
+                test $v_db_borrow == $v_db_top
+                test $v_db_mail == $v_db_top
+                test $v_db_my == $v_db_top
+                test $v_db_procure == $v_db_top
+
+        leihs-ui-submodule-consistency:
+          name: "leihs-ui submodules all point to the same commit"
+          scripts:
+            main:
+              body: |
+                #!/usr/bin/env bash
+                set -exu
+                git fetch --all --quiet
+                git submodule update --quiet --init --recursive
+
                 # LEIHS-UI
                 v_ui_my=$(git submodule status --recursive | grep my/leihs-ui | cut -f 2 -d ' ')
                 v_ui_admin=$(git submodule status --recursive | grep admin/leihs-ui | cut -f 2 -d ' ')
                 v_ui_borrow=$(git submodule status --recursive | grep borrow/leihs-ui | cut -f 2 -d ' ')
-                v_ui_my=$(git submodule status --recursive | grep my/leihs-ui | cut -f 2 -d ' ')
                 v_ui_procure=$(git submodule status --recursive | grep procure/client/leihs-ui | cut -f 2 -d ' ')
 
                 echo "leihs-ui | my:       ${v_ui_my}"
                 echo "leihs-ui | admin:    ${v_ui_admin}"
                 echo "leihs-ui | borrow:   ${v_ui_borrow}"
-                echo "leihs-ui | my:       ${v_ui_my}"
                 echo "leihs-ui | procure:  ${v_ui_procure}"
 
                 # TESTS (FAIL-FIRST)
-                test $v_db_legacy == $v_db_top
-                test $v_db_admin == $v_db_top
-                test $v_db_procure == $v_db_top
-                test $v_db_borrow == $v_db_top
-
                 test $v_ui_admin == $v_ui_my
                 test $v_ui_procure == $v_ui_my
                 test $v_ui_borrow == $v_ui_my
+
+        shared-clj-submodule-consistency:
+          name: "shared-clj submodules all point to the same commit"
+          scripts:
+            main:
+              body: |
+                #!/usr/bin/env bash
+                set -exu
+                git fetch --all --quiet
+                git submodule update --quiet --init --recursive
+
+                v_shared_clj_my=$(git submodule status --recursive | grep my/shared-clj | cut -f 2 -d ' ')
+                v_shared_clj_admin=$(git submodule status --recursive | grep admin/shared-clj | cut -f 2 -d ' ')
+                v_shared_clj_borrow=$(git submodule status --recursive | grep borrow/shared-clj | cut -f 2 -d ' ')
+                v_shared_clj_procure=$(git submodule status --recursive | grep procure/server/shared-clj | cut -f 2 -d ' ')
+                v_shared_clj_mail=$(git submodule status --recursive | grep mail/shared-clj | cut -f 2 -d ' ')
+
+                echo "shared-clj | my:       ${v_shared_clj_my}"
+                echo "shared-clj | admin:    ${v_shared_clj_admin}"
+                echo "shared-clj | borrow:   ${v_shared_clj_borrow}"
+                echo "shared-clj | procure:  ${v_shared_clj_procure}"
+                echo "shared-clj | mail:     ${v_shared_clj_mail}"
+
+                # TESTS (FAIL-FIRST)
+                test $v_shared_clj_admin == $v_shared_clj_my
+                test $v_shared_clj_procure == $v_shared_clj_my
+                test $v_shared_clj_borrow == $v_shared_clj_my
+                test $v_shared_clj_mail == $v_shared_clj_my
