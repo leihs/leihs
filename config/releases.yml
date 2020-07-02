@@ -3,6 +3,22 @@ releases:
 - version_major: 5
   version_minor: 2
   version_patch: 0
+  version_pre: RC.3
+  description: |
+
+    - feat: legacy: cover image for models
+    - feat: borrow app: invalidate cart if conflicts
+    - feat: borrow app: model search/filters
+    - fix: Some UI improvement and fixes
+    - fix: legacy: more translations
+    - fix: legacy: missing translations and other stuff
+    - fix: procure: fix visibility of finance fields
+    - fix: procure: add missing translations
+    - fix: borrow: fix special per page setting
+
+- version_major: 5
+  version_minor: 2
+  version_patch: 0
   version_pre: RC.2
   description: |
 
