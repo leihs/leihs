@@ -3,6 +3,15 @@ releases:
 - version_major: 5
   version_minor: 2
   version_patch: 0
+  version_pre: RC.5
+  description: |
+
+    - feat: legacy: search after models in visits
+    - fix: legacy: missing translations and other stuff
+
+- version_major: 5
+  version_minor: 2
+  version_patch: 0
   version_pre: RC.4
   description: |
 
@@ -18,7 +27,6 @@ releases:
     - feat: borrow app: invalidate cart if conflicts
     - feat: borrow app: model search/filters
     - fix: Some UI improvement and fixes
-    - fix: legacy: more translations
     - fix: legacy: missing translations and other stuff
     - fix: procure: fix visibility of finance fields
     - fix: procure: add missing translations
