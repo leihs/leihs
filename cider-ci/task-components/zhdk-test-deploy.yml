@@ -1,6 +1,7 @@
 scripts:
 
   fetch-dump:
+    timeout: 30 Minutes
     body: |
       set -euxo
       cd deploy
