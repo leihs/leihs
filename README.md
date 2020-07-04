@@ -63,6 +63,9 @@ Not maintained anymore, but you can maybe find some useful information [there](h
 
 ## Copyright and license
 
-leihs is (C) [Zürcher Hochschule der Künste (Zurich University of the Arts)](http://www.zhdk.ch)
+leihs is (C)
+* [Zürcher Hochschule der Künste (Zurich University of the Arts)](http://www.zhdk.ch),
+* Functional LLC, Zürich Switzerland, and
+* contributors.
 
 leihs is [Free Software](http://www.gnu.org/philosophy/free-sw.html) under the [GNU General Public License (GPL) v3](http://www.gnu.org/licenses/gpl-3.0.txt), see the included LICENSE file for license details.
