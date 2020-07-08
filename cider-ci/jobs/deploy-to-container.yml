@@ -12,20 +12,31 @@ jobs:
 
     context:
       tasks:
-        debian-buster:
+        debian-buster-with-cache:
+          name: Debian 10 (buster) [WITH NEW BORROW] [WITH CACHE]
+          include: cider-ci/task-components/container-deploy/task-debian-10.yml
+          traits: { S3-Cache: true }
+          environment_variables:
+            DEPLOY_NEW_BORROW: "true"
+            USE_S3_BUILD_CACHE: "true" # uses `S3_CI_CACHE…`, see script
+          # scripts:
+          #   deploy-to-container:
+          #     exclusive_executor_resource: 'leihs_deploy_build_cache' # dont compile in parallel on 1 machine
+
+        debian-buster-no-cache:
           name: Debian 10 (buster)
           include: cider-ci/task-components/container-deploy/task-debian-10.yml
 
-        debian-stretch:
+        debian-stretch-no-cache:
           name: Debian 9 (stretch)
           include: cider-ci/task-components/container-deploy/task-debian-9.yml
 
-        ubuntu-lts:
+        ubuntu-lts-no-cache:
           name: Ubuntu 18.04 LTS
           include: cider-ci/task-components/container-deploy/task-ubuntu-1804.yml
 
         # NOTE: while new borrow is optional, make sure it works
-        debian-buster-with-new-borrow:
+        debian-buster-with-new-borrow-no-cache:
           name: Debian 10 (buster) [WITH NEW BORROW]
           include: cider-ci/task-components/container-deploy/task-debian-10.yml
           environment_variables:
