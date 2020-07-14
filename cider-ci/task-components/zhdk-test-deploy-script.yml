@@ -5,4 +5,5 @@ body: |
   export ANSIBLE_HOST_KEY_CHECKING=False
   bin/ansible-playbook deploy_play.yml \
     --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
+    -e "use_s3_build_cache=${USE_S3_BUILD_CACHE:-}" \
     -i ../zhdk-inventory/${DEPLOY_TARGET_INVENTORY}
