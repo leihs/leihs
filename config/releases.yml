@@ -3,6 +3,20 @@ releases:
 - version_major: 5
   version_minor: 2
   version_patch: 0
+  version_pre: RC.6
+  description: |
+
+    - feat: Sign up via ext auth
+    - borrow: pools
+    - deploy: cleanup, fixes, build cache, Docker
+    - chore: Reconcile SMTP ENV var names; update clj-shared
+    - chore: borrow: clean up app-db
+    - chore: borrow: boot: exclude js from watch task
+    - chore: borrow: move client sources
+
+- version_major: 5
+  version_minor: 2
+  version_patch: 0
   version_pre: RC.5
   description: |
 
