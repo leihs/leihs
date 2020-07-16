@@ -3,6 +3,15 @@ releases:
 - version_major: 5
   version_minor: 2
   version_patch: 0
+  version_pre: RC.7
+  description: |
+
+    - fix: legacy: maintenance period considers closed days now
+    - chore: borrow: kebab-case keys in data and errors
+
+- version_major: 5
+  version_minor: 2
+  version_patch: 0
   version_pre: RC.6
   description: |
 
