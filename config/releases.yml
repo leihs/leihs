@@ -2,6 +2,14 @@ releases:
 
 - version_major: 5
   version_minor: 1
+  version_patch: 11
+  version_pre: null
+  description: |
+
+    - fix: admin: create mail templates together with pool
+
+- version_major: 5
+  version_minor: 1
   version_patch: 10
   version_pre: null
   description: |
