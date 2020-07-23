@@ -1,9 +1,10 @@
-/config/*
 !/config/releases.yml
-/tmp
-/integration
-/zhdk-sync
-/zhdk-agw-auth-system
-/system
-/zhdk-aai-shibboleth-auth-system
+/archive
 /audits-archiver
+/config/*
+/integration
+/system
+/tmp
+/zhdk-aai-shibboleth-auth-system
+/zhdk-agw-auth-system
+/zhdk-sync
