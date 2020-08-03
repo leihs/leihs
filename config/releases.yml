@@ -3,6 +3,21 @@ releases:
 - version_major: 5
   version_minor: 2
   version_patch: 0
+  version_pre: RC.8
+  description: |
+
+    - fix: consider all days for workload
+    - fix: legacy: retired items and inactive pools combination
+    - fix: performance issues for borrow categories and models
+    - fix: procure: display of the accounting fields
+    - fix: admin: create mail templates together with pool
+    - fix: legacy: fix cover image feature
+    - borrow: delegations WIP
+    - borrow: current user show
+
+- version_major: 5
+  version_minor: 2
+  version_patch: 0
   version_pre: RC.7
   description: |
 
