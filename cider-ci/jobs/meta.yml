@@ -104,3 +104,22 @@ jobs:
                 test $v_shared_clj_procure == $v_shared_clj_my
                 test $v_shared_clj_borrow == $v_shared_clj_my
                 test $v_shared_clj_mail == $v_shared_clj_my
+
+        legacy-submodule-consistency:
+          name: "legacy submodules of borrow and super-project point to the same commit"
+          scripts:
+            main:
+              body: |
+                #!/usr/bin/env bash
+                set -exu
+                git fetch --all --quiet
+                git submodule update --quiet --init --recursive
+
+                v_legacy_top_level=$(git submodule status --recursive | grep "legacy " | cut -f 2 -d ' ')
+                v_legacy_borrow=$(git submodule status --recursive | grep "borrow/spec/support/legacy-api " | cut -f 2 -d ' ')
+
+                echo "legacy | top-level: ${v_legacy_top_level}"
+                echo "legacy | borrow:    ${v_legacy_borrow}"
+
+                # TESTS (FAIL-FIRST)
+                test $v_legacy_top_level == $v_legacy_borrow
