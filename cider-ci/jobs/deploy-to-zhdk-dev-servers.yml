@@ -18,7 +18,6 @@ jobs:
       task_defaults:
         exclusive_global_resources: { mfa.ruby.zhdk.ch: true }
         environment_variables:
-          USE_S3_BUILD_CACHE: 'true' # no further config == uses default, public cache instead of CI cache
           DEPLOY_TARGET_INVENTORY: 'developer-hosts --limit mfa'
 
 ###
