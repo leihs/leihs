@@ -43,26 +43,6 @@ jobs:
 
 ###
 
-  PHIKU-prod:
-    name: ⚒ Dev-Deploy + restore PROD-DATA! to phiku.ruby.zhdk.ch
-    include: cider-ci/task-components/zhdk-dev-deploy-with-prod-data.yml
-    context:
-      task_defaults:
-        exclusive_global_resources: { phiku.ruby.zhdk.ch: true }
-        environment_variables:
-          DEPLOY_TARGET_INVENTORY: 'developer-hosts --limit phiku'
-
-  PHIKU-blank:
-    name: ⚒ Dev-Deploy to phiku.ruby.zhdk.ch
-    include: cider-ci/task-components/zhdk-dev-deploy-blank.yml
-    context:
-      task_defaults:
-        exclusive_global_resources: { phiku.ruby.zhdk.ch: true }
-        environment_variables:
-          DEPLOY_TARGET_INVENTORY: 'developer-hosts --limit phiku'
-
-###
-
   TOM-prod:
     name: ⚒ Dev-Deploy + restore PROD-DATA! to tom.ruby.zhdk.ch
     include: cider-ci/task-components/zhdk-dev-deploy-with-prod-data.yml

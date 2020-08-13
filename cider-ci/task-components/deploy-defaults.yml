@@ -3,7 +3,6 @@ priority: 2
 context:
   task_defaults:
     environment_variables:
-      ANSIBLE_STDOUT_CALLBACK: yaml
       LEIHS_DIR: '{{CIDER_CI_WORKING_DIR}}'
       DEPLOY_DIR: '{{LEIHS_DIR}}/deploy'
       INVENTORY_DIR: '{{CIDER_CI_WORKING_DIR}}/zhdk-inventory'
