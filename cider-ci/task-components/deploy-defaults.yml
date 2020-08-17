@@ -3,10 +3,14 @@ priority: 2
 context:
   task_defaults:
     environment_variables:
-      ANSIBLE_STDOUT_CALLBACK: yaml
       LEIHS_DIR: '{{CIDER_CI_WORKING_DIR}}'
       DEPLOY_DIR: '{{LEIHS_DIR}}/deploy'
       INVENTORY_DIR: '{{CIDER_CI_WORKING_DIR}}/zhdk-inventory'
+      USE_S3_BUILD_CACHE: 'true' # uses the default, public cache
+      S3_CACHE_ENDPOINT_FN: 'echo "$S3_CI_ENDPOINT"'
+      S3_CACHE_BUCKET_FN: 'echo "leihs-deploy-build-cache"'
+      S3_ACCESS_KEY_ID_FN: 'echo "$AWS_ACCESS_KEY_ID"'
+      S3_SECRET_ACCESS_KEY_FN: 'echo "$AWS_SECRET_ACCESS_KEY"'
 
   tasks:
     deploy:
@@ -15,6 +19,7 @@ context:
           include_match: ^.*$
       traits:
         g2018: true
+        S3-Cache: true
 
       max_trials: 1
 
