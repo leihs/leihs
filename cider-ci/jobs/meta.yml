@@ -117,10 +117,7 @@ jobs:
                 #!/usr/bin/env bash
                 set -exu
                 git fetch --all --quiet
-                git submodule update --quiet --init --depth=1 legacy
-                git submodule update --quiet --init --depth=1 borrow
-                cd borrow
-                git submodule update --quiet --init --depth=1 spec/support/legacy-api
+                git submodule update --quiet --init --recursive
 
                 v_legacy_top_level=$(git submodule status --recursive | grep "legacy " | cut -f 2 -d ' ')
                 v_legacy_borrow=$(git submodule status --recursive | grep "borrow/spec/support/legacy-api " | cut -f 2 -d ' ')
