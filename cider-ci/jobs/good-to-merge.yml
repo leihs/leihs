@@ -63,7 +63,6 @@ jobs:
           name: "All relevant tests have passed, thus good to merge"
           scripts:
             main:
-              timeout: "15 minutes"
               body: echo 'All relevant tests have passed' ; exit 0
 
         include:
