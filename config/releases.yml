@@ -3,10 +3,10 @@ releases:
 - version_major: 5
   version_minor: 2
   version_patch: 2
-  version_pre: RC.3
+  version_pre: null
   description: |
-
-    - fix: orderless reservation purpose improvements
+    - feat: add purpose to orderless reservations on handover
+    - fix: ui: HandoverAutocomplete positioning
 
 - version_major: 5
   version_minor: 2
