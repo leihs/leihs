@@ -3,8 +3,17 @@ releases:
 - version_major: 5
   version_minor: 2
   version_patch: 3
+  version_pre: RC.2
+  description: |
+
+    - fix: migration
+
+- version_major: 5
+  version_minor: 2
+  version_patch: 3
   version_pre: RC.1
   description: |
+
     - feat: Add secondary_email, admin/users e-mail match, fixes 901, 912, and 913
     - fix: legacy: ui: use new handover-purpose icon in menu
     - deploy: fix: release notes
@@ -15,6 +24,7 @@ releases:
   version_patch: 2
   version_pre: null
   description: |
+
     - feat: add purpose to orderless reservations on handover
     - fix: ui: HandoverAutocomplete positioning
 
