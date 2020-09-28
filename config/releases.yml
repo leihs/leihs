@@ -2,6 +2,13 @@ releases:
 
 - version_major: 5
   version_minor: 2
+  version_patch: 4
+  version_pre: null
+  description: |
+    - perf: lending: improve handover scanner performance
+
+- version_major: 5
+  version_minor: 2
   version_patch: 3
   version_pre: null
   description: |
