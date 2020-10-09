@@ -3,23 +3,15 @@ releases:
 - version_major: 5
   version_minor: 3
   version_patch: 0
-  version_pre: RC.1
+  version_pre: null
   description: |
     - feat: procure: requests short ID
-    - perf: legacy: perf: improve handover scanner performance
     - borrow: order title & various migrations
     - borrow: new booking calendar
     - borrow: invalidate ls & block current user now and then
     - borrow: basic visits
     - borrow: template assistant (basic version)
     - borrow: translations
-
-- version_major: 5
-  version_minor: 2
-  version_patch: 4
-  version_pre: null
-  description: |
-    - perf: lending: improve handover scanner performance
 
 - version_major: 5
   version_minor: 2
