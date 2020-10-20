@@ -53,7 +53,7 @@ context:
             cd deploy
             export ANSIBLE_HOST_KEY_CHECKING=False
             bin/ansible-playbook get-server-log_play.yml \
-              --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
+              --ssh-common-args='-i ~/.ssh/zhdk_ci_executor_rsa' \
               -i ${INVENTORY_DIR}/${DEPLOY_TARGET_INVENTORY}
 
             echo ''; echo ''; echo '';

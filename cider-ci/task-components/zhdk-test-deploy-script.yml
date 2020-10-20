@@ -11,7 +11,7 @@ body: |
 
   bin/ansible-playbook deploy_play.yml \
     -v \
-    --ssh-common-args '-i ~/.ssh/zhdk_ci_executor_rsa' \
+    --ssh-common-args='-i ~/.ssh/zhdk_ci_executor_rsa' \
     -e "use_s3_build_cache=${USE_S3_BUILD_CACHE:-}" \
     -e "force_rebuild=${FORCE_REBUILD:-}" \
     -i ../zhdk-inventory/${DEPLOY_TARGET_INVENTORY}

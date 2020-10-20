@@ -16,9 +16,13 @@ jobs:
           name: Debian 9 (stretch)
           include: cider-ci/task-components/container-deploy/task-debian-9.yml
 
-        ubuntu-lts-with-cache:
+        ubuntu-1804-with-cache:
           name: Ubuntu 18.04 LTS
           include: cider-ci/task-components/container-deploy/task-ubuntu-1804.yml
+
+        ubuntu-2004-with-cache:
+          name: Ubuntu 20.04 LTS
+          include: cider-ci/task-components/container-deploy/task-ubuntu-2004.yml
 
         debian-buster-with-cache:
           name: Debian 10 (buster)
