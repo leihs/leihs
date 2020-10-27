@@ -169,7 +169,7 @@ task_defaults:
     submodules:
       include_match: ^.*$
 
-generate_tasks:
-  include_match: spec\/features\/(.*)(\.feature|_spec\.rb)$
-  #include_match: spec\/features\/(clean_db|release_info)\.feature$
-  submodule: [integration-tests]
+#generate_tasks:
+#  include_match: spec\/features\/(.*)(\.feature|_spec\.rb)$
+#  #include_match: spec\/features\/(clean_db|release_info)\.feature$
+#  submodule: [integration-tests]
