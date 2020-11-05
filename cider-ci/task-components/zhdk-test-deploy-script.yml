@@ -4,14 +4,8 @@ body: |
   cd deploy
   export ANSIBLE_HOST_KEY_CHECKING=False
 
-  export S3_CACHE_ENDPOINT="$(eval "$S3_CACHE_ENDPOINT_FN")"
-  export S3_CACHE_BUCKET="$(eval "$S3_CACHE_BUCKET_FN")"
-  export S3_ACCESS_KEY_ID="$(eval "$S3_ACCESS_KEY_ID_FN")"
-  export S3_SECRET_ACCESS_KEY="$(eval "$S3_SECRET_ACCESS_KEY_FN")"
-
   bin/ansible-playbook deploy_play.yml \
     -v \
     --ssh-common-args='-i ~/.ssh/zhdk_ci_executor_rsa' \
-    -e "use_s3_build_cache=${USE_S3_BUILD_CACHE:-}" \
     -e "force_rebuild=${FORCE_REBUILD:-}" \
     -i ../zhdk-inventory/${DEPLOY_TARGET_INVENTORY}
