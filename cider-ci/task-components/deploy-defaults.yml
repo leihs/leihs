@@ -6,15 +6,19 @@ context:
       LEIHS_DIR: '{{CIDER_CI_WORKING_DIR}}'
       DEPLOY_DIR: '{{LEIHS_DIR}}/deploy'
       INVENTORY_DIR: '{{CIDER_CI_WORKING_DIR}}/zhdk-inventory'
+      RUBY: '{{RUBY_ENGINE}}-{{RUBY_VERSION}}'
+      RUBY_ENGINE: ruby
+      RUBY_VERSION: 2.7.2
 
   tasks:
     deploy:
       git_options:
         submodules:
           include_match: ^.*$
+
       traits:
-        g2018: true
-        S3-Cache: true
+        ruby-install: true
+        Bash: true
 
       max_trials: 1
 
@@ -31,12 +35,25 @@ context:
             cd ${INVENTORY_DIR}
             git crypt unlock
 
+        install-ruby:
+          exclusive_executor_resource: ruby-install_{{$RUBY}}
+          timeout: 20 Minutes
+          body: |
+            #!/usr/bin/env bash
+            set -eu
+            export PATH=~/.rubies/$RUBY/bin:$PATH
+            if [ ! -d ~/.rubies/$RUBY ]; then
+              ruby-install --no-install-deps $RUBY_ENGINE $RUBY_VERSION
+            fi
+
         deploy:
           timeout: 40 minutes
           start_when:
             unlock_passed:
               script_key: unlock
               states: [passed]
+            ruby-installed:
+              script_key: install-ruby
 
         attach-server-log:
           ignore_state: yes
