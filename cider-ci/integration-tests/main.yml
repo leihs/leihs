@@ -147,10 +147,8 @@ task_defaults:
       submodule: [my]
     - path: cider-ci/task-components/bundle-rspec-ruby.yml
       submodule: [legacy]
-    - path: cider-ci/task-components/database/configure.yml
+    - path: cider-ci/task-components/database.yml
       submodule: [legacy]
-    - path: cider-ci/database_task-component.yml
-      submodule: [database]
     - path: cider-ci/task-components/reverse-proxy.yml
       submodule: [integration-tests]
     - path: cider-ci/task-components/fake-smtp.yml
