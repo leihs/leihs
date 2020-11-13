@@ -21,6 +21,7 @@ jobs:
           name: "database in toplevel and submodules all point to the same commit"
           scripts:
             main:
+              timeout: 15 minutes
               body: |
                 #!/usr/bin/env bash
                 set -exu
@@ -55,6 +56,7 @@ jobs:
           name: "leihs-ui submodules all point to the same commit"
           scripts:
             main:
+              timeout: 15 minutes
               body: |
                 #!/usr/bin/env bash
                 set -exu
@@ -81,6 +83,7 @@ jobs:
           name: "shared-clj submodules all point to the same commit"
           scripts:
             main:
+              timeout: 15 minutes
               body: |
                 #!/usr/bin/env bash
                 set -exu
@@ -109,6 +112,7 @@ jobs:
           name: "legacy submodules of borrow and super-project point to the same commit"
           scripts:
             main:
+              timeout: 15 minutes
               body: |
                 #!/usr/bin/env bash
                 set -exu

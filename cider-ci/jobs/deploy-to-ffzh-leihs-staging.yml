@@ -11,6 +11,7 @@ jobs:
             DEPLOY_TARGET_INVENTORY: 'staging-hosts --limit ffzh-leihs-staging'
           scripts:
             fetch-dump:
+              timeout: 15 Minutes
               body: |
                 set -euxo
                 cd deploy
@@ -33,7 +34,7 @@ jobs:
                   --ssh-common-args='-i ~/.ssh/zhdk_ci_executor_rsa' \
                   -i ../zhdk-inventory/${DEPLOY_TARGET_INVENTORY}
             deploy:
-              timeout: 6 Hours
+              timeout: 3 Hours
               start_when:
                 data from prod was synced: {script_key: restore-dump, states: [passed]}
               body: |

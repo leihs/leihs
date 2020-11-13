@@ -1,6 +1,7 @@
 scripts:
 
   fetch-dump:
+    timeout: 15 Minutes
     body: |
       set -euxo
       cd deploy
@@ -24,6 +25,7 @@ scripts:
         -i ../zhdk-inventory/${DEPLOY_TARGET_INVENTORY}
 
   deploy:
+    timeout: 3 hours
     include: cider-ci/task-components/zhdk-test-deploy-script.yml
     start_when:
       data from prod was synced: {script_key: restore-dump, states: [passed]}
