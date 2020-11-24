@@ -1,7 +1,838 @@
 releases:
 
-- version_major: 6
+- version_major: 5
+  version_minor: 4
+  version_patch: 0
+  version_pre: RC.1
+  description: |
+    - feat: Entitlements and delegations via groups, UI improment roles
+    - fix: legacy: translation in booking calendar
+    - fix: legacy: new timeline and entitlement scope
+    - fix: legacy: consider entitlements only in the same pool
+    - fix: legacy: ancestors for borrowable categories
+    - fix: language/locale handling changes
+    - fix: anti-csrf
+    - db: seeds
+    - db: remove leftover language_id reference
+    - mail: refactor settings handling and logging
+    - borrow: models list caching
+    - borrow: search panel local state
+    - borrow: app layout
+    - borrow: abort running queries on change view
+    - borrow: fix has reservable items perf
+    - borrow: enable anti-csrf
+    - borrow: improvements & fixes of calendar
+    - zhdk: enable new borrow app on staging
+    - deploy: Support Ubuntu 20.04; upgrade Ansible and use python 3.8
+    - deploy: update SSL/TLS config
+    - deploy: fix ansible pipe in vim role
+    - deploy: fix: workaround for restore-dump
+    - chore: legacy: fix meta checks
+    - chore: update leihs-ui
+    - chore: Refactoring languages
+    - chore: Rework CI and build scripts
+
+- version_major: 5
+  version_minor: 3
+  version_patch: 0
+  version_pre: null
+  description: |
+    - feat: procure: requests short ID
+    - borrow: order title & various migrations
+    - borrow: new booking calendar
+    - borrow: invalidate ls & block current user now and then
+    - borrow: basic visits
+    - borrow: template assistant (basic version)
+    - borrow: translations
+
+- version_major: 5
+  version_minor: 2
+  version_patch: 4
+  version_pre: null
+  description: |
+    - perf: lending: improve handover scanner performance
+
+- version_major: 5
+  version_minor: 2
+  version_patch: 3
+  version_pre: null
+  description: |
+    - feat: Add secondary_email, admin/users e-mail match, fixes 901, 912, and 913
+    - fix: legacy: ui: use new handover-purpose icon in menu
+    - deploy: fix: release notes
+    - borrow: wip
+
+- version_major: 5
+  version_minor: 2
+  version_patch: 2
+  version_pre: null
+  description: |
+
+    - feat: add purpose to orderless reservations on handover
+    - fix: ui: HandoverAutocomplete positioning
+
+- version_major: 5
+  version_minor: 2
+  version_patch: 1
+  version_pre: null
+  description: |
+
+    - fix: Extend inventory-pool users/groups role filter with 'none' and 'any'
+    - fix: DB schema restricts group roles
+    - feat: borrow app: delegations
+    - deploy: ruby: bundler flags
+
+- version_major: 5
+  version_minor: 2
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    - feat: legacy: inventory: categories: expand/close all
+    - feat: legacy: cover image for models
+    - feat: admin & legacy: expand roles system to groups
+    - feat: legacy: search after models in visits
+    - feat: Sign up via ext auth
+    - feat: borrow app: invalidate cart if conflicts
+    - feat: borrow app: model search/filters
+    - feat: borrow app: current user show
+    - feat: borrow app: pools
+    - fix: consider all days for workload
+    - fix: legacy: retired items and inactive pools combination
+    - fix: performance issues for borrow categories and models
+    - fix: procure: display of the accounting fields
+    - fix: admin: create mail templates together with pool
+    - fix: legacy: maintenance period considers closed days now
+    - fix: Some UI improvement and fixes
+    - fix: legacy: missing translations and other stuff
+    - fix: procure: add missing translations
+    - fix: borrow app: fix special per page setting
+    - fix: legacy: allow take back for user without access
+    - fix: admin: sort pools in menu by name
+    - deploy: cleanup, fixes, build cache, Docker
+    - chore: borrow: kebab-case keys in data and errors
+    - chore: Reconcile SMTP ENV var names; update clj-shared
+    - chore: borrow: clean up app-db
+    - chore: borrow: boot: exclude js from watch task
+    - chore: borrow: move client sources
+    - database: pool workday constraint
+
+- version_major: 5
+  version_minor: 1
+  version_patch: 10
+  version_pre: null
+  description: |
+
+    - feat: Add and mange group_access_rights
+    - fix: legacy: fix: scope model's compatibles in borrow
+    - fix: legacy: fix: ui: show linebreaks in model description
+    - fix: legacy: fix: error when assigning a retired item
+    - fix: legacy: fix week number for contract
+    - fix: procure: show only close button for past budget period
+    - fix: Admin: fix and spec show inventory_pools_roles (bugs 798, 787)
+    - fix: Resurrect inventory export
+    - fix: mail: fix logging
+    - fix: user with deactivated language
+    - fix: DB: make sure "FIRSTNAME LASTNAME" is found in users search
+    - chore: database: add procurement organizations constraint
+    - chore: shared-clj: return_to inside jwt token
+    - chore: database: add foreign key constraints to orders
+
+- version_major: 5
+  version_minor: 1
+  version_patch: 9
+  version_pre: null
+  description: |
+
+    - fix: ruby security 2.6.6
+
+- version_major: 5
+  version_minor: 1
+  version_patch: 8
+  version_pre: null
+  description: |
+
+    - feat: Inventory-pool administration, deleted_at, suspensions
+    - fix: legacy: reorder reservations for hand over
+    - fix: database & deploy: ensure exactly one default language which is active too
+    - fix: create workday along with inventory-pool
+    - chore: database: index on access_rights on user and pool
+
+- version_major: 5
+  version_minor: 1
+  version_patch: 7
+  version_pre: null
+  description: |
+
+    - legacy: reservation's default scope only created_at
+    - chore: Add smtp_authentication_type setting
+
+- version_major: 5
+  version_minor: 1
+  version_patch: 6
+  version_pre: null
+  description: |
+
+    - fix: legacy: deal with reservation_advance_days nil
+    - fix: legacy: better error message & audits for assigned items
+    - fix: my: password reset email case insensitive
+    - deploy: Generalize CI deploy, template settings
+    - deploy: export secret in execute script play
+
+- version_major: 5
+  version_minor: 1
+  version_patch: 5
+  version_pre: null
+  description: |
+
+    - mail: support smtp auth
+    - inventory/deploy: add ffzh-prod
+
+- version_major: 5
+  version_minor: 1
+  version_patch: 4
+  version_pre: null
+  description: |
+
+    - fix: Admin: Extend delete and transfer to include more fkeys
+
+- version_major: 5
+  version_minor: 1
+  version_patch: 3
+  version_pre: null
+  description: |
+
+    - chore: Convert extended_info to json(b), expose it via admin API and UI
+    - deploy: fixes for demo host
+
+- version_major: 5
+  version_minor: 1
+  version_patch: 4
+  version_pre: null
+  description: |
+
+    - fix: Admin: Extend delete and transfer to include more fkeys
+
+- version_major: 5
+  version_minor: 1
+  version_patch: 3
+  version_pre: null
+  description: |
+
+    - chore: Convert extended_info to json(b), expose it via admin API and UI
+    - deploy: fixes for demo host
+
+- version_major: 5
+  version_minor: 1
+  version_patch: 2
+  version_pre: null
+  description: |
+
+    - bug: admin: bugfixes
+    - deploy: enable mails on ffzh-staging
+
+- version_major: 5
+  version_minor: 1
+  version_patch: 1
+  version_pre: null
+  description: |
+
+    - bug: legacy: fix approvable vs. submittable reservation
+    - feat: Admin: access user/img_digest from the frontend
+    - deploy: Support Debian Buster; add container test
+    - deploy: ffzh: upgrade to 5.1 fixes
+    - chore: Container tests: increase prepare timeout
+
+- version_major: 5
+  version_minor: 1
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    - bug: legacy: missing validation for reservation advance days
+    - bug: legacy: label for audits options
+    - bug: global navbar issues
+    - feat: Audits: new tables, stored procs, triggers, enabled for new admin scope, no UI yet
+    - feat: password reset via email
+    - feat: Support ext auth sign-out callback
+    - feat: admin: archiving audits
+    - feat: my: sign-in-ui: only show password input if usable
+    - feat: legacy: Revert "make some settings readonly"
+    - feat: inventory: csv export: add Delegation user info if borrowed
+    - feat: legacy: change attachments field permissions
+    - chore: deploy: demo: reset dump playbook
+    - chore: deploy: Improve systemd service definitions
+    - chore: deploy: Replace http shutdown with pid shutdown
+
+- version_major: 5
+  version_minor: 0
+  version_patch: 4
+  version_pre: null
+  description: |
+
+    - feat: legacy: maximum reservation time
+    - feat: procure: improve filter UX
+    - fix: non-deterministic group allocation in availability
+    - fix: legacy: mails and users with no language
+    - fix: legacy: find and load also empty attachments
+    - fix: legacy: migrate attachments add constraints
+    - fix: procure: fix filter when loosing inspector rights
+    - deploy: chore: remove duplicated config
+    - documentation: availability
+
+- version_major: 5
+  version_minor: 0
+  version_patch: 3
+  version_pre: null
+  description: |
+
+    - feat: Database audits clean-up
+    - feat: procure: upload new category image
+    - feat: locale handling, translate home and sign-in
+    - fix: mails and users with no language
+    - fix: Extend api-tokens with system-admin scopes
+    - fix: procure: RequestForm supplier_name field
+    - fix: legacy: removal of a member of delegation with open reservations
+    - fix: legacy: fix: inconsistent delegated user for an order
+    - chore: Set up caching via apache for /my and /admin
+    - deploy: enable configuring languages
+
+- version_major: 5
+  version_minor: 0
+  version_patch: 2
+  version_pre: null
+  description: |
+
+    - feat: show quantity in borrow returns
+    - feat: sort items by inventory code in inventory
+    - feat: support AAI/Switch authentication systems
+    - fix: autocomplete for adding items to a package
+    - fix: inventory: barcode scanner support for edit package > add item input
+    - fix: mail templates migration for empty database
+    - fix: manage: create inventory search field only searches when term is given
+    - fix: manage: inconsistent delegated user for an order
+    - fix: my: show user name as in admin
+    - fix: navbar: don't show sub app if only one app
+    - fix: procure: handle if settings are empty
+    - fix: procure: presence of 0 for quantities
+    - fix: procure: wrong sums for requester
+    - fix: procurement: fix request creation
+    - fix: redirects
+    - fix: release info on the login page
+    - fix: sign in: autoFocus the user input field
+    - fix: sign-in: dont autocapitalize username (on mobile)
+    - translations: admin statistics
+    - deploy: add `SyslogIdentifier` for all systemd services
+    - deploy: add caching for build artefacts
+    - deploy: db restore vacuum analyze
+    - deploy: fix missing services for stop task
+    - deploy: fix monit stop/start
+    - deploy: fix: add missing secret to legacy cron job
+
+- version_major: 5
+  version_minor: 0
+  version_patch: 1
+  version_pre: null
+  description: |
+
+    **We recommend existing instances to wait for v5.1 to upgrade their system** (First time installations can use V5.0)
+
+    See v5.0.0 for list of breaking changes.
+
+    *Fixes*
+
+    - Fixed login using password of certain formats
+    - Fixed the post-login redirection which did not succeed for some users
+    - Fixed broken display of delegation name in global search
+    - Improved rendering process to be more resilient
+
+- version_major: 5
   version_minor: 0
   version_patch: 0
-  version_pre: dev
-  description: null
+  version_pre: null
+  description: |
+
+    **We recommend existing instances to wait for v5.1 to upgrade their system** (First time installations can use V5.0)
+
+    ***Breaking Changes:***
+    - The existing LDAP-adapter concept has been replaced by a general leihs authentication-API (Example code available)
+    - Modernised internal password hashing - existing passwords are not valid anymore. Managers or Admins need to enter a new password for them.
+
+    *Rewrite of authentication*
+
+     - Possibility to manage Authentication-Systems in Admin section
+     - New sign-in UI for internal and external accounts
+     - Sign-in via email address or login (username)
+     - Modernised internal password hashing - existing passwords are not valid anymore
+     - The existing LDAP-adapter concept has been replaced by a general leihs authentication-API (Example code available)
+
+    *User accounts*
+
+    - No fields are mandatory anymore
+    - Possibility to create api-tokens for users
+
+    *Admin*
+
+    - New Admin-application
+    - New API to sync users and groups from an external system
+    - New entity “groups”
+    - Replaced: Manage users
+    - Replaced: Manage Delegations Rewrite and redesign of the delegations page in Admin section
+
+    *Procurement*
+
+    - Rewrite of the Procurement app (German only at the moment)
+    - Can be used on mobile devices
+    - New role “Viewer” - only views requests
+
+- version_major: 4
+  version_minor: 19
+  version_patch: 5
+  version_pre: null
+  description: |
+    - fix: orders index for hand over via post
+
+- version_major: 4
+  version_minor: 19
+  version_patch: 4
+  version_pre: null
+  description: |
+    - fix: mail templates migration for empty database
+
+- version_major: 4
+  version_minor: 19
+  version_patch: 3
+  version_pre: null
+  description: |
+    - fix: redirect to root when not logged into procurement
+
+- version_major: 4
+  version_minor: 19
+  version_patch: 2
+  version_pre: null
+  description: |
+    - fix: show textarea for model description and make all of them resizable
+    - fix: missing new for software constructor
+
+- version_major: 4
+  version_minor: 19
+  version_patch: 1
+  version_pre: null
+  description: |
+    - fix: quick fix for prod to not loose package children in inventory helper
+
+- version_major: 4
+  version_minor: 19
+  version_patch: 0
+  version_pre: null
+  description: |
+    - feature: better information for entitlements conflicts
+    - feature: inventory helper in react
+    - fix: labels and titles for create package
+    - fix: create model i18n
+    - fix: for manage fields in inventory pool show status and target type
+    - fix: add more columns to admin quick export
+    - chore: create model in react
+    - fix: remove deactivation of form fields per user
+    - feature: refactor package ui
+    - fix: add item properties as columns to quick export
+
+- version_major: 4
+  version_minor: 18
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    - feature: enable and disable fields per inventory pool
+    - feature: quick inventory export in admin
+    - fix: sort pools alphabetically for borrow
+
+- version_major: 4
+  version_minor: 17
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    - feat: send submitted order email
+    - feat: improve field editor
+    - fix: in field editor if you delete default value then choose another default value
+    - fix: add lost styles for timeline again
+    - fix: show max 100 results and debounce for autocomplete
+    - fix: borrow calendar reload button
+    - fix: borrow: set purpose as required field on order submit
+    - translation: translate errors in borrow
+    - translation: booking calendar translation
+    - fix: show timeline in new tab for edit order
+
+- version_major: 4
+  version_minor: 16
+  version_patch: 1
+  version_pre: null
+  description: |
+
+    - fix: availability & retired items in borrow
+
+- version_major: 4
+  version_minor: 16
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    - feat: simplify borrow inventory pools list
+    - fix: hiding fields in create item was not working anymore
+    - fix: dont allow to deactivate required fields in field editor for static fields
+    - fix: calendar when max visits not defined
+    - fix: ui-datepicker styles
+    - fix: translation in borrow pools
+    - fix: links in the new timeline
+    - fix: show only pools with borrowable items in borrow models index
+    - fix: daily view visits links
+    - fix: borrow: templates order form
+    - chore: refactor and improve performance
+
+- version_major: 4
+  version_minor: 15
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    - feat: react booking calendar in borrow everywhere
+    - feat: admin field editor
+    - fix: borrow: deal with undefined max_visits in calendar
+    - fix: borrow: templates order form UX
+    - fix: simplify borrow inventory pools list
+    - fix: more robust settings initializer
+    - fix: various things in visits index
+    - fix: borrow calendar back button
+    - fix: error on templates page with session storage true
+    - fix: empty start/end date in session storage
+    - fix: show item count per room and inventory codes if less than 100
+    - fix: room diff outputs not the items with unknown rooms but unly the unknown rooms
+    - fix: make some settings readonly
+    - fix: dont allow to deactivate required fields in field editor for static fields
+    - fix: hiding fields in create item was not working anymore
+    - translation: delete model error message
+    - chore: remove paperclip from migrations #3
+    - chore: remove inventory_pool_id from entitlements
+
+- version_major: 4
+  version_minor: 14
+  version_patch: 2
+  version_pre: null
+  description: |
+
+    - feat: new Timeline
+
+- version_major: 4
+  version_minor: 14
+  version_patch: 1
+  version_pre: null
+  description: |
+
+    - fix: borrow pools index and calendar on models show
+
+- version_major: 4
+  version_minor: 14
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    - feat: verification filter for visits list
+    - fix: rewritten booking calendar in 'borrow' section
+    - fix: do not use category filter on inventory list for options tab
+    - fix: when creating Models, dont save if errors
+    - chore: refactor and improve borrow booking calendar
+    - chore: container-test: handle missing image alias
+    - chore: remove settings singleton
+
+- version_major: 4
+  version_minor: 13
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    - feat: admin: suppliers: add note, UI improvements
+    - feat: improve global search
+    - fix: create model validation message for product and version
+    - fix: do not show categories on inventory list if options are selected
+    - fix: expert search text resources i18n
+    - fix: i18n plural 'Day'
+    - fix: license saved message
+    - fix: procurement: enhance category/template list UX
+    - fix: procurement: validate whole numbers in forms
+    - fix: remove filter visibility dependencies in inventory list and show all models after create new model
+    - fix: remove paperclip from migrations
+    - fix: remove paperclip from migrations #2
+
+- version_major: 4
+  version_minor: 12
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    - feature: show thumbnail on edit item if attachment is of content type image
+    - fix: contracts search must consider contracts purpose too not only orders purpose
+    - fix: do not show inactive pools on borrow inventory pools
+    - fix: inventory: upload attachments when creating model
+    - fix: linkify inventory pool descriptions for borrow
+    - fix: model validation of product name and version
+    - fix: pools list in borrow section should list pools with borrowable items or contracts
+    - fix: text resources for model product and version errors
+
+- version_major: 4
+  version_minor: 11
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    - feat: logo link in footers, admin-configurable
+    - fix: for deleting the last group from user
+    - fix: negative general quantity for borrow calendar
+    - fix: admin: form labels in settings
+    - fix: correct error msg. in hand over
+    - fix: Do not validate serial number when creating a package
+    - fix: edit license page title
+    - fix: improve form handling
+    - fix: lending: when adding options to handover, don't reload availability
+    - fix: linkify technical details for license
+    - fix: on inventory list show problems for license lines too
+    - fix: show all contracts button in global search
+    - fix: show contracts from deactivated pools
+    - fix: Show retired label and inactive pool on item line in global search
+    - refactor: user-session (in DB)
+
+- version_major: 4
+  version_minor: 10
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    *lending*
+
+    - dont allow to create supppliers on create and edit item forms, disable field supply category
+    - fix: always show field inventory_code independent of role
+    - fix: inspection label for take back
+    - fix: include Software & Licences for take back
+    - fix: model availability doesn't count retired items
+    - fix: show existing delegation contact user in swap user dialog
+    - fix: use return urls for cancel of edit model etc
+    - fix: translations for some create item buttons
+    - fix: order list order by created at and group by user
+
+- version_major: 4
+  version_minor: 9
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    *lending*
+
+    - feat: Display purpose on take back line
+    - feat: manage: search contracts by 'compact_id'
+    - fix: add missing key to en_GB for attachment error
+    - fix: create item inventory code buttons
+    - fix: delayed loading for inventory list search field
+    - fix: edit item bugs
+    - fix: edit order link from failed approval modal
+    - fix: inventory list bugs
+    - fix: 'swap user' form submission in Safari
+    - fix: load package models in chunks to prevent too long urls
+    - fix: validation of empty select
+
+- version_major: 4
+  version_minor: 8
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    *lending*
+
+    - feat: mark groups with too many assignments in red on group overview
+    - fix: dont submit 'swap user' form when no user is selected
+    - fix: hand over dialog autocomplete
+
+    *procurement*
+
+    - feat: admin can inspect in all categories
+    - feat: only block nav for changed forms
+    - feat: refresh button in overview
+    - fix: Inspectors can see accounting fields of other categories
+    - fix: only show budget limits if configured
+
+    *database*
+
+    - constraints for orders state and reject reason
+    - add reject reason to orders
+    - Remove purpose_id from orders
+
+- version_major: 4
+  version_minor: 7
+  version_patch: 3
+  version_pre: null
+  description: |
+    - Fix: Fix closed reservations contract state
+
+- version_major: 4
+  version_minor: 7
+  version_patch: 2
+  version_pre: null
+  description: |
+    - Fix: Redundant contracts in the list
+
+- version_major: 4
+  version_minor: 7
+  version_patch: 1
+  version_pre: null
+  description: |
+    - Fix: Button label for order line and group manager
+    - Fix: Filter for verification required and order list
+    - Fix: Reject button for orders with many items
+
+- version_major: 4
+  version_minor: 7
+  version_patch: 0
+  version_pre: null
+  description: |
+    - Feature: Disable flexible fields
+    - Fix: Do not show location comma, if there is no location
+    - Fix: Create item: save button i18n; date format; hide fields functionality
+    - Fix: Show version for licenses on inventory
+    - Fix: Inventory: edit Options, set inventory code as required
+    - Technical: Orders & contracts refactoring
+    - Locale: Admin inventory pool 18n
+
+- version_major: 4
+  version_minor: 6
+  version_patch: 0
+  version_pre: null
+  description: |
+    - Feature: inventory: add license version field
+    - Feature: inventory: expert search
+    - Feature: procurement: accounting type fields
+    - Feature: procurement: inline edit request lines in overview
+    - Feature: procurement: inspection comments templates
+    - Feature: admin: show `languages` table
+    - Feature: render app errors with details
+    - Fix: Calendar and csv import translations
+    - Fix: don't crash on inactive dynamic fields
+    - Fix: inventory: enable quantity allocations for every license type
+    - Fix: inventory: don't show "Undefined" types
+    - Fix: inventory: don't show location for item-licenses
+    - Fix: inventory: image upload restrictions error
+    - Fix: lending: for order lines replace buttons dropdown with rejected label after rejection
+    - Locale: Add French translation
+    - Deploy: Support Debian 9 "stretch"
+
+- version_major: 4
+  version_minor: 5
+  version_patch: 1
+  version_pre: null
+  description: |
+    - Fix: Item.properties default hash
+    - Fix: serialize User.settings
+    - Fix: store -> serialize in item.rb
+    - Fix: destroy in accept nested attributes
+    - Fix: create fields rake task: inactive fields
+
+- version_major: 4
+  version_minor: 5
+  version_patch: 0
+  version_pre: null
+  description: |
+    - Fix: Fix create fields rake task: inactive fields
+    - Fix: Fix access rights problems (fixes #283)
+    - Fix: Patch image upload
+    - Fix: perf: manage: inventory helper: limit autocompletes
+    - Fix: Delete unsubmitted orders when deactivating pools (resolves #289)
+    - Tech: Upgrade to Rails 5
+    - Feat: Case insensitive take back
+
+- version_major: 4
+  version_minor: 4
+  version_patch: 1
+  version_pre: null
+  description: |
+    - Fix: Show item's location in hand over assign dropdown
+
+- version_major: 4
+  version_minor: 4
+  version_patch: 0
+  version_pre: null
+  description: |
+    - Feature: Search in audits (resolves #256)
+    - Fix: Borrow: remove broken links from categories list (resolves #259)
+    - Fix: Admin: search for user in admin tab only searches for admins (resolves #166)
+    - Feature: Release page + deploy info
+    - Feature: Add metadata to files & attachments (resolves #265)
+    - Fix: Serial number validation warning in inventory helper (resolves #255)
+    - Feature: Change contracts sorting in global search (resolves #242)
+    - Documentation: Add owner_id & inventory_pool_id to items
+    - Feature: New entity: Rooms (resolves #228)
+
+- version_major: 4
+  version_minor: 3
+  version_patch: 1
+  version_pre: null
+  description: |
+
+    ### Frontend Bug Fixes
+
+    - Fix: BarcodeScanner: don't operate on focused inputs
+    - Fix: upgrade tooltipster jquery plugin
+
+- version_major: 4
+  version_minor: 3
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    - Feature: deactive pools (resolves #223)
+    - Fix: Forbid first admin user if already exists
+    - Fix: Inventory search in location's room (resolves #221)
+
+- version_major: 4
+  version_minor: 2
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    ### Inventory Feature and Bug Fixing
+
+    **Manage section**
+    - When copying an item, the field "last checked" on the new item is set to the current date
+
+    **Borrow section**
+    - The information in the links **order**, **hand over** and **returns** on the top of the page show on the right hand side of the page the **date from** and **date to**. Before we showed the dates until or since as f.e. 1970 days since 23.7.2014.
+    - The error messages on the top of the page when sending an order were not shown correctly.
+
+- version_major: 4
+  version_minor: 1
+  version_patch: 0
+  version_pre: null
+  description: |
+
+    ### Adjustments and Bug Fixing
+
+    **Missing translations**
+    - When submitting an order in the borrow section in the German part, the success message has now been translated to German.
+    - Tab "return" in German part of leihs has now been translated to German
+
+    **Borrow section**
+    - The filter settings are not deleted anymore when switching from one category to another
+
+    **Lending section**
+    - Feature delegation contracts: When searching for a user, not only his own contracts are shown in the overview but also contracts of delegations, where this user is acting as borrower.
+    - Bug fixing: Adding an item or model is not case sensitive anymore. This bug was introduced with the PostgreSQL-Update
+    - Bug fixing: It is not possible to lend the same item at the same time to the same user.
+    - Bug fixing: Date field when editing the calender in the return page was buggy. Now it is possible to delete the date or type a new date
+
+    **Manage section**
+    - Feature duplicate items: If you save an item where the serial-nr. already exists in leihs, you receive a warning asking, if you really want to save. This should help keep your inventory "tidy".
+
+    **Admin section**
+    - The shown time in the Audits-Page has been corrected to show the current time
+    - The newest entries in the Audits-Page are now shown on the top
+
+    **Installing leihs V4**
+    - Enabling LDAP  in V4: How-to-documentation adjusted to enable LDAP under PostgreSQL
+    - We now provide the possibility to create the first leihs-Admin-user through a UI
