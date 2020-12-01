@@ -3,6 +3,18 @@ releases:
 - version_major: 5
   version_minor: 4
   version_patch: 0
+  version_pre: RC.2
+  description: |
+    - fix: shared-clj: pool permissions query
+    - fix: borrow: errors on some show pages
+    - fix: borrow: include inactive pools in customer order sub-orders
+    - fix: borrow: missing quantity in models query
+    - deploy, inventories: move settings to variables
+    - deploy: fix DB-restore, enforce PostgreSQL version
+
+- version_major: 5
+  version_minor: 4
+  version_patch: 0
   version_pre: RC.1
   description: |
     - feat: Entitlements and delegations via groups, UI improment roles
