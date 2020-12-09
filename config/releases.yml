@@ -3,6 +3,13 @@ releases:
 - version_major: 5
   version_minor: 4
   version_patch: 0
+  version_pre: RC.3
+  description: |
+    - deploy: dont send mails for ffzh staging
+
+- version_major: 5
+  version_minor: 4
+  version_patch: 0
   version_pre: RC.2
   description: |
     - fix: shared-clj: pool permissions query
