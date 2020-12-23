@@ -5,21 +5,27 @@ require 'pathname'
 require 'optparse'
 require 'active_support'
 require 'active_support/core_ext/hash'
+require 'open3'
 
 @SCRIPT = Pathname.new(__FILE__).expand_path
 @SCRIPTDIR = @SCRIPT.dirname
 @LEIHS_ROOT_DIR = @SCRIPTDIR + ".."
 
 
+# order matters:
+# * legacy must come before borrow,
+# * '.' must be last
 SUBS = [
   ["admin", "database"],
-  ["borrow", "database"],
   ["legacy", "database"],
+  ["borrow", "database"],
   ["mail", "database"],
   ["my", "database"],
   ["procure", "server/database"],
   [".", "database"]
 ]
+
+@refs = {}
 
 @opts = {"super-ref": "origin/master"}.with_indifferent_access
 
@@ -48,13 +54,17 @@ puts @opts
 
 puts @SCRIPT, @SCRIPTDIR, @LEIHS_ROOT_DIR
 
-def exec_shell_command cmd
+def exec_shell_command(cmd, fail_on_error=true)
   puts '#######################################################################'
   puts "# in #{Dir.pwd}"
   puts "# #{cmd}"
-  system(cmd, exception: true)
+  stdout, stderr, status = Open3.capture3(cmd)
   puts '#######################################################################'
   puts "\n\n"
+  if fail_on_error and status.exitstatus != 0
+    raise "cmd #{Shellwords.escape(cmd)} exited with #{status.exitstatus} : #{stderr}"
+  end
+  return stdout
 end
 
 Dir.chdir @LEIHS_ROOT_DIR do
@@ -75,11 +85,19 @@ Dir.chdir @LEIHS_ROOT_DIR do
         exec_shell_command './bin/migrate-and-dump-demo'
         exec_shell_command './bin/migrate-and-dump-personas'
         exec_shell_command 'git add features/personas/demo.pgbin  features/personas/personas.pgbin'
+      when "borrow"
+        Dir.chdir 'spec/support/legacy-api' do
+          exec_shell_command "git fetch ../../../../legacy #{@refs['legacy']}"
+          exec_shell_command "git reset --hard #{@refs['legacy']}"
+        end
+        exec_shell_command 'git add spec/support/legacy-api'
       end
 
       if submodule != '.'
         exec_shell_command "git commit --allow-empty -m #{Shellwords.escape(@opts['commit-message'])}"
       end
+
+      @refs[submodule] = exec_shell_command('git rev-parse HEAD').strip
 
     end
     if submodule != '.'
@@ -90,6 +108,7 @@ Dir.chdir @LEIHS_ROOT_DIR do
   end
 
   exec_shell_command "git commit -m #{Shellwords.escape(@opts['commit-message'])}"
+
 
   # set branches and push
   escaped_branch_name = Shellwords.escape(@opts['branch-name'])
