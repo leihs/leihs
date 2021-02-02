@@ -1,6 +1,6 @@
 [submodule "legacy"]
 	path = legacy
-	url = https://github.com/leihs/leihs_legacy
+	url = https://github.com/frankvanthof/leihs_legacy
 [submodule "database"]
 	path = database
 	url = https://github.com/leihs/leihs_database
@@ -21,7 +21,7 @@
 	url = https://github.com/leihs/leihs-procure
 [submodule "my"]
 	path = my
-	url = https://github.com/leihs/leihs-my
+	url = https://github.com/frankvanthof/leihs-my
 [submodule "integration-tests"]
 	path = integration-tests
 	url = https://github.com/leihs/leihs-integration-tests.git
