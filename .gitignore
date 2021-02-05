@@ -8,3 +8,5 @@
 /zhdk-aai-shibboleth-auth-system
 /zhdk-agw-auth-system
 /zhdk-sync
+/.clj-kondo/
+/.lsp/
