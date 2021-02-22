@@ -169,3 +169,14 @@ generate_tasks:
   # include_match: spec\/features\/(clean_db|release_info)\.feature$
   include_match: spec\/features\/(.*)(\.feature|_spec\.rb)$
   submodule: [integration-tests]
+
+
+# tasks-specific config:
+tasks:
+  spec/features/release_info.feature:
+    scripts:
+      prepare-config:
+        body: './dev/releasenotes-md-to-yaml.rb && head -100 config/releases.yml'
+      test:
+        start_when:
+          config is prepared: { script_key: 'prepare-config' }
