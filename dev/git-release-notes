@@ -1,13 +1,18 @@
-#!/bin/sh -eu
+#!/bin/bash
+set -eu
 
-COMMIT_REF="$1"
+export GIT_SINCE=${1:-"origin/stable"}
+export GIT_UNTIL=${2:-"HEAD"}
 
-git fetch --quiet origin
+git fetch --quiet
 
 git submodule foreach --quiet '\
   cd "$toplevel" \
-  && git diff "origin/release...${COMMIT_REF}" --submodule=log -- "$path" \
-     | sed -e "s/Submodule //" \
+  && git diff ${GIT_SINCE}...${GIT_UNTIL} --submodule=log -- "$path" \
+     | sed -e "s/  > /- /" \
+     | sed -e "s/Submodule \([a-zA-Z_-]*\).*/### \1\\
+\
+     /" \
      | grep -s "." \
      && echo "" \
   ; cd "$OLDPWD"\
