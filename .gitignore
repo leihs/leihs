@@ -10,3 +10,5 @@
 /zhdk-sync
 /.clj-kondo/
 /.lsp/
+# old refs that keep on getting re-committed¬
+/admin-test/
