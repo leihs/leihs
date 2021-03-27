@@ -4,11 +4,11 @@ jobs:
 
     name: Test Deploy to Container
 
-#    run_when:
-#      always:
-#        type: branch
-#        include_match: ^.*$
-#        exclude_match: "^.*no-ci.*$"
+    run_when:
+      integration tests were successful:
+        type: job
+        job_key: integration-tests
+        states: [passed]
 
     context:
       tasks:
