@@ -2,6 +2,15 @@ releases:
 
 - version_major: 5
   version_minor: 3
+  version_patch: 1
+  version_pre: null
+  description: |
+    - apache: update SSL/TLS config
+    - legacy: fix rubygems / bundle install
+    - deploy: support Ubunto 20, upgrade ansible (backport from v6)
+
+- version_major: 5
+  version_minor: 3
   version_patch: 0
   version_pre: null
   description: |
