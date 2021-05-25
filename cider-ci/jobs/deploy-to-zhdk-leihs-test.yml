@@ -19,6 +19,7 @@ jobs:
           "zhdk-leihs-test.ruby.zhdk.ch": true
         environment_variables:
           DEPLOY_TARGET_INVENTORY: test-hosts
+          STATUS_PAGE_URL: "https://ci.zhdk.ch/cider-ci/ui/workspace/trials/{{CIDER_CI_TRIAL_ID}}"
 
       tasks:
         deploy:

@@ -8,4 +8,5 @@ body: |
     -v \
     --ssh-common-args='-i ~/.ssh/zhdk_ci_executor_rsa' \
     -e "force_rebuild=${FORCE_REBUILD:-}" \
+    -e "maintenance_page_status_page_url=${STATUS_PAGE_URL:-}" \
     -i ../zhdk-inventory/${DEPLOY_TARGET_INVENTORY}

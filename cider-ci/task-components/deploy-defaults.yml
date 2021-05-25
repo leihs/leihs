@@ -6,6 +6,7 @@ context:
       LEIHS_DIR: '{{CIDER_CI_WORKING_DIR}}'
       DEPLOY_DIR: '{{LEIHS_DIR}}/deploy'
       INVENTORY_DIR: '{{CIDER_CI_WORKING_DIR}}/zhdk-inventory'
+      STATUS_PAGE_URL: '' # should only be set for dev servers
       RUBY: '{{RUBY_ENGINE}}-{{RUBY_VERSION}}'
       RUBY_ENGINE: ruby
       RUBY_VERSION: 2.7.2
