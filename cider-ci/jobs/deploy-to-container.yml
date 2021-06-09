@@ -12,31 +12,16 @@ jobs:
 
     context:
       tasks:
-        debian-stretch-no-cache:
-          name: Debian 9 (stretch)
-          include: cider-ci/task-components/container-deploy/task-debian-9.yml
-
-        ubuntu-1804-with-cache:
-          name: Ubuntu 18.04 LTS
-          include: cider-ci/task-components/container-deploy/task-ubuntu-1804.yml
-
-        ubuntu-2004-with-cache:
+        ubuntu-2004:
           name: Ubuntu 20.04 LTS
           include: cider-ci/task-components/container-deploy/task-ubuntu-2004.yml
 
-        debian-buster-with-cache:
+        debian-buster:
           name: Debian 10 (buster)
           include: cider-ci/task-components/container-deploy/task-debian-10.yml
 
-        # NOTE: make sure build works (so not using cache…)
-        debian-buster-no-cache:
-          name: Debian 10 (buster) [WITH NEW BORROW] [NO CACHE!]
-          include: cider-ci/task-components/container-deploy/task-debian-10.yml
-          environment_variables:
-            DEPLOY_NEW_BORROW: "true"
-
         # NOTE: while new borrow is optional, make sure it works
-        debian-buster-with-new-borrow-with-cache:
+        debian-buster-with-new-borrow:
           name: Debian 10 (buster) [WITH NEW BORROW]
           include: cider-ci/task-components/container-deploy/task-debian-10.yml
           environment_variables:
