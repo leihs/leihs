@@ -3,13 +3,14 @@ priority: 2
 context:
   task_defaults:
     environment_variables:
-      LEIHS_DIR: '{{CIDER_CI_WORKING_DIR}}'
-      DEPLOY_DIR: '{{LEIHS_DIR}}/deploy'
-      INVENTORY_DIR: '{{CIDER_CI_WORKING_DIR}}/zhdk-inventory'
-      STATUS_PAGE_URL: '' # should only be set for dev servers
-      RUBY: '{{RUBY_ENGINE}}-{{RUBY_VERSION}}'
+      LEIHS_DIR: "{{CIDER_CI_WORKING_DIR}}"
+      DEPLOY_DIR: "{{LEIHS_DIR}}/deploy"
+      INVENTORY_DIR: "{{CIDER_CI_WORKING_DIR}}/zhdk-inventory"
+      STATUS_PAGE_URL: "" # should only be set for dev servers
+      RUBY: "{{RUBY_ENGINE}}-{{RUBY_VERSION}}"
       RUBY_ENGINE: ruby
       RUBY_VERSION: 2.7.2
+      NVM_NODEJS_VERSION: 14
 
   tasks:
     deploy:
@@ -20,16 +21,16 @@ context:
       traits:
         ruby-install: true
         Bash: true
+        nvm-nodejs-version-manager: true
 
       max_trials: 1
 
       trial_attachments:
         server_log:
-          include_match: '.*server_log.*'
+          include_match: ".*server_log.*"
           content_type: text/plain
 
       scripts:
-
         unlock:
           body: |
             set -euxo
@@ -37,7 +38,7 @@ context:
             git crypt unlock
 
         install-ruby:
-          exclusive_executor_resource: ruby-install_{{$RUBY}}
+          exclusive_executor_resource: ruby-install_{{RUBY}}
           timeout: 20 Minutes
           body: |
             #!/usr/bin/env bash
@@ -47,6 +48,15 @@ context:
               ruby-install --no-install-deps $RUBY_ENGINE $RUBY_VERSION
             fi
 
+        install-nodejs:
+          exclusive_executor_resource: nvm-nodejs-install
+          timeout: 20 Minutes
+          body: |
+            #!/usr/bin/env bash
+            set -eu
+            source ~/.nvm/nvm.sh
+            nvm install "$NVM_NODEJS_VERSION"
+
         deploy:
           timeout: 40 minutes
           start_when:
@@ -55,12 +65,18 @@ context:
               states: [passed]
             ruby-installed:
               script_key: install-ruby
+            nodejs-installed:
+              script_key: install-nodejs
 
         attach-server-log:
           ignore_state: yes
           ignore_abort: yes
           start_when:
-            after deploy: { script_key: deploy, states: [passed, aborted, defective, failed] }
+            after deploy:
+              {
+                script_key: deploy,
+                states: [passed, aborted, defective, failed],
+              }
           body: |
             set -eux
             cd deploy
