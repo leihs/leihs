@@ -1,5 +1,7 @@
 timeout: 6 Hours
 body: |
+  source ~/.nvm/nvm.sh && nvm use "$NVM_NODEJS_VERSION"
+
   set -eux
   cd deploy
   export ANSIBLE_HOST_KEY_CHECKING=False

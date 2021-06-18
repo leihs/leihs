@@ -133,6 +133,8 @@ task_defaults:
       submodule: [borrow]
     - path: cider-ci/service_task-component.yml
       submodule: [borrow]
+    - path: cider-ci/translations_task-component.yml
+      submodule: [borrow]
     - path: cider-ci/uberjar_task-component.yml
       submodule: [procure]
     - path: cider-ci/service_task-component.yml
