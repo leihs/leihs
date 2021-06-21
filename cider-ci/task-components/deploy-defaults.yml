@@ -6,10 +6,11 @@ context:
       LEIHS_DIR: "{{CIDER_CI_WORKING_DIR}}"
       DEPLOY_DIR: "{{LEIHS_DIR}}/deploy"
       INVENTORY_DIR: "{{CIDER_CI_WORKING_DIR}}/zhdk-inventory"
+      LOCAL_CACHE_DIR: "/tmp/leihs-build-cache" # same as for the tests
       STATUS_PAGE_URL: "" # should only be set for dev servers
       RUBY: "{{RUBY_ENGINE}}-{{RUBY_VERSION}}"
       RUBY_ENGINE: ruby
-      RUBY_VERSION: 2.7.2
+      RUBY_VERSION: "2.7.2"
       NVM_NODEJS_VERSION: "14"
 
   tasks:
@@ -42,7 +43,11 @@ context:
           timeout: 20 Minutes
           body: |
             #!/usr/bin/env bash
+            set -x
+            echo "$TMPDIR"
+            echo "$LOCAL_CACHE_DIR"
             set -eu
+
             export PATH=~/.rubies/$RUBY/bin:$PATH
             if [ ! -d ~/.rubies/$RUBY ]; then
               ruby-install --no-install-deps $RUBY_ENGINE $RUBY_VERSION
