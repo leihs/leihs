@@ -1,0 +1,36 @@
+jobs:
+  deploy-to-next:
+    include: cider-ci/task-components/deploy-defaults.yml
+    name: "🚀 Deploy to zhdk-leihs-next.ruby.zhdk.ch (coordinate with Nadja before doing this!)"
+
+    context:
+      task_defaults:
+        exclusive_global_resources:
+          "zhdk-leihs-next.ruby.zhdk.ch": true
+        environment_variables:
+          DEPLOY_TARGET_INVENTORY: "next-hosts --limit zhdk-leihs-next"
+          STATUS_PAGE_URL: "https://ci.zhdk.ch/cider-ci/ui/workspace/trials/{{CIDER_CI_TRIAL_ID}}"
+          LOCAL_CACHE_DIR: "/tmp/leihs-build-cache" # build cache same as for the tests
+
+      tasks:
+        deploy:
+          scripts:
+            deploy:
+              include: cider-ci/task-components/zhdk-test-deploy-script.yml
+
+  deploy-and-restore-prod-data-to-next:
+    include: cider-ci/task-components/deploy-defaults.yml
+    name: "🔂 RESTORE PROD DATA And Deploy to zhdk-leihs-next.ruby.zhdk.ch (coordinate with Nadja before doing this!)"
+
+    context:
+      task_defaults:
+        exclusive_global_resources:
+          "zhdk-leihs-next.ruby.zhdk.ch": true
+        environment_variables:
+          DEPLOY_TARGET_INVENTORY: "next-hosts --limit zhdk-leihs-next"
+          STATUS_PAGE_URL: "https://ci.zhdk.ch/cider-ci/ui/workspace/trials/{{CIDER_CI_TRIAL_ID}}"
+          LOCAL_CACHE_DIR: "/tmp/leihs-build-cache" # build cache same as for the tests
+
+      tasks:
+        deploy:
+          include: cider-ci/task-components/zhdk-test-deploy.yml
