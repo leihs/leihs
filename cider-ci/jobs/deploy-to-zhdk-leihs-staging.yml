@@ -10,6 +10,7 @@ jobs:
         environment_variables:
           DEPLOY_TARGET_INVENTORY: "staging-hosts --limit zhdk-leihs-staging"
           STATUS_PAGE_URL: "https://ci.zhdk.ch/cider-ci/ui/workspace/trials/{{CIDER_CI_TRIAL_ID}}"
+          LOCAL_CACHE_DIR: "/tmp/leihs-build-cache" # build cache same as for the tests
 
       tasks:
         deploy:
