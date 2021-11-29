@@ -3,12 +3,12 @@ jobs:
     include: cider-ci/task-components/deploy-defaults.yml
     name: Deploy to zhdk-leihs-test.ruby.zhdk.ch ***WITHOUT DB-RESTORE***
     context:
-
       task_defaults:
         exclusive_global_resources:
           "zhdk-leihs-test.ruby.zhdk.ch": true
         environment_variables:
           DEPLOY_TARGET_INVENTORY: test-hosts
+          LOCAL_CACHE_DIR: "/tmp/leihs-build-cache" # build cache same as for the tests
 
       tasks:
         deploy:

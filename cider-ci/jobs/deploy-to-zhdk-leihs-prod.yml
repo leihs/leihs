@@ -12,6 +12,7 @@ jobs:
           exclusive_global_resources: { zhdk-leihs-prod-v5.ruby.zhdk.ch: true }
           environment_variables:
             DEPLOY_TARGET_INVENTORY: "prod-hosts-v5"
+            LOCAL_CACHE_DIR: "/tmp/leihs-build-cache" # build cache same as for the tests
           scripts:
             deploy:
               timeout: 1 Hour
