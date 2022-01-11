@@ -11,7 +11,7 @@ context:
       RUBY: "{{RUBY_ENGINE}}-{{RUBY_VERSION}}"
       RUBY_ENGINE: ruby
       RUBY_VERSION: "2.7.2"
-      NVM_NODEJS_VERSION: "14"
+      NVM_NODEJS_VERSION: "16"
 
   tasks:
     deploy:
