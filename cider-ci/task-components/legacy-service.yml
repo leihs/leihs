@@ -1,10 +1,17 @@
+include:
+  - path: cider-ci/task-components/database/configure.yml
+    submodule: [legacy]
+
 scripts:
 
-  run-legacy-service:
+  legacy-service-run:
     body: |
-      set -euxo
+      set -eux
       cd $LEIHS_LEGACY_DIR
-      export PATH=~/.rubies/$RUBY/bin:$PATH
+      echo $PWD
+      ls -lah
+      ls -lah config
+      export PATH=~/.rubies/$LEGACY_RUBY/bin:$PATH
       ruby -S \
           bundle exec puma \
           -e production \
@@ -14,8 +21,10 @@ scripts:
     start_when:
       database has been created:
         script_key: create-database
+      database is configured:
+        script_key: legacy-configure-rails-db
 
-  stop-legacy-service:
+  legacy-service-stop:
     timeout: 5 Seconds
     body: |
       set -eux
@@ -29,5 +38,5 @@ scripts:
   test:
     start_when:
       legacy service is running:
-        script_key: run-legacy-service
+        script_key: legacy-service-run
         states: [executing]

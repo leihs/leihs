@@ -1,14 +1,13 @@
-/config/*
 !/config/releases/
+.DS_Store
+/.clj-kondo/
+/.lsp/
 /archive
 /audits-archiver
+/config/*
 /integration
 /system
 /tmp
 /zhdk-aai-shibboleth-auth-system
 /zhdk-agw-auth-system
 /zhdk-sync
-/.clj-kondo/
-/.lsp/
-# old refs that keep on getting re-committed¬
-/admin-test/

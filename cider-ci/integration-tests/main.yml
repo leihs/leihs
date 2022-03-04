@@ -38,11 +38,13 @@ task_defaults:
       max: 4999
 
   environment_variables:
-    DATABASE_NAME: leihs_{{CIDER_CI_TRIAL_ID}}
+    LEIHS_DATABASE_NAME: leihs_{{CIDER_CI_TRIAL_ID}}
+    DATABASE_NAME: '{{LEIHS_DATABASE_NAME}}'
+    DB_NAME: '{{LEIHS_DATABASE_NAME}}'
     LEIHS_ADMIN_DIR: "{{LEIHS_ROOT_DIR}}/admin"
     LEIHS_ADMIN_HTTP_BASE_URL: http://localhost:{{LEIHS_ADMIN_HTTP_PORT}}
     LEIHS_DATABASE_DIR: "{{LEIHS_ROOT_DIR}}/database"
-    LEIHS_DATABASE_URL: "jdbc:postgresql://localhost/{{DATABASE_NAME}}?max-pool-size=5"
+    LEIHS_DATABASE_URL: "jdbc:postgresql://localhost/{{LEIHS_DATABASE_NAME}}?max-pool-size=5"
     LEIHS_DEPLOY_NEW_BORROW_APP: "yes"
     LEIHS_BORROW_DIR: "{{LEIHS_ROOT_DIR}}/borrow"
     LEIHS_BORROW_HTTP_BASE_URL: http://localhost:{{LEIHS_BORROW_HTTP_PORT}}
@@ -60,9 +62,12 @@ task_defaults:
     LEIHS_MAIL_SMTP_ADDRESS: localhost
     LEIHS_ROOT_DIR: "{{CIDER_CI_WORKING_DIR}}"
     LEIHS_SECRET: '{{CIDER_CI_TRIAL_ID}}'
-    RUBY: '{{RUBY_ENGINE}}-{{RUBY_VERSION}}'
+    LEGACY_RUBY_ENGINE: ruby
+    LEGACY_RUBY_VERSION: 2.6.0
+    LEGACY_RUBY: '{{LEGACY_RUBY_ENGINE}}-{{LEGACY_RUBY_VERSION}}'
     RUBY_ENGINE: ruby
-    RUBY_VERSION: 2.6.0
+    RUBY_VERSION: 2.7.2
+    RUBY: '{{RUBY_ENGINE}}-{{RUBY_VERSION}}'
     RAILS_ENV: production
 
   templates:
@@ -98,11 +103,11 @@ task_defaults:
       start_when:
         build done:
           script_key: build-done
-    run-my-service:
+    my-service-run:
       start_when:
         build done:
           script_key: build-done
-    run-admin-service:
+    admin-service-run:
       start_when:
         build done:
           script_key: build-done
@@ -114,7 +119,7 @@ task_defaults:
       start_when:
         build done:
           script_key: build-done
-    run-legacy-service:
+    legacy-service-run:
       start_when:
         build done:
           script_key: build-done
@@ -150,7 +155,7 @@ task_defaults:
     - path: cider-ci/task-components/bundle-rspec-ruby.yml
       submodule: [legacy]
     - path: cider-ci/task-components/database.yml
-      submodule: [legacy]
+      submodule: [database]
     - path: cider-ci/task-components/reverse-proxy.yml
       submodule: [integration-tests]
     - path: cider-ci/task-components/fake-smtp.yml
