@@ -12,10 +12,10 @@ jobs:
       #   type: job
       #   job_key: test-container-deploy
       #   states: [passed]
-#      integration tests were successful:
-#        type: job
-#        job_key: integration-tests
-#        states: [passed]
+      integration tests were successful:
+        type: job
+        job_key: integration-tests
+        states: [passed]
       meta checks have passed:
         type: job
         job_key: meta
@@ -40,11 +40,11 @@ jobs:
         job_key: good-to-merge
         submodule: ['my']
         states: [passed]
-#      borrow submodule has passed:
-#        type: job
-#        job_key: good-to-merge
-#        submodule: ['borrow']
-#        states: [passed]
+      borrow submodule has passed:
+        type: job
+        job_key: good-to-merge
+        submodule: ['borrow']
+        states: [passed]
       mail submodule has passed:
         type: job
         job_key: good-to-merge
