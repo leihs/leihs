@@ -1,13 +1,15 @@
-!/config/releases/
 .DS_Store
 /.clj-kondo/
 /.lsp/
 /archive
 /audits-archiver
-/config/*
 /integration
 /system
 /tmp
 /zhdk-aai-shibboleth-auth-system
 /zhdk-agw-auth-system
 /zhdk-sync
+
+# NOTE: must keep those in order!
+/config/*
+!/config/releases/
