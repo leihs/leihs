@@ -1,6 +1,5 @@
 include:
   - cider-ci/jobs/good-to-merge.yml
-  - cider-ci/jobs/deploy-to-zhdk-leihs-prod.yml
   - cider-ci/jobs/deploy-to-zhdk-leihs-staging.yml
   - cider-ci/jobs/deploy-to-zhdk-leihs-next.yml
   - cider-ci/jobs/deploy-to-zhdk-leihs-test.yml
