@@ -2,22 +2,8 @@ environment_variables:
   STATUS_PAGE_URL: "https://ci.zhdk.ch/cider-ci/ui/workspace/trials/{{CIDER_CI_TRIAL_ID}}"
 
 scripts:
-  fetch-dump:
-    timeout: 15 Minutes
-    body: |
-      set -euxo
-      cd deploy
-      export ANSIBLE_HOST_KEY_CHECKING=False
-      bin/ansible-playbook fetch-latest-dump_play.yml \
-        --ssh-common-args='-i ~/.ssh/zhdk_ci_executor_rsa' \
-        -i ../zhdk-inventory/prod-hosts-v5
-
   restore-dump:
     timeout: 30 Minutes
-    start_when:
-      fetch passed:
-        script_key: fetch-dump
-        states: [passed]
     body: |
       set -eux
       cd deploy
@@ -25,6 +11,7 @@ scripts:
       bin/ansible-playbook db-restore-only_play.yml \
         --ssh-common-args='-i ~/.ssh/zhdk_ci_executor_rsa' \
         -e "maintenance_page_status_page_url=${STATUS_PAGE_URL:-}" \
+        -e 'remote_pgbin_restore_path=/leihs/var/db-backups/latest.pgbin' \
         -i ../zhdk-inventory/${DEPLOY_TARGET_INVENTORY}
 
   deploy:
