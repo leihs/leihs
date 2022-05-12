@@ -25,7 +25,14 @@ jobs:
           name: Debian 10 (buster) [WITH NEW BORROW]
           include: cider-ci/task-components/container-deploy/task-debian-10.yml
           environment_variables:
-            DEPLOY_NEW_BORROW: "true"
+            DEPLOY_NEW_BORROW: 'true'
+
+        # NOTE: while ruby with jemalloc is optional, make sure it works
+        debian-buster-with-jemalloc:
+          name: Debian 10 (buster) [WITH JEMALLOC]
+          include: cider-ci/task-components/container-deploy/task-debian-10.yml
+          environment_variables:
+            EXTRA_ANSIBLE_VARS_JSON: '{"ruby_use_jemalloc": true}'
 
         # FIXME: normal deploy works but not in the container yet
         # debian-bullseye:
