@@ -1,8 +1,8 @@
 script_defaults:
-  timeout: 5 Minutes
+  timeout: 10 Minutes
 
 task_defaults:
-
+  max_trials: 5
   load: 3
 
   ports:
@@ -41,26 +41,26 @@ task_defaults:
     LEIHS_DATABASE_NAME: leihs_{{CIDER_CI_TRIAL_ID}}
     DATABASE_NAME: '{{LEIHS_DATABASE_NAME}}'
     DB_NAME: '{{LEIHS_DATABASE_NAME}}'
-    LEIHS_ADMIN_DIR: "{{LEIHS_ROOT_DIR}}/admin"
+    LEIHS_ADMIN_DIR: '{{LEIHS_ROOT_DIR}}/admin'
     LEIHS_ADMIN_HTTP_BASE_URL: http://localhost:{{LEIHS_ADMIN_HTTP_PORT}}
-    LEIHS_DATABASE_DIR: "{{LEIHS_ROOT_DIR}}/database"
-    LEIHS_DATABASE_URL: "jdbc:postgresql://localhost/{{LEIHS_DATABASE_NAME}}?max-pool-size=5"
-    LEIHS_DEPLOY_NEW_BORROW_APP: "yes"
-    LEIHS_BORROW_DIR: "{{LEIHS_ROOT_DIR}}/borrow"
+    LEIHS_DATABASE_DIR: '{{LEIHS_ROOT_DIR}}/database'
+    LEIHS_DATABASE_URL: 'jdbc:postgresql://localhost/{{LEIHS_DATABASE_NAME}}?max-pool-size=5'
+    LEIHS_DEPLOY_NEW_BORROW_APP: 'yes'
+    LEIHS_BORROW_DIR: '{{LEIHS_ROOT_DIR}}/borrow'
     LEIHS_BORROW_HTTP_BASE_URL: http://localhost:{{LEIHS_BORROW_HTTP_PORT}}
-    LEIHS_HTTP_BASE_URL: "http://localhost:{{LEIHS_HTTP_PORT}}"
-    LEIHS_INTEGRATION_TESTS_DIR: "{{LEIHS_ROOT_DIR}}/integration-tests"
-    LEIHS_LEGACY_DIR: "{{LEIHS_ROOT_DIR}}/legacy"
-    LEIHS_LEGACY_HTTP_BASE_URL: "http://localhost:{{LEIHS_LEGACY_HTTP_PORT}}"
-    LEIHS_MY_DIR: "{{LEIHS_ROOT_DIR}}/my"
+    LEIHS_HTTP_BASE_URL: 'http://localhost:{{LEIHS_HTTP_PORT}}'
+    LEIHS_INTEGRATION_TESTS_DIR: '{{LEIHS_ROOT_DIR}}/integration-tests'
+    LEIHS_LEGACY_DIR: '{{LEIHS_ROOT_DIR}}/legacy'
+    LEIHS_LEGACY_HTTP_BASE_URL: 'http://localhost:{{LEIHS_LEGACY_HTTP_PORT}}'
+    LEIHS_MY_DIR: '{{LEIHS_ROOT_DIR}}/my'
     LEIHS_MY_HTTP_BASE_URL: http://localhost:{{LEIHS_MY_HTTP_PORT}}
-    LEIHS_PROCURE_DIR: "{{LEIHS_ROOT_DIR}}/procure"
+    LEIHS_PROCURE_DIR: '{{LEIHS_ROOT_DIR}}/procure'
     LEIHS_PROCURE_HTTP_BASE_URL: http://localhost:{{LEIHS_PROCURE_HTTP_PORT}}
-    LEIHS_MAIL_DIR: "{{LEIHS_ROOT_DIR}}/mail"
+    LEIHS_MAIL_DIR: '{{LEIHS_ROOT_DIR}}/mail'
     LEIHS_MAIL_RETRY_FREQUENCY_IN_SECONDS: '1'
     LEIHS_MAIL_SEND_FREQUENCY_IN_SECONDS: '1'
     LEIHS_MAIL_SMTP_ADDRESS: localhost
-    LEIHS_ROOT_DIR: "{{CIDER_CI_WORKING_DIR}}"
+    LEIHS_ROOT_DIR: '{{CIDER_CI_WORKING_DIR}}'
     LEIHS_SECRET: '{{CIDER_CI_TRIAL_ID}}'
     LEGACY_RUBY_ENGINE: ruby
     LEGACY_RUBY_VERSION: 2.6.0
@@ -92,10 +92,6 @@ task_defaults:
         legacy bundled:
           script_key: legacy-bundle-rspec-ruby
     run-reverse-proxy:
-      start_when:
-        build done:
-          script_key: build-done
-    run-mail-server:
       start_when:
         build done:
           script_key: build-done
@@ -176,7 +172,6 @@ generate_tasks:
   # include_match: spec\/features\/(clean_db|release_info)\.feature$
   include_match: spec\/features\/(.*)(\.feature|_spec\.rb)$
   submodule: [integration-tests]
-
 
 # tasks-specific config:
 tasks:
