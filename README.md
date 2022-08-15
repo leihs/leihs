@@ -40,22 +40,7 @@ In case of our inability to support you, we encourage you or your organisation t
 
 # References (Who uses leihs?)
 
-leihs is in use at several universities and organizations:
-
- * [Zürich University of the Arts (ZHdK)](http://www.zhdk.ch), Zürich, Switzerland
- * [Bern University of the Arts (BUA/HKB)](http://hkb.bfh.ch), Bern, Switzerland
- * [Berliner Technische Kunsthochschule (btk)](http://www.btk-fh.de/), Berlin, Germany
- * [University of Applied Sciences HTW Chur](http://www.fh-htwchur.ch), Switzerland
- * [Lucerne University of Applied Sciences and Arts](http://www.hslu.ch), Switzerland
- * University of Brighton, United Kingdom
- * University of Worcester, United Kingdom. 3 instances of leihs
- * [Middle Tennessee State University](http://www.mtsu.edu), Tennessee, USA
- * Fachhochschule Vorarlberg, Austria
- * [Konstfack Stockholm](http://www.konstfack.se), Sweden
- * [School of Business and Engineering Vaud HEIG-VD](https://heig-vd.ch), Yverdon-les-Bains, Switzerland
- * [Fachhochschule Kärnten](https://www.fh-kaernten.at/), Austria
- * [Staatliche Hochschule für Musik, Trossingen](http://mh-trossingen.de), Trossingen, Germany
- * Your university? Please make an issue if you would like to be listed here.
+leihs is in use at several [universities and organizations](https://github.com/leihs/leihs/wiki#references-who-uses-leihs).
 
 # leihs Blog
 
