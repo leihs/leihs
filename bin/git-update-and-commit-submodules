@@ -1,0 +1,199 @@
+#!/usr/bin/env ruby
+
+
+require 'bundler/inline'
+gemfile do
+  source 'https://rubygems.org'
+  gem 'git', '= 1.12.0', require: false
+  gem 'pry', '= 0.14.1'
+  gem 'activesupport', '>= 5.2'
+end
+
+require 'pry'
+require 'pathname'
+require 'optparse'
+require 'active_support'
+require 'active_support/core_ext/hash'
+require 'open3'
+
+@SCRIPT = Pathname.new(__FILE__).expand_path
+@SCRIPTDIR = @SCRIPT.dirname
+@LEIHS_ROOT_DIR = @SCRIPTDIR + ".."
+
+
+# order matters:
+# * legacy must come before borrow,
+# * '.' must be last
+#
+MAIN_SUBS = [
+  ["admin",
+    {
+      database: 'database',
+      shared_clj: 'shared-clj',
+      ui: 'leihs-ui'
+    }
+  ],
+  ["legacy",
+    {
+      database: 'database'
+    }
+  ],
+  ["borrow",
+    {
+      database: 'database',
+      shared_clj: 'shared-clj',
+      ui: 'leihs-ui'
+    }
+  ],
+  ["mail",
+    {
+      database: 'database',
+      shared_clj: 'shared-clj',
+      ui: 'leihs-ui'
+    }
+  ],
+  ["my",
+    {
+      database: 'database',
+      shared_clj: 'shared-clj',
+      ui: 'leihs-ui'
+    }
+  ],
+  ["procure",
+    {
+      database: 'server/database',
+      shared_clj: 'server/shared-clj',
+      ui: 'client/leihs-ui'
+    }
+  ],
+  [".", {
+    database: 'database',
+  }]
+]
+@refs = {}
+
+@opts = {
+  'super-ref': "origin/master",
+  'dry-run': false
+}.with_indifferent_access
+
+OptionParser.new do |parser|
+
+  parser.banner = "leihs-update-and-commit-database-submodules resets super project to SUPER-REF and commits all database submodules relative to that"
+
+  parser.on("-d", "--database DATABASE-COMMIT-ID", "DATABASE-COMMIT-ID to set database modules to")
+  parser.on("-c", "--shared_clj SHARED-CLJ-COMMIT-ID", "SHARED-CLJ-COMMIT-ID to set shared-clj modules to")
+  parser.on("-s", "--super-ref SUPER-REF", "set the leihs super project to SUPER-REF, default #{@opts['super-ref']}")
+  parser.on("-m", "--commit-message COMMIT-MESSAGE", "the COMMIT-MESSAGE used in the super and ervery service ")
+  parser.on("-b", "--branch-name BRANCH-NAME", "set local BRANCH-NAME and also push it")
+  parser.on("--dry-run") { @opts['dry-run'] = true }
+
+  parser.on("-h", "--help", "Print help") do
+    puts parser
+    exit 0
+  end
+
+end.parse!(into: @opts)
+
+puts @opts
+
+puts @SCRIPT, @SCRIPTDIR, @LEIHS_ROOT_DIR
+
+raise "COMMIT-MESSAGE is required" unless @opts["commit-message"].present?
+raise "BRANCH-NAME is required" unless @opts["branch-name"].present?
+
+
+
+###############################################################################
+
+
+def exec_shell_command(cmd, fail_on_error=true)
+  puts "\n"
+  puts '### >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
+  puts "# in #{Dir.pwd}"
+  puts "# #{cmd}"
+  if @opts['dry-run']
+    puts "# DRY-RUN "
+    stdout = nil
+  else
+    stdout, stderr, status = Open3.capture3(cmd)
+    if fail_on_error and status.exitstatus != 0
+      raise "cmd #{Shellwords.escape(cmd)} exited with #{status.exitstatus} : #{stderr}"
+    end
+  end
+  puts '### <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'
+  puts "\n"
+  return stdout
+end
+
+Dir.chdir @LEIHS_ROOT_DIR do
+
+  exec_shell_command "git fetch --all --recurse-submodules"
+  exec_shell_command "git checkout --force #{@opts['super-ref']}"
+  exec_shell_command "git submodule update --init --recursive --force"
+
+  MAIN_SUBS.each do |main_sub, subs|
+
+    Dir.chdir main_sub do
+
+      puts "SUBS #{subs}"
+
+      subs.each do |sub, path|
+        if sub_cmt = @opts[sub]
+          Dir.chdir path do
+            exec_shell_command "git reset --hard #{sub_cmt}"
+          end
+          exec_shell_command "git add #{path}"
+        end
+      end
+
+
+      ### CONT
+
+      case main_sub
+
+      when "legacy"
+        if @opts['database']
+          exec_shell_command './bin/migrate-and-dump-demo'
+          exec_shell_command './bin/migrate-and-dump-personas'
+          exec_shell_command 'git add features/personas/demo.pgbin  features/personas/personas.pgbin'
+        end
+
+      when "borrow"
+        if @opts['database']
+          legacy_ref = @refs['legacy']
+          raise "legacy_ref not set" unless legacy_ref.present?
+
+          Dir.chdir 'spec/support/legacy-api' do
+            exec_shell_command "git fetch ../../../../legacy #{legacy_ref}"
+            exec_shell_command "git reset --hard #{legacy_ref}"
+          end
+          exec_shell_command 'git add spec/support/legacy-api'
+        end
+      end
+
+      if main_sub != '.'
+        exec_shell_command "git commit --allow-empty -m #{Shellwords.escape(@opts['commit-message'])}"
+      end
+
+      @refs[main_sub] = exec_shell_command('git rev-parse HEAD').try(:strip) || @opts['dry-run'] && "DRY_RUN_REF_#{main_sub}"
+
+    end
+    if main_sub != '.'
+      exec_shell_command "git add #{main_sub}"
+    else
+      exec_shell_command "git add database"
+    end
+  end
+
+  exec_shell_command "git commit -m #{Shellwords.escape(@opts['commit-message'])}"
+
+  # set branches and push
+  escaped_branch_name = Shellwords.escape(@opts['branch-name'])
+  MAIN_SUBS.each do |main_sub, _|
+    Dir.chdir main_sub do
+      exec_shell_command "git switch -C #{escaped_branch_name}"
+      exec_shell_command "git push -f -u origin #{escaped_branch_name}:#{escaped_branch_name}"
+    end
+  end
+end
