@@ -172,7 +172,10 @@ Dir.chdir @LEIHS_ROOT_DIR do
         end
       end
 
-      if main_sub != '.'
+      # change legacy only if database needs update
+      if main_sub == 'legacy' && @opts['database']
+        exec_shell_command "git commit --allow-empty -m #{Shellwords.escape(@opts['commit-message'])}"
+      elsif main_sub != '.'
         exec_shell_command "git commit --allow-empty -m #{Shellwords.escape(@opts['commit-message'])}"
       end
 
