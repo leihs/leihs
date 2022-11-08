@@ -2,7 +2,7 @@ script_defaults:
   timeout: 10 Minutes
 
 task_defaults:
-  max_trials: 5
+  max_trials: 3
   load: 3
 
   ports:
@@ -62,12 +62,6 @@ task_defaults:
     LEIHS_MAIL_SMTP_ADDRESS: localhost
     LEIHS_ROOT_DIR: '{{CIDER_CI_WORKING_DIR}}'
     LEIHS_SECRET: '{{CIDER_CI_TRIAL_ID}}'
-    LEGACY_RUBY_ENGINE: ruby
-    LEGACY_RUBY_VERSION: 2.6.0
-    LEGACY_RUBY: '{{LEGACY_RUBY_ENGINE}}-{{LEGACY_RUBY_VERSION}}'
-    RUBY_ENGINE: ruby
-    RUBY_VERSION: 2.7.6
-    RUBY: '{{RUBY_ENGINE}}-{{RUBY_VERSION}}'
     RAILS_ENV: production
 
   templates:
@@ -88,7 +82,7 @@ task_defaults:
         borrow uberjar ready:
           script_key: build-borrow-uberjar
         procure uberjar ready:
-          script_key: build-procure-uberjar
+          script_key: procure-build-uberjar
         legacy bundled:
           script_key: legacy-bundle-rspec-ruby
     run-reverse-proxy:
@@ -107,11 +101,11 @@ task_defaults:
       start_when:
         build done:
           script_key: build-done
-    run-borrow-service:
+    borrow-service-run:
       start_when:
         build done:
           script_key: build-done
-    run-procure-service:
+    procure-service-run:
       start_when:
         build done:
           script_key: build-done
@@ -133,8 +127,6 @@ task_defaults:
     - path: cider-ci/uberjar_task-component.yml
       submodule: [borrow]
     - path: cider-ci/service_task-component.yml
-      submodule: [borrow]
-    - path: cider-ci/translations_task-component.yml
       submodule: [borrow]
     - path: cider-ci/uberjar_task-component.yml
       submodule: [procure]

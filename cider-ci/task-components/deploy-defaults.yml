@@ -8,10 +8,6 @@ context:
       INVENTORY_DIR: "{{CIDER_CI_WORKING_DIR}}/zhdk-inventory"
       LOCAL_CACHE_DIR: "/tmp/leihs-build-cache" # build cache same as for the tests
       STATUS_PAGE_URL: "" # should only be set for dev servers
-      RUBY: "{{RUBY_ENGINE}}-{{RUBY_VERSION}}"
-      RUBY_ENGINE: ruby
-      RUBY_VERSION: "2.7.2"
-      NVM_NODEJS_VERSION: "16"
 
   tasks:
     deploy:
@@ -20,9 +16,7 @@ context:
           include_match: ^.*$
 
       traits:
-        ruby-install: true
         Bash: true
-        nvm-nodejs-version-manager: true
 
       max_trials: 1
 
@@ -39,7 +33,7 @@ context:
             git crypt unlock
 
         install-ruby:
-          exclusive_executor_resource: ruby-install_{{RUBY}}
+          exclusive_executor_resource: asdf-ruby
           timeout: 20 Minutes
           body: |
             #!/usr/bin/env bash
@@ -47,20 +41,16 @@ context:
             echo "$TMPDIR"
             echo "$LOCAL_CACHE_DIR"
             set -eu
-
-            export PATH=~/.rubies/$RUBY/bin:$PATH
-            if [ ! -d ~/.rubies/$RUBY ]; then
-              ruby-install --no-install-deps $RUBY_ENGINE $RUBY_VERSION
-            fi
+            asdf install ruby
+            bundle install
 
         install-nodejs:
-          exclusive_executor_resource: nvm-nodejs-install
+          exclusive_executor_resource: asdf-nodejs
           timeout: 20 Minutes
           body: |
             #!/usr/bin/env bash
             set -eu
-            source ~/.nvm/nvm.sh
-            nvm install "$NVM_NODEJS_VERSION"
+            asdf install nodejs
 
         deploy:
           timeout: 40 minutes
