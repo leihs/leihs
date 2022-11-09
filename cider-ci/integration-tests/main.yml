@@ -76,11 +76,11 @@ task_defaults:
         mail uberjar ready:
           script_key: build-mail-uberjar
         my uberjar ready:
-          script_key: build-my-uberjar
+          script_key: my-build-uberjar
         admin uberjar ready:
-          script_key: build-admin-uberjar
+          script_key: admin-build-uberjar
         borrow uberjar ready:
-          script_key: build-borrow-uberjar
+          script_key: borrow-build-uberjar
         procure uberjar ready:
           script_key: procure-build-uberjar
         legacy bundled:
