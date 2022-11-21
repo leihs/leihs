@@ -11,30 +11,23 @@ jobs:
         states: [passed]
 
     context:
+
       tasks:
-        ubuntu-2004:
-          name: Ubuntu 20.04 LTS
-          include: cider-ci/task-components/container-deploy/task-ubuntu-2004.yml
-
-        debian-buster:
-          name: Debian 10 (buster)
-          include: cider-ci/task-components/container-deploy/task-debian-10.yml
-
-        # NOTE: while new borrow is optional, make sure it works
-        debian-buster-with-new-borrow:
-          name: Debian 10 (buster) [WITH NEW BORROW]
-          include: cider-ci/task-components/container-deploy/task-debian-10.yml
+        ubuntu-2204:
+          name: Ubuntu 22.04 (jammy) LTS
+          include: cider-ci/task-components/container-deploy/task-ubuntu-2204.yml
           environment_variables:
             DEPLOY_NEW_BORROW: 'true'
 
-        # NOTE: while ruby with jemalloc is optional, make sure it works
-        debian-buster-with-jemalloc:
-          name: Debian 10 (buster) [WITH JEMALLOC]
-          include: cider-ci/task-components/container-deploy/task-debian-10.yml
+        ubuntu-2004:
+          name: Ubuntu 20.04 (focal) LTS
+          include: cider-ci/task-components/container-deploy/task-ubuntu-2004.yml
           environment_variables:
-            EXTRA_ANSIBLE_VARS_JSON: '{"ruby_use_jemalloc": true}'
+            DEPLOY_NEW_BORROW: 'true'
 
-        # FIXME: normal deploy works but not in the container yet
-        # debian-bullseye:
-        #   name: Debian 11 (bullseye)
-        #   include: cider-ci/task-components/container-deploy/task-debian-11.yml
+        debian-bullseye:
+          name: Debian 11 (bullseye)
+          include: cider-ci/task-components/container-deploy/task-debian-11.yml
+          environment_variables:
+            DEPLOY_NEW_BORROW: 'true'
+
