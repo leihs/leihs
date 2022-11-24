@@ -1,10 +1,17 @@
 include:
   - cider-ci/jobs/good-to-merge.yml
-  - cider-ci/jobs/deploy-to-zhdk-leihs-staging.yml
-  - cider-ci/jobs/deploy-to-zhdk-leihs-next.yml
-  - cider-ci/jobs/deploy-to-zhdk-leihs-test.yml
-  - cider-ci/jobs/deploy-to-zhdk-leihs-test-norestore.yml
-  - cider-ci/jobs/deploy-to-zhdk-dev-servers.yml
   - cider-ci/jobs/meta.yml
   - cider-ci/jobs/deploy-to-container.yml
   - cider-ci/jobs/integration-tests.yml
+
+  - path: cider-ci/jobs/deploy-to-zhdk-leihs-staging.yml
+    submodule: [zhdk-inventory]
+  - path: cider-ci/jobs/deploy-to-zhdk-leihs-next.yml
+    submodule: [zhdk-inventory]
+  - path: cider-ci/jobs/deploy-to-zhdk-leihs-test.yml
+    submodule: [zhdk-inventory]
+  - path: cider-ci/jobs/deploy-to-zhdk-leihs-test-norestore.yml
+    submodule: [zhdk-inventory]
+  - path: cider-ci/jobs/deploy-to-zhdk-dev-servers.yml
+    submodule: [zhdk-inventory]
+
