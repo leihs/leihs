@@ -5,12 +5,21 @@ jobs:
     name: Test Deploy to Container
 
     run_when:
-      integration tests were successful:
-        type: job
-        job_key: integration-tests
-        states: [passed]
+      any branch matches:
+        type: branch
+        include_match: ^.+$
+        exclude_match: ^.*(no-ci|hotspot).*$
+#     integration tests were successful:
+#       type: job
+#       job_key: integration-tests
+#       states: [passed]
 
     context:
+
+      task_defaults:
+        environment_variables:
+          LEIHS_ROOT_DIR: '{{CIDER_CI_WORKING_DIR}}'
+          LEIHS_DEPLOY_DIR: '{{LEIHS_ROOT_DIR}}/deploy'
 
       tasks:
         ubuntu-2204:

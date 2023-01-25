@@ -1,0 +1,19 @@
+max_trials: 1
+traits:
+  asdf: true
+git_options:
+  submodules:
+    include_match: ^.*$
+
+scripts:
+  test:
+    body: |
+      #!/usr/bin/env bash
+      set -exo pipefail
+      # checks that current HEAD is a child of master      
+       
+      # rquired because cider-ci does some git optimizations
+      # which do not work well with some submodule inspection
+      git submodule update --init --recursive --force
+
+      ./bin/git-check-ahead-of-origin-master

@@ -1,12 +1,15 @@
 include:
   - path: cider-ci/task-components/database/configure.yml
     submodule: [legacy]
+  - path: cider-ci/task-components/bundle-rspec-ruby.yml
+    submodule: [legacy]
 
 scripts:
 
   legacy-service-run:
     body: |
-      set -eux
+      #!/usr/bin/env bash
+      set -euo pipefail
       cd $LEIHS_LEGACY_DIR
       echo $PWD
       ls -lah
@@ -18,6 +21,8 @@ scripts:
           -w 2 \
           -b tcp://localhost:${LEIHS_LEGACY_HTTP_PORT}
     start_when:
+      ruby setup legacy :
+        script_key: legacy-bundle-rspec-ruby
       database has been created:
         script_key: create-database
       database is configured:
@@ -26,7 +31,8 @@ scripts:
   legacy-service-stop:
     timeout: 5 Seconds
     body: |
-      set -eux
+      #!/usr/bin/env bash
+      set -euo pipefail
       kill -INT $(lsof -t -wni tcp:${LEIHS_LEGACY_HTTP_PORT})
       sleep 1
     start_when:

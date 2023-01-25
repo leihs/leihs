@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROJECT_DIR="$(cd -- "$(dirname "${BASH_SOURCE}")" ; cd ../.. > /dev/null 2>&1 && pwd -P)"
+PROJECT=leihs
+PLUGIN=babashka
+PLUGIN_URL=https://github.com/pitch-io/asdf-babashka.git
+
+source $PROJECT_DIR/admin/shared-clj/bin/env/asdf-helper.bash
+asdf-update-plugin
+
+# vi: ft=sh

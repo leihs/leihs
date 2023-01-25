@@ -1,22 +1,4 @@
 # name: Ubuntu 20.04 LTS
 environment_variables:
   LXC_BASE_IMAGE: 'ubuntu:20.04'
-  APT_SOURCES_FILE: 'deploy/container-test/files/ubuntu-apt-sources.txt'
 include: [{path: container-test/cider-ci/context.yml, submodule: [deploy]}]
-
-scripts:
-
-  prepare-container:
-    start_when:
-      container has been configured:
-        script_key: configure-container
-
-  configure-container:
-    start_when:
-      container has been created:
-        script_key: create-container
-    timeout: 1 Minute
-    body: |
-      lxc file push \
-        ${CIDER_CI_WORKING_DIR}/${APT_SOURCES_FILE} \
-        ${CONTAINER_NAME}/etc/apt/sources.list

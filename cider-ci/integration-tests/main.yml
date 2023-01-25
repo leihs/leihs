@@ -1,9 +1,15 @@
 script_defaults:
-  timeout: 10 Minutes
+  timeout: 3 Minutes
 
 task_defaults:
-  max_trials: 3
-  load: 3
+
+  max_trials: 2
+  load: 2
+  dispatch_storm_delay_duration: 3 Seconds
+
+  git_options:
+    submodules:
+      include_match: ^.*$
 
   ports:
     LEIHS_HTTP_PORT:
@@ -82,7 +88,7 @@ task_defaults:
         borrow uberjar ready:
           script_key: borrow-build-uberjar
         procure uberjar ready:
-          script_key: procure-build-uberjar
+          script_key: procure-uberjar-build
         legacy bundled:
           script_key: legacy-bundle-rspec-ruby
     run-reverse-proxy:
@@ -117,60 +123,51 @@ task_defaults:
       start_when:
         build done:
           script_key: build-done
+    prepare-config:
+      body: './dev/releasenotes-md-to-yaml.rb && head -100 config/releases.yml'
+    test:
+      start_when:
+        config is prepared: 
+          script_key: 'prepare-config'
 
   include:
     - path: cider-ci/task-components/legacy-service.yml
-    - path: cider-ci/uberjar_task-component.yml
+    - path: cider-ci/task-components/uberjar.yml
       submodule: [admin]
-    - path: cider-ci/service_task-component.yml
+    - path: cider-ci/task-components/service.yml
       submodule: [admin]
-    - path: cider-ci/uberjar_task-component.yml
+    - path: cider-ci/task-components/uberjar.yml
       submodule: [borrow]
-    - path: cider-ci/service_task-component.yml
+    - path: cider-ci/task-components/service.yml
       submodule: [borrow]
-    - path: cider-ci/uberjar_task-component.yml
+    - path: cider-ci/task-components/uberjar.yml
       submodule: [procure]
-    - path: cider-ci/service_task-component.yml
+    - path: cider-ci/task-components/service.yml
       submodule: [procure]
-    - path: cider-ci/uberjar_task-component.yml
+    - path: cider-ci/task-components/uberjar.yml
       submodule: [mail]
-    - path: cider-ci/server_task-component.yml
+    - path: cider-ci/task-components/server.yml
       submodule: [mail]
-    - path: cider-ci/uberjar_task-component.yml
+    - path: cider-ci/task-components/fake-smtp-server.yml
+      submodule: [mail]
+    - path: cider-ci/task-components/uberjar.yml
       submodule: [my]
-    - path: cider-ci/service_task-component.yml
+    - path: cider-ci/task-components/service.yml
       submodule: [my]
-    - path: cider-ci/task-components/bundle-rspec-ruby.yml
-      submodule: [legacy]
+    - path: cider-ci/task-components/test-auth-system.yml
+      submodule: [my]
     - path: cider-ci/task-components/database.yml
       submodule: [database]
     - path: cider-ci/task-components/reverse-proxy.yml
-      submodule: [integration-tests]
-    - path: cider-ci/task-components/fake-smtp.yml
       submodule: [integration-tests]
     - path: cider-ci/task-components/ruby-bundle.yml
       submodule: [integration-tests]
     - path: cider-ci/task-components/run-test.yml
       submodule: [integration-tests]
-    - path: cider-ci/task-components/test-auth-system.yml
-      submodule: [integration-tests]
 
-  git_options:
-    submodules:
-      include_match: ^.*$
 
-generate_tasks:
-  # include_match: spec\/features\/(.*)admin_section.feature$
-  # include_match: spec\/features\/(clean_db|release_info)\.feature$
-  include_match: spec\/features\/(.*)(\.feature|_spec\.rb)$
-  submodule: [integration-tests]
-
-# tasks-specific config:
 tasks:
-  spec/features/release_info.feature:
-    scripts:
-      prepare-config:
-        body: './dev/releasenotes-md-to-yaml.rb && head -100 config/releases.yml'
-      test:
-        start_when:
-          config is prepared: { script_key: 'prepare-config' }
+  include: 
+  - path: cider-ci/generators/feature-tasks.yml
+    submodule: [integration-tests]
+

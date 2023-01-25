@@ -2,7 +2,7 @@ context:
 
   task_defaults:
 
-    max_trials: 3
+    max_trials: 2
     eager_trials: 1
 
     scripts:
