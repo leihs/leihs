@@ -8,8 +8,9 @@ include:
     submodule: [zhdk-inventory]
   - path: cider-ci/jobs/deploy-to-zhdk-leihs-next.yml
     submodule: [zhdk-inventory]
-  - path: cider-ci/jobs/deploy-to-zhdk-leihs-test.yml
-    submodule: [zhdk-inventory]
+# revert this after ausleihe has been migrated to PG15
+# - path: cider-ci/jobs/deploy-to-zhdk-leihs-test.yml
+#   submodule: [zhdk-inventory]
   - path: cider-ci/jobs/deploy-to-zhdk-leihs-test-norestore.yml
     submodule: [zhdk-inventory]
   - path: cider-ci/jobs/deploy-to-zhdk-dev-servers.yml
