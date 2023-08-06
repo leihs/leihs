@@ -5,6 +5,8 @@ include:
   - cider-ci/jobs/integration-tests.yml
   - path: cider-ci/jobs/deploy-to-zhdk-leihs-staging.yml
     submodule: [zhdk-inventory]
+  - path: cider-ci/jobs/deploy-to-zhdk-leihs-staging-norestore.yml
+    submodule: [zhdk-inventory]
   - path: cider-ci/jobs/deploy-to-zhdk-leihs-next.yml
     submodule: [zhdk-inventory]
   - path: cider-ci/jobs/deploy-to-zhdk-leihs-test.yml
