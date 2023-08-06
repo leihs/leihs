@@ -4,7 +4,10 @@ include:
   - cider-ci/jobs/deploy-to-container.yml
   - cider-ci/jobs/integration-tests.yml
 
-  - path: cider-ci/jobs/deploy-to-zhdk-leihs-staging.yml
+# revert this after ausleihe has been migrated to PG15
+# - path: cider-ci/jobs/deploy-to-zhdk-leihs-staging.yml
+#   submodule: [zhdk-inventory]
+  - path: cider-ci/jobs/deploy-to-zhdk-leihs-staging-norestore.yml
     submodule: [zhdk-inventory]
   - path: cider-ci/jobs/deploy-to-zhdk-leihs-next.yml
     submodule: [zhdk-inventory]
