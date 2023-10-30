@@ -16,7 +16,6 @@ ALL_SUBS = `git submodule status --recursive`.split("\n").map{|sub| sub.strip.sp
 SHARED_SUBS_MATCHERS= 
   {database: /database$/,
    legacy: /legacy$|legacy-api$/,
-   ui: /leihs-ui$/,
    clj: /shared-clj$/}
 
 SHARED_SUBS = SHARED_SUBS_MATCHERS.map{ |key,match|
