@@ -2,7 +2,7 @@
 
 export DEV_INITIALS=uvb
 export RELEASE_MAJOR_MINOR=7.3
-export RELEASE_PATCH=1
+export RELEASE_PATCH=2
 export RELEASE_PRE='' # e.g. '-RC.1'; or '' for stable release
 
 export RELEASE_MAIN="$RELEASE_MAJOR_MINOR.$RELEASE_PATCH"
