@@ -20,34 +20,34 @@ jobs:
         type: job
         job_key: meta
         states: [passed]
-      legacy submodule has passed:
+      legacy merged to master:
         type: job
-        job_key: good-to-merge
+        job_key: merged-to-master
         submodule: ['legacy']
         states: [passed]
-      admin submodule has passed:
+      admin merged to master:
         type: job
-        job_key: good-to-merge
+        job_key: merged-to-master
         submodule: ['admin']
         states: [passed]
-      procure submodule has passed:
+      procure merged to master:
         type: job
-        job_key: good-to-merge
+        job_key: merged-to-master
         submodule: ['procure']
         states: [passed]
-      my submodule has passed:
+      my merged to master:
         type: job
-        job_key: good-to-merge
+        job_key: merged-to-master
         submodule: ['my']
         states: [passed]
-      borrow submodule has passed:
+      borrow merged to master:
         type: job
-        job_key: good-to-merge
+        job_key: merged-to-master
         submodule: ['borrow']
         states: [passed]
-      mail submodule has passed:
+      mail merged to master:
         type: job
-        job_key: good-to-merge
+        job_key: merged-to-master
         submodule: ['mail']
         states: [passed]
 
