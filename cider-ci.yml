@@ -3,16 +3,9 @@ include:
   - cider-ci/jobs/meta.yml
   - cider-ci/jobs/deploy-to-container.yml
   - cider-ci/jobs/integration-tests.yml
-  - path: cider-ci/jobs/deploy-to-zhdk-leihs-staging.yml
+  - path: cider-ci/jobs/deploy-to-dev.yml
     submodule: [zhdk-inventory]
-  - path: cider-ci/jobs/deploy-to-zhdk-leihs-staging-with-restore.yml
+  - path: cider-ci/jobs/deploy-to-staging.yml
     submodule: [zhdk-inventory]
-  - path: cider-ci/jobs/deploy-to-zhdk-leihs-next.yml
+  - path: cider-ci/jobs/deploy-to-test.yml
     submodule: [zhdk-inventory]
-  - path: cider-ci/jobs/deploy-to-zhdk-leihs-test.yml
-    submodule: [zhdk-inventory]
-  - path: cider-ci/jobs/deploy-to-zhdk-leihs-test-with-restore.yml
-    submodule: [zhdk-inventory]
-  - path: cider-ci/jobs/deploy-to-zhdk-dev-servers.yml
-    submodule: [zhdk-inventory]
-
