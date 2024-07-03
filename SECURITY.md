@@ -6,8 +6,8 @@ The following versions are supported for security updates.
 
 | Version    | Supported          |
 | ---------- | ------------------ |
-| >= 7.5.0   | yes                |
-| < 7.5.0    | no                 |
+| latest (https://github.com/leihs/leihs/releases/latest)   | yes                |
+| previous versions    | no                 |
 
 ## Reporting a Vulnerability
 
