@@ -26,6 +26,9 @@ assignees: ''
 **Screenshots**
 > If applicable, add screenshots to help explain your problem.
 
+**Leihs version**
+> Provide a tag, branch, or other gitref.
+
 **Desktop (please complete the following information):**
 > - Device: [Desktop, Mobile] 
 > - OS & Version: [e.g. MacOS 14.0.0]
