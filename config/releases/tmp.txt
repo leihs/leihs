@@ -1,0 +1,82 @@
+### admin
+
+- fix: migration to enforce a standardized format (procurement_attachments.metadata / json)
+- ci: merged to master
+- chore: bundle update
+- chore: update firefox to 115esr
+- Improve SSO sign-out
+- drop legacy audits link
+
+### borrow
+
+- chore: update firefox to 115.8.0esr
+- fix: migration to enforce a standardized format (procurement_attachments.metadata / json)
+- ci: merged to master
+- chore: bundle update rails
+- Improve SSO sign-out
+- db: drop audits
+
+### database
+
+- fix: migration to enforce a standardized format (procurement_attachments.metadata / json)
+- ci: merged to master
+- bundle update
+- rails: 6.1.7.7
+- drop audits
+
+### documentation
+
+- small correction of erm
+
+### integration-tests
+
+- chore: update firefox to 115.8.0esr
+- drop legacy audits
+
+### legacy
+
+- chore: update firefox to 115.8.0esr
+- fix: migration to enforce a standardized format (procurement_attachments.metadata / json)
+- ci: merged to master
+- bundle update
+- rails: 6.1.7.7
+- drop audits
+- fix: exclude checkbox field from helper and expert search
+- fix: duplicate groups in hand over calendar
+
+### mail
+
+- fix: migration to enforce a standardized format (procurement_attachments.metadata / json)
+- ci: merged to master
+- chore: bundle update
+- Improve SSO sign-out
+- db: drop audits
+
+### my
+
+- chore: update firefox to 115.8.0esr
+- fix: migration to enforce a standardized format (procurement_attachments.metadata / json)
+- ci: merged to master
+- chore: bundle update
+- Improve SSO sign-out
+- db: drop audits
+
+### procure
+
+- chore: update firefox to 115.8.0esr
+- fix: migration to enforce a standardized format (procurement_attachments.metadata / json)
+- ci: merged to master
+- chore: bundle update
+- fix: procure-icon requests (uuid)
+- Improve SSO sign-out
+- chore: cljfmt setup
+- chore: next-jdbc & honeySql
+- db: drop audits
+
+### zhdk-inventory
+
+- Update zhdk-aad config
+- Add 1 git-crypt collaborator
+- Add 1 git-crypt collaborator
+- jan & manuel server
+
