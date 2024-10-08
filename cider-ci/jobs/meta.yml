@@ -8,7 +8,7 @@ jobs:
       always:
         type: branch
         include_match: ^.*$
-        exclude_match: "^.*no-ci.*$"
+        exclude_match: '^.*(no-ci|hotspot).*$'
 
     context:
       task_defaults:
