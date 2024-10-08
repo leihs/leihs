@@ -14,7 +14,7 @@ scripts:
       echo $PWD
       ls -lah
       ls -lah config
-      ruby -S \
+      SECRET_KEY_BASE_DUMMY=1 ruby -S \
           bundle exec puma \
           -e production \
           -t 1:2 \
