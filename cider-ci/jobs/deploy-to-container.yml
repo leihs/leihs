@@ -22,6 +22,11 @@ jobs:
           LEIHS_DEPLOY_DIR: '{{LEIHS_ROOT_DIR}}/deploy'
 
       tasks:
+
+        ubuntu-2404:
+          name: Ubuntu 24.04 (noble) LTS
+          include: cider-ci/task-components/container-deploy/task-ubuntu-2404.yml
+
         ubuntu-2204:
           name: Ubuntu 22.04 (jammy) LTS
           include: cider-ci/task-components/container-deploy/task-ubuntu-2204.yml
