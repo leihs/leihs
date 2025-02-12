@@ -174,6 +174,8 @@ task_defaults:
       submodule: [database]
     - path: cider-ci/task-components/reverse-proxy.yml
       submodule: [integration-tests]
+    - path: cider-ci/task-components/browser-setup.yml
+      submodule: [integration-tests]
     - path: cider-ci/task-components/ruby-bundle.yml
       submodule: [integration-tests]
     - path: cider-ci/task-components/run-test.yml
