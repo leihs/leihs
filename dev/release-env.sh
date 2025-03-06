@@ -1,7 +1,7 @@
 #!/bin/sh -exu
 
 export DEV_INITIALS=mk
-export RELEASE_MAJOR_MINOR=7.8
+export RELEASE_MAJOR_MINOR=7.9
 export RELEASE_PATCH=0
 export RELEASE_PRE='' # e.g. '-RC.1'; or '' for stable release
 
