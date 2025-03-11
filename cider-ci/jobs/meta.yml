@@ -12,7 +12,7 @@ jobs:
 
     context:
       task_defaults:
-        max_trials: 1
+        max_trials: 3
         traits:
           asdf: true
         git_options:

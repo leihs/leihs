@@ -133,12 +133,6 @@ task_defaults:
       start_when:
         build done:
           script_key: build-done
-    prepare-config:
-      body: './dev/releasenotes-md-to-yaml.rb && head -100 config/releases.yml'
-    test:
-      start_when:
-        config is prepared:
-          script_key: 'prepare-config'
 
   include:
     - path: cider-ci/task-components/legacy-service.yml
