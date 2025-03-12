@@ -72,6 +72,7 @@ task_defaults:
     LEIHS_MAIL_SMTP_ADDRESS: localhost
     LEIHS_ROOT_DIR: '{{CIDER_CI_WORKING_DIR}}'
     LEIHS_SECRET: '{{CIDER_CI_TRIAL_ID}}'
+    LEIHS_VERSION: 'x.y.z-beta'
     RAILS_ENV: production
 
   templates:
