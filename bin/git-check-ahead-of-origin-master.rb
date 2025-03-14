@@ -6,7 +6,7 @@ gemfile do
   source 'https://rubygems.org'
   # fixed versions avoid frequent checks and reinstalls
   gem 'pry', '= 0.14.2'
-  gem 'activesupport', '= 6.1.7' 
+  gem 'activesupport', '~> 7' 
 end
 
 require 'active_support/all'
