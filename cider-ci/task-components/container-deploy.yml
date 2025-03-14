@@ -2,6 +2,9 @@ context:
 
   task_defaults:
 
+    traits:
+      incus: True
+
     max_trials: 2
     eager_trials: 1
 
@@ -15,4 +18,4 @@ context:
             states: [failed]
         body: |
           #!/usr/bin/env bash
-          lxc exec ${CONTAINER_NAME} -- /bin/bash -c "journalctl -xe"
+          incus exec ${CONTAINER_NAME} -- /bin/bash -c "journalctl -xe"
