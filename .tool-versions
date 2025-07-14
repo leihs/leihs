@@ -1,5 +1,5 @@
 babashka 1.0.170
 clojure 1.10.3.1093
-java zulu-11.60.19
+java zulu-17.58.25
 nodejs 22.13.0
 ruby 3.3.7
