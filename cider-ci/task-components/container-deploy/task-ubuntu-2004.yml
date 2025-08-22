@@ -1,4 +1,0 @@
-# name: Ubuntu 20.04 LTS
-environment_variables:
-  CONTAINER_BASE_IMAGE: 'images:ubuntu/20.04'
-include: [{path: container-test/cider-ci/context.yml, submodule: [deploy]}]
