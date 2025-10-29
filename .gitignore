@@ -14,3 +14,4 @@
 # NOTE: must keep those in order!
 /config/*
 !/config/releases/
+.vscode/
