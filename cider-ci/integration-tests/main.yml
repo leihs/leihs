@@ -4,7 +4,7 @@ script_defaults:
 task_defaults:
 
   max_trials: 2
-  load: 2
+  load: 1.5
   dispatch_storm_delay_duration: 3 Seconds
 
   git_options:
