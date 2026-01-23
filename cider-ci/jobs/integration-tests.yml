@@ -1,6 +1,7 @@
 jobs:
-  integration-tests:
-    name: Integration Tests
+
+  integration-tests-preflight-check-features:
+    name: Integration Tests Check Features
 
     run_when: &DEFAULT_TRIGGERS
       any branch matches:
@@ -13,4 +14,47 @@ jobs:
         max_trials: 3
 
       include:
-        - path: cider-ci/integration-tests/main.yml
+        - path: cider-ci/context-components/integration-tests.yml
+
+      tasks:
+        check_features:
+          scripts: 
+            env:
+              body: |
+                #!/bin/bash
+                set -euo pipefail
+                env | sort
+            test:
+              body: |
+                #!/bin/bash
+                set -euo pipefail
+                echo "Checking that feature definitions are up to date."
+                export PGUSER="${PG15USER}"; export PGPORT="${PG15PORT}"
+                ./integration-tests/cider-ci/generators/bin/feature-tasks-check
+
+
+
+  integration-tests:
+    name: Integration Tests
+
+    depends_on: &INTEGRATION_TESTS_DEPENDENDS
+      integration tests preflight success:
+        type: job
+        job_key: integration-tests-preflight-check-features
+        states: [passed]
+
+    run_when: *INTEGRATION_TESTS_DEPENDENDS
+
+    context:
+      task_defaults:
+        max_trials: 3
+
+      include:
+        - path: cider-ci/context-components/integration-tests.yml
+
+      tasks:
+        include:
+        - path: cider-ci/generators/feature-tasks.yml
+          submodule: [integration-tests]
+
+

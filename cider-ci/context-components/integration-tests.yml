@@ -176,9 +176,3 @@ task_defaults:
     - path: cider-ci/task-components/run-test.yml
       submodule: [integration-tests]
 
-
-tasks:
-  include:
-  - path: cider-ci/generators/feature-tasks.yml
-    submodule: [integration-tests]
-
