@@ -4,7 +4,6 @@
 /archive
 /audits-archiver
 /integration
-/inventory
 /system
 /tmp
 /zhdk-aai-shibboleth-auth-system
@@ -14,3 +13,4 @@
 # NOTE: must keep those in order!
 /config/*
 !/config/releases/
+.vscode/

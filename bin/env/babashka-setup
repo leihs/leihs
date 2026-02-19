@@ -3,10 +3,26 @@ set -euo pipefail
 
 PROJECT_DIR="$(cd -- "$(dirname "${BASH_SOURCE}")" ; cd ../.. > /dev/null 2>&1 && pwd -P)"
 PROJECT_NAME=leihs
-ASDF_PLUGIN=babashka
-ASDF_PLUGIN_URL=https://github.com/pitch-io/asdf-babashka.git
 
-source $PROJECT_DIR/admin/shared-clj/bin/env/asdf-helper.bash
-asdf-update-plugin
+source $PROJECT_DIR/bin/env/select-tool-versions-manager
+
+case "$TOOL_VERSIONS_MANAGER" in
+  asdf|asdf-vm)
+    echo "Setting up babashka via asdf"
+    ASDF_PLUGIN=babashka
+    ASDF_PLUGIN_URL=https://github.com/pitch-io/asdf-babashka.git
+    source $PROJECT_DIR/bin/env/asdf-helper.bash
+    asdf-update-plugin
+    asdf install babashka
+    ;;
+  mise)
+    echo "Setting up babashka via mise"
+    mise install babashka
+    ;;
+  *)
+    echo "ERROR: Unsupported TOOL_VERSIONS_MANAGER: $TOOL_VERSIONS_MANAGER"
+    exit 1
+    ;;
+esac
 
 # vi: ft=sh

@@ -5,14 +5,11 @@ jobs:
     name: Test Deploy to Container
 
     run_when:
-      any branch matches:
-        type: branch
-        include_match: ^.+$
-        exclude_match: ^.*(no-ci|hotspot).*$
-#     integration tests were successful:
-#       type: job
-#       job_key: integration-tests
-#       states: [passed]
+      integration tests were successful:
+        type: job
+        job_key: integration-tests
+        states: [passed]
+
 
     context:
 

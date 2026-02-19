@@ -8,10 +8,10 @@ jobs:
       Status of this job is **used by github's "branch protection"**!
 
     depends_on: &GOOD_TO_MERGE_DEPENDENTS
-      # deploy to container was successful:
-      #   type: job
-      #   job_key: test-container-deploy
-      #   states: [passed]
+      deploy to container was successful:
+        type: job
+        job_key: test-container-deploy
+        states: [passed]
       integration tests were successful:
         type: job
         job_key: integration-tests

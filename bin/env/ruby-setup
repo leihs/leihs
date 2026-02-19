@@ -3,10 +3,26 @@ set -euo pipefail
 
 PROJECT_DIR="$(cd -- "$(dirname "${BASH_SOURCE}")" ; cd ../.. > /dev/null 2>&1 && pwd -P)"
 PROJECT_NAME=leihs
-ASDF_PLUGIN=ruby
-ASDF_PLUGIN_URL=https://github.com/asdf-vm/asdf-ruby.git
 
-source $PROJECT_DIR/admin/shared-clj/bin/env/asdf-helper.bash
-asdf-update-plugin
+source $PROJECT_DIR/bin/env/select-tool-versions-manager
+
+case "$TOOL_VERSIONS_MANAGER" in
+  asdf|asdf-vm)
+    echo "Setting up ruby via asdf"
+    ASDF_PLUGIN=ruby
+    ASDF_PLUGIN_URL=https://github.com/asdf-vm/asdf-ruby.git
+    source $PROJECT_DIR/bin/env/asdf-helper.bash
+    asdf-update-plugin
+    asdf install ruby
+    ;;
+  mise)
+    echo "Setting up ruby via mise"
+    mise install ruby
+    ;;
+  *)
+    echo "ERROR: Unsupported TOOL_VERSIONS_MANAGER: $TOOL_VERSIONS_MANAGER"
+    exit 1
+    ;;
+esac
 
 # vi: ft=sh
