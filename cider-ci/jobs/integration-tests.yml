@@ -43,8 +43,6 @@ jobs:
         job_key: integration-tests-preflight-check-features
         states: [passed]
 
-    run_when: *INTEGRATION_TESTS_DEPENDENDS
-
     context:
       task_defaults:
         max_trials: 3
