@@ -40,6 +40,14 @@ If the executor has **both** `mise` and `asdf` on `PATH`, the old `select-tool-v
 
 If errors persist after that, inspect the full log for `asdf install ruby` / `ruby-build` (network, build dependencies, timeouts). Fallbacks: pin to a preinstalled patch level (e.g. 3.3.7) or update the cider-ci executor image to include 3.3.8.
 
+### ruby-build `Killed` (OOM)
+
+If the log shows **`Killed`** during `asdf install` / ruby-build (`BUILD FAILED (Debian … using ruby-build …)`), the Linux OOM killer likely stopped the compile. **`asdf-apply-ruby-low-memory-build-opts`** in each `bin/env/asdf-helper.bash` enables **CI-only** lower-memory settings when `CIDER_CI_WORKING_DIR`, `CI=true`, `CIDER_CI_TRIAL_ID`, or a path under `ci_working-dir` is detected: **`RUBY_MAKE_OPTS=-j 1`** and **`RUBY_CONFIGURE_OPTS` … `--disable-install-doc`**. If builds still die, increase executor memory or use a Ruby version already preinstalled on the image.
+
+### Stale or broken asdf Ruby
+
+The per-tree cache in `asdf-update-plugin` can skip `asdf install` while the install directory is missing or corrupt. **`asdf-verify-ruby-install`** in each `bin/env/asdf-helper.bash` runs at the end of `asdf-update-plugin` when `ASDF_PLUGIN=ruby`: `asdf reshim`, then `asdf exec ruby -e 'print RUBY_VERSION'` must match the `ruby` line in that project’s `.tool-versions`; otherwise it logs a warning, `asdf uninstall` / `asdf install`, reshims again, and fails hard if still broken.
+
 ## Historical log (raw CI excerpts)
 
 <details>
