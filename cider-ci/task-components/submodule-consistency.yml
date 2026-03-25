@@ -7,6 +7,7 @@ git_options:
 
 scripts:
   test:
+    exclusive_executor_resource: asdf-ruby
     body: |
       #!/usr/bin/env bash
       set -exo pipefail
@@ -15,5 +16,6 @@ scripts:
       # which do not work well with some submodule inspection
       git submodule update --init --recursive --force
 
+      ./bin/env/ruby-setup
       ./bin/git-check-submodule-consistency
 
