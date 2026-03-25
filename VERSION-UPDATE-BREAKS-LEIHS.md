@@ -30,7 +30,15 @@ Then the existing `./bin/git-check-*` calls run with the correct Ruby.
 
 ## If integration-tests still fail
 
-Those jobs already use `integration-tests/cider-ci/task-components/ruby-bundle.yml`, which runs `./bin/env/ruby-setup`. If errors persist, inspect the full log for `asdf install ruby` / `ruby-build` (network, build dependencies, timeouts). Fallbacks: pin to a preinstalled patch level (e.g. 3.3.7) or update the cider-ci executor image to include 3.3.8.
+Those jobs already use `integration-tests/cider-ci/task-components/ruby-bundle.yml`, which runs `./bin/env/ruby-setup`.
+
+### asdf vs mise (bundle shim)
+
+If the executor has **both** `mise` and `asdf` on `PATH`, the old `select-tool-versions-manager` picked **mise** first. `./bin/env/ruby-setup` then installed Ruby with mise, but `bundle` often resolved to **asdf’s shim**, which had no matching Ruby → *No preset version installed for command bundle*. **Fix:** prefer **asdf** when it is available (see `bin/env/select-tool-versions-manager` copies), matching cider-ci `traits: asdf: true`. Local mise-only setups still work when asdf is absent; to force mise with both installed, set `TOOL_VERSIONS_MANAGER=mise`.
+
+### Other causes
+
+If errors persist after that, inspect the full log for `asdf install ruby` / `ruby-build` (network, build dependencies, timeouts). Fallbacks: pin to a preinstalled patch level (e.g. 3.3.7) or update the cider-ci executor image to include 3.3.8.
 
 ## Historical log (raw CI excerpts)
 

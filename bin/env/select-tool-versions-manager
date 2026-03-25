@@ -2,14 +2,16 @@ set -euo pipefail
 
 ENV_DIR="$(cd -- "$(dirname "${BASH_SOURCE}")"; cd . > /dev/null 2>&1 && pwd -P)"
 
-# Check if mise is in PATH and set TOOL_VERSIONS_MANAGER accordingly
-if type "mise" &> /dev/null && [ -z "${TOOL_VERSIONS_MANAGER:-}" ]; then
-    export TOOL_VERSIONS_MANAGER="mise"
-fi
-
-# resort to asdf if TOOL_VERSIONS_MANAGER is not set
+# Respect TOOL_VERSIONS_MANAGER when set; otherwise prefer asdf over mise when both exist
+# so the same toolchain handles install and shims (ruby, bundle).
 if [ -z "${TOOL_VERSIONS_MANAGER:-}" ]; then
+  if type "asdf" &> /dev/null; then
     export TOOL_VERSIONS_MANAGER="asdf"
+  elif type "mise" &> /dev/null; then
+    export TOOL_VERSIONS_MANAGER="mise"
+  else
+    export TOOL_VERSIONS_MANAGER="asdf"
+  fi
 fi
 
 case "$TOOL_VERSIONS_MANAGER" in
