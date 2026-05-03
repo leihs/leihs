@@ -36,4 +36,14 @@ jobs:
           name: Debian 12 (bookworm)
           include: cider-ci/task-components/container-deploy/task-debian-12.yml
 
+        debian-trixie:
+          name: Debian 13 (trixie)
+          include: cider-ci/task-components/container-deploy/task-debian-13.yml
+
+        upgrade-bookworm-to-trixie:
+          name: Upgrade Debian 12 (bookworm) → 13 (trixie)
+          include: cider-ci/task-components/container-deploy/task-upgrade-bookworm-to-trixie.yml
+
+
+
 
