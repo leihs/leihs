@@ -1,9 +1,13 @@
 function asdf-load() {
-  if type "asdf" > /dev/null; then
+  if type "asdf" > /dev/null 2>&1; then
     echo "asdf OK"
-  else
+  elif type "mise" > /dev/null 2>&1; then
+    echo "mise OK (skipping asdf)"
+  elif [[ -f ~/.asdf/asdf.sh ]]; then
     echo "sourcing asdf from ~/.asdf/asdf.sh since it seems not present"
     source ~/.asdf/asdf.sh
+  else
+    echo "WARNING: neither asdf nor mise found; tool versions may not be set correctly"
   fi
 }
 
