@@ -34,3 +34,6 @@
 [submodule "inventory"]
 	path = inventory
 	url = https://github.com/leihs/leihs-inventory.git
+[submodule "lending"]
+	path = lending
+	url = https://github.com/leihs/leihs-lending

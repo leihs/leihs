@@ -36,6 +36,9 @@ task_defaults:
     LEIHS_PROCURE_CLIENT_HTTP_PORT:
       min: 3000
       max: 3999
+    LEIHS_LENDING_HTTP_PORT:
+      min: 3000
+      max: 3999
     LEIHS_MAIL_SMTP_PORT:
       min: 4000
       max: 4999
@@ -66,6 +69,8 @@ task_defaults:
     LEIHS_INVENTORY_HTTP_BASE_URL: http://localhost:{{LEIHS_INVENTORY_HTTP_PORT}}
     LEIHS_PROCURE_DIR: '{{LEIHS_ROOT_DIR}}/procure'
     LEIHS_PROCURE_HTTP_BASE_URL: http://localhost:{{LEIHS_PROCURE_HTTP_PORT}}
+    LEIHS_LENDING_DIR: '{{LEIHS_ROOT_DIR}}/lending'
+    LEIHS_LENDING_HTTP_BASE_URL: http://localhost:{{LEIHS_LENDING_HTTP_PORT}}
     LEIHS_MAIL_DIR: '{{LEIHS_ROOT_DIR}}/mail'
     LEIHS_MAIL_RETRY_FREQUENCY_IN_SECONDS: '1'
     LEIHS_MAIL_SEND_FREQUENCY_IN_SECONDS: '1'
@@ -96,6 +101,8 @@ task_defaults:
           script_key: borrow-build-uberjar
         procure uberjar ready:
           script_key: procure-uberjar-build
+        lending uberjar ready:
+          script_key: lending-build-uberjar
         legacy bundled:
           script_key: legacy-bundle-rspec-ruby
     run-reverse-proxy:
@@ -123,6 +130,10 @@ task_defaults:
         build done:
           script_key: build-done
     procure-service-run:
+      start_when:
+        build done:
+          script_key: build-done
+    lending-service-run:
       start_when:
         build done:
           script_key: build-done
@@ -165,6 +176,10 @@ task_defaults:
       submodule: [my]
     - path: cider-ci/task-components/test-auth-system.yml
       submodule: [my]
+    - path: cider-ci/task-components/uberjar.yml
+      submodule: [lending]
+    - path: cider-ci/task-components/service.yml
+      submodule: [lending]
     - path: cider-ci/task-components/database.yml
       submodule: [database]
     - path: cider-ci/task-components/reverse-proxy.yml
