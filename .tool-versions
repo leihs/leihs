@@ -1,5 +1,5 @@
 babashka 1.0.170
-clojure 1.11.1.1413
+clojure 1.12.5.1654
 java temurin-21.0.11+10.0.LTS
 nodejs 22.21.1
 ruby 3.3.8
