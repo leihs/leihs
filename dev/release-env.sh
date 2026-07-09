@@ -1,8 +1,8 @@
 #!/bin/sh -exu
 
-export DEV_INITIALS=uvb
+export DEV_INITIALS=mk
 export RELEASE_MAJOR_MINOR=7.14
-export RELEASE_PATCH=1
+export RELEASE_PATCH=2
 export RELEASE_PRE='' # e.g. '-RC.1'; or '' for stable release
 
 export RELEASE_MAIN="$RELEASE_MAJOR_MINOR.$RELEASE_PATCH"
