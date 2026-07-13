@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROJECT_DIR="$(cd -- "$(dirname "${BASH_SOURCE}")" ; cd .. > /dev/null 2>&1 && pwd -P)"
+cd "${PROJECT_DIR}"
+
+BRANCH=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --branch) BRANCH="$2"; shift 2 ;;
+    *) echo "Unknown option: $1"; exit 1 ;;
+  esac
+done
+
+if [[ -z "$BRANCH" ]]; then
+  read -rp "Branch name [mk/ci]: " BRANCH
+  BRANCH="${BRANCH:-mk/ci}"
+fi
+
+# <submodule_path>:<database_submodule_path>
+SUBMODULES=(
+  "admin:database"
+  "procure:server/database"
+  "my:database"
+  "mail:database"
+  "borrow:database"
+  "inventory:database"
+  "lending:database"
+  "legacy:database"
+)
+
+for entry in "${SUBMODULES[@]}"; do
+  SM="${entry%%:*}"
+  DB_PATH="${entry##*:}"
+
+  echo "=== $SM/$DB_PATH ==="
+  cd "${PROJECT_DIR}/${SM}/${DB_PATH}"
+  git push --force origin "HEAD:${BRANCH}"
+
+  echo "=== $SM ==="
+  cd "${PROJECT_DIR}/${SM}"
+  git push --force origin "HEAD:${BRANCH}"
+done
+
+echo "=== main repo ==="
+cd "${PROJECT_DIR}"
+git push --force origin "HEAD:${BRANCH}"
