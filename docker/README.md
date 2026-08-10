@@ -237,6 +237,23 @@ chown the volume once via a temporary root helper container.
 `setcap` is a small privilege extension. The image default stays root for
 compatibility; non-root is a documented option.
 
+**Trade-offs to be aware of:**
+- **Ongoing maintenance:** the Ansible reference deployment runs as root;
+  non-root is a permanent delta branch — every upstream change needs an
+  ownership review.
+- **Upgrade path:** existing root-run volumes are root-owned; switching to
+  non-root requires a one-time `chown` (via a temporary root helper
+  container). Named volumes inherit the image ownership only on first use.
+- **`setcap` conflicts with `no-new-privileges`:** `no_new_privs` prevents
+  file capabilities from being granted at `exec` — with
+  `no-new-privileges:true` Apache cannot bind 80/443 even with `setcap`
+  (use the high-port variant instead).
+- **TLS certificates:** certbot/Let's-Encrypt typically runs as root;
+  renewal must move outside the container (host cron + read-only mount).
+- **No boundary against the host:** without user namespaces, UID 1000 in
+  the container maps to UID 1000 on the host — relevant for bind mounts on
+  multi-user hosts. Real isolation would require rootless/userns-remap.
+
 ## 9. Troubleshooting
 
 | Symptom | Cause / fix |
