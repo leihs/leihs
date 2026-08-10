@@ -24,6 +24,14 @@ An up-to-date, human-readable specification of all our scenarios is to be found 
 
 All the important information is to be found [here](https://github.com/leihs/leihs/wiki).
 
+# Docker
+
+A Docker deployment (all-in-one container image + optional split PostgreSQL
+container) is available under [`docker/`](docker/README.md). It converts the
+Ansible deployment ([leihs_deploy](https://github.com/leihs/leihs_deploy))
+into containers while keeping the exact same service layout and configuration
+variables.
+
 # Issues
 
 All present and past issues are tracked, discussed and dealt with [here](https://github.com/leihs/leihs/issues).

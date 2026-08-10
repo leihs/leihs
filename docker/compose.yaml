@@ -1,0 +1,87 @@
+# leihs-docker — Compose configuration
+#
+# Default mode (split): PostgreSQL runs as its own container (db service),
+# the leihs app connects over TCP via the internal compose network
+# (DB_HOST=db). The DB port is NOT published to the host.
+#
+# Single-container mode: set DB_HOST=localhost and remove the db service —
+# the app then uses the PostgreSQL bundled inside the image (as with
+# docker run).
+#
+# Usage:
+#   cp docker/example.env .env        # optional: adjust values
+#   docker compose -f docker/compose.yaml up -d
+#
+# All ${VAR:-default} placeholders are read from .env (or --env-file);
+# without .env the defaults apply (identical to entrypoint.sh / Ansible defaults.yml).
+
+services:
+  db:
+    image: postgres:15
+    container_name: ${LEIHS_DB_CONTAINER_NAME:-leihs-db}
+    restart: unless-stopped
+    environment:
+      # Bootstrap superuser — must match the app's DB_USER (init-db.sh
+      # synchronizes password/privileges afterwards over TCP).
+      POSTGRES_USER: ${DB_USER:-root}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-root}
+      # Bootstrap database only; the actual leihs database is created by
+      # init-db.sh (ICU de-CH, template0, structure.sql + seeds.sql).
+      POSTGRES_DB: root
+    command: ["postgres", "-c", "port=${DB_PORT:-5415}"]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -p ${DB_PORT:-5415} -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    # No ports: mapping — the DB is only reachable on the internal compose network.
+
+  leihs:
+    image: ${LEIHS_IMAGE:-leihs-docker:latest}
+    build:
+      context: ./docker
+    container_name: ${LEIHS_CONTAINER_NAME:-leihs}
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${LEIHS_HTTP_PORT:-80}:80"
+      - "${LEIHS_HTTPS_PORT:-443}:443"
+    environment:
+      # Base
+      LEIHS_EXTERNAL_HOSTNAME: ${LEIHS_EXTERNAL_HOSTNAME:-leihs.example.org}
+      LEIHS_MASTER_SECRET: ${LEIHS_MASTER_SECRET:-}          # empty => auto-generated + persisted
+      # Database (Ansible defaults; change the password in production!)
+      # Split mode: DB_HOST=db (service name). Single container: DB_HOST=localhost.
+      DB_HOST: ${DB_HOST:-db}
+      DB_PORT: ${DB_PORT:-5415}
+      DB_NAME: ${DB_NAME:-leihs}
+      DB_USER: ${DB_USER:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-root}
+      # Features
+      PUBLISH_INVENTORY: ${PUBLISH_INVENTORY:-false}
+      ENABLE_AUTH_HEADER_PREFIX_BASIC: ${ENABLE_AUTH_HEADER_PREFIX_BASIC:-true}
+      RESTRICT_ACCESS_VIA_BASIC_AUTH: ${RESTRICT_ACCESS_VIA_BASIC_AUTH:-false}
+      RESTRICT_ACCESS_VIA_BASIC_AUTH_PASSWORDS: ${RESTRICT_ACCESS_VIA_BASIC_AUTH_PASSWORDS:-}
+      WEBSTATS_ENABLED: ${WEBSTATS_ENABLED:-true}
+      # leihs-legacy (Puma)
+      LEIHS_PUMA_WORKERS: ${LEIHS_PUMA_WORKERS:-2}
+      LEIHS_PUMA_THREADS: ${LEIHS_PUMA_THREADS:-5}
+      # Cron (rake leihs:cron, daily)
+      LEIHS_CRON_TIME: ${LEIHS_CRON_TIME:-04:00}
+      LEIHS_CRON_RANDOMIZED_DELAY_MAX_SECONDS: ${LEIHS_CRON_RANDOMIZED_DELAY_MAX_SECONDS:-3600}
+    volumes:
+      - leihs-data:/leihs/var               # master_secret, DB backups
+      - leihs-storage:/leihs/legacy/storage # ActiveStorage uploads
+      # Own TLS certificates (optional, replace the snakeoil certificate):
+      # - ./certs/leihs.crt:/etc/ssl/certs/ssl-cert-snakeoil.pem:ro
+      # - ./certs/leihs.key:/etc/ssl/private/ssl-cert-snakeoil.key:ro
+
+volumes:
+  pgdata:
+  leihs-data:
+  leihs-storage:
