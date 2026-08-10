@@ -186,7 +186,58 @@ empty) and restore as above.
   for the single-container mode; the compose default runs PostgreSQL as its
   own container on the internal network (no port exposed to the host).
 
-## 8. Troubleshooting
+## 8. Running the container non-root (optional)
+
+By default the container runs as root, mirroring the Ansible deployment.
+To run the container processes without root (UID 1000, **not** Rootless
+Docker — the daemon stays root), the following changes are needed:
+
+**Dockerfile:**
+```dockerfile
+RUN useradd -r -u 1000 -m -s /bin/bash leihs
+# writable paths + PostgreSQL data dir, owned by the user (named volumes
+# inherit the image ownership on first use)
+RUN chown -R leihs:leihs /leihs /etc/leihs /var/log/leihs \
+      /run/apache2 /var/lock/apache2 /var/cache/apache2 \
+      /etc/apache2/sites-available /etc/apache2/sites-enabled \
+      /etc/awstats/awstats.conf /var/lib/postgresql
+RUN usermod -aG ssl-cert leihs     # read the snakeoil private key
+# ...
+USER leihs
+```
+
+**`init-db.sh`:** replace the Debian cluster wrappers (root-only
+`pg_createcluster`/`pg_ctlcluster`) with a user-space `initdb` + `pg_ctl`;
+the bootstrap superuser becomes the app user itself:
+```bash
+initdb -D "${PGDATA}" -U "${DB_USER}" -E UTF8 --locale=C.UTF-8 \
+  --pwfile=<(printf '%s' "${DB_PASSWORD}") \
+  --auth-host=scram-sha-256 --auth-local=trust
+echo "port = ${DB_PORT}" >> "${PGDATA}/postgresql.conf"   # 5415 > 1024
+pg_ctl -D "${PGDATA}" -o "-p ${DB_PORT} -k /tmp" -w start
+```
+The `su postgres` peer-auth bootstrap is dropped entirely; all client steps
+already run over TCP. In split mode this block is inactive anyway.
+
+**Apache:** either render high ports (8080/8443, mapped to 80/443 in
+compose), or keep 80/443 with a file capability:
+`RUN setcap cap_net_bind_service=+ep /usr/sbin/apache2`
+(`NET_BIND_SERVICE` is in the Docker default capability set).
+
+**compose:** `user: "1000:1000"` on both services (plus optional
+`read_only`, `tmpfs`, `cap_drop: [ALL]`, `no-new-privileges`).
+**Volume pitfall:** named volumes inherit the image ownership on first use —
+for a non-root `postgres:15` use a bind mount pre-owned by UID 1000 or
+chown the volume once via a temporary root helper container.
+
+**Verify:** `docker exec leihs id` → `uid=1000(leihs)`;
+`psql -h 127.0.0.1 -p 5415 -U root -d leihs -c "select 1"`.
+
+**Limits:** this is *not* Rootless Docker (the daemon remains root), and
+`setcap` is a small privilege extension. The image default stays root for
+compatibility; non-root is a documented option.
+
+## 9. Troubleshooting
 
 | Symptom | Cause / fix |
 |---|---|
