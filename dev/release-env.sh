@@ -3,7 +3,7 @@
 export DEV_INITIALS=mr
 export RELEASE_MAJOR_MINOR=7.15
 export RELEASE_PATCH=0
-export RELEASE_PRE='-RC.5' # e.g. '-RC.1'; or '' for stable release
+export RELEASE_PRE='' # e.g. '-RC.1'; or '' for stable release
 
 export RELEASE_MAIN="$RELEASE_MAJOR_MINOR.$RELEASE_PATCH"
 export RELEASE="$RELEASE_MAIN$RELEASE_PRE"
