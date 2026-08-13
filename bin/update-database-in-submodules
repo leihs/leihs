@@ -1,0 +1,145 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROJECT_DIR="$(cd -- "$(dirname "${BASH_SOURCE}")" ; cd .. > /dev/null 2>&1 && pwd -P)"
+cd "${PROJECT_DIR}"
+
+# Submodules that contain a database sub-submodule: "<submodule_path>:<database_path>"
+SUBMODULES=(
+  "admin:database"
+  "procure:server/database"
+  "my:database"
+  "mail:database"
+  "borrow:database"
+  "inventory:database"
+  "lending:database"
+  "legacy:database"
+)
+
+usage() {
+  echo "Usage: $0 [--db-ref <ref>] [--branch <branch>] [--base-ref <ref>] [--message <message>] [--dry-run]"
+  echo ""
+  echo "  --db-ref   <ref>     database ref to checkout (commit/branch/tag)"
+  echo "  --branch   <name>    branch name to use in all submodules and main repo"
+  echo "  --base-ref <ref>     base ref to reset branch to before commit"
+  echo "  --message  <msg>     commit message"
+  echo "  --dry-run            show what would happen, make no changes"
+  exit 1
+}
+
+DB_REF=""
+BRANCH=""
+BASE_REF=""
+MESSAGE=""
+DRY_RUN=false
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --db-ref)   DB_REF="$2";   shift 2 ;;
+    --branch)   BRANCH="$2";   shift 2 ;;
+    --base-ref) BASE_REF="$2"; shift 2 ;;
+    --message)  MESSAGE="$2";  shift 2 ;;
+    --dry-run)  DRY_RUN=true;  shift ;;
+    -h|--help)  usage ;;
+    *) echo "Unknown option: $1"; usage ;;
+  esac
+done
+
+run() {
+  if $DRY_RUN; then
+    echo "  [dry-run] $*"
+  else
+    "$@"
+  fi
+}
+
+# Prompt for any missing values
+if [[ -z "$DB_REF" ]]; then
+  read -rp "Database ref (commit/branch/tag): " DB_REF
+fi
+
+if [[ -z "$BRANCH" ]]; then
+  read -rp "Branch name for submodules and main repo: " BRANCH
+fi
+
+if [[ -z "$BASE_REF" ]]; then
+  read -rp "Base ref to reset branch to [origin/master]: " BASE_REF
+  BASE_REF="${BASE_REF:-origin/master}"
+fi
+
+# Fetch and get default message from database commit
+git -C database fetch origin
+DB_COMMIT_MSG=$(git -C database log -1 --format=%B "$DB_REF" | head -1)
+DEFAULT_MESSAGE="database: ${DB_COMMIT_MSG}"
+
+if [[ -z "$MESSAGE" ]]; then
+  read -rp "Commit message [$DEFAULT_MESSAGE]: " MESSAGE
+  MESSAGE="${MESSAGE:-$DEFAULT_MESSAGE}"
+fi
+
+echo ""
+echo "  db-ref:   $DB_REF"
+echo "  branch:   $BRANCH"
+echo "  base-ref: $BASE_REF"
+echo "  message:  $MESSAGE"
+echo ""
+
+# Update top-level database submodule (no branch reset, just pointer update)
+echo "=== database (top-level) ==="
+TARGET_SHA=$(git -C database rev-parse "$DB_REF")
+CURRENT_SHA=$(git -C database rev-parse HEAD)
+if [[ "$TARGET_SHA" == "$CURRENT_SHA" ]]; then
+  echo "  already at $TARGET_SHA, skipping"
+else
+  run git -C database checkout "$DB_REF"
+fi
+
+# Update each submodule: reset branch to origin/master, update database, commit
+for entry in "${SUBMODULES[@]}"; do
+  SUBMOD="${entry%%:*}"
+  DB_PATH="${entry##*:}"
+
+  echo "=== $SUBMOD ==="
+  cd "${PROJECT_DIR}/${SUBMOD}"
+
+  git -C "$DB_PATH" fetch origin
+
+  TARGET_SHA=$(git -C "$DB_PATH" rev-parse "$DB_REF")
+  CURRENT_SHA=$(git -C "$DB_PATH" rev-parse HEAD)
+
+  if [[ "$TARGET_SHA" == "$CURRENT_SHA" ]]; then
+    echo "  already at $TARGET_SHA, skipping"
+    cd "${PROJECT_DIR}"
+    continue
+  fi
+
+  git fetch origin
+  run git checkout -B "$BRANCH" "$BASE_REF"
+
+  run git -C "$DB_PATH" checkout "$DB_REF"
+
+  run git add "$DB_PATH"
+  run git commit -m "$MESSAGE"
+
+  cd "${PROJECT_DIR}"
+done
+
+# Stage submodule bumps in main repo (no commit)
+echo "=== main repo ==="
+run git add database
+for entry in "${SUBMODULES[@]}"; do
+  run git add "${entry%%:*}"
+done
+
+echo ""
+if $DRY_RUN; then
+  echo "[dry-run] would ask to push updated submodule branches"
+else
+  read -rp "Push updated submodule branches? [Y/n]: " PUSH_ANSWER
+  if [[ "${PUSH_ANSWER,,}" != "n" ]]; then
+    bin/push-database-submodule-branches --branch "$BRANCH"
+  else
+    echo "Skipped. To push manually:"
+    echo "  bin/push-database-submodule-branches --branch $BRANCH"
+  fi
+fi
