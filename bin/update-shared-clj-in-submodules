@@ -1,0 +1,136 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROJECT_DIR="$(cd -- "$(dirname "${BASH_SOURCE}")" ; cd .. > /dev/null 2>&1 && pwd -P)"
+cd "${PROJECT_DIR}"
+
+# Submodules that contain a shared-clj sub-submodule: "<submodule_path>:<shared_clj_path>"
+SUBMODULES=(
+  "admin:shared-clj"
+  "procure:server/shared-clj"
+  "my:shared-clj"
+  "mail:shared-clj"
+  "borrow:shared-clj"
+  "inventory:shared-clj"
+  "lending:shared-clj"
+)
+
+usage() {
+  echo "Usage: $0 [--shared-ref <ref>] [--branch <branch>] [--base-ref <ref>] [--message <message>] [--dry-run]"
+  echo ""
+  echo "  --shared-ref <ref>     shared-clj ref to checkout (commit/branch/tag)"
+  echo "  --branch     <name>    branch name to use in all submodules and main repo"
+  echo "  --base-ref   <ref>     base ref to reset branch to before commit"
+  echo "  --message    <msg>     commit message"
+  echo "  --dry-run              show what would happen, make no changes"
+  exit 1
+}
+
+SHARED_REF=""
+BRANCH=""
+BASE_REF=""
+MESSAGE=""
+DRY_RUN=false
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --shared-ref) SHARED_REF="$2"; shift 2 ;;
+    --branch)     BRANCH="$2";     shift 2 ;;
+    --base-ref)   BASE_REF="$2";   shift 2 ;;
+    --message)    MESSAGE="$2";    shift 2 ;;
+    --dry-run)    DRY_RUN=true;    shift ;;
+    -h|--help)    usage ;;
+    *) echo "Unknown option: $1"; usage ;;
+  esac
+done
+
+run() {
+  if $DRY_RUN; then
+    echo "  [dry-run] $*"
+  else
+    "$@"
+  fi
+}
+
+# Prompt for any missing values
+if [[ -z "$SHARED_REF" ]]; then
+  read -rp "shared-clj ref (commit/branch/tag): " SHARED_REF
+fi
+
+if [[ -z "$BRANCH" ]]; then
+  read -rp "Branch name for submodules and main repo: " BRANCH
+fi
+
+if [[ -z "$BASE_REF" ]]; then
+  read -rp "Base ref to reset branch to [origin/master]: " BASE_REF
+  BASE_REF="${BASE_REF:-origin/master}"
+fi
+
+# Fetch and get default message from shared-clj commit (first submodule's copy)
+FIRST_ENTRY="${SUBMODULES[0]}"
+FIRST_SUBMOD="${FIRST_ENTRY%%:*}"
+FIRST_SHARED_PATH="${FIRST_ENTRY##*:}"
+git -C "${FIRST_SUBMOD}/${FIRST_SHARED_PATH}" fetch origin
+SHARED_COMMIT_MSG=$(git -C "${FIRST_SUBMOD}/${FIRST_SHARED_PATH}" log -1 --format=%B "$SHARED_REF" | head -1)
+DEFAULT_MESSAGE="shared-clj: ${SHARED_COMMIT_MSG}"
+
+if [[ -z "$MESSAGE" ]]; then
+  read -rp "Commit message [$DEFAULT_MESSAGE]: " MESSAGE
+  MESSAGE="${MESSAGE:-$DEFAULT_MESSAGE}"
+fi
+
+echo ""
+echo "  shared-ref: $SHARED_REF"
+echo "  branch:     $BRANCH"
+echo "  base-ref:   $BASE_REF"
+echo "  message:    $MESSAGE"
+echo ""
+
+# Update each submodule: reset branch to origin/master, update shared-clj, commit
+for entry in "${SUBMODULES[@]}"; do
+  SUBMOD="${entry%%:*}"
+  SHARED_PATH="${entry##*:}"
+
+  echo "=== $SUBMOD ==="
+  cd "${PROJECT_DIR}/${SUBMOD}"
+
+  git -C "$SHARED_PATH" fetch origin
+
+  TARGET_SHA=$(git -C "$SHARED_PATH" rev-parse "$SHARED_REF")
+  CURRENT_SHA=$(git -C "$SHARED_PATH" rev-parse HEAD)
+
+  if [[ "$TARGET_SHA" == "$CURRENT_SHA" ]]; then
+    echo "  already at $TARGET_SHA, skipping"
+    cd "${PROJECT_DIR}"
+    continue
+  fi
+
+  git fetch origin
+  run git checkout -B "$BRANCH" "$BASE_REF"
+
+  run git -C "$SHARED_PATH" checkout "$SHARED_REF"
+
+  run git add "$SHARED_PATH"
+  run git commit -m "$MESSAGE"
+
+  cd "${PROJECT_DIR}"
+done
+
+# Stage submodule bumps in main repo (no commit)
+echo "=== main repo ==="
+for entry in "${SUBMODULES[@]}"; do
+  run git add "${entry%%:*}"
+done
+
+echo ""
+if $DRY_RUN; then
+  echo "[dry-run] would ask to push updated submodule branches"
+else
+  read -rp "Push updated submodule branches? [Y/n]: " PUSH_ANSWER
+  if [[ "${PUSH_ANSWER,,}" != "n" ]]; then
+    bin/push-shared-clj-submodule-branches --branch "$BRANCH"
+  else
+    echo "Skipped. To push manually:"
+    echo "  bin/push-shared-clj-submodule-branches --branch $BRANCH"
+  fi
+fi
