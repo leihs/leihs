@@ -79,6 +79,9 @@ task_defaults:
     LEIHS_SECRET: '{{CIDER_CI_TRIAL_ID}}'
     LEIHS_VERSION: 'x.y.z'
     RAILS_ENV: production
+    # jar build cache of shared-clj/bin/helpers/build.sh: a dedicated
+    # directory instead of /tmp, which dozens of parallel trials churn
+    BUILDCACHE_TMPDIR: /tmp/leihs-buildcache
 
   templates:
     shared reverse proxy config:
