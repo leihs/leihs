@@ -16,7 +16,7 @@ jobs:
         max_trials: 3
 
         traits:
-          asdf: true
+          mise: true
 
         git_options:
           submodules:

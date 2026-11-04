@@ -1,6 +1,6 @@
 max_trials: 1
 traits:
-  asdf: true
+  mise: true
 git_options:
   submodules:
     include_match: ^.*$
