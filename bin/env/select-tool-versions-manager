@@ -21,6 +21,14 @@ case "$TOOL_VERSIONS_MANAGER" in
   mise)
     if type "mise" &> /dev/null; then
       echo "Using mise $(mise --version) as TOOL_VERSIONS_MANAGER"
+      # put the mise shims first in PATH: a shim resolves the tool version
+      # pinned for the current directory when it is called, whereas
+      # `mise activate` puts the versions of the directory where it ran (or
+      # the global ones) first, and tools installed later are not in PATH
+      MISE_SHIMS_DIR="${MISE_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/mise}/shims"
+      if [[ ":$PATH:" != ":$MISE_SHIMS_DIR:"* ]]; then
+        export PATH="$MISE_SHIMS_DIR:$PATH"
+      fi
     else
       echo "ERROR: mise is not installed but TOOL_VERSIONS_MANAGER is set to 'mise'"
       exit 1

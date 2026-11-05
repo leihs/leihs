@@ -37,9 +37,12 @@ function asdf-update-plugin () {
       echo "WARNING ${PROJECT_DIR} has uncommitted changes, forcing asdf plugin and install update"
       asdf-update-plugin-base
     else
-      DIGEST=$(git log -1 HEAD --pretty=format:%T)
+      # the marker means "plugin updated and tool installed for this tree";
+      # it must not be taken for another user or asdf data dir, and it is
+      # only trusted while the tool is still installed
+      DIGEST=$(echo "${USER:-$(id -un)} ${ASDF_DATA_DIR:-$HOME/.asdf} $(git -C $PROJECT_DIR log -1 HEAD --pretty=format:%T)" | shasum | cut -d ' ' -f 1)
       CACHE_FILE="${TMPDIR}asdf_cache_${PROJECT_NAME}_${ASDF_PLUGIN}_${DIGEST}"
-      if [[ -f $CACHE_FILE ]]; then
+      if [[ -f $CACHE_FILE ]] && asdf where $ASDF_PLUGIN > /dev/null 2>&1; then
         echo "INFO $CACHE_FILE exists; skipping ${PROJECT_NAME} asdf update"
       else
         asdf-update-plugin-base
