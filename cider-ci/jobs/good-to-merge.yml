@@ -55,6 +55,36 @@ jobs:
         job_key: merged-to-master
         submodule: ['mail']
         states: [passed]
+      lending merged to master:
+        type: job
+        job_key: merged-to-master
+        submodule: ['lending']
+        states: [passed]
+      database merged to master:
+        type: job
+        job_key: merged-to-master
+        submodule: ['database']
+        states: [passed]
+      integration-tests merged to master:
+        type: job
+        job_key: merged-to-master
+        submodule: ['integration-tests']
+        states: [passed]
+      deploy merged to master:
+        type: job
+        job_key: merged-to-master
+        submodule: ['deploy']
+        states: [passed]
+      documentation merged to master:
+        type: job
+        job_key: merged-to-master
+        submodule: ['documentation']
+        states: [passed]
+      zhdk-inventory merged to master:
+        type: job
+        job_key: merged-to-master
+        submodule: ['zhdk-inventory']
+        states: [passed]
 
     run_when: *GOOD_TO_MERGE_DEPENDENTS
 
@@ -70,7 +100,3 @@ jobs:
           scripts:
             main:
               body: echo 'All relevant tests have passed' ; exit 0
-
-        include:
-          - path: cider-ci/context-components/merged-submodules-check.yml
-            submodule: [legacy]
